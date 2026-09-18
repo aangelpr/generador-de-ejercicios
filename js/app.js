@@ -1,6 +1,10 @@
 /* Interfaz del generador de ejercicios. */
 (function () {
   'use strict';
+  /* Sube esto junto con la version de sw.js. Se ve en Ajustes y sirve para
+     saber de un vistazo si el celular ya tiene la version nueva. */
+  var VERSION = 'v4 (17 sep 2026)';
+
   var cfg = EJ.almacen.config;
   var estado = null;
   var NOMBRES_DIF = { facil: 'Facil', medio: 'Medio', dificil: 'Dificil' };
@@ -472,6 +476,7 @@
 
   /* ---------------- configuracion ---------------- */
   function abrirConfig() {
+    $('cfg-version').textContent = 'Version ' + VERSION;
     $('cfg-intentos').value = cfg.maxIntentos;
     $('cfg-pistas').checked = cfg.pistas;
     $('cfg-solucion').checked = cfg.mostrarSolucion;

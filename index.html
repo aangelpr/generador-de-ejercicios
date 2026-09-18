@@ -64,6 +64,7 @@
     <span class="sep" style="flex:1"></span>
     <button id="cfg-reiniciar" class="fantasma">Borrar progreso</button>
   </div>
+  <div class="ayuda" id="cfg-version"></div>
 </dialog>
 
 <!-- nucleo -->
@@ -125,8 +126,32 @@
 /* Registra el service worker solo cuando la pagina viene de un servidor
    (https o localhost). Si abres el archivo directamente no pasa nada. */
 if ('serviceWorker' in navigator && location.protocol.indexOf('http') === 0) {
+  var teniaControl = !!navigator.serviceWorker.controller;
+  var recargando = false;
+
+  /* Cuando entra una version nueva, la pagina se recarga sola para que no te
+     quedes viendo la de antes. En la primera visita no hace falta. */
+  navigator.serviceWorker.addEventListener('controllerchange', function () {
+    if (!teniaControl || recargando) return;
+    recargando = true;
+    location.reload();
+  });
+
+  function buscaActualizacion() {
+    navigator.serviceWorker.getRegistration()
+      .then(function (reg) { if (reg) reg.update(); })
+      .catch(function () { /* sin conexion */ });
+  }
+
   window.addEventListener('load', function () {
-    navigator.serviceWorker.register('sw.js').catch(function () { /* sin conexion: da igual */ });
+    navigator.serviceWorker.register('sw.js').then(buscaActualizacion)
+      .catch(function () { /* sin conexion: da igual */ });
+  });
+
+  /* La app instalada se queda abierta en segundo plano: cada vez que vuelves
+     a ella revisa si hay version nueva. */
+  document.addEventListener('visibilitychange', function () {
+    if (!document.hidden) buscaActualizacion();
   });
 }
 </script>
