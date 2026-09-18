@@ -7,6 +7,8 @@ Ahora mismo trae **31 temas de matemáticas con 351 subtemas**, pero está armad
 crecer a cualquier materia (ciencias, historia, nomenclatura química, etc.) sin tocar
 el motor.
 
+**En línea:** <https://aangelpr.github.io/generador-de-ejercicios/>
+
 ## Cómo abrirlo
 
 Haz doble clic en `index.html`. No necesita internet, ni instalación, ni compilar nada.
@@ -24,22 +26,23 @@ La app es 100% estática (puros archivos, sin servidor ni base de datos), así q
 puede publicar gratis en cualquier lado. Sube **el contenido** de esta carpeta (no la
 carpeta), de modo que `index.html` quede en la raíz del sitio.
 
-### Opción 1 — GitHub Pages (la recomendada: gratis y permanente)
+### Ya está publicada en GitHub Pages
 
-1. Crea una cuenta en <https://github.com> si no tienes.
-2. **New repository** → nombre, por ejemplo `ejercicios` → **Public** → *Create*.
-3. En el repositorio vacío: **uploading an existing file** → arrastra todo lo que hay
-   dentro de esta carpeta (index.html, sw.js, manifest.webmanifest, los iconos, y las
-   carpetas `css` y `js`) → **Commit changes**.
-4. **Settings → Pages →** Source: *Deploy from a branch*, Branch: `main` y carpeta
-   `/ (root)` → **Save**.
-5. Espera 1 o 2 minutos. Tu dirección queda así:
-   `https://TU-USUARIO.github.io/ejercicios/`
-6. Ábrela en el celular. Guárdala en favoritos o instálala (ver abajo).
+- **Página:** <https://aangelpr.github.io/generador-de-ejercicios/>
+- **Repositorio:** <https://github.com/aangelpr/generador-de-ejercicios>
 
-Para actualizar después: subes los archivos cambiados y **subes el número de versión
-en la primera línea de `sw.js`** (`generador-ejercicios-v2` → `v3`). Eso obliga al
-celular a bajar la versión nueva completa.
+Para subir cambios después de editar algo:
+
+```bash
+git add -A
+git commit -m "lo que cambiaste"
+git push
+```
+
+En un minuto la página se actualiza sola. **Importante:** si cambiaste archivos de la
+app (no solo el README), súbele el número de versión a la primera línea de `sw.js`
+(`generador-ejercicios-v2` → `v3`) antes del commit; si no, los celulares que ya la
+tienen instalada seguirán usando la copia guardada.
 
 ### Opción 2 — Netlify Drop (la más rápida)
 
