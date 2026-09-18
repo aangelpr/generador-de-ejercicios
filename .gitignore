@@ -1,0 +1,7 @@
+# configuracion local de herramientas (no hace falta publicarla)
+.claude/
+
+# basura de Windows / OneDrive
+Thumbs.db
+desktop.ini
+*.tmp

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Generador de ejercicios</title>
+<link rel="stylesheet" href="css/estilos.css">
+<!-- para instalarlo en el celular y que funcione sin internet -->
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#2f6feb">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Ejercicios">
+<link rel="apple-touch-icon" href="icono-192.png">
+<link rel="icon" href="icono-192.png">
+</head>
+<body>
+
+<header class="app">
+  <button id="btn-temas" class="solo-movil" title="Ver la lista de temas">&#9776; Temas</button>
+  <h1>Generador de ejercicios</h1>
+  <select id="materia" style="width:auto"></select>
+  <span class="sep"></span>
+  <div class="estadisticas" id="estadisticas"></div>
+  <button id="btn-config" class="fantasma" title="Configuracion">Ajustes</button>
+</header>
+
+<div class="layout">
+  <aside>
+    <div class="buscador">
+      <input type="search" id="buscar" placeholder="Buscar tema...">
+      <button id="aleatorio" title="Tema al azar">Azar</button>
+    </div>
+    <div class="lista" id="temas"></div>
+  </aside>
+
+  <main id="zona"></main>
+</div>
+
+<dialog id="dlg-config">
+  <h2>Ajustes</h2>
+  <div class="fila-config">
+    <label for="cfg-intentos">Intentos antes de ver la respuesta
+      <small>Cuantas veces puedes fallar antes de que te muestre la solucion.</small>
+    </label>
+    <input type="number" id="cfg-intentos" min="1" max="10">
+  </div>
+  <div class="fila-config">
+    <label for="cfg-pistas">Dar pistas al fallar
+      <small>Muestra una pista distinta despues de cada intento fallido.</small>
+    </label>
+    <input type="checkbox" id="cfg-pistas">
+  </div>
+  <div class="fila-config">
+    <label for="cfg-solucion">Mostrar el procedimiento al acertar
+      <small>Util para comparar tu metodo con el de la solucion.</small>
+    </label>
+    <input type="checkbox" id="cfg-solucion">
+  </div>
+  <div class="acciones">
+    <button id="cfg-guardar" class="primario">Guardar</button>
+    <button id="cfg-cerrar">Cancelar</button>
+    <span class="sep" style="flex:1"></span>
+    <button id="cfg-reiniciar" class="fantasma">Borrar progreso</button>
+  </div>
+</dialog>
+
+<!-- nucleo -->
+<script src="js/nucleo/aleatorio.js"></script>
+<script src="js/nucleo/formato.js"></script>
+<script src="js/nucleo/expresion.js"></script>
+<script src="js/nucleo/poli.js"></script>
+<script src="js/nucleo/respuestas.js"></script>
+<script src="js/nucleo/registro.js"></script>
+<script src="js/nucleo/almacen.js"></script>
+<script src="js/nucleo/motor.js"></script>
+
+<!-- materias -->
+<script src="js/temas/materias.js"></script>
+
+<!-- matematicas: aritmetica y algebra basica -->
+<script src="js/temas/matematicas/signos.js"></script>
+<script src="js/temas/matematicas/exponentes.js"></script>
+<script src="js/temas/matematicas/fracciones.js"></script>
+<script src="js/temas/matematicas/proporciones.js"></script>
+<!-- sucesiones y series -->
+<script src="js/temas/matematicas/sucesiones.js"></script>
+<script src="js/temas/matematicas/progresiones.js"></script>
+<!-- algebra -->
+<script src="js/temas/matematicas/monomios.js"></script>
+<script src="js/temas/matematicas/binomios.js"></script>
+<script src="js/temas/matematicas/trinomios.js"></script>
+<script src="js/temas/matematicas/polinomios.js"></script>
+<!-- geometria y trigonometria -->
+<script src="js/temas/matematicas/poligonos.js"></script>
+<script src="js/temas/matematicas/tales.js"></script>
+<script src="js/temas/matematicas/pitagoras.js"></script>
+<script src="js/temas/matematicas/ley-senos.js"></script>
+<script src="js/temas/matematicas/ley-cosenos.js"></script>
+<!-- geometria analitica -->
+<script src="js/temas/matematicas/coordenadas.js"></script>
+<script src="js/temas/matematicas/conicas.js"></script>
+<script src="js/temas/matematicas/excentricidad.js"></script>
+<!-- funciones -->
+<script src="js/temas/matematicas/elementos-funcion.js"></script>
+<script src="js/temas/matematicas/paridad.js"></script>
+<script src="js/temas/matematicas/tipos-funcion.js"></script>
+<script src="js/temas/matematicas/logaritmos.js"></script>
+<!-- calculo -->
+<script src="js/temas/matematicas/limites.js"></script>
+<script src="js/temas/matematicas/derivadas.js"></script>
+<script src="js/temas/matematicas/puntos-criticos.js"></script>
+<script src="js/temas/matematicas/tfc.js"></script>
+<script src="js/temas/matematicas/integracion-partes.js"></script>
+<script src="js/temas/matematicas/sustitucion.js"></script>
+<!-- probabilidad y estadistica -->
+<script src="js/temas/matematicas/estadistica.js"></script>
+<script src="js/temas/matematicas/probabilidad.js"></script>
+<script src="js/temas/matematicas/binomial.js"></script>
+
+<script src="js/app.js"></script>
+
+<script>
+/* Registra el service worker solo cuando la pagina viene de un servidor
+   (https o localhost). Si abres el archivo directamente no pasa nada. */
+if ('serviceWorker' in navigator && location.protocol.indexOf('http') === 0) {
+  window.addEventListener('load', function () {
+    navigator.serviceWorker.register('sw.js').catch(function () { /* sin conexion: da igual */ });
+  });
+}
+</script>
+</body>
+</html>
