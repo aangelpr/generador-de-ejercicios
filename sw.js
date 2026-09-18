@@ -3,7 +3,7 @@
    nueva) y, si no hay internet o tarda demasiado, usa la copia guardada. */
 /* Sube este numero cada vez que cambies archivos de la app: obliga al celular
    a bajar la version nueva completa. */
-var CACHE = 'generador-ejercicios-v4';
+var CACHE = 'generador-ejercicios-v5';
 
 var ARCHIVOS = [
   './',
@@ -55,12 +55,23 @@ var ARCHIVOS = [
   './js/app.js'
 ];
 
+/* GitHub Pages manda Cache-Control: max-age=600, o sea que el navegador se
+   queda con los archivos 10 minutos aunque ya haya version nueva. Con
+   cache: 'no-cache' obligamos a preguntarle siempre al servidor (usa ETag,
+   asi que si no cambio nada contesta 304 y no gasta datos). */
+function fresco(url) {
+  try { return new Request(url, { cache: 'no-cache', credentials: 'same-origin' }); }
+  catch (e) { return url; }
+}
+
 /* Guarda todos los archivos. Si alguno falla no se cancela todo: se guardan
    los que si se pudieron bajar. */
 function guardarTodo() {
   return caches.open(CACHE).then(function (c) {
     return Promise.all(ARCHIVOS.map(function (a) {
-      return c.add(a).catch(function () { /* ese archivo se reintenta al usarlo */ });
+      return fetch(fresco(a))
+        .then(function (resp) { if (resp && resp.ok) return c.put(a, resp); })
+        .catch(function () { /* ese archivo se reintenta al usarlo */ });
     }));
   });
 }
@@ -94,7 +105,7 @@ function redPrimero(req) {
       caches.match(req).then(contestar);
     }, ESPERA);
 
-    fetch(req).then(function (resp) {
+    fetch(fresco(req.url)).then(function (resp) {
       clearTimeout(reloj);
       if (resp && resp.status === 200 && resp.type === 'basic') {
         var copia = resp.clone();
