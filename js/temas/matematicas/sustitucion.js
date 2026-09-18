@@ -116,13 +116,16 @@
             '= &frac12; ln|u|',
             'Resultado: <b>' + mostrar + '</b>'];
         } else if (t2 === 'lnSobreX') {
-          enun = 'Resuelve: ' + inte(F.frac('ln(x)', 'x'));
-          texto = '(ln(x))^2/2';
-          mostrar = F.frac('(ln x)&sup2;', 2) + ' + C';
+          var pot = r.entero(1, 4);
+          var arriba = pot === 1 ? 'ln(x)' : '(ln x)' + F.sup(pot);
+          enun = 'Resuelve: ' + inte(F.frac(arriba, 'x'));
+          texto = '(ln(x))^' + (pot + 1) + '/' + (pot + 1);
+          mostrar = F.frac('(ln x)' + F.sup(pot + 1), pot + 1) + ' + C';
           pistas = ['La derivada de ln x es 1/x, que ya esta multiplicando.',
-            'Con u = ln x, du = dx/x, la integral es &int;u du.'];
+            'Con u = ln x, du = dx/x, la integral se vuelve &int;u' + (pot > 1 ? F.sup(pot) : '') + ' du.'];
           sol = ['u = ln x &rArr; du = dx/x',
-            '&int;u du = u&sup2;/2',
+            '&int;u' + (pot > 1 ? F.sup(pot) : '') + ' du = ' + F.frac('u' + F.sup(pot + 1), pot + 1),
+            'Regreso el cambio',
             'Resultado: <b>' + mostrar + '</b>'];
         } else if (t2 === 'expCuadrado') {
           k = r.entero(1, 4);
@@ -177,13 +180,19 @@
             '(1/3)&int;u<sup>1/2</sup>du = (1/3)&middot;(2/3)u<sup>3/2</sup>',
             'Resultado: <b>' + mostrar + '</b>'];
         } else if (t3 === 'expSen') {
-          enun = 'Resuelve: ' + inte('e<sup>sen(x)</sup> cos(x)');
-          texto = 'exp(sin(x))';
-          mostrar = 'e<sup>sen(x)</sup> + C';
-          pistas = ['Mira el exponente: su derivada es cos x, que ya esta multiplicando.',
-            'Con u = sen x la integral es simplemente &int;e<sup>u</sup>du.'];
-          sol = ['u = sen x &rArr; du = cos x dx',
-            '&int;e<sup>u</sup>du = e<sup>u</sup>',
+          var conSeno = r.bool();
+          var kk = r.entero(1, 3);
+          var dentro = (kk === 1 ? '' : kk) + (conSeno ? 'sen(x)' : 'cos(x)');
+          var acompana = conSeno ? 'cos(x)' : 'sen(x)';
+          /* si u = k sen x, du = k cos x dx;  si u = k cos x, du = -k sen x dx */
+          texto = (conSeno ? '' : '-') + 'exp(' + kk + '*' + (conSeno ? 'sin' : 'cos') + '(x))/' + kk;
+          mostrar = (conSeno ? '' : '&minus;') + (kk === 1 ? 'e<sup>' + dentro + '</sup>' : F.frac('e<sup>' + dentro + '</sup>', kk)) + ' + C';
+          enun = 'Resuelve: ' + inte('e<sup>' + dentro + '</sup> ' + acompana);
+          pistas = ['Mira el exponente: su derivada es justo lo que esta multiplicando (salvo constantes).',
+            'Con u = ' + dentro + ', du = ' + (conSeno ? kk + ' cos(x) dx' : '&minus;' + kk + ' sen(x) dx') + '.'];
+          sol = ['u = ' + dentro + ' &rArr; du = ' + (conSeno ? kk + ' cos(x)dx' : '&minus;' + kk + ' sen(x)dx'),
+            (conSeno ? '' : 'El signo menos sale de la sustitucion. ') + 'Queda ' + (kk === 1 ? '' : '(1/' + kk + ')') + '&int;e<sup>u</sup>du = ' + (kk === 1 ? '' : '(1/' + kk + ')') + 'e<sup>u</sup>',
+            'Regreso el cambio',
             'Resultado: <b>' + mostrar + '</b>'];
         } else {
           var c = r.entero(1, 6), d = r.entero(2, 9);

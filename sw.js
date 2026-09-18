@@ -1,9 +1,9 @@
 /* Service worker: guarda la app en el celular para que funcione sin internet.
-   Estrategia: responde desde el cache (rapido y offline) y de fondo baja la
-   version nueva, asi la siguiente vez que abras ya esta actualizada. */
+   Estrategia: pide los archivos a la red (para que siempre veas la version mas
+   nueva) y, si no hay internet o tarda demasiado, usa la copia guardada. */
 /* Sube este numero cada vez que cambies archivos de la app: obliga al celular
    a bajar la version nueva completa. */
-var CACHE = 'generador-ejercicios-v2';
+var CACHE = 'generador-ejercicios-v3';
 
 var ARCHIVOS = [
   './',

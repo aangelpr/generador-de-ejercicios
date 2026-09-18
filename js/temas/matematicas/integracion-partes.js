@@ -84,14 +84,18 @@
         ]);
         if (extra[t2]) return extra[t2](r, dif);
         if (t2 === 'x2Exp') {
-          enun = 'Resuelve: ' + inte('x&sup2; e<sup>x</sup>');
-          texto = 'exp(x)*(x^2-2*x+2)';
-          mostrar = 'e<sup>x</sup>(x&sup2; &minus; 2x + 2) + C';
+          k = r.entero(1, 3);
+          var exp1 = 'e' + (k === 1 ? '<sup>x</sup>' : F.sup(k + 'x'));
+          /* Integral x^2 e^(kx) = e^(kx)(x^2/k - 2x/k^2 + 2/k^3) */
+          var q = function (num, den) { return den === 1 ? String(num) : F.frac(num, den); };
+          enun = 'Resuelve: ' + inte('x&sup2; ' + exp1);
+          texto = 'exp(' + k + '*x)*(x^2/' + k + '-2*x/' + (k * k) + '+2/' + (k * k * k) + ')';
+          mostrar = exp1 + '(' + q('x&sup2;', k) + ' &minus; ' + q('2x', k * k) + ' + ' + q(2, k * k * k) + ') + C';
           pistas = ['Aplica partes DOS veces: la primera baja x&sup2; a 2x y la segunda lo baja a una constante.',
-            'Primera vez: u = x&sup2;, dv = e<sup>x</sup>dx &rArr; x&sup2;e<sup>x</sup> &minus; 2&int;x e<sup>x</sup>dx.'];
-          sol = ['Primera aplicacion: u = x&sup2;, dv = e<sup>x</sup>dx &rArr; x&sup2;e<sup>x</sup> &minus; 2&int;xe<sup>x</sup>dx',
-            'Segunda aplicacion: &int;xe<sup>x</sup>dx = xe<sup>x</sup> &minus; e<sup>x</sup>',
-            'Junto todo: x&sup2;e<sup>x</sup> &minus; 2(xe<sup>x</sup> &minus; e<sup>x</sup>)',
+            'Primera vez: u = x&sup2;, dv = ' + exp1 + 'dx &rArr; ' + q('x&sup2;' + exp1, k) + ' &minus; ' + q(2, k) + '&int;x ' + exp1 + 'dx.'];
+          sol = ['Primera aplicacion: u = x&sup2;, dv = ' + exp1 + 'dx &rArr; ' + q('x&sup2;' + exp1, k) + ' &minus; ' + q(2, k) + '&int;x' + exp1 + 'dx',
+            'Segunda aplicacion: &int;x' + exp1 + 'dx = ' + q('x' + exp1, k) + ' &minus; ' + q(exp1, k * k),
+            'Junto todo y factorizo ' + exp1,
             'Resultado: <b>' + mostrar + '</b>'];
         } else if (t2 === 'xLn') {
           n = r.entero(1, 3);

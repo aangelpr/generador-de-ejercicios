@@ -115,6 +115,31 @@
   /* Grados con simbolo. */
   function grados(x, dec) { return n(x, dec === undefined ? 2 : dec) + '&deg;'; }
 
+  function escapaHtml(s) {
+    return String(s === undefined || s === null ? '' : s)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+
+  /* Convierte lo que escribe el usuario en algo que se lee como matematicas:
+     x^2 -> x2 en chiquito, sqrt(5) -> raiz, pi -> simbolo, * -> punto.
+     Solo es para MOSTRAR: la respuesta se sigue revisando con el texto original. */
+  function vistaPrevia(texto) {
+    var s = escapaHtml(texto);
+    s = s.replace(/\^\s*\(([^()]*)\)/g, '<sup>$1</sup>');                 // x^(-2)
+    s = s.replace(/\^\s*(-?[0-9]+(?:\.[0-9]+)?|[A-Za-z])/g, '<sup>$1</sup>'); // x^2, 2^n
+    s = s.replace(/\bsqrt\s*/gi, '&radic;').replace(/\braiz\s*/gi, '&radic;');
+    s = s.replace(/\bpi\b/gi, '&pi;');
+    s = s.replace(/\*/g, '&middot;');
+    return s;
+  }
+
+  /* true cuando la vista previa aporta algo (o sea, cuando cambia el texto). */
+  function conviene(texto) {
+    var t = String(texto || '').trim();
+    if (!t) return false;
+    return vistaPrevia(t) !== escapaHtml(t);
+  }
+
   /* Figura SVG sencilla. Usa currentColor para verse bien en claro y oscuro. */
   function svg(w, h, contenido) {
     return '<svg class="fig" viewBox="0 0 ' + w + ' ' + h + '" width="' + w + '" height="' + h + '" ' +
@@ -128,6 +153,7 @@
 
   EJ.fmt = {
     svg: svg, txtSvg: txtSvg,
+    escapaHtml: escapaHtml, vistaPrevia: vistaPrevia, convieneVistaPrevia: conviene,
     redondea: redondea, n: n, sup: sup, sub: sub, frac: frac, fracTxt: fracTxt,
     mcd: mcd, mcm: mcm, simplifica: simplifica, fracSimp: fracSimp,
     term: term, une: une, poli: poli, poliAsc: poliAsc,

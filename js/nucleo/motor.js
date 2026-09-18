@@ -19,6 +19,32 @@
     return ej && ej.enunciado && ej.respuesta && typeof ej.respuesta.verificar === 'function';
   }
 
+  /* Genera un ejercicio sin envolverlo en un "estado".
+     `evitarRepetido` sirve para no repetir lo mismo dos veces seguidas. */
+  function generarCrudo(tema, dificultad, semilla, subtema, evitarRepetido) {
+    var ej = null, usada = null, error = null, elegido = null, r = null;
+    for (var i = 0; i < 25 && !ej; i++) {
+      usada = semilla === undefined || semilla === null
+        ? ((Date.now() + i * 7919 + Math.floor(Math.random() * 1e6)) >>> 0)
+        : (semilla >>> 0);
+      r = new EJ.Aleatorio(usada);
+      r.forzado = subtema || null;
+      var candidato;
+      try { candidato = tema.generar(dificultad, r); } catch (e) { error = e; continue; }
+      if (!valido(candidato)) { error = error || new Error('Ejercicio incompleto'); continue; }
+      if (evitarRepetido && (semilla === undefined || semilla === null)) {
+        if (repetido(tema.id, candidato.enunciado) && i < 12) continue;
+      }
+      ej = candidato;
+      elegido = r.elegido || null;
+    }
+    if (!ej) throw error || new Error('No se pudo generar el ejercicio');
+
+    var nombreSub = '';
+    (r.ofrecidos || []).forEach(function (s) { if (s.id === elegido) nombreSub = s.nombre; });
+    return { ej: ej, semilla: usada, subtema: elegido, subtemaNombre: nombreSub };
+  }
+
   var motor = {
     /* Crea un ejercicio nuevo. Si se pasa `semilla` el ejercicio es reproducible.
        `subtema` fuerza un subtema concreto; si se omite, sale al azar. */
@@ -27,42 +53,49 @@
       if (!tema) throw new Error('No existe el tema ' + temaId);
       if (tema.dificultades.indexOf(dificultad) === -1) dificultad = tema.dificultades[0];
 
-      var ej = null, usada = null, error = null, elegido = null, r = null;
-      for (var i = 0; i < 25 && !ej; i++) {
-        usada = semilla === undefined || semilla === null
-          ? ((Date.now() + i * 7919 + Math.floor(Math.random() * 1e6)) >>> 0)
-          : (semilla >>> 0);
-        r = new EJ.Aleatorio(usada);
-        r.forzado = subtema || null;
-        var candidato;
-        try { candidato = tema.generar(dificultad, r); } catch (e) { error = e; continue; }
-        if (!valido(candidato)) { error = error || new Error('Ejercicio incompleto'); continue; }
-        if (semilla === undefined || semilla === null) {
-          if (repetido(temaId, candidato.enunciado) && i < 12) continue;
-        }
-        ej = candidato;
-        elegido = r.elegido || null;
-      }
-      if (!ej) throw error || new Error('No se pudo generar el ejercicio');
-      recuerda(temaId, ej.enunciado);
-
-      var nombreSub = '';
-      (r.ofrecidos || []).forEach(function (s) { if (s.id === elegido) nombreSub = s.nombre; });
+      var hecho = generarCrudo(tema, dificultad, semilla, subtema, true);
+      recuerda(temaId, hecho.ej.enunciado);
 
       return {
         temaId: temaId,
         tema: tema,
         dificultad: dificultad,
-        semilla: usada,
-        subtema: elegido,
-        subtemaNombre: nombreSub,
-        ej: ej,
+        semilla: hecho.semilla,
+        subtema: hecho.subtema,
+        subtemaNombre: hecho.subtemaNombre,
+        ej: hecho.ej,
         intentos: 0,
         pistasDadas: [],
         terminado: false,
         correcto: false,
         revelado: false
       };
+    },
+
+    /* Un ejercicio YA RESUELTO del mismo subtema, para aprender el metodo.
+       No cuenta para las estadisticas ni para el historial. */
+    ejemplo: function (temaId, dificultad, subtema, evitarEnunciado) {
+      var tema = EJ.buscarTema(temaId);
+      if (!tema) throw new Error('No existe el tema ' + temaId);
+      if (tema.dificultades.indexOf(dificultad) === -1) dificultad = tema.dificultades[0];
+
+      var hecho = null, i;
+      for (i = 0; i < 12; i++) {
+        hecho = generarCrudo(tema, dificultad, null, subtema, false);
+        if (hecho.ej.enunciado !== evitarEnunciado) return hecho;   // que no sea el mismo de la pantalla
+      }
+      /* Subtemas con muy pocas variantes: busco el ejemplo en otra dificultad
+         para no acabar mostrando el mismo ejercicio que esta resolviendo. */
+      var otras = tema.dificultades.filter(function (d) { return d !== dificultad; });
+      for (var k = 0; k < otras.length; k++) {
+        var hayAhi = EJ.subtemasDe(temaId, otras[k]).some(function (s) { return s.id === subtema; });
+        if (!hayAhi) continue;
+        for (i = 0; i < 8; i++) {
+          var alterno = generarCrudo(tema, otras[k], null, subtema, false);
+          if (alterno.ej.enunciado !== evitarEnunciado) return alterno;
+        }
+      }
+      return hecho;
     },
 
     /* Comprueba una respuesta. Devuelve que hacer en pantalla. */

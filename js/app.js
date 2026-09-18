@@ -242,11 +242,26 @@
         inp.type = 'text';
         inp.autocomplete = 'off';
         inp.spellcheck = false;
+        inp.autocapitalize = 'off';
         inp.id = 'entrada-' + i;
         inp.addEventListener('keydown', function (ev) {
           if (ev.key === 'Enter') { ev.preventDefault(); estado.terminado ? nuevoEjercicio() : comprobar(); }
         });
         cont.appendChild(inp);
+
+        /* vista previa: al escribir x^2 se ve x con el 2 arriba */
+        var previa = crear('div', 'previa');
+        previa.id = 'previa-' + i;
+        previa.hidden = true;
+        cont.appendChild(previa);
+        inp.addEventListener('input', function () {
+          if (EJ.fmt.convieneVistaPrevia(inp.value)) {
+            previa.innerHTML = '= ' + EJ.fmt.vistaPrevia(inp.value);
+            previa.hidden = false;
+          } else {
+            previa.hidden = true;
+          }
+        });
       }
       campos.appendChild(cont);
     });
@@ -254,6 +269,11 @@
 
     var ayuda = ej.respuesta.campos[0].ayuda || ej.respuesta.ayuda;
     if (ayuda) card.appendChild(crear('div', 'ayuda', ayuda));
+
+    var bAprender = crear('button', 'aprender-btn', 'Como se resuelve');
+    bAprender.onclick = function () { alternarAprender(bAprender); };
+    card.appendChild(bAprender);
+    card.appendChild(crear('div', 'caja-aprender'));
 
     var acciones = crear('div', 'acciones');
     var bComprobar = crear('button', 'primario', 'Comprobar');
@@ -362,6 +382,58 @@
     }
     actualizarEstadisticas();
     pintarTemas();
+  }
+
+  /* ---------------- apartado para aprender ---------------- */
+  /* Muestra la regla que se aplica, un ejemplo YA RESUELTO del mismo subtema
+     (con otros numeros) y las formulas del tema. No gasta intentos. */
+  function alternarAprender(boton) {
+    var caja = document.querySelector('#card-ejercicio .caja-aprender');
+    if (caja.firstChild) {
+      caja.innerHTML = '';
+      boton.textContent = 'Como se resuelve';
+      boton.classList.remove('abierto');
+      return;
+    }
+    boton.textContent = 'Ocultar la explicacion';
+    boton.classList.add('abierto');
+    pintarAprender(caja);
+  }
+
+  function pintarAprender(caja) {
+    caja.innerHTML = '';
+    var panel = crear('div', 'aprender');
+    panel.appendChild(crear('h3', null, estado.subtemaNombre || estado.tema.nombre));
+
+    var regla = estado.ej.metodo || (estado.ej.pistas || [])[0];
+    if (regla) {
+      panel.appendChild(crear('div', 'rotulo', 'La regla'));
+      panel.appendChild(crear('p', 'regla', regla));
+    }
+
+    var bloque = crear('div', 'ejemplo');
+    try {
+      var ejem = EJ.motor.ejemplo(estado.temaId, estado.dificultad, estado.subtema, estado.ej.enunciado);
+      bloque.appendChild(crear('div', 'rotulo', 'Ejemplo resuelto'));
+      bloque.appendChild(crear('div', 'enunciado', ejem.ej.enunciado));
+      var pasos = crear('ol');
+      (ejem.ej.solucion || []).forEach(function (p) { if (p) pasos.appendChild(crear('li', null, p)); });
+      bloque.appendChild(pasos);
+      bloque.appendChild(crear('div', 'respuesta-final', '<b>Respuesta:</b> ' + ejem.ej.respuesta.mostrar()));
+      var otro = crear('button', 'fantasma', 'Otro ejemplo');
+      otro.onclick = function () { pintarAprender(caja); };
+      bloque.appendChild(otro);
+    } catch (e) {
+      bloque.appendChild(crear('div', 'ayuda', 'No se pudo armar un ejemplo de este subtema.'));
+    }
+    panel.appendChild(bloque);
+
+    if (estado.tema.formulario) {
+      var det = crear('details', 'formulario');
+      det.innerHTML = '<summary>Formulas del tema</summary><div class="cuerpo">' + estado.tema.formulario + '</div>';
+      panel.appendChild(det);
+    }
+    caja.appendChild(panel);
   }
 
   function mostrarSolucion(acertado) {

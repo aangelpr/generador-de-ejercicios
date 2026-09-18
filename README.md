@@ -44,7 +44,7 @@ app (no solo el README), súbele el número de versión a la primera línea de `
 (`generador-ejercicios-v2` → `v3`) antes del commit; si no, los celulares que ya la
 tienen instalada seguirán usando la copia guardada.
 
-### Opción 2 — Netlify Drop (la más rápida)
+### Otra opción — Netlify Drop
 
 1. Entra a <https://app.netlify.com/drop>.
 2. Arrastra la carpeta completa a la página.
@@ -52,7 +52,7 @@ tienen instalada seguirán usando la copia guardada.
    el sitio no se borre, y desde ahí puedes arrastrar la carpeta otra vez para
    actualizarlo.
 
-### Opción 3 — Sin subir nada, solo en tu casa
+### Sin subir nada, solo en tu casa
 
 Sirve si la computadora está prendida y el celular está en la misma WiFi:
 
@@ -66,7 +66,7 @@ puede instalar como app ni funciona sin internet, porque eso necesita `https`.
 
 ### Instalarlo como app en el celular
 
-Una vez que esté en línea (opción 1 o 2):
+Abre la página en el celular y:
 
 - **Android / Chrome:** menú ⋮ → *Instalar aplicación* (o *Agregar a pantalla principal*).
 - **iPhone / Safari:** botón compartir → *Agregar a inicio*.
@@ -85,10 +85,16 @@ en el celular no se mezcla con lo de la computadora.
 3. Elige el **subtema** si quieres practicar algo específico (por ejemplo, solo
    "Factor común" dentro de Polinomios), o déjalo en **Mezcla** para que salgan
    revueltos. Cada ejercicio trae una etiqueta arriba diciendo de qué subtema es.
-4. Escribe tu respuesta y presiona **Comprobar** (o Enter).
-5. Cada vez que fallas aparece una pista nueva. Al agotar los intentos (3 por defecto)
+4. Si no sabes por dónde empezar, abre **Cómo se resuelve**: te muestra la regla que
+   aplica, un **ejemplo resuelto paso a paso** de ese mismo subtema (con otros números,
+   nunca el ejercicio que tienes enfrente) y las fórmulas del tema. No gasta intentos.
+   Con *Otro ejemplo* te genera otro cuantas veces quieras.
+5. Escribe tu respuesta y presiona **Comprobar** (o Enter). Debajo de la casilla verás
+   en vivo cómo se interpreta lo que escribiste: si tecleas `x^2` te lo muestra como x²,
+   así confirmas que el `^` quedó donde querías.
+6. Cada vez que fallas aparece una pista nueva. Al agotar los intentos (3 por defecto)
    se muestra la respuesta con el procedimiento completo.
-6. Si un ejercicio se te complica y prefieres otro, usa **Saltar / otro ejercicio**:
+7. Si un ejercicio se te complica y prefieres otro, usa **Saltar / otro ejercicio**:
    no cuenta como error ni afecta tu racha. **Ctrl + Enter** hace lo mismo.
 
 ### Práctica mixta
@@ -163,7 +169,9 @@ Plantilla mínima:
         enunciado: 'Calcula ' + a + ' + ' + b,
         respuesta: R.numero(a + b),
         pistas: ['Primera pista', 'Segunda pista'],
-        solucion: ['Paso 1', 'Paso 2', 'Resultado: <b>' + (a + b) + '</b>']
+        solucion: ['Paso 1', 'Paso 2', 'Resultado: <b>' + (a + b) + '</b>'],
+        metodo: 'Opcional: la regla general, para el apartado "Como se resuelve". ' +
+                'Si no la pones se usa la primera pista.'
       };
     }
   });

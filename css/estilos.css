@@ -160,6 +160,38 @@ table.tabla { border-collapse: collapse; margin: 14px 0; font-size: 15px; }
 table.tabla th, table.tabla td { border: 1px solid var(--borde); padding: 6px 14px; text-align: center; }
 table.tabla th { background: var(--panel2); color: var(--suave); }
 
+/* vista previa de lo que se escribe: x^2 se ve con el 2 arriba */
+.previa {
+  font-size: 15px; color: var(--acento); padding: 2px 2px 0;
+  min-height: 18px; letter-spacing: .01em;
+}
+
+/* apartado "Como se resuelve" */
+.aprender-btn {
+  margin-top: 14px; font-size: 13px; padding: 6px 12px;
+  border-style: dashed; color: var(--acento); border-color: var(--acento);
+}
+.aprender-btn.abierto { border-style: solid; background: var(--acento-suave); }
+.aprender {
+  margin-top: 12px; padding: 14px 16px; border-radius: 8px;
+  background: var(--panel2); border: 1px solid var(--borde);
+}
+.aprender h3 { margin: 0 0 10px; font-size: 15px; }
+.aprender .rotulo {
+  font-size: 11px; text-transform: uppercase; letter-spacing: .06em;
+  color: var(--suave); font-weight: 700; margin: 14px 0 6px;
+}
+.aprender .regla { margin: 0; line-height: 1.6; }
+.aprender .ejemplo { border-top: 1px dashed var(--borde); margin-top: 12px; padding-top: 4px; }
+.aprender .ejemplo .enunciado {
+  font-size: 15.5px; margin: 0 0 10px; padding: 10px 12px;
+  background: var(--panel); border: 1px solid var(--borde); border-radius: 8px;
+}
+.aprender ol { margin: 0; padding-left: 20px; }
+.aprender li { margin: 5px 0; line-height: 1.6; }
+.aprender .respuesta-final { font-size: 15.5px; }
+.aprender details.formulario { margin-top: 14px; }
+
 .ayuda { font-size: 12.5px; color: var(--suave); margin-top: 8px; }
 .acciones { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 16px; }
 
