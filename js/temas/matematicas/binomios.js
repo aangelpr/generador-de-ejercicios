@@ -51,6 +51,7 @@
       '(a + b)&sup3; = a&sup3; + 3a&sup2;b + 3ab&sup2; + b&sup3;',
 
     generar: function (dif, r) {
+      var guiaDelPaso = null;   // guia paso a paso, si este subtema la tiene
       var enun, resp, pistas, sol, a, b, c, res;
 
       if (dif === 'facil') {
@@ -63,6 +64,7 @@
         if (t === 'cuadrado') {
           a = r.enteroNoCero(-9, 9);
           res = P.potencia([1, a], 2);
+          guiaDelPaso = EJ.guia.binomioCuadrado(1, a);
           enun = 'Desarrolla: (' + bin(1, a) + ')&sup2;';
           resp = R.expresion(P.expr(res), { mostrar: P.texto(res) });
           pistas = ['Usa (a &plusmn; b)&sup2; = a&sup2; &plusmn; 2ab + b&sup2;. Aqui a = x y b = ' + Math.abs(a) + '.',
@@ -105,6 +107,7 @@
         if (t2 === 'cuadradoCoef') {
           c = r.entero(2, 6); a = r.enteroNoCero(-9, 9);
           res = P.potencia([c, a], 2);
+          guiaDelPaso = EJ.guia.binomioCuadrado(c, a);
           enun = 'Desarrolla: (' + bin(c, a) + ')&sup2;';
           resp = R.expresion(P.expr(res), { mostrar: P.texto(res) });
           pistas = ['Ahora el primer termino tiene coeficiente: (a + b)&sup2; = a&sup2; + 2ab + b&sup2; con a = ' + c + 'x.',
@@ -196,7 +199,8 @@
         }
       }
 
-      return { enunciado: enun, respuesta: resp, pistas: pistas, solucion: sol };
+      return {
+        guia: guiaDelPaso, enunciado: enun, respuesta: resp, pistas: pistas, solucion: sol };
     }
   });
 })();

@@ -48,6 +48,7 @@
       'Completar el cuadrado: x&sup2; + bx + c = (x + b/2)&sup2; + (c &minus; b&sup2;/4)',
 
     generar: function (dif, r) {
+      var guiaDelPaso = null;   // guia paso a paso, si este subtema la tiene
       var enun, resp, pistas, sol, p, q, a, b, c, pol;
 
       if (dif === 'facil') {
@@ -58,6 +59,7 @@
         if (extra[tf]) return extra[tf](r, dif);
         p = r.enteroNoCero(-9, 9); q = r.enteroNoCero(-9, 9);
         pol = P.multiplica([1, -p], [1, -q]);
+        guiaDelPaso = EJ.guia.trinomioSimple(p, q);
         enun = 'Factoriza: ' + P.texto(pol);
         resp = R.factorizada('(x-(' + p + '))*(x-(' + q + '))', {
           mostrar: fac(1, -p) + fac(1, -q)
@@ -167,7 +169,8 @@
         }
       }
 
-      return { enunciado: enun, respuesta: resp, pistas: pistas, solucion: sol };
+      return {
+        guia: guiaDelPaso, enunciado: enun, respuesta: resp, pistas: pistas, solucion: sol };
     }
   });
 })();

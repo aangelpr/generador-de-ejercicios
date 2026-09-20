@@ -82,6 +82,7 @@
     formulario: 'a/b + c/d = (ad + bc)/bd &nbsp;&middot;&nbsp; (a/b)(c/d) = ac/bd &nbsp;&middot;&nbsp; (a/b) &divide; (c/d) = (a/b)(d/c) = ad/bc',
 
     generar: function (dif, r) {
+      var guiaDelPaso = null;   // guia paso a paso, si este subtema la tiene
       var a, b, c, d, num, den, enun, pistas, sol, s;
 
       if (dif === 'facil') {
@@ -101,6 +102,7 @@
         num = op === '+' ? a * (m / b) + c * (m / d) : a * (m / b) - c * (m / d);
         den = m;
         s = F.simplifica(num, den);
+        guiaDelPaso = EJ.guia.sumaFracciones(a, b, c, d, op === '+');
         enun = 'Resuelve y simplifica: ' + fr(a, b) + ' ' + (op === '+' ? '+' : '&minus;') + ' ' + fr(c, d);
         pistas = [
           'Para sumar o restar necesitas el mismo denominador: usa el minimo comun multiplo de ' + b + ' y ' + d + '.',
@@ -195,6 +197,7 @@
 
       s = F.simplifica(num, den);
       return {
+        guia: guiaDelPaso,
         enunciado: enun,
         respuesta: R.fraccion(s[0], s[1]),
         pistas: pistas,

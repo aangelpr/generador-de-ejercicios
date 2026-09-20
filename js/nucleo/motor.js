@@ -5,6 +5,7 @@
   var EJ = global.EJ = global.EJ || {};
 
   var historial = {};   // ultimos enunciados por tema, para no repetir seguido
+  var cacheGuia = {};   // que subtemas tienen entrenamiento guiado
 
   function recuerda(temaId, enunciado) {
     if (!historial[temaId]) historial[temaId] = [];
@@ -96,6 +97,110 @@
         }
       }
       return hecho;
+    },
+
+    /* ---------------- modo guiado ---------------- */
+
+    /* Que subtemas de este tema y dificultad tienen entrenamiento guiado. */
+    conGuia: function (temaId, dificultad) {
+      var clave = temaId + '|' + dificultad;
+      if (cacheGuia[clave]) return cacheGuia[clave];
+      var tema = EJ.buscarTema(temaId);
+      var lista = [];
+      if (tema) {
+        EJ.subtemasDe(temaId, dificultad).forEach(function (s) {
+          for (var i = 0; i < 3; i++) {
+            try {
+              var h = generarCrudo(tema, dificultad, 5000 + i * 313, s.id, false);
+              if (h.ej.guia && (h.ej.guia.pasos || []).length) { lista.push(s); return; }
+            } catch (e) { /* sigue */ }
+          }
+        });
+      }
+      cacheGuia[clave] = lista;
+      return lista;
+    },
+
+    /* Crea un ejercicio CON guia. Si el subtema pedido no tiene, busca otro
+       que si tenga. Devuelve null si el tema no tiene ninguno todavia. */
+    nuevoGuiado: function (temaId, dificultad, subtema) {
+      var tema = EJ.buscarTema(temaId);
+      if (!tema) throw new Error('No existe el tema ' + temaId);
+      if (tema.dificultades.indexOf(dificultad) === -1) dificultad = tema.dificultades[0];
+
+      var disponibles = motor.conGuia(temaId, dificultad);
+      if (!disponibles.length) return null;
+
+      var ids = disponibles.map(function (s) { return s.id; });
+      var objetivo = (subtema && ids.indexOf(subtema) !== -1) ? subtema : null;
+      var orden = objetivo ? [objetivo] : ids.slice().sort(function () { return Math.random() - 0.5; });
+
+      for (var k = 0; k < orden.length; k++) {
+        for (var i = 0; i < 15; i++) {
+          var hecho;
+          try { hecho = generarCrudo(tema, dificultad, null, orden[k], true); } catch (e) { continue; }
+          if (!hecho.ej.guia || !(hecho.ej.guia.pasos || []).length) continue;
+          recuerda(temaId, hecho.ej.enunciado);
+          return {
+            temaId: temaId, tema: tema, dificultad: dificultad,
+            semilla: hecho.semilla, subtema: hecho.subtema, subtemaNombre: hecho.subtemaNombre,
+            ej: hecho.ej,
+            guiado: true,
+            paso: 0,
+            intentosPaso: 0,
+            errores: 0,
+            terminado: false
+          };
+        }
+      }
+      return null;
+    },
+
+    /* Revisa la respuesta del micro-paso actual. */
+    responderPaso: function (estado, valores) {
+      if (estado.terminado) return { yaTerminado: true };
+      var pasos = estado.ej.guia.pasos;
+      var paso = pasos[estado.paso];
+      var ok = false;
+      try { ok = !!paso.resp.verificar(valores); } catch (e) { ok = false; }
+
+      if (!ok) {
+        estado.intentosPaso++;
+        estado.errores++;
+        return {
+          correcto: false,
+          pista: estado.intentosPaso >= 1 ? paso.pista : null,
+          mostrarRespuesta: estado.intentosPaso >= 3,
+          respuestaDelPaso: paso.resp.mostrar()
+        };
+      }
+
+      estado.paso++;
+      estado.intentosPaso = 0;
+      var acabo = estado.paso >= pasos.length;
+      if (acabo) {
+        estado.terminado = true;
+        EJ.almacen.registrar(estado.temaId, estado.dificultad, {
+          correcto: true, intentos: 1 + estado.errores, revelado: false
+        });
+      }
+      return { correcto: true, despues: paso.despues, terminado: acabo };
+    },
+
+    /* Se rinde en este paso: se lo enseñamos y seguimos al siguiente. */
+    saltarPaso: function (estado) {
+      var pasos = estado.ej.guia.pasos;
+      var paso = pasos[estado.paso];
+      estado.errores++;
+      estado.paso++;
+      estado.intentosPaso = 0;
+      if (estado.paso >= pasos.length) {
+        estado.terminado = true;
+        EJ.almacen.registrar(estado.temaId, estado.dificultad, {
+          correcto: false, intentos: 1 + estado.errores, revelado: true
+        });
+      }
+      return { respuesta: paso.resp.mostrar(), despues: paso.despues, terminado: estado.terminado };
     },
 
     /* Comprueba una respuesta. Devuelve que hacer en pantalla. */

@@ -100,6 +100,11 @@ button[disabled] { opacity: .5; cursor: default; }
 }
 .tema-btn small { display: block; color: var(--suave); font-size: 11.5px; }
 .tema-btn:hover { background: var(--panel2); }
+.marca-guia {
+  display: inline-block; margin-left: 6px; padding: 1px 6px; border-radius: 999px;
+  font-size: 9.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .04em;
+  background: var(--acento-suave); color: var(--acento); vertical-align: middle;
+}
 .tema-btn.mixta { margin: 8px 0 4px; border: 1px dashed var(--borde); font-weight: 600; }
 .tema-btn.mixta.activo { border-style: solid; border-color: var(--acento); }
 .tema-btn.activo { background: var(--acento-suave); color: var(--acento); font-weight: 600; }
@@ -159,6 +164,42 @@ button[disabled] { opacity: .5; cursor: default; }
 table.tabla { border-collapse: collapse; margin: 14px 0; font-size: 15px; }
 table.tabla th, table.tabla td { border: 1px solid var(--borde); padding: 6px 14px; text-align: center; }
 table.tabla th { background: var(--panel2); color: var(--suave); }
+
+/* ---------- modos de estudio ---------- */
+.modos { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; margin-top: 12px; }
+.modos button { padding: 5px 13px; border-radius: 999px; font-size: 13px; }
+.modos button.activo { background: var(--acento); border-color: var(--acento); color: #fff; font-weight: 600; }
+.modos button[disabled] { opacity: .45; }
+.nota-modo { font-size: 11.5px; color: var(--suave); }
+
+/* ---------- entrenamiento paso a paso ---------- */
+.guiado .guia-intro {
+  font-size: 15.5px; line-height: 1.7; padding: 12px 14px; margin-bottom: 12px;
+  background: var(--acento-suave); border-radius: 8px; color: var(--texto);
+}
+.tablero-caja { overflow-x: auto; margin: 4px 0 12px; }
+pre.tablero {
+  font-family: ui-monospace, "Cascadia Mono", "Consolas", monospace;
+  font-size: 15px; line-height: 1.5; margin: 0; padding: 12px 14px;
+  background: var(--panel2); border: 1px solid var(--borde); border-radius: 8px;
+  white-space: pre; display: inline-block; min-width: 100%;
+}
+.bitacora { margin: 0 0 14px; padding-left: 20px; font-size: 13.5px; color: var(--suave); }
+.bitacora li { margin: 3px 0; line-height: 1.5; }
+.bien-marca { color: var(--ok); font-weight: 700; }
+.mal-marca { color: var(--mal); font-weight: 700; }
+.paso-contador {
+  font-size: 11px; text-transform: uppercase; letter-spacing: .06em;
+  color: var(--suave); font-weight: 700; margin-bottom: 6px;
+}
+.paso-pregunta { font-size: 17px; line-height: 1.65; margin-bottom: 14px; }
+.guia-final {
+  font-size: 17px; line-height: 1.7; margin-top: 12px; padding: 12px 14px;
+  background: var(--panel2); border: 1px solid var(--borde); border-radius: 8px;
+}
+.receta { margin-top: 14px; padding: 12px 14px; border: 1px dashed var(--borde); border-radius: 8px; }
+.receta ol { margin: 0; padding-left: 20px; }
+.receta li { margin: 4px 0; }
 
 /* vista previa de lo que se escribe: x^2 se ve con el 2 arriba */
 .previa {

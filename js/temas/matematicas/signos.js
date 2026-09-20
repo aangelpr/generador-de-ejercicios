@@ -71,6 +71,7 @@
       'Restar es sumar el opuesto: a &minus; (&minus;b) = a + b. Una potencia de base negativa es positiva si el exponente es par.',
 
     generar: function (dif, r) {
+      var guiaDelPaso = null;   // guia paso a paso, si este subtema la tiene
       var a, b, c, d, val, enun, pistas, sol;
 
       if (dif === 'facil') {
@@ -84,6 +85,7 @@
         if (tipo === 'producto') {
           a = r.enteroNoCero(-12, 12); b = r.enteroNoCero(-12, 12);
           val = a * b;
+          guiaDelPaso = EJ.guia.productoSignos(a, b);
           enun = 'Calcula: ' + p(a) + ' &middot; ' + p(b);
           pistas = [
             'Signos iguales dan resultado positivo; signos distintos dan resultado negativo.',
@@ -228,6 +230,7 @@
       }
 
       return {
+        guia: guiaDelPaso,
         enunciado: enun,
         respuesta: R.numero(val, { dec: 0 }),
         pistas: pistas,

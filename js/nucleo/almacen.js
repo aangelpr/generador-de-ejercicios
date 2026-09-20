@@ -10,6 +10,7 @@
     materia: 'matematicas',
     tema: null,
     subtema: null,        // null = mezcla de todos los subtemas
+    guiado: false,        // entrenamiento paso a paso
     mezcla: false,        // practica mixta: ejercicios de varios temas
     mezclaGrupo: null,    // null = de todos los grupos
     dificultad: 'facil',

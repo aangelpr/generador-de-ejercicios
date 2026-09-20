@@ -3,7 +3,7 @@
   'use strict';
   /* Sube esto junto con la version de sw.js. Se ve en Ajustes y sirve para
      saber de un vistazo si el celular ya tiene la version nueva. */
-  var VERSION = 'v5 (17 sep 2026)';
+  var VERSION = 'v6 (20 sep 2026)';
 
   var cfg = EJ.almacen.config;
   var estado = null;
@@ -75,7 +75,8 @@
       visibles.forEach(function (t) {
         var st = EJ.almacen.estadisticas(t.id);
         var b = crear('button', 'tema-btn' + (t.id === cfg.tema ? ' activo' : ''));
-        b.innerHTML = t.nombre + (st.vistos ? '<small>' + st.aciertos + '/' + st.vistos + ' correctos</small>' : '');
+        var marca = dificultadesConGuia(t.id).length ? '<span class="marca-guia" title="Tiene entrenamiento paso a paso">paso a paso</span>' : '';
+        b.innerHTML = t.nombre + marca + (st.vistos ? '<small>' + st.aciertos + '/' + st.vistos + ' correctos</small>' : '');
         b.onclick = function () { elegirTema(t.id); };
         cont.appendChild(b);
       });
@@ -86,6 +87,7 @@
   /* ---------------- practica mixta ---------------- */
   function activarMezcla() {
     cfg.mezcla = true;
+    cfg.guiado = false;          // la mezcla siempre es para resolver tu
     EJ.almacen.set('mezcla', true);
     pintarTemas();
     cerrarListaEnCelular();
@@ -141,6 +143,20 @@
     }
     if (!cfg.tema) return pintarVacio();
     validarSubtema();
+
+    /* modo guiado: solo para subtemas que ya tienen entrenamiento paso a paso */
+    if (cfg.guiado) {
+      var guiado = null;
+      try { guiado = EJ.motor.nuevoGuiado(cfg.tema, cfg.dificultad, cfg.subtema); } catch (e) { guiado = null; }
+      if (guiado) {
+        estado = guiado;
+        estado.bitacora = [];
+        return pintarGuiado();
+      }
+      cfg.guiado = false;          // este tema no lo tiene: se sigue en modo normal
+      EJ.almacen.set('guiado', false);
+    }
+
     try {
       estado = EJ.motor.nuevo(cfg.tema, cfg.dificultad, semilla, cfg.subtema);
     } catch (e) {
@@ -155,12 +171,54 @@
     $('zona').innerHTML = '<div class="tarjeta vacio">Elige un tema de la lista para empezar.</div>';
   }
 
-  function pintarEjercicio() {
-    var tema = estado.tema, ej = estado.ej;
-    var zona = $('zona');
-    zona.innerHTML = '';
+  /* En que dificultades de este tema hay entrenamiento guiado. */
+  function dificultadesConGuia(temaId) {
+    var tema = EJ.buscarTema(temaId);
+    if (!tema) return [];
+    return tema.dificultades.filter(function (d) {
+      return EJ.motor.conGuia(temaId, d).length > 0;
+    });
+  }
 
-    /* cabecera del tema */
+  /* Los dos modos de estudio: resolver completo, o guiado paso a paso. */
+  function selectorModo() {
+    var fila = crear('div', 'modos');
+    var conGuia = (!cfg.mezcla && cfg.tema) ? dificultadesConGuia(cfg.tema) : [];
+    var aqui = conGuia.indexOf(cfg.dificultad) !== -1;
+
+    var bNormal = crear('button', cfg.guiado ? '' : 'activo', 'Resolver yo');
+    bNormal.onclick = function () { cambiarModo(false); };
+    fila.appendChild(bNormal);
+
+    var bGuiado = crear('button', cfg.guiado ? 'activo' : '', 'Ensename paso a paso');
+    bGuiado.disabled = !conGuia.length;
+    bGuiado.title = conGuia.length ? 'Te voy preguntando una operacion a la vez'
+      : 'Este tema todavia no tiene entrenamiento guiado';
+    bGuiado.onclick = function () {
+      /* si esta dificultad no lo tiene, te lleva a la que si */
+      if (!aqui && conGuia.length) {
+        cfg.dificultad = conGuia[0];
+        EJ.almacen.set('dificultad', cfg.dificultad);
+        cfg.subtema = null;
+      }
+      cambiarModo(true);
+    };
+    fila.appendChild(bGuiado);
+
+    if (!cfg.mezcla) {
+      if (!conGuia.length) {
+        fila.appendChild(crear('span', 'nota-modo', 'paso a paso: aun no disponible en este tema'));
+      } else if (!aqui) {
+        fila.appendChild(crear('span', 'nota-modo',
+          'paso a paso disponible en ' + conGuia.map(function (d) { return (NOMBRES_DIF[d] || d).toLowerCase(); }).join(' y ')));
+      }
+    }
+    return fila;
+  }
+
+  /* Tarjeta de arriba: tema, dificultad, subtemas y modo. La usan los dos modos. */
+  function cabeceraTema() {
+    var tema = estado.tema;
     var cab = crear('div', 'tarjeta');
     cab.appendChild(crear('h2', null, cfg.mezcla ? 'Practica mixta' : tema.nombre));
     cab.appendChild(crear('p', 'desc', cfg.mezcla
@@ -211,7 +269,16 @@
       det.innerHTML = '<summary>Formulario del tema</summary><div class="cuerpo">' + tema.formulario + '</div>';
       cab.appendChild(det);
     }
-    zona.appendChild(cab);
+    cab.appendChild(selectorModo());
+    return cab;
+  }
+
+  function pintarEjercicio() {
+    var tema = estado.tema, ej = estado.ej;
+    var zona = $('zona');
+    zona.innerHTML = '';
+
+    zona.appendChild(cabeceraTema());
 
     /* ejercicio */
     var card = crear('div', 'tarjeta');
@@ -222,54 +289,7 @@
     if (etiqueta) card.appendChild(crear('div', 'insignia', etiqueta));
     card.appendChild(crear('div', 'enunciado', ej.enunciado));
 
-    var campos = crear('div', 'campos');
-    ej.respuesta.campos.forEach(function (c, i) {
-      var cont = crear('div', 'campo' + (c.ancho === 'corto' ? ' corto' : ''));
-      cont.id = 'campo-' + i;
-      if (c.tipo === 'opcion') {
-        cont.style.flexBasis = '100%';
-        if (c.etiqueta) cont.appendChild(crear('label', null, c.etiqueta));
-        var ops = crear('div', 'opciones');
-        c.opciones.forEach(function (texto, j) {
-          var lab = crear('label', 'opcion');
-          lab.innerHTML = '<input type="radio" name="op-' + i + '" value="' + j + '"><span>' + texto + '</span>';
-          lab.onclick = function () {
-            Array.prototype.forEach.call(ops.children, function (x) { x.classList.remove('elegida'); });
-            lab.classList.add('elegida');
-          };
-          ops.appendChild(lab);
-        });
-        cont.appendChild(ops);
-      } else {
-        cont.appendChild(crear('label', null, c.etiqueta + (c.unidad ? ' <span class="unidad">(' + c.unidad + ')</span>' : '')));
-        var inp = document.createElement('input');
-        inp.type = 'text';
-        inp.autocomplete = 'off';
-        inp.spellcheck = false;
-        inp.autocapitalize = 'off';
-        inp.id = 'entrada-' + i;
-        inp.addEventListener('keydown', function (ev) {
-          if (ev.key === 'Enter') { ev.preventDefault(); estado.terminado ? nuevoEjercicio() : comprobar(); }
-        });
-        cont.appendChild(inp);
-
-        /* vista previa: al escribir x^2 se ve x con el 2 arriba */
-        var previa = crear('div', 'previa');
-        previa.id = 'previa-' + i;
-        previa.hidden = true;
-        cont.appendChild(previa);
-        inp.addEventListener('input', function () {
-          if (EJ.fmt.convieneVistaPrevia(inp.value)) {
-            previa.innerHTML = '= ' + EJ.fmt.vistaPrevia(inp.value);
-            previa.hidden = false;
-          } else {
-            previa.hidden = true;
-          }
-        });
-      }
-      campos.appendChild(cont);
-    });
-    card.appendChild(campos);
+    card.appendChild(pintarCampos(ej.respuesta));
 
     var ayuda = ej.respuesta.campos[0].ayuda || ej.respuesta.ayuda;
     if (ayuda) card.appendChild(crear('div', 'ayuda', ayuda));
@@ -317,6 +337,63 @@
     if (primero) primero.focus();
   }
 
+  /* Pinta las casillas de respuesta (sirve igual para el modo normal y para
+     cada micro-paso del modo guiado). */
+  function pintarCampos(respuesta) {
+    var campos = crear('div', 'campos');
+    respuesta.campos.forEach(function (c, i) {
+      var cont = crear('div', 'campo' + (c.ancho === 'corto' ? ' corto' : ''));
+      cont.id = 'campo-' + i;
+      if (c.tipo === 'opcion') {
+        cont.style.flexBasis = '100%';
+        if (c.etiqueta) cont.appendChild(crear('label', null, c.etiqueta));
+        var ops = crear('div', 'opciones');
+        c.opciones.forEach(function (texto, j) {
+          var lab = crear('label', 'opcion');
+          lab.innerHTML = '<input type="radio" name="op-' + i + '" value="' + j + '"><span>' + texto + '</span>';
+          lab.onclick = function () {
+            Array.prototype.forEach.call(ops.children, function (x) { x.classList.remove('elegida'); });
+            lab.classList.add('elegida');
+          };
+          ops.appendChild(lab);
+        });
+        cont.appendChild(ops);
+      } else {
+        cont.appendChild(crear('label', null, c.etiqueta + (c.unidad ? ' <span class="unidad">(' + c.unidad + ')</span>' : '')));
+        var inp = document.createElement('input');
+        inp.type = 'text';
+        inp.autocomplete = 'off';
+        inp.spellcheck = false;
+        inp.autocapitalize = 'off';
+        inp.id = 'entrada-' + i;
+        inp.addEventListener('keydown', function (ev) {
+          if (ev.key !== 'Enter') return;
+          ev.preventDefault();
+          if (estado.guiado) comprobarPaso();
+          else if (estado.terminado) nuevoEjercicio();
+          else comprobar();
+        });
+        cont.appendChild(inp);
+
+        /* vista previa: al escribir x^2 se ve x con el 2 arriba */
+        var previa = crear('div', 'previa');
+        previa.id = 'previa-' + i;
+        previa.hidden = true;
+        cont.appendChild(previa);
+        inp.addEventListener('input', function () {
+          if (EJ.fmt.convieneVistaPrevia(inp.value)) {
+            previa.innerHTML = '= ' + EJ.fmt.vistaPrevia(inp.value);
+            previa.hidden = false;
+          } else {
+            previa.hidden = true;
+          }
+        });
+      }
+      campos.appendChild(cont);
+    });
+    return campos;
+  }
+
   function dibujarIntentos() {
     var max = cfg.maxIntentos, usados = estado.intentos, html = '';
     for (var i = 0; i < max; i++) html += '<span class="punto' + (i < usados ? ' gastado' : '') + '"></span>';
@@ -333,8 +410,8 @@
   }
   function mostrarPista(texto) { mostrarAviso('pista', '<b>Pista:</b> ' + texto); }
 
-  function valores() {
-    return estado.ej.respuesta.campos.map(function (c, i) {
+  function valores(respuesta) {
+    return (respuesta || estado.ej.respuesta).campos.map(function (c, i) {
       if (c.tipo === 'opcion') {
         var m = document.querySelector('input[name="op-' + i + '"]:checked');
         return m ? m.value : '';
@@ -386,6 +463,121 @@
     }
     actualizarEstadisticas();
     pintarTemas();
+  }
+
+  /* ---------------- modo guiado (paso a paso) ---------------- */
+  function pintarGuiado() {
+    var g = estado.ej.guia;
+    var zona = $('zona');
+    zona.innerHTML = '';
+    zona.appendChild(cabeceraTema());
+
+    var card = crear('div', 'tarjeta guiado');
+    card.id = 'card-ejercicio';
+    if (estado.subtemaNombre) card.appendChild(crear('div', 'insignia', estado.subtemaNombre));
+    if (g.intro) card.appendChild(crear('div', 'guia-intro', g.intro));
+    if (g.tablero) card.appendChild(crear('div', 'tablero-caja', g.tablero(estado.paso)));
+
+    /* lo que ya se resolvio */
+    if (estado.bitacora && estado.bitacora.length) {
+      var log = crear('ol', 'bitacora');
+      estado.bitacora.forEach(function (t) { log.appendChild(crear('li', null, t)); });
+      card.appendChild(log);
+    }
+
+    if (estado.terminado) {
+      card.appendChild(crear('div', 'aviso ok', '<b>&iexcl;Listo!</b> Terminaste el ejercicio paso a paso.'));
+      if (g.final) card.appendChild(crear('div', 'guia-final', g.final));
+      if (g.receta && g.receta.length) {
+        var rec = crear('div', 'receta');
+        rec.appendChild(crear('div', 'rotulo', 'La receta que acabas de aprender'));
+        var ol = crear('ol');
+        g.receta.forEach(function (x) { ol.appendChild(crear('li', null, x)); });
+        rec.appendChild(ol);
+        card.appendChild(rec);
+      }
+      var acc = crear('div', 'acciones');
+      var otro = crear('button', 'primario', 'Otro ejercicio guiado');
+      otro.onclick = function () { nuevoEjercicio(); };
+      acc.appendChild(otro);
+      var salir = crear('button', 'fantasma', 'Practicar por mi cuenta');
+      salir.onclick = function () { cambiarModo(false); };
+      acc.appendChild(salir);
+      card.appendChild(acc);
+      zona.appendChild(card);
+      actualizarEstadisticas();
+      return;
+    }
+
+    var paso = g.pasos[estado.paso];
+    card.appendChild(crear('div', 'paso-contador',
+      'Paso ' + (estado.paso + 1) + ' de ' + g.pasos.length));
+    card.appendChild(crear('div', 'paso-pregunta', paso.pregunta));
+    card.appendChild(pintarCampos(paso.resp));
+
+    var acciones = crear('div', 'acciones');
+    var bOk = crear('button', 'primario', 'Comprobar');
+    bOk.id = 'btn-comprobar';
+    bOk.onclick = comprobarPaso;
+    acciones.appendChild(bOk);
+
+    if (paso.pista) {
+      var bP = crear('button', '', 'Dame una pista');
+      bP.onclick = function () { mostrarPista(paso.pista); bP.disabled = true; };
+      acciones.appendChild(bP);
+    }
+
+    var bSaltar = crear('button', 'fantasma', 'No se, ensename este paso');
+    bSaltar.onclick = function () {
+      var res = EJ.motor.saltarPaso(estado);
+      estado.bitacora.push('<span class="mal-marca">&#10007;</span> ' + res.respuesta + (res.despues ? ' &mdash; ' + res.despues : ''));
+      pintarGuiado();
+    };
+    acciones.appendChild(bSaltar);
+
+    var bOtro = crear('button', 'fantasma', 'Otro ejercicio');
+    bOtro.onclick = function () { nuevoEjercicio(); };
+    acciones.appendChild(bOtro);
+
+    card.appendChild(acciones);
+    card.appendChild(crear('div', 'feedback'));
+    zona.appendChild(card);
+
+    actualizarEstadisticas();
+    var primero = card.querySelector('input[type="text"]');
+    if (primero) primero.focus();
+  }
+
+  function comprobarPaso() {
+    if (!estado || estado.terminado) return;
+    var paso = estado.ej.guia.pasos[estado.paso];
+    var vals = valores(paso.resp);
+    if (vals.every(function (v) { return String(v).trim() === ''; })) {
+      mostrarAviso('pista', 'Escribe tu respuesta para este paso.');
+      return;
+    }
+    var res = EJ.motor.responderPaso(estado, vals);
+    if (res.correcto) {
+      estado.bitacora.push('<span class="bien-marca">&#10003;</span> ' + paso.resp.mostrar() +
+        (res.despues ? ' &mdash; ' + res.despues : ''));
+      pintarGuiado();
+      return;
+    }
+    mostrarAviso('mal', 'Todavia no. Intentalo otra vez.');
+    if (res.pista) mostrarPista(res.pista);
+    if (res.mostrarRespuesta) {
+      mostrarAviso('pista', 'La respuesta de este paso es <b>' + res.respuestaDelPaso + '</b>. Escribela para seguir.');
+    }
+    var card = $('card-ejercicio');
+    card.classList.remove('sacude');
+    void card.offsetWidth;
+    card.classList.add('sacude');
+  }
+
+  function cambiarModo(guiado) {
+    cfg.guiado = !!guiado;
+    EJ.almacen.set('guiado', cfg.guiado);
+    nuevoEjercicio();
   }
 
   /* ---------------- apartado para aprender ---------------- */

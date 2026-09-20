@@ -87,6 +87,7 @@
       '(sen x)&prime; = cos x &nbsp;&middot;&nbsp; (cos x)&prime; = &minus;sen x &nbsp;&middot;&nbsp; (e<sup>x</sup>)&prime; = e<sup>x</sup> &nbsp;&middot;&nbsp; (ln x)&prime; = 1/x',
 
     generar: function (dif, r) {
+      var guiaDelPaso = null;   // guia paso a paso, si este subtema la tiene
       var enun, resp, pistas, sol, p, d, a, b, c, n, k;
 
       if (dif === 'facil') {
@@ -100,6 +101,7 @@
         if (t === 'polinomio') {
           p = [r.enteroNoCero(-6, 6), r.entero(-8, 8), r.entero(-9, 9), r.entero(-7, 7)];
           d = P.derivada(p);
+          guiaDelPaso = EJ.guia.derivadaPoli(p);
           enun = 'Deriva: f(x) = ' + P.texto(p);
           resp = R.expresion(P.expr(d), { mostrar: P.texto(d) });
           pistas = ['Aplica la regla de la potencia termino por termino: baja el exponente y restale 1.',
@@ -298,7 +300,8 @@
         }
       }
 
-      return { enunciado: enun, respuesta: resp, pistas: pistas, solucion: sol };
+      return {
+        guia: guiaDelPaso, enunciado: enun, respuesta: resp, pistas: pistas, solucion: sol };
     }
   });
 })();

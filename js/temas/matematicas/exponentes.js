@@ -76,6 +76,7 @@
       '(ab)<sup>n</sup> = a<sup>n</sup>b<sup>n</sup> &nbsp; a<sup>0</sup> = 1 &nbsp; a<sup>&minus;n</sup> = 1/a<sup>n</sup> &nbsp; a<sup>m/n</sup> = <sup>n</sup>&radic;<span class="rad">a<sup>m</sup></span>',
 
     generar: function (dif, r) {
+      var guiaDelPaso = null;   // guia paso a paso, si este subtema la tiene
       var a, b, c, d, n, m, enun, resp, pistas, sol, vars = ['x'];
 
       if (dif === 'facil') {
@@ -90,6 +91,7 @@
         if (t === 'producto') {
           a = r.entero(2, 8); b = r.entero(2, 8);
           enun = 'Simplifica: x' + F.sup(a) + ' &middot; x' + F.sup(b);
+          guiaDelPaso = EJ.guia.productoPotencias(a, b);
           resp = R.expresion('x^(' + (a + b) + ')', { mostrar: 'x' + F.sup(a + b) });
           pistas = ['Misma base multiplicandose: los exponentes se suman.', a + ' + ' + b + ' = ' + (a + b) + '.'];
           sol = ['a<sup>m</sup> &middot; a<sup>n</sup> = a<sup>m+n</sup>', 'x' + F.sup(a) + ' &middot; x' + F.sup(b) + ' = x' + F.sup(a + '+' + b) + ' = <b>x' + F.sup(a + b) + '</b>'];
@@ -222,7 +224,8 @@
         }
       }
 
-      return { enunciado: enun, respuesta: resp, pistas: pistas, solucion: sol };
+      return {
+        guia: guiaDelPaso, enunciado: enun, respuesta: resp, pistas: pistas, solucion: sol };
     }
   });
 })();

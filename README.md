@@ -97,6 +97,34 @@ en el celular no se mezcla con lo de la computadora.
 7. Si un ejercicio se te complica y prefieres otro, usa **Saltar / otro ejercicio**:
    no cuenta como error ni afecta tu racha. **Ctrl + Enter** hace lo mismo.
 
+### Entrenamiento paso a paso
+
+En los temas marcados con **paso a paso** en la lista aparece el botón
+**Enséñame paso a paso**. Ahí no se pide el resultado final: el programa te va
+preguntando *una operación a la vez* ("multiplica este por este, ¿cuánto da?"),
+te dice si está bien, y va llenando el tablero delante de ti. Al terminar te
+resume *la receta* que acabas de aprender.
+
+Si te atoras en un paso hay **Dame una pista** y **No sé, enséñame este paso**
+(te lo resuelve y sigues con el siguiente). Sirve con cualquier dificultad: si
+la que tienes puesta no lo tiene, el botón te lleva a la que sí.
+
+Ahora mismo hay entrenamiento guiado en:
+
+| Tema | Qué te enseña paso a paso |
+|---|---|
+| Leyes de los signos | Multiplicación: primero el signo, luego los números |
+| Leyes de los exponentes | Producto de potencias de la misma base |
+| Reglas para fracciones | Suma y resta: m.c.m., conversión, operar y simplificar |
+| Binomios | Binomio al cuadrado: los tres términos uno por uno |
+| Trinomios | Factorizar x² + bx + c buscando los dos números |
+| Polinomios | **División sintética** (bajar, multiplicar, sumar) y factor común |
+| Teorema de Pitágoras | Cuadrados, suma y raíz |
+| Reglas de derivación | Derivar un polinomio término por término |
+
+Los demás temas siguen teniendo el apartado **Cómo se resuelve** con la regla y
+un ejemplo resuelto. El modo guiado se irá ampliando a más subtemas.
+
 ### Práctica mixta
 
 El primer botón de la lista, **Práctica mixta**, mezcla ejercicios de varios temas al
@@ -135,6 +163,7 @@ js/nucleo/                 ← el motor (no se toca al agregar temas)
    registro.js             registro de materias y temas
    almacen.js              configuracion y progreso (localStorage)
    motor.js                intentos, pistas y revelado de la solucion
+   guia.js                 guiones del entrenamiento paso a paso
 js/temas/materias.js       ← materias disponibles
 js/temas/matematicas/*.js  ← un archivo por tema
 js/app.js                  ← interfaz
@@ -239,6 +268,44 @@ decimales, `tol: 0.01` está bien; si la respuesta es exacta, no pongas `tol`.
 `F.frac(a, b)`, `F.sup(n)`, `F.poli([1,-2,3])` → `x² - 2x + 3`, `F.raizSimp(12)` → `2√3`,
 `F.svg(...)` para figuras. `EJ.poli` suma, multiplica, deriva, integra y divide
 polinomios guardados como arreglo de coeficientes en orden descendente.
+
+### Agregar entrenamiento paso a paso
+
+Los guiones del modo guiado viven en `js/nucleo/guia.js`, uno por familia de
+ejercicio. Un tema solo tiene que devolver `guia` junto al ejercicio:
+
+```js
+return {
+  enunciado: ...,
+  respuesta: ...,
+  pistas: [...],
+  solucion: [...],
+  guia: EJ.guia.sintetica(coeficientes, a)   // <- una linea
+};
+```
+
+Y un guion se ve asi:
+
+```js
+guia.loQueSea = function (a, b) {
+  return {
+    intro: 'Lo que se plantea antes de empezar',
+    tablero: function (hechos) { return '<pre class="tablero">...</pre>'; },  // opcional
+    pasos: [
+      {
+        pregunta: '¿Cuanto es ' + a + ' · ' + b + '?',
+        resp: R.numero(a * b),          // se revisa igual que cualquier respuesta
+        pista: 'Lo que le dices si falla',
+        despues: 'Lo que le explicas cuando acierta'
+      }
+    ],
+    final: 'El resultado completo',
+    receta: ['Paso 1', 'Paso 2', 'Paso 3']
+  };
+};
+```
+
+La interfaz descubre sola que subtemas tienen guia y pinta el boton solo ahi.
 
 ## Agregar una materia nueva (ciencias, historia, ...)
 

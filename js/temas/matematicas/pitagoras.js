@@ -61,6 +61,7 @@
       'Distancia entre puntos: d = &radic;<span class="rad">(x&#8322;&minus;x&#8321;)&sup2; + (y&#8322;&minus;y&#8321;)&sup2;</span>',
 
     generar: function (dif, r) {
+      var guiaDelPaso = null;   // guia paso a paso, si este subtema la tiene
       var enun, resp, pistas, sol, t, a, b, c;
 
       if (dif === 'facil') {
@@ -71,6 +72,7 @@
         t = r.elige(TERNAS);
         a = t[0]; b = t[1]; c = t[2];
         if (tf === 'hipotenusa') {
+          guiaDelPaso = EJ.guia.pitagoras(a, b);
           enun = 'Calcula la hipotenusa del triangulo rectangulo:' + figura(a + ' cm', b + ' cm', '?');
           resp = R.numero(c, { dec: 2, tol: 0.01, unidad: 'cm' });
           pistas = ['La hipotenusa es el lado mas largo, opuesto al angulo recto: c&sup2; = a&sup2; + b&sup2;.',
@@ -98,6 +100,7 @@
         if (t2 === 'noEntero') {
           a = r.entero(3, 18); b = r.entero(3, 18);
           c = Math.sqrt(a * a + b * b);
+          guiaDelPaso = EJ.guia.pitagoras(a, b);
           enun = 'Los catetos de un triangulo rectangulo miden ' + a + ' m y ' + b + ' m.<br>Calcula la hipotenusa (redondea a 2 decimales).' + figura(a + ' m', b + ' m', '?');
           resp = R.numero(c, { dec: 2, tol: 0.01, unidad: 'm' });
           pistas = ['c = &radic;<span class="rad">a&sup2; + b&sup2;</span>.',
@@ -191,7 +194,8 @@
         }
       }
 
-      return { enunciado: enun, respuesta: resp, pistas: pistas, solucion: sol };
+      return {
+        guia: guiaDelPaso, enunciado: enun, respuesta: resp, pistas: pistas, solucion: sol };
     }
   });
 })();

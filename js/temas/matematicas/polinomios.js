@@ -116,6 +116,7 @@
       respuesta: R.factorizada('(' + k + ')*x^(' + m + ')*(' + P.expr(dentro) + ')', {
         mostrar: factorTxt + pr(dentro)
       }),
+      guia: EJ.guia.factorComun(k, m, dentro),
       pistas: [
         'Busca que numero divide a TODOS los coeficientes y cual es la menor potencia de x que aparece en todos.',
         'El factor comun es ' + factorTxt + '. Divide cada termino entre el para saber que queda dentro del parentesis.'
@@ -208,6 +209,7 @@
         { etiqueta: 'Cociente', resp: R.expresion(P.expr(Q), { mostrar: P.texto(Q) }) },
         { etiqueta: 'Residuo', resp: R.numero(rem, { dec: 0 }) }
       ]),
+      guia: EJ.guia.sintetica(A, a),
       pistas: [
         'Escribe solo los coeficientes ' + A.join(', ') + ' y usa como divisor el valor que anula al parentesis: x = ' + a + '.',
         'Baja el primer coeficiente, multiplicalo por ' + a + ', sumalo al siguiente y repite. El ultimo numero es el residuo.'

@@ -3,7 +3,7 @@
    nueva) y, si no hay internet o tarda demasiado, usa la copia guardada. */
 /* Sube este numero cada vez que cambies archivos de la app: obliga al celular
    a bajar la version nueva completa. */
-var CACHE = 'generador-ejercicios-v5';
+var CACHE = 'generador-ejercicios-v6';
 
 var ARCHIVOS = [
   './',
@@ -20,6 +20,7 @@ var ARCHIVOS = [
   './js/nucleo/registro.js',
   './js/nucleo/almacen.js',
   './js/nucleo/motor.js',
+  './js/nucleo/guia.js',
   './js/temas/materias.js',
   './js/temas/matematicas/signos.js',
   './js/temas/matematicas/exponentes.js',
