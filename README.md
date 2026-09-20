@@ -122,8 +122,9 @@ clase desde cero, y se entendía mal. El código quedó ahí por si acaso
 álgebra (signos, exponentes, fracciones, proporciones, sucesiones, progresiones,
 monomios, binomios, trinomios y polinomios), toda la geometría y trigonometría
 (polígonos, Tales, Pitágoras, ley de senos y ley de cosenos) y toda la geometría
-analítica (coordenadas, cónicas y excentricidad): 195 de 317 subtemas. En los
-demás temas el paso a paso
+analítica (coordenadas, cónicas y excentricidad) y todas las funciones
+(elementos de función, paridad, tipos de función y logaritmos): 226 de 317
+subtemas. En los demás temas el paso a paso
 está en un subtema representativo; el resto sigue con **Cómo se resuelve** (la
 regla y un ejemplo resuelto) mientras se les escribe el guion.
 
