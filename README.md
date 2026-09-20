@@ -109,21 +109,19 @@ Si te atoras en un paso hay **Dame una pista** y **No sé, enséñame este paso*
 (te lo resuelve y sigues con el siguiente). Sirve con cualquier dificultad: si
 la que tienes puesta no lo tiene, el botón te lleva a la que sí.
 
-**Los 317 subtemas tienen entrenamiento paso a paso.** Funciona con el MISMO
-ejercicio que se te genera: no es otro distinto ni un ejemplo aparte.
+El paso a paso son **guiones escritos a mano**: cada pregunta explica el porqué,
+la pista avisa del error típico y al acertar te dice qué acaba de pasar. Al
+final te resume la receta del método.
 
-Cómo se arma cada guion:
+Se probó generarlos automáticamente a partir de la solución de cada ejercicio,
+pero esa solución está escrita como recordatorio para quien ya intentó, no como
+clase desde cero, y se entendía mal. El código quedó ahí por si acaso
+(`EJ.guia.usarAutomaticas = true`), pero está apagado a propósito.
 
-- Cada subtema ya trae escrita su solución paso a paso (la que sale al agotar
-  los intentos). El modo guiado toma esos mismos renglones, **le tapa el
-  resultado a cada uno y te lo pregunta**.
-- Detecta automáticamente si el renglón termina en un número, en una fracción o
-  en una expresión algebraica, y te pide la respuesta en ese formato. Antes de
-  usar una pregunta la valida contra sí misma; si no es contestable, ese renglón
-  solo se explica y avanzas con *Entendido, siguiente*.
-- 24 subtemas tienen además un guion **escrito a mano**, más detallado, que se
-  usa en lugar del automático (división sintética con su tablero, fracciones,
-  leyes de los signos y exponentes completos, Pitágoras, binomio al cuadrado…).
+**Temas ya completos** (todos sus subtemas): leyes de los signos, leyes de los
+exponentes y reglas para fracciones. En los demás temas el paso a paso está en
+un subtema representativo; el resto sigue con **Cómo se resuelve** (la regla y
+un ejemplo resuelto) mientras se les escribe el guion.
 
 ### Práctica mixta
 

@@ -16,11 +16,19 @@
     return (historial[temaId] || []).indexOf(enunciado) !== -1;
   }
 
-  /* El guion del ejercicio: el escrito a mano si existe, y si no uno armado
-     automaticamente con los pasos de su propia solucion. */
+  /* El guion del ejercicio.
+
+     Solo se usan los guiones ESCRITOS A MANO: explican el porque de cada paso,
+     avisan del error tipico y llevan al alumno de la mano. Se probo derivarlos
+     automaticamente de la solucion del ejercicio, pero esa solucion esta
+     redactada como recordatorio para quien ya intento, no como clase desde
+     cero, y el resultado se entendia mal.
+
+     El guion automatico sigue disponible por si se quiere usar de emergencia:
+     basta poner EJ.guia.usarAutomaticas = true. */
   function guiaDe(ej) {
     if (ej.guia && (ej.guia.pasos || []).length) return ej.guia;
-    if (EJ.guia && EJ.guia.desdeSolucion) {
+    if (EJ.guia && EJ.guia.usarAutomaticas && EJ.guia.desdeSolucion) {
       try { return EJ.guia.desdeSolucion(ej); } catch (e) { return null; }
     }
     return null;

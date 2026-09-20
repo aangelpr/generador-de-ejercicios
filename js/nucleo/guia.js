@@ -121,6 +121,9 @@
 
   var guia = {};
 
+  /* Apagado a proposito: ver el comentario en motor.js */
+  guia.usarAutomaticas = false;
+
   /* Arma un guion escrito directamente dentro de un tema (donde ya estan los
      numeros del ejercicio). Solo revisa que venga completo. */
   guia.armar = function (g) {

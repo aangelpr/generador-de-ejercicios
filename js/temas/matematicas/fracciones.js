@@ -5,6 +5,8 @@
 
   function fr(a, b) { return a < 0 ? '-' + F.frac(-a, b) : F.frac(a, b); }
 
+  var G = EJ.guia.armar;
+
   var extra = {};
 
   extra.simplificar = function (r) {
@@ -13,6 +15,27 @@
     while (F.mcd(a, b) !== 1) { a = r.entero(1, 11); b = r.entero(2, 12); }
     var num = a * k, den = b * k;
     return {
+      guia: G({
+        intro: 'Hay que simplificar <b>' + F.frac(num, den) + '</b>.<br>' +
+          'Simplificar es escribir la MISMA cantidad con numeros mas chicos. Se logra dividiendo arriba y abajo entre el mismo numero.',
+        pasos: [
+          { pregunta: 'Busca un numero que divida exacto TANTO al ' + num + ' como al ' + den + '.<br>&iquest;Cual es el mas grande que puedes?',
+            resp: R.numero(k, { dec: 0 }),
+            pista: 'Se llama maximo comun divisor. Prueba con los factores de ' + num + ': si divides ' + num + ' entre el, tiene que dar exacto, y con ' + den + ' tambien.',
+            despues: 'Ese ' + k + ' es el m.c.d. Ahora se divide arriba y abajo entre el.' },
+          { pregunta: 'Divide el numerador: &iquest;cuanto es ' + num + ' &divide; ' + k + '?',
+            resp: R.numero(a, { dec: 0 }), pista: 'Division exacta, sin decimales.', despues: '' },
+          { pregunta: 'Y el denominador: ' + den + ' &divide; ' + k,
+            resp: R.numero(b, { dec: 0 }), pista: 'Tambien exacta.',
+            despues: 'Ojo: se divide ARRIBA Y ABAJO entre lo mismo, por eso la fraccion no cambia de valor.' },
+          { pregunta: 'Escribe la fraccion ya simplificada.',
+            resp: R.fraccion(a, b), pista: 'Es ' + a + ' entre ' + b + '.', despues: '' }
+        ],
+        final: F.frac(num, den) + ' = <b>' + F.frac(a, b) + '</b> (vale lo mismo, solo que con numeros mas chicos)',
+        receta: ['Buscar el numero mas grande que divida a los dos',
+          'Dividir arriba y abajo entre el',
+          'Si ya nada los divide, la fraccion esta en su minima expresion']
+      }),
       enunciado: 'Simplifica hasta su minima expresion: ' + F.frac(num, den),
       respuesta: R.fraccion(a, b),
       pistas: ['Busca el maximo comun divisor del numerador y el denominador.',
@@ -28,6 +51,28 @@
     while (a * d === b * c) { c = r.entero(1, 9); d = r.entero(2, 12); }
     var primeraMayor = a * d > b * c;
     return {
+      guia: G({
+        intro: 'Hay que decidir cual es mayor: <b>' + F.frac(a, b) + '</b> o <b>' + F.frac(c, d) + '</b>.<br>' +
+          'Como tienen denominadores distintos no se pueden comparar de golpe. El truco mas rapido es el producto cruzado.',
+        pasos: [
+          { pregunta: 'Multiplica en cruz empezando por la primera: numerador de la izquierda por denominador de la derecha.<br>&iquest;Cuanto es ' + a + ' &middot; ' + d + '?',
+            resp: R.numero(a * d, { dec: 0 }),
+            pista: 'Sube desde el ' + a + ' y cruza hacia el ' + d + '.',
+            despues: 'Ese numero representa a la fraccion de la IZQUIERDA.' },
+          { pregunta: 'Ahora al reves: ' + c + ' &middot; ' + b,
+            resp: R.numero(b * c, { dec: 0 }),
+            pista: 'Numerador de la derecha por denominador de la izquierda.',
+            despues: 'Y ese representa a la de la DERECHA.' },
+          { pregunta: 'Compara los dos resultados: ' + (a * d) + ' y ' + (b * c) + '.<br>&iquest;Cual fraccion es mayor?',
+            resp: R.opcion([F.frac(a, b), F.frac(c, d)], primeraMayor ? 0 : 1),
+            pista: 'Gana la fraccion del producto mas grande. Funciona porque es como ponerles el mismo denominador (' + b + ' &middot; ' + d + ') sin escribirlo.',
+            despues: '' }
+        ],
+        final: 'La mayor es <b>' + (primeraMayor ? F.frac(a, b) : F.frac(c, d)) + '</b> (en decimales: ' + F.n(a / b, 3) + ' contra ' + F.n(c / d, 3) + ')',
+        receta: ['Multiplicar en cruz',
+          'El producto mas grande indica la fraccion mas grande',
+          'Es lo mismo que igualar denominadores, pero mas rapido']
+      }),
       enunciado: '&iquest;Cual fraccion es mayor?<br><span class="big">' + F.frac(a, b) + ' &nbsp; o &nbsp; ' + F.frac(c, d) + '</span>',
       respuesta: R.opcion([F.frac(a, b), F.frac(c, d)], primeraMayor ? 0 : 1),
       pistas: ['Puedes igualar denominadores, o comparar los productos cruzados.',
@@ -46,6 +91,34 @@
     var num = i1 * (m / d1) + i2 * (m / d2);
     var s = F.simplifica(num, m);
     return {
+      guia: G({
+        intro: 'Vamos a sumar <b>' + e1 + ' ' + F.frac(n1, d1) + ' + ' + e2 + ' ' + F.frac(n2, d2) + '</b>.<br>' +
+          'Un numero mixto (entero + fraccion) no se puede sumar asi nada mas: primero se convierte todo a una sola fraccion.',
+        pasos: [
+          { pregunta: 'Convierte ' + e1 + ' ' + F.frac(n1, d1) + ' a fraccion impropia.<br>La regla: entero &times; denominador + numerador.<br>&iquest;Cuanto da ' + e1 + ' &middot; ' + d1 + ' + ' + n1 + '?',
+            resp: R.numero(i1, { dec: 0 }),
+            pista: 'El entero ' + e1 + ' son ' + (e1 * d1) + ' pedacitos de ' + F.frac(1, d1) + ', mas los ' + n1 + ' que ya tenias.',
+            despues: 'Entonces ' + e1 + ' ' + F.frac(n1, d1) + ' = ' + F.frac(i1, d1) + '. El denominador NO cambia.' },
+          { pregunta: 'Ahora el otro: ' + e2 + ' &middot; ' + d2 + ' + ' + n2,
+            resp: R.numero(i2, { dec: 0 }), pista: 'Mismo procedimiento.',
+            despues: 'Queda ' + F.frac(i2, d2) + '. Ya son dos fracciones normales.' },
+          { pregunta: 'Para sumarlas necesitan el mismo denominador.<br>&iquest;Cual es el m.c.m. de ' + d1 + ' y ' + d2 + '?',
+            resp: R.numero(m, { dec: 0 }), pista: 'El numero mas chico donde caben exactos los dos.', despues: '' },
+          { pregunta: 'Convierte y suma los numeradores.<br>&iquest;Cuanto queda arriba, con denominador ' + m + '?',
+            resp: R.numero(num, { dec: 0 }),
+            pista: F.frac(i1, d1) + ' = ' + F.frac(i1 * (m / d1), m) + ' y ' + F.frac(i2, d2) + ' = ' + F.frac(i2 * (m / d2), m) + '.',
+            despues: 'Vamos en ' + F.frac(num, m) + '.' },
+          { pregunta: 'Escribe el resultado ya simplificado.',
+            resp: R.fraccion(s[0], s[1]),
+            pista: F.mcd(num, m) === 1 ? 'Revisa si algo divide a los dos; si no, ya esta.' : 'Los dos se dividen entre ' + F.mcd(num, m) + '.',
+            despues: '' }
+        ],
+        final: 'Resultado: <b>' + F.fracSimp(num, m) + '</b>',
+        receta: ['Mixto a impropia: entero x denominador + numerador',
+          'El denominador no cambia en esa conversion',
+          'Ya con fracciones normales: m.c.m. y sumar',
+          'Simplificar al final']
+      }),
       enunciado: 'Suma estos numeros mixtos y da el resultado como fraccion impropia simplificada:<br>' +
         '<span class="big">' + e1 + ' ' + F.frac(n1, d1) + ' + ' + e2 + ' ' + F.frac(n2, d2) + '</span>',
       respuesta: R.fraccion(s[0], s[1]),
@@ -63,6 +136,24 @@
     var a = r.entero(1, b - 1);
     var k = r.entero(2, 20) * b;
     return {
+      guia: G({
+        intro: 'Queremos <b>' + F.frac(a, b) + ' de ' + k + '</b>.<br>' +
+          'La palabra "de" en matematicas significa multiplicar. Pero es mas facil pensarlo en dos pasos: primero partir, luego tomar.',
+        pasos: [
+          { pregunta: 'El denominador ' + b + ' dice en cuantas partes iguales se parte el ' + k + '.<br>&iquest;Cuanto vale cada parte?',
+            resp: R.numero(k / b, { dec: 4, tol: 0.001 }),
+            pista: 'Divide ' + k + ' entre ' + b + '.',
+            despues: 'Cada una de las ' + b + ' partes vale ' + F.n(k / b, 4) + '.' },
+          { pregunta: 'El numerador ' + a + ' dice cuantas de esas partes tomamos.<br>&iquest;Cuanto es ' + F.n(k / b, 4) + ' &middot; ' + a + '?',
+            resp: R.numero(a * k / b, { dec: 4, tol: 0.001 }),
+            pista: 'Multiplica lo que vale una parte por ' + a + '.',
+            despues: '' }
+        ],
+        final: F.frac(a, b) + ' de ' + k + ' es <b>' + F.n(a * k / b, 4) + '</b>',
+        receta: ['"De" significa multiplicar',
+          'Dividir entre el denominador: cuanto vale una parte',
+          'Multiplicar por el numerador: cuantas partes se toman']
+      }),
       enunciado: '&iquest;Cuanto es ' + F.frac(a, b) + ' de ' + k + '?',
       respuesta: R.numero(a * k / b, { dec: 4 }),
       pistas: ['"De" significa multiplicar: ' + F.frac(a, b) + ' &middot; ' + k + '.',
@@ -126,6 +217,26 @@
         if (t === 'producto') {
           a = r.entero(1, 9); b = r.entero(2, 12); c = r.entero(1, 9); d = r.entero(2, 12);
           num = a * c; den = b * d;
+          guiaDelPaso = G({
+            intro: 'Vamos con <b>' + fr(a, b) + ' &middot; ' + fr(c, d) + '</b>.<br>' +
+              'Multiplicar fracciones es lo MAS facil de todo: no hay que igualar denominadores ni nada. Se multiplica derecho.',
+            pasos: [
+              { pregunta: 'Multiplica los de arriba: &iquest;cuanto es ' + a + ' &middot; ' + c + '?',
+                resp: R.numero(num, { dec: 0 }), pista: 'Numerador por numerador.',
+                despues: 'Ese es el numerador del resultado.' },
+              { pregunta: 'Ahora los de abajo: ' + b + ' &middot; ' + d,
+                resp: R.numero(den, { dec: 0 }), pista: 'Denominador por denominador.',
+                despues: 'Vamos en ' + F.frac(num, den) + '.' },
+              { pregunta: 'Escribe el resultado ya simplificado.',
+                resp: R.fraccion(F.simplifica(num, den)[0], F.simplifica(num, den)[1]),
+                pista: F.mcd(num, den) === 1 ? 'Si nada divide a los dos, ya estaba simplificada.' : 'Los dos se pueden dividir entre ' + F.mcd(num, den) + '.',
+                despues: '' }
+            ],
+            final: fr(a, b) + ' &middot; ' + fr(c, d) + ' = <b>' + F.fracSimp(num, den) + '</b>',
+            receta: ['Arriba por arriba, abajo por abajo',
+              'NO se igualan denominadores (eso es solo para sumar y restar)',
+              'Simplificar al final']
+          });
           enun = 'Multiplica y simplifica: ' + fr(a, b) + ' &middot; ' + fr(c, d);
           pistas = ['En el producto se multiplican numerador con numerador y denominador con denominador.',
             'Queda ' + fr(num, den) + '; ahora simplifica con el m.c.d.'];
@@ -135,6 +246,28 @@
         } else if (t === 'cociente') {
           a = r.entero(1, 9); b = r.entero(2, 12); c = r.entero(1, 9); d = r.entero(2, 12);
           num = a * d; den = b * c;
+          guiaDelPaso = G({
+            intro: 'Vamos con <b>' + fr(a, b) + ' &divide; ' + fr(c, d) + '</b>.<br>' +
+              'Dividir fracciones se convierte en una multiplicacion: se voltea la SEGUNDA.',
+            pasos: [
+              { pregunta: 'Voltea la segunda fraccion (su reciproco).<br>Si ' + fr(c, d) + ' se voltea, &iquest;que numero queda ARRIBA?',
+                resp: R.numero(d, { dec: 0 }),
+                pista: 'El de abajo se sube y el de arriba se baja: queda ' + F.frac(d, c) + '.',
+                despues: 'Y el signo de division se cambia por multiplicacion: ' + fr(a, b) + ' &middot; ' + F.frac(d, c) + '.' },
+              { pregunta: 'Ahora multiplica los de arriba: ' + a + ' &middot; ' + d,
+                resp: R.numero(num, { dec: 0 }), pista: 'Ya es una multiplicacion normal.', despues: '' },
+              { pregunta: 'Y los de abajo: ' + b + ' &middot; ' + c,
+                resp: R.numero(den, { dec: 0 }), pista: 'Denominador por denominador.', despues: '' },
+              { pregunta: 'Escribe el resultado ya simplificado.',
+                resp: R.fraccion(F.simplifica(num, den)[0], F.simplifica(num, den)[1]),
+                pista: F.mcd(num, den) === 1 ? 'Ya estaba simplificada.' : 'Divide los dos entre ' + F.mcd(num, den) + '.',
+                despues: '' }
+            ],
+            final: fr(a, b) + ' &divide; ' + fr(c, d) + ' = <b>' + F.fracSimp(num, den) + '</b>',
+            receta: ['Voltear la SEGUNDA fraccion',
+              'Cambiar la division por multiplicacion',
+              'Multiplicar derecho y simplificar']
+          });
           enun = 'Divide y simplifica: ' + fr(a, b) + ' &divide; ' + fr(c, d);
           pistas = ['Dividir es multiplicar por el reciproco: invierte la segunda fraccion.',
             fr(a, b) + ' &middot; ' + fr(d, c) + ' = ' + fr(num, den) + '.'];
@@ -149,6 +282,36 @@
           var mm = F.mcm(F.mcm(b, d), f);
           num = a * (mm / b) + c * (mm / d) - g * (mm / f);
           den = mm;
+          guiaDelPaso = G({
+            intro: 'Vamos con <b>' + fr(a, b) + ' + ' + fr(c, d) + ' &minus; ' + fr(g, f) + '</b>.<br>' +
+              'Son tres fracciones, pero el metodo es el mismo que con dos: un solo denominador comun para TODAS.',
+            pasos: [
+              { pregunta: '&iquest;Cual es el m.c.m. de los tres denominadores (' + b + ', ' + d + ' y ' + f + ')?',
+                resp: R.numero(mm, { dec: 0 }),
+                pista: 'Busca el numero mas chico donde quepan exactos los tres. Truco: empieza por el mayor (' + Math.max(b, d, f) + ') y ve probando sus multiplos.',
+                despues: 'Con ' + mm + ' se puede convertir las tres de un jalon.' },
+              { pregunta: 'Convierte la primera: ' + fr(a, b) + ' con denominador ' + mm + '.<br>&iquest;Que numerador queda? (' + a + ' &middot; ' + (mm / b) + ')',
+                resp: R.numero(a * (mm / b), { dec: 0 }),
+                pista: mm + ' &divide; ' + b + ' = ' + (mm / b) + ', y por eso el numerador se multiplica por ' + (mm / b) + '.',
+                despues: '' },
+              { pregunta: 'La segunda: ' + fr(c, d) + ' &rarr; numerador ' + c + ' &middot; ' + (mm / d),
+                resp: R.numero(c * (mm / d), { dec: 0 }), pista: mm + ' &divide; ' + d + ' = ' + (mm / d) + '.', despues: '' },
+              { pregunta: 'Y la tercera: ' + fr(g, f) + ' &rarr; numerador ' + g + ' &middot; ' + (mm / f),
+                resp: R.numero(g * (mm / f), { dec: 0 }), pista: mm + ' &divide; ' + f + ' = ' + (mm / f) + '.',
+                despues: 'Ya las tres tienen denominador ' + mm + '.' },
+              { pregunta: 'Ahora opera SOLO los numeradores:<br>' + (a * (mm / b)) + ' + ' + (c * (mm / d)) + ' &minus; ' + (g * (mm / f)),
+                resp: R.numero(num, { dec: 0 }), pista: 'El denominador ni se toca.', despues: '' },
+              { pregunta: 'Escribe el resultado ya simplificado.',
+                resp: R.fraccion(F.simplifica(num, den)[0], F.simplifica(num, den)[1]),
+                pista: F.mcd(num, den) === 1 ? 'Ya estaba simplificada.' : 'Los dos se dividen entre ' + F.mcd(num, den) + '.',
+                despues: '' }
+            ],
+            final: 'Resultado: <b>' + F.fracSimp(num, den) + '</b>',
+            receta: ['Un solo m.c.m. para todos los denominadores',
+              'Convertir cada fraccion a ese denominador',
+              'Operar solo los numeradores, en orden',
+              'Simplificar']
+          });
           enun = 'Resuelve y simplifica: ' + fr(a, b) + ' + ' + fr(c, d) + ' &minus; ' + fr(g, f);
           pistas = ['Busca el m.c.m. de los tres denominadores de una vez.',
             'm.c.m.(' + b + ', ' + d + ', ' + f + ') = ' + mm + '.'];
@@ -172,6 +335,36 @@
           var mm2 = F.mcm(b, pd);
           num = a * (mm2 / b) + pn * (mm2 / pd);
           den = mm2;
+          guiaDelPaso = G({
+            intro: 'Vamos con <b>' + fr(a, b) + ' + ' + fr(c, d) + ' &middot; ' + fr(e, h) + '</b>.<br>' +
+              'Cuidado: aqui hay una suma Y una multiplicacion mezcladas. Manda la jerarquia, igual que con numeros normales.',
+            pasos: [
+              { pregunta: '&iquest;Que se hace primero?',
+                resp: R.opcion(['La multiplicacion ' + fr(c, d) + ' &middot; ' + fr(e, h), 'La suma, porque esta antes'], 0),
+                pista: 'Multiplicar y dividir van antes que sumar y restar, aunque esten al final.',
+                despues: 'Exacto. Y ademas conviene, porque multiplicar fracciones no necesita denominador comun.' },
+              { pregunta: 'Resuelve esa multiplicacion. Numerador: ' + c + ' &middot; ' + e,
+                resp: R.numero(pn, { dec: 0 }), pista: 'Arriba por arriba.', despues: '' },
+              { pregunta: 'Y su denominador: ' + d + ' &middot; ' + h,
+                resp: R.numero(pd, { dec: 0 }), pista: 'Abajo por abajo.',
+                despues: 'La multiplicacion da ' + F.fracSimp(pn, pd) + '. Ahora si, la suma.' },
+              { pregunta: 'Para sumar ' + fr(a, b) + ' + ' + F.frac(pn, pd) + ' hace falta denominador comun.<br>&iquest;Cual es el m.c.m. de ' + b + ' y ' + pd + '?',
+                resp: R.numero(mm2, { dec: 0 }), pista: 'El menor donde caben los dos.', despues: '' },
+              { pregunta: 'Convierte y suma los numeradores. &iquest;Cuanto queda arriba?',
+                resp: R.numero(num, { dec: 0 }),
+                pista: fr(a, b) + ' = ' + F.frac(a * (mm2 / b), mm2) + ' y ' + F.frac(pn, pd) + ' = ' + F.frac(pn * (mm2 / pd), mm2) + '.',
+                despues: '' },
+              { pregunta: 'Escribe el resultado ya simplificado.',
+                resp: R.fraccion(F.simplifica(num, den)[0], F.simplifica(num, den)[1]),
+                pista: F.mcd(num, den) === 1 ? 'Ya estaba simplificada.' : 'Divide los dos entre ' + F.mcd(num, den) + '.',
+                despues: '' }
+            ],
+            final: 'Resultado: <b>' + F.fracSimp(num, den) + '</b>',
+            receta: ['Primero la multiplicacion (o division)',
+              'Multiplicar fracciones no necesita denominador comun',
+              'Despues la suma, esa si con m.c.m.',
+              'Simplificar al final']
+          });
           enun = 'Resuelve y simplifica: ' + fr(a, b) + ' + ' + fr(c, d) + ' &middot; ' + fr(e, h);
           pistas = ['Jerarquia: primero el producto, luego la suma.',
             fr(c, d) + ' &middot; ' + fr(e, h) + ' = ' + F.fracSimp(pn, pd) + '.'];
@@ -185,6 +378,34 @@
           var m1 = F.mcm(b, d);
           var sn = a * (m1 / b) + c * (m1 / d), sd = m1;   // numerador de la fraccion compleja
           num = sn * h2; den = sd * e2;
+          guiaDelPaso = G({
+            intro: 'Vamos con <b>' + F.frac(fr(a, b) + ' + ' + fr(c, d), fr(e2, h2)) + '</b>.<br>' +
+              'Esto es una fraccion DENTRO de otra. La raya grande de en medio significa "dividido entre": arriba entre abajo.',
+            pasos: [
+              { pregunta: 'Primero se resuelve todo lo de ARRIBA. Para sumar ' + fr(a, b) + ' + ' + fr(c, d) + ' hace falta el m.c.m.<br>&iquest;Cual es el de ' + b + ' y ' + d + '?',
+                resp: R.numero(m1, { dec: 0 }), pista: 'El menor donde quepan los dos.', despues: '' },
+              { pregunta: 'Suma los numeradores ya convertidos. &iquest;Cuanto queda arriba, con denominador ' + m1 + '?',
+                resp: R.numero(sn, { dec: 0 }),
+                pista: fr(a, b) + ' = ' + F.frac(a * (m1 / b), m1) + ' y ' + fr(c, d) + ' = ' + F.frac(c * (m1 / d), m1) + '.',
+                despues: 'La parte de arriba vale ' + F.frac(sn, sd) + '. Ahora hay que dividirla entre ' + F.frac(e2, h2) + '.' },
+              { pregunta: 'Dividir entre una fraccion es multiplicar por su reciproco.<br>Si volteas ' + F.frac(e2, h2) + ', &iquest;que queda arriba?',
+                resp: R.numero(h2, { dec: 0 }), pista: 'Se voltea: queda ' + F.frac(h2, e2) + '.',
+                despues: 'Entonces la cuenta es ' + F.frac(sn, sd) + ' &middot; ' + F.frac(h2, e2) + '.' },
+              { pregunta: 'Multiplica los de arriba: ' + sn + ' &middot; ' + h2,
+                resp: R.numero(num, { dec: 0 }), pista: 'Numerador por numerador.', despues: '' },
+              { pregunta: 'Y los de abajo: ' + sd + ' &middot; ' + e2,
+                resp: R.numero(den, { dec: 0 }), pista: 'Denominador por denominador.', despues: '' },
+              { pregunta: 'Escribe el resultado ya simplificado.',
+                resp: R.fraccion(F.simplifica(num, den)[0], F.simplifica(num, den)[1]),
+                pista: F.mcd(num, den) === 1 ? 'Ya estaba simplificada.' : 'Divide los dos entre ' + F.mcd(num, den) + '.',
+                despues: '' }
+            ],
+            final: 'Resultado: <b>' + F.fracSimp(num, den) + '</b>',
+            receta: ['La raya grande es una division',
+              'Resolver primero arriba y abajo por separado',
+              'Dividir = multiplicar por el reciproco',
+              'Simplificar al final']
+          });
           enun = 'Resuelve y simplifica: ' + F.frac(fr(a, b) + ' + ' + fr(c, d), fr(e2, h2));
           pistas = ['Resuelve primero la suma de arriba y luego divide entre la fraccion de abajo.',
             'Arriba: ' + fr(a, b) + ' + ' + fr(c, d) + ' = ' + F.fracSimp(sn, sd) + '. Dividir entre ' + fr(e2, h2) + ' es multiplicar por ' + fr(h2, e2) + '.'];
