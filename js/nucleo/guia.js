@@ -31,6 +31,22 @@
 
   var guia = {};
 
+  /* Arma un guion escrito directamente dentro de un tema (donde ya estan los
+     numeros del ejercicio). Solo revisa que venga completo. */
+  guia.armar = function (g) {
+    if (!g || !g.pasos || !g.pasos.length) return null;
+    for (var i = 0; i < g.pasos.length; i++) {
+      if (!g.pasos[i].pregunta || !g.pasos[i].resp) return null;
+    }
+    return {
+      intro: g.intro || '',
+      tablero: g.tablero || null,
+      pasos: g.pasos,
+      final: g.final || '',
+      receta: g.receta || []
+    };
+  };
+
   /* ================= DIVISION SINTETICA ================= */
   guia.sintetica = function (coefs, a) {
     var n = coefs.length;
