@@ -119,7 +119,8 @@ clase desde cero, y se entendía mal. El código quedó ahí por si acaso
 (`EJ.guia.usarAutomaticas = true`), pero está apagado a propósito.
 
 **Temas ya completos** (todos sus subtemas): leyes de los signos, leyes de los
-exponentes, reglas para fracciones y monomios. En los demás temas el paso a paso
+exponentes, reglas para fracciones, monomios y binomios (85 de 317 subtemas).
+En los demás temas el paso a paso
 está en un subtema representativo; el resto sigue con **Cómo se resuelve** (la
 regla y un ejemplo resuelto) mientras se les escribe el guion.
 
