@@ -16,6 +16,8 @@
   }
   function par(s) { return '(' + s + ')'; }
 
+  var G = EJ.guia.armar;
+
   var extra = {};
 
   extra.valorNumerico = function (r) {
@@ -23,6 +25,26 @@
     var x = r.enteroNoCero(-4, 4), y = r.enteroNoCero(-4, 4);
     var val = c * Math.pow(x, a) * Math.pow(y, b);
     return {
+      guia: G({
+        intro: 'Queremos el valor de <b>' + disp(c, [['x', a], ['y', b]]) + '</b> cuando <b>x = ' + x + '</b> y <b>y = ' + y + '</b>.<br>' +
+          'Se sustituye cada letra por su valor. El detalle importante: SIEMPRE entre parentesis, sobre todo si es negativo.',
+        pasos: [
+          { pregunta: 'Calcula la potencia de la x: &iquest;cuanto es (' + x + ')' + F.sup(a) + '?',
+            resp: R.numero(Math.pow(x, a), { dec: 0 }),
+            pista: x < 0 ? 'Base negativa con exponente ' + (a % 2 === 0 ? 'par: sale positivo' : 'impar: sale negativo') + '.' : 'Multiplica ' + x + ' por si mismo ' + a + ' veces.',
+            despues: '' },
+          { pregunta: 'Ahora la de la y: (' + y + ')' + F.sup(b),
+            resp: R.numero(Math.pow(y, b), { dec: 0 }),
+            pista: y < 0 ? 'Otra vez ojo con el signo: exponente ' + (b % 2 === 0 ? 'par da positivo' : 'impar da negativo') + '.' : 'Igual que antes.',
+            despues: 'Ya solo falta multiplicar todo junto.' },
+          { pregunta: 'Multiplica: ' + c + ' &middot; ' + Math.pow(x, a) + ' &middot; ' + Math.pow(y, b),
+            resp: R.numero(val, { dec: 0 }), pista: 'De dos en dos, cuidando los signos.', despues: '' }
+        ],
+        final: 'El valor numerico es <b>' + val + '</b>',
+        receta: ['Sustituir cada letra por su valor, entre parentesis',
+          'Resolver primero las potencias',
+          'Multiplicar al final']
+      }),
       enunciado: 'Calcula el valor numerico de ' + disp(c, [['x', a], ['y', b]]) + '<br>cuando x = ' + x + ' y y = ' + y + '.',
       respuesta: R.numero(val, { dec: 0 }),
       pistas: ['Sustituye cada letra por su valor y respeta los parentesis en los negativos.',
@@ -37,6 +59,29 @@
     var c = r.elige([2, 3, 4, 5, 6, 7]);
     var a = r.entero(1, 4), b = r.entero(1, 3);
     return {
+      guia: G({
+        intro: 'Vamos con <b>&radic;<span class="rad">' + disp(c * c, [['x', 2 * a], ['y', 2 * b]]) + '</span></b>.<br>' +
+          'Sacar raiz cuadrada es preguntarse: &iquest;que tengo que multiplicar por si mismo para obtener esto? Se hace parte por parte.',
+        pasos: [
+          { pregunta: 'El numero: &iquest;cual es la raiz cuadrada de ' + (c * c) + '?',
+            resp: R.numero(c, { dec: 0 }),
+            pista: 'Busca el numero que multiplicado por si mismo da ' + (c * c) + '.',
+            despues: 'Porque ' + c + ' &middot; ' + c + ' = ' + (c * c) + '.' },
+          { pregunta: 'La x: la raiz de x' + F.sup(2 * a) + '.<br>&iquest;Que exponente queda?',
+            resp: R.numero(a, { dec: 0 }),
+            pista: 'Sacar raiz cuadrada es DIVIDIR el exponente entre 2: ' + (2 * a) + ' &divide; 2.',
+            despues: 'Compruebalo: x' + F.sup(a) + ' &middot; x' + F.sup(a) + ' = x' + F.sup(2 * a) + '.' },
+          { pregunta: 'La y: raiz de y' + F.sup(2 * b) + ' &rarr; &iquest;que exponente?',
+            resp: R.numero(b, { dec: 0 }), pista: (2 * b) + ' &divide; 2.', despues: '' },
+          { pregunta: 'Escribe el monomio completo.',
+            resp: R.expresion(txt(c, [['x', a], ['y', b]]), { vars: ['x', 'y'], mostrar: disp(c, [['x', a], ['y', b]]) }),
+            pista: 'Es ' + disp(c, [['x', a], ['y', b]]) + '.', despues: '' }
+        ],
+        final: 'Resultado: <b>' + disp(c, [['x', a], ['y', b]]) + '</b>',
+        receta: ['Raiz cuadrada del coeficiente',
+          'Dividir entre 2 el exponente de cada letra',
+          'Se puede comprobar elevando al cuadrado el resultado']
+      }),
       enunciado: 'Simplifica: &radic;<span class="rad">' + disp(c * c, [['x', 2 * a], ['y', 2 * b]]) + '</span>',
       respuesta: R.expresion(txt(c, [['x', a], ['y', b]]), {
         vars: ['x', 'y'], mostrar: disp(c, [['x', a], ['y', b]])
@@ -89,6 +134,31 @@
           c1 = c2 * k;
           a2 = r.entero(1, 3); a1 = a2 + r.entero(1, 3);
           b2 = r.entero(0, 2); b1 = b2 + r.entero(0, 3);
+          guiaDelPaso = G({
+            intro: 'Vamos con <b>' + F.frac(disp(c1, [['x', a1], ['y', b1]]), disp(c2, [['x', a2], ['y', b2]])) + '</b>.<br>' +
+              'Dividir monomios es por partes: los numeros se dividen y cada letra se resuelve por su lado restando exponentes.',
+            pasos: [
+              { pregunta: 'Empieza por los numeros: &iquest;cuanto es ' + c1 + ' &divide; ' + c2 + '?',
+                resp: R.numero(k, { dec: 0 }),
+                pista: 'Division exacta. Ojo con el signo si alguno es negativo.',
+                despues: 'Ese es el coeficiente del resultado.' },
+              { pregunta: 'Ahora la x: x' + F.sup(a1) + ' entre x' + F.sup(a2) + '.<br>&iquest;Que exponente queda?',
+                resp: R.numero(a1 - a2, { dec: 0 }),
+                pista: 'Dividiendose se RESTAN: ' + a1 + ' &minus; ' + a2 + '. (Arriba hay ' + a1 + ' equis y abajo ' + a2 + ', se van cancelando.)',
+                despues: '' },
+              { pregunta: 'Y la y: y' + F.sup(b1) + ' entre y' + F.sup(b2) + '.<br>&iquest;Que exponente queda?',
+                resp: R.numero(b1 - b2, { dec: 0 }),
+                pista: b1 - b2 === 0 ? 'Cuidado: si da 0, recuerda que y' + F.sup(0) + ' = 1 y la letra desaparece.' : 'Otra vez: ' + b1 + ' &minus; ' + b2 + '.',
+                despues: 'Cada letra se trabaja por separado, nunca se mezclan.' },
+              { pregunta: 'Escribe el monomio completo.',
+                resp: R.expresion(txt(k, [['x', a1 - a2], ['y', b1 - b2]]), { vars: ['x', 'y'], mostrar: disp(k, [['x', a1 - a2], ['y', b1 - b2]]) }),
+                pista: 'Es ' + disp(k, [['x', a1 - a2], ['y', b1 - b2]]) + '.', despues: '' }
+            ],
+            final: 'Resultado: <b>' + disp(k, [['x', a1 - a2], ['y', b1 - b2]]) + '</b>',
+            receta: ['Dividir los coeficientes',
+              'Restar los exponentes de cada letra por separado',
+              'Exponente 0 significa que la letra desaparece (vale 1)']
+          });
           enun = 'Divide: ' + F.frac(disp(c1, [['x', a1], ['y', b1]]), disp(c2, [['x', a2], ['y', b2]]));
           resp = R.expresion(txt(k, [['x', a1 - a2], ['y', b1 - b2]]), {
             vars: vars, mostrar: disp(k, [['x', a1 - a2], ['y', b1 - b2]])
@@ -102,6 +172,31 @@
           c1 = r.enteroNoCero(-9, 9); a1 = r.entero(1, 5); b1 = r.entero(1, 4);
           var z1 = r.entero(0, 3);
           var vs = [['x', a1], ['y', b1], ['z', z1]];
+          guiaDelPaso = G({
+            intro: 'Nos preguntan el grado de <b>' + disp(c1, vs) + '</b>.<br>' +
+              'El grado de un monomio es la SUMA de los exponentes de todas sus letras. El coeficiente no cuenta.',
+            pasos: [
+              { pregunta: '&iquest;Que exponente tiene la x?',
+                resp: R.numero(a1, { dec: 0 }),
+                pista: a1 === 1 ? 'Cuando no se ve ningun exponente, es 1.' : 'Mira el numerito de arriba.',
+                despues: '' },
+              { pregunta: '&iquest;Y el de la y?',
+                resp: R.numero(b1, { dec: 0 }), pista: b1 === 1 ? 'Sin exponente visible significa 1.' : 'El numerito de arriba de la y.',
+                despues: z1 ? 'Todavia falta la z.' : 'Ya estan todos.' },
+              z1 ? { pregunta: '&iquest;Y el de la z?', resp: R.numero(z1, { dec: 0 }),
+                pista: z1 === 1 ? 'Sin exponente visible es 1.' : 'El de la z.', despues: '' }
+                : { pregunta: '&iquest;El coeficiente ' + c1 + ' cuenta para el grado?',
+                  resp: R.opcion(['No, solo cuentan las letras', 'Si, se suma tambien'], 0),
+                  pista: 'El grado habla de las letras, no del numero que las acompaña.', despues: '' },
+              { pregunta: 'Suma esos exponentes: &iquest;cual es el grado?',
+                resp: R.numero(a1 + b1 + z1, { dec: 0 }),
+                pista: a1 + ' + ' + b1 + (z1 ? ' + ' + z1 : ''), despues: '' }
+            ],
+            final: 'El grado de ' + disp(c1, vs) + ' es <b>' + (a1 + b1 + z1) + '</b>',
+            receta: ['Ver el exponente de cada letra',
+              'Si no se ve exponente, es 1',
+              'Sumarlos todos; el coeficiente no cuenta']
+          });
           enun = '&iquest;Cual es el grado del monomio ' + disp(c1, vs) + '?';
           resp = R.numero(a1 + b1 + z1, { dec: 0 });
           pistas = ['El grado de un monomio es la suma de los exponentes de todas sus variables.',
@@ -122,6 +217,29 @@
           c1 = r.enteroNoCero(-4, 4); a1 = r.entero(1, 4); b1 = r.entero(1, 3);
           var n = r.entero(2, 3);
           var C = Math.pow(c1, n);
+          guiaDelPaso = G({
+            intro: 'Vamos con <b>' + par(disp(c1, [['x', a1], ['y', b1]])) + F.sup(n) + '</b>.<br>' +
+              'El exponente de afuera le cae a TODO lo de adentro: al numero y a cada letra. Es el error mas comun elevar solo las letras.',
+            pasos: [
+              { pregunta: 'Primero el coeficiente: &iquest;cuanto es (' + c1 + ')' + F.sup(n) + '?',
+                resp: R.numero(C, { dec: 0 }),
+                pista: c1 < 0 ? 'Base negativa: exponente ' + (n % 2 === 0 ? 'par da positivo' : 'impar da negativo') + '.' : 'Multiplica ' + c1 + ' por si mismo ' + n + ' veces.',
+                despues: '' },
+              { pregunta: 'La x: (x' + F.sup(a1) + ')' + F.sup(n) + ' &rarr; &iquest;que exponente queda?',
+                resp: R.numero(a1 * n, { dec: 0 }),
+                pista: 'Potencia de potencia: se MULTIPLICAN, ' + a1 + ' &middot; ' + n + '. (No se suman.)',
+                despues: '' },
+              { pregunta: 'La y: (y' + F.sup(b1) + ')' + F.sup(n) + ' &rarr; &iquest;que exponente?',
+                resp: R.numero(b1 * n, { dec: 0 }), pista: b1 + ' &middot; ' + n + '.', despues: 'Ya estan las tres partes.' },
+              { pregunta: 'Escribe el monomio completo.',
+                resp: R.expresion(txt(C, [['x', a1 * n], ['y', b1 * n]]), { vars: ['x', 'y'], mostrar: disp(C, [['x', a1 * n], ['y', b1 * n]]) }),
+                pista: 'Es ' + disp(C, [['x', a1 * n], ['y', b1 * n]]) + '.', despues: '' }
+            ],
+            final: 'Resultado: <b>' + disp(C, [['x', a1 * n], ['y', b1 * n]]) + '</b>',
+            receta: ['El exponente de afuera le toca al coeficiente Y a cada letra',
+              'El coeficiente se eleva de verdad (no se multiplica)',
+              'Los exponentes de las letras se multiplican']
+          });
           enun = 'Desarrolla: ' + par(disp(c1, [['x', a1], ['y', b1]])) + F.sup(n);
           resp = R.expresion(txt(C, [['x', a1 * n], ['y', b1 * n]]), {
             vars: vars, mostrar: disp(C, [['x', a1 * n], ['y', b1 * n]])
@@ -137,6 +255,34 @@
           var otroTermino = r.enteroNoCero(-5, 5);
           var ea = r.enteroExcepto(1, 4, [a1]);
           var total = k1 + k2 + k3;
+          guiaDelPaso = G({
+            intro: 'Hay que reducir terminos semejantes.<br>' +
+              'Solo se pueden juntar los terminos que tienen EXACTAMENTE las mismas letras con los mismos exponentes. Es como sumar peras con peras.',
+            pasos: [
+              { pregunta: 'Mira los cuatro terminos. &iquest;Cuantos tienen la parte literal x' + F.sup(a1) + 'y' + F.sup(b1) + '?',
+                resp: R.numero(3, { dec: 0 }),
+                pista: 'Compara letra por letra y exponente por exponente. Hay uno que no cuadra: ' + disp(otroTermino, [['x', ea], ['y', b1]]) + '.',
+                despues: 'Esos tres se pueden juntar; el otro se queda solo.' },
+              { pregunta: 'Suma los coeficientes de esos tres: ' + k1 + ' + (' + k2 + ') + (' + k3 + ')',
+                resp: R.numero(total, { dec: 0 }),
+                pista: 'Solo los numeros. La parte de las letras no se toca.',
+                despues: 'Queda ' + disp(total, [['x', a1], ['y', b1]]) + '.' },
+              { pregunta: '&iquest;Que pasa con ' + disp(otroTermino, [['x', ea], ['y', b1]]) + '?',
+                resp: R.opcion(['Se queda tal cual, no es semejante', 'Se suma tambien'], 0),
+                pista: 'Tiene x' + F.sup(ea) + ' en vez de x' + F.sup(a1) + ': no son semejantes, no se pueden juntar.',
+                despues: '' },
+              { pregunta: 'Escribe la expresion reducida completa.',
+                resp: R.expresion(txt(total, [['x', a1], ['y', b1]]) + '+' + txt(otroTermino, [['x', ea], ['y', b1]]),
+                  { vars: ['x', 'y'], mostrar: F.une([disp(total, [['x', a1], ['y', b1]]), disp(otroTermino, [['x', ea], ['y', b1]])]) }),
+                pista: 'Son los dos terminos que quedaron: ' + F.une([disp(total, [['x', a1], ['y', b1]]), disp(otroTermino, [['x', ea], ['y', b1]])]) + '.',
+                despues: '' }
+            ],
+            final: 'Resultado: <b>' + F.une([disp(total, [['x', a1], ['y', b1]]), disp(otroTermino, [['x', ea], ['y', b1]])]) + '</b>',
+            receta: ['Semejantes = mismas letras con los mismos exponentes',
+              'Solo se suman los coeficientes',
+              'La parte de las letras no cambia',
+              'Lo que no es semejante se queda igual']
+          });
           enun = 'Reduce terminos semejantes:<br>' + disp(k1, [['x', a1], ['y', b1]]) + ' + ' +
             par(disp(k2, [['x', a1], ['y', b1]])) + ' + ' + par(disp(otroTermino, [['x', ea], ['y', b1]])) + ' + ' +
             par(disp(k3, [['x', a1], ['y', b1]]));
@@ -158,6 +304,30 @@
           var vv1 = [['x', e1[0]], ['y', e1[1]], ['z', e1[2]]];
           var vv2 = [['x', e2[0]], ['y', e2[1]], ['z', e2[2]]];
           var vvr = [['x', e1[0] - e2[0]], ['y', e1[1] - e2[1]], ['z', e1[2] - e2[2]]];
+          guiaDelPaso = G({
+            intro: 'Vamos con <b>' + F.frac(disp(c1, vv1), disp(c2, vv2)) + '</b>.<br>' +
+              'Son tres letras, pero no cambia nada: cada una se resuelve por su cuenta.',
+            pasos: [
+              { pregunta: 'Los coeficientes primero: ' + c1 + ' &divide; ' + c2,
+                resp: R.numero(kk, { dec: 0 }), pista: 'Ojo con el signo.', despues: '' },
+              { pregunta: 'La x: ' + e1[0] + ' &minus; ' + e2[0],
+                resp: R.numero(e1[0] - e2[0], { dec: 0 }), pista: 'Dividiendose, los exponentes se restan.', despues: '' },
+              { pregunta: 'La y: ' + e1[1] + ' &minus; ' + e2[1],
+                resp: R.numero(e1[1] - e2[1], { dec: 0 }),
+                pista: (e1[1] - e2[1]) === 0 ? 'Si da 0 la letra desaparece (vale 1).' : 'Igual que con la x.', despues: '' },
+              { pregunta: 'La z: ' + e1[2] + ' &minus; ' + e2[2],
+                resp: R.numero(e1[2] - e2[2], { dec: 0 }),
+                pista: (e1[2] - e2[2]) === 0 ? 'Si da 0, esa letra ya no aparece en el resultado.' : 'Ultima letra.',
+                despues: 'Cada letra por su lado: nunca se mezclan entre ellas.' },
+              { pregunta: 'Escribe el resultado completo.',
+                resp: R.expresion(txt(kk, vvr), { vars: ['x', 'y', 'z'], mostrar: disp(kk, vvr) }),
+                pista: 'Es ' + disp(kk, vvr) + '.', despues: '' }
+            ],
+            final: 'Resultado: <b>' + disp(kk, vvr) + '</b>',
+            receta: ['Coeficientes se dividen',
+              'Cada letra resta sus exponentes por separado',
+              'Exponente 0 = esa letra desaparece']
+          });
           enun = 'Simplifica: ' + F.frac(disp(c1, vv1), disp(c2, vv2));
           resp = R.expresion(txt(kk, vvr), { vars: vars, mostrar: disp(kk, vvr) });
           pistas = ['Trabaja variable por variable restando exponentes.',
@@ -181,6 +351,33 @@
           var A = [r.entero(2, 5), r.entero(1, 4)], B = [r.entero(1, 4), r.entero(1, 3)];
           var D = [r.entero(1, 3), r.entero(0, 2)];
           var ex = A[0] + B[0] - D[0], ey = A[1] + B[1] - D[1];
+          guiaDelPaso = G({
+            intro: 'Vamos con <b>' + F.frac(par(disp(c1, [['x', A[0]], ['y', A[1]]])) + par(disp(c2, [['x', B[0]], ['y', B[1]]])), disp(c3, [['x', D[0]], ['y', D[1]]])) + '</b>.<br>' +
+              'Hay multiplicacion arriba y division abajo. Se resuelve primero todo el numerador y al final se divide.',
+            pasos: [
+              { pregunta: 'Multiplica los coeficientes de arriba: ' + c1 + ' &middot; ' + c2,
+                resp: R.numero(prodC, { dec: 0 }), pista: 'Ojo con los signos.', despues: '' },
+              { pregunta: 'Los exponentes de x arriba se suman: ' + A[0] + ' + ' + B[0],
+                resp: R.numero(A[0] + B[0], { dec: 0 }), pista: 'Multiplicandose se SUMAN.', despues: '' },
+              { pregunta: 'Los de y arriba: ' + A[1] + ' + ' + B[1],
+                resp: R.numero(A[1] + B[1], { dec: 0 }), pista: 'Igual, se suman.',
+                despues: 'El numerador quedo ' + disp(prodC, [['x', A[0] + B[0]], ['y', A[1] + B[1]]]) + '.' },
+              { pregunta: 'Ahora si, divide los coeficientes: ' + prodC + ' &divide; ' + c3,
+                resp: R.numero(prodC / c3, { dec: 0 }), pista: 'Division exacta.', despues: '' },
+              { pregunta: 'Resta los exponentes de x: ' + (A[0] + B[0]) + ' &minus; ' + D[0],
+                resp: R.numero(ex, { dec: 0 }), pista: 'Dividiendose se restan.', despues: '' },
+              { pregunta: 'Y los de y: ' + (A[1] + B[1]) + ' &minus; ' + D[1],
+                resp: R.numero(ey, { dec: 0 }), pista: 'Lo mismo con la otra letra.', despues: '' },
+              { pregunta: 'Escribe el resultado completo.',
+                resp: R.expresion(txt(prodC / c3, [['x', ex], ['y', ey]]), { vars: ['x', 'y'], mostrar: disp(prodC / c3, [['x', ex], ['y', ey]]) }),
+                pista: 'Es ' + disp(prodC / c3, [['x', ex], ['y', ey]]) + '.', despues: '' }
+            ],
+            final: 'Resultado: <b>' + disp(prodC / c3, [['x', ex], ['y', ey]]) + '</b>',
+            receta: ['Resolver primero todo el numerador',
+              'Multiplicando: exponentes se suman',
+              'Dividiendo: exponentes se restan',
+              'Cada letra por separado']
+          });
           enun = 'Simplifica: ' + F.frac(par(disp(c1, [['x', A[0]], ['y', A[1]]])) + par(disp(c2, [['x', B[0]], ['y', B[1]]])), disp(c3, [['x', D[0]], ['y', D[1]]]));
           resp = R.expresion(txt(prodC / c3, [['x', ex], ['y', ey]]), {
             vars: vars, mostrar: disp(prodC / c3, [['x', ex], ['y', ey]])
@@ -197,6 +394,32 @@
           var A2 = [r.entero(1, 3), r.entero(1, 2)], B2 = [r.entero(1, 2), r.entero(1, 2)];
           var CF = Math.pow(c1, n1) * Math.pow(c2, n2);
           var exf = A2[0] * n1 + B2[0] * n2, eyf = A2[1] * n1 + B2[1] * n2;
+          guiaDelPaso = G({
+            intro: 'Vamos con <b>' + par(disp(c1, [['x', A2[0]], ['y', A2[1]]])) + F.sup(n1) + ' ' + par(disp(c2, [['x', B2[0]], ['y', B2[1]]])) + F.sup(n2) + '</b>.<br>' +
+              'Son dos monomios elevados, multiplicandose. El orden importa: primero se eleva cada uno, y hasta el final se multiplican.',
+            pasos: [
+              { pregunta: 'Eleva el primero. Su coeficiente: (' + c1 + ')' + F.sup(n1),
+                resp: R.numero(Math.pow(c1, n1), { dec: 0 }),
+                pista: c1 < 0 ? 'Base negativa, exponente ' + (n1 % 2 === 0 ? 'par: positivo' : 'impar: negativo') + '.' : 'Multiplicalo por si mismo ' + n1 + ' veces.',
+                despues: 'Sus exponentes quedan x' + F.sup(A2[0] * n1) + 'y' + F.sup(A2[1] * n1) + ' (se multiplican por ' + n1 + ').' },
+              { pregunta: 'Ahora el segundo: (' + c2 + ')' + F.sup(n2),
+                resp: R.numero(Math.pow(c2, n2), { dec: 0 }), pista: 'Mismo procedimiento.',
+                despues: 'Y sus exponentes: x' + F.sup(B2[0] * n2) + 'y' + F.sup(B2[1] * n2) + '.' },
+              { pregunta: 'Ya elevados, multiplicalos. Los coeficientes: ' + Math.pow(c1, n1) + ' &middot; ' + Math.pow(c2, n2),
+                resp: R.numero(CF, { dec: 0 }), pista: 'Ojo con los signos.', despues: '' },
+              { pregunta: 'Los exponentes de x ahora se SUMAN: ' + (A2[0] * n1) + ' + ' + (B2[0] * n2),
+                resp: R.numero(exf, { dec: 0 }), pista: 'Aqui ya es multiplicacion, por eso se suman.', despues: '' },
+              { pregunta: 'Y los de y: ' + (A2[1] * n1) + ' + ' + (B2[1] * n2),
+                resp: R.numero(eyf, { dec: 0 }), pista: 'Igual.', despues: '' },
+              { pregunta: 'Escribe el resultado completo.',
+                resp: R.expresion(txt(CF, [['x', exf], ['y', eyf]]), { vars: ['x', 'y'], mostrar: disp(CF, [['x', exf], ['y', eyf]]) }),
+                pista: 'Es ' + disp(CF, [['x', exf], ['y', eyf]]) + '.', despues: '' }
+            ],
+            final: 'Resultado: <b>' + disp(CF, [['x', exf], ['y', eyf]]) + '</b>',
+            receta: ['Primero elevar cada monomio (exponentes se multiplican)',
+              'Despues multiplicarlos entre si (exponentes se suman)',
+              'No mezclar los dos pasos: primero elevar, luego multiplicar']
+          });
           enun = 'Desarrolla y simplifica: ' + par(disp(c1, [['x', A2[0]], ['y', A2[1]]])) + F.sup(n1) + ' ' + par(disp(c2, [['x', B2[0]], ['y', B2[1]]])) + F.sup(n2);
           resp = R.expresion(txt(CF, [['x', exf], ['y', eyf]]), { vars: vars, mostrar: disp(CF, [['x', exf], ['y', eyf]]) });
           pistas = ['Eleva cada monomio a su potencia por separado y luego multiplica.',
