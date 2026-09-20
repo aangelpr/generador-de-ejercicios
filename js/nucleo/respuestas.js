@@ -144,15 +144,32 @@
     });
   };
 
-  /* Opcion multiple. `opciones` es un arreglo de HTML; `correcta` es el indice. */
+  /* Opcion multiple. `opciones` es un arreglo de HTML; `correcta` es el indice.
+
+     Al escribir los guiones es comodisimo poner siempre la respuesta correcta
+     primero, y asi acaba pasando casi siempre. Entonces contestar deja de ser
+     pensar y se vuelve "le doy a la de arriba". Para evitarlo la lista se rota
+     antes de pintarla, usando un numero sacado del propio texto de las
+     opciones: cada pregunta queda en un orden distinto, pero LA MISMA pregunta
+     siempre sale igual (no cambia al reintentar ni rompe las semillas).
+     `op.sinMezclar` deja el orden tal cual cuando importa (por ejemplo si las
+     opciones van de menor a mayor). */
   resp.opcion = function (opciones, correcta, op) {
     op = op || {};
+    var lista = opciones, indice = correcta;
+    if (!op.sinMezclar && opciones.length > 1) {
+      var texto = opciones.join('|'), h = 0;
+      for (var i = 0; i < texto.length; i++) h = (h * 31 + texto.charCodeAt(i)) % 100003;
+      var giro = h % opciones.length;
+      lista = opciones.slice(giro).concat(opciones.slice(0, giro));
+      indice = (correcta - giro + opciones.length) % opciones.length;
+    }
     return base({
       tipo: 'opcion',
-      valor: correcta,
-      campos: [{ etiqueta: op.etiqueta || 'Elige una', tipo: 'opcion', opciones: opciones }],
-      verificar: function (vals) { return String(vals[0]) === String(correcta); },
-      mostrar: function () { return opciones[correcta]; }
+      valor: indice,
+      campos: [{ etiqueta: op.etiqueta || 'Elige una', tipo: 'opcion', opciones: lista }],
+      verificar: function (vals) { return String(vals[0]) === String(indice); },
+      mostrar: function () { return lista[indice]; }
     });
   };
 
