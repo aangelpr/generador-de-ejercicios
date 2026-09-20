@@ -120,9 +120,10 @@ clase desde cero, y se entendía mal. El código quedó ahí por si acaso
 
 **Temas ya completos** (todos sus subtemas): todo el bloque de aritmética y
 álgebra (signos, exponentes, fracciones, proporciones, sucesiones, progresiones,
-monomios, binomios, trinomios y polinomios) y toda la geometría y trigonometría
-(polígonos, Tales, Pitágoras, ley de senos y ley de cosenos): 170 de 317
-subtemas. En los demás temas el paso a paso
+monomios, binomios, trinomios y polinomios), toda la geometría y trigonometría
+(polígonos, Tales, Pitágoras, ley de senos y ley de cosenos) y toda la geometría
+analítica (coordenadas, cónicas y excentricidad): 195 de 317 subtemas. En los
+demás temas el paso a paso
 está en un subtema representativo; el resto sigue con **Cómo se resuelve** (la
 regla y un ejemplo resuelto) mientras se les escribe el guion.
 
