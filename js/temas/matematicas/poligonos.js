@@ -18,6 +18,8 @@
     { n: 20, nombre: 'icosagono', alt: [] }
   ];
 
+  var G = EJ.guia.armar;
+
   var extra = {};
 
   extra.anguloCentral = function (r) {
@@ -81,6 +83,24 @@
           sol = ['El prefijo griego para ' + p.n + ' da el nombre',
             'Se llama <b>' + p.nombre + '</b>'];
         } else {
+          guiaDelPaso = G({
+            intro: 'Nos preguntan cuantos lados tiene un <b>' + p.nombre + '</b>.<br>' +
+              'No hay que memorizar la lista: el nombre lo dice, porque viene de un prefijo griego.',
+            pasos: [
+              { pregunta: 'Separa la palabra <b>' + p.nombre + '</b>. La terminacion "-gono" significa "angulo".<br>&iquest;Cual es el prefijo, o sea lo que va antes?',
+                resp: R.texto(p.nombre.replace(/gono$|latero$|gulo$/, ''), { alternativas: [p.nombre] }),
+                pista: 'Quitale la terminacion a ' + p.nombre + '.',
+                despues: 'Ese prefijo es el que trae el numero.' },
+              { pregunta: '&iquest;Que numero significa ese prefijo?',
+                resp: R.numero(p.n, { dec: 0 }),
+                pista: 'tri = 3, tetra/cuadri = 4, penta = 5, hexa = 6, hepta = 7, octa = 8, enea = 9, deca = 10, dodeca = 12, icosa = 20.',
+                despues: '' }
+            ],
+            final: 'Un ' + p.nombre + ' tiene <b>' + p.n + ' lados</b>',
+            receta: ['La terminacion -gono significa angulo',
+              'El prefijo griego dice el numero',
+              'Mismo numero de lados que de angulos']
+          });
           enun = '&iquest;Cuantos lados tiene un ' + p.nombre + '?';
           resp = R.numero(p.n, { dec: 0, unidad: 'lados' });
           pistas = ['Fijate en el prefijo griego del nombre.',

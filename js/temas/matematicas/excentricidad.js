@@ -3,6 +3,8 @@
   'use strict';
   var F = EJ.fmt, R = EJ.resp;
 
+  var G = EJ.guia.armar;
+
   var extra = {};
 
   extra.comparar = function (r) {
@@ -65,6 +67,32 @@
             { n: 'una parabola', e: 1, txt: '1' }
           ];
           var cn = r.elige(conicas);
+          guiaDelPaso = G({
+            intro: 'Nos preguntan la excentricidad de <b>' + cn.n + '</b>.<br>' +
+              'La excentricidad siempre es <b>e = c/a</b>, donde c es la distancia del centro a un foco.',
+            pasos: cn.e === 0 ? [
+              { pregunta: 'En una circunferencia, &iquest;donde estan sus dos focos?',
+                resp: R.opcion(['Los dos juntos, en el centro', 'Separados, como en la elipse'], 0),
+                pista: 'Una circunferencia es una elipse donde los focos se juntaron hasta coincidir.',
+                despues: 'Al estar los dos en el centro, la distancia del centro al foco es cero.' },
+              { pregunta: 'Entonces c = 0. &iquest;Cuanto vale e = c/a = 0/a?',
+                resp: R.numero(0, { dec: 2 }),
+                pista: 'Cero entre cualquier numero da cero.', despues: '' }
+            ] : [
+              { pregunta: 'La definicion de parabola dice que cada punto esta a la misma distancia del foco que de la directriz.<br>&iquest;Como es entonces la razon entre esas dos distancias?',
+                resp: R.opcion(['Igual a 1, porque son iguales', 'Menor que 1', 'Mayor que 1'], 0),
+                pista: 'Si dos cosas son iguales, al dividir una entre otra da 1.',
+                despues: 'Y esa razon es precisamente la excentricidad.' },
+              { pregunta: 'Entonces, &iquest;cuanto vale la excentricidad de una parabola?',
+                resp: R.numero(1, { dec: 2 }),
+                pista: 'Lo acabas de decir.', despues: '' }
+            ],
+            final: 'La excentricidad de ' + cn.n + ' es <b>' + cn.e + '</b>',
+            receta: ['e = c/a siempre',
+              'Circunferencia: los focos coinciden, c = 0, e = 0',
+              'Parabola: por definicion e = 1',
+              'Elipse entre 0 y 1; hiperbola mayor que 1']
+          });
           enun = '&iquest;Cuanto vale la excentricidad de ' + cn.n + '?';
           resp = R.numero(cn.e, { dec: 2 });
           pistas = ['Piensa en que tan "estirada" esta la curva respecto a un circulo.',

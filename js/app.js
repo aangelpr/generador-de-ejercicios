@@ -3,7 +3,7 @@
   'use strict';
   /* Sube esto junto con la version de sw.js. Se ve en Ajustes y sirve para
      saber de un vistazo si el celular ya tiene la version nueva. */
-  var VERSION = 'v8 (20 sep 2026)';
+  var VERSION = 'v9 (20 sep 2026)';
 
   var cfg = EJ.almacen.config;
   var estado = null;
@@ -513,6 +513,27 @@
     card.appendChild(crear('div', 'paso-contador',
       'Paso ' + (estado.paso + 1) + ' de ' + g.pasos.length));
     card.appendChild(crear('div', 'paso-pregunta', paso.pregunta));
+
+    /* pasos que solo explican: no se pregunta nada, solo se sigue */
+    if (paso.soloTexto || !paso.resp) {
+      var accT = crear('div', 'acciones');
+      var seguir = crear('button', 'primario', 'Entendido, siguiente');
+      seguir.onclick = function () {
+        EJ.motor.avanzarPaso(estado);
+        estado.bitacora.push('<span class="bien-marca">&#10003;</span> ' + paso.pregunta);
+        pintarGuiado();
+      };
+      accT.appendChild(seguir);
+      var otroT = crear('button', 'fantasma', 'Otro ejercicio');
+      otroT.onclick = function () { nuevoEjercicio(); };
+      accT.appendChild(otroT);
+      card.appendChild(accT);
+      card.appendChild(crear('div', 'feedback'));
+      zona.appendChild(card);
+      actualizarEstadisticas();
+      return;
+    }
+
     card.appendChild(pintarCampos(paso.resp));
 
     var acciones = crear('div', 'acciones');

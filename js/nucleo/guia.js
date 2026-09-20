@@ -19,6 +19,96 @@
   var EJ = global.EJ = global.EJ || {};
   var F = EJ.fmt, R = EJ.resp, P = EJ.poli;
 
+  /* ================= GUIA AUTOMATICA DESDE LA SOLUCION =================
+     Cada ejercicio ya trae su solucion paso a paso escrita. En vez de redactar
+     otro guion aparte, se toma esa solucion, se le tapa el resultado a cada
+     paso y se pregunta. Asi CUALQUIER subtema tiene entrenamiento guiado,
+     resolviendo el mismo ejercicio que se genero. */
+
+  /* Busca el numero con el que termina un paso ("... = 169" o "... <b>169</b>"). */
+  function valorDelPaso(texto) {
+    var t = String(texto).replace(/\s+$/, '').replace(/\.$/, '');
+    var pruebas = [
+      /=\s*<b>\s*(-?\d[\d.]*)\s*<\/b>\s*$/,
+      /<b>\s*(-?\d[\d.]*)\s*<\/b>\s*$/,
+      /=\s*(-?\d[\d.]*)\s*$/
+    ];
+    for (var i = 0; i < pruebas.length; i++) {
+      var m = t.match(pruebas[i]);
+      if (m) {
+        var num = parseFloat(m[1]);
+        if (isFinite(num)) return { crudo: m[0], numero: num, decimales: (m[1].split('.')[1] || '').length };
+      }
+    }
+    return null;
+  }
+
+  /* Muchos pasos terminan en una fraccion dibujada con HTML. Tambien se puede
+     preguntar: se detecta el numerador y el denominador. */
+  function fraccionDelPaso(texto) {
+    var t = String(texto).replace(/\s+$/, '').replace(/\.$/, '');
+    var re = /(&minus;|-)?\s*<span class="frac"><span class="num">\s*(-?\d+)\s*<\/span><span class="den">\s*(\d+)\s*<\/span><\/span>\s*(<\/b>)?\s*$/;
+    var m = t.match(re);
+    if (!m) return null;
+    var num = parseInt(m[2], 10), den = parseInt(m[3], 10);
+    if (!isFinite(num) || !isFinite(den) || den === 0) return null;
+    if (m[1]) num = -num;
+    /* solo si el renglon trae una operacion; si no, no hay nada que calcular */
+    var plano = t.replace(/<[^>]+>/g, ' ');
+    if (!/[=+\u2212]|&minus;|&middot;|&divide;|\/|x|\+/.test(plano)) return null;
+    return { crudo: m[0], num: num, den: den };
+  }
+
+  /* Pasa un pedazo de HTML matematico a algo que el interprete pueda leer:
+     x<sup>2</sup> -> x^2, &minus; -> -, &middot; -> *, etc. */
+  function aTexto(html) {
+    return String(html)
+      .replace(/<sup>\s*([^<]*)<\/sup>/g, '^($1)')
+      .replace(/<[^>]+>/g, '')
+      .replace(/&minus;/g, '-').replace(/&middot;/g, '*').replace(/&times;/g, '*')
+      .replace(/&divide;/g, '/').replace(/&nbsp;/g, ' ')
+      .replace(/&sup2;/g, '^2').replace(/&sup3;/g, '^3')
+      .replace(/&radic;/g, 'sqrt').replace(/&pi;/g, 'pi')
+      .trim();
+  }
+
+  /* Si el paso termina en una expresion algebraica ("... = 3x^2 - 2x"),
+     tambien se puede preguntar. Se revisa que el interprete la entienda. */
+  function expresionDelPaso(texto) {
+    var t = String(texto).replace(/\s+$/, '').replace(/\.$/, '');
+    var pruebas = [
+      /=\s*<b>([\s\S]{1,60}?)<\/b>\s*$/,
+      /<b>([\s\S]{1,60}?)<\/b>\s*$/,
+      /=\s*([^=<]{1,60})$/
+    ];
+    for (var i = 0; i < pruebas.length; i++) {
+      var m = t.match(pruebas[i]);
+      if (!m) continue;
+      var plano = aTexto(m[1]);
+      if (!plano || plano.length > 40) continue;
+      if (!/[a-z]/i.test(plano)) continue;                 // sin letras no es expresion
+      if (/[,;:?]|\s(y|o|de|en|es|que)\s/i.test(plano)) continue;   // parece texto normal
+      var vars = [];
+      ['x', 'y', 'n', 't', 'u'].forEach(function (v) {
+        if (new RegExp('(^|[^a-z])' + v + '([^a-z]|$)', 'i').test(plano)) vars.push(v);
+      });
+      if (!vars.length || vars.length > 2) continue;
+      if (!EJ.expr.valida(plano, vars)) continue;
+      return { crudo: m[0], texto: plano, vars: vars, muestra: m[1] };
+    }
+    return null;
+  }
+
+  /* Reemplaza ese valor final por un signo de interrogacion. */
+  function tapaValor(texto, crudo) {
+    var i = texto.lastIndexOf(crudo);
+    if (i === -1) return texto;
+    /* Ojo: se revisa si EMPIEZA con "=", no si lo contiene; el HTML trae
+       atributos como class="frac" que tambien llevan un igual. */
+    var reemplazo = /^\s*=/.test(crudo) ? '= <b>?</b>' : '<b>?</b>';
+    return texto.slice(0, i) + reemplazo + texto.slice(i + crudo.length);
+  }
+
   /* ---------- ayudas para dibujar tableros ---------- */
   function celda(v, ancho) {
     var s = (v === null || v === undefined) ? '' : String(v);
@@ -46,6 +136,73 @@
       receta: g.receta || []
     };
   };
+
+  guia.desdeSolucion = function (ej) {
+    var sol = (ej.solucion || []).filter(function (x) { return x && String(x).trim(); });
+    if (sol.length < 2) return null;
+
+    var pasos = [];
+    for (var i = 0; i < sol.length; i++) {
+      var texto = sol[i];
+      var ultimo = (i === sol.length - 1);
+      var v = ultimo ? null : valorDelPaso(texto);   // el ultimo paso ya es la respuesta
+      if (v) {
+        pasos.push({
+          pregunta: tapaValor(texto, v.crudo),
+          resp: R.numero(v.numero, { dec: v.decimales, tol: v.decimales ? Math.pow(10, -v.decimales) * 5 : 1e-6 }),
+          pista: 'Haz solo la operacion de este renglon, nada mas.',
+          despues: texto
+        });
+        continue;
+      }
+      var fr = ultimo ? null : fraccionDelPaso(texto);
+      if (fr) {
+        pasos.push({
+          pregunta: tapaValor(texto, fr.crudo),
+          resp: R.fraccion(fr.num, fr.den),
+          pista: 'Solo este renglon: escribe la fraccion que queda (por ejemplo 3/4).',
+          despues: texto
+        });
+        continue;
+      }
+      var e = ultimo ? null : expresionDelPaso(texto);
+      if (e) {
+        /* Auto-prueba: la pregunta solo sirve si su propia respuesta se valida.
+           Si el texto no era realmente una expresion evaluable (por ejemplo
+           "4n + b", con una letra desconocida), aqui se descarta. */
+        var respE = R.expresion(e.texto, { vars: e.vars, mostrar: e.muestra });
+        var sirve = false;
+        try { sirve = !!respE.verificar([e.texto]); } catch (err) { sirve = false; }
+        if (sirve) {
+          pasos.push({
+            pregunta: tapaValor(texto, e.crudo),
+            resp: respE,
+            pista: 'Solo este renglon: escribe la expresion que queda.',
+            despues: texto
+          });
+          continue;
+        }
+      }
+      pasos.push({ soloTexto: true, pregunta: texto, resp: null });
+    }
+
+    pasos.push({
+      pregunta: 'Con todo eso ya se puede cerrar el ejercicio.<br><b>Escribe la respuesta final.</b>',
+      resp: ej.respuesta,
+      pista: (ej.pistas || [])[(ej.pistas || []).length - 1] || 'Junta lo que fuiste calculando.',
+      despues: ''
+    });
+
+    return {
+      intro: ej.enunciado,
+      tablero: null,
+      pasos: pasos,
+      final: 'Respuesta: <b>' + ej.respuesta.mostrar() + '</b>',
+      receta: (ej.pistas || []).slice(0, 2),
+      derivada: true
+    };
+  };
+
 
   /* ================= DIVISION SINTETICA ================= */
   guia.sintetica = function (coefs, a) {

@@ -16,6 +16,16 @@
     return (historial[temaId] || []).indexOf(enunciado) !== -1;
   }
 
+  /* El guion del ejercicio: el escrito a mano si existe, y si no uno armado
+     automaticamente con los pasos de su propia solucion. */
+  function guiaDe(ej) {
+    if (ej.guia && (ej.guia.pasos || []).length) return ej.guia;
+    if (EJ.guia && EJ.guia.desdeSolucion) {
+      try { return EJ.guia.desdeSolucion(ej); } catch (e) { return null; }
+    }
+    return null;
+  }
+
   function valido(ej) {
     return ej && ej.enunciado && ej.respuesta && typeof ej.respuesta.verificar === 'function';
   }
@@ -112,7 +122,7 @@
           for (var i = 0; i < 3; i++) {
             try {
               var h = generarCrudo(tema, dificultad, 5000 + i * 313, s.id, false);
-              if (h.ej.guia && (h.ej.guia.pasos || []).length) { lista.push(s); return; }
+              if (guiaDe(h.ej)) { lista.push(s); return; }
             } catch (e) { /* sigue */ }
           }
         });
@@ -139,7 +149,9 @@
         for (var i = 0; i < 15; i++) {
           var hecho;
           try { hecho = generarCrudo(tema, dificultad, null, orden[k], true); } catch (e) { continue; }
-          if (!hecho.ej.guia || !(hecho.ej.guia.pasos || []).length) continue;
+          var guion = guiaDe(hecho.ej);
+          if (!guion) continue;
+          hecho.ej.guia = guion;
           recuerda(temaId, hecho.ej.enunciado);
           return {
             temaId: temaId, tema: tema, dificultad: dificultad,
@@ -185,6 +197,20 @@
         });
       }
       return { correcto: true, despues: paso.despues, terminado: acabo };
+    },
+
+    /* Pasos que solo explican: se avanza sin contestar nada. */
+    avanzarPaso: function (estado) {
+      var pasos = estado.ej.guia.pasos;
+      estado.paso++;
+      estado.intentosPaso = 0;
+      if (estado.paso >= pasos.length) {
+        estado.terminado = true;
+        EJ.almacen.registrar(estado.temaId, estado.dificultad, {
+          correcto: true, intentos: 1 + estado.errores, revelado: false
+        });
+      }
+      return { terminado: estado.terminado };
     },
 
     /* Se rinde en este paso: se lo enseñamos y seguimos al siguiente. */

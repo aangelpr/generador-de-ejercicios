@@ -109,19 +109,21 @@ Si te atoras en un paso hay **Dame una pista** y **No sé, enséñame este paso*
 (te lo resuelve y sigues con el siguiente). Sirve con cualquier dificultad: si
 la que tienes puesta no lo tiene, el botón te lleva a la que sí.
 
-**Todos los 31 temas tienen entrenamiento guiado** en al menos un subtema (los
-verás marcados con *paso a paso* en la lista). Algunos ejemplos de lo que te
-enseña operación por operación:
+**Los 317 subtemas tienen entrenamiento paso a paso.** Funciona con el MISMO
+ejercicio que se te genera: no es otro distinto ni un ejemplo aparte.
 
-- **División sintética**: bajar, multiplicar, sumar, con el tablero llenándose.
-- **Fracciones**: m.c.m., convertir cada una, operar numeradores, simplificar.
-- **Ley de cosenos**: a²+b², el coseno, el doble producto, la resta y la raíz.
-- **Binomial**: C(n,k), p elevado a los éxitos, q a los fracasos, y el producto.
-- **Integración por partes**: elegir u y dv, obtener du y v, aplicar la fórmula.
+Cómo se arma cada guion:
 
-Los demás subtemas de cada tema siguen con el apartado **Cómo se resuelve**
-(regla + ejemplo resuelto), y el modo guiado se puede ampliar a cualquiera de
-ellos escribiendo su guion.
+- Cada subtema ya trae escrita su solución paso a paso (la que sale al agotar
+  los intentos). El modo guiado toma esos mismos renglones, **le tapa el
+  resultado a cada uno y te lo pregunta**.
+- Detecta automáticamente si el renglón termina en un número, en una fracción o
+  en una expresión algebraica, y te pide la respuesta en ese formato. Antes de
+  usar una pregunta la valida contra sí misma; si no es contestable, ese renglón
+  solo se explica y avanzas con *Entendido, siguiente*.
+- 24 subtemas tienen además un guion **escrito a mano**, más detallado, que se
+  usa en lugar del automático (división sintética con su tablero, fracciones,
+  leyes de los signos y exponentes completos, Pitágoras, binomio al cuadrado…).
 
 ### Práctica mixta
 
