@@ -53,6 +53,7 @@
       'log<sub>b</sub>b = 1, log<sub>b</sub>1 = 0, cambio de base: log<sub>b</sub>x = ln x / ln b',
 
     generar: function (dif, r) {
+      var guiaDelPaso = null;   // guia paso a paso, si este subtema la tiene
       var enun, resp, pistas, sol, b, n, x, y;
 
       if (dif === 'facil') {
@@ -67,6 +68,7 @@
         n = r.entero(1, 5);
         x = Math.pow(b, n);
         if (t === 'evaluar') {
+          guiaDelPaso = EJ.guia.logaritmoEvaluar(b, n);
           enun = 'Calcula: ' + logSub(b, x);
           resp = R.numero(n, { dec: 2 });
           pistas = ['Preguntate: &iquest;a que exponente hay que elevar ' + b + ' para obtener ' + x + '?',
@@ -208,7 +210,8 @@
         }
       }
 
-      return { enunciado: enun, respuesta: resp, pistas: pistas, solucion: sol };
+      return {
+        guia: guiaDelPaso, enunciado: enun, respuesta: resp, pistas: pistas, solucion: sol };
     }
   });
 })();

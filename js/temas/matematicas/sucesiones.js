@@ -51,6 +51,7 @@
       'Segunda diferencia constante &rArr; a<sub>n</sub> es de segundo grado en n',
 
     generar: function (dif, r) {
+      var guiaDelPaso = null;   // guia paso a paso, si este subtema la tiene
       var enun, resp, pistas, sol, v = [], i;
 
       if (dif === 'facil') {
@@ -65,6 +66,7 @@
         if (t === 'aritmetica') {
           var a1 = r.entero(-9, 12), d = r.enteroNoCero(-7, 9);
           for (i = 0; i < 5; i++) v.push(a1 + i * d);
+          guiaDelPaso = EJ.guia.siguienteTermino(v, d);
           enun = 'Escribe el siguiente termino de la sucesion:<br><span class="big">' + lista(v) + '</span>';
           resp = R.numero(a1 + 5 * d, { dec: 0 });
           pistas = ['Fijate en la diferencia entre terminos consecutivos.',
@@ -179,7 +181,8 @@
         }
       }
 
-      return { enunciado: enun, respuesta: resp, pistas: pistas, solucion: sol };
+      return {
+        guia: guiaDelPaso, enunciado: enun, respuesta: resp, pistas: pistas, solucion: sol };
     }
   });
 })();

@@ -77,6 +77,7 @@
       'Variacion lineal: y = mx + b, con m = (y<sub>2</sub> &minus; y<sub>1</sub>)/(x<sub>2</sub> &minus; x<sub>1</sub>)',
 
     generar: function (dif, r) {
+      var guiaDelPaso = null;   // guia paso a paso, si este subtema la tiene
       var a, b, c, d, enun, resp, pistas, sol;
 
       if (dif === 'facil') {
@@ -102,6 +103,7 @@
           var n1 = r.entero(2, 9);
           var precioU = r.entero(3, 25);
           var n2 = r.entero(2, 15);
+          guiaDelPaso = EJ.guia.reglaDeTres(n1, precioU, n2, obj);
           enun = 'Si ' + n1 + ' ' + obj + ' cuestan $' + (n1 * precioU) + ', &iquest;cuanto cuestan ' + n2 + ' ' + obj + '?';
           resp = R.numero(n2 * precioU, { unidad: 'pesos', dec: 2 });
           pistas = ['Es una regla de tres directa: mas ' + obj + ', mas dinero.',
@@ -191,7 +193,8 @@
         }
       }
 
-      return { enunciado: enun, respuesta: resp, pistas: pistas, solucion: sol };
+      return {
+        guia: guiaDelPaso, enunciado: enun, respuesta: resp, pistas: pistas, solucion: sol };
     }
   });
 })();

@@ -50,6 +50,7 @@
       'Geometrica: a<sub>n</sub> = a<sub>1</sub>r<sup>n&minus;1</sup> &nbsp;&middot;&nbsp; S<sub>n</sub> = a<sub>1</sub>(r<sup>n</sup> &minus; 1)/(r &minus; 1) &nbsp;&middot;&nbsp; S<sub>&infin;</sub> = a<sub>1</sub>/(1 &minus; r) si |r| &lt; 1',
 
     generar: function (dif, r) {
+      var guiaDelPaso = null;   // guia paso a paso, si este subtema la tiene
       var enun, resp, pistas, sol, a1, d, n, q, an;
 
       if (dif === 'facil') {
@@ -61,6 +62,7 @@
         if (tf === 'aritmetica') {
           a1 = r.entero(-8, 12); d = r.enteroNoCero(-6, 8); n = r.entero(8, 20);
           an = a1 + (n - 1) * d;
+          guiaDelPaso = EJ.guia.terminoAritmetico(a1, d, n);
           enun = 'En una progresion aritmetica a<sub>1</sub> = ' + a1 + ' y d = ' + d + '.<br>Calcula a<sub>' + n + '</sub>.';
           resp = R.numero(an, { dec: 0 });
           pistas = ['Usa a<sub>n</sub> = a<sub>1</sub> + (n &minus; 1)d.',
@@ -172,7 +174,8 @@
         }
       }
 
-      return { enunciado: enun, respuesta: resp, pistas: pistas, solucion: sol };
+      return {
+        guia: guiaDelPaso, enunciado: enun, respuesta: resp, pistas: pistas, solucion: sol };
     }
   });
 })();

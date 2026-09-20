@@ -77,6 +77,7 @@
       'Inyectiva: a valores distintos de x corresponden valores distintos de y (pasa la prueba de la recta horizontal).',
 
     generar: function (dif, r) {
+      var guiaDelPaso = null;   // guia paso a paso, si este subtema la tiene
       var enun, resp, pistas, sol, a, b;
       var TIPOS = ['Constante', 'Lineal', 'Cuadratica', 'Cubica', 'Racional', 'Radical', 'Exponencial', 'Logaritmica', 'Trigonometrica', 'Valor absoluto'];
 
@@ -101,6 +102,10 @@
         var pool = dif === 'facil' ? muestras.slice(0, 7) : muestras;
         var m = r.elige(pool);
         var texto = m.f();
+        var otras = r.muestra(pool.filter(function (o) { return o.t !== m.t; }), 3)
+          .map(function (o) { return o.por; });
+        var desc = r.baraja([m.por].concat(otras));
+        guiaDelPaso = EJ.guia.tipoFuncion(texto, desc, desc.indexOf(m.por), TIPOS, m.t);
         enun = '&iquest;Que tipo de funcion es f(x) = ' + texto + '?';
         resp = R.opcion(TIPOS, m.t);
         pistas = ['Fijate en donde esta la variable: en la base, en el exponente, dentro de una raiz, en un denominador&hellip;',
@@ -159,7 +164,8 @@
         }
       }
 
-      return { enunciado: enun, respuesta: resp, pistas: pistas, solucion: sol };
+      return {
+        guia: guiaDelPaso, enunciado: enun, respuesta: resp, pistas: pistas, solucion: sol };
     }
   });
 })();

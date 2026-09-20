@@ -35,6 +35,7 @@
       'Lo que elijas como u debe simplificarse al derivarlo.',
 
     generar: function (dif, r) {
+      var guiaDelPaso = null;   // guia paso a paso, si este subtema la tiene
       var enun, resp, pistas, sol, k, n, texto, mostrar, ayudaU;
       var opciones = { masConstante: true, ayuda: 'No hace falta escribir "+C". Usa ^ para exponentes y * para multiplicar.' };
 
@@ -47,6 +48,7 @@
         if (extra[t]) return extra[t](r, dif);
         k = r.entero(1, 4);
         if (t === 'xExp') {
+          guiaDelPaso = EJ.guia.partesXExp(k);
           enun = 'Resuelve: ' + inte('x e' + F.sup(k + 'x'));
           texto = 'exp(' + k + '*x)*(x/' + k + '-1/' + (k * k) + ')';
           mostrar = 'e' + F.sup(k + 'x') + '(' + F.frac('x', k) + ' &minus; ' + F.frac(1, k * k) + ') + C';
@@ -171,13 +173,15 @@
             'En x = ' + lim + ': e' + F.sup(lim) + '(' + (lim - 1) + ') = ' + F.n((lim - 1) * Math.exp(lim), 4),
             'En x = 0: e&#8304;(&minus;1) = &minus;1',
             'Integral = ' + F.n((lim - 1) * Math.exp(lim), 4) + ' &minus; (&minus;1) = <b>' + F.n(valor, 4) + '</b>'];
-          return { enunciado: enun, respuesta: resp, pistas: pistas, solucion: sol };
+          return {
+        guia: guiaDelPaso, enunciado: enun, respuesta: resp, pistas: pistas, solucion: sol };
         }
       }
 
       resp = R.expresion(texto, opciones);
       resp.mostrar = function () { return mostrar; };
-      return { enunciado: enun, respuesta: resp, pistas: pistas, solucion: sol };
+      return {
+        guia: guiaDelPaso, enunciado: enun, respuesta: resp, pistas: pistas, solucion: sol };
     }
   });
 })();

@@ -109,21 +109,19 @@ Si te atoras en un paso hay **Dame una pista** y **No sé, enséñame este paso*
 (te lo resuelve y sigues con el siguiente). Sirve con cualquier dificultad: si
 la que tienes puesta no lo tiene, el botón te lleva a la que sí.
 
-Ahora mismo hay entrenamiento guiado en:
+**Todos los 31 temas tienen entrenamiento guiado** en al menos un subtema (los
+verás marcados con *paso a paso* en la lista). Algunos ejemplos de lo que te
+enseña operación por operación:
 
-| Tema | Qué te enseña paso a paso |
-|---|---|
-| Leyes de los signos | Multiplicación: primero el signo, luego los números |
-| Leyes de los exponentes | Producto de potencias de la misma base |
-| Reglas para fracciones | Suma y resta: m.c.m., conversión, operar y simplificar |
-| Binomios | Binomio al cuadrado: los tres términos uno por uno |
-| Trinomios | Factorizar x² + bx + c buscando los dos números |
-| Polinomios | **División sintética** (bajar, multiplicar, sumar) y factor común |
-| Teorema de Pitágoras | Cuadrados, suma y raíz |
-| Reglas de derivación | Derivar un polinomio término por término |
+- **División sintética**: bajar, multiplicar, sumar, con el tablero llenándose.
+- **Fracciones**: m.c.m., convertir cada una, operar numeradores, simplificar.
+- **Ley de cosenos**: a²+b², el coseno, el doble producto, la resta y la raíz.
+- **Binomial**: C(n,k), p elevado a los éxitos, q a los fracasos, y el producto.
+- **Integración por partes**: elegir u y dv, obtener du y v, aplicar la fórmula.
 
-Los demás temas siguen teniendo el apartado **Cómo se resuelve** con la regla y
-un ejemplo resuelto. El modo guiado se irá ampliando a más subtemas.
+Los demás subtemas de cada tema siguen con el apartado **Cómo se resuelve**
+(regla + ejemplo resuelto), y el modo guiado se puede ampliar a cualquiera de
+ellos escribiendo su guion.
 
 ### Práctica mixta
 

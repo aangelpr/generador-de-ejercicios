@@ -67,6 +67,7 @@
       'Se usa con: dos lados y el angulo entre ellos (LAL) o los tres lados (LLL). Si C = 90&deg; se reduce a Pitagoras.',
 
     generar: function (dif, r) {
+      var guiaDelPaso = null;   // guia paso a paso, si este subtema la tiene
       var enun, resp, pistas, sol, a, b, c, C, A;
 
       if (dif === 'facil') {
@@ -78,6 +79,7 @@
         a = r.entero(4, 20); b = r.entero(4, 20);
         C = r.elige([30, 45, 60, 70, 80, 100, 120, 135]);
         c = Math.sqrt(a * a + b * b - 2 * a * b * Math.cos(rad(C)));
+        guiaDelPaso = EJ.guia.leyCosenosLado(a, b, C);
         enun = 'En un triangulo a = ' + a + ' cm, b = ' + b + ' cm y el angulo entre ellos C = ' + C + '&deg;.<br>' +
           'Calcula el lado c (2 decimales).' + figura('a=' + a, 'b=' + b, 'c=?', C + '&deg;');
         resp = R.numero(c, { dec: 2, tol: 0.02, unidad: 'cm' });
@@ -185,7 +187,8 @@
         }
       }
 
-      return { enunciado: enun, respuesta: resp, pistas: pistas, solucion: sol };
+      return {
+        guia: guiaDelPaso, enunciado: enun, respuesta: resp, pistas: pistas, solucion: sol };
     }
   });
 })();

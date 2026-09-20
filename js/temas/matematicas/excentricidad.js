@@ -40,6 +40,7 @@
       'Elipse: c&sup2; = a&sup2; &minus; b&sup2; &nbsp;&middot;&nbsp; Hiperbola: c&sup2; = a&sup2; + b&sup2;',
 
     generar: function (dif, r) {
+      var guiaDelPaso = null;   // guia paso a paso, si este subtema la tiene
       var enun, resp, pistas, sol, a, b, c, e;
 
       if (dif === 'facil') {
@@ -89,6 +90,7 @@
         if (tm === 'elipseEcuacion') {
           a = r.entero(3, 10); b = r.entero(2, a - 1);
           c = Math.sqrt(a * a - b * b); e = c / a;
+          guiaDelPaso = EJ.guia.excentricidadElipse(a, b);
           enun = 'Calcula la excentricidad de la elipse <span class="big">' +
             F.frac('x&sup2;', a * a) + ' + ' + F.frac('y&sup2;', b * b) + ' = 1</span> (4 decimales).';
           resp = R.numero(e, { dec: 4, tol: 0.005 });
@@ -170,7 +172,8 @@
         }
       }
 
-      return { enunciado: enun, respuesta: resp, pistas: pistas, solucion: sol };
+      return {
+        guia: guiaDelPaso, enunciado: enun, respuesta: resp, pistas: pistas, solucion: sol };
     }
   });
 })();

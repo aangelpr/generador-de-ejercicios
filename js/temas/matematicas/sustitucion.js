@@ -52,6 +52,7 @@
       'En definidas conviene cambiar tambien los limites: &int;<sub>a</sub><sup>b</sup> &rarr; &int;<sub>g(a)</sub><sup>g(b)</sup>',
 
     generar: function (dif, r) {
+      var guiaDelPaso = null;   // guia paso a paso, si este subtema la tiene
       var enun, resp, pistas, sol, k, n, a, b, texto, mostrar;
       var opciones = { masConstante: true, ayuda: 'No hace falta escribir "+C". Usa ^ para exponentes.' };
 
@@ -65,6 +66,7 @@
         if (extra[t]) return extra[t](r, dif);
         if (t === 'binomio') {
           a = r.entero(2, 6); b = r.entero(-8, 8); n = r.entero(2, 5);
+          guiaDelPaso = EJ.guia.sustitucionBinomio(a, b, n);
           enun = 'Resuelve: ' + inte('(' + P.texto([a, b]) + ')' + F.sup(n));
           texto = '((' + a + '*x+(' + b + '))^(' + (n + 1) + '))/(' + (a * (n + 1)) + ')';
           mostrar = F.frac('(' + P.texto([a, b]) + ')' + F.sup(n + 1), a * (n + 1)) + ' + C';
@@ -168,7 +170,8 @@
             'Limites nuevos: de u = 1 a u = ' + (b * b + 1),
             '(1/2)&int;<sub>1</sub><sup>' + (b * b + 1) + '</sup> u' + F.sup(n) + 'du = ' + F.frac('u' + F.sup(n + 1), 2 * (n + 1)) + ' evaluado',
             'Resultado = (' + (b * b + 1) + F.sup(n + 1) + ' &minus; 1)/' + (2 * (n + 1)) + ' = <b>' + F.n(valor, 4) + '</b>'];
-          return { enunciado: enun, respuesta: resp, pistas: pistas, solucion: sol };
+          return {
+        guia: guiaDelPaso, enunciado: enun, respuesta: resp, pistas: pistas, solucion: sol };
         } else if (t3 === 'raizCubica') {
           a = r.entero(1, 9);
           enun = 'Resuelve: ' + inte('x&sup2; &radic;<span class="rad">x&sup3; + ' + a + '</span>');
@@ -209,7 +212,8 @@
 
       resp = R.expresion(texto, opciones);
       resp.mostrar = function () { return mostrar; };
-      return { enunciado: enun, respuesta: resp, pistas: pistas, solucion: sol };
+      return {
+        guia: guiaDelPaso, enunciado: enun, respuesta: resp, pistas: pistas, solucion: sol };
     }
   });
 })();

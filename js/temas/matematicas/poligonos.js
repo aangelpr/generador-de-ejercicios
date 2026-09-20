@@ -64,6 +64,7 @@
       'Numero de diagonales = n(n &minus; 3)/2',
 
     generar: function (dif, r) {
+      var guiaDelPaso = null;   // guia paso a paso, si este subtema la tiene
       var enun, resp, pistas, sol, p;
 
       if (dif === 'facil') {
@@ -96,6 +97,7 @@
         if (extra[t]) return extra[t](r, dif);
         p = r.elige(POL);
         if (t === 'suma') {
+          guiaDelPaso = EJ.guia.angulosPoligono(p.n, p.nombre);
           enun = '&iquest;Cuanto suman los angulos interiores de un ' + p.nombre + '?';
           resp = R.numero((p.n - 2) * 180, { dec: 0, unidad: 'grados' });
           pistas = ['La formula es (n &minus; 2) &middot; 180&deg;.',
@@ -173,7 +175,8 @@
         }
       }
 
-      return { enunciado: enun, respuesta: resp, pistas: pistas, solucion: sol };
+      return {
+        guia: guiaDelPaso, enunciado: enun, respuesta: resp, pistas: pistas, solucion: sol };
     }
   });
 })();

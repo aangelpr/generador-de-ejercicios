@@ -45,6 +45,7 @@
       'Se usa cuando hay n ensayos independientes con solo dos resultados y p constante.',
 
     generar: function (dif, r) {
+      var guiaDelPaso = null;   // guia paso a paso, si este subtema la tiene
       var enun, resp, pistas, sol, n, k, p, val;
 
       if (dif === 'facil') {
@@ -62,6 +63,7 @@
         k = r.entero(1, n - 1);
         p = contexto.p;
         val = binom(n, k, p);
+        guiaDelPaso = EJ.guia.binomialExacta(n, k, p);
         enun = 'Si ' + contexto.txt + ' ' + n + ' veces,<br>&iquest;cual es la probabilidad de que exactamente ' + k + ' veces ' + contexto.exito + '? (4 decimales)';
         resp = R.numero(val, { dec: 4, tol: 0.001 });
         pistas = ['Usa P(X = k) = C(n, k)p<sup>k</sup>(1 &minus; p)<sup>n&minus;k</sup> con n = ' + n + ', k = ' + k + ', p = ' + F.n(p, 4) + '.',
@@ -177,7 +179,8 @@
         }
       }
 
-      return { enunciado: enun, respuesta: resp, pistas: pistas, solucion: sol };
+      return {
+        guia: guiaDelPaso, enunciado: enun, respuesta: resp, pistas: pistas, solucion: sol };
     }
   });
 })();

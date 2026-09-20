@@ -86,6 +86,7 @@
       'En triangulos semejantes los lados correspondientes son proporcionales y los angulos son iguales.',
 
     generar: function (dif, r) {
+      var guiaDelPaso = null;   // guia paso a paso, si este subtema la tiene
       var enun, resp, pistas, sol, a, b, c, x, k;
 
       if (dif === 'facil') {
@@ -98,6 +99,7 @@
         a = r.entero(2, 12); b = r.entero(2, 12);
         c = a * k; x = b * k;
         while (Math.abs(c - Math.round(c)) > 1e-9) { a = r.entero(2, 12); c = a * k; }
+        guiaDelPaso = EJ.guia.tales(a, b, c);
         enun = 'Tres rectas paralelas cortan a dos rectas. Encuentra el valor de x:' +
           figuraParalelas(a, b, F.n(c), 'x');
         resp = R.numero(x, { dec: 2, tol: 0.01 });
@@ -189,7 +191,8 @@
         }
       }
 
-      return { enunciado: enun, respuesta: resp, pistas: pistas, solucion: sol };
+      return {
+        guia: guiaDelPaso, enunciado: enun, respuesta: resp, pistas: pistas, solucion: sol };
     }
   });
 })();

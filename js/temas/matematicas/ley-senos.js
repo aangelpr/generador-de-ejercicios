@@ -85,6 +85,7 @@
       'Recuerda que A + B + C = 180&deg;.',
 
     generar: function (dif, r) {
+      var guiaDelPaso = null;   // guia paso a paso, si este subtema la tiene
       var enun, resp, pistas, sol, A, B, C, a, b, c;
 
       if (dif === 'facil') {
@@ -97,6 +98,7 @@
         C = 180 - A - B;
         a = r.entero(5, 30);
         b = a * Math.sin(rad(B)) / Math.sin(rad(A));
+        guiaDelPaso = EJ.guia.leySenosLado(A, B, a);
         enun = 'En un triangulo A = ' + A + '&deg;, B = ' + B + '&deg; y el lado a = ' + a + ' cm.<br>' +
           'Calcula el lado b (2 decimales).' + figura('A=' + A + '&deg;', 'B=' + B + '&deg;', '', 'a=' + a, 'b=?', '');
         resp = R.numero(b, { dec: 2, tol: 0.01, unidad: 'cm' });
@@ -195,7 +197,8 @@
         }
       }
 
-      return { enunciado: enun, respuesta: resp, pistas: pistas, solucion: sol };
+      return {
+        guia: guiaDelPaso, enunciado: enun, respuesta: resp, pistas: pistas, solucion: sol };
     }
   });
 })();

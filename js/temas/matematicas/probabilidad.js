@@ -72,6 +72,7 @@
       'Combinaciones: C(n, k) = n! / (k!(n &minus; k)!)',
 
     generar: function (dif, r) {
+      var guiaDelPaso = null;   // guia paso a paso, si este subtema la tiene
       var enun, resp, pistas, sol, a, b, c, n, k;
 
       if (dif === 'facil') {
@@ -100,6 +101,8 @@
           a = r.entero(2, 8); b = r.entero(2, 8); c = r.entero(2, 8);
           var total = a + b + c;
           var color = r.elige([{ n: 'rojas', v: a }, { n: 'azules', v: b }, { n: 'verdes', v: c }]);
+          guiaDelPaso = EJ.guia.probabilidadSimple(color.v, total, 'sea ' + color.n,
+            'Una urna tiene ' + a + ' canicas rojas, ' + b + ' azules y ' + c + ' verdes, y se saca una al azar.');
           enun = 'Una urna tiene ' + a + ' canicas rojas, ' + b + ' azules y ' + c + ' verdes.<br>' +
             'Se saca una al azar. &iquest;Cual es la probabilidad de que sea ' + color.n + '?';
           resp = R.fraccion(color.v, total);
@@ -244,7 +247,8 @@
         }
       }
 
-      return { enunciado: enun, respuesta: resp, pistas: pistas, solucion: sol };
+      return {
+        guia: guiaDelPaso, enunciado: enun, respuesta: resp, pistas: pistas, solucion: sol };
     }
   });
 })();

@@ -115,6 +115,7 @@
       'Con tabla de frecuencias: x&#772; = &Sigma;xf / &Sigma;f',
 
     generar: function (dif, r) {
+      var guiaDelPaso = null;   // guia paso a paso, si este subtema la tiene
       var enun, resp, pistas, sol, datos, i;
 
       if (dif === 'facil') {
@@ -131,6 +132,7 @@
           if (usados.indexOf(v) === -1) { datos.push(v); usados.push(v); }
         }
         datos = r.baraja(datos);
+        guiaDelPaso = EJ.guia.medidasCentrales(datos);
         enun = 'Para los datos:<br><span class="big">' + datos.join(', ') + '</span><br>calcula la media, la mediana y la moda.';
         resp = R.varios([
           { etiqueta: 'Media', resp: R.numero(media(datos), { dec: 4, tol: 0.005 }) },
@@ -274,7 +276,8 @@
         }
       }
 
-      return { enunciado: enun, respuesta: resp, pistas: pistas, solucion: sol };
+      return {
+        guia: guiaDelPaso, enunciado: enun, respuesta: resp, pistas: pistas, solucion: sol };
     }
   });
 })();

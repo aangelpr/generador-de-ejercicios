@@ -41,6 +41,7 @@
       'Si no cumple ninguna, no es par ni impar. par&middot;par = par, impar&middot;impar = par, par&middot;impar = impar.',
 
     generar: function (dif, r) {
+      var guiaDelPaso = null;   // guia paso a paso, si este subtema la tiene
       var enun, resp, pistas, sol, idx, texto;
 
       if (dif === 'facil') {
@@ -87,6 +88,7 @@
           coefs = [r.enteroNoCero(-5, 5), r.enteroNoCero(-4, 4), r.enteroNoCero(-7, 7), 0];
         }
         texto = P.texto(coefs);
+        guiaDelPaso = EJ.guia.paridad(coefs, TIPOS);
         enun = 'Clasifica la funcion f(x) = ' + texto;
         resp = R.opcion(TIPOS, tipo);
         pistas = ['Fijate en los exponentes que aparecen realmente en la expresion.',
@@ -153,7 +155,8 @@
         }
       }
 
-      return { enunciado: enun, respuesta: resp, pistas: pistas, solucion: sol };
+      return {
+        guia: guiaDelPaso, enunciado: enun, respuesta: resp, pistas: pistas, solucion: sol };
     }
   });
 })();

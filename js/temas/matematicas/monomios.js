@@ -60,6 +60,7 @@
       'Grado de un monomio = suma de los exponentes de sus variables. Solo se suman terminos semejantes.',
 
     generar: function (dif, r) {
+      var guiaDelPaso = null;   // guia paso a paso, si este subtema la tiene
       var enun, resp, pistas, sol, c1, c2, a1, a2, b1, b2, vars = ['x', 'y'];
 
       if (dif === 'facil') {
@@ -73,6 +74,7 @@
         if (t === 'producto') {
           c1 = r.enteroNoCero(-6, 6); c2 = r.enteroNoCero(-6, 6);
           a1 = r.entero(1, 4); a2 = r.entero(1, 4); b1 = r.entero(0, 3); b2 = r.entero(0, 3);
+          guiaDelPaso = EJ.guia.productoMonomios(c1, a1, b1, c2, a2, b2);
           enun = 'Multiplica: ' + par(disp(c1, [['x', a1], ['y', b1]])) + par(disp(c2, [['x', a2], ['y', b2]]));
           resp = R.expresion(txt(c1 * c2, [['x', a1 + a2], ['y', b1 + b2]]), {
             vars: vars, mostrar: disp(c1 * c2, [['x', a1 + a2], ['y', b1 + b2]])
@@ -206,7 +208,8 @@
         }
       }
 
-      return { enunciado: enun, respuesta: resp, pistas: pistas, solucion: sol };
+      return {
+        guia: guiaDelPaso, enunciado: enun, respuesta: resp, pistas: pistas, solucion: sol };
     }
   });
 })();

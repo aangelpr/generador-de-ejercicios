@@ -60,6 +60,7 @@
       'Identidades utiles: x&sup2; + y&sup2; = r&sup2;, x = r cos&theta;, y = r sen&theta;',
 
     generar: function (dif, r) {
+      var guiaDelPaso = null;   // guia paso a paso, si este subtema la tiene
       var enun, resp, pistas, sol, x, y, rr, th;
 
       if (dif === 'facil') {
@@ -73,6 +74,7 @@
           th = r.elige([0, 30, 45, 60, 90, 120, 135, 150, 180, 210, 225, 240, 270, 300, 315, 330]);
           rr = r.entero(2, 12);
           x = rr * Math.cos(rad(th)); y = rr * Math.sin(rad(th));
+          guiaDelPaso = EJ.guia.polarARectangular(rr, th);
           enun = 'Convierte el punto polar (r, &theta;) = (' + rr + ', ' + th + '&deg;) a coordenadas rectangulares.<br>(2 decimales)';
           resp = R.par(x, y, { dec: 2, tol: 0.01 });
           pistas = ['x = r&middot;cos&theta; y y = r&middot;sen&theta;.',
@@ -188,7 +190,8 @@
         }
       }
 
-      return { enunciado: enun, respuesta: resp, pistas: pistas, solucion: sol };
+      return {
+        guia: guiaDelPaso, enunciado: enun, respuesta: resp, pistas: pistas, solucion: sol };
     }
   });
 })();

@@ -83,6 +83,7 @@
       'Hiperbola: (x&minus;h)&sup2;/a&sup2; &minus; (y&minus;k)&sup2;/b&sup2; = 1, con c&sup2; = a&sup2; + b&sup2;',
 
     generar: function (dif, r) {
+      var guiaDelPaso = null;   // guia paso a paso, si este subtema la tiene
       var enun, resp, pistas, sol, h, k, a, b, c;
       var TIPOS = ['Circunferencia', 'Parabola', 'Elipse', 'Hiperbola'];
 
@@ -129,6 +130,7 @@
         if (extra[t]) return extra[t](r, dif);
         if (t === 'circulo') {
           h = r.entero(-7, 7); k = r.entero(-7, 7); a = r.entero(2, 9);
+          guiaDelPaso = EJ.guia.circunferencia(h, k, a);
           enun = 'Encuentra el centro y el radio de la circunferencia:<br><span class="big">' +
             cuad('x', h) + ' + ' + cuad('y', k) + ' = ' + (a * a) + '</span>';
           resp = R.varios([
@@ -232,7 +234,8 @@
         }
       }
 
-      return { enunciado: enun, respuesta: resp, pistas: pistas, solucion: sol };
+      return {
+        guia: guiaDelPaso, enunciado: enun, respuesta: resp, pistas: pistas, solucion: sol };
     }
   });
 })();

@@ -57,6 +57,7 @@
       'Valor promedio en [a, b]: (1/(b&minus;a))&int;<sub>a</sub><sup>b</sup> f(x)dx',
 
     generar: function (dif, r) {
+      var guiaDelPaso = null;   // guia paso a paso, si este subtema la tiene
       var enun, resp, pistas, sol, p, a, b, I, val;
 
       if (dif === 'facil') {
@@ -69,6 +70,7 @@
         a = r.entero(0, 3); b = a + r.entero(1, 4);
         I = P.integral(p);
         val = integralDef(p, a, b);
+        guiaDelPaso = EJ.guia.integralDefinida(p, a, b);
         enun = 'Calcula la integral definida (4 decimales):<br>' +
           '<span class="big">&int;<sub>' + a + '</sub><sup>' + b + '</sup> (' + P.texto(p) + ') dx</span>';
         resp = R.numero(val, { dec: 4, tol: 0.005 });
@@ -182,7 +184,8 @@
         }
       }
 
-      return { enunciado: enun, respuesta: resp, pistas: pistas, solucion: sol };
+      return {
+        guia: guiaDelPaso, enunciado: enun, respuesta: resp, pistas: pistas, solucion: sol };
     }
   });
 })();

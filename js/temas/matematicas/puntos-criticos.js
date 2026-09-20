@@ -50,6 +50,7 @@
       'Punto de inflexion: donde f&Prime;(x) = 0 y cambia de signo (cambia la concavidad).',
 
     generar: function (dif, r) {
+      var guiaDelPaso = null;   // guia paso a paso, si este subtema la tiene
       var enun, resp, pistas, sol, p, d, d2, a, b, c, x0;
 
       if (dif === 'facil') {
@@ -61,6 +62,7 @@
         if (tf === 'cuadratica') {
           a = r.enteroNoCero(-4, 4); b = r.entero(-12, 12); c = r.entero(-9, 9);
           x0 = -b / (2 * a);
+          guiaDelPaso = EJ.guia.puntoCriticoCuadratica(a, b, c);
           enun = 'Encuentra el punto critico de f(x) = ' + P.texto([a, b, c]) + '.<br>Da el valor de x.';
           resp = R.numero(x0, { dec: 4, tol: 0.01 });
           pistas = ['Deriva e iguala a cero.',
@@ -193,7 +195,8 @@
         }
       }
 
-      return { enunciado: enun, respuesta: resp, pistas: pistas, solucion: sol };
+      return {
+        guia: guiaDelPaso, enunciado: enun, respuesta: resp, pistas: pistas, solucion: sol };
     }
   });
 })();

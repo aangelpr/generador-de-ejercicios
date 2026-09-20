@@ -67,6 +67,7 @@
       'Trigonometricos clave: lim<sub>x&rarr;0</sub> (sen x)/x = 1, lim<sub>x&rarr;0</sub> (1&minus;cos x)/x = 0',
 
     generar: function (dif, r) {
+      var guiaDelPaso = null;   // guia paso a paso, si este subtema la tiene
       var enun, resp, pistas, sol, a, b, val, p;
 
       if (dif === 'facil') {
@@ -114,6 +115,7 @@
           while (b === a) b = r.enteroNoCero(-7, 7);
           var arriba = P.deRaices([a, b]);
           val = a - b;
+          guiaDelPaso = EJ.guia.limiteFactorizar(a, b);
           enun = 'Calcula el limite:<br>' + lim(F.frac(P.texto(arriba), 'x ' + (a < 0 ? '+ ' + (-a) : '&minus; ' + a)), a);
           resp = R.numero(val, { dec: 2 });
           pistas = ['Al sustituir sale 0/0: hay que factorizar el numerador.',
@@ -249,7 +251,8 @@
         }
       }
 
-      return { enunciado: enun, respuesta: resp, pistas: pistas, solucion: sol };
+      return {
+        guia: guiaDelPaso, enunciado: enun, respuesta: resp, pistas: pistas, solucion: sol };
     }
   });
 })();

@@ -61,6 +61,7 @@
       'En general: f crece donde f&prime;(x) &gt; 0 y decrece donde f&prime;(x) &lt; 0.',
 
     generar: function (dif, r) {
+      var guiaDelPaso = null;   // guia paso a paso, si este subtema la tiene
       var enun, resp, pistas, sol, a, b, c, h, k;
 
       if (dif === 'facil') {
@@ -115,6 +116,7 @@
         a = r.enteroNoCero(-4, 4); b = r.entero(-10, 10); c = r.entero(-8, 8);
         h = -b / (2 * a); k = P.evalua([a, b, c], h);
         if (t2 === 'vertice') {
+          guiaDelPaso = EJ.guia.verticeParabola(a, b, c);
           enun = 'Para f(x) = ' + P.texto([a, b, c]) + ':<br>' +
             'encuentra el vertice y di si la funcion crece o decrece a la derecha del vertice.';
           resp = R.varios([
@@ -212,7 +214,8 @@
         }
       }
 
-      return { enunciado: enun, respuesta: resp, pistas: pistas, solucion: sol };
+      return {
+        guia: guiaDelPaso, enunciado: enun, respuesta: resp, pistas: pistas, solucion: sol };
     }
   });
 })();
