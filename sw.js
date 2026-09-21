@@ -3,7 +3,7 @@
    nueva) y, si no hay internet o tarda demasiado, usa la copia guardada. */
 /* Sube este numero cada vez que cambies archivos de la app: obliga al celular
    a bajar la version nueva completa. */
-var CACHE = 'generador-ejercicios-v23';
+var CACHE = 'generador-ejercicios-v24';
 
 var ARCHIVOS = [
   './',
