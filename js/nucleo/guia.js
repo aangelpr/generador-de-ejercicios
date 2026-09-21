@@ -1557,24 +1557,40 @@
         'El vertice es el punto mas alto o mas bajo. Su x se calcula con <b>x = &minus;b/2a</b>.',
       pasos: [
         {
+          seccion: 'Paso 1: preparar la formula',
+          queHacemos: 'Localizamos a y b y calculamos 2a.',
+          paraQue: 'La x del vertice es &minus;b/2a. Antes de dividir conviene tener listo el denominador.',
+          queda: 'x = &minus;(' + b + ') &divide; ' + (2 * a),
           pregunta: 'Identifica los coeficientes: a = ' + a + ' y b = ' + b + '.<br>&iquest;Cuanto vale 2a?',
           resp: R.numero(2 * a, { dec: 0 }),
           pista: '2 &middot; ' + a,
           despues: 'Ese va abajo en la formula.'
         },
         {
+          seccion: 'Paso 2: la x del vertice',
+          queHacemos: 'Hacemos la division.',
+          paraQue: 'Ojo con el doble signo si b ya venia negativo: &minus;(&minus;5) es +5.',
+          queda: 'vertice (' + F.n(h, 4) + ', ?)',
           pregunta: 'Ahora calcula &minus;b/2a = &minus;(' + b + ') / ' + (2 * a) + '<br>(4 decimales)',
           resp: R.numero(h, { dec: 4, tol: 0.01 }),
           pista: 'Ojo con el doble signo si b ya es negativo.',
           despues: 'Esa es la x del vertice. Falta la y.'
         },
         {
+          seccion: 'Paso 3: la y del vertice',
+          queHacemos: 'Sustituimos esa x en la funcion original.',
+          paraQue: 'En la ORIGINAL, no en la formula. Ese valor es la altura del vertice.',
+          queda: 'vertice (' + F.n(h, 4) + ', ' + F.n(kk, 4) + ')',
           pregunta: 'Sustituye esa x en la funcion para obtener la y del vertice.<br>f(' + F.n(h, 4) + ') = ? (4 decimales)',
           resp: R.numero(kk, { dec: 4, tol: 0.01 }),
           pista: 'Eleva al cuadrado, multiplica por ' + a + ', suma ' + b + ' por la x, y suma ' + c + '.',
           despues: ''
         },
         {
+          seccion: 'Paso 4: maximo o minimo',
+          queHacemos: 'Miramos el signo de a.',
+          paraQue: 'Si a es positiva abre hacia arriba como una U, y el vertice es el punto mas BAJO: un minimo.',
+          queda: 'vertice (' + F.n(h, 4) + ', ' + F.n(kk, 4) + '),  ' + (a > 0 ? 'minimo' : 'maximo'),
           pregunta: 'Como a = ' + a + ', &iquest;ese vertice es un maximo o un minimo?',
           resp: R.opcion(['Minimo (la parabola abre hacia arriba)', 'Maximo (la parabola abre hacia abajo)'], a > 0 ? 0 : 1),
           pista: 'Si a es positiva la parabola abre hacia arriba, como una U.',
@@ -1835,12 +1851,20 @@
         'Hay un atajo: basta mirar los EXPONENTES.',
       pasos: [
         {
+          seccion: 'Paso 1: listar los exponentes',
+          queHacemos: 'Anotamos el exponente de cada termino que aparece.',
+          paraQue: 'Hay un atajo: no hace falta sustituir &minus;x en toda la expresion, basta con mirar los exponentes.',
+          queda: 'exponentes: ' + exps.join(', '),
           pregunta: '&iquest;Que exponentes aparecen en la funcion?<br>Escribelos separados por coma (el termino sin x cuenta como exponente 0).',
           resp: R.lista(exps, { ayuda: 'Por ejemplo: 4, 2, 0' }),
           pista: 'Fijate en cada termino: ' + P.texto(coefs) + '.',
           despues: 'Ahora hay que ver si son todos del mismo tipo.'
         },
         {
+          seccion: 'Paso 2: ver si son del mismo tipo',
+          queHacemos: 'Comprobamos si son todos pares, todos impares o mezclados.',
+          paraQue: 'Ojo: el 0 cuenta como par, asi que una constante suelta se comporta como termino par.',
+          queda: ['todos pares', 'todos impares', 'mezclados'][tipo],
           pregunta: 'Los exponentes son ' + exps.join(', ') + '.<br>&iquest;Como son?',
           resp: R.opcion(['Todos pares', 'Todos impares', 'Mezclados'], tipo),
           pista: 'Recuerda que el 0 cuenta como par.',
@@ -1849,6 +1873,10 @@
               : 'Al estar mezclados, unos cambian de signo y otros no, asi que no se cumple ninguna de las dos condiciones.'
         },
         {
+          seccion: 'Paso 3: clasificar',
+          queHacemos: 'Traducimos eso a par, impar o ninguna.',
+          paraQue: 'Todos pares: nada cambia de signo. Todos impares: TODOS cambian a la vez. Mezclados: unos si y otros no, asi que no cumple ninguna.',
+          queda: ['par', 'impar', 'ni par ni impar'][tipo],
           pregunta: 'Entonces, &iquest;que es la funcion?',
           resp: R.opcion(TIPOS, tipo),
           pista: 'Todos pares &rarr; par. Todos impares &rarr; impar. Mezclados &rarr; ninguna.',
@@ -1870,12 +1898,20 @@
         'El truco es siempre el mismo: <b>fijarse donde esta la variable</b>.',
       pasos: [
         {
+          seccion: 'Paso 1: donde esta la variable',
+          queHacemos: 'Miramos DONDE aparece la x.',
+          paraQue: 'Es la pregunta clave: en la base, en el exponente, dentro de una raiz, en un denominador, o dentro de otra funcion.',
+          queda: opcionesDesc[correctaDesc],
           pregunta: 'Observa la expresion. &iquest;Cual de estas descripciones le queda?',
           resp: R.opcion(opcionesDesc, correctaDesc),
           pista: 'Pregunta clave: &iquest;la x esta en la base, en el exponente, dentro de una raiz, en un denominador, o dentro de otra funcion?',
           despues: 'Eso es lo que decide el tipo.'
         },
         {
+          seccion: 'Paso 2: ponerle nombre',
+          queHacemos: 'Traducimos esa descripcion al nombre del tipo.',
+          paraQue: 'Cada descripcion corresponde a un tipo con nombre propio.',
+          queda: TIPOS[idxTipo].toLowerCase(),
           pregunta: 'Entonces, &iquest;que tipo de funcion es?',
           resp: R.opcion(TIPOS, idxTipo),
           pista: 'Cada una de esas descripciones corresponde a un tipo con nombre propio.',
