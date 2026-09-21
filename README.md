@@ -118,13 +118,18 @@ pero esa solución está escrita como recordatorio para quien ya intentó, no co
 clase desde cero, y se entendía mal. El código quedó ahí por si acaso
 (`EJ.guia.usarAutomaticas = true`), pero está apagado a propósito.
 
+Cada micro-paso puede llevar un `rotulo` corto. La bitácora de lo ya resuelto
+antepone ese rótulo en negrita, para que al mirar hacia arriba se lea como una
+solución escrita a mano (`Doble producto: -12x`) y no como una lista de números
+sueltos. Es opcional: los pasos sin `rotulo` se ven como siempre.
+
 **Temas ya completos** (todos sus subtemas): todo el bloque de aritmética y
 álgebra (signos, exponentes, fracciones, proporciones, sucesiones, progresiones,
 monomios, binomios, trinomios y polinomios), toda la geometría y trigonometría
 (polígonos, Tales, Pitágoras, ley de senos y ley de cosenos) y toda la geometría
 analítica (coordenadas, cónicas y excentricidad) y todas las funciones
-(elementos de función, paridad, tipos de función y logaritmos): 226 de 317
-subtemas. En los demás temas el paso a paso
+(elementos de función, paridad, tipos de función y logaritmos), más límites y
+reglas de derivación: 251 de 317 subtemas. En los demás temas el paso a paso
 está en un subtema representativo; el resto sigue con **Cómo se resuelve** (la
 regla y un ejemplo resuelto) mientras se les escribe el guion.
 

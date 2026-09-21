@@ -5,6 +5,8 @@
 
   function pr(p) { return '(' + P.texto(p) + ')'; }
 
+  var G = EJ.guia.armar;
+
   var extra = {};
 
   extra.raiz = function (r) {
@@ -12,6 +14,38 @@
     var conRaiz = r.bool();
     if (conRaiz) {
       return {
+        guia: G({
+          intro: 'Derivar <b>' + c + '&radic;<span class="rad">x</span></b>.<br>' +
+            'No hay una "regla de la raiz": lo que hay es que <b>toda raiz es una potencia</b>. Se reescribe y ya es la regla de siempre.',
+          pasos: [
+            { rotulo: 'Raiz a potencia',
+              pregunta: '&iquest;Como se escribe &radic;<span class="rad">x</span> como potencia?',
+              resp: R.opcion(['x<sup>1/2</sup>', 'x&sup2;'], 0),
+              pista: 'Raiz cuadrada es elevar a un medio. Y raiz cubica seria x<sup>1/3</sup>.',
+              despues: 'Entonces f(x) = ' + c + 'x<sup>1/2</sup>, y ya se puede usar la regla de la potencia.' },
+            { rotulo: 'Coeficiente',
+              pregunta: 'El exponente 1/2 baja a multiplicar.<br>&iquest;Cuanto es ' + c + ' &times; &frac12;?',
+              resp: R.numero(c / 2, { dec: 4, tol: 0.001 }),
+              pista: 'La mitad de ' + c + '.',
+              despues: '' },
+            { rotulo: 'Exponente',
+              pregunta: 'Al exponente se le resta 1.<br>&iquest;Cuanto es &frac12; &minus; 1?',
+              resp: R.numero(-0.5, { dec: 4, tol: 0.001 }),
+              pista: 'Medio menos uno da menos un medio.',
+              despues: 'Un exponente negativo significa que la x baja al denominador: x<sup>&minus;1/2</sup> = 1/&radic;<span class="rad">x</span>.' },
+            { rotulo: 'Derivada',
+              pregunta: 'Escribe la derivada.',
+              resp: R.expresion('(' + c + '/2)*x^(-1/2)', { mostrar: F.frac(c, '2&radic;<span class="rad">x</span>') }),
+              pista: 'Es ' + F.frac(c, '2&radic;<span class="rad">x</span>') + '. Tambien vale escribirla como ' + (c / 2) + 'x^(-1/2).',
+              despues: '' }
+          ],
+          final: 'f&prime;(x) = <b>' + F.frac(c, '2&radic;<span class="rad">x</span>') + '</b>',
+          receta: ['Toda raiz se escribe como potencia fraccionaria',
+            '&radic;<span class="rad">x</span> = x<sup>1/2</sup>',
+            'Despues es la regla de la potencia normal',
+            'Exponente negativo = la x se va abajo',
+            'Al final conviene volver a escribirlo con raiz']
+        }),
         enunciado: 'Deriva: f(x) = ' + c + '&radic;<span class="rad">x</span>',
         respuesta: R.expresion('(' + c + '/2)*x^(-1/2)', { mostrar: F.frac(c, '2&radic;<span class="rad">x</span>') }),
         pistas: ['Escribe la raiz como potencia: &radic;<span class="rad">x</span> = x<sup>1/2</sup>.',
@@ -23,6 +57,39 @@
     }
     var n = r.entero(2, 5);
     return {
+      guia: G({
+        intro: 'Derivar <b>' + F.frac(c, 'x' + F.sup(n)) + '</b>.<br>' +
+          'Parece que hace falta la regla del cociente, pero no: como arriba solo hay un numero, ' +
+          'conviene <b>subir la x</b> con exponente negativo y usar la regla de la potencia.',
+        pasos: [
+          { rotulo: 'Subir la x',
+            pregunta: '&iquest;Como se escribe ' + F.frac(c, 'x' + F.sup(n)) + ' sin fraccion?',
+            resp: R.opcion([c + 'x<sup>&minus;' + n + '</sup>', c + 'x<sup>' + n + '</sup>'], 0),
+            pista: 'Lo que esta dividiendo sube al numerador cambiandole el signo al exponente.',
+            despues: 'Asi se evita la regla del cociente, que seria mucho mas larga.' },
+          { rotulo: 'Coeficiente',
+            pregunta: 'El exponente &minus;' + n + ' baja a multiplicar.<br>&iquest;Cuanto es ' + c + ' &times; (&minus;' + n + ')?',
+            resp: R.numero(-c * n, { dec: 0 }),
+            pista: 'Multiplica y ponle el signo negativo.',
+            despues: 'El signo menos viene del exponente: por eso estas derivadas suelen salir negativas.' },
+          { rotulo: 'Exponente',
+            pregunta: 'Ahora se le resta 1 al exponente.<br>&iquest;Cuanto es &minus;' + n + ' &minus; 1?',
+            resp: R.numero(-n - 1, { dec: 0 }),
+            pista: 'Cuidado: restar 1 a un negativo lo hace MAS negativo.',
+            despues: 'Al bajarlo otra vez queda ' + F.frac(1, 'x' + F.sup(n + 1)) + '.' },
+          { rotulo: 'Derivada',
+            pregunta: 'Escribe la derivada.',
+            resp: R.expresion('(' + (-c * n) + ')*x^(' + (-n - 1) + ')', { mostrar: '&minus;' + F.frac(c * n, 'x' + F.sup(n + 1)) }),
+            pista: 'Es &minus;' + F.frac(c * n, 'x' + F.sup(n + 1)) + '.',
+            despues: '' }
+        ],
+        final: 'f&prime;(x) = <b>&minus;' + F.frac(c * n, 'x' + F.sup(n + 1)) + '</b>',
+        receta: ['Si arriba solo hay un numero, subir la x con exponente negativo',
+          'Asi se evita la regla del cociente',
+          'Regla de la potencia normal',
+          'Restar 1 a un exponente negativo lo hace mas negativo',
+          'Al final volver a bajarlo al denominador']
+      }),
       enunciado: 'Deriva: f(x) = ' + F.frac(c, 'x' + F.sup(n)),
       respuesta: R.expresion('(' + (-c * n) + ')*x^(' + (-n - 1) + ')', { mostrar: '&minus;' + F.frac(c * n, 'x' + F.sup(n + 1)) }),
       pistas: ['Pasa la x al numerador con exponente negativo: ' + F.frac(c, 'x' + F.sup(n)) + ' = ' + c + 'x<sup>&minus;' + n + '</sup>.',
@@ -41,6 +108,51 @@
     var m = P.evalua(d, x0);
     var b = y0 - m * x0;
     return {
+      guia: G({
+        intro: 'Buscamos la recta <b>tangente</b> a f(x) = ' + P.texto(p) + ' en x = ' + x0 + '.<br>' +
+          'Una recta necesita dos cosas: su <b>pendiente</b> y un <b>punto</b>. La derivada da la pendiente; la funcion da el punto.',
+        pasos: [
+          { rotulo: 'Que es la pendiente',
+            pregunta: '&iquest;De donde sale la pendiente de la tangente?',
+            resp: R.opcion(['De la derivada evaluada en el punto', 'Del valor de la funcion en el punto'], 0),
+            pista: 'La derivada ES la pendiente de la curva en cada x. La tangente es la recta que tiene esa misma inclinacion.',
+            despues: 'El valor de la funcion sirve para otra cosa: para saber por donde pasa.' },
+          { rotulo: 'La derivada',
+            pregunta: 'Deriva f(x) = ' + P.texto(p),
+            resp: R.expresion(P.expr(d), { mostrar: P.texto(d) }),
+            pista: 'Regla de la potencia termino a termino: queda ' + P.texto(d) + '.',
+            despues: '' },
+          { rotulo: 'Pendiente m',
+            pregunta: 'Evalua la derivada en x = ' + x0,
+            resp: R.numero(m, { dec: 2 }),
+            pista: 'Sustituye ' + x0 + ' en ' + P.texto(d) + '.',
+            despues: 'Ya tenemos la inclinacion: m = ' + m + '.' },
+          { rotulo: 'Punto de tangencia',
+            pregunta: 'Ahora el punto. Evalua la funcion ORIGINAL en x = ' + x0,
+            resp: R.numero(y0, { dec: 2 }),
+            pista: 'Ojo: aqui se usa f, no f&prime;. Sustituye en ' + P.texto(p) + '.',
+            despues: 'La recta pasa por (' + x0 + ', ' + y0 + ').' },
+          { rotulo: 'Ordenada b',
+            pregunta: 'Sustituye el punto en y = mx + b:<br>' + y0 + ' = (' + m + ')(' + x0 + ') + b.<br>&iquest;Cuanto vale b?',
+            resp: R.numero(b, { dec: 2 }),
+            pista: 'b = ' + y0 + ' &minus; (' + (m * x0) + ').',
+            despues: 'La recta tangente es y = ' + F.poli([m, b], 'x') + '.' },
+          { rotulo: 'Respuesta',
+            pregunta: 'Escribe m y b.',
+            resp: R.varios([
+              { etiqueta: 'Pendiente m', resp: R.numero(m, { dec: 2 }) },
+              { etiqueta: 'Ordenada b', resp: R.numero(b, { dec: 2 }) }
+            ]),
+            pista: 'm = ' + m + ' y b = ' + b + '.',
+            despues: '' }
+        ],
+        final: 'La tangente es y = <b>' + F.poli([m, b], 'x') + '</b>',
+        receta: ['La derivada da la PENDIENTE',
+          'La funcion original da el PUNTO',
+          'Evaluar la derivada en el punto para m',
+          'Evaluar la funcion en el punto para y',
+          'Sustituir en y = mx + b y despejar b']
+      }),
       enunciado: 'Encuentra la recta tangente a f(x) = ' + P.texto(p) + ' en x = ' + x0 + '.<br>' +
         'Da la pendiente m y la ordenada al origen b de la recta y = mx + b.',
       respuesta: R.varios([
@@ -64,6 +176,40 @@
     var x0 = par[0] * r.elige([1, -1]), y0 = par[1] * r.elige([1, -1]);
     var m = -x0 / y0;
     return {
+      guia: G({
+        intro: 'Queremos dy/dx en el punto (' + x0 + ', ' + y0 + ') de la circunferencia x&sup2; + y&sup2; = ' + rad2 + '.<br>' +
+          'Aqui la y <b>no esta despejada</b>, y despejarla obligaria a partir la circunferencia en dos mitades. ' +
+          'La derivacion implicita evita todo eso.',
+        pasos: [
+          { rotulo: 'Por que implicita',
+            pregunta: '&iquest;Por que no se despeja la y primero?',
+            resp: R.opcion(['Porque al despejar saldria una raiz y habria que partir la curva en dos',
+              'Porque no se puede despejar'], 0),
+            pista: 'y = &plusmn;&radic;<span class="rad">' + rad2 + ' &minus; x&sup2;</span>: el &plusmn; obliga a tratar por separado la mitad de arriba y la de abajo. Es mas trabajo.',
+            despues: 'En vez de eso, se deriva tal como esta y se trata a y como una funcion de x.' },
+          { rotulo: 'Derivar y&sup2;',
+            pregunta: 'Derivamos los dos lados respecto de x. El x&sup2; da 2x.<br>&iquest;Y que da y&sup2;?',
+            resp: R.opcion(['2y &middot; y&prime;', '2y'], 0),
+            pista: 'Como y depende de x, hay <b>regla de la cadena</b>: se deriva y&sup2; (da 2y) y se multiplica por la derivada de adentro, que es y&prime;.',
+            despues: 'Ese y&prime; que aparece es la clave de todo el metodo: por eso al final se puede despejar.' },
+          { rotulo: 'Despejar y&prime;',
+            pregunta: 'Queda 2x + 2y&middot;y&prime; = 0.<br>&iquest;Que sale al despejar y&prime;?',
+            resp: R.opcion(['y&prime; = &minus;x/y', 'y&prime; = x/y'], 0),
+            pista: 'Pasa el 2x restando y divide entre 2y: y&prime; = &minus;2x/2y = &minus;x/y.',
+            despues: 'Fijate que la derivada depende de x Y de y: eso es normal en las implicitas.' },
+          { rotulo: 'Sustituir el punto',
+            pregunta: 'Sustituye (' + x0 + ', ' + y0 + '): y&prime; = &minus;(' + x0 + ')/(' + y0 + ') (4 decimales)',
+            resp: R.numero(m, { dec: 4, tol: 0.005 }),
+            pista: 'Cuidado con los signos: hay un menos de la formula y los signos del punto.',
+            despues: 'Comprobacion geometrica: en una circunferencia la tangente es perpendicular al radio, y eso es justo lo que dice &minus;x/y.' }
+        ],
+        final: 'dy/dx = <b>' + F.n(m, 4) + '</b>',
+        receta: ['Derivar los dos lados sin despejar la y',
+          'Cada vez que derivas una y, aparece un y&prime; por la cadena',
+          'Agrupar los terminos con y&prime; y despejarlo',
+          'El resultado depende de x y de y',
+          'Sustituir el punto al final']
+      }),
       enunciado: 'La circunferencia x&sup2; + y&sup2; = ' + rad2 + ' pasa por el punto (' + x0 + ', ' + y0 + ').<br>' +
         'Usando derivacion implicita, encuentra dy/dx en ese punto (4 decimales).',
       respuesta: R.numero(m, { dec: 4, tol: 0.005 }),
@@ -111,6 +257,40 @@
             'f&prime;(x) = <b>' + P.texto(d) + '</b>'];
         } else if (t === 'potencia') {
           a = r.enteroNoCero(-8, 8); n = r.entero(4, 9);
+          guiaDelPaso = G({
+            intro: 'Derivar <b>' + F.term(a, 'x', n) + '</b>.<br>' +
+              'Es la regla mas usada de todo el calculo: <b>el exponente baja a multiplicar y luego se le resta 1</b>.',
+            pasos: [
+              { rotulo: 'La regla',
+                pregunta: '&iquest;Que hace la regla de la potencia?',
+                resp: R.opcion(['El exponente baja a multiplicar y se le resta 1',
+                  'El exponente sube y se le suma 1'], 0),
+                pista: 'Derivar BAJA el grado: si algo crece como x&#8309;, su pendiente crece como x&#8308;. ' +
+                  'Subir el exponente es lo que hace integrar, que es lo contrario.',
+                despues: 'En simbolos: (x&#8319;)&prime; = n x&#8319;&#8315;&sup1;.' },
+              { rotulo: 'Coeficiente nuevo',
+                pregunta: 'El ' + n + ' baja y multiplica al ' + a + '.<br>&iquest;Cuanto es ' + a + ' &times; ' + n + '?',
+                resp: R.numero(a * n, { dec: 0 }),
+                pista: 'Cuidado con el signo de ' + a + '.',
+                despues: '' },
+              { rotulo: 'Exponente nuevo',
+                pregunta: '&iquest;Que exponente queda? (' + n + ' &minus; 1)',
+                resp: R.numero(n - 1, { dec: 0 }),
+                pista: 'Uno menos que el original.',
+                despues: '' },
+              { rotulo: 'Derivada',
+                pregunta: 'Junta las dos cosas y escribe f&prime;(x).',
+                resp: R.expresion('(' + (a * n) + ')*x^(' + (n - 1) + ')', { mostrar: F.term(a * n, 'x', n - 1) }),
+                pista: 'Es ' + F.term(a * n, 'x', n - 1) + '.',
+                despues: '' }
+            ],
+            final: 'f&prime;(x) = <b>' + F.term(a * n, 'x', n - 1) + '</b>',
+            receta: ['(x&#8319;)&prime; = n x&#8319;&#8315;&sup1;',
+              'El exponente baja multiplicando',
+              'Al exponente se le resta 1',
+              'Derivar baja el grado; integrar lo sube',
+              'La derivada de una constante es 0']
+          });
           enun = 'Deriva: f(x) = ' + F.term(a, 'x', n);
           resp = R.expresion('(' + (a * n) + ')*x^(' + (n - 1) + ')', { mostrar: F.term(a * n, 'x', n - 1) });
           pistas = ['Multiplica el coeficiente por el exponente y baja el exponente en 1.',
@@ -121,6 +301,36 @@
           p = [r.enteroNoCero(-4, 4), r.entero(-7, 7), r.entero(-8, 8), r.entero(-5, 5)];
           d = P.derivada(p);
           a = r.enteroNoCero(-4, 4);
+          guiaDelPaso = G({
+            intro: 'Queremos <b>f&prime;(' + a + ')</b> de f(x) = ' + P.texto(p) + '.<br>' +
+              'Eso es la pendiente de la curva justo en x = ' + a + '. El orden de los pasos importa muchisimo.',
+            pasos: [
+              { rotulo: 'Que va primero',
+                pregunta: '&iquest;Se deriva primero o se sustituye primero?',
+                resp: R.opcion(['Derivar primero y sustituir despues', 'Sustituir primero y derivar despues'], 0),
+                pista: 'Si sustituyes primero te queda un NUMERO, y la derivada de un numero es 0. Saldria siempre 0.',
+                despues: 'Regla de oro: primero se deriva la funcion completa, y solo al final entra el valor.' },
+              { rotulo: 'La derivada',
+                pregunta: 'Deriva f(x) = ' + P.texto(p),
+                resp: R.expresion(P.expr(d), { mostrar: P.texto(d) }),
+                pista: 'Termino a termino con la regla de la potencia. La constante ' + p[3] + ' desaparece.',
+                despues: 'f&prime;(x) = ' + P.texto(d) + '. Esta formula sirve para cualquier x.' },
+              { rotulo: 'Evaluar',
+                pregunta: 'Ahora si, sustituye x = ' + a + ' en la derivada.',
+                resp: R.numero(P.evalua(d, a), { dec: 2 }),
+                pista: 'Pon (' + a + ') entre parentesis en cada x de ' + P.texto(d) + '.',
+                despues: 'Ese numero es la pendiente de la curva en ese punto: ' +
+                  (P.evalua(d, a) > 0 ? 'como es positivo, ahi la funcion esta subiendo.'
+                    : P.evalua(d, a) < 0 ? 'como es negativo, ahi la funcion esta bajando.'
+                      : 'como es 0, ahi la funcion esta plana: hay un maximo o un minimo.') }
+            ],
+            final: 'f&prime;(' + a + ') = <b>' + P.evalua(d, a) + '</b>',
+            receta: ['Derivar SIEMPRE antes de sustituir',
+              'Si sustituyes primero, todo se vuelve constante y da 0',
+              'La derivada es una formula que sirve para toda x',
+              'Evaluarla en un punto da la pendiente ahi',
+              'Positiva sube, negativa baja, cero esta plana']
+          });
           enun = 'Si f(x) = ' + P.texto(p) + ', calcula f&prime;(' + a + ').';
           resp = R.numero(P.evalua(d, a), { dec: 2 });
           pistas = ['Primero deriva y despues sustituye.',
@@ -143,6 +353,39 @@
           var u = [r.enteroNoCero(-4, 4), r.entero(-6, 6)];
           var v = [r.enteroNoCero(-3, 3), r.entero(-5, 5), r.entero(-6, 6)];
           d = P.derivada(P.multiplica(u, v));
+          guiaDelPaso = G({
+            intro: 'Derivar <b>' + pr(u) + pr(v) + '</b> con la regla del producto.<br>' +
+              'Lo primero que hay que grabarse: la derivada de un producto <b>no</b> es el producto de las derivadas.',
+            pasos: [
+              { rotulo: 'El error tipico',
+                pregunta: '&iquest;Se puede derivar cada parentesis por separado y multiplicarlos?',
+                resp: R.opcion(['No: la derivada de un producto no es el producto de las derivadas',
+                  'Si, se deriva cada uno'], 0),
+                pista: 'Compruebalo con algo facil: (x &middot; x)&prime; = (x&sup2;)&prime; = 2x, pero x&prime; &middot; x&prime; = 1 &middot; 1 = 1. No coinciden.',
+                despues: 'La formula correcta es (uv)&prime; = u&prime;v + uv&prime;: se deriva uno y se deja el otro, y luego al reves.' },
+              { rotulo: 'u&prime;',
+                pregunta: 'Con u = ' + P.texto(u) + ', &iquest;cuanto vale u&prime;?',
+                resp: R.expresion(P.expr(P.derivada(u)), { mostrar: P.texto(P.derivada(u)) }),
+                pista: 'Regla de la potencia: queda ' + P.texto(P.derivada(u)) + '.',
+                despues: '' },
+              { rotulo: 'v&prime;',
+                pregunta: 'Y con v = ' + P.texto(v) + ', &iquest;cuanto vale v&prime;?',
+                resp: R.expresion(P.expr(P.derivada(v)), { mostrar: P.texto(P.derivada(v)) }),
+                pista: 'Igual, termino a termino: ' + P.texto(P.derivada(v)) + '.',
+                despues: 'Ya tenemos las cuatro piezas: u, u&prime;, v y v&prime;.' },
+              { rotulo: 'Derivada',
+                pregunta: 'Arma u&prime;v + uv&prime;, desarrolla y reduce.<br>&iquest;Cual es f&prime;(x)?',
+                resp: R.expresion(P.expr(d), { mostrar: P.texto(d) }),
+                pista: 'Es ' + pr(P.derivada(u)) + pr(v) + ' + ' + pr(u) + pr(P.derivada(v)) + ', que reducido da ' + P.texto(d) + '.',
+                despues: 'Comprobacion util: el grado de f&prime; debe ser uno menos que el de f.' }
+            ],
+            final: 'f&prime;(x) = <b>' + P.texto(d) + '</b>',
+            receta: ['(uv)&prime; = u&prime;v + uv&prime;',
+              'NO es el producto de las derivadas',
+              'Anotar las cuatro piezas antes de armar nada',
+              'Se deriva uno dejando el otro quieto, y luego al reves',
+              'Comprobar el grado del resultado']
+          });
           enun = 'Deriva usando la regla del producto: f(x) = ' + pr(u) + pr(v);
           resp = R.expresion(P.expr(d), { mostrar: P.texto(d) });
           pistas = ['(uv)&prime; = u&prime;v + uv&prime;, con u = ' + P.texto(u) + ' y v = ' + P.texto(v) + '.',
@@ -157,6 +400,39 @@
           var numD = a * dd - b * c;
           /* si ad - bc = 0 la funcion es constante y la derivada seria 0: no sirve como ejercicio */
           while (numD === 0) { dd = r.entero(-6, 6); b = r.entero(-7, 7); numD = a * dd - b * c; }
+          guiaDelPaso = G({
+            intro: 'Derivar <b>' + F.frac(P.texto([a, b]), P.texto([c, dd])) + '</b> con la regla del cociente.<br>' +
+              'La formula es (u/v)&prime; = ' + F.frac('u&prime;v &minus; uv&prime;', 'v&sup2;') + '. Ojo con el MENOS: aqui el orden si importa.',
+            pasos: [
+              { rotulo: 'La formula',
+                pregunta: '&iquest;Cual de las dos es la correcta?',
+                resp: R.opcion([F.frac('u&prime;v &minus; uv&prime;', 'v&sup2;'), F.frac('uv&prime; &minus; u&prime;v', 'v&sup2;')], 0),
+                pista: 'Empieza derivando el de ARRIBA. Truco para recordarlo: "deriva el de arriba por el de abajo, menos arriba por derivada de abajo".',
+                despues: 'Si inviertes el orden, toda la derivada sale con el signo cambiado.' },
+              { rotulo: 'u&prime;',
+                pregunta: 'Con u = ' + P.texto([a, b]) + ', &iquest;cuanto vale u&prime;?',
+                resp: R.numero(a, { dec: 0 }),
+                pista: 'La derivada de ' + a + 'x es ' + a + ', y la del ' + b + ' es 0.',
+                despues: 'Y del mismo modo v&prime; = ' + c + '.' },
+              { rotulo: 'Numerador',
+                pregunta: 'Arma ' + a + '(' + P.texto([c, dd]) + ') &minus; (' + P.texto([a, b]) + ')(' + c + ').<br>&iquest;Que queda?',
+                resp: R.numero(numD, { dec: 0 }),
+                pista: 'Los terminos con x se cancelan siempre en este caso: queda ' + (a * dd) + ' &minus; ' + (b * c) + ' = ' + numD + '.',
+                despues: 'Que la x desaparezca es normal aqui: la derivada de este tipo de funcion es una constante entre v&sup2;.' },
+              { rotulo: 'Derivada',
+                pregunta: 'El denominador es v al cuadrado.<br>Escribe f&prime;(x).',
+                resp: R.expresion('(' + numD + ')/((' + c + ')*x+(' + dd + '))^2', {
+                  mostrar: F.frac(numD, '(' + P.texto([c, dd]) + ')&sup2;') }),
+                pista: 'Es ' + F.frac(numD, '(' + P.texto([c, dd]) + ')&sup2;') + '. El denominador NO se desarrolla: se deja al cuadrado.',
+                despues: '' }
+            ],
+            final: 'f&prime;(x) = <b>' + F.frac(numD, '(' + P.texto([c, dd]) + ')&sup2;') + '</b>',
+            receta: ['(u/v)&prime; = (u&prime;v &minus; uv&prime;) / v&sup2;',
+              'Empieza derivando el de ARRIBA',
+              'El orden importa: al reves sale con el signo cambiado',
+              'El denominador se deja elevado al cuadrado, sin desarrollar',
+              'Si arriba solo hay un numero, conviene usar exponente negativo en vez de esta regla']
+          });
           enun = 'Deriva usando la regla del cociente: f(x) = ' + F.frac(P.texto([a, b]), P.texto([c, dd]));
           resp = R.expresion('(' + numD + ')/((' + c + ')*x+(' + dd + '))^2', {
             mostrar: F.frac(numD, '(' + P.texto([c, dd]) + ')&sup2;')
@@ -169,6 +445,45 @@
             'f&prime;(x) = <b>' + F.frac(numD, '(' + P.texto([c, dd]) + ')&sup2;') + '</b>'];
         } else if (t2 === 'cadena') {
           a = r.enteroNoCero(-4, 4); b = r.entero(-7, 7); n = r.entero(3, 7);
+          guiaDelPaso = G({
+            intro: 'Derivar <b>(' + P.texto([a, b]) + ')' + F.sup(n) + '</b> con la regla de la cadena.<br>' +
+              'Hay una funcion <b>dentro</b> de otra. Se deriva de fuera hacia dentro, como pelar una cebolla, y se multiplica todo.',
+            pasos: [
+              { rotulo: 'Que es lo de afuera',
+                pregunta: '&iquest;Cual es la operacion de AFUERA, la ultima que se hace?',
+                resp: R.opcion(['Elevar a la ' + n, 'Multiplicar por ' + a], 0),
+                pista: 'Piensa en el orden para calcularlo con un numero: primero harias el parentesis, y al final lo elevarias. ' +
+                  'Lo ultimo que se hace es lo de "afuera".',
+                despues: 'Se empieza derivando eso, dejando el parentesis intacto.' },
+              { rotulo: 'Exponente',
+                pregunta: 'Al derivar lo de afuera, el ' + n + ' baja y el exponente se reduce.<br>&iquest;Que exponente queda?',
+                resp: R.numero(n - 1, { dec: 0 }),
+                pista: n + ' &minus; 1.',
+                despues: 'Vamos en ' + n + '(' + P.texto([a, b]) + ')' + F.sup(n - 1) + '. Pero todavia falta la parte de la cadena.' },
+              { rotulo: 'Derivada de adentro',
+                pregunta: '&iquest;Cuanto vale la derivada de lo de adentro, (' + P.texto([a, b]) + ')&prime;?',
+                resp: R.numero(a, { dec: 0 }),
+                pista: 'La derivada de ' + a + 'x es ' + a + ' y la del ' + b + ' es 0.',
+                despues: 'Este es el factor que TODO el mundo olvida. Sin el, la derivada esta mal.' },
+              { rotulo: 'Coeficiente final',
+                pregunta: 'Multiplica los dos numeros de afuera: ' + n + ' &times; ' + a,
+                resp: R.numero(n * a, { dec: 0 }),
+                pista: 'Multiplicacion directa.',
+                despues: '' },
+              { rotulo: 'Derivada',
+                pregunta: 'Escribe f&prime;(x).',
+                resp: R.expresion('(' + (n * a) + ')*((' + a + ')*x+(' + b + '))^(' + (n - 1) + ')', {
+                  mostrar: (n * a) + '(' + P.texto([a, b]) + ')' + F.sup(n - 1) }),
+                pista: 'Es ' + (n * a) + '(' + P.texto([a, b]) + ')' + F.sup(n - 1) + '. El parentesis NO se desarrolla.',
+                despues: '' }
+            ],
+            final: 'f&prime;(x) = <b>' + (n * a) + '(' + P.texto([a, b]) + ')' + F.sup(n - 1) + '</b>',
+            receta: ['[f(g(x))]&prime; = f&prime;(g(x)) &middot; g&prime;(x)',
+              'Derivar de fuera hacia dentro',
+              'Lo de afuera es la ULTIMA operacion que harias con un numero',
+              'Al derivar lo de afuera, el parentesis se deja intacto',
+              'Multiplicar por la derivada de adentro: ese factor es el que se olvida']
+          });
           enun = 'Deriva usando la regla de la cadena: f(x) = (' + P.texto([a, b]) + ')' + F.sup(n);
           resp = R.expresion('(' + (n * a) + ')*((' + a + ')*x+(' + b + '))^(' + (n - 1) + ')', {
             mostrar: (n * a) + '(' + P.texto([a, b]) + ')' + F.sup(n - 1)
@@ -200,6 +515,47 @@
             txt = k + '/(' + k + '*x+' + b + ')'; mostrar = F.frac(k, P.texto([k, b]));
             pista2 = 'La derivada de ln u es u&prime;/u, con u&prime; = ' + k + '.';
           }
+          var deAfuera = caso === 'sen'
+            ? { ok: 'cos(' + k + 'x)', mal: '&minus;cos(' + k + 'x)', nota: 'La derivada de sen es cos. (Y la de cos es &minus;sen: solo una de las dos lleva el menos.)' }
+            : caso === 'cos'
+              ? { ok: '&minus;sen(' + k + 'x)', mal: 'sen(' + k + 'x)', nota: 'La derivada de cos es &minus;sen. Este signo menos es el que mas se olvida.' }
+              : caso === 'exp'
+                ? { ok: 'e' + F.sup(k + 'x') + ' (se queda igual)', mal: 'x e' + F.sup(k + 'x'), nota: 'La exponencial es la unica funcion que es su propia derivada.' }
+                : { ok: F.frac(1, P.texto([k, b])), mal: 'ln(' + P.texto([k, b]) + ')', nota: 'La derivada de ln(u) es 1/u, multiplicado por u&prime;.' };
+          guiaDelPaso = G({
+            intro: 'Derivar <b>' + (caso === 'sen' ? 'sen(' + k + 'x)' : caso === 'cos' ? 'cos(' + k + 'x)'
+              : caso === 'exp' ? 'e' + F.sup(k + 'x') : 'ln(' + P.texto([k, b]) + ')') + '</b>.<br>' +
+              'Estas derivadas hay que sabersela de memoria, pero <b>casi siempre hay cadena escondida</b>: ' +
+              'adentro no va una x sola, y eso anade un factor.',
+            pasos: [
+              { rotulo: 'Lo de adentro',
+                pregunta: '&iquest;Que hay dentro de la funcion?',
+                resp: R.opcion([caso === 'ln' ? P.texto([k, b]) : k + 'x', 'x sola'], 0),
+                pista: 'Si adentro fuera solo x, la derivada seria la de memoria y ya. Como hay algo mas, habra cadena.',
+                despues: 'Asi que al final hay que multiplicar por la derivada de eso.' },
+              { rotulo: 'Derivada de afuera',
+                pregunta: 'Dejando lo de adentro quieto, &iquest;cual es la derivada de la funcion exterior?',
+                resp: R.opcion([deAfuera.ok, deAfuera.mal], 0),
+                pista: deAfuera.nota,
+                despues: '' },
+              { rotulo: 'Derivada de adentro',
+                pregunta: '&iquest;Cuanto vale la derivada de ' + (caso === 'ln' ? P.texto([k, b]) : k + 'x') + '?',
+                resp: R.numero(k, { dec: 0 }),
+                pista: 'La derivada de ' + k + 'x es ' + k + (caso === 'ln' ? ', y la del ' + b + ' es 0' : '') + '.',
+                despues: 'Ese ' + k + ' es el factor de la cadena: multiplica a todo.' },
+              { rotulo: 'Derivada',
+                pregunta: 'Junta las dos partes y escribe f&prime;(x).',
+                resp: R.expresion(txt, { mostrar: mostrar }),
+                pista: 'Es ' + mostrar + '.',
+                despues: '' }
+            ],
+            final: 'f&prime;(x) = <b>' + mostrar + '</b>',
+            receta: ['(sen u)&prime; = cos u &middot; u&prime;',
+              '(cos u)&prime; = &minus;sen u &middot; u&prime;',
+              '(e&#8319;)&prime; = e&#8319; &middot; u&prime;',
+              '(ln u)&prime; = u&prime;/u',
+              'Si adentro no va una x sola, siempre hay factor de cadena']
+          });
           resp = R.expresion(txt, { mostrar: mostrar });
           pistas = ['Es una cadena: deriva la funcion exterior y multiplica por la derivada del interior.', pista2];
           sol = ['Identifico u = ' + (caso === 'ln' ? P.texto([k, b]) : k + 'x') + ', con u&prime; = ' + k,
@@ -220,6 +576,41 @@
         if (extra[t3]) return extra[t3](r, dif);
         if (t3 === 'productoExp') {
           n = r.entero(2, 4); k = r.enteroNoCero(-3, 3);
+          guiaDelPaso = G({
+            intro: 'Derivar <b>x' + F.sup(n) + 'e' + F.sup(k + 'x') + '</b>.<br>' +
+              'Son dos cosas multiplicandose, asi que toca la regla del producto. Y ademas la exponencial trae cadena.',
+            pasos: [
+              { rotulo: 'Que regla',
+                pregunta: '&iquest;Que regla toca aqui?',
+                resp: R.opcion(['La del producto, con u = x' + F.sup(n) + ' y v = e' + F.sup(k + 'x'),
+                  'Solo la cadena'], 0),
+                pista: 'Hay dos factores distintos multiplicandose, cada uno con su propia x. Eso es un producto.',
+                despues: '' },
+              { rotulo: 'u&prime;',
+                pregunta: '&iquest;Cuanto vale la derivada de x' + F.sup(n) + '?',
+                resp: R.expresion(n + '*x^(' + (n - 1) + ')', { mostrar: n + 'x' + F.sup(n - 1) }),
+                pista: 'Regla de la potencia: baja el ' + n + ' y el exponente queda en ' + (n - 1) + '.',
+                despues: '' },
+              { rotulo: 'v&prime;',
+                pregunta: '&iquest;Cuanto vale la derivada de e' + F.sup(k + 'x') + '?',
+                resp: R.opcion([k + 'e' + F.sup(k + 'x'), 'e' + F.sup(k + 'x')], 0),
+                pista: 'La exponencial se queda igual, pero hay cadena: se multiplica por la derivada del exponente, que es ' + k + '.',
+                despues: 'Sin ese ' + k + ' la derivada estaria mal.' },
+              { rotulo: 'Derivada',
+                pregunta: 'Arma u&prime;v + uv&prime; y factoriza la exponencial.<br>&iquest;Cual es f&prime;(x)?',
+                resp: R.expresion('exp(' + k + '*x)*(' + n + '*x^(' + (n - 1) + ')+(' + k + ')*x^(' + n + '))', {
+                  mostrar: 'e' + F.sup(k + 'x') + '(' + n + 'x' + F.sup(n - 1) + ' ' + (k > 0 ? '+ ' + k : '&minus; ' + (-k)) + 'x' + F.sup(n) + ')' }),
+                pista: 'Queda ' + n + 'x' + F.sup(n - 1) + 'e' + F.sup(k + 'x') + ' + ' + k + 'x' + F.sup(n) + 'e' + F.sup(k + 'x') +
+                  ', y la e' + F.sup(k + 'x') + ' es factor comun.',
+                despues: 'Factorizar la exponencial deja el resultado mucho mas limpio.' }
+            ],
+            final: 'f&prime;(x) = <b>e' + F.sup(k + 'x') + '(' + n + 'x' + F.sup(n - 1) + ' ' + (k > 0 ? '+ ' + k : '&minus; ' + (-k)) + 'x' + F.sup(n) + ')</b>',
+            receta: ['Dos factores con x = regla del producto',
+              'La exponencial se queda igual pero lleva cadena',
+              '(e&#8319;)&prime; = e&#8319; &middot; u&prime;',
+              'Al final, factorizar la exponencial',
+              'La exponencial nunca desaparece al derivar']
+          });
           enun = 'Deriva: f(x) = x' + F.sup(n) + 'e' + F.sup(k + 'x');
           resp = R.expresion('exp(' + k + '*x)*(' + n + '*x^(' + (n - 1) + ')+(' + k + ')*x^(' + n + '))', {
             mostrar: 'e' + F.sup(k + 'x') + '(' + n + 'x' + F.sup(n - 1) + ' ' + (k > 0 ? '+ ' + k : '&minus; ' + (-k)) + 'x' + F.sup(n) + ')'
@@ -233,6 +624,46 @@
         } else if (t3 === 'productoTrig') {
           n = r.entero(2, 3); k = r.entero(2, 4);
           var esSen = r.bool();
+          guiaDelPaso = G({
+            intro: 'Derivar <b>x' + F.sup(n) + ' ' + (esSen ? 'sen' : 'cos') + '(' + k + 'x)</b>.<br>' +
+              'Producto de dos funciones, y la trigonometrica trae cadena por dentro. Se combinan las dos reglas.',
+            pasos: [
+              { rotulo: 'u&prime;',
+                pregunta: 'Con u = x' + F.sup(n) + ', &iquest;cuanto vale u&prime;?',
+                resp: R.expresion(n + '*x^(' + (n - 1) + ')', { mostrar: n + 'x' + F.sup(n - 1) }),
+                pista: 'Regla de la potencia.',
+                despues: '' },
+              { rotulo: 'v&prime;',
+                pregunta: 'Con v = ' + (esSen ? 'sen' : 'cos') + '(' + k + 'x), &iquest;cuanto vale v&prime;?',
+                resp: R.opcion(esSen
+                  ? [k + ' cos(' + k + 'x)', 'cos(' + k + 'x)']
+                  : ['&minus;' + k + ' sen(' + k + 'x)', k + ' sen(' + k + 'x)'], 0),
+                pista: esSen
+                  ? 'La derivada de sen es cos, y por la cadena se multiplica por ' + k + '.'
+                  : 'La derivada de cos es &minus;sen (con el menos), y por la cadena se multiplica por ' + k + '.',
+                despues: 'Dos cosas que revisar siempre: el signo y el factor de la cadena.' },
+              { rotulo: 'Derivada',
+                pregunta: 'Arma u&prime;v + uv&prime;.<br>&iquest;Cual es f&prime;(x)?',
+                resp: R.expresion(
+                  esSen ? n + '*x^(' + (n - 1) + ')*sin(' + k + '*x)+' + k + '*x^(' + n + ')*cos(' + k + '*x)'
+                    : n + '*x^(' + (n - 1) + ')*cos(' + k + '*x)-' + k + '*x^(' + n + ')*sin(' + k + '*x)',
+                  { mostrar: esSen
+                    ? n + 'x' + F.sup(n - 1) + ' sen(' + k + 'x) + ' + k + 'x' + F.sup(n) + ' cos(' + k + 'x)'
+                    : n + 'x' + F.sup(n - 1) + ' cos(' + k + 'x) &minus; ' + k + 'x' + F.sup(n) + ' sen(' + k + 'x)' }),
+                pista: 'Es ' + (esSen
+                  ? n + 'x' + F.sup(n - 1) + ' sen(' + k + 'x) + ' + k + 'x' + F.sup(n) + ' cos(' + k + 'x)'
+                  : n + 'x' + F.sup(n - 1) + ' cos(' + k + 'x) &minus; ' + k + 'x' + F.sup(n) + ' sen(' + k + 'x)') + '.',
+                despues: 'Aqui no hay factor comun facil, asi que se deja como suma de dos terminos.' }
+            ],
+            final: 'f&prime;(x) = <b>' + (esSen
+              ? n + 'x' + F.sup(n - 1) + ' sen(' + k + 'x) + ' + k + 'x' + F.sup(n) + ' cos(' + k + 'x)'
+              : n + 'x' + F.sup(n - 1) + ' cos(' + k + 'x) &minus; ' + k + 'x' + F.sup(n) + ' sen(' + k + 'x)') + '</b>',
+            receta: ['Producto: u&prime;v + uv&prime;',
+              'La trigonometrica lleva cadena: se multiplica por la derivada de adentro',
+              '(sen)&prime; = cos, (cos)&prime; = &minus;sen',
+              'Revisar signo y factor de cadena por separado',
+              'Sin factor comun, se deja como suma']
+          });
           enun = 'Deriva: f(x) = x' + F.sup(n) + ' ' + (esSen ? 'sen' : 'cos') + '(' + k + 'x)';
           resp = R.expresion(
             esSen ? n + '*x^(' + (n - 1) + ')*sin(' + k + '*x)+' + k + '*x^(' + n + ')*cos(' + k + '*x)'
@@ -253,6 +684,33 @@
         } else if (t3 === 'lnPoli') {
           p = [r.entero(1, 4), r.entero(-5, 5), r.entero(2, 9)];
           d = P.derivada(p);
+          guiaDelPaso = G({
+            intro: 'Derivar <b>ln(' + P.texto(p) + ')</b>.<br>' +
+              'La derivada del logaritmo es <b>u&prime;/u</b>: la derivada de adentro, dividida entre lo de adentro.',
+            pasos: [
+              { rotulo: 'La regla',
+                pregunta: '&iquest;Cual es la derivada de ln(u)?',
+                resp: R.opcion([F.frac('u&prime;', 'u'), F.frac(1, 'u')], 0),
+                pista: '1/u solo vale cuando adentro va una x sola. Con cualquier otra cosa hay cadena, y arriba aparece u&prime;.',
+                despues: 'Aqui adentro va ' + P.texto(p) + ', asi que hay que derivarlo.' },
+              { rotulo: 'u&prime;',
+                pregunta: 'Deriva lo de adentro: (' + P.texto(p) + ')&prime;',
+                resp: R.expresion(P.expr(d), { mostrar: P.texto(d) }),
+                pista: 'Regla de la potencia termino a termino: queda ' + P.texto(d) + '.',
+                despues: 'Ese resultado va ARRIBA de la fraccion.' },
+              { rotulo: 'Derivada',
+                pregunta: 'Arma u&prime;/u y escribe f&prime;(x).',
+                resp: R.expresion('(' + P.expr(d) + ')/(' + P.expr(p) + ')', { mostrar: F.frac(P.texto(d), P.texto(p)) }),
+                pista: 'Es ' + F.frac(P.texto(d), P.texto(p)) + '. Abajo va lo de adentro SIN derivar.',
+                despues: 'Fijate en el detalle: arriba va derivado y abajo va tal cual.' }
+            ],
+            final: 'f&prime;(x) = <b>' + F.frac(P.texto(d), P.texto(p)) + '</b>',
+            receta: ['(ln u)&prime; = u&prime;/u',
+              'Arriba lo de adentro DERIVADO',
+              'Abajo lo de adentro TAL CUAL',
+              '1/u solo sirve si adentro va una x sola',
+              'El grado de arriba siempre queda uno menos que el de abajo']
+          });
           enun = 'Deriva: f(x) = ln(' + P.texto(p) + ')';
           resp = R.expresion('(' + P.expr(d) + ')/(' + P.expr(p) + ')', {
             mostrar: F.frac(P.texto(d), P.texto(p))
@@ -266,6 +724,40 @@
           p = [r.enteroNoCero(-3, 3), r.entero(-5, 5), r.entero(-6, 6)];
           d = P.derivada(p);
           n = r.entero(3, 6);
+          guiaDelPaso = G({
+            intro: 'Derivar <b>(' + P.texto(p) + ')' + F.sup(n) + '</b>.<br>' +
+              'Misma cadena de siempre, pero ahora lo de adentro es una cuadratica, asi que su derivada ya no es un numero suelto.',
+            pasos: [
+              { rotulo: 'Por que no desarrollar',
+                pregunta: '&iquest;Conviene desarrollar el parentesis antes de derivar?',
+                resp: R.opcion(['No: elevarlo a la ' + n + ' seria enorme. Mejor usar la cadena',
+                  'Si, siempre se desarrolla primero'], 0),
+                pista: 'Elevar un trinomio a la ' + n + ' daria decenas de terminos. La cadena lo resuelve en dos lineas.',
+                despues: '' },
+              { rotulo: 'Exponente',
+                pregunta: 'Derivamos lo de afuera dejando el parentesis quieto.<br>&iquest;Que exponente queda?',
+                resp: R.numero(n - 1, { dec: 0 }),
+                pista: n + ' &minus; 1. El ' + n + ' baja a multiplicar.',
+                despues: 'Vamos en ' + n + '(' + P.texto(p) + ')' + F.sup(n - 1) + '.' },
+              { rotulo: 'Derivada de adentro',
+                pregunta: 'Ahora deriva lo de adentro: (' + P.texto(p) + ')&prime;',
+                resp: R.expresion(P.expr(d), { mostrar: P.texto(d) }),
+                pista: 'Regla de la potencia: queda ' + P.texto(d) + '.',
+                despues: 'Este factor es el de la cadena, el que no se puede olvidar.' },
+              { rotulo: 'Derivada',
+                pregunta: 'Multiplica las dos partes y escribe f&prime;(x).',
+                resp: R.expresion(n + '*(' + P.expr(p) + ')^(' + (n - 1) + ')*(' + P.expr(d) + ')', {
+                  mostrar: n + '(' + P.texto(p) + ')' + F.sup(n - 1) + '(' + P.texto(d) + ')' }),
+                pista: 'Es ' + n + '(' + P.texto(p) + ')' + F.sup(n - 1) + '(' + P.texto(d) + '). Se deja factorizado, no se desarrolla.',
+                despues: '' }
+            ],
+            final: 'f&prime;(x) = <b>' + n + '(' + P.texto(p) + ')' + F.sup(n - 1) + '(' + P.texto(d) + ')</b>',
+            receta: ['No desarrollar: usar la cadena',
+              'Derivar lo de afuera dejando el parentesis intacto',
+              'Multiplicar por la derivada de adentro',
+              'Dejar el resultado factorizado',
+              'Si adentro fuera solo x, no haria falta el ultimo factor']
+          });
           enun = 'Deriva: f(x) = (' + P.texto(p) + ')' + F.sup(n);
           resp = R.expresion(n + '*(' + P.expr(p) + ')^(' + (n - 1) + ')*(' + P.expr(d) + ')', {
             mostrar: n + '(' + P.texto(p) + ')' + F.sup(n - 1) + '(' + P.texto(d) + ')'
@@ -278,6 +770,33 @@
         } else if (t3 === 'segunda') {
           p = [r.enteroNoCero(-4, 4), r.entero(-6, 6), r.entero(-7, 7), r.entero(-5, 5), r.entero(-6, 6)];
           var d1 = P.derivada(p), d2 = P.derivada(d1);
+          guiaDelPaso = G({
+            intro: 'Queremos la <b>segunda derivada</b> de f(x) = ' + P.texto(p) + '.<br>' +
+              'No hay ninguna regla nueva: es simplemente derivar dos veces seguidas.',
+            pasos: [
+              { rotulo: 'Que es la segunda',
+                pregunta: '&iquest;Que significa f&Prime;(x)?',
+                resp: R.opcion(['Derivar f, y despues derivar el resultado', 'Elevar la primera derivada al cuadrado'], 0),
+                pista: 'La comilla doble no es un cuadrado: son dos derivadas seguidas.',
+                despues: 'Si f&prime; mide la pendiente, f&Prime; mide como cambia esa pendiente: la concavidad.' },
+              { rotulo: 'Primera derivada',
+                pregunta: 'Deriva f(x) = ' + P.texto(p),
+                resp: R.expresion(P.expr(d1), { mostrar: P.texto(d1) }),
+                pista: 'Termino a termino; la constante ' + p[4] + ' desaparece. Queda ' + P.texto(d1) + '.',
+                despues: 'Fijate que bajo un grado.' },
+              { rotulo: 'Segunda derivada',
+                pregunta: 'Ahora deriva ' + P.texto(d1),
+                resp: R.expresion(P.expr(d2), { mostrar: P.texto(d2) }),
+                pista: 'Otra vez la regla de la potencia sobre el resultado anterior: ' + P.texto(d2) + '.',
+                despues: 'Bajo otro grado mas. Si siguieras derivando, tarde o temprano llegarias a 0.' }
+            ],
+            final: 'f&Prime;(x) = <b>' + P.texto(d2) + '</b>',
+            receta: ['f&Prime; es derivar dos veces, no elevar al cuadrado',
+              'Derivar f para obtener f&prime;',
+              'Derivar f&prime; para obtener f&Prime;',
+              'Cada derivada baja un grado',
+              'f&prime; da la pendiente; f&Prime; dice si la curva abre hacia arriba o hacia abajo']
+          });
           enun = 'Calcula la segunda derivada f&Prime;(x) de f(x) = ' + P.texto(p);
           resp = R.expresion(P.expr(d2), { mostrar: P.texto(d2) });
           pistas = ['Deriva una vez y vuelve a derivar el resultado.',
@@ -287,6 +806,39 @@
             'f&Prime;(x) = <b>' + P.texto(d2) + '</b>'];
         } else {
           k = r.entero(1, 4);
+          guiaDelPaso = G({
+            intro: 'Derivar <b>' + F.frac('sen(x)', 'x' + (k > 1 ? F.sup(k) : '')) + '</b>.<br>' +
+              'Hay una division de verdad (arriba y abajo tienen x), asi que toca la regla del cociente.',
+            pasos: [
+              { rotulo: 'u&prime;',
+                pregunta: 'Con u = sen x, &iquest;cuanto vale u&prime;?',
+                resp: R.opcion(['cos x', '&minus;cos x'], 0),
+                pista: 'La derivada de sen es cos, sin signo menos. Aqui adentro va x sola, asi que no hay cadena.',
+                despues: '' },
+              { rotulo: 'v&prime;',
+                pregunta: 'Con v = x' + F.sup(k) + ', &iquest;cuanto vale v&prime;?',
+                resp: R.expresion(k + '*x^(' + (k - 1) + ')', { mostrar: k > 1 ? k + 'x' + F.sup(k - 1) : '1' }),
+                pista: 'Regla de la potencia: ' + (k > 1 ? k + 'x' + F.sup(k - 1) : '1') + '.',
+                despues: 'Ya estan las cuatro piezas.' },
+              { rotulo: 'Denominador',
+                pregunta: 'El denominador de la formula es v&sup2;.<br>&iquest;Que exponente queda al elevar x' + F.sup(k) + ' al cuadrado?',
+                resp: R.numero(2 * k, { dec: 0 }),
+                pista: 'Potencia de potencia: los exponentes se multiplican, ' + k + ' &times; 2.',
+                despues: '' },
+              { rotulo: 'Derivada',
+                pregunta: 'Arma ' + F.frac('u&prime;v &minus; uv&prime;', 'v&sup2;') + ' y escribe f&prime;(x).',
+                resp: R.expresion('(x^(' + k + ')*cos(x)-' + k + '*x^(' + (k - 1) + ')*sin(x))/(x^(' + (2 * k) + '))', {
+                  mostrar: F.frac('x' + F.sup(k) + ' cos(x) &minus; ' + (k > 1 ? k + 'x' + F.sup(k - 1) : '') + ' sen(x)', 'x' + F.sup(2 * k)) }),
+                pista: 'Arriba: x' + F.sup(k) + ' cos(x) &minus; ' + (k > 1 ? k + 'x' + F.sup(k - 1) : '') + ' sen(x). Abajo: x' + F.sup(2 * k) + '.',
+                despues: 'Se puede simplificar sacando x' + F.sup(k - 1) + ' de factor comun arriba, pero asi ya esta correcta.' }
+            ],
+            final: 'f&prime;(x) = <b>' + F.frac('x' + F.sup(k) + ' cos(x) &minus; ' + (k > 1 ? k + 'x' + F.sup(k - 1) : '') + ' sen(x)', 'x' + F.sup(2 * k)) + '</b>',
+            receta: ['(u/v)&prime; = (u&prime;v &minus; uv&prime;)/v&sup2;',
+              'Empezar derivando el de arriba',
+              '(sen x)&prime; = cos x, sin menos',
+              'v&sup2; multiplica el exponente por 2',
+              'Cuidado con el orden: el menos hace que no sea conmutativo']
+          });
           enun = 'Deriva: f(x) = ' + F.frac('sen(x)', 'x' + (k > 1 ? F.sup(k) : ''));
           resp = R.expresion('(x^(' + k + ')*cos(x)-' + k + '*x^(' + (k - 1) + ')*sin(x))/(x^(' + (2 * k) + '))', {
             mostrar: F.frac('x' + F.sup(k) + ' cos(x) &minus; ' + (k > 1 ? k + 'x' + F.sup(k - 1) : '') + ' sen(x)', 'x' + F.sup(2 * k))

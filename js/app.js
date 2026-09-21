@@ -3,7 +3,7 @@
   'use strict';
   /* Sube esto junto con la version de sw.js. Se ve en Ajustes y sirve para
      saber de un vistazo si el celular ya tiene la version nueva. */
-  var VERSION = 'v17 (20 sep 2026)';
+  var VERSION = 'v18 (20 sep 2026)';
 
   var cfg = EJ.almacen.config;
   var estado = null;
@@ -466,6 +466,15 @@
   }
 
   /* ---------------- modo guiado (paso a paso) ---------------- */
+
+  /* La bitacora guarda lo que ya resolviste. Guardar solo el resultado no sirve
+     de nada ("12", "-5", "3"): al mirar hacia arriba no se sabe de que era cada
+     numero. Si el paso trae `rotulo`, se antepone y la lista se lee como una
+     solucion escrita a mano: "Doble producto: -12x". */
+  function rotulado(paso, valor) {
+    return (paso && paso.rotulo ? '<b>' + paso.rotulo + ':</b> ' : '') + valor;
+  }
+
   function pintarGuiado() {
     var g = estado.ej.guia;
     var zona = $('zona');
@@ -551,7 +560,8 @@
     var bSaltar = crear('button', 'fantasma', 'No se, ensename este paso');
     bSaltar.onclick = function () {
       var res = EJ.motor.saltarPaso(estado);
-      estado.bitacora.push('<span class="mal-marca">&#10007;</span> ' + res.respuesta + (res.despues ? ' &mdash; ' + res.despues : ''));
+      estado.bitacora.push('<span class="mal-marca">&#10007;</span> ' + rotulado(paso, res.respuesta) +
+        (res.despues ? ' &mdash; ' + res.despues : ''));
       pintarGuiado();
     };
     acciones.appendChild(bSaltar);
@@ -579,7 +589,7 @@
     }
     var res = EJ.motor.responderPaso(estado, vals);
     if (res.correcto) {
-      estado.bitacora.push('<span class="bien-marca">&#10003;</span> ' + paso.resp.mostrar() +
+      estado.bitacora.push('<span class="bien-marca">&#10003;</span> ' + rotulado(paso, paso.resp.mostrar()) +
         (res.despues ? ' &mdash; ' + res.despues : ''));
       pintarGuiado();
       return;
