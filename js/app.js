@@ -3,7 +3,7 @@
   'use strict';
   /* Sube esto junto con la version de sw.js. Se ve en Ajustes y sirve para
      saber de un vistazo si el celular ya tiene la version nueva. */
-  var VERSION = 'v19 (20 sep 2026)';
+  var VERSION = 'v20 (20 sep 2026)';
 
   var cfg = EJ.almacen.config;
   var estado = null;
@@ -151,6 +151,7 @@
       if (guiado) {
         estado = guiado;
         estado.bitacora = [];
+        estado.procesos = [];
         return pintarGuiado();
       }
       cfg.guiado = false;          // este tema no lo tiene: se sigue en modo normal
@@ -475,6 +476,45 @@
     return (paso && paso.rotulo ? '<b>' + paso.rotulo + ':</b> ' : '') + valor;
   }
 
+  /* Los dos desplegables de cada paso. Si alguien los abre, se quedan abiertos
+     en los pasos siguientes: es muy molesto tener que darle otra vez en cada
+     pregunta. La preferencia se guarda entre sesiones. */
+  var abierto = { queHacemos: false, paraQue: false };
+  try {
+    var guardadoPref = localStorage.getItem('ej-explica');
+    if (guardadoPref) abierto = JSON.parse(guardadoPref);
+  } catch (e) { /* sin localStorage se queda con los valores por defecto */ }
+
+  function guardarPref() {
+    try { localStorage.setItem('ej-explica', JSON.stringify(abierto)); } catch (e) { /* da igual */ }
+  }
+
+  /* Boton que muestra u oculta un bloque de explicacion. */
+  function desplegable(clave, etiqueta, contenido, destino) {
+    var caja = crear('div', 'explica');
+    var bt = crear('button', 'explica-bt', etiqueta);
+    var cuerpo = crear('div', 'explica-cuerpo', contenido);
+    function pintar() {
+      cuerpo.style.display = abierto[clave] ? 'block' : 'none';
+      bt.classList.toggle('activo', abierto[clave]);
+      bt.setAttribute('aria-expanded', abierto[clave] ? 'true' : 'false');
+    }
+    bt.onclick = function () { abierto[clave] = !abierto[clave]; guardarPref(); pintar(); };
+    pintar();
+    caja.appendChild(bt);
+    caja.appendChild(cuerpo);
+    destino.appendChild(caja);
+  }
+
+  /* El desarrollo escrito de un paso, renglon por renglon. */
+  function bloqueProceso(lineas) {
+    var caja = crear('div', 'proceso');
+    lineas.forEach(function (l) {
+      caja.appendChild(crear('div', l === '' ? 'proceso-hueco' : 'proceso-linea', l));
+    });
+    return caja;
+  }
+
   function pintarGuiado() {
     var g = estado.ej.guia;
     var zona = $('zona');
@@ -492,6 +532,17 @@
       var log = crear('ol', 'bitacora');
       estado.bitacora.forEach(function (t) { log.appendChild(crear('li', null, t)); });
       card.appendChild(log);
+    }
+
+    /* el desarrollo escrito de los pasos que ya pasaron */
+    if (estado.procesos && estado.procesos.length) {
+      var desarrollo = crear('div', 'desarrollo');
+      desarrollo.appendChild(crear('div', 'rotulo', 'El desarrollo hasta aqui'));
+      estado.procesos.forEach(function (pr) {
+        if (pr.rotulo) desarrollo.appendChild(crear('div', 'desarrollo-titulo', pr.rotulo));
+        desarrollo.appendChild(bloqueProceso(pr.lineas));
+      });
+      card.appendChild(desarrollo);
     }
 
     if (estado.terminado) {
@@ -522,6 +573,13 @@
     card.appendChild(crear('div', 'paso-contador',
       'Paso ' + (estado.paso + 1) + ' de ' + g.pasos.length));
     card.appendChild(crear('div', 'paso-pregunta', paso.pregunta));
+
+    if (paso.queHacemos || paso.paraQue) {
+      var expl = crear('div', 'explica-fila');
+      if (paso.queHacemos) desplegable('queHacemos', '&iquest;Que hacemos?', paso.queHacemos, expl);
+      if (paso.paraQue) desplegable('paraQue', '&iquest;Para que?', paso.paraQue, expl);
+      card.appendChild(expl);
+    }
 
     /* pasos que solo explican: no se pregunta nada, solo se sigue */
     if (paso.soloTexto || !paso.resp) {
@@ -562,6 +620,7 @@
       var res = EJ.motor.saltarPaso(estado);
       estado.bitacora.push('<span class="mal-marca">&#10007;</span> ' + rotulado(paso, res.respuesta) +
         (res.despues ? ' &mdash; ' + res.despues : ''));
+      if (paso.proceso && paso.proceso.length) estado.procesos.push({ rotulo: paso.rotulo, lineas: paso.proceso });
       pintarGuiado();
     };
     acciones.appendChild(bSaltar);
@@ -591,6 +650,7 @@
     if (res.correcto) {
       estado.bitacora.push('<span class="bien-marca">&#10003;</span> ' + rotulado(paso, paso.resp.mostrar()) +
         (res.despues ? ' &mdash; ' + res.despues : ''));
+      if (paso.proceso && paso.proceso.length) estado.procesos.push({ rotulo: paso.rotulo, lineas: paso.proceso });
       pintarGuiado();
       return;
     }

@@ -118,7 +118,16 @@ pero esa solución está escrita como recordatorio para quien ya intentó, no co
 clase desde cero, y se entendía mal. El código quedó ahí por si acaso
 (`EJ.guia.usarAutomaticas = true`), pero está apagado a propósito.
 
-Cada micro-paso puede llevar un `rotulo` corto. La bitácora de lo ya resuelto
+Cada micro-paso puede llevar, todos opcionales:
+
+- `rotulo` — etiqueta corta del paso.
+- `queHacemos` y `paraQue` — los dos desplegables que se abren con un botón.
+  Van cerrados por defecto para no tapar la pregunta, pero si los abres se
+  quedan abiertos en los pasos siguientes (y entre sesiones).
+- `proceso` — el desarrollo escrito del paso, renglón por renglón. Aparece
+  cuando ya contestaste, y se va acumulando arriba como un cuaderno.
+
+`rotulo` corto. La bitácora de lo ya resuelto
 antepone ese rótulo en negrita, para que al mirar hacia arriba se lea como una
 solución escrita a mano (`Doble producto: -12x`) y no como una lista de números
 sueltos. Es opcional: los pasos sin `rotulo` se ven como siempre.

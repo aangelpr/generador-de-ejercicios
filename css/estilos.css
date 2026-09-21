@@ -192,7 +192,42 @@ pre.tablero {
   font-size: 11px; text-transform: uppercase; letter-spacing: .06em;
   color: var(--suave); font-weight: 700; margin-bottom: 6px;
 }
-.paso-pregunta { font-size: 17px; line-height: 1.65; margin-bottom: 14px; }
+.paso-pregunta { font-size: 17px; line-height: 1.65; margin-bottom: 10px; }
+
+/* Los dos desplegables "que hacemos" y "para que". Van cerrados por defecto
+   para no tapar la pregunta, pero recuerdan si los abriste. */
+.explica-fila { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+.explica { flex: 1 1 240px; min-width: 0; }
+.explica-bt {
+  width: 100%; text-align: left; font-size: 13px; font-weight: 600;
+  padding: 7px 11px; border-radius: 8px; color: var(--suave);
+  background: var(--panel2); border: 1px solid var(--borde);
+}
+.explica-bt::before { content: '+ '; font-weight: 700; }
+.explica-bt.activo { color: var(--acento); border-color: var(--acento); background: var(--acento-suave); }
+.explica-bt.activo::before { content: '− '; }
+.explica-cuerpo {
+  font-size: 14px; line-height: 1.6; padding: 9px 11px; margin-top: 5px;
+  background: var(--acento-suave); border-radius: 8px; color: var(--texto);
+}
+
+/* El desarrollo escrito: los renglones de cuentas, como en un cuaderno. */
+.desarrollo {
+  margin: 0 0 14px; padding: 11px 13px;
+  background: var(--panel2); border: 1px solid var(--borde); border-radius: 8px;
+}
+.desarrollo .rotulo {
+  font-size: 11px; text-transform: uppercase; letter-spacing: .06em;
+  color: var(--suave); font-weight: 700; margin-bottom: 8px;
+}
+.desarrollo-titulo {
+  font-size: 12.5px; font-weight: 700; color: var(--acento);
+  text-transform: uppercase; letter-spacing: .04em; margin: 10px 0 4px;
+}
+.desarrollo-titulo:first-of-type { margin-top: 0; }
+.proceso { margin: 0; }
+.proceso-linea { font-size: 15px; line-height: 1.75; padding-left: 2px; }
+.proceso-hueco { height: 7px; }
 .guia-final {
   font-size: 17px; line-height: 1.7; margin-top: 12px; padding: 12px 14px;
   background: var(--panel2); border: 1px solid var(--borde); border-radius: 8px;
