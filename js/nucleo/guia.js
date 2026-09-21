@@ -741,12 +741,20 @@
         'El truco de la regla de tres: primero averigua cuanto cuesta UNO.',
       pasos: [
         {
+          seccion: 'Paso 1: el valor de uno',
+          queHacemos: 'Averiguamos cuanto vale una sola unidad.',
+          paraQue: 'Ese es el truco de la regla de tres: bajar a uno y desde ahi subir a lo que sea. Se llama reduccion a la unidad.',
+          queda: 'uno cuesta ' + precioU,
           pregunta: '&iquest;Cuanto cuesta uno solo?<br>(divide ' + total + ' entre ' + n1 + ')',
           resp: R.numero(precioU, { dec: 4, tol: 0.01 }),
           pista: total + ' &divide; ' + n1,
           despues: 'Ese es el precio unitario. Ahora solo hay que multiplicar.'
         },
         {
+          seccion: 'Paso 2: subir a lo pedido',
+          queHacemos: 'Multiplicamos el valor de uno por la cantidad que piden.',
+          paraQue: 'Si uno cuesta eso, ' + n2 + ' cuestan ' + n2 + ' veces mas.',
+          queda: String(n2 * precioU),
           pregunta: 'Si uno cuesta ' + precioU + ', &iquest;cuanto cuestan ' + n2 + '?',
           resp: R.numero(n2 * precioU, { dec: 4, tol: 0.01 }),
           pista: n2 + ' &middot; ' + precioU,
@@ -923,18 +931,30 @@
         'Queremos el termino <b>a<sub>' + n + '</sub></b>. La formula es a<sub>n</sub> = a&#8321; + (n &minus; 1)d.',
       pasos: [
         {
+          seccion: 'Paso 1: contar los saltos',
+          queHacemos: 'Contamos cuantas veces hay que sumar la diferencia para llegar a ese lugar.',
+          paraQue: 'Del termino 1 al 2 hay UN salto, no dos. Por eso la formula lleva (n &minus; 1) y no n: es el error mas comun del tema.',
+          queda: a1 + ' + ' + (n - 1) + ' &middot; ' + d,
           pregunta: 'Para llegar del termino 1 al termino ' + n + ', &iquest;cuantas veces hay que sumar la diferencia?',
           resp: R.numero(n - 1, { dec: 0 }),
           pista: 'Son (n &minus; 1) saltos: del 1 al 2 es uno, del 1 al 3 son dos...',
           despues: 'Por eso la formula dice (n &minus; 1) y no n.'
         },
         {
+          seccion: 'Paso 2: lo que se acumula',
+          queHacemos: 'Multiplicamos los saltos por la diferencia.',
+          paraQue: 'Para saber cuanto se avanzo en total desde el primer termino.',
+          queda: a1 + ' + ' + ((n - 1) * d),
           pregunta: '&iquest;Cuanto es ' + (n - 1) + ' &middot; ' + d + '?',
           resp: R.numero((n - 1) * d, { dec: 0 }),
           pista: 'Cuidado si la diferencia es negativa.',
           despues: 'Eso es lo que avanzamos desde el primer termino.'
         },
         {
+          seccion: 'Paso 3: sumar el inicio',
+          queHacemos: 'Le sumamos el primer termino.',
+          paraQue: 'El punto de partida nunca se pierde.',
+          queda: String(a1 + (n - 1) * d),
           pregunta: 'Sumaselo al primer termino: ' + a1 + ' + (' + ((n - 1) * d) + ')',
           resp: R.numero(an, { dec: 0 }),
           pista: 'Suma final.',
@@ -956,12 +976,20 @@
         'Para continuarla primero hay que descubrir el patron.',
       pasos: [
         {
+          seccion: 'Paso 1: la diferencia',
+          queHacemos: 'Restamos dos terminos seguidos para ver cuanto avanza cada vez.',
+          paraQue: 'Si siempre avanza lo mismo, la sucesion es aritmetica y con eso ya se puede predecir el siguiente.',
+          queda: v[v.length - 1] + ' + (' + d + ')',
           pregunta: 'Resta dos terminos seguidos para ver cuanto avanza:<br>&iquest;Cuanto da ' + v[1] + ' &minus; ' + v[0] + '?',
           resp: R.numero(d, { dec: 0 }),
           pista: 'Compruebalo con otra pareja: ' + v[2] + ' &minus; ' + v[1] + ' debe dar lo mismo.',
           despues: 'Esa es la diferencia, y es la misma entre todos: por eso es aritmetica.'
         },
         {
+          seccion: 'Paso 2: avanzar',
+          queHacemos: 'Le sumamos la diferencia al ultimo termino.',
+          paraQue: 'Para dar un salto mas y llegar al siguiente.',
+          queda: String(v[v.length - 1] + d),
           pregunta: 'Ahora sumale esa diferencia al ultimo termino:<br>' + v[v.length - 1] + ' + (' + d + ')',
           resp: R.numero(sig, { dec: 0 }),
           pista: 'Suma simple.',

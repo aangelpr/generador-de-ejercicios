@@ -3,7 +3,7 @@
   'use strict';
   /* Sube esto junto con la version de sw.js. Se ve en Ajustes y sirve para
      saber de un vistazo si el celular ya tiene la version nueva. */
-  var VERSION = 'v24 (20 sep 2026)';
+  var VERSION = 'v25 (20 sep 2026)';
 
   var cfg = EJ.almacen.config;
   var estado = null;
