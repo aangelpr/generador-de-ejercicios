@@ -808,24 +808,40 @@
         'En un producto de monomios se hace por partes: numeros con numeros, y cada letra por su lado.',
       pasos: [
         {
+          seccion: 'Paso 1: los coeficientes',
+          queHacemos: 'Multiplicamos solo los numeros.',
+          paraQue: 'Numeros con numeros y letras con letras: nunca se mezclan. Cada parte lleva su propia regla.',
+          queda: (c1 * c2) + 'x' + F.sup('?') + 'y' + F.sup('?'),
           pregunta: 'Primero los coeficientes:<br>&iquest;Cuanto es ' + c1 + ' &middot; ' + c2 + '?',
           resp: R.numero(c1 * c2, { dec: 0 }),
           pista: 'Ojo con los signos.',
           despues: 'Ese es el numero que va adelante.'
         },
         {
+          seccion: 'Paso 2: la x',
+          queHacemos: 'Sumamos los exponentes de la x.',
+          paraQue: 'Multiplicandose, las potencias de la misma base SUMAN sus exponentes.',
+          queda: (c1 * c2) + 'x' + F.sup(a1 + a2) + 'y' + F.sup('?'),
           pregunta: 'Ahora la x: x' + F.sup(a1) + ' &middot; x' + F.sup(a2) + '.<br>&iquest;Que exponente queda? (se SUMAN)',
           resp: R.numero(a1 + a2, { dec: 0 }),
           pista: a1 + ' + ' + a2,
           despues: ''
         },
         {
+          seccion: 'Paso 3: la y',
+          queHacemos: 'Lo mismo con la y.',
+          paraQue: 'Cada letra por separado: la x nunca se junta con la y.',
+          queda: res,
           pregunta: 'Y la y: y' + F.sup(b1) + ' &middot; y' + F.sup(b2) + '.<br>&iquest;Que exponente queda?',
           resp: R.numero(b1 + b2, { dec: 0 }),
           pista: b1 + ' + ' + b2,
           despues: 'Ya tenemos las tres piezas.'
         },
         {
+          seccion: 'Paso 4: juntar',
+          queHacemos: 'Escribimos las tres partes juntas.',
+          paraQue: 'Para dar la respuesta completa.',
+          queda: res,
           pregunta: 'Escribe el monomio completo.',
           resp: R.expresion('(' + (c1 * c2) + ')*x^(' + (a1 + a2) + ')*y^(' + (b1 + b2) + ')', {
             vars: ['x', 'y'], mostrar: res
