@@ -238,6 +238,10 @@
     }
 
     var pasos = [{
+      seccion: 'Paso 1: bajar el primero',
+      queHacemos: 'Bajamos el primer coeficiente tal cual, sin tocarlo.',
+      paraQue: 'Es el unico que se baja sin operar. De ahi en adelante todo es multiplicar y sumar.',
+      queda: 'abajo: ' + coefs[0],
       pregunta: 'Se baja el primer coeficiente tal cual. &iquest;Que numero bajamos?',
       resp: R.numero(coefs[0], { dec: 0 }),
       pista: 'Es el primer numero de la lista: ' + coefs.join(', ') + '.',
@@ -247,12 +251,22 @@
     for (var k = 0; k < n - 1; k++) {
       (function (k) {
         pasos.push({
+          seccion: 'Ciclo ' + (k + 1) + ': multiplicar',
+          queHacemos: 'Multiplicamos el ultimo numero de abajo por el de afuera.',
+          paraQue: 'Ese producto se escribe debajo del siguiente coeficiente, listo para sumarlo.',
+          queda: 'abajo: ' + abajo.slice(0, k + 1).join(' | ') + '   (sube ' + mult[k] + ')',
           pregunta: 'Multiplica el numero que acabas de obtener abajo (<b>' + abajo[k] + '</b>) por el de afuera (<b>' + a + '</b>).<br>&iquest;Cuanto da ' + abajo[k] + ' &middot; ' + a + '?',
           resp: R.numero(mult[k], { dec: 0 }),
           pista: 'Cuidado con los signos: ' + (abajo[k] < 0 ? 'negativo' : 'positivo') + ' por ' + (a < 0 ? 'negativo' : 'positivo') + ' da ' + (mult[k] < 0 ? 'negativo' : 'positivo') + '.',
           despues: 'Ese ' + mult[k] + ' se escribe debajo del siguiente coeficiente (' + coefs[k + 1] + ').'
         });
         pasos.push({
+          seccion: 'Ciclo ' + (k + 1) + ': sumar la columna',
+          queHacemos: 'Sumamos el coeficiente de arriba con el numero que acabamos de poner debajo.',
+          paraQue: k + 1 < n - 1
+            ? 'Ese resultado es el siguiente numero de abajo, y con el se vuelve a multiplicar.'
+            : 'Este ultimo numero de abajo ya no es parte del cociente: es el RESIDUO.',
+          queda: 'abajo: ' + abajo.slice(0, k + 2).join(' | '),
           pregunta: 'Ahora suma esa columna:<br>&iquest;Cuanto da ' + coefs[k + 1] + ' + (' + mult[k] + ')?',
           resp: R.numero(abajo[k + 1], { dec: 0 }),
           pista: 'Suma el coeficiente de arriba con el numero que acabas de poner debajo.',
@@ -475,12 +489,20 @@
         'Buscamos dos numeros que MULTIPLICADOS den ' + pol[2] + ' y SUMADOS den ' + pol[1] + '.',
       pasos: [
         {
+          seccion: 'Paso 1: buscar los dos numeros',
+          queHacemos: 'Buscamos dos numeros que multiplicados den ' + pol[2] + ' y sumados den ' + pol[1] + '.',
+          paraQue: 'Al multiplicar (x + a)(x + b) sale x&sup2; + (a+b)x + ab. Vamos al reves: el numero solo es el PRODUCTO y el de la x es la SUMA.',
+          queda: n1 + ' y ' + n2,
           pregunta: '&iquest;Cuales son esos dos numeros?<br>(el producto debe dar ' + pol[2] + ' y la suma ' + pol[1] + ')<br>Escribelos separados por coma.',
           resp: R.lista([n1, n2], { ayuda: 'Por ejemplo: 3, -5' }),
           pista: 'Piensa en las parejas que multiplicadas dan ' + pol[2] + ' y prueba cual de esas suma ' + pol[1] + '.',
           despues: 'Comprobacion: (' + n1 + ')(' + n2 + ') = ' + (n1 * n2) + ' y ' + n1 + ' + (' + n2 + ') = ' + (n1 + n2) + '.'
         },
         {
+          seccion: 'Paso 2: escribir los parentesis',
+          queHacemos: 'Metemos cada numero en su parentesis junto a la x.',
+          paraQue: 'Cada numero va con su signo. Se comprueba multiplicando de regreso.',
+          queda: '(' + F.poli([1, n1], 'x') + ')(' + F.poli([1, n2], 'x') + ')',
           pregunta: 'Ahora escribe la factorizacion usando esos numeros:<br>(x + primero)(x + segundo)',
           resp: R.factorizada('(x+(' + n1 + '))*(x+(' + n2 + '))', {
             mostrar: '(' + F.poli([1, n1], 'x') + ')(' + F.poli([1, n2], 'x') + ')'

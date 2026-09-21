@@ -32,6 +32,10 @@
     var pasosG = [];
     if (!esSuma) {
       pasosG.push({
+        seccion: 'Paso 1: quitar el parentesis',
+        queHacemos: 'Le cambiamos el signo a TODOS los terminos del segundo polinomio.',
+        paraQue: 'El menos de afuera multiplica a todo lo de adentro. Cambiarle el signo solo al primero es el error mas comun del tema.',
+        queda: pr(A) + ' + ' + pr(P.escala(B, -1)),
         pregunta: 'Antes de operar: al restar, &iquest;que le pasa al segundo polinomio?',
         resp: R.opcion(['Le cambian TODOS los signos', 'Solo le cambia el signo al primer termino'], 0),
         pista: 'El menos de afuera entra a todo el parentesis, no solo al primero.',
@@ -42,7 +46,16 @@
       (function (kk) {
         var e = nG - 1 - kk;
         var vA = Ag[kk], vB = esSuma ? Bg[kk] : -Bg[kk];
+        var hechos = [], iP, cP;
+        for (iP = 0; iP <= kk; iP++) {
+          cP = Ag[iP] + (esSuma ? Bg[iP] : -Bg[iP]);
+          if (cP !== 0) hechos.push(F.term(cP, 'x', nG - 1 - iP));
+        }
         pasosG.push({
+          seccion: e === 0 ? 'Paso: los terminos sin x' : 'Paso: los terminos de grado ' + e,
+          queHacemos: 'Juntamos los coeficientes de los dos terminos de grado ' + e + '.',
+          paraQue: 'Solo se juntan los terminos con la MISMA potencia de x. La parte de la x no se toca: 2x + 3x son 5x, no 5x&sup2;.',
+          queda: (hechos.length ? F.une(hechos) : '0') + (kk < nG - 1 ? ' + ?' : ''),
           pregunta: (e === 0 ? 'Terminos sin x (independientes)' : 'Terminos de grado ' + e) +
             ': ' + vA + ' ' + (vB < 0 ? '&minus; ' + (-vB) : '+ ' + vB) + '<br>&iquest;Cuanto da?',
           resp: R.numero(vA + vB, { dec: 0 }),
@@ -53,6 +66,10 @@
       })(iG);
     }
     pasosG.push({
+      seccion: 'Paso final: escribir',
+      queHacemos: 'Ordenamos de mayor a menor grado y escribimos.',
+      paraQue: 'Los terminos con coeficiente 0 no se escriben: desaparecen.',
+      queda: P.texto(res),
       pregunta: 'Junta todo y escribe el polinomio resultado.',
       resp: R.expresion(P.expr(res), { mostrar: P.texto(res) }),
       pista: 'Es ' + P.texto(res) + '.', despues: ''
@@ -99,19 +116,35 @@
         intro: 'Nos dan <b>' + F.une(desordenado) + '</b> y piden tres cosas: grado, coeficiente principal y termino independiente.<br>' +
           'El truco de todo esto es el mismo: <b>primero ordenar de mayor a menor grado</b>. Una vez ordenado, las tres respuestas se leen solas.',
         pasos: [
-          { pregunta: 'Ordenado de mayor a menor queda ' + P.texto(p) + '.<br>&iquest;Cual es el exponente mas grande?',
+          { seccion: 'Paso 1: el grado',
+            queHacemos: 'Buscamos el exponente mas grande.',
+            paraQue: 'Ordenar primero no es capricho: con el polinomio ordenado las tres respuestas se leen solas.',
+            queda: 'grado = ' + g,
+            pregunta: 'Ordenado de mayor a menor queda ' + P.texto(p) + '.<br>&iquest;Cual es el exponente mas grande?',
             resp: R.numero(g, { dec: 0 }),
             pista: 'Mira todos los exponentes y quedate con el mayor. Ese numero es el GRADO.',
             despues: 'Entonces el grado es ' + g + '.' },
-          { pregunta: 'El <b>coeficiente principal</b> es el numero que acompaña al termino de mayor grado.<br>&iquest;Cual es?',
+          { seccion: 'Paso 2: el coeficiente principal',
+            queHacemos: 'Miramos el numero que acompana al termino de mayor grado.',
+            paraQue: 'Ojo: "principal" no es el primero que este escrito, sino el del exponente mas alto.',
+            queda: 'grado = ' + g + ',  coef. principal = ' + p[0],
+            pregunta: 'El <b>coeficiente principal</b> es el numero que acompaña al termino de mayor grado.<br>&iquest;Cual es?',
             resp: R.numero(p[0], { dec: 0 }),
             pista: 'Es el que va con x' + (g > 1 ? F.sup(g) : '') + ': ' + F.term(p[0], 'x', g) + '.',
             despues: 'Ojo: "principal" no quiere decir el primero que esta escrito, sino el de mayor grado.' },
-          { pregunta: 'El <b>termino independiente</b> es el que no lleva x.<br>&iquest;Cual es?',
+          { seccion: 'Paso 3: el termino independiente',
+            queHacemos: 'Buscamos el numero que va solo, sin x.',
+            paraQue: 'Tambien es el valor de P(0): al sustituir x por 0 todo lo demas se va.',
+            queda: 'grado = ' + g + ',  coef. principal = ' + p[0] + ',  indep. = ' + p[p.length - 1],
+            pregunta: 'El <b>termino independiente</b> es el que no lleva x.<br>&iquest;Cual es?',
             resp: R.numero(p[p.length - 1], { dec: 0 }),
             pista: 'Es el numero suelto: ' + p[p.length - 1] + '. Tambien se puede pensar como el que va con x&#8304;.',
             despues: 'Tambien es el valor de P(0).' },
-          { pregunta: 'Escribe las tres respuestas.',
+          { seccion: 'Paso 4: escribir',
+            queHacemos: 'Damos las tres respuestas juntas.',
+            paraQue: 'Para cerrar el ejercicio.',
+            queda: 'grado = ' + g + ',  coef. principal = ' + p[0] + ',  indep. = ' + p[p.length - 1],
+            pregunta: 'Escribe las tres respuestas.',
             resp: R.varios([
               { etiqueta: 'Grado', resp: R.numero(g, { dec: 0 }) },
               { etiqueta: 'Coeficiente principal', resp: R.numero(p[0], { dec: 0 }) },
@@ -153,13 +186,21 @@
     var res = P.evalua(p, x0);
     var gE = p.length - 1;
     var pasosE = [
-      { pregunta: 'Sustituimos cada x por (' + x0 + '). Empieza por la potencia: &iquest;cuanto es (' + x0 + ')&sup2;?',
+      { seccion: 'Paso 1: las potencias',
+        queHacemos: 'Calculamos primero las potencias del numero, antes de multiplicar nada.',
+        paraQue: 'El numero va entre PARENTESIS. Sin ellos, (&minus;3)&sup2; se confunde con &minus;3&sup2;, que no es lo mismo.',
+        queda: '(' + x0 + ')&sup2; = ' + (x0 * x0),
+        pregunta: 'Sustituimos cada x por (' + x0 + '). Empieza por la potencia: &iquest;cuanto es (' + x0 + ')&sup2;?',
         resp: R.numero(x0 * x0, { dec: 0 }),
         pista: x0 < 0 ? 'Negativo al cuadrado sale POSITIVO. Por eso se pone entre parentesis.' : 'Multiplica ' + x0 + ' por si mismo.',
         despues: '' }
     ];
     if (gE >= 3) {
       pasosE.push({
+        seccion: 'Paso 1: las potencias',
+        queHacemos: 'Ahora el cubo.',
+        paraQue: 'Exponente par deja positivo; exponente impar conserva el negativo.',
+        queda: '(' + x0 + ')&sup2; = ' + (x0 * x0) + ',  (' + x0 + ')&sup3; = ' + Math.pow(x0, 3),
         pregunta: '&iquest;Y (' + x0 + ')&sup3;?',
         resp: R.numero(Math.pow(x0, 3), { dec: 0 }),
         pista: x0 < 0 ? 'Negativo al cubo se queda NEGATIVO (exponente impar).' : 'Es ' + (x0 * x0) + ' &middot; ' + x0 + '.',
@@ -167,11 +208,19 @@
       });
     }
     pasosE.push({
+      seccion: 'Paso 2: multiplicar por los coeficientes',
+      queHacemos: 'Multiplicamos cada potencia por el coeficiente que le toca.',
+      paraQue: 'Ya con las potencias hechas, esto es pura multiplicacion.',
+      queda: 'primer termino: ' + (p[0] * Math.pow(x0, gE)),
       pregunta: 'Multiplica el coeficiente de mayor grado por su potencia: ' + p[0] + ' &middot; (' + Math.pow(x0, gE) + ')',
       resp: R.numero(p[0] * Math.pow(x0, gE), { dec: 0 }),
       pista: 'Cuidado con los signos.', despues: 'Falta hacer lo mismo con los demas y sumarlo todo.'
     });
     pasosE.push({
+      seccion: 'Paso 3: sumar',
+      queHacemos: 'Sumamos todos los terminos.',
+      paraQue: 'Ese numero es el valor de P en ese punto.',
+      queda: 'P(' + x0 + ') = ' + res,
       pregunta: 'Calcula los demas terminos y suma todo.<br>&iquest;Cuanto vale P(' + x0 + ')?',
       resp: R.numero(res, { dec: 0 }),
       pista: 'Queda ' + p.map(function (co, ii) {
@@ -210,14 +259,21 @@
     var B = poliAleatorio(r, 2, -6, 6);
     var res = P.multiplica(A, B);
 
-    var pasosM = [];
+    var pasosM = [], acumM = [0], iPz = 0;
+    var nPzs = A.filter(function (v) { return v !== 0; }).length;
     (function () {
       for (var i = 0; i < A.length; i++) {
         if (A[i] === 0) continue;
         var eA = A.length - 1 - i, ceros = [];
         for (var z = 0; z < eA; z++) ceros.push(0);
         (function (etiqueta, parcial) {
+          acumM = P.suma(acumM, parcial);
+          iPz++;
           pasosM.push({
+            seccion: 'Paso: repartir ' + etiqueta,
+            queHacemos: 'Multiplicamos ' + etiqueta + ' por cada termino del segundo parentesis.',
+            paraQue: 'Propiedad distributiva: CADA termino del primero toca a CADA termino del segundo. Por partes para no perderse.',
+            queda: P.texto(acumM) + (iPz < nPzs ? '  + (falta repartir los demas)' : ''),
             pregunta: 'Multiplica <b>' + etiqueta + '</b> por todo ' + pr(B) + '.<br>&iquest;Que sale?',
             resp: R.expresion(P.expr(parcial), { mostrar: P.texto(parcial) }),
             pista: 'Repartelo uno por uno: ' + etiqueta + ' por cada termino de adentro. Queda ' + P.texto(parcial) + '.',
@@ -227,6 +283,10 @@
       }
     })();
     pasosM.push({
+      seccion: 'Paso final: reducir',
+      queHacemos: 'Juntamos los terminos que tienen la misma potencia de x.',
+      paraQue: 'Comprobacion rapida: el grado del resultado debe ser la suma de los dos grados.',
+      queda: P.texto(res),
       pregunta: 'Ya tienes todos los pedazos. Sumalos y reduce los terminos semejantes.<br>Escribe el producto final.',
       resp: R.expresion(P.expr(res), { mostrar: P.texto(res) }),
       pista: 'Junta los que tienen la misma potencia de x. Queda ' + P.texto(res) + '.',
@@ -302,15 +362,27 @@
     var divisor = F.term(c, 'x', m);
     var gD = dividendo.length - 1, gQ = q.length - 1;
     var pasosDM = [
-      { pregunta: '&iquest;Se puede repartir la division entre cada termino de arriba?',
+      { seccion: 'Paso 1: ver si se puede repartir',
+        queHacemos: 'Revisamos que el de abajo sea un solo monomio.',
+        paraQue: 'Solo se reparte cuando abajo hay UN termino. Si abajo hubiera una suma, esto estaria mal.',
+        queda: 'se reparte termino por termino',
+        pregunta: '&iquest;Se puede repartir la division entre cada termino de arriba?',
         resp: R.opcion(['Si, porque abajo hay un solo monomio', 'No, nunca se puede repartir'], 0),
         pista: 'Repartir vale cuando el DENOMINADOR es un solo termino. Si abajo hubiera una suma, no se podria.',
         despues: 'Entonces vamos termino por termino.' },
-      { pregunta: 'Primer termino: ' + F.term(dividendo[0], 'x', gD) + ' entre ' + divisor + '.<br>&iquest;Que coeficiente queda?',
+      { seccion: 'Paso 2: primer termino',
+        queHacemos: 'Dividimos los coeficientes del primer termino.',
+        paraQue: 'Numeros con numeros y letras con letras: van por separado.',
+        queda: q[0] + 'x' + F.sup('?') + ' + ...',
+        pregunta: 'Primer termino: ' + F.term(dividendo[0], 'x', gD) + ' entre ' + divisor + '.<br>&iquest;Que coeficiente queda?',
         resp: R.numero(q[0], { dec: 0 }),
         pista: 'Solo los numeros: ' + dividendo[0] + ' &divide; ' + c + ' = ' + q[0] + '.',
         despues: '' },
-      { pregunta: 'Y la x: x' + F.sup(gD) + ' entre x' + (m > 1 ? F.sup(m) : '') + '.<br>&iquest;Que exponente queda?',
+      { seccion: 'Paso 2: primer termino',
+        queHacemos: 'Ahora restamos los exponentes de la x.',
+        paraQue: 'Dividiendose, los exponentes se RESTAN.',
+        queda: F.term(q[0], 'x', gQ) + ' + ...',
+        pregunta: 'Y la x: x' + F.sup(gD) + ' entre x' + (m > 1 ? F.sup(m) : '') + '.<br>&iquest;Que exponente queda?',
         resp: R.numero(gQ, { dec: 0 }),
         pista: 'Dividiendose, los exponentes se RESTAN: ' + gD + ' &minus; ' + m + '.',
         despues: 'Primer termino del cociente: ' + F.term(q[0], 'x', gQ) + '.' }
@@ -320,6 +392,10 @@
         if (q[i] === 0) continue;
         (function (kk) {
           pasosDM.push({
+            seccion: 'Paso 3: siguiente termino',
+            queHacemos: 'Repetimos con el siguiente termino de arriba.',
+            paraQue: 'Cada termino se divide por su cuenta; el de abajo se usa completo cada vez.',
+            queda: F.une([F.term(q[0], 'x', gQ), F.term(q[kk], 'x', gQ - kk)]) + '  + (faltan los demas)',
             pregunta: 'Ahora ' + F.term(dividendo[kk], 'x', gD - kk) + ' entre ' + divisor + '.<br>&iquest;Que coeficiente queda?',
             resp: R.numero(q[kk], { dec: 0 }),
             pista: dividendo[kk] + ' &divide; ' + c + ' = ' + q[kk] + ', y el exponente vuelve a bajar ' + m + '.',
@@ -330,6 +406,10 @@
       }
     })();
     pasosDM.push({
+      seccion: 'Paso final: escribir',
+      queHacemos: 'Repetimos con los demas y escribimos el cociente.',
+      paraQue: 'Se comprueba multiplicando el cociente por el divisor: debe volver al de arriba.',
+      queda: P.texto(q),
       pregunta: 'Termina los que falten y escribe el cociente completo.',
       resp: R.expresion(P.expr(q), { mostrar: P.texto(q) }),
       pista: 'Es ' + P.texto(q) + '.', despues: ''
@@ -368,11 +448,19 @@
 
     var Bk = P.escala(B, k);
     var pasosS = [
-      { pregunta: 'Primero lo de adentro: distribuye el ' + k + ' en ' + pr(B) + '.<br>&iquest;Que queda?',
+      { seccion: 'Paso 1: distribuir',
+        queHacemos: 'Multiplicamos el numero de afuera por cada termino del parentesis.',
+        paraQue: 'Hay dos cosas encimadas: una multiplicacion y una resta. Se hacen de una en una.',
+        queda: pr(A) + ' &minus; ' + pr(Bk),
+        pregunta: 'Primero lo de adentro: distribuye el ' + k + ' en ' + pr(B) + '.<br>&iquest;Que queda?',
         resp: R.expresion(P.expr(Bk), { mostrar: P.texto(Bk) }),
         pista: 'Multiplica ' + k + ' por cada coeficiente: queda ' + P.texto(Bk) + '.',
         despues: 'La expresion es ahora ' + pr(A) + ' &minus; ' + pr(Bk) + '.' },
-      { pregunta: 'Ese parentesis va RESTANDO. &iquest;Que hay que hacer con sus signos?',
+      { seccion: 'Paso 2: quitar el parentesis',
+        queHacemos: 'Le cambiamos el signo a todo el segundo parentesis.',
+        paraQue: 'El menos entra a TODO lo de adentro. Este es el error mas comun del tema.',
+        queda: P.texto(A) + ' + ' + P.texto(P.escala(Bk, -1)),
+        pregunta: 'Ese parentesis va RESTANDO. &iquest;Que hay que hacer con sus signos?',
         resp: R.opcion(['Cambiarlos todos', 'Dejarlos igual'], 0),
         pista: 'El menos de afuera entra a todo el parentesis. Es el error mas comun de todo el tema.',
         despues: 'Queda ' + P.texto(A) + ' + ' + P.texto(P.escala(Bk, -1)) + '.' }
@@ -381,7 +469,16 @@
       for (var i = 0; i < 3; i++) {
         (function (kk) {
           var e = 2 - kk, vA = A[kk], vB = -Bk[kk];
+          var hechosS = [], iS, cS;
+          for (iS = 0; iS <= kk; iS++) {
+            cS = A[iS] - Bk[iS];
+            if (cS !== 0) hechosS.push(F.term(cS, 'x', 2 - iS));
+          }
           pasosS.push({
+            seccion: e === 0 ? 'Paso: los terminos sin x' : 'Paso: los terminos de grado ' + e,
+            queHacemos: 'Juntamos los coeficientes de grado ' + e + '.',
+            paraQue: 'Solo los coeficientes; la parte de la x no se toca.',
+            queda: (hechosS.length ? F.une(hechosS) : '0') + (kk < 2 ? ' + ?' : ''),
             pregunta: (e === 0 ? 'Terminos sin x' : 'Terminos de grado ' + e) + ': ' +
               vA + ' ' + (vB < 0 ? '&minus; ' + (-vB) : '+ ' + vB) + '<br>&iquest;Cuanto da?',
             resp: R.numero(vA + vB, { dec: 0 }),
@@ -392,6 +489,10 @@
       }
     })();
     pasosS.push({
+      seccion: 'Paso final: escribir',
+      queHacemos: 'Ordenamos de mayor a menor grado y escribimos.',
+      paraQue: 'Para dar la respuesta ya reducida.',
+      queda: P.texto(res),
       pregunta: 'Escribe la expresion simplificada completa.',
       resp: R.expresion(P.expr(res), { mostrar: P.texto(res) }),
       pista: 'Es ' + P.texto(res) + '.', despues: ''
@@ -434,25 +535,45 @@
           'Es la division larga de toda la vida, pero con letras. El ciclo es siempre el mismo: ' +
           '<b>divido, multiplico, resto, bajo</b>; y se repite hasta que lo que queda tenga grado menor que el divisor.',
         pasos: [
-          { pregunta: 'DIVIDO: el termino de mayor grado de arriba entre el de mayor grado de abajo.<br>' +
+          { seccion: 'Paso 1: dividir',
+            queHacemos: 'Dividimos el termino de mayor grado de arriba entre el de mayor grado de abajo.',
+            paraQue: 'El ciclo es siempre el mismo: divido, multiplico, resto, bajo. Aqui empieza.',
+            queda: 'cociente: ' + F.term(Q[0], 'x', 2) + ' + ...',
+            pregunta: 'DIVIDO: el termino de mayor grado de arriba entre el de mayor grado de abajo.<br>' +
               F.term(A[0], 'x', gA) + ' &divide; x = ?',
             resp: R.expresion('(' + Q[0] + ')*x^' + (Q.length - 1), { mostrar: F.term(Q[0], 'x', Q.length - 1) }),
             pista: 'El coeficiente se queda igual (abajo hay un 1) y el exponente baja 1: ' + F.term(Q[0], 'x', Q.length - 1) + '.',
             despues: 'Ese es el primer termino del cociente.' },
-          { pregunta: 'MULTIPLICO y RESTO: ' + F.term(Q[0], 'x', Q.length - 1) + ' &middot; ' + pr(B) + ' = ' +
+          { seccion: 'Paso 2: multiplicar y restar',
+            queHacemos: 'Multiplicamos lo que salio por todo el divisor y lo restamos.',
+            paraQue: 'El termino de mayor grado se cancela solo: para eso se eligio asi. Si no se cancela, algo salio mal.',
+            queda: 'cociente: ' + F.une([F.term(Q[0], 'x', 2), F.term(Q[1], 'x', 1)]) + ' + ...',
+            pregunta: 'MULTIPLICO y RESTO: ' + F.term(Q[0], 'x', Q.length - 1) + ' &middot; ' + pr(B) + ' = ' +
               P.texto(P.multiplica(B, [Q[0], 0])) + '.<br>Al restarlo, &iquest;que coeficiente queda en x&sup2;?',
             resp: R.numero(Q[1], { dec: 0 }),
             pista: 'Era ' + A[1] + ' y le restas ' + (Q[0] * bb) + ': ' + A[1] + ' &minus; (' + (Q[0] * bb) + ') = ' + Q[1] + '.',
             despues: 'El termino de x&sup3; se cancela solo: para eso se eligio asi el cociente. Ese ' + Q[1] + ' es el segundo termino del cociente.' },
-          { pregunta: 'Repito el ciclo. Ahora toca el de x.<br>&iquest;Que coeficiente queda?',
+          { seccion: 'Paso 3: repetir el ciclo',
+            queHacemos: 'Volvemos a dividir, multiplicar y restar.',
+            paraQue: 'Se repite igual hasta que ya no se pueda bajar el grado.',
+            queda: 'cociente: ' + P.texto(Q),
+            pregunta: 'Repito el ciclo. Ahora toca el de x.<br>&iquest;Que coeficiente queda?',
             resp: R.numero(Q[2], { dec: 0 }),
             pista: 'Otra vez: ' + A[2] + ' &minus; (' + Q[1] + ')(' + bb + ') = ' + A[2] + ' &minus; (' + (Q[1] * bb) + ') = ' + Q[2] + '.',
             despues: 'Tercer termino del cociente.' },
-          { pregunta: 'Ultimo ciclo, con el termino independiente.<br>&iquest;Que numero queda?',
+          { seccion: 'Paso 4: el residuo',
+            queHacemos: 'Un ciclo mas y vemos con que nos quedamos.',
+            paraQue: 'Se para cuando lo que sobra tiene grado menor que el divisor. Eso que sobra es el residuo.',
+            queda: 'cociente ' + P.texto(Q) + ',  residuo ' + rem,
+            pregunta: 'Ultimo ciclo, con el termino independiente.<br>&iquest;Que numero queda?',
             resp: R.numero(rem, { dec: 0 }),
             pista: A[3] + ' &minus; (' + Q[2] + ')(' + bb + ') = ' + A[3] + ' &minus; (' + (Q[2] * bb) + ') = ' + rem + '.',
             despues: 'Ya no se puede seguir: ' + rem + ' tiene grado 0 y el divisor grado 1. Ese es el RESIDUO.' },
-          { pregunta: 'Escribe el cociente y el residuo.',
+          { seccion: 'Paso 5: escribir',
+            queHacemos: 'Damos el cociente y el residuo.',
+            paraQue: 'Comprobacion: divisor &middot; cociente + residuo debe dar el dividendo.',
+            queda: 'cociente ' + P.texto(Q) + ',  residuo ' + rem,
+            pregunta: 'Escribe el cociente y el residuo.',
             resp: R.varios([
               { etiqueta: 'Cociente', resp: R.expresion(P.expr(Q), { mostrar: P.texto(Q) }) },
               { etiqueta: 'Residuo', resp: R.numero(rem, { dec: 0 }) }
@@ -526,19 +647,35 @@
           'Se puede, gracias al <b>teorema del residuo</b>: el residuo de dividir P(x) entre (x &minus; a) es simplemente <b>P(a)</b>. ' +
           'Toda la division larga se cambia por una sustitucion.',
         pasos: [
-          { pregunta: '&iquest;Para que valor de x se hace cero el divisor (x ' + (a < 0 ? '+ ' + (-a) : '&minus; ' + a) + ')?',
+          { seccion: 'Paso 1: encontrar a',
+            queHacemos: 'Igualamos el divisor a cero y despejamos.',
+            paraQue: 'El signo es el CONTRARIO del que se ve: (x &minus; 4) se anula en x = 4.',
+            queda: 'hay que calcular P(' + a + ')',
+            pregunta: '&iquest;Para que valor de x se hace cero el divisor (x ' + (a < 0 ? '+ ' + (-a) : '&minus; ' + a) + ')?',
             resp: R.numero(a, { dec: 0 }),
             pista: 'Iguala el parentesis a cero y despeja: x = ' + a + '. Ojo con el signo, es el CONTRARIO del que se ve.',
             despues: 'Ese numero es el que hay que sustituir.' },
-          { pregunta: 'Calcula la potencia mas grande: (' + a + ')&sup3;',
+          { seccion: 'Paso 2: las potencias',
+            queHacemos: 'Calculamos las potencias del numero.',
+            paraQue: 'Primero las potencias, despues los productos: asi no se pierden los signos.',
+            queda: '(' + a + ')&sup3; = ' + Math.pow(a, 3),
+            pregunta: 'Calcula la potencia mas grande: (' + a + ')&sup3;',
             resp: R.numero(Math.pow(a, 3), { dec: 0 }),
             pista: a < 0 ? 'Negativo al cubo se queda negativo.' : 'Multiplica ' + a + ' tres veces.',
             despues: '' },
-          { pregunta: 'Y (' + a + ')&sup2;',
+          { seccion: 'Paso 2: las potencias',
+            queHacemos: 'Ahora el cuadrado.',
+            paraQue: 'Negativo al cuadrado sale positivo.',
+            queda: '(' + a + ')&sup3; = ' + Math.pow(a, 3) + ',  (' + a + ')&sup2; = ' + (a * a),
+            pregunta: 'Y (' + a + ')&sup2;',
             resp: R.numero(a * a, { dec: 0 }),
             pista: a < 0 ? 'Negativo al cuadrado sale positivo.' : 'Multiplica ' + a + ' por si mismo.',
             despues: 'Ya solo falta multiplicar por los coeficientes y sumar.' },
-          { pregunta: 'Sustituye y suma todo: &iquest;cuanto vale P(' + a + ')?',
+          { seccion: 'Paso 3: el residuo',
+            queHacemos: 'Multiplicamos por los coeficientes y sumamos.',
+            paraQue: 'El teorema del residuo dice que ese numero ES el residuo, sin hacer la division.',
+            queda: 'residuo = ' + res,
+            pregunta: 'Sustituye y suma todo: &iquest;cuanto vale P(' + a + ')?',
             resp: R.numero(res, { dec: 0 }),
             pista: '(' + p[0] + ')(' + Math.pow(a, 3) + ') + (' + p[1] + ')(' + (a * a) + ') + (' + p[2] + ')(' + a + ') + (' + p[3] + ') = ' + res + '.',
             despues: 'Y ese mismo numero es el residuo.' }
@@ -575,19 +712,35 @@
           '"Ser factor" significa que la division sale exacta, sin residuo. Y por el <b>teorema del factor</b>, ' +
           'eso pasa exactamente cuando <b>P(a) = 0</b>. Asi que basta con evaluar.',
         pasos: [
-          { pregunta: '&iquest;En que valor de x se anula (x ' + (a < 0 ? '+ ' + (-a) : '&minus; ' + a) + ')?',
+          { seccion: 'Paso 1: encontrar a',
+            queHacemos: 'Igualamos el parentesis a cero y despejamos.',
+            paraQue: 'Ese es el numero que hay que evaluar. El signo sale al reves del que se ve.',
+            queda: 'hay que calcular P(' + a + ')',
+            pregunta: '&iquest;En que valor de x se anula (x ' + (a < 0 ? '+ ' + (-a) : '&minus; ' + a) + ')?',
             resp: R.numero(a, { dec: 0 }),
             pista: 'Iguala a cero y despeja: x = ' + a + '.',
             despues: '' },
-          { pregunta: 'Calcula (' + a + ')&sup3;',
+          { seccion: 'Paso 2: la potencia',
+            queHacemos: 'Calculamos el cubo del numero.',
+            paraQue: 'Es la potencia mas grande que aparece; con ella hecha lo demas es facil.',
+            queda: '(' + a + ')&sup3; = ' + Math.pow(a, 3),
+            pregunta: 'Calcula (' + a + ')&sup3;',
             resp: R.numero(Math.pow(a, 3), { dec: 0 }),
             pista: a < 0 ? 'Exponente impar: se queda negativo.' : 'Es ' + a + ' &middot; ' + a + ' &middot; ' + a + '.',
             despues: '' },
-          { pregunta: 'Ahora evalua todo: &iquest;cuanto vale P(' + a + ')?',
+          { seccion: 'Paso 3: evaluar',
+            queHacemos: 'Sustituimos y sumamos todo.',
+            paraQue: 'Si da 0 la division es exacta; si no, ese numero seria el residuo.',
+            queda: 'P(' + a + ') = ' + valor,
+            pregunta: 'Ahora evalua todo: &iquest;cuanto vale P(' + a + ')?',
             resp: R.numero(valor, { dec: 0 }),
             pista: '(' + p[0] + ')(' + Math.pow(a, 3) + ') + (' + p[1] + ')(' + (a * a) + ') + (' + p[2] + ')(' + a + ') + (' + p[3] + ') = ' + valor + '.',
             despues: valor === 0 ? 'Dio 0.' : 'Dio ' + valor + ', que no es 0.' },
-          { pregunta: 'Entonces, &iquest;es factor?',
+          { seccion: 'Paso 4: decidir',
+            queHacemos: 'Comparamos el resultado contra cero.',
+            paraQue: 'Teorema del factor: es factor exactamente cuando P(a) = 0.',
+            queda: valor === 0 ? 'Si es factor' : 'No es factor (sobra ' + valor + ')',
+            pregunta: 'Entonces, &iquest;es factor?',
             resp: R.opcion(['Si es factor', 'No es factor'], esFactor ? 0 : 1),
             pista: valor === 0 ? 'P(' + a + ') = 0, asi que la division es exacta.'
               : 'P(' + a + ') = ' + valor + ', y ese mismo numero seria el residuo: sobra algo.',
@@ -624,20 +777,36 @@
           'Con cuatro terminos y sin factor comun entre todos, el truco es partirlos en dos parejas, ' +
           'sacar factor comun de cada pareja y esperar que quede el <b>mismo parentesis</b> en las dos. Si queda, ya ganaste.',
         pasos: [
-          { pregunta: 'Agrupamos asi: (' + F.une([F.term(1, 'x', 3), F.term(a, 'x', 2)]) + ') + (' + F.une([F.term(b, 'x', 1), String(a * b)]) + ').<br>' +
+          { seccion: 'Paso 1: primer grupo',
+            queHacemos: 'Partimos los cuatro terminos en dos parejas y sacamos el comun de la primera.',
+            paraQue: 'Entre los cuatro no hay nada en comun, pero de dos en dos si. Esa es toda la idea.',
+            queda: 'x&sup2;( ? ) + ...',
+            pregunta: 'Agrupamos asi: (' + F.une([F.term(1, 'x', 3), F.term(a, 'x', 2)]) + ') + (' + F.une([F.term(b, 'x', 1), String(a * b)]) + ').<br>' +
               '&iquest;Cual es el factor comun del PRIMER grupo?',
             resp: R.expresion('x^2', { mostrar: 'x&sup2;' }),
             pista: 'Los dos tienen x&sup2; (uno tiene x&sup3;, que es x&sup2; &middot; x). Numero comun no hay.',
             despues: '' },
-          { pregunta: 'Sacalo: x&sup2;( ? ).<br>&iquest;Que queda dentro del parentesis?',
+          { seccion: 'Paso 1: primer grupo',
+            queHacemos: 'Dividimos los dos terminos entre ese factor comun.',
+            paraQue: 'Lo que queda dentro es el parentesis clave: el que tiene que repetirse.',
+            queda: 'x&sup2;' + parA + ' + ...',
+            pregunta: 'Sacalo: x&sup2;( ? ).<br>&iquest;Que queda dentro del parentesis?',
             resp: R.expresion('x+(' + a + ')', { mostrar: F.poli([1, a], 'x') }),
             pista: 'Divide cada uno entre x&sup2;: x&sup3; &divide; x&sup2; = x, y ' + F.term(a, 'x', 2) + ' &divide; x&sup2; = ' + a + '.',
             despues: 'Vamos en x&sup2;' + parA + ' + ...' },
-          { pregunta: 'Ahora el SEGUNDO grupo: ' + F.term(b, 'x', 1) + ' y ' + (a * b) + '.<br>&iquest;Cual es su factor comun?',
+          { seccion: 'Paso 2: segundo grupo',
+            queHacemos: 'Sacamos el factor comun de la segunda pareja.',
+            paraQue: 'Si dentro queda el MISMO parentesis que antes, la agrupacion funciono. Si no, hay que agrupar de otra forma.',
+            queda: 'x&sup2;' + parA + ' + ' + b + parA,
+            pregunta: 'Ahora el SEGUNDO grupo: ' + F.term(b, 'x', 1) + ' y ' + (a * b) + '.<br>&iquest;Cual es su factor comun?',
             resp: R.numero(b, { dec: 0 }),
             pista: 'Aqui es solo un numero: ' + b + '. (' + (a * b) + ' &divide; ' + b + ' = ' + a + '.)',
             despues: 'Queda ' + b + parA + ': &iexcl;el MISMO parentesis que en el primer grupo! Por eso funciona la agrupacion.' },
-          { pregunta: 'Los dos grupos comparten ' + parA + '.<br>Escribe la factorizacion completa.',
+          { seccion: 'Paso 3: escribir',
+            queHacemos: 'Sacamos el parentesis repetido como factor comun de todo.',
+            paraQue: 'Un factor es el parentesis que se repetia; el otro se arma con lo que sacaste de cada grupo.',
+            queda: '(' + F.poli([1, 0, b], 'x') + ')(' + F.poli([1, a], 'x') + ')',
+            pregunta: 'Los dos grupos comparten ' + parA + '.<br>Escribe la factorizacion completa.',
             resp: R.factorizada('(x^2+(' + b + '))*(x+(' + a + '))', {
               mostrar: '(' + F.poli([1, 0, b], 'x') + ')(' + F.poli([1, a], 'x') + ')' }),
             pista: 'Un factor es el parentesis repetido y el otro son los dos factores que sacaste: (' +
@@ -679,27 +848,51 @@
           '(a + b + c)&sup2; = a&sup2; + b&sup2; + c&sup2; + 2ab + 2ac + 2bc.<br>' +
           'Aqui a = <b>' + F.term(a, 'x', 2) + '</b>, b = <b>' + F.term(b, 'x', 1) + '</b> y c = <b>' + c + '</b>.',
         pasos: [
-          { pregunta: 'Grado 4. Sale del cuadrado del primero: (' + F.term(a, 'x', 2) + ')&sup2;.<br>&iquest;Que coeficiente queda?',
+          { seccion: 'Paso 1: grado 4',
+            queHacemos: 'Elevamos al cuadrado el primer termino.',
+            paraQue: 'Con tres terminos salen SEIS pedazos: tres cuadrados y tres dobles productos. Los vamos armando por grados.',
+            queda: F.term(a * a, 'x', 4) + ' + ? + ? + ? + ?',
+            pregunta: 'Grado 4. Sale del cuadrado del primero: (' + F.term(a, 'x', 2) + ')&sup2;.<br>&iquest;Que coeficiente queda?',
             resp: R.numero(a * a, { dec: 0 }),
             pista: a + '&sup2; = ' + (a * a) + ', y (x&sup2;)&sup2; = x&#8308;.',
             despues: 'Primer termino: ' + F.term(a * a, 'x', 4) + '.' },
-          { pregunta: 'Grado 3. Sale del doble producto primero &times; segundo: 2 &middot; ' + a + ' &middot; (' + b + ').<br>&iquest;Cuanto da?',
+          { seccion: 'Paso 2: grado 3',
+            queHacemos: 'Calculamos el doble producto del primero por el segundo.',
+            paraQue: 'x&sup2; &middot; x da x&sup3;: es el unico pedazo que cae en grado 3.',
+            queda: F.une([F.term(a * a, 'x', 4), F.term(2 * a * b, 'x', 3)]) + ' + ? + ? + ?',
+            pregunta: 'Grado 3. Sale del doble producto primero &times; segundo: 2 &middot; ' + a + ' &middot; (' + b + ').<br>&iquest;Cuanto da?',
             resp: R.numero(2 * a * b, { dec: 0 }),
             pista: 'Multiplica 2 &middot; ' + a + ' &middot; (' + b + '). Las letras: x&sup2; &middot; x = x&sup3;.',
             despues: '' },
-          { pregunta: 'Grado 2. Aqui caen DOS cosas: el cuadrado del segundo (' + b + ')&sup2; y el doble producto primero &times; tercero 2 &middot; ' + a + ' &middot; (' + c + ').<br>&iquest;Cuanto suman las dos?',
+          { seccion: 'Paso 3: grado 2',
+            queHacemos: 'Sumamos los DOS pedazos que caen en grado 2.',
+            paraQue: 'Aqui se equivoca casi todo el mundo: se quedan con uno solo y se olvidan de sumar el otro.',
+            queda: F.une([F.term(a * a, 'x', 4), F.term(2 * a * b, 'x', 3), F.term(b * b + 2 * a * c, 'x', 2)]) + ' + ? + ?',
+            pregunta: 'Grado 2. Aqui caen DOS cosas: el cuadrado del segundo (' + b + ')&sup2; y el doble producto primero &times; tercero 2 &middot; ' + a + ' &middot; (' + c + ').<br>&iquest;Cuanto suman las dos?',
             resp: R.numero(b * b + 2 * a * c, { dec: 0 }),
             pista: '(' + b + ')&sup2; = ' + (b * b) + ' y 2 &middot; ' + a + ' &middot; (' + c + ') = ' + (2 * a * c) + '. Sumalos.',
             despues: 'Este es el paso donde mas se equivoca la gente: se olvidan de juntar los dos.' },
-          { pregunta: 'Grado 1. Doble producto segundo &times; tercero: 2 &middot; ' + b + ' &middot; (' + c + ').<br>&iquest;Cuanto da?',
+          { seccion: 'Paso 4: grado 1',
+            queHacemos: 'Calculamos el doble producto del segundo por el tercero.',
+            paraQue: 'Aqui solo queda una x sola.',
+            queda: F.une([F.term(a * a, 'x', 4), F.term(2 * a * b, 'x', 3), F.term(b * b + 2 * a * c, 'x', 2), F.term(2 * b * c, 'x', 1)]) + ' + ?',
+            pregunta: 'Grado 1. Doble producto segundo &times; tercero: 2 &middot; ' + b + ' &middot; (' + c + ').<br>&iquest;Cuanto da?',
             resp: R.numero(2 * b * c, { dec: 0 }),
             pista: 'Solo los numeros; la letra que queda es una x sola.',
             despues: '' },
-          { pregunta: 'Grado 0. Cuadrado del tercero: (' + c + ')&sup2;',
+          { seccion: 'Paso 5: grado 0',
+            queHacemos: 'Elevamos al cuadrado el tercer termino.',
+            paraQue: 'Siempre sale positivo, sea cual sea su signo.',
+            queda: P.texto(res),
+            pregunta: 'Grado 0. Cuadrado del tercero: (' + c + ')&sup2;',
             resp: R.numero(c * c, { dec: 0 }),
             pista: c < 0 ? 'Negativo al cuadrado sale positivo.' : 'Multiplica ' + c + ' por si mismo.',
             despues: 'Ya estan los cinco terminos del resultado.' },
-          { pregunta: 'Junta todo y escribe el desarrollo completo.',
+          { seccion: 'Paso 6: escribir',
+            queHacemos: 'Escribimos los cinco terminos en orden.',
+            paraQue: 'Comprobacion: debe ser de grado 4 y tener cinco terminos.',
+            queda: P.texto(res),
+            pregunta: 'Junta todo y escribe el desarrollo completo.',
             resp: R.expresion(P.expr(res), { mostrar: P.texto(res) }),
             pista: 'Es ' + P.texto(res) + '.', despues: '' }
         ],
