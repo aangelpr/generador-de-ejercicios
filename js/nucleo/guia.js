@@ -566,112 +566,132 @@
     var factorTxt = (k === 1 ? '' : k) + (m ? 'x' + (m > 1 ? F.sup(m) : '') : '');
     var ak = Math.abs(k);
 
-    /* los terminos que de verdad se ven, con su exponente */
     var terminos = [];
     expandido.forEach(function (c, i) {
-      if (c !== 0) terminos.push({ c: c, e: expandido.length - 1 - i, txt: F.term(c, 'x', expandido.length - 1 - i) });
+      var e = expandido.length - 1 - i;
+      if (c !== 0) terminos.push({ c: c, e: e, txt: F.term(c, 'x', e) });
     });
     var coefs = terminos.map(function (t) { return t.c; });
+    var ordinal = ['primer', 'segundo', 'tercer', 'cuarto', 'quinto'];
+    /* x&sup1; no se escribe con el 1, y x&#8304; no se escribe */
+    function equis(e) { return e === 0 ? '1' : (e === 1 ? 'x' : 'x' + F.sup(e)); }
+    var pasos = [];
 
-    /* PASO 1: las divisiones entre el m.c.d. */
-    var procMcd = coefs.map(function (c) {
-      return Math.abs(c) + ' &divide; ' + ak + ' = ' + (Math.abs(c) / ak);
+    /* ---------- PASO 1: el m.c.d. ---------- */
+    var S1 = 'Paso 1: buscar el m.c.d.';
+    var qh1 = 'Buscamos el numero mas grande que divide de forma exacta a ' + coefs.map(Math.abs).join(', ') + '.';
+    var pq1 = 'Para sacar del parentesis el mayor numero que los ' + terminos.length + ' terminos tienen en comun. ' +
+      'Si sacaras uno mas chico, la factorizacion quedaria a medias.';
+    pasos.push({
+      seccion: S1, rotulo: 'm.c.d.', queHacemos: qh1, paraQue: pq1,
+      pregunta: 'Los coeficientes son <b>' + coefs.join(', ') + '</b>.<br>' +
+        '&iquest;Cual es el numero mas grande que los divide a todos?',
+      resp: R.numero(ak, { dec: 0 }),
+      pista: 'Prueba a dividir todos entre 2, entre 3, entre 4... y quedate con el mayor que salga exacto en TODOS. ' +
+        'Los signos no importan aqui.',
+      proceso: ['m.c.d. de ' + coefs.map(Math.abs).join(', ') + ' = <b>' + ak + '</b>'],
+      despues: ''
     });
-    procMcd.push('');
-    procMcd.push('m.c.d. = <b>' + ak + '</b>');
-
-    /* PASO 2: los exponentes */
-    var procLetra = terminos.map(function (t) {
-      return t.txt + '  &rarr;  exponente ' + t.e;
+    terminos.forEach(function (t, i) {
+      pasos.push({
+        seccion: S1, rotulo: Math.abs(t.c) + ' entre ' + ak, queHacemos: qh1, paraQue: pq1,
+        pregunta: 'Compruebalo: &iquest;cuanto es <b>' + Math.abs(t.c) + ' &divide; ' + ak + '</b>?',
+        resp: R.numero(Math.abs(t.c) / ak, { dec: 0 }),
+        pista: 'Division exacta, sin residuo.',
+        proceso: [Math.abs(t.c) + ' &divide; ' + ak + ' = ' + (Math.abs(t.c) / ak)],
+        despues: i === terminos.length - 1 ? 'Los ' + terminos.length + ' dieron exacto, asi que ' + ak + ' si es divisor comun.' : ''
+      });
     });
-    procLetra.push('');
-    procLetra.push('El menor es <b>' + m + '</b>' + (m === 0 ? ' (hay un termino sin x)' : ''));
 
-    /* PASO 3: la division de cada termino, cuenta por cuenta */
-    var ordinal = ['Primer', 'Segundo', 'Tercer', 'Cuarto', 'Quinto'];
-    var procDiv = [];
+    /* ---------- PASO 2: la letra ---------- */
+    var S2 = 'Paso 2: buscar la letra comun';
+    var qh2 = 'Revisamos que exponente tiene la x en cada termino, y nos quedamos con el menor.';
+    var pq2 = 'Para sacar la mayor cantidad de x que TODOS los terminos tienen. ' +
+      'Manda el exponente mas chico, porque de ese solo hay esa cantidad.';
+    terminos.forEach(function (t) {
+      pasos.push({
+        seccion: S2, rotulo: 'Exponente de ' + t.txt, queHacemos: qh2, paraQue: pq2,
+        pregunta: 'En <b>' + t.txt + '</b>, &iquest;que exponente tiene la x?',
+        resp: R.numero(t.e, { dec: 0 }),
+        pista: t.e === 0 ? 'Ese termino no tiene x: su exponente es 0.'
+          : t.e === 1 ? 'Cuando no se ve ningun exponente, es 1.' : 'Es el numerito de arriba.',
+        proceso: [t.txt + '  &rarr;  exponente ' + t.e],
+        despues: ''
+      });
+    });
+    pasos.push({
+      seccion: S2, rotulo: 'El menor exponente', queHacemos: qh2, paraQue: pq2,
+      pregunta: 'Los exponentes son <b>' + terminos.map(function (t) { return t.e; }).join(', ') + '</b>.<br>' +
+        '&iquest;Cual es el MENOR?',
+      resp: R.numero(m, { dec: 0 }),
+      pista: 'El mas chico de todos. No se puede sacar mas x de las que tiene el termino mas pobre.',
+      proceso: ['El menor es <b>' + m + '</b>', '', 'Factor comun = <b>' + factorTxt + '</b>'],
+      despues: 'Juntando el numero y la letra, el factor comun es ' + factorTxt + '.'
+    });
+
+    /* ---------- PASO 3: dividir cada termino ---------- */
+    var S3 = 'Paso 3: dividir cada termino entre ' + factorTxt;
+    var qh3 = 'Dividimos cada termino del ejercicio entre ' + factorTxt + ', por separado.';
+    var pq3 = 'Para saber que queda DENTRO del parentesis. Sacar factor comun es deshacer una multiplicacion: ' +
+      'si ' + factorTxt + ' multiplicaba a algo, ese algo se recupera dividiendo.';
     terminos.forEach(function (t, i) {
       var cq = t.c / k, eq = t.e - m;
-      procDiv.push('<b>' + (ordinal[i] || 'Siguiente') + ' termino:</b>');
-      procDiv.push(t.txt + ' &divide; ' + factorTxt);
-      procDiv.push(t.c + ' &divide; ' + k + ' = ' + cq);
-      if (m > 0) {
-        procDiv.push('x' + F.sup(t.e) + ' &divide; x' + (m > 1 ? F.sup(m) : '') + ' = ' + (eq === 0 ? '1' : 'x' + (eq > 1 ? F.sup(eq) : '')));
-      }
-      procDiv.push('Queda: <b>' + F.term(cq, 'x', eq) + '</b>');
-      if (i < terminos.length - 1) procDiv.push('');
-    });
-
-    /* PASO 5: la comprobacion, multiplicando de regreso */
-    var procComp = [];
-    terminos.forEach(function (t) {
-      procComp.push(factorTxt + ' &middot; ' + F.term(t.c / k, 'x', t.e - m) + ' = ' + t.txt);
-    });
-    procComp.push('');
-    procComp.push(factorTxt + '(' + P.texto(dentro) + ') = <b>' + P.texto(expandido) + '</b>');
-    procComp.push('Coincide con el ejercicio original.');
-
-    var pasos = [
-      {
-        rotulo: 'Buscar el m.c.d.',
-        queHacemos: 'Buscamos el numero mas grande que divide de forma exacta a ' + coefs.map(Math.abs).join(', ') + '.',
-        paraQue: 'Para sacar del parentesis el mayor numero que los ' + terminos.length + ' terminos tienen en comun. ' +
-          'Si sacaras uno mas chico, la factorizacion quedaria incompleta.',
-        pregunta: 'Los coeficientes son ' + coefs.join(', ') + '.<br>' +
-          '&iquest;Cual es el numero mas grande que divide a todos?',
-        resp: R.numero(ak, { dec: 0 }),
-        pista: 'Prueba a dividir los tres entre 2, entre 3, entre 4... y quedate con el mayor que salga exacto en todos.',
-        proceso: procMcd,
-        despues: 'Ese ' + ak + ' sale del parentesis.'
-      },
-      {
-        rotulo: 'Buscar la letra comun',
-        queHacemos: 'Revisamos que letra aparece en TODOS los terminos y con que exponente, y nos quedamos con el menor.',
-        paraQue: 'Para sacar la mayor cantidad de x que los terminos tienen en comun. ' +
-          'Manda el exponente mas chico, porque de ese solo hay esa cantidad.',
-        pregunta: '&iquest;Cual es la MENOR potencia de x que aparece en todos los terminos?<br>' +
-          'Escribe solo el exponente (si algun termino no tiene x, escribe 0).',
-        resp: R.numero(m, { dec: 0 }),
-        pista: 'Fijate en el termino con menos equis: ese manda. No se puede sacar mas x de las que tiene el mas pobre.',
-        proceso: procLetra,
-        despues: 'Juntando el numero y la letra, el factor comun es <b>' + factorTxt + '</b>.'
-      },
-      {
-        rotulo: 'Dividir cada termino',
-        queHacemos: 'Dividimos cada termino del ejercicio entre ' + factorTxt + ', por separado.',
-        paraQue: 'Para saber que queda DENTRO del parentesis. Sacar factor comun es como deshacer una multiplicacion: ' +
-          'si ' + factorTxt + ' multiplicaba a algo, ese algo se recupera dividiendo.',
-        pregunta: 'Divide cada termino entre ' + factorTxt + '.<br>Escribe lo que queda dentro del parentesis.',
-        resp: R.expresion(P.expr(dentro), { mostrar: P.texto(dentro) }),
-        pista: 'Divide el coeficiente entre ' + k + (m ? ' y restale ' + m + ' al exponente de cada x' : '') + '. ' +
-          'Ojo con el termino cuya x se cancela del todo: ahi queda un numero solo.',
-        proceso: procDiv,
-        despues: 'Quedaron ' + terminos.length + ' terminos dentro del parentesis.'
-      },
-      {
-        rotulo: 'Armar la factorizacion',
-        queHacemos: 'Ponemos el factor comun afuera y los resultados de las divisiones dentro del parentesis.',
-        paraQue: 'Porque esa es la forma factorizada: un producto, no una suma.',
-        pregunta: 'Escribe la factorizacion completa.',
-        resp: R.factorizada('(' + k + ')*x^(' + m + ')*(' + P.expr(dentro) + ')', {
-          mostrar: factorTxt + '(' + P.texto(dentro) + ')'
-        }),
-        pista: 'Se escribe ' + factorTxt + '(' + P.texto(dentro) + '): el factor pegado al parentesis, sin signo de por medio.',
-        proceso: [factorTxt + '(' + P.texto(dentro) + ')'],
+      pasos.push({
+        seccion: S3, rotulo: 'Coeficiente del ' + (ordinal[i] || 'siguiente'), queHacemos: qh3, paraQue: pq3,
+        pregunta: 'Vamos con el <b>' + (ordinal[i] || 'siguiente') + ' termino</b>: ' + t.txt + ' &divide; ' + factorTxt + '.<br>' +
+          'Primero los numeros: &iquest;cuanto es <b>' + t.c + ' &divide; ' + k + '</b>?',
+        resp: R.numero(cq, { dec: 0 }),
+        pista: (t.c < 0) !== (k < 0) ? 'Signos distintos: el resultado es negativo.' : 'Signos iguales: el resultado es positivo.',
+        proceso: [(i === 0 ? '' : ' ') + t.txt + ' &divide; ' + factorTxt, t.c + ' &divide; ' + k + ' = ' + cq],
         despues: ''
-      },
-      {
-        rotulo: 'Comprobar',
-        queHacemos: 'Multiplicamos ' + factorTxt + ' por cada termino del parentesis.',
-        paraQue: 'Para comprobar que regresamos al ejercicio original. Si no coincide, hay un error en alguna division.',
-        pregunta: 'Al multiplicar de regreso, &iquest;que debe salir?',
-        resp: R.opcion(['Exactamente el ejercicio original', 'Un resultado mas simple'], 0),
-        pista: 'Factorizar no cambia el valor de la expresion: solo la escribe de otra forma. ' +
-          'Por eso al deshacerlo tiene que salir lo mismo con lo que empezamos.',
-        proceso: procComp,
-        despues: 'Esta comprobacion es gratis y atrapa casi cualquier error. Vale la pena hacerla siempre.'
+      });
+      if (m > 0) {
+        pasos.push({
+          seccion: S3, rotulo: 'Exponente del ' + (ordinal[i] || 'siguiente'), queHacemos: qh3, paraQue: pq3,
+          pregunta: 'Ahora la letra: ' + equis(t.e) + ' &divide; ' + equis(m) + '.<br>' +
+            '&iquest;Que exponente queda?',
+          resp: R.numero(eq, { dec: 0 }),
+          pista: 'Dividiendo se RESTAN los exponentes: ' + t.e + ' &minus; ' + m + '.',
+          proceso: [equis(t.e) + ' &divide; ' + equis(m) + ' = ' + equis(eq),
+            'Queda: <b>' + F.term(cq, 'x', eq) + '</b>'],
+          despues: eq === 0 ? 'Exponente 0 significa que la x desaparece: queda un numero solo.' : ''
+        });
+      } else {
+        pasos[pasos.length - 1].proceso.push('Queda: <b>' + F.term(cq, 'x', eq) + '</b>');
       }
-    ];
+    });
+
+    /* ---------- PASO 4: armar ---------- */
+    pasos.push({
+      seccion: 'Paso 4: armar la factorizacion',
+      rotulo: 'Factorizacion',
+      queHacemos: 'Ponemos el factor comun afuera y los resultados de las divisiones dentro del parentesis.',
+      paraQue: 'Porque esa es la forma factorizada: un producto, no una suma.',
+      pregunta: 'Junta todo: el factor comun afuera y lo que quedo dentro del parentesis.',
+      resp: R.factorizada('(' + k + ')*x^(' + m + ')*(' + P.expr(dentro) + ')', {
+        mostrar: factorTxt + '(' + P.texto(dentro) + ')'
+      }),
+      pista: 'Se escribe ' + factorTxt + '(' + P.texto(dentro) + '): el factor pegado al parentesis, sin signo de por medio.',
+      proceso: [factorTxt + '(' + P.texto(dentro) + ')'],
+      despues: ''
+    });
+
+    /* ---------- PASO 5: comprobar ---------- */
+    var S5 = 'Paso 5: comprobar';
+    var qh5 = 'Multiplicamos ' + factorTxt + ' por cada termino del parentesis.';
+    var pq5 = 'Para ver que regresamos al ejercicio original. Si algo no coincide, hay un error en alguna division.';
+    terminos.forEach(function (t, i) {
+      var dentroTxt = F.term(t.c / k, 'x', t.e - m);
+      pasos.push({
+        seccion: S5, rotulo: factorTxt + ' por ' + dentroTxt, queHacemos: qh5, paraQue: pq5,
+        pregunta: '&iquest;Cuanto es <b>' + factorTxt + ' &middot; ' + dentroTxt + '</b>?',
+        resp: R.expresion(P.expr(P.multiplica([t.c].concat(new Array(t.e).fill(0)), [1])), { mostrar: t.txt }),
+        pista: 'Multiplica los numeros (' + k + ' &middot; ' + (t.c / k) + ') y suma los exponentes (' + m + ' + ' + (t.e - m) + ').',
+        proceso: [factorTxt + ' &middot; ' + dentroTxt + ' = ' + t.txt],
+        despues: i === terminos.length - 1
+          ? 'Los ' + terminos.length + ' coinciden con el ejercicio original, asi que la factorizacion esta bien.' : ''
+      });
+    });
 
     return {
       intro: 'Vamos a factorizar <b>' + P.texto(expandido) + '</b> sacando factor comun.<br>' +

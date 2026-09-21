@@ -192,6 +192,10 @@ pre.tablero {
   font-size: 11px; text-transform: uppercase; letter-spacing: .06em;
   color: var(--suave); font-weight: 700; margin-bottom: 6px;
 }
+.paso-seccion {
+  font-size: 12.5px; font-weight: 700; color: var(--acento);
+  text-transform: uppercase; letter-spacing: .05em; margin-bottom: 5px;
+}
 .paso-pregunta { font-size: 17px; line-height: 1.65; margin-bottom: 10px; }
 
 /* Los dos desplegables "que hacemos" y "para que". Van cerrados por defecto
@@ -226,7 +230,7 @@ pre.tablero {
 }
 .desarrollo-titulo:first-of-type { margin-top: 0; }
 .proceso { margin: 0; }
-.proceso-linea { font-size: 15px; line-height: 1.75; padding-left: 2px; }
+.proceso-linea { font-size: 15px; line-height: 1.7; padding-left: 2px; }
 .proceso-hueco { height: 7px; }
 .guia-final {
   font-size: 17px; line-height: 1.7; margin-top: 12px; padding: 12px 14px;

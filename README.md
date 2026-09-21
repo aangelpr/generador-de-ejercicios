@@ -120,12 +120,19 @@ clase desde cero, y se entendía mal. El código quedó ahí por si acaso
 
 Cada micro-paso puede llevar, todos opcionales:
 
+- `seccion` — el paso grande al que pertenece (`Paso 3: dividir cada término`).
+  Se pinta como encabezado sobre la pregunta y agrupa el desarrollo.
 - `rotulo` — etiqueta corta del paso.
 - `queHacemos` y `paraQue` — los dos desplegables que se abren con un botón.
   Van cerrados por defecto para no tapar la pregunta, pero si los abres se
   quedan abiertos en los pasos siguientes (y entre sesiones).
-- `proceso` — el desarrollo escrito del paso, renglón por renglón. Aparece
+- `proceso` — el renglón (o renglones) que ese paso deja escrito. Aparece
   cuando ya contestaste, y se va acumulando arriba como un cuaderno.
+
+**Regla al escribir un guion: cada resultado intermedio se pregunta, no se
+enseña.** Si el desarrollo dice `12 ÷ 6 = 2`, ese 2 lo tiene que sacar quien
+estudia. No importa que salgan muchos pasos: un factor común de tres términos
+son 18 preguntas, y está bien así.
 
 `rotulo` corto. La bitácora de lo ya resuelto
 antepone ese rótulo en negrita, para que al mirar hacia arriba se lea como una

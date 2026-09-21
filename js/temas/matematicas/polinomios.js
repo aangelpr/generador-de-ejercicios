@@ -263,6 +263,9 @@
     var k = r.elige([2, 3, 4, 5, 6, -2, -3]);
     var m = dif === 'dificil' ? r.entero(1, 3) : r.entero(0, 2);
     var dentro = dif === 'dificil' ? poliAleatorio(r, 2, -7, 7) : [r.enteroNoCero(1, 6), r.enteroNoCero(-8, 8)];
+    /* si el ultimo coeficiente fuera 0, lo de adentro tendria todavia una x en
+       comun y el "factor comun" del enunciado no seria el completo */
+    while (dentro[dentro.length - 1] === 0) dentro = poliAleatorio(r, 2, -7, 7);
     /* el polinomio visible es k*x^m*(dentro) */
     var expandido = P.multiplica(P.escala(dentro, k), [1].concat(new Array(m).fill(0)));
     var factorTxt = (k === 1 ? '' : k) + (m ? 'x' + (m > 1 ? F.sup(m) : '') : '');

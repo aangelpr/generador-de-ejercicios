@@ -3,7 +3,7 @@
   'use strict';
   /* Sube esto junto con la version de sw.js. Se ve en Ajustes y sirve para
      saber de un vistazo si el celular ya tiene la version nueva. */
-  var VERSION = 'v20 (20 sep 2026)';
+  var VERSION = 'v21 (20 sep 2026)';
 
   var cfg = EJ.almacen.config;
   var estado = null;
@@ -538,8 +538,12 @@
     if (estado.procesos && estado.procesos.length) {
       var desarrollo = crear('div', 'desarrollo');
       desarrollo.appendChild(crear('div', 'rotulo', 'El desarrollo hasta aqui'));
+      var ultimaSeccion = null;
       estado.procesos.forEach(function (pr) {
-        if (pr.rotulo) desarrollo.appendChild(crear('div', 'desarrollo-titulo', pr.rotulo));
+        if (pr.seccion && pr.seccion !== ultimaSeccion) {
+          desarrollo.appendChild(crear('div', 'desarrollo-titulo', pr.seccion));
+          ultimaSeccion = pr.seccion;
+        }
         desarrollo.appendChild(bloqueProceso(pr.lineas));
       });
       card.appendChild(desarrollo);
@@ -572,6 +576,7 @@
     var paso = g.pasos[estado.paso];
     card.appendChild(crear('div', 'paso-contador',
       'Paso ' + (estado.paso + 1) + ' de ' + g.pasos.length));
+    if (paso.seccion) card.appendChild(crear('div', 'paso-seccion', paso.seccion));
     card.appendChild(crear('div', 'paso-pregunta', paso.pregunta));
 
     if (paso.queHacemos || paso.paraQue) {
@@ -620,7 +625,7 @@
       var res = EJ.motor.saltarPaso(estado);
       estado.bitacora.push('<span class="mal-marca">&#10007;</span> ' + rotulado(paso, res.respuesta) +
         (res.despues ? ' &mdash; ' + res.despues : ''));
-      if (paso.proceso && paso.proceso.length) estado.procesos.push({ rotulo: paso.rotulo, lineas: paso.proceso });
+      if (paso.proceso && paso.proceso.length) estado.procesos.push({ seccion: paso.seccion || paso.rotulo, lineas: paso.proceso });
       pintarGuiado();
     };
     acciones.appendChild(bSaltar);
@@ -650,7 +655,7 @@
     if (res.correcto) {
       estado.bitacora.push('<span class="bien-marca">&#10003;</span> ' + rotulado(paso, paso.resp.mostrar()) +
         (res.despues ? ' &mdash; ' + res.despues : ''));
-      if (paso.proceso && paso.proceso.length) estado.procesos.push({ rotulo: paso.rotulo, lineas: paso.proceso });
+      if (paso.proceso && paso.proceso.length) estado.procesos.push({ seccion: paso.seccion || paso.rotulo, lineas: paso.proceso });
       pintarGuiado();
       return;
     }
