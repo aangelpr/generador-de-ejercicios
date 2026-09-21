@@ -1227,18 +1227,30 @@
       intro: 'Queremos <b>lim<sub>x&rarr;' + a + '</sub> ' + F.frac(P.texto(pol), den) + '</b>.',
       pasos: [
         {
+          seccion: 'Paso 1: probar sustituyendo',
+          queHacemos: 'Metemos el valor directamente y vemos que sale.',
+          paraQue: 'Siempre se prueba primero. 0/0 no significa que no exista: significa que hay trabajo por hacer.',
+          queda: '0/0:  hay que factorizar',
           pregunta: 'Sustituye x = ' + a + ' de una vez. &iquest;Que pasa?',
           resp: R.opcion(['Sale un numero normal', 'Sale 0/0 (indeterminado)', 'Sale un numero entre 0'], 1),
           pista: 'Checa el denominador: ' + a + ' ' + (a < 0 ? '+ ' + (-a) : '&minus; ' + a) + ' = 0. &iquest;Y el numerador?',
           despues: '0/0 no significa que no exista: significa que hay que trabajarlo. Se factoriza.'
         },
         {
+          seccion: 'Paso 2: factorizar',
+          queHacemos: 'Buscamos los dos numeros que factorizan el de arriba.',
+          paraQue: 'Uno de ellos tiene que dar el factor que se anula, para poder cancelarlo con el de abajo.',
+          queda: '(' + F.poli([1, -a], 'x') + ')(' + F.poli([1, -b], 'x') + ') &divide; (' + F.poli([1, -a], 'x') + ')',
           pregunta: 'Factoriza el numerador ' + P.texto(pol) + '.<br>&iquest;Que dos numeros dan producto ' + pol[2] + ' y suma ' + pol[1] + '? (separados por coma)',
           resp: R.lista([-a, -b], { ayuda: 'Por ejemplo: 3, -5' }),
           pista: 'Uno de ellos tiene que ser ' + (-a) + ', para que aparezca el factor que se cancela.',
           despues: 'Queda (' + F.poli([1, -a], 'x') + ')(' + F.poli([1, -b], 'x') + ').'
         },
         {
+          seccion: 'Paso 3: cancelar y sustituir',
+          queHacemos: 'Cancelamos el factor repetido y volvemos a sustituir.',
+          paraQue: 'Ya sin el factor que se anulaba, la sustitucion funciona.',
+          queda: 'limite = ' + val,
           pregunta: 'Se cancela el factor (' + F.poli([1, -a], 'x') + ') con el denominador y queda solo (' + F.poli([1, -b], 'x') + ').<br>' +
             'Ahora si sustituye x = ' + a + ': &iquest;cuanto da?',
           resp: R.numero(val, { dec: 0 }),
@@ -1480,12 +1492,20 @@
         'Un logaritmo es una pregunta: &iquest;a que exponente hay que elevar la base para llegar a ese numero?',
       pasos: [
         {
+          seccion: 'Paso 1: tantear',
+          queHacemos: 'Damos la vuelta a la pregunta y empezamos a probar exponentes.',
+          paraQue: 'Un logaritmo ES una pregunta: a que exponente hay que elevar la base para llegar a ese numero.',
+          queda: b + '&sup2; = ' + (b * b) + (b * b === x ? '  (ya llegamos)' : ';  falta llegar a ' + x),
           pregunta: 'Escribe la pregunta al reves: ' + b + ' elevado a QUE da ' + x + '?<br>Empieza probando: &iquest;cuanto es ' + b + '&sup2;?',
           resp: R.numero(b * b, { dec: 0 }),
           pista: b + ' &middot; ' + b,
           despues: (b * b === x ? 'Justo ese era.' : 'Todavia no llegamos a ' + x + ', hay que seguir subiendo.')
         },
         {
+          seccion: 'Paso 2: el exponente',
+          queHacemos: 'Seguimos subiendo hasta dar con el numero.',
+          paraQue: 'Ese exponente ES el logaritmo. No hay nada mas que calcular.',
+          queda: 'log<sub>' + b + '</sub>(' + x + ') = ' + n,
           pregunta: 'Sigue hasta llegar a ' + x + '.<br>&iquest;Cual es el exponente que buscamos?',
           resp: R.numero(n, { dec: 0 }),
           pista: b + '<sup>' + n + '</sup> = ' + x + '.',
