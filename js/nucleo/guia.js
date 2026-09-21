@@ -587,18 +587,30 @@
       intro: 'Vamos a simplificar <b>x' + F.sup(a) + ' &middot; x' + F.sup(b) + '</b>.',
       pasos: [
         {
+          seccion: 'Paso 1: que regla toca',
+          queHacemos: 'Miramos la operacion entre las dos potencias y recordamos que le toca a los exponentes.',
+          paraQue: 'Porque la regla depende de la operacion: multiplicando se suman, dividiendo se restan, y una potencia de otra se multiplican.',
+          queda: 'x' + F.sup(a + ' + ' + b),
           pregunta: 'Las dos potencias tienen la MISMA base (x) y se estan multiplicando.<br>&iquest;Que se hace con los exponentes?',
           resp: R.opcion(['Se suman', 'Se restan', 'Se multiplican'], 0),
           pista: 'x&sup3; es x&middot;x&middot;x. Si multiplicas x&sup2; &middot; x&sup3; acabas con 5 equis multiplicandose.',
           despues: 'Asi es: al multiplicar potencias de la misma base, los exponentes se SUMAN.'
         },
         {
+          seccion: 'Paso 2: la cuenta',
+          queHacemos: 'Sumamos los dos exponentes.',
+          paraQue: 'Porque x' + F.sup(a) + ' son ' + a + ' equis multiplicandose y x' + F.sup(b) + ' otras ' + b + ': en total ' + (a + b) + '.',
+          queda: 'x' + F.sup(a + b),
           pregunta: '&iquest;Cuanto da ' + a + ' + ' + b + '?',
           resp: R.numero(a + b, { dec: 0 }),
           pista: 'Suma sencilla.',
           despues: ''
         },
         {
+          seccion: 'Paso 3: escribir',
+          queHacemos: 'Escribimos la potencia con el exponente nuevo.',
+          paraQue: 'La base NO cambia: solo cambia el exponente.',
+          queda: 'x' + F.sup(a + b),
           pregunta: 'Escribe el resultado completo.',
           resp: R.expresion('x^(' + (a + b) + ')', { mostrar: 'x' + F.sup(a + b) }),
           pista: 'Es la x con el exponente que acabas de obtener: se escribe x^' + (a + b) + '.',
@@ -827,18 +839,30 @@
       intro: 'Vamos a simplificar <b>' + F.frac('x' + F.sup(a), 'x' + F.sup(b)) + '</b>.',
       pasos: [
         {
+          seccion: 'Paso 1: que regla toca',
+          queHacemos: 'Miramos la operacion entre las dos potencias y recordamos que le toca a los exponentes.',
+          paraQue: 'Dividiendo, las equis de arriba se van cancelando con las de abajo, asi que los exponentes se restan.',
+          queda: 'x' + F.sup(a + ' &minus; ' + b),
           pregunta: 'Misma base, pero ahora se estan DIVIDIENDO.<br>&iquest;Que se hace con los exponentes?',
           resp: R.opcion(['Se suman', 'Se restan', 'Se multiplican'], 1),
           pista: 'Arriba hay ' + a + ' equis y abajo ' + b + '; se van cancelando de una en una.',
           despues: 'Exacto: al dividir se RESTAN (el de arriba menos el de abajo).'
         },
         {
+          seccion: 'Paso 2: la cuenta',
+          queHacemos: 'Restamos: el de arriba menos el de abajo.',
+          paraQue: 'El orden importa. Al reves saldria el exponente con el signo cambiado.',
+          queda: 'x' + F.sup(a - b),
           pregunta: '&iquest;Cuanto da ' + a + ' &minus; ' + b + '?',
           resp: R.numero(a - b, { dec: 0 }),
           pista: 'Resta sencilla.',
           despues: ''
         },
         {
+          seccion: 'Paso 3: escribir',
+          queHacemos: 'Escribimos la potencia con el exponente nuevo.',
+          paraQue: 'Para dar la respuesta.',
+          queda: 'x' + F.sup(a - b),
           pregunta: 'Escribe el resultado.',
           resp: R.expresion('x^(' + (a - b) + ')', { mostrar: 'x' + F.sup(a - b) }),
           pista: 'Se escribe x^' + (a - b) + '.',
@@ -856,18 +880,30 @@
       intro: 'Vamos a simplificar <b>(x' + F.sup(a) + ')' + F.sup(b) + '</b>.',
       pasos: [
         {
+          seccion: 'Paso 1: que regla toca',
+          queHacemos: 'Miramos la operacion entre las dos potencias y recordamos que le toca a los exponentes.',
+          paraQue: 'Aqui NO se suman: (x' + F.sup(a) + ')' + F.sup(b) + ' significa repetir x' + F.sup(a) + ' un total de ' + b + ' veces, y eso multiplica los exponentes.',
+          queda: 'x' + F.sup(a + ' &middot; ' + b),
           pregunta: 'Aqui hay una potencia DENTRO de otra.<br>&iquest;Que se hace con los exponentes?',
           resp: R.opcion(['Se suman', 'Se restan', 'Se multiplican'], 2),
           pista: '(x' + F.sup(a) + ')' + F.sup(b) + ' significa x' + F.sup(a) + ' multiplicada por si misma ' + b + ' veces.',
           despues: 'Correcto: potencia de potencia, los exponentes se MULTIPLICAN.'
         },
         {
+          seccion: 'Paso 2: la cuenta',
+          queHacemos: 'Multiplicamos los dos exponentes.',
+          paraQue: 'Para obtener el exponente final.',
+          queda: 'x' + F.sup(a * b),
           pregunta: '&iquest;Cuanto da ' + a + ' &middot; ' + b + '?',
           resp: R.numero(a * b, { dec: 0 }),
           pista: 'Multiplicacion sencilla.',
           despues: ''
         },
         {
+          seccion: 'Paso 3: escribir',
+          queHacemos: 'Escribimos la potencia resultante.',
+          paraQue: 'Para dar la respuesta.',
+          queda: 'x' + F.sup(a * b),
           pregunta: 'Escribe el resultado.',
           resp: R.expresion('x^(' + (a * b) + ')', { mostrar: 'x' + F.sup(a * b) }),
           pista: 'Se escribe x^' + (a * b) + '.',
