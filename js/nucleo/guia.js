@@ -1510,6 +1510,10 @@
         'La forma general es (x &minus; h)&sup2; + (y &minus; k)&sup2; = r&sup2;, donde (h, k) es el centro.',
       pasos: [
         {
+          seccion: 'Paso 1: el centro',
+          queHacemos: 'Leemos la x del centro dentro del primer parentesis.',
+          paraQue: 'La formula lleva un MENOS, asi que el signo se invierte: (x + 3)&sup2; significa h = &minus;3.',
+          queda: 'centro (' + h + ', ?),  radio ?',
           pregunta: 'Compara con la formula. &iquest;Cual es la <b>h</b> (la x del centro)?<br>Cuidado: el signo se invierte.',
           resp: R.numero(h, { dec: 0 }),
           pista: h === 0 ? 'No hay nada sumando a la x, asi que h = 0.'
@@ -1517,12 +1521,20 @@
           despues: 'Por eso hay que fijarse: lo que se ve restando es lo que vale h.'
         },
         {
+          seccion: 'Paso 1: el centro',
+          queHacemos: 'Lo mismo con la y.',
+          paraQue: 'Mismo razonamiento: lo que se ve restando es lo que vale k.',
+          queda: 'centro (' + h + ', ' + k + '),  radio ?',
           pregunta: '&iquest;Y la <b>k</b> (la y del centro)?',
           resp: R.numero(k, { dec: 0 }),
           pista: k === 0 ? 'No hay nada sumando a la y, asi que k = 0.' : 'Mismo razonamiento con ' + cuad('y', k) + '.',
           despues: 'Centro listo: (' + h + ', ' + k + ').'
         },
         {
+          seccion: 'Paso 2: el radio',
+          queHacemos: 'Sacamos la raiz del lado derecho.',
+          paraQue: 'El error tipico es quedarse con r&sup2; y darlo como radio.',
+          queda: 'centro (' + h + ', ' + k + '),  radio ' + r,
           pregunta: 'El lado derecho es r&sup2; = ' + (r * r) + '.<br>&iquest;Cuanto vale el radio r?',
           resp: R.numero(r, { dec: 2, tol: 0.01 }),
           pista: 'Saca la raiz cuadrada de ' + (r * r) + '.',
@@ -1696,24 +1708,40 @@
         'Las formulas son <b>x = r&middot;cos&theta;</b> y <b>y = r&middot;sen&theta;</b>.',
       pasos: [
         {
+          seccion: 'Paso 1: la coordenada x',
+          queHacemos: 'Sacamos el coseno del angulo.',
+          paraQue: 'En este sentido no hay que decidir cuadrantes: el coseno ya trae el signo correcto metido.',
+          queda: '(x, y) = (' + r_ + ' &middot; ' + F.n(cs, 4) + ', ?)',
           pregunta: '&iquest;Cuanto vale cos ' + th + '&deg;? (4 decimales)',
           resp: R.numero(cs, { dec: 4, tol: 0.001 }),
           pista: (th > 90 && th < 270) ? 'Ojo: en ese cuadrante el coseno es negativo.' : 'Calculadora en GRADOS.',
           despues: ''
         },
         {
+          seccion: 'Paso 1: la coordenada x',
+          queHacemos: 'Multiplicamos el radio por el coseno.',
+          paraQue: 'Esa es la x: cuanto avanza el punto en horizontal.',
+          queda: '(x, y) = (' + F.n(x, 2) + ', ?)',
           pregunta: 'Multiplica por r para tener la x:<br>' + r_ + ' &middot; ' + F.n(cs, 4) + ' (2 decimales)',
           resp: R.numero(x, { dec: 2, tol: 0.02 }),
           pista: 'Esa es la coordenada x.',
           despues: 'Ya tenemos la x. Ahora la y con el seno.'
         },
         {
+          seccion: 'Paso 2: la coordenada y',
+          queHacemos: 'Ahora el seno del mismo angulo.',
+          paraQue: 'Abajo del eje x el seno sale negativo, y eso coloca el punto solo.',
+          queda: '(x, y) = (' + F.n(x, 2) + ', ' + r_ + ' &middot; ' + F.n(sn, 4) + ')',
           pregunta: '&iquest;Cuanto vale sen ' + th + '&deg;? (4 decimales)',
           resp: R.numero(sn, { dec: 4, tol: 0.001 }),
           pista: th > 180 ? 'Ojo: abajo del eje x el seno es negativo.' : 'Calculadora en GRADOS.',
           despues: ''
         },
         {
+          seccion: 'Paso 2: la coordenada y',
+          queHacemos: 'Multiplicamos el radio por el seno.',
+          paraQue: 'Comprobacion: los signos de x e y deben cuadrar con el cuadrante donde cae el angulo.',
+          queda: '(x, y) = (' + F.n(x, 2) + ', ' + F.n(y, 2) + ')',
           pregunta: 'Multiplica por r para tener la y:<br>' + r_ + ' &middot; ' + F.n(sn, 4) + ' (2 decimales)',
           resp: R.numero(y, { dec: 2, tol: 0.02 }),
           pista: 'Esa es la coordenada y.',
@@ -1735,30 +1763,50 @@
         'La excentricidad mide que tan "estirada" esta: <b>e = c/a</b>. Primero hay que encontrar a, b y c.',
       pasos: [
         {
+          seccion: 'Paso 1: sacar a y b',
+          queHacemos: 'Sacamos la raiz del denominador de x&sup2;.',
+          paraQue: 'Los denominadores son a&sup2; y b&sup2;, no a y b. Usarlos sin sacar la raiz es el error tipico.',
+          queda: 'a = ' + a + ',  b = ?,  c = ?',
           pregunta: 'Debajo de x&sup2; esta a&sup2; = ' + (a * a) + '.<br>&iquest;Cuanto vale <b>a</b>?',
           resp: R.numero(a, { dec: 2, tol: 0.01 }),
           pista: 'Saca la raiz de ' + (a * a) + '.',
           despues: 'a es el semieje mayor.'
         },
         {
+          seccion: 'Paso 1: sacar a y b',
+          queHacemos: 'Lo mismo con el otro denominador.',
+          paraQue: 'a es el semieje mayor y b el menor.',
+          queda: 'a = ' + a + ',  b = ' + b + ',  c = ?',
           pregunta: 'Debajo de y&sup2; esta b&sup2; = ' + (b * b) + '.<br>&iquest;Cuanto vale <b>b</b>?',
           resp: R.numero(b, { dec: 2, tol: 0.01 }),
           pista: 'Raiz de ' + (b * b) + '.',
           despues: 'Ahora la c, que es la distancia del centro a cada foco.'
         },
         {
+          seccion: 'Paso 2: calcular c',
+          queHacemos: 'Restamos los dos cuadrados.',
+          paraQue: 'En la elipse se RESTA; en la hiperbola se suma. Confundirlas es el error mas comun del tema.',
+          queda: 'a = ' + a + ',  b = ' + b + ';  c&sup2; = ' + c2,
           pregunta: 'En la elipse se RESTA: c&sup2; = a&sup2; &minus; b&sup2;.<br>&iquest;Cuanto es ' + (a * a) + ' &minus; ' + (b * b) + '?',
           resp: R.numero(c2, { dec: 0 }),
           pista: 'Resta simple. (En la hiperbola seria suma, ojo con no confundirlas.)',
           despues: ''
         },
         {
+          seccion: 'Paso 2: calcular c',
+          queHacemos: 'Sacamos la raiz.',
+          paraQue: 'c es la distancia del centro a cada foco. Ya solo falta dividir.',
+          queda: 'a = ' + a + ',  c = ' + F.n(c, 4),
           pregunta: 'Saca la raiz para tener c: &radic;<span class="rad">' + c2 + '</span> (4 decimales)',
           resp: R.numero(c, { dec: 4, tol: 0.005 }),
           pista: 'Raiz cuadrada de ' + c2 + '.',
           despues: 'Ya tenemos c y a. Solo falta dividir.'
         },
         {
+          seccion: 'Paso 3: dividir',
+          queHacemos: 'Dividimos c entre a.',
+          paraQue: 'En una elipse e siempre sale entre 0 y 1. Si te sale mayor que 1, invertiste la division.',
+          queda: 'e = ' + F.n(e, 4),
           pregunta: 'Por ultimo: e = c/a = ' + F.n(c, 4) + ' &divide; ' + a + ' (4 decimales)',
           resp: R.numero(e, { dec: 4, tol: 0.005 }),
           pista: 'Debe salir entre 0 y 1, porque es una elipse.',
