@@ -19,6 +19,7 @@
     var fila = function (k) { return '<td>' + f[k] + '</td>'; };
     function comp(u, w) { return u === w ? 0 : (u === -w ? 1 : 2); }
     var COMPS = ['Iguales', 'Opuestos (mismo numero con el signo cambiado)', 'Ni iguales ni opuestos'];
+    var CORTO = ['iguales', 'opuestos', 'ni iguales ni opuestos'];
     return {
       guia: G({
         intro: 'Hay que clasificar la funcion viendo solo una <b>tabla de valores</b>, sin formula.<br>' +
@@ -28,7 +29,7 @@
           { seccion: 'Paso 1: primera pareja',
             queHacemos: 'Comparamos el valor en &minus;2 con el valor en 2.',
             paraQue: 'La paridad es una simetria: basta con emparejar cada x negativo con su positivo. No hace falta formula.',
-            queda: COMPS[comp(f.m2, f.p2)],
+            queda: 'primera pareja: ' + CORTO[comp(f.m2, f.p2)],
             pregunta: 'Compara f(&minus;2) = ' + f.m2 + ' con f(2) = ' + f.p2 + '.<br>&iquest;Como son entre si?',
             resp: R.opcion(COMPS, comp(f.m2, f.p2)),
             pista: 'Iguales significa el mismo numero con el mismo signo. Opuestos significa el mismo numero con el signo cambiado.',
@@ -36,7 +37,9 @@
           { seccion: 'Paso 2: segunda pareja',
             queHacemos: 'Repetimos con la otra pareja de la tabla.',
             paraQue: 'Una sola pareja no basta: hay que ver si el patron se repite en todas.',
-            queda: COMPS[comp(f.m2, f.p2)] + '  y  ' + COMPS[comp(f.m1, f.p1)],
+            queda: comp(f.m2, f.p2) === comp(f.m1, f.p1)
+              ? 'las dos parejas: ' + CORTO[comp(f.m2, f.p2)]
+              : CORTO[comp(f.m2, f.p2)] + ' y ' + CORTO[comp(f.m1, f.p1)],
             pregunta: 'Ahora la otra pareja: f(&minus;1) = ' + f.m1 + ' contra f(1) = ' + f.p1 + '.',
             resp: R.opcion(COMPS, comp(f.m1, f.p1)),
             pista: 'Mismo criterio que antes.',
