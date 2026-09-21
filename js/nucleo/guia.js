@@ -583,7 +583,15 @@
       (function (i) {
         var exp = g - i, coef = coefs[i];
         if (coef === 0) return;
+        var hechosD = [], iD;
+        for (iD = 0; iD <= i; iD++) {
+          if (coefs[iD] !== 0) hechosD.push(F.term(coefs[iD] * (g - iD), 'x', g - iD - 1));
+        }
         pasos.push({
+          seccion: 'Termino de grado ' + exp,
+          queHacemos: 'Bajamos el exponente multiplicando y despues le restamos 1.',
+          paraQue: 'Cada termino se deriva por su cuenta: la derivada de una suma es la suma de las derivadas.',
+          queda: (hechosD.length ? F.une(hechosD) : '0') + (i < coefs.length - 2 ? ' + ?' : ''),
           pregunta: 'Deriva el termino <b>' + F.term(coef, 'x', exp) + '</b>.<br>' +
             'Recuerda: baja el exponente multiplicando y al exponente le restas 1.',
           resp: R.expresion('(' + (coef * exp) + ')*x^(' + (exp - 1) + ')', { mostrar: F.term(coef * exp, 'x', exp - 1) }),
@@ -595,6 +603,10 @@
     var indep = coefs[coefs.length - 1];
     if (indep !== 0) {
       pasos.push({
+        seccion: 'El termino sin x',
+        queHacemos: 'Derivamos la constante.',
+        paraQue: 'Una constante es una recta horizontal: su pendiente es 0. Por eso desaparece.',
+        queda: P.texto(d),
         pregunta: 'Falta el termino sin x: <b>' + indep + '</b>.<br>&iquest;Cual es su derivada?',
         resp: R.numero(0, { dec: 0 }),
         pista: 'La derivada de cualquier numero solo es siempre la misma...',
@@ -602,6 +614,10 @@
       });
     }
     pasos.push({
+      seccion: 'Paso final: juntar',
+      queHacemos: 'Sumamos todos los terminos derivados.',
+      paraQue: 'Comprobacion: el grado de f&prime; siempre baja uno respecto al de f.',
+      queda: P.texto(d),
       pregunta: 'Junta todo y escribe f&prime;(x) completa.',
       resp: R.expresion(P.expr(d), { mostrar: P.texto(d) }),
       pista: 'Suma los terminos que fuiste obteniendo: ' + P.texto(d) + ' (con tus propias palabras, escribelo).',
@@ -1282,18 +1298,30 @@
         'Vamos por las tres medidas de tendencia central, una por una.',
       pasos: [
         {
+          seccion: 'Paso 1: la media',
+          queHacemos: 'Sumamos todos los datos.',
+          paraQue: 'La media reparte el total a partes iguales, asi que primero hace falta el total.',
+          queda: 'suma = ' + suma + ';  media ?, mediana ?, moda ?',
           pregunta: 'Para la media, primero sumalos todos.<br>&iquest;Cuanto da la suma?',
           resp: R.numero(suma, { dec: 0 }),
           pista: 'Sumalos de dos en dos para no perderte.',
           despues: 'Hay ' + n + ' datos, asi que ahora se divide entre ' + n + '.'
         },
         {
+          seccion: 'Paso 1: la media',
+          queHacemos: 'Dividimos entre cuantos datos hay.',
+          paraQue: 'La media es sensible a los valores extremos: un dato muy grande la jala hacia arriba.',
+          queda: 'media ' + F.n(suma / n, 4) + ', mediana ?, moda ?',
           pregunta: 'Divide la suma entre cuantos datos hay:<br>' + suma + ' &divide; ' + n + ' (4 decimales)',
           resp: R.numero(suma / n, { dec: 4, tol: 0.001 }),
           pista: 'Esa es la media o promedio.',
           despues: 'Lista la media. Ahora la mediana, que necesita los datos ORDENADOS.'
         },
         {
+          seccion: 'Paso 2: la mediana',
+          queHacemos: 'Ordenamos los datos y buscamos el del centro.',
+          paraQue: 'ORDENAR primero no es opcional: sin ordenar, el del medio no significa nada.',
+          queda: 'media ' + F.n(suma / n, 4) + ', mediana ' + F.n(mediana, 2) + ', moda ?',
           pregunta: 'Ordenados quedan: <b>' + orden.join(', ') + '</b><br>' +
             (n % 2 ? 'Son ' + n + ' datos (impar), asi que hay uno justo en medio. &iquest;Cual es?'
               : 'Son ' + n + ' datos (par), asi que se promedian los dos de en medio. &iquest;Cuanto da?'),
@@ -1303,6 +1331,10 @@
           despues: 'Esa es la mediana: el valor que parte los datos a la mitad.'
         },
         {
+          seccion: 'Paso 3: la moda',
+          queHacemos: 'Buscamos el dato que mas veces aparece.',
+          paraQue: 'Es la unica de las tres que sirve tambien para datos que no son numeros.',
+          queda: 'media ' + F.n(suma / n, 4) + ', mediana ' + F.n(mediana, 2) + ', moda ' + moda,
           pregunta: 'Y la moda: &iquest;cual es el dato que MAS se repite?',
           resp: R.numero(moda, { dec: 0 }),
           pista: 'Cuenta cuantas veces aparece cada uno.',
@@ -1324,18 +1356,30 @@
         'La regla es: casos favorables entre casos totales.',
       pasos: [
         {
+          seccion: 'Paso 1: los casos totales',
+          queHacemos: 'Contamos todos los resultados posibles.',
+          paraQue: 'Es el denominador. Se cuenta TODO lo que puede salir, no solo lo que nos interesa.',
+          queda: 'P = ? &divide; ' + total,
           pregunta: '&iquest;Cuantos resultados posibles hay en total?',
           resp: R.numero(total, { dec: 0 }),
           pista: 'Cuenta TODO lo que puede pasar, no solo lo que buscas.',
           despues: 'Ese numero va abajo en la fraccion.'
         },
         {
+          seccion: 'Paso 2: los casos favorables',
+          queHacemos: 'Contamos solo los que cumplen la condicion.',
+          paraQue: 'Es el numerador. Siempre sale menor o igual que el total: si te sale mayor, algo se conto de mas.',
+          queda: 'P = ' + fav + ' &divide; ' + total,
           pregunta: 'De esos, &iquest;cuantos cumplen que ' + quePasa + '?',
           resp: R.numero(fav, { dec: 0 }),
           pista: 'Estos son los casos favorables.',
           despues: 'Ese va arriba.'
         },
         {
+          seccion: 'Paso 3: la fraccion',
+          queHacemos: 'Ponemos favorables entre totales y simplificamos.',
+          paraQue: 'Comprobacion: una probabilidad siempre queda entre 0 y 1.',
+          queda: 'P = ' + F.fracSimp(fav, total),
           pregunta: 'Escribe la probabilidad como fraccion simplificada.',
           resp: R.fraccion(s[0], s[1]),
           pista: 'Es ' + F.frac(fav, total) + '; revisa si se puede simplificar.',
@@ -1365,24 +1409,40 @@
         'La formula es P(X = k) = C(n, k) &middot; p<sup>k</sup> &middot; (1 &minus; p)<sup>n&minus;k</sup>. Son tres pedazos.',
       pasos: [
         {
+          seccion: 'Paso 1: el numero de acomodos',
+          queHacemos: 'Calculamos la combinatoria C(n, k).',
+          paraQue: 'Los exitos pueden salir en distintos ordenes, y todos cuentan. Este numero los cuenta todos.',
+          queda: c + ' &middot; ? &middot; ?',
           pregunta: 'Primer pedazo: &iquest;cuanto vale C(' + n + ', ' + k + ')?<br>(de cuantas formas se pueden acomodar ' + k + ' exitos entre ' + n + ' intentos)',
           resp: R.numero(c, { dec: 0 }),
           pista: 'C(n,k) = n! / (k!(n&minus;k)!) = ' + n + '! / (' + k + '!&middot;' + (n - k) + '!).',
           despues: 'Ese numero cuenta en cuantos ordenes distintos pueden salir los exitos.'
         },
         {
+          seccion: 'Paso 2: la parte de los exitos',
+          queHacemos: 'Elevamos p al numero de exitos.',
+          paraQue: 'Es la probabilidad de que los ' + k + ' exitos ocurran, uno detras de otro.',
+          queda: c + ' &middot; ' + F.n(pk, 6) + ' &middot; ?',
           pregunta: 'Segundo pedazo: ' + pTxt + '<sup>' + k + '</sup> (la probabilidad de los ' + k + ' ' + (k === 1 ? 'exito' : 'exitos') + ')<br>(6 decimales)',
           resp: R.numero(pk, { dec: 6, tol: 0.0001 }),
           pista: 'Multiplica ' + pTxt + ' por si mismo ' + k + ' veces.',
           despues: ''
         },
         {
+          seccion: 'Paso 3: la parte de los fracasos',
+          queHacemos: 'Elevamos (1 &minus; p) al numero de fracasos.',
+          paraQue: 'El exponente es n &minus; k, no n. Confundirlo es el error tipico.',
+          queda: c + ' &middot; ' + F.n(pk, 6) + ' &middot; ' + F.n(qn, 6),
           pregunta: 'Tercer pedazo: (1 &minus; ' + pTxt + ')<sup>' + (n - k) + '</sup> = ' + qTxt + '<sup>' + (n - k) + '</sup><br>(la de los fracasos, 6 decimales)',
           resp: R.numero(qn, { dec: 6, tol: 0.0001 }),
           pista: 'Los otros ' + (n - k) + ' intentos tienen que fallar.',
           despues: 'Ya tenemos los tres. Solo falta multiplicarlos.'
         },
         {
+          seccion: 'Paso 4: multiplicar',
+          queHacemos: 'Multiplicamos los tres pedazos.',
+          paraQue: 'Comprobacion: tiene que salir entre 0 y 1.',
+          queda: 'P(X = ' + k + ') = ' + F.n(val, 4),
           pregunta: 'Multiplica los tres: ' + c + ' &middot; ' + F.n(pk, 6) + ' &middot; ' + F.n(qn, 6) + '<br>(4 decimales)',
           resp: R.numero(val, { dec: 4, tol: 0.002 }),
           pista: 'Multiplica de izquierda a derecha.',
@@ -1405,24 +1465,40 @@
         'La idea de la sustitucion es renombrar la parte fea como u.',
       pasos: [
         {
+          seccion: 'Paso 1: elegir u',
+          queHacemos: 'Renombramos la parte fea como u.',
+          paraQue: 'Se elige lo de ADENTRO del parentesis: si su derivada es sencilla, la sustitucion funciona.',
+          queda: 'u = ' + dentro,
           pregunta: '&iquest;Que conviene tomar como u?',
           resp: R.opcion(['u = ' + dentro, 'u = x', 'u = ' + n], 0),
           pista: 'Se toma lo que esta "adentro", lo que estorba.',
           despues: 'Bien. Ahora hay que ver cuanto vale du.'
         },
         {
+          seccion: 'Paso 2: derivar u',
+          queHacemos: 'Derivamos u para saber cuanto vale du.',
+          paraQue: 'Hace falta para cambiar el dx por du. Ese numero acaba dividiendo fuera de la integral.',
+          queda: '(1/' + a + ')&int;u' + F.sup(n) + 'du',
           pregunta: 'Si u = ' + dentro + ', deriva: du = ? dx<br>&iquest;Que numero acompana al dx?',
           resp: R.numero(a, { dec: 0 }),
           pista: 'La derivada de ' + dentro + ' respecto de x.',
           despues: 'Entonces dx = du/' + a + ', y ese ' + a + ' sale dividiendo.'
         },
         {
+          seccion: 'Paso 3: integrar en u',
+          queHacemos: 'Integramos con la regla de la potencia.',
+          paraQue: 'Al integrar, el exponente SUBE uno y se divide entre el nuevo exponente. Justo al reves de derivar.',
+          queda: F.frac('u' + F.sup(n + 1), a * (n + 1)),
           pregunta: 'La integral queda (1/' + a + ')&int;u' + F.sup(n) + 'du.<br>&iquest;Cuanto vale &int;u' + F.sup(n) + 'du?',
           resp: R.expresion('u^(' + (n + 1) + ')/' + (n + 1), { vars: ['u'], mostrar: F.frac('u' + F.sup(n + 1), n + 1), masConstante: true }),
           pista: 'Regla de la potencia al reves: se sube el exponente en 1 y se divide entre el nuevo exponente.',
           despues: 'Solo falta regresar el cambio: u vuelve a ser ' + dentro + '.'
         },
         {
+          seccion: 'Paso 4: deshacer el cambio',
+          queHacemos: 'Volvemos a poner la x donde estaba la u.',
+          paraQue: 'La pregunta era en x. Dejar la respuesta en u es dejarla a medias. Y no olvidar el + C.',
+          queda: F.frac('(' + dentro + ')' + F.sup(n + 1), a * (n + 1)) + ' + C',
           pregunta: 'Escribe el resultado final en terminos de x.',
           resp: R.expresion('((' + a + '*x+(' + b + '))^(' + (n + 1) + '))/(' + (a * (n + 1)) + ')', {
             masConstante: true, mostrar: F.frac('(' + dentro + ')' + F.sup(n + 1), a * (n + 1)) + ' + C'
@@ -1448,18 +1524,30 @@
         'Es un producto de dos cosas distintas: toca integracion por partes, &int;u dv = uv &minus; &int;v du.',
       pasos: [
         {
+          seccion: 'Paso 1: repartir u y dv',
+          queHacemos: 'Decidimos que parte hace de u.',
+          paraQue: 'Se toma como u lo que se SIMPLIFICA al derivar. La x derivada da 1; la exponencial no se simplifica nunca.',
+          queda: 'u = x,  dv = ' + e + ' dx',
           pregunta: 'Hay que repartir: una parte es u y la otra dv.<br>&iquest;Que conviene tomar como u?',
           resp: R.opcion(['u = x', 'u = ' + e], 0),
           pista: 'Se elige como u lo que se SIMPLIFICA al derivar. La x se vuelve 1; la exponencial nunca cambia.',
           despues: 'Entonces u = x (y du = dx), y dv = ' + e + 'dx.'
         },
         {
+          seccion: 'Paso 2: obtener v',
+          queHacemos: 'Integramos dv.',
+          paraQue: 'Hacen falta las cuatro piezas (u, du, v, dv) antes de aplicar la formula.',
+          queda: 'v = ' + q(e, k),
           pregunta: 'Integra dv para obtener v:<br>&iquest;Cuanto es &int;' + e + 'dx?',
           resp: R.expresion('exp(' + k + '*x)/' + k, { masConstante: true, mostrar: q(e, k) }),
           pista: k === 1 ? 'La exponencial se integra en si misma.' : 'Se divide entre el ' + k + ' del exponente.',
           despues: 'Ya tenemos u = x, du = dx, v = ' + q(e, k) + '.'
         },
         {
+          seccion: 'Paso 3: aplicar la formula',
+          queHacemos: 'Sustituimos en uv &minus; &int;v du y resolvemos la integral que queda.',
+          paraQue: 'La integral nueva tiene que ser MAS facil que la original. Si sale peor, u y dv estaban al reves.',
+          queda: q('x' + e, k) + ' &minus; ' + q(e, k * k),
           pregunta: 'Aplica la formula: uv &minus; &int;v du = ' + q('x' + e, k) + ' &minus; ' + q(1, k) + '&int;' + e + 'dx<br>' +
             '&iquest;Cuanto vale esa ultima integral, ' + q(1, k) + '&int;' + e + 'dx?',
           resp: R.expresion('exp(' + k + '*x)/' + (k * k), { masConstante: true, mostrar: q(e, k * k) }),
@@ -1467,6 +1555,10 @@
           despues: 'Ahora solo hay que restarla.'
         },
         {
+          seccion: 'Paso 4: escribir',
+          queHacemos: 'Juntamos todo y factorizamos la exponencial.',
+          paraQue: 'Comprobacion: si derivas el resultado tienes que volver al integrando original.',
+          queda: e + '(' + q('x', k) + ' &minus; ' + q(1, k * k) + ') + C',
           pregunta: 'Escribe el resultado completo.',
           resp: R.expresion('exp(' + k + '*x)*(x/' + k + '-1/' + (k * k) + ')', {
             masConstante: true,
@@ -1633,24 +1725,40 @@
         'El segundo teorema fundamental dice: se busca una antiderivada F y se calcula F(b) &minus; F(a).',
       pasos: [
         {
+          seccion: 'Paso 1: la antiderivada',
+          queHacemos: 'Buscamos una funcion cuya derivada sea la del integrando.',
+          paraQue: 'En una integral DEFINIDA la constante no hace falta: se cancela al restar.',
+          queda: 'F(x) = ' + P.texto(I),
           pregunta: 'Primero la antiderivada. Integra ' + P.texto(coefs) + ' (sin la constante).<br>Escribe F(x).',
           resp: R.expresion(P.expr(I), { mostrar: P.texto(I), masConstante: true }),
           pista: 'Al reves de derivar: sube el exponente en 1 y divide entre el nuevo exponente.',
           despues: 'Esa es F(x). Ahora se evalua en los dos limites.'
         },
         {
+          seccion: 'Paso 2: evaluar arriba',
+          queHacemos: 'Sustituimos el limite superior en F.',
+          paraQue: 'El teorema fundamental cambia todo el area por dos evaluaciones y una resta.',
+          queda: 'F(' + b + ') = ' + F.n(Fb, 4) + ',  F(' + a + ') = ?',
           pregunta: 'Evalua en el limite de ARRIBA:<br>F(' + b + ') = ? (4 decimales)',
           resp: R.numero(Fb, { dec: 4, tol: 0.01 }),
           pista: 'Sustituye x = ' + b + ' en ' + P.texto(I) + '.',
           despues: ''
         },
         {
+          seccion: 'Paso 3: evaluar abajo',
+          queHacemos: 'Ahora el limite inferior.',
+          paraQue: 'En la MISMA antiderivada, no en la funcion original.',
+          queda: 'F(' + b + ') = ' + F.n(Fb, 4) + ',  F(' + a + ') = ' + F.n(Fa, 4),
           pregunta: 'Ahora en el de ABAJO:<br>F(' + a + ') = ? (4 decimales)',
           resp: R.numero(Fa, { dec: 4, tol: 0.01 }),
           pista: 'Sustituye x = ' + a + '.',
           despues: 'Ya solo falta restar.'
         },
         {
+          seccion: 'Paso 4: restar',
+          queHacemos: 'Restamos: siempre arriba menos abajo.',
+          paraQue: 'Al reves sale con el signo cambiado. Un resultado negativo no es error: significa area por debajo del eje.',
+          queda: 'integral = ' + F.n(Fb - Fa, 4),
           pregunta: 'Resta: F(' + b + ') &minus; F(' + a + ') = ' + F.n(Fb, 4) + ' &minus; (' + F.n(Fa, 4) + ')<br>(4 decimales)',
           resp: R.numero(Fb - Fa, { dec: 4, tol: 0.01 }),
           pista: 'Siempre es el de arriba menos el de abajo.',
@@ -1674,18 +1782,30 @@
         'Un punto critico es donde la derivada vale cero (donde la curva se "aplana").',
       pasos: [
         {
+          seccion: 'Paso 1: derivar',
+          queHacemos: 'Derivamos la funcion.',
+          paraQue: 'Un punto critico es donde la curva se APLANA, y eso es justo donde la derivada vale cero.',
+          queda: P.texto(d) + ' = 0',
           pregunta: 'Primero deriva la funcion. &iquest;Cuanto vale f&prime;(x)?',
           resp: R.expresion(P.expr(d), { mostrar: P.texto(d) }),
           pista: 'Baja cada exponente multiplicando; la constante ' + c + ' se vuelve 0.',
           despues: 'Ahora hay que ver donde esa derivada vale cero.'
         },
         {
+          seccion: 'Paso 2: igualar a cero',
+          queHacemos: 'Resolvemos la ecuacion.',
+          paraQue: 'Ese valor de x es el punto critico.',
+          queda: 'x = ' + F.n(x0, 4),
           pregunta: 'Iguala a cero y despeja:<br>' + P.texto(d) + ' = 0. &iquest;Cuanto vale x? (4 decimales)',
           resp: R.numero(x0, { dec: 4, tol: 0.01 }),
           pista: 'Pasa el ' + b + ' del otro lado y divide entre ' + (2 * a) + '.',
           despues: 'Ese es el punto critico.'
         },
         {
+          seccion: 'Paso 3: clasificar',
+          queHacemos: 'Miramos el signo de la segunda derivada.',
+          paraQue: 'Segunda derivada positiva = la curva abre hacia arriba = minimo. Negativa = maximo.',
+          queda: 'x = ' + F.n(x0, 4) + ',  ' + (a > 0 ? 'minimo' : 'maximo'),
           pregunta: 'La segunda derivada es f&Prime;(x) = ' + (2 * a) + '.<br>Como es ' + (a > 0 ? 'positiva' : 'negativa') + ', &iquest;que tipo de punto es?',
           resp: R.opcion(['Minimo', 'Maximo'], a > 0 ? 0 : 1),
           pista: 'Segunda derivada positiva = la curva abre hacia arriba = minimo.',
