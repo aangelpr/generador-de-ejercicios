@@ -129,7 +129,7 @@ monomios, binomios, trinomios y polinomios), toda la geometría y trigonometría
 (polígonos, Tales, Pitágoras, ley de senos y ley de cosenos) y toda la geometría
 analítica (coordenadas, cónicas y excentricidad) y todas las funciones
 (elementos de función, paridad, tipos de función y logaritmos), más límites y
-reglas de derivación: 251 de 317 subtemas. En los demás temas el paso a paso
+reglas de derivación y puntos críticos: 259 de 317 subtemas. En los demás temas el paso a paso
 está en un subtema representativo; el resto sigue con **Cómo se resuelve** (la
 regla y un ejemplo resuelto) mientras se les escribe el guion.
 
