@@ -126,13 +126,19 @@ Cada micro-paso puede llevar, todos opcionales:
 - `queHacemos` y `paraQue` — los dos desplegables que se abren con un botón.
   Van cerrados por defecto para no tapar la pregunta, pero si los abres se
   quedan abiertos en los pasos siguientes (y entre sesiones).
-- `proceso` — el renglón (o renglones) que ese paso deja escrito. Aparece
-  cuando ya contestaste, y se va acumulando arriba como un cuaderno.
+- `queda` — **el resultado parcial después de ese paso**. Se pinta grande en
+  una caja "Llevamos", y es lo que hace que el ejercicio se sienta como que
+  avanza: ves la respuesta armándose (`6` → `6x²` → `6x²(2x²)` →
+  `6x²(2x² + 3x)` → `6x²(2x² + 3x − 4)`).
 
-**Regla al escribir un guion: cada resultado intermedio se pregunta, no se
-enseña.** Si el desarrollo dice `12 ÷ 6 = 2`, ese 2 lo tiene que sacar quien
-estudia. No importa que salgan muchos pasos: un factor común de tres términos
-son 18 preguntas, y está bien así.
+**Dos reglas al escribir un guion:**
+
+1. **Cada resultado lo saca quien estudia, no se enseña.** Si hace falta
+   dividir `12x⁴ ÷ 6x²`, eso es una pregunta.
+2. **Pero la pregunta es la operación completa**, no sus pedacitos. Se
+   pregunta `12x⁴ ÷ 6x² = ?` (respuesta `2x²`), no `12 ÷ 6` y luego
+   `x⁴ ÷ x²` por separado. Eso último aburre sin enseñar nada; los pedacitos
+   van en la pista, por si se atora.
 
 `rotulo` corto. La bitácora de lo ya resuelto
 antepone ese rótulo en negrita, para que al mirar hacia arriba se lea como una

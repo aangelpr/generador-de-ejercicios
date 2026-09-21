@@ -266,6 +266,10 @@
     /* si el ultimo coeficiente fuera 0, lo de adentro tendria todavia una x en
        comun y el "factor comun" del enunciado no seria el completo */
     while (dentro[dentro.length - 1] === 0) dentro = poliAleatorio(r, 2, -7, 7);
+    /* el signo del factor comun es el del primer termino: solo se saca el menos
+       cuando el polinomio empieza en negativo. Si no, salen cosas como
+       -3x(-6x + 5) que nadie escribe asi. */
+    dentro[0] = Math.abs(dentro[0]);
     /* el polinomio visible es k*x^m*(dentro) */
     var expandido = P.multiplica(P.escala(dentro, k), [1].concat(new Array(m).fill(0)));
     var factorTxt = (k === 1 ? '' : k) + (m ? 'x' + (m > 1 ? F.sup(m) : '') : '');

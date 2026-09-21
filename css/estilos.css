@@ -215,23 +215,16 @@ pre.tablero {
   background: var(--acento-suave); border-radius: 8px; color: var(--texto);
 }
 
-/* El desarrollo escrito: los renglones de cuentas, como en un cuaderno. */
-.desarrollo {
-  margin: 0 0 14px; padding: 11px 13px;
-  background: var(--panel2); border: 1px solid var(--borde); border-radius: 8px;
+/* Lo que se lleva armado: el resultado parcial, grande y a la vista. */
+.queda {
+  margin: 0 0 14px; padding: 11px 14px; text-align: center;
+  background: var(--acento-suave); border: 1px solid var(--acento); border-radius: 8px;
 }
-.desarrollo .rotulo {
-  font-size: 11px; text-transform: uppercase; letter-spacing: .06em;
-  color: var(--suave); font-weight: 700; margin-bottom: 8px;
+.queda .rotulo {
+  font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em;
+  color: var(--acento); font-weight: 700; margin-bottom: 5px;
 }
-.desarrollo-titulo {
-  font-size: 12.5px; font-weight: 700; color: var(--acento);
-  text-transform: uppercase; letter-spacing: .04em; margin: 10px 0 4px;
-}
-.desarrollo-titulo:first-of-type { margin-top: 0; }
-.proceso { margin: 0; }
-.proceso-linea { font-size: 15px; line-height: 1.7; padding-left: 2px; }
-.proceso-hueco { height: 7px; }
+.queda-valor { font-size: 21px; line-height: 1.5; font-weight: 600; color: var(--texto); }
 .guia-final {
   font-size: 17px; line-height: 1.7; margin-top: 12px; padding: 12px 14px;
   background: var(--panel2); border: 1px solid var(--borde); border-radius: 8px;

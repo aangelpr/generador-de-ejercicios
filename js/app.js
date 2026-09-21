@@ -3,7 +3,7 @@
   'use strict';
   /* Sube esto junto con la version de sw.js. Se ve en Ajustes y sirve para
      saber de un vistazo si el celular ya tiene la version nueva. */
-  var VERSION = 'v21 (20 sep 2026)';
+  var VERSION = 'v22 (20 sep 2026)';
 
   var cfg = EJ.almacen.config;
   var estado = null;
@@ -151,7 +151,7 @@
       if (guiado) {
         estado = guiado;
         estado.bitacora = [];
-        estado.procesos = [];
+        estado.queda = '';
         return pintarGuiado();
       }
       cfg.guiado = false;          // este tema no lo tiene: se sigue en modo normal
@@ -506,12 +506,13 @@
     destino.appendChild(caja);
   }
 
-  /* El desarrollo escrito de un paso, renglon por renglon. */
-  function bloqueProceso(lineas) {
-    var caja = crear('div', 'proceso');
-    lineas.forEach(function (l) {
-      caja.appendChild(crear('div', l === '' ? 'proceso-hueco' : 'proceso-linea', l));
-    });
+  /* Lo que se lleva armado hasta ahora. Es lo que hace que el ejercicio se
+     sienta como que avanza: despues de cada respuesta correcta se ve el
+     resultado parcial creciendo, no una lista de cuentas sueltas. */
+  function cajaQueda(texto) {
+    var caja = crear('div', 'queda');
+    caja.appendChild(crear('div', 'rotulo', 'Llevamos'));
+    caja.appendChild(crear('div', 'queda-valor', texto));
     return caja;
   }
 
@@ -534,20 +535,8 @@
       card.appendChild(log);
     }
 
-    /* el desarrollo escrito de los pasos que ya pasaron */
-    if (estado.procesos && estado.procesos.length) {
-      var desarrollo = crear('div', 'desarrollo');
-      desarrollo.appendChild(crear('div', 'rotulo', 'El desarrollo hasta aqui'));
-      var ultimaSeccion = null;
-      estado.procesos.forEach(function (pr) {
-        if (pr.seccion && pr.seccion !== ultimaSeccion) {
-          desarrollo.appendChild(crear('div', 'desarrollo-titulo', pr.seccion));
-          ultimaSeccion = pr.seccion;
-        }
-        desarrollo.appendChild(bloqueProceso(pr.lineas));
-      });
-      card.appendChild(desarrollo);
-    }
+    /* el resultado que llevamos armado */
+    if (estado.queda) card.appendChild(cajaQueda(estado.queda));
 
     if (estado.terminado) {
       card.appendChild(crear('div', 'aviso ok', '<b>&iexcl;Listo!</b> Terminaste el ejercicio paso a paso.'));
@@ -625,7 +614,7 @@
       var res = EJ.motor.saltarPaso(estado);
       estado.bitacora.push('<span class="mal-marca">&#10007;</span> ' + rotulado(paso, res.respuesta) +
         (res.despues ? ' &mdash; ' + res.despues : ''));
-      if (paso.proceso && paso.proceso.length) estado.procesos.push({ seccion: paso.seccion || paso.rotulo, lineas: paso.proceso });
+      if (paso.queda) estado.queda = paso.queda;
       pintarGuiado();
     };
     acciones.appendChild(bSaltar);
@@ -655,7 +644,7 @@
     if (res.correcto) {
       estado.bitacora.push('<span class="bien-marca">&#10003;</span> ' + rotulado(paso, paso.resp.mostrar()) +
         (res.despues ? ' &mdash; ' + res.despues : ''));
-      if (paso.proceso && paso.proceso.length) estado.procesos.push({ seccion: paso.seccion || paso.rotulo, lineas: paso.proceso });
+      if (paso.queda) estado.queda = paso.queda;
       pintarGuiado();
       return;
     }
