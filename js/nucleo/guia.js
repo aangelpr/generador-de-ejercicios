@@ -1048,18 +1048,30 @@
         'La formula es (n &minus; 2) &middot; 180&deg;, donde n es el numero de lados.',
       pasos: [
         {
+          seccion: 'Paso 1: contar los lados',
+          queHacemos: 'Sacamos el numero de lados del nombre.',
+          paraQue: 'El prefijo griego dice el numero. Ese es el n de la formula.',
+          queda: 'n = ' + n,
           pregunta: '&iquest;Cuantos lados tiene un ' + nombre + '?',
           resp: R.numero(n, { dec: 0 }),
           pista: 'El prefijo griego lo dice: penta = 5, hexa = 6, hepta = 7, octa = 8, deca = 10.',
           despues: 'Entonces n = ' + n + '.'
         },
         {
+          seccion: 'Paso 2: cuantos triangulos salen',
+          queHacemos: 'Le restamos 2 al numero de lados.',
+          paraQue: 'No es un 2 magico: es en cuantos triangulos se parte la figura trazando diagonales desde un vertice.',
+          queda: (n - 2) + ' triangulos',
           pregunta: '&iquest;Cuanto es n &minus; 2? (' + n + ' &minus; 2)',
           resp: R.numero(n - 2, { dec: 0 }),
           pista: 'Es el numero de triangulos en que se puede partir la figura.',
           despues: 'Se resta 2 porque el poligono se parte en ' + (n - 2) + ' triangulos, y cada uno suma 180&deg;.'
         },
         {
+          seccion: 'Paso 3: sumar los triangulos',
+          queHacemos: 'Multiplicamos los triangulos por 180&deg;.',
+          paraQue: 'Cada triangulo aporta 180&deg;, y juntos cubren todos los angulos del poligono.',
+          queda: ((n - 2) * 180) + '&deg;',
           pregunta: 'Multiplica por 180: ' + (n - 2) + ' &middot; 180',
           resp: R.numero((n - 2) * 180, { dec: 0 }),
           pista: 'Cada triangulo aporta 180&deg;.',
