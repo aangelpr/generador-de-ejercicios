@@ -527,24 +527,40 @@
         'La formula es c&sup2; = a&sup2; + b&sup2;, donde c es la hipotenusa (el lado largo).',
       pasos: [
         {
+          seccion: 'Paso 1: los dos cuadrados',
+          queHacemos: 'Elevamos al cuadrado el primer cateto.',
+          paraQue: 'La formula trabaja con los CUADRADOS de los lados, no con los lados. Se calculan uno por uno.',
+          queda: 'c&sup2; = ' + (a * a) + ' + ?',
           pregunta: 'Eleva al cuadrado el primer cateto.<br>&iquest;Cuanto es ' + a + '&sup2;?',
           resp: R.numero(a * a, { dec: 0 }),
           pista: a + ' &middot; ' + a,
           despues: ''
         },
         {
+          seccion: 'Paso 1: los dos cuadrados',
+          queHacemos: 'Ahora el segundo cateto.',
+          paraQue: 'Para tener las dos piezas de a&sup2; + b&sup2;.',
+          queda: 'c&sup2; = ' + (a * a) + ' + ' + (b * b),
           pregunta: 'Ahora el otro cateto.<br>&iquest;Cuanto es ' + b + '&sup2;?',
           resp: R.numero(b * b, { dec: 0 }),
           pista: b + ' &middot; ' + b,
           despues: ''
         },
         {
+          seccion: 'Paso 2: sumar',
+          queHacemos: 'Sumamos los dos cuadrados.',
+          paraQue: 'Eso da c&sup2;, que NO es la respuesta todavia: nos piden c.',
+          queda: 'c&sup2; = ' + c2,
           pregunta: 'Sumalos: &iquest;cuanto da ' + (a * a) + ' + ' + (b * b) + '?<br>(ese es el valor de c&sup2;)',
           resp: R.numero(c2, { dec: 0 }),
           pista: 'Es una suma normal.',
           despues: 'Ya tenemos c&sup2; = ' + c2 + '. Pero nos piden c, no c&sup2;.'
         },
         {
+          seccion: 'Paso 3: la raiz',
+          queHacemos: 'Sacamos la raiz cuadrada.',
+          paraQue: 'Es el paso que mas se olvida: quedarse en c&sup2; y dar ese numero como respuesta.',
+          queda: 'c = ' + F.n(c, 2),
           pregunta: 'Ultimo paso: saca la raiz cuadrada.<br>&iquest;Cuanto es &radic;<span class="rad">' + c2 + '</span>? (2 decimales)',
           resp: R.numero(c, { dec: 2, tol: 0.01 }),
           pista: 'Busca el numero que multiplicado por si mismo da ' + c2 + '.',
@@ -1095,18 +1111,30 @@
         'La ley de senos dice: ' + F.frac('a', 'sen A') + ' = ' + F.frac('b', 'sen B') + '. Despejando: b = a &middot; sen B &divide; sen A.',
       pasos: [
         {
+          seccion: 'Paso 1: los dos senos',
+          queHacemos: 'Sacamos el seno del angulo que va con el lado conocido.',
+          paraQue: 'Ese es el que va ABAJO en la formula, porque acompana al lado que ya tenemos.',
+          queda: 'b = ' + a + ' &middot; ? &divide; ' + F.n(senA, 4),
           pregunta: 'Saca el seno del angulo que conoces con su lado.<br>&iquest;Cuanto vale sen ' + A + '&deg;? (4 decimales)',
           resp: R.numero(senA, { dec: 4, tol: 0.001 }),
           pista: 'Con la calculadora en grados: sen(' + A + ').',
           despues: 'Ese va abajo en la formula.'
         },
         {
+          seccion: 'Paso 1: los dos senos',
+          queHacemos: 'Ahora el seno del angulo del lado que buscamos.',
+          paraQue: 'Ese va ARRIBA. La calculadora tiene que estar en GRADOS: es el error numero uno del tema.',
+          queda: 'b = ' + a + ' &middot; ' + F.n(senB, 4) + ' &divide; ' + F.n(senA, 4),
           pregunta: '&iquest;Y cuanto vale sen ' + B + '&deg;? (4 decimales)',
           resp: R.numero(senB, { dec: 4, tol: 0.001 }),
           pista: 'Otra vez la calculadora, en grados.',
           despues: 'Ese va arriba, junto con el lado conocido.'
         },
         {
+          seccion: 'Paso 2: hacer la cuenta',
+          queHacemos: 'Multiplicamos arriba y dividimos al final.',
+          paraQue: 'Comprobacion: al angulo mayor le toca el lado mayor.',
+          queda: 'b = ' + F.n(b, 2),
           pregunta: 'Ahora arma la cuenta: b = ' + a + ' &middot; ' + F.n(senB, 4) + ' &divide; ' + F.n(senA, 4) + '<br>(2 decimales)',
           resp: R.numero(b, { dec: 2, tol: 0.05 }),
           pista: 'Multiplica primero arriba y al final divide.',
@@ -1132,30 +1160,50 @@
         'La formula es c&sup2; = a&sup2; + b&sup2; &minus; 2ab&middot;cos C.',
       pasos: [
         {
+          seccion: 'Paso 1: la parte de Pitagoras',
+          queHacemos: 'Sumamos los cuadrados de los dos lados.',
+          paraQue: 'Hasta aqui es identico a Pitagoras. Lo que sigue es la correccion por el angulo.',
+          queda: 'c&sup2; = ' + (a * a + b * b) + ' &minus; ?',
           pregunta: 'Primero la parte facil: &iquest;cuanto es ' + a + '&sup2; + ' + b + '&sup2;?',
           resp: R.numero(a * a + b * b, { dec: 0 }),
           pista: a + '&sup2; = ' + (a * a) + ' y ' + b + '&sup2; = ' + (b * b) + '.',
           despues: 'Hasta aqui es igual que Pitagoras. Lo que sigue es la correccion por el angulo.'
         },
         {
+          seccion: 'Paso 2: el coseno',
+          queHacemos: 'Sacamos el coseno del angulo.',
+          paraQue: 'Si el angulo pasa de 90&deg; el coseno sale NEGATIVO, y entonces la resta acaba sumando.',
+          queda: 'cos ' + C + '&deg; = ' + F.n(cosC, 4),
           pregunta: '&iquest;Cuanto vale cos ' + C + '&deg;? (4 decimales)',
           resp: R.numero(cosC, { dec: 4, tol: 0.001 }),
           pista: C > 90 ? 'Ojo: pasa de 90&deg;, asi que el coseno sale NEGATIVO.' : 'Con la calculadora en grados.',
           despues: ''
         },
         {
+          seccion: 'Paso 3: el termino que se resta',
+          queHacemos: 'Multiplicamos 2 por los dos lados y por el coseno.',
+          paraQue: 'Este es el pedazo que corrige a Pitagoras: mide cuanto se abre o se cierra el triangulo.',
+          queda: 'c&sup2; = ' + (a * a + b * b) + ' &minus; (' + F.n(doble, 4) + ')',
           pregunta: 'Ahora calcula 2&middot;' + a + '&middot;' + b + '&middot;cos ' + C + '&deg;<br>(4 decimales)',
           resp: R.numero(doble, { dec: 4, tol: 0.01 }),
           pista: '2 &middot; ' + a + ' &middot; ' + b + ' = ' + (2 * a * b) + ', y eso por ' + F.n(cosC, 4) + '.',
           despues: 'Este es el pedazo que se RESTA.'
         },
         {
+          seccion: 'Paso 4: restar',
+          queHacemos: 'Hacemos la resta.',
+          paraQue: 'Ojo: si el coseno era negativo, restar un negativo SUMA.',
+          queda: 'c&sup2; = ' + F.n(c2, 4),
           pregunta: 'Resta: ' + (a * a + b * b) + ' &minus; (' + F.n(doble, 4) + ')<br>Eso es c&sup2;. (4 decimales)',
           resp: R.numero(c2, { dec: 4, tol: 0.01 }),
           pista: C > 90 ? 'Como el coseno era negativo, restar un negativo SUMA.' : 'Resta normal.',
           despues: 'Ya tenemos c&sup2;, falta la raiz.'
         },
         {
+          seccion: 'Paso 5: la raiz',
+          queHacemos: 'Sacamos la raiz cuadrada.',
+          paraQue: 'El paso que mas se olvida: quedarse en c&sup2; y darlo como respuesta.',
+          queda: 'c = ' + F.n(c, 2),
           pregunta: 'Saca la raiz cuadrada de ' + F.n(c2, 4) + ' (2 decimales)',
           resp: R.numero(c, { dec: 2, tol: 0.02 }),
           pista: 'Ultimo paso.',
@@ -1611,12 +1659,20 @@
         '<b>' + F.frac(a, b) + ' = ' + F.frac(F.n(c), 'x') + '</b><br>Hay que despejar la x.',
       pasos: [
         {
+          seccion: 'Paso 1: multiplicar en cruz',
+          queHacemos: 'Multiplicamos la diagonal que no tiene x.',
+          paraQue: 'El producto cruzado quita las dos fracciones de un golpe y deja una ecuacion simple.',
+          queda: a + 'x = ' + F.n(b * c),
           pregunta: 'En una proporcion se multiplica en cruz.<br>&iquest;Cuanto da ' + b + ' &middot; ' + F.n(c) + '? (lo de la diagonal que NO tiene x)',
           resp: R.numero(b * c, { dec: 4, tol: 0.01 }),
           pista: 'Multiplica el de abajo-izquierda por el de arriba-derecha.',
           despues: 'Ese producto queda igualado a ' + a + '&middot;x.'
         },
         {
+          seccion: 'Paso 2: despejar',
+          queHacemos: 'Pasamos el numero que multiplica a la x dividiendo.',
+          paraQue: 'Para dejar la x sola.',
+          queda: 'x = ' + F.n(x, 2),
           pregunta: 'Entonces ' + a + 'x = ' + F.n(b * c) + '.<br>Despeja x dividiendo entre ' + a + '. (2 decimales)',
           resp: R.numero(x, { dec: 2, tol: 0.01 }),
           pista: F.n(b * c) + ' &divide; ' + a,
