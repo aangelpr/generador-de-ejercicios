@@ -287,18 +287,30 @@
       intro: 'Vamos a resolver <b>(' + a + ') &middot; (' + b + ')</b> por partes: primero el signo y luego los numeros.',
       pasos: [
         {
+          seccion: 'Paso 1: el signo',
+          queHacemos: 'Miramos los dos signos y decidimos el del resultado, sin multiplicar nada todavia.',
+          paraQue: 'Para resolver el signo de una vez y despues olvidarnos de el. Si lo dejas para el final, se te pierde.',
+          queda: (val > 0 ? '+' : '&minus;') + ' (falta el numero)',
           pregunta: 'Los signos son ' + (a < 0 ? 'negativo' : 'positivo') + ' y ' + (b < 0 ? 'negativo' : 'positivo') + '.<br>&iquest;De que signo va a salir el resultado?',
           resp: R.opcion(['Positivo', 'Negativo'], val > 0 ? 0 : 1),
           pista: 'Signos iguales dan positivo; signos distintos dan negativo.',
           despues: 'Ya sabemos el signo. Ahora solo faltan los numeros.'
         },
         {
+          seccion: 'Paso 2: el numero',
+          queHacemos: 'Multiplicamos los valores absolutos, como si fueran numeros normales.',
+          paraQue: 'Porque el signo ya esta decidido: aqui solo falta la cuenta.',
+          queda: (val > 0 ? '' : '&minus;') + Math.abs(val),
           pregunta: 'Multiplica los numeros sin signo:<br>&iquest;Cuanto da ' + Math.abs(a) + ' &middot; ' + Math.abs(b) + '?',
           resp: R.numero(Math.abs(val), { dec: 0 }),
           pista: 'Es una multiplicacion normal, ignorando los signos por un momento.',
           despues: 'Perfecto. Ya tenemos el numero y el signo.'
         },
         {
+          seccion: 'Paso 3: juntar',
+          queHacemos: 'Pegamos el signo al numero.',
+          paraQue: 'Para dar la respuesta completa.',
+          queda: String(val),
           pregunta: 'Junta las dos cosas: escribe el resultado completo, con su signo.',
           resp: R.numero(val, { dec: 0 }),
           pista: 'Es ' + Math.abs(val) + ' con signo ' + (val < 0 ? 'negativo' : 'positivo') + '.',
@@ -326,30 +338,50 @@
         'Para sumar o restar fracciones necesitamos que tengan el MISMO denominador.',
       pasos: [
         {
+          seccion: 'Paso 1: denominador comun',
+          queHacemos: 'Buscamos un denominador que les sirva a las dos fracciones.',
+          paraQue: 'Porque sumar cuartos con sextos no se puede: hay que cortar los dos pasteles en trozos del mismo tamano antes de juntarlos.',
+          queda: F.frac('?', m) + ' ' + signo + ' ' + F.frac('?', m),
           pregunta: '&iquest;Cual es el minimo comun multiplo de <b>' + b + '</b> y <b>' + d + '</b>?',
           resp: R.numero(m, { dec: 0 }),
           pista: 'Es el numero mas chico al que le caben exactos tanto el ' + b + ' como el ' + d + '.',
           despues: 'Ese ' + m + ' va a ser el denominador de las dos fracciones.'
         },
         {
+          seccion: 'Paso 2: convertir la primera',
+          queHacemos: 'Averiguamos por cuanto hay que multiplicar la primera fraccion.',
+          paraQue: 'Multiplicar arriba y abajo por lo mismo no cambia el valor: es multiplicar por 1 disfrazado.',
+          queda: '&times; ' + fa,
           pregunta: 'Para que ' + F.frac(a, b) + ' tenga denominador ' + m + ', hay que multiplicar arriba y abajo por el mismo numero.<br>&iquest;Por cual? (' + m + ' &divide; ' + b + ')',
           resp: R.numero(fa, { dec: 0 }),
           pista: 'Divide el nuevo denominador entre el que ya tenias: ' + m + ' &divide; ' + b + '.',
           despues: 'Entonces el numerador ' + a + ' se multiplica por ' + fa + '.'
         },
         {
+          seccion: 'Paso 2: convertir la primera',
+          queHacemos: 'Multiplicamos el numerador por ese mismo numero.',
+          paraQue: 'Para que la fraccion siga valiendo lo mismo con el denominador nuevo.',
+          queda: F.frac(na, m) + ' ' + signo + ' ' + F.frac('?', m),
           pregunta: '&iquest;Cuanto queda ese numerador? (' + a + ' &middot; ' + fa + ')',
           resp: R.numero(na, { dec: 0 }),
           pista: 'Multiplica ' + a + ' por ' + fa + '.',
           despues: 'La primera fraccion quedo ' + F.frac(na, m) + '.'
         },
         {
+          seccion: 'Paso 3: convertir la segunda',
+          queHacemos: 'Lo mismo con la segunda fraccion.',
+          paraQue: 'Para que las dos queden con el denominador ' + m + ' y ya se puedan operar.',
+          queda: F.frac(na, m) + ' ' + signo + ' ' + F.frac(nc, m),
           pregunta: 'Ahora la otra: ' + F.frac(c, d) + ' se multiplica por ' + fc + '.<br>&iquest;Cuanto queda su numerador? (' + c + ' &middot; ' + fc + ')',
           resp: R.numero(nc, { dec: 0 }),
           pista: m + ' &divide; ' + d + ' = ' + fc + ', asi que el numerador se multiplica por ' + fc + '.',
           despues: 'La segunda quedo ' + F.frac(nc, m) + '.'
         },
         {
+          seccion: 'Paso 4: operar',
+          queHacemos: 'Sumamos o restamos SOLO los numeradores.',
+          paraQue: 'El denominador ya es el mismo para las dos, asi que se queda igual. Sumarlo tambien es el error clasico.',
+          queda: F.frac(num, m),
           pregunta: 'Ya tienen el mismo denominador: ' + F.frac(na, m) + ' ' + signo + ' ' + F.frac(nc, m) + '<br>' +
             '&iquest;Cuanto da ' + na + ' ' + signo + ' ' + nc + '? (solo los numeradores)',
           resp: R.numero(num, { dec: 0 }),
@@ -357,6 +389,10 @@
           despues: 'Vamos en ' + F.frac(num, m) + '.'
         },
         {
+          seccion: 'Paso 5: simplificar',
+          queHacemos: 'Buscamos si arriba y abajo se pueden dividir entre lo mismo.',
+          paraQue: 'Una fraccion sin simplificar no esta mal, pero no esta terminada.',
+          queda: F.fracSimp(num, m),
           pregunta: '&iquest;Se puede simplificar ' + F.frac(num, m) + '?<br>Escribe la fraccion ya simplificada.',
           resp: R.fraccion(s[0], s[1]),
           pista: g === 1 ? 'Revisa si algun numero divide a los dos... si no, ya estaba simplificada.'
@@ -382,24 +418,40 @@
         'Aqui el primero es <b>' + primero + '</b> y el segundo es <b>' + a + '</b>.',
       pasos: [
         {
+          seccion: 'Paso 1: cuadrado del primero',
+          queHacemos: 'Aplicamos la formula (a + b)&sup2; = a&sup2; + 2ab + b&sup2;, una pieza a la vez.',
+          paraQue: 'Porque (a + b)&sup2; NO es a&sup2; + b&sup2;: al multiplicar el binomio por si mismo aparece un termino de en medio que hay que contar dos veces.',
+          queda: F.term(c * c, 'x', 2),
           pregunta: 'Primer termino: eleva al cuadrado el primero.<br>&iquest;Cuanto es (' + primero + ')&sup2;?',
           resp: R.expresion('(' + (c * c) + ')*x^2', { mostrar: F.term(c * c, 'x', 2) }),
           pista: 'Se eleva el coeficiente y tambien la x: (' + c + ')&sup2; = ' + (c * c) + ' y x&sup2;.',
           despues: 'Ese es el primer termino del resultado.'
         },
         {
+          seccion: 'Paso 2: doble producto',
+          queHacemos: 'Multiplicamos los dos terminos entre si y el resultado por 2.',
+          paraQue: 'Este es el termino que aparece dos veces al desarrollar, y el que todo el mundo olvida.',
+          queda: F.une([F.term(c * c, 'x', 2), F.term(2 * c * a, 'x', 1)]),
           pregunta: 'Segundo termino: el DOBLE producto.<br>&iquest;Cuanto es 2 &middot; (' + primero + ') &middot; (' + a + ')?',
           resp: R.expresion('(' + (2 * c * a) + ')*x', { mostrar: F.term(2 * c * a, 'x', 1) }),
           pista: 'Multiplica 2 &middot; ' + c + ' &middot; (' + a + ') = ' + (2 * c * a) + ', y le queda la x.',
           despues: 'Este es el que mas se olvida. Ya lo tienes.'
         },
         {
+          seccion: 'Paso 3: cuadrado del segundo',
+          queHacemos: 'Elevamos al cuadrado el segundo termino.',
+          paraQue: 'Para completar las tres piezas de la formula.',
+          queda: P.texto(res),
           pregunta: 'Tercer termino: el cuadrado del segundo.<br>&iquest;Cuanto es (' + a + ')&sup2;?',
           resp: R.numero(a * a, { dec: 0 }),
           pista: a < 0 ? 'Ojo: un negativo al cuadrado sale positivo.' : 'Multiplica ' + a + ' por si mismo.',
           despues: 'Ya tenemos los tres pedazos.'
         },
         {
+          seccion: 'Paso 4: juntar',
+          queHacemos: 'Escribimos los tres terminos en orden, de mayor a menor grado.',
+          paraQue: 'Para dar la respuesta ordenada.',
+          queda: P.texto(res),
           pregunta: 'Junta los tres terminos y escribe el resultado completo.',
           resp: R.expresion(P.expr(res), { mostrar: P.texto(res) }),
           pista: 'Es ' + F.term(c * c, 'x', 2) + ', luego ' + F.term(2 * c * a, 'x', 1) + ' y al final ' + (a * a) + '.',
