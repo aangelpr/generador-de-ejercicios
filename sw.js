@@ -3,7 +3,7 @@
    nueva) y, si no hay internet o tarda demasiado, usa la copia guardada. */
 /* Sube este numero cada vez que cambies archivos de la app: obliga al celular
    a bajar la version nueva completa. */
-var CACHE = 'generador-ejercicios-v35';
+var CACHE = 'generador-ejercicios-v36';
 
 var ARCHIVOS = [
   './',
@@ -31,6 +31,10 @@ var ARCHIVOS = [
   './js/temas/fisica/kepler-2.js',
   './js/temas/fisica/kepler-3.js',
   './js/temas/fisica/energia.js',
+  './js/temas/fisica/termo-0.js',
+  './js/temas/fisica/termo-1.js',
+  './js/temas/fisica/termo-2.js',
+  './js/temas/fisica/termo-3.js',
   './js/temas/materias.js',
   './js/temas/matematicas/signos.js',
   './js/temas/matematicas/exponentes.js',

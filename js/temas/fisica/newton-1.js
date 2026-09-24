@@ -429,7 +429,7 @@
                 seccion: 'Paso 1: separar los ejes',
                 queHacemos: 'Agrupamos las fuerzas segun su direccion.',
                 paraQue: 'Las verticales no afectan al movimiento horizontal y al reves. Tratarlas juntas es lo que enreda estos problemas.',
-                queda: 'vertical: peso y normal;  horizontal: empuje y rozamiento',
+                queda: 'arriba-abajo y los dos horizontales',
                 pregunta: '&iquest;Cuantas fuerzas actuan en VERTICAL?',
                 resp: R.numero(2, { dec: 0 }),
                 pista: 'El peso hacia abajo y la normal hacia arriba. El empuje y el rozamiento son horizontales.',

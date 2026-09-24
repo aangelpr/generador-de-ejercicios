@@ -419,9 +419,16 @@ teoría de conjuntos · distribución binomial
 En construcción. Se va armando tema por tema, con el mismo formato que matemáticas
 (paso a paso incluido).
 
-**Cinemática:** MRU y MUA
+**Cinemática:** MRU y MUA · caída libre y tiro vertical
 
-Pendientes: caída libre y tiro vertical · las tres leyes de Newton · las tres leyes de
-Kepler · conservación de la energía · las cuatro leyes de la termodinámica · leyes de
-Boyle, Charles y Gay-Lussac · ley de Hooke · principio de Pascal · principio de
-Arquímedes · ley de Ohm · ley de Snell.
+**Dinámica:** las tres leyes de Newton (inercia, F = ma, acción y reacción)
+
+**Gravitación:** las tres leyes de Kepler (órbitas, áreas, períodos)
+
+**Energía:** ley de conservación de la energía
+
+**Termodinámica:** las cuatro leyes (ley cero, ΔU = Q − W, entropía y rendimiento,
+cero absoluto)
+
+Pendientes: leyes de Boyle, Charles y Gay-Lussac · ley de Hooke · principio de Pascal ·
+principio de Arquímedes · ley de Ohm · ley de Snell.
