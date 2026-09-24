@@ -397,6 +397,8 @@ múltiple con distractores sacados de las otras fichas (fácil), usando `R.opcio
 
 ## Temas incluidos
 
+### Matemáticas
+
 **Aritmética y álgebra básica:** leyes de los signos · leyes de los exponentes ·
 reglas para fracciones · proporciones y variación lineal
 **Sucesiones y series:** sucesiones · progresiones aritméticas y geométricas
@@ -411,3 +413,15 @@ impares · tipos de función · propiedades de logaritmos y aplicaciones
 del cálculo · integración por partes · fórmula de sustitución
 **Probabilidad y estadística:** estadística (elementos y medidas) · probabilidad y
 teoría de conjuntos · distribución binomial
+
+### Física
+
+En construcción. Se va armando tema por tema, con el mismo formato que matemáticas
+(paso a paso incluido).
+
+**Cinemática:** MRU y MUA
+
+Pendientes: caída libre y tiro vertical · las tres leyes de Newton · las tres leyes de
+Kepler · conservación de la energía · las cuatro leyes de la termodinámica · leyes de
+Boyle, Charles y Gay-Lussac · ley de Hooke · principio de Pascal · principio de
+Arquímedes · ley de Ohm · ley de Snell.

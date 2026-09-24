@@ -2066,5 +2066,253 @@
     };
   };
 
+  /* ================= FISICA: MRU ================= */
+  /* `cual` dice que se pide: 'v', 'd' o 't'. */
+  guia.mruDespeje = function (cual, v, d, t) {
+    var pide = { v: 'la velocidad', d: 'la distancia', t: 'el tiempo' }[cual];
+    var despejada = { v: 'v = d / t', d: 'd = v &middot; t', t: 't = d / v' }[cual];
+    var trampa = { v: 'v = d &middot; t', d: 'd = v / t', t: 't = v / d' }[cual];
+    var cuenta = { v: d + ' &divide; ' + t, d: v + ' &times; ' + t, t: d + ' &divide; ' + v }[cual];
+    var valor = { v: v, d: d, t: t }[cual];
+    var unidad = { v: 'm/s', d: 'm', t: 's' }[cual];
+    return {
+      intro: 'Movimiento con <b>velocidad constante</b> (MRU) y hay que encontrar ' + pide + '.<br>' +
+        'Todo el MRU cabe en una sola relacion: <b>v = d / t</b>. Lo unico que cambia de un ejercicio a otro ' +
+        'es cual de las tres letras te piden.',
+      pasos: [
+        {
+          seccion: 'Paso 1: la relacion',
+          queHacemos: 'Escribimos la relacion entre velocidad, distancia y tiempo.',
+          paraQue: 'Velocidad es cuantos metros recorre por cada segundo, o sea metros ENTRE segundos. De ahi sale todo lo demas.',
+          queda: 'v = d / t',
+          pregunta: 'En un movimiento con velocidad constante, &iquest;como se relacionan v, d y t?',
+          resp: R.opcion(['v = d / t', 'v = d &middot; t'], 0),
+          pista: 'Piensalo con las unidades: la velocidad se mide en metros POR segundo, y ese "por" es una division.',
+          despues: 'Con esa relacion se puede despejar cualquiera de las tres.'
+        },
+        {
+          seccion: 'Paso 2: despejar lo que piden',
+          queHacemos: 'Despejamos ' + pide + '.',
+          paraQue: cual === 'v'
+            ? 'Aqui no hay que despejar nada: la formula ya viene con la v sola.'
+            : 'Lo que esta dividiendo pasa multiplicando, y al reves. Confundir el sentido es el error tipico.',
+          queda: despejada,
+          pregunta: '&iquest;Como queda la formula despejada para ' + pide + '?',
+          resp: R.opcion([despejada, trampa], 0),
+          pista: 'Comprueba con las unidades: solo una de las dos te deja ' + unidad + '.',
+          despues: 'Ahora solo falta sustituir los numeros.'
+        },
+        {
+          seccion: 'Paso 3: sustituir y calcular',
+          queHacemos: 'Metemos los datos y hacemos la cuenta.',
+          paraQue: 'La respuesta de fisica lleva SIEMPRE su unidad. Un numero suelto no dice nada.',
+          queda: F.n(valor, 2) + ' ' + unidad,
+          pregunta: 'Calcula ' + cuenta + ' (2 decimales)',
+          resp: R.numero(valor, { dec: 2, tol: 0.01, unidad: unidad }),
+          pista: 'Division o multiplicacion directa.',
+          despues: ''
+        }
+      ],
+      final: pide.charAt(0).toUpperCase() + pide.slice(1) + ' es <b>' + F.n(valor, 2) + ' ' + unidad + '</b>',
+      receta: ['MRU es velocidad constante: v = d / t',
+        'Despejar la letra que piden',
+        'Sustituir y calcular',
+        'Escribir la unidad junto al numero']
+    };
+  };
+
+  /* ================= FISICA: ACELERACION ================= */
+  guia.aceleracion = function (v0, vf, t) {
+    var cambio = vf - v0;
+    var a = cambio / t;
+    return {
+      intro: 'La velocidad pasa de <b>' + F.n(v0, 2) + ' m/s</b> a <b>' + F.n(vf, 2) + ' m/s</b> en <b>' + t + ' s</b>.<br>' +
+        'Acelerar es <b>cambiar de velocidad</b>, y la aceleracion mide cuanto cambia en cada segundo.',
+      pasos: [
+        {
+          seccion: 'Paso 1: cuanto cambio la velocidad',
+          queHacemos: 'Restamos la velocidad final menos la inicial.',
+          paraQue: 'Lo que importa no es que tan rapido va, sino cuanto CAMBIO. Un coche a 100 km/h constantes tiene aceleracion cero.',
+          queda: 'cambio de ' + F.n(cambio, 2) + ' m/s en ' + t + ' s',
+          pregunta: '&iquest;Cuanto cambio la velocidad en total? (2 decimales)',
+          resp: R.numero(cambio, { dec: 2, tol: 0.02, unidad: 'm/s' }),
+          pista: F.n(vf, 2) + ' &minus; ' + F.n(v0, 2) + '.',
+          despues: 'Ese cambio se repartio a lo largo de los ' + t + ' s.'
+        },
+        {
+          seccion: 'Paso 2: repartirlo entre los segundos',
+          queHacemos: 'Dividimos ese cambio entre el tiempo.',
+          paraQue: 'Asi sale cuanta velocidad gana en CADA segundo, que es justo lo que significa la aceleracion.',
+          queda: 'a = ' + F.n(a, 2) + ' m/s&sup2;',
+          pregunta: 'Reparte ese cambio entre los ' + t + ' s: ' + F.n(cambio, 2) + ' &divide; ' + t + ' (2 decimales)',
+          resp: R.numero(a, { dec: 2, tol: 0.02, unidad: 'm/s&sup2;' }),
+          pista: 'Division directa.',
+          despues: 'Cada segundo que pasa, el movil gana ' + F.n(a, 2) + ' m/s.'
+        },
+        {
+          seccion: 'Paso 3: leer las unidades',
+          queHacemos: 'Vemos de donde sale el m/s&sup2;.',
+          paraQue: 'No es un cuadrado raro: es (m/s) por cada s, o sea metros por segundo POR SEGUNDO. Entenderlo evita confundir velocidad con aceleracion.',
+          queda: 'a = ' + F.n(a, 2) + ' m/s&sup2;',
+          pregunta: '&iquest;Que significa que la aceleracion valga ' + F.n(a, 2) + ' m/s&sup2;?',
+          resp: R.opcion(['Que cada segundo la velocidad aumenta ' + F.n(a, 2) + ' m/s',
+            'Que recorre ' + F.n(a, 2) + ' m cada segundo'], 0),
+          pista: 'La segunda seria la velocidad, no la aceleracion.',
+          despues: ''
+        }
+      ],
+      final: 'La aceleracion es <b>' + F.n(a, 2) + ' m/s&sup2;</b>',
+      receta: ['Aceleracion = cuanto CAMBIA la velocidad por segundo',
+        'Restar la final menos la inicial',
+        'Dividir ese cambio entre el tiempo',
+        'Velocidad constante quiere decir aceleracion cero']
+    };
+  };
+
+  /* ================= FISICA: VELOCIDAD FINAL ================= */
+  guia.velocidadFinal = function (v0, a, t) {
+    var gana = a * t;
+    var vf = v0 + gana;
+    return {
+      intro: 'Arranca con <b>' + F.n(v0, 2) + ' m/s</b> y acelera <b>' + F.n(a, 2) + ' m/s&sup2;</b> durante <b>' + t + ' s</b>.<br>' +
+        'La idea es sencilla: a la velocidad que ya tenia se le suma <b>lo que gana acelerando</b>.',
+      pasos: [
+        {
+          seccion: 'Paso 1: cuanta velocidad gana',
+          queHacemos: 'Multiplicamos la aceleracion por el tiempo.',
+          paraQue: 'Si gana ' + F.n(a, 2) + ' m/s en cada segundo, en ' + t + ' s gana ' + t + ' veces eso.',
+          queda: 'gana ' + F.n(gana, 2) + ' m/s',
+          pregunta: 'Calcula ' + F.n(a, 2) + ' &times; ' + t + ' (2 decimales)',
+          resp: R.numero(gana, { dec: 2, tol: 0.02, unidad: 'm/s' }),
+          pista: 'Multiplicacion directa.',
+          despues: 'Eso es lo que GANO, no la velocidad final todavia.'
+        },
+        {
+          seccion: 'Paso 2: sumarlo a la inicial',
+          queHacemos: 'Le sumamos la velocidad con la que arranco.',
+          paraQue: 'Aqui esta el error tipico: dar como respuesta lo que gano y olvidar que ya venia con velocidad.',
+          queda: 'v<sub>f</sub> = ' + F.n(vf, 2) + ' m/s',
+          pregunta: 'Ahora sumale la velocidad inicial: ' + F.n(v0, 2) + ' + ' + F.n(gana, 2) + ' (2 decimales)',
+          resp: R.numero(vf, { dec: 2, tol: 0.02, unidad: 'm/s' }),
+          pista: 'Suma directa.',
+          despues: 'Eso es v<sub>f</sub> = v<sub>0</sub> + a t, la formula de siempre, entendida por partes.'
+        }
+      ],
+      final: 'Termina con <b>' + F.n(vf, 2) + ' m/s</b>',
+      receta: ['v<sub>f</sub> = v<sub>0</sub> + a t',
+        'Primero lo que gana acelerando: a por t',
+        'Despues sumarle la velocidad de arranque',
+        'Si v<sub>0</sub> es cero, la velocidad final ES lo que gano']
+    };
+  };
+
+  /* ================= FISICA: DISTANCIA EN MUA ================= */
+  guia.distanciaMUA = function (v0, a, t) {
+    var parte1 = v0 * t;
+    var parte2 = 0.5 * a * t * t;
+    var d = parte1 + parte2;
+    return {
+      intro: 'Parte con <b>' + F.n(v0, 2) + ' m/s</b> y acelera <b>' + F.n(a, 2) + ' m/s&sup2;</b> durante <b>' + t + ' s</b>.<br>' +
+        'La formula d = v<sub>0</sub>t + &frac12;at&sup2; asusta, pero son <b>dos pedazos</b> que se suman: ' +
+        'lo que habria recorrido sin acelerar, mas lo que gano por acelerar.',
+      pasos: [
+        {
+          seccion: 'Paso 1: lo que recorreria sin acelerar',
+          queHacemos: 'Multiplicamos la velocidad inicial por el tiempo.',
+          paraQue: 'Es el pedazo de MRU: si no acelerara nada, avanzaria eso.',
+          queda: F.n(parte1, 2) + ' m  +  ?',
+          pregunta: 'Calcula v<sub>0</sub> &middot; t = ' + F.n(v0, 2) + ' &times; ' + t + ' (2 decimales)',
+          resp: R.numero(parte1, { dec: 2, tol: 0.02, unidad: 'm' }),
+          pista: 'Multiplicacion directa.' + (v0 === 0 ? ' Ojo: si arranca del reposo, este pedazo vale 0.' : ''),
+          despues: v0 === 0 ? 'Como parte del reposo, este pedazo no aporta nada.' : 'Ese es el primer pedazo.'
+        },
+        {
+          seccion: 'Paso 2: lo que gana por acelerar',
+          queHacemos: 'Calculamos &frac12; a t&sup2;.',
+          paraQue: 'El tiempo va al CUADRADO: por eso acelerar un poco mas de tiempo hace mucha diferencia en la distancia.',
+          queda: F.n(parte1, 2) + ' m  +  ' + F.n(parte2, 2) + ' m',
+          pregunta: 'Calcula &frac12; &middot; ' + F.n(a, 2) + ' &middot; ' + t + '&sup2; = &frac12; &middot; ' + F.n(a, 2) + ' &middot; ' + (t * t) + ' (2 decimales)',
+          resp: R.numero(parte2, { dec: 2, tol: 0.05, unidad: 'm' }),
+          pista: 'Primero eleva el tiempo al cuadrado, luego multiplica y al final divide entre 2.',
+          despues: 'Ese es el extra que aporta la aceleracion.'
+        },
+        {
+          seccion: 'Paso 3: sumar los dos pedazos',
+          queHacemos: 'Sumamos las dos partes.',
+          paraQue: 'Comprobacion: la distancia siempre sale mayor que el primer pedazo, porque acelerando se avanza mas.',
+          queda: 'd = ' + F.n(d, 2) + ' m',
+          pregunta: 'Suma: ' + F.n(parte1, 2) + ' + ' + F.n(parte2, 2) + ' (2 decimales)',
+          resp: R.numero(d, { dec: 2, tol: 0.05, unidad: 'm' }),
+          pista: 'Suma directa.',
+          despues: ''
+        }
+      ],
+      final: 'Recorre <b>' + F.n(d, 2) + ' m</b>',
+      receta: ['d = v<sub>0</sub>t + &frac12;at&sup2; son dos pedazos que se suman',
+        'Primer pedazo: lo que avanzaria sin acelerar',
+        'Segundo pedazo: lo que gana por acelerar, con el tiempo AL CUADRADO',
+        'Si parte del reposo, solo queda el segundo pedazo']
+    };
+  };
+
+  /* ================= FISICA: MUA SIN EL TIEMPO ================= */
+  guia.sinTiempo = function (v0, a, d) {
+    var doble = 2 * a * d;
+    var vf2 = v0 * v0 + doble;
+    var vf = Math.sqrt(vf2);
+    return {
+      intro: 'Parte con <b>' + F.n(v0, 2) + ' m/s</b>, acelera <b>' + F.n(a, 2) + ' m/s&sup2;</b> y recorre <b>' + d + ' m</b>.<br>' +
+        'Fijate en lo que <b>no</b> nos dan: el tiempo. De las cuatro formulas de MUA hay una que no lo usa, ' +
+        'y es justo la que sirve aqui: <b>v<sub>f</sub>&sup2; = v<sub>0</sub>&sup2; + 2ad</b>.',
+      pasos: [
+        {
+          seccion: 'Paso 1: elegir la formula',
+          queHacemos: 'Miramos que dato falta y elegimos la formula que no lo necesita.',
+          paraQue: 'Cada formula de MUA deja fuera una variable. Elegir bien ahorra tener que calcular el tiempo aparte.',
+          queda: 'v<sub>f</sub>&sup2; = ' + (v0 * v0) + ' + 2(' + F.n(a, 2) + ')(' + d + ')',
+          pregunta: 'No nos dan el tiempo. &iquest;Que formula conviene?',
+          resp: R.opcion(['v<sub>f</sub>&sup2; = v<sub>0</sub>&sup2; + 2ad', 'v<sub>f</sub> = v<sub>0</sub> + at'], 0),
+          pista: 'La segunda lleva una t que no tenemos.',
+          despues: 'Esta relaciona velocidades con distancia, sin pasar por el tiempo.'
+        },
+        {
+          seccion: 'Paso 2: el termino 2ad',
+          queHacemos: 'Multiplicamos 2 por la aceleracion y por la distancia.',
+          paraQue: 'Es lo que aporta el tramo acelerado. Si la aceleracion fuera negativa, este termino restaria.',
+          queda: 'v<sub>f</sub>&sup2; = ' + (v0 * v0) + ' + ' + F.n(doble, 2),
+          pregunta: 'Calcula 2 &middot; ' + F.n(a, 2) + ' &middot; ' + d + ' (2 decimales)',
+          resp: R.numero(doble, { dec: 2, tol: 0.05 }),
+          pista: 'Multiplicacion directa.',
+          despues: ''
+        },
+        {
+          seccion: 'Paso 3: sumar el cuadrado inicial',
+          queHacemos: 'Le sumamos v<sub>0</sub> al cuadrado.',
+          paraQue: 'Ojo: se suma el CUADRADO de la velocidad inicial, no la velocidad.',
+          queda: 'v<sub>f</sub>&sup2; = ' + F.n(vf2, 2),
+          pregunta: 'Calcula ' + (v0 * v0) + ' + ' + F.n(doble, 2) + ' (2 decimales)',
+          resp: R.numero(vf2, { dec: 2, tol: 0.05 }),
+          pista: v0 === 0 ? 'Parte del reposo, asi que v0 al cuadrado es 0.' : F.n(v0, 2) + '&sup2; = ' + (v0 * v0) + '.',
+          despues: 'Eso es v<sub>f</sub> AL CUADRADO, no la velocidad todavia.'
+        },
+        {
+          seccion: 'Paso 4: sacar la raiz',
+          queHacemos: 'Sacamos la raiz cuadrada.',
+          paraQue: 'Este es el paso que mas se olvida: quedarse en el cuadrado y darlo como respuesta.',
+          queda: 'v<sub>f</sub> = ' + F.n(vf, 2) + ' m/s',
+          pregunta: 'Saca la raiz de ' + F.n(vf2, 2) + ' (2 decimales)',
+          resp: R.numero(vf, { dec: 2, tol: 0.03, unidad: 'm/s' }),
+          pista: '&radic;<span class="rad">' + F.n(vf2, 2) + '</span>.',
+          despues: ''
+        }
+      ],
+      final: 'Llega con <b>' + F.n(vf, 2) + ' m/s</b>',
+      receta: ['Si falta el tiempo: v<sub>f</sub>&sup2; = v<sub>0</sub>&sup2; + 2ad',
+        'Calcular 2ad',
+        'Sumarle el CUADRADO de la velocidad inicial',
+        'Sacar la raiz al final: lo que sale de la formula es v<sub>f</sub>&sup2;, no v<sub>f</sub>']
+    };
+  };
+
   EJ.guia = guia;
 })(window);

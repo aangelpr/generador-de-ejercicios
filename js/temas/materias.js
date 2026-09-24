@@ -11,16 +11,23 @@
   });
 
   EJ.materia({
+    id: 'fisica',
+    nombre: 'Fisica',
+    descripcion: 'Cinematica, dinamica, gravitacion, energia, termodinamica, fluidos, electricidad y optica.',
+    orden: 2
+  });
+
+  EJ.materia({
     id: 'ciencias',
     nombre: 'Ciencias',
-    descripcion: 'Quimica, fisica y biologia. Pendiente de contenido.',
-    orden: 2
+    descripcion: 'Quimica y biologia. Pendiente de contenido.',
+    orden: 3
   });
 
   EJ.materia({
     id: 'historia',
     nombre: 'Historia',
     descripcion: 'Fechas, personajes y procesos. Pendiente de contenido.',
-    orden: 3
+    orden: 4
   });
 })();

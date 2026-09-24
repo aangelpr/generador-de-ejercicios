@@ -478,3 +478,16 @@ button.marcada { color: var(--aviso); background: var(--aviso-fondo); }
   .nav-q { width: 30px; height: 30px; font-size: 12px; }
   .nota-grande { font-size: 28px; }
 }
+
+/* ---------- tabla de datos (fisica) ---------- */
+table.datos {
+  border-collapse: collapse; margin: 12px auto; font-size: 14px;
+  font-variant-numeric: tabular-nums;
+}
+table.datos th, table.datos td {
+  border: 1px solid var(--borde); padding: 5px 11px; text-align: center;
+}
+table.datos th {
+  background: var(--panel2); color: var(--suave);
+  font-weight: 600; font-size: 12.5px; text-align: right; white-space: nowrap;
+}
