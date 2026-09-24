@@ -3,7 +3,7 @@
   'use strict';
   /* Sube esto junto con la version de sw.js. Se ve en Ajustes y sirve para
      saber de un vistazo si el celular ya tiene la version nueva. */
-  var VERSION = 'v31 (21 sep 2026)';
+  var VERSION = 'v32 (23 sep 2026)';
 
   var cfg = EJ.almacen.config;
   var estado = null;
@@ -56,13 +56,30 @@
     cont.innerHTML = '';
     var hubo = false;
 
-    /* practica mixta: ejercicios de varios temas revueltos */
+    /* practica mixta y examen */
     if (!filtro) {
       var bm = crear('button', 'tema-btn mixta' + (cfg.mezcla ? ' activo' : ''));
       bm.innerHTML = 'Practica mixta<small>Ejercicios de varios temas al azar</small>';
       bm.onclick = activarMezcla;
       cont.appendChild(bm);
+
+      var nSel = EJ.examen.seleccion().temas.length;
+      var bx = crear('button', 'tema-btn examen' + (enExamen() ? ' activo' : ''));
+      bx.innerHTML = 'Armar un examen<small>' +
+        (nSel ? nSel + (nSel === 1 ? ' tema elegido' : ' temas elegidos') : 'Junta varios temas y calificate') +
+        '</small>';
+      bx.onclick = abrirArmador;
+      cont.appendChild(bx);
     }
+
+    /* mientras armas el examen, tocar un tema lo agrega en vez de abrirlo.
+       Y mientras lo estas contestando, la lista se bloquea: un toque
+       distraido no puede tirar el examen a medias. */
+    var armando = vistaExamen === 'armar';
+    var bloqueada = vistaExamen === 'haciendo';
+    var elegidos = armando
+      ? EJ.examen.seleccion().temas.map(function (t) { return t.temaId; })
+      : [];
 
     EJ.gruposDe(cfg.materia).forEach(function (g) {
       var visibles = g.temas.filter(function (t) {
@@ -74,10 +91,23 @@
       cont.appendChild(crear('div', 'grupo-titulo', g.nombre));
       visibles.forEach(function (t) {
         var st = EJ.almacen.estadisticas(t.id);
-        var b = crear('button', 'tema-btn' + (t.id === cfg.tema ? ' activo' : ''));
-        var marca = dificultadesConGuia(t.id).length ? '<span class="marca-guia" title="Tiene entrenamiento paso a paso">paso a paso</span>' : '';
-        b.innerHTML = t.nombre + marca + (st.vistos ? '<small>' + st.aciertos + '/' + st.vistos + ' correctos</small>' : '');
-        b.onclick = function () { elegirTema(t.id); };
+        var dentro = elegidos.indexOf(t.id) !== -1;
+        var b = crear('button', 'tema-btn' +
+          (!armando && t.id === cfg.tema ? ' activo' : '') +
+          (armando ? ' elegible' : '') + (dentro ? ' en-examen' : ''));
+        if (armando) {
+          b.innerHTML = '<span class="tic">' + (dentro ? '&check;' : '+') + '</span>' + t.nombre;
+          b.title = dentro ? 'Quitar del examen' : 'Agregar al examen';
+          b.onclick = function () { alternarTemaExamen(t.id); };
+        } else if (bloqueada) {
+          b.innerHTML = t.nombre;
+          b.disabled = true;
+          b.title = 'Estas contestando un examen';
+        } else {
+          var marca = dificultadesConGuia(t.id).length ? '<span class="marca-guia" title="Tiene entrenamiento paso a paso">paso a paso</span>' : '';
+          b.innerHTML = t.nombre + marca + (st.vistos ? '<small>' + st.aciertos + '/' + st.vistos + ' correctos</small>' : '');
+          b.onclick = function () { elegirTema(t.id); };
+        }
         cont.appendChild(b);
       });
     });
@@ -86,6 +116,7 @@
 
   /* ---------------- practica mixta ---------------- */
   function activarMezcla() {
+    vistaExamen = null; examen = null; nota = null;
     cfg.mezcla = true;
     cfg.guiado = false;          // la mezcla siempre es para resolver tu
     EJ.almacen.set('mezcla', true);
@@ -104,6 +135,7 @@
   }
 
   function elegirTema(id) {
+    vistaExamen = null; examen = null; nota = null;
     cfg.mezcla = false;
     EJ.almacen.set('mezcla', false);
     cfg.tema = id;
@@ -370,7 +402,11 @@
         inp.addEventListener('keydown', function (ev) {
           if (ev.key !== 'Enter') return;
           ev.preventDefault();
-          if (estado.guiado) comprobarPaso();
+          if (vistaExamen === 'haciendo') {
+            if (examen.actual < examen.preguntas.length - 1) irAPregunta(examen.actual + 1);
+            else guardarRespuestaActual();
+          }
+          else if (estado.guiado) comprobarPaso();
           else if (estado.terminado) nuevoEjercicio();
           else comprobar();
         });
@@ -751,6 +787,466 @@
       '<div><b>' + (p.total ? Math.round(100 * p.aciertos / p.total) : 0) + '%</b>acierto global</div>';
   }
 
+  /* ================= EXAMEN =================
+     Se arma juntando temas de la lista. A diferencia de la practica, aqui no
+     se dice si acertaste hasta que entregas: primero contestas todo y luego
+     se califica de una vez. */
+
+  var examen = null;       // el examen que se esta haciendo o revisando
+  var vistaExamen = null;  // 'armar' | 'haciendo' | 'resultado'
+  var nota = null;
+
+  function enExamen() { return vistaExamen !== null; }
+
+  function salirDelExamen() {
+    vistaExamen = null; examen = null; nota = null;
+    pintarTemas();
+    if (cfg.tema && EJ.tienTema(cfg.tema)) nuevoEjercicio();
+    else pintarVacio();
+  }
+
+  function abrirArmador() {
+    vistaExamen = 'armar';
+    cfg.mezcla = false;
+    EJ.almacen.set('mezcla', false);
+    pintarTemas();
+    pintarArmador();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  /* Al tocar un tema de la lista mientras armas: lo agrega o lo quita. */
+  function alternarTemaExamen(temaId) {
+    var sel = EJ.examen.seleccion();
+    var i = -1;
+    sel.temas.forEach(function (t, k) { if (t.temaId === temaId) i = k; });
+    if (i === -1) sel.temas.push({ temaId: temaId, cantidad: null });
+    else sel.temas.splice(i, 1);
+    EJ.examen.guardarSeleccion(sel);
+    pintarTemas();
+    pintarArmador();
+  }
+
+  function pintarArmador() {
+    var sel = EJ.examen.seleccion();
+    var plan = EJ.examen.reparto(sel);
+    var zona = $('zona');
+    zona.innerHTML = '';
+
+    var card = crear('div', 'tarjeta examen-armador');
+    card.appendChild(crear('h2', null, 'Armar un examen'));
+    card.appendChild(crear('p', 'ayuda',
+      'Elige los temas de la lista y se van juntando aqui. ' +
+      'La seleccion se guarda, asi que puedes ir agregando temas conforme avances.'));
+
+    /* examen a medias de otra vez */
+    var curso = EJ.examen.leerCurso();
+    if (curso && !curso.terminado) {
+      var aviso = crear('div', 'aviso-examen');
+      var hechas = curso.preguntas.filter(EJ.examen.contestada).length;
+      aviso.appendChild(crear('div', null,
+        '<b>Tienes un examen a medias:</b> ' + hechas + ' de ' + curso.preguntas.length + ' contestadas.'));
+      var fila = crear('div', 'acciones');
+      var seguir = crear('button', 'primario', 'Continuar ese examen');
+      seguir.onclick = function () {
+        examen = curso; vistaExamen = 'haciendo';
+        pintarTemas(); cerrarListaEnCelular(); pintarExamen();
+      };
+      var tirar = crear('button', 'fantasma', 'Descartarlo');
+      tirar.onclick = function () {
+        if (!confirm('Se pierden las respuestas de ese examen. Continuar?')) return;
+        EJ.examen.borrarCurso(); pintarArmador();
+      };
+      fila.appendChild(seguir); fila.appendChild(tirar);
+      aviso.appendChild(fila);
+      card.appendChild(aviso);
+    }
+
+    /* temas elegidos */
+    card.appendChild(crear('div', 'rotulo', 'Temas del examen'));
+    if (!sel.temas.length) {
+      card.appendChild(crear('div', 'vacio',
+        'Todavia no hay ninguno. Toca un tema de la lista para agregarlo.'));
+    } else {
+      var chips = crear('div', 'examen-chips');
+      sel.temas.forEach(function (t) {
+        var tema = EJ.buscarTema(t.temaId);
+        var cuantos = 0;
+        plan.forEach(function (p) { if (p.temaId === t.temaId) cuantos = p.cantidad; });
+
+        var chip = crear('div', 'chip-tema');
+        chip.appendChild(crear('span', 'chip-nombre', tema.nombre));
+
+        var menos = crear('button', 'chip-mas', '&minus;');
+        menos.title = 'Menos ejercicios de este tema';
+        menos.onclick = function () { cambiarCantidad(t.temaId, Math.max(1, cuantos - 1)); };
+
+        var num = crear('span', 'chip-num', String(cuantos));
+        num.title = t.cantidad > 0 ? 'Cantidad fijada por ti' : 'Repartido automaticamente';
+        if (t.cantidad > 0) num.classList.add('fijo');
+
+        var mas = crear('button', 'chip-mas', '+');
+        mas.title = 'Mas ejercicios de este tema';
+        mas.onclick = function () { cambiarCantidad(t.temaId, cuantos + 1); };
+
+        var quitar = crear('button', 'chip-x', '&times;');
+        quitar.title = 'Quitar este tema';
+        quitar.onclick = function () { alternarTemaExamen(t.temaId); };
+
+        chip.appendChild(menos); chip.appendChild(num); chip.appendChild(mas);
+        chip.appendChild(quitar);
+        chips.appendChild(chip);
+      });
+      card.appendChild(chips);
+
+      var hayFijos = sel.temas.some(function (t) { return t.cantidad > 0; });
+      if (hayFijos) {
+        var reset = crear('button', 'fantasma chico', 'Volver a repartir parejo');
+        reset.onclick = function () {
+          var s = EJ.examen.seleccion();
+          s.temas.forEach(function (t) { t.cantidad = null; });
+          EJ.examen.guardarSeleccion(s); pintarArmador();
+        };
+        card.appendChild(reset);
+      }
+    }
+
+    /* total */
+    if (sel.temas.length) {
+      var filaTotal = crear('div', 'examen-total');
+      filaTotal.appendChild(crear('label', null, 'Total de ejercicios'));
+      var menosT = crear('button', 'chip-mas', '&minus;');
+      menosT.onclick = function () { cambiarTotal(sel.total - 1); };
+      var numT = crear('span', 'total-num', String(EJ.examen.totalReal(sel)));
+      var masT = crear('button', 'chip-mas', '+');
+      masT.onclick = function () { cambiarTotal(sel.total + 1); };
+      filaTotal.appendChild(menosT); filaTotal.appendChild(numT); filaTotal.appendChild(masT);
+      card.appendChild(filaTotal);
+      card.appendChild(crear('div', 'ayuda',
+        'Se reparte entre los ' + sel.temas.length + ' ' +
+        (sel.temas.length === 1 ? 'tema' : 'temas') +
+        '. La dificultad va de menos a mas: empieza con ejercicios faciles y va subiendo.'));
+
+      var acc = crear('div', 'acciones');
+      var empezar = crear('button', 'primario grande', 'Empezar el examen');
+      empezar.onclick = empezarExamen;
+      acc.appendChild(empezar);
+      var vaciar = crear('button', 'fantasma', 'Quitar todos');
+      vaciar.onclick = function () {
+        if (!confirm('Quitar todos los temas del examen?')) return;
+        EJ.examen.guardarSeleccion({ temas: [], total: sel.total });
+        pintarTemas(); pintarArmador();
+      };
+      acc.appendChild(vaciar);
+      card.appendChild(acc);
+    }
+
+    zona.appendChild(card);
+    zona.appendChild(tarjetaHistorial());
+  }
+
+  function cambiarCantidad(temaId, n) {
+    var sel = EJ.examen.seleccion();
+    sel.temas.forEach(function (t) { if (t.temaId === temaId) t.cantidad = Math.max(1, n); });
+    EJ.examen.guardarSeleccion(sel);
+    pintarArmador();
+  }
+
+  function cambiarTotal(n) {
+    var sel = EJ.examen.seleccion();
+    sel.total = Math.min(EJ.examen.MAX_PREGUNTAS, Math.max(sel.temas.length || 1, n));
+    EJ.examen.guardarSeleccion(sel);
+    pintarArmador();
+  }
+
+  function tarjetaHistorial() {
+    var h = EJ.examen.historial();
+    var card = crear('div', 'tarjeta');
+    card.appendChild(crear('div', 'rotulo', 'Examenes anteriores'));
+    if (!h.length) {
+      card.appendChild(crear('div', 'vacio', 'Todavia no has terminado ninguno.'));
+      return card;
+    }
+    var ul = crear('ul', 'historial-examenes');
+    h.forEach(function (x) {
+      var f = new Date(x.fecha);
+      var li = crear('li', null,
+        '<b>' + x.aciertos + '/' + x.total + '</b> <span class="pct">' + x.porcentaje + '%</span>' +
+        '<small>' + f.toLocaleDateString() + ' &middot; ' + x.temas.join(', ') + '</small>');
+      ul.appendChild(li);
+    });
+    card.appendChild(ul);
+    var b = crear('button', 'fantasma chico', 'Borrar historial');
+    b.onclick = function () {
+      if (!confirm('Borrar el historial de examenes?')) return;
+      EJ.examen.borrarHistorial(); pintarArmador();
+    };
+    card.appendChild(b);
+    return card;
+  }
+
+  function empezarExamen() {
+    var sel = EJ.examen.seleccion();
+    try {
+      examen = EJ.examen.armar(sel);
+    } catch (e) {
+      alert('No se pudo armar el examen: ' + e.message);
+      return;
+    }
+    EJ.examen.guardarCurso(examen);
+    vistaExamen = 'haciendo';
+    pintarTemas();
+    cerrarListaEnCelular();
+    pintarExamen();
+  }
+
+  /* ---------------- hacer el examen ---------------- */
+
+  function guardarRespuestaActual() {
+    if (vistaExamen !== 'haciendo' || !examen || !estado) return;
+    var q = examen.preguntas[examen.actual];
+    q.dada = valores(estado.ej.respuesta);
+    EJ.examen.guardarCurso(examen);
+  }
+
+  function irAPregunta(i) {
+    guardarRespuestaActual();
+    examen.actual = Math.min(examen.preguntas.length - 1, Math.max(0, i));
+    EJ.examen.guardarCurso(examen);
+    pintarExamen();
+  }
+
+  /* Vuelve a poner lo que ya habias contestado al navegar hacia atras. */
+  function rellenarCampos(respuesta, dada) {
+    if (!dada) return;
+    respuesta.campos.forEach(function (c, i) {
+      if (c.tipo === 'opcion') {
+        var m = document.querySelector('input[name="op-' + i + '"][value="' + dada[i] + '"]');
+        if (!m) return;
+        m.checked = true;
+        var lab = m.parentNode;
+        if (lab && lab.classList) lab.classList.add('elegida');
+      } else {
+        var inp = $('entrada-' + i);
+        if (!inp) return;
+        inp.value = dada[i] || '';
+        if (inp.value) inp.dispatchEvent(new Event('input'));
+      }
+    });
+  }
+
+  function pintarExamen() {
+    var q = examen.preguntas[examen.actual];
+    var zona = $('zona');
+    zona.innerHTML = '';
+
+    try {
+      estado = EJ.examen.ejercicioDe(q);
+    } catch (e) {
+      zona.appendChild(crear('div', 'tarjeta',
+        '<b>Esta pregunta no se pudo reconstruir.</b><br><small>' + e.message + '</small>'));
+      return;
+    }
+
+    var total = examen.preguntas.length;
+    var contestadas = examen.preguntas.filter(EJ.examen.contestada).length;
+
+    /* cabecera con el avance */
+    var top = crear('div', 'tarjeta examen-top');
+    var linea = crear('div', 'examen-linea');
+    linea.appendChild(crear('div', 'examen-cuenta',
+      'Pregunta <b>' + (examen.actual + 1) + '</b> de ' + total));
+    linea.appendChild(crear('div', 'examen-hechas', contestadas + ' contestadas'));
+    top.appendChild(linea);
+    var barra = crear('div', 'barra-progreso');
+    barra.appendChild(crear('div', 'relleno')).style.width =
+      Math.round(100 * contestadas / total) + '%';
+    top.appendChild(barra);
+    zona.appendChild(top);
+
+    /* la pregunta */
+    var card = crear('div', 'tarjeta');
+    card.id = 'card-ejercicio';
+    card.appendChild(crear('div', 'insignia',
+      q.temaNombre + (q.subtemaNombre ? ' &middot; ' + q.subtemaNombre : '') +
+      ' <span class="nivel-tag">' + (NOMBRES_DIF[q.dificultad] || q.dificultad) + '</span>'));
+    card.appendChild(crear('div', 'enunciado', estado.ej.enunciado));
+    card.appendChild(pintarCampos(estado.ej.respuesta));
+
+    var ayuda = estado.ej.respuesta.campos[0].ayuda || estado.ej.respuesta.ayuda;
+    if (ayuda) card.appendChild(crear('div', 'ayuda', ayuda));
+
+    var acc = crear('div', 'acciones');
+    var ant = crear('button', null, 'Anterior');
+    ant.disabled = examen.actual === 0;
+    ant.onclick = function () { irAPregunta(examen.actual - 1); };
+    acc.appendChild(ant);
+
+    var sig = crear('button', 'primario', examen.actual === total - 1 ? 'Guardar' : 'Siguiente');
+    sig.id = 'btn-sig-examen';
+    sig.onclick = function () {
+      if (examen.actual === total - 1) { guardarRespuestaActual(); pintarExamen(); }
+      else irAPregunta(examen.actual + 1);
+    };
+    acc.appendChild(sig);
+
+    var marcar = crear('button', q.marcada ? 'fantasma marcada' : 'fantasma',
+      q.marcada ? 'Desmarcar' : 'Marcar para revisar');
+    marcar.onclick = function () {
+      guardarRespuestaActual();
+      q.marcada = !q.marcada;
+      EJ.examen.guardarCurso(examen);
+      pintarExamen();
+    };
+    acc.appendChild(marcar);
+
+    var saltar = crear('button', 'fantasma', 'Dejar en blanco');
+    saltar.onclick = function () {
+      examen.preguntas[examen.actual].dada = null;
+      EJ.examen.guardarCurso(examen);
+      if (examen.actual < total - 1) irAPregunta(examen.actual + 1);
+      else pintarExamen();
+    };
+    acc.appendChild(saltar);
+    card.appendChild(acc);
+    zona.appendChild(card);
+
+    rellenarCampos(estado.ej.respuesta, q.dada);
+
+    /* navegador de preguntas */
+    var navCard = crear('div', 'tarjeta');
+    navCard.appendChild(crear('div', 'rotulo', 'Todas las preguntas'));
+    var nav = crear('div', 'nav-preguntas');
+    examen.preguntas.forEach(function (p, i) {
+      var b = crear('button', 'nav-q' +
+        (i === examen.actual ? ' aqui' : '') +
+        (EJ.examen.contestada(p) ? ' hecha' : '') +
+        (p.marcada ? ' marcada' : ''), String(i + 1));
+      b.title = p.temaNombre;
+      b.onclick = function () { irAPregunta(i); };
+      nav.appendChild(b);
+    });
+    navCard.appendChild(nav);
+
+    var accF = crear('div', 'acciones');
+    var fin = crear('button', 'primario grande', 'Entregar y calificar');
+    fin.onclick = terminarExamen;
+    accF.appendChild(fin);
+    var salir = crear('button', 'fantasma', 'Dejarlo para despues');
+    salir.onclick = function () {
+      guardarRespuestaActual();
+      vistaExamen = 'armar'; pintarTemas(); pintarArmador();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+    accF.appendChild(salir);
+    navCard.appendChild(accF);
+    zona.appendChild(navCard);
+
+    var primero = card.querySelector('input[type="text"]');
+    if (primero) primero.focus();
+  }
+
+  function terminarExamen() {
+    guardarRespuestaActual();
+    var blancos = examen.preguntas.filter(function (q) { return !EJ.examen.contestada(q); }).length;
+    if (blancos && !confirm('Quedan ' + blancos + ' ' + (blancos === 1 ? 'pregunta' : 'preguntas') +
+      ' sin contestar y se van a contar como error. Entregar de todos modos?')) return;
+
+    nota = EJ.examen.calificar(examen);
+    examen.terminado = true;
+    EJ.examen.registrar(examen, nota);
+    EJ.examen.borrarCurso();
+    vistaExamen = 'resultado';
+    pintarTemas();
+    pintarResultado();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  /* ---------------- resultado ---------------- */
+
+  function pintarResultado() {
+    var zona = $('zona');
+    zona.innerHTML = '';
+
+    var card = crear('div', 'tarjeta resultado-examen');
+    card.appendChild(crear('h2', null, 'Resultado del examen'));
+
+    var caja = crear('div', 'nota-caja' +
+      (nota.porcentaje >= 70 ? ' bien' : nota.porcentaje >= 50 ? ' regular' : ' mal'));
+    caja.appendChild(crear('div', 'nota-grande', nota.aciertos + ' / ' + nota.total));
+    caja.appendChild(crear('div', 'nota-pct', nota.porcentaje + '%'));
+    card.appendChild(caja);
+
+    if (nota.enBlanco) {
+      card.appendChild(crear('div', 'ayuda',
+        nota.enBlanco + ' ' + (nota.enBlanco === 1 ? 'pregunta se quedo' : 'preguntas se quedaron') +
+        ' sin contestar.'));
+    }
+
+    card.appendChild(crear('div', 'rotulo', 'Por tema'));
+    var lista = crear('div', 'por-tema');
+    nota.porTema.slice().sort(function (a, b) {
+      return (a.aciertos / a.total) - (b.aciertos / b.total);
+    }).forEach(function (t) {
+      var pct = Math.round(100 * t.aciertos / t.total);
+      var fila = crear('div', 'tema-fila');
+      fila.appendChild(crear('div', 'tema-nom', t.nombre));
+      var barra = crear('div', 'tema-barra');
+      var rell = crear('div', 'tema-rell' + (pct >= 70 ? ' bien' : pct >= 50 ? ' regular' : ' mal'));
+      rell.style.width = pct + '%';
+      barra.appendChild(rell);
+      fila.appendChild(barra);
+      fila.appendChild(crear('div', 'tema-num', t.aciertos + '/' + t.total));
+      lista.appendChild(fila);
+    });
+    card.appendChild(lista);
+
+    var flojos = nota.porTema.filter(function (t) { return t.aciertos / t.total < 0.7; });
+    if (flojos.length) {
+      card.appendChild(crear('div', 'sugerencia',
+        '<b>Donde conviene practicar:</b> ' +
+        flojos.map(function (t) { return t.nombre; }).join(', ') + '.'));
+    }
+
+    var acc = crear('div', 'acciones');
+    var otra = crear('button', 'primario', 'Otro examen con los mismos temas');
+    otra.onclick = empezarExamen;
+    acc.appendChild(otra);
+    var armar = crear('button', null, 'Cambiar los temas');
+    armar.onclick = function () { vistaExamen = 'armar'; pintarTemas(); pintarArmador(); };
+    acc.appendChild(armar);
+    var fuera = crear('button', 'fantasma', 'Volver a practicar');
+    fuera.onclick = salirDelExamen;
+    acc.appendChild(fuera);
+    card.appendChild(acc);
+    zona.appendChild(card);
+
+    /* revision pregunta por pregunta */
+    var rev = crear('div', 'tarjeta');
+    rev.appendChild(crear('div', 'rotulo', 'Revisa cada pregunta'));
+    nota.detalle.forEach(function (d, i) {
+      var det = crear('details', 'revision' + (d.ok ? ' ok' : ' fallo'));
+      var tuya = d.enBlanco ? '<i>en blanco</i>'
+        : d.q.dada.filter(function (v) { return String(v).trim() !== ''; }).join(', ');
+      det.innerHTML =
+        '<summary><span class="marca">' + (d.ok ? '&check;' : '&times;') + '</span>' +
+        '<span class="num">' + (i + 1) + '.</span> ' + d.q.temaNombre +
+        '<small>' + (d.ok ? 'Correcta' : 'Tu respuesta: ' + tuya) + '</small></summary>';
+      var cuerpo = crear('div', 'cuerpo');
+      if (d.estado) {
+        cuerpo.appendChild(crear('div', 'enunciado', d.estado.ej.enunciado));
+        var ol = crear('ol');
+        (d.estado.ej.solucion || []).forEach(function (p) {
+          if (p) ol.appendChild(crear('li', null, p));
+        });
+        cuerpo.appendChild(ol);
+      }
+      cuerpo.appendChild(crear('div', 'respuesta-final', '<b>Respuesta:</b> ' + d.correcta));
+      det.appendChild(cuerpo);
+      rev.appendChild(det);
+    });
+    zona.appendChild(rev);
+  }
+
   /* ---------------- configuracion ---------------- */
   function abrirConfig() {
     $('cfg-version').textContent = 'Version ' + VERSION;
@@ -794,10 +1290,11 @@
     };
 
     document.addEventListener('keydown', function (e) {
-      if (e.key === 'Enter' && e.ctrlKey) { e.preventDefault(); nuevoEjercicio(); }
+      if (e.key === 'Enter' && e.ctrlKey && !enExamen()) { e.preventDefault(); nuevoEjercicio(); }
     });
 
-    if (cfg.mezcla) activarMezcla();
+    if (EJ.examen.leerCurso()) abrirArmador();
+    else if (cfg.mezcla) activarMezcla();
     else if (cfg.tema && EJ.tienTema(cfg.tema)) elegirTema(cfg.tema);
     else pintarVacio();
   }

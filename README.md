@@ -162,6 +162,33 @@ azar, como en un examen. Puedes limitarlos a un grupo (solo Cálculo, solo Álge
 los botones de *Salen de:*. Cada ejercicio dice de qué tema y subtema salió, y el
 progreso se guarda en el tema que le corresponde.
 
+### Armar un examen
+
+El segundo botón de la lista, **Armar un examen**, sirve para juntar varios temas y
+calificarte sobre todos a la vez.
+
+1. Toca los temas de la lista y se van agregando. **La selección se guarda**, así que
+   puedes ir sumando temas conforme avanzas en el curso: la próxima vez siguen ahí.
+2. Ajusta el **total de ejercicios** (20 por defecto). Se reparte parejo entre los temas
+   elegidos, y si quieres darle más peso a alguno usas el `−` / `+` de su etiqueta.
+3. **Empezar el examen.**
+
+A diferencia de la práctica, aquí **no se dice si acertaste** hasta que entregas.
+Puedes moverte libremente entre las preguntas, marcar las dudosas para volver a ellas y
+dejar alguna en blanco. Lo que llevas contestado se guarda solo: si cierras la pestaña a
+media prueba, al volver te ofrece continuarla.
+
+La dificultad va **de menos a más**: dentro de cada tema se reparten las preguntas entre
+fácil, medio y difícil (más o menos 40 / 35 / 25), y el examen se ordena de las fáciles a
+las difíciles intercalando los temas, para que no salgan cinco seguidas de lo mismo.
+
+Al entregar sale la calificación, el desglose por tema con barras, una sugerencia de
+dónde conviene practicar y la revisión pregunta por pregunta con la solución completa.
+Los exámenes terminados quedan en un historial corto (los últimos diez).
+
+El examen **no cuenta** para las estadísticas de práctica: evaluarte no es lo mismo que
+entrenar, y mezclarlos distorsionaría los porcentajes por tema.
+
 En **Ajustes** puedes cambiar cuántos intentos quieres antes de ver la respuesta,
 apagar las pistas y borrar tu progreso. El progreso (aciertos, racha, aciertos al primer
 intento) se guarda solo en tu navegador.
@@ -194,6 +221,7 @@ js/nucleo/                 ← el motor (no se toca al agregar temas)
    almacen.js              configuracion y progreso (localStorage)
    motor.js                intentos, pistas y revelado de la solucion
    guia.js                 guiones del entrenamiento paso a paso
+   examen.js               armado, calificacion e historial de examenes
 js/temas/materias.js       ← materias disponibles
 js/temas/matematicas/*.js  ← un archivo por tema
 js/app.js                  ← interfaz

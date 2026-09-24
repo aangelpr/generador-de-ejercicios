@@ -339,3 +339,142 @@ dialog h2 { margin: 0 0 14px; font-size: 17px; }
   .campo.corto { flex: 1 1 45%; }
   input[type="text"] { font-size: 16px; }   /* evita que el celular haga zoom al escribir */
 }
+
+/* ---------- examen ---------- */
+.tema-btn.examen { margin: 4px 0 8px; border: 1px dashed var(--borde); font-weight: 600; }
+.tema-btn.examen.activo { border-style: solid; border-color: var(--acento); }
+.tema-btn.elegible { padding-left: 4px; }
+.tema-btn .tic {
+  display: inline-block; width: 18px; height: 18px; line-height: 17px; margin-right: 7px;
+  text-align: center; border-radius: 5px; border: 1px solid var(--borde);
+  color: var(--suave); font-size: 12px; font-weight: 700; vertical-align: -3px;
+}
+.tema-btn.en-examen { background: var(--acento-suave); color: var(--acento); font-weight: 600; }
+.tema-btn.en-examen .tic { background: var(--acento); border-color: var(--acento); color: #fff; }
+
+.examen-armador h2 { margin: 0 0 4px; font-size: 20px; }
+.aviso-examen {
+  margin: 14px 0; padding: 12px 14px; border-radius: var(--radio);
+  background: var(--aviso-fondo); color: var(--aviso);
+}
+.aviso-examen .acciones { margin-top: 10px; }
+
+.examen-chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0 14px; }
+.chip-tema {
+  display: flex; align-items: center; gap: 2px; padding: 5px 6px 5px 12px;
+  border: 1px solid var(--borde); border-radius: 999px; background: var(--panel2);
+}
+.chip-nombre { font-size: 13px; font-weight: 600; margin-right: 6px; }
+.chip-mas {
+  width: 24px; height: 24px; padding: 0; border-radius: 50%; line-height: 1;
+  font-size: 15px; display: grid; place-items: center;
+}
+.chip-num {
+  min-width: 24px; text-align: center; font-weight: 700; font-size: 13px;
+  font-variant-numeric: tabular-nums;
+}
+.chip-num.fijo { color: var(--acento); text-decoration: underline; text-underline-offset: 3px; }
+.chip-x {
+  width: 24px; height: 24px; padding: 0; margin-left: 4px; border-radius: 50%;
+  border-color: transparent; background: transparent; color: var(--suave);
+  font-size: 16px; line-height: 1; display: grid; place-items: center;
+}
+.chip-x:hover { background: var(--mal-fondo); color: var(--mal); }
+
+.examen-total { display: flex; align-items: center; gap: 4px; margin: 16px 0 6px; }
+.examen-total label { font-weight: 600; margin-right: 8px; }
+.total-num {
+  min-width: 34px; text-align: center; font-size: 18px; font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+button.chico { font-size: 12px; padding: 4px 9px; }
+button.grande { padding: 10px 18px; font-size: 15px; }
+
+.historial-examenes { list-style: none; margin: 6px 0 12px; padding: 0; }
+.historial-examenes li {
+  display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap;
+  padding: 7px 0; border-bottom: 1px solid var(--borde);
+}
+.historial-examenes li:last-child { border-bottom: none; }
+.historial-examenes .pct { color: var(--suave); font-size: 13px; }
+.historial-examenes small { flex: 1 1 100%; color: var(--suave); }
+
+/* --- haciendo el examen --- */
+.examen-top { padding-bottom: 14px; }
+.examen-linea { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
+.examen-cuenta { font-size: 15px; }
+.examen-hechas { color: var(--suave); font-size: 13px; }
+.barra-progreso {
+  height: 7px; margin-top: 9px; border-radius: 999px;
+  background: var(--panel2); overflow: hidden;
+}
+.barra-progreso .relleno { height: 100%; background: var(--acento); transition: width .25s; }
+.nivel-tag {
+  margin-left: 6px; padding: 1px 6px; border-radius: 999px; font-size: 9.5px;
+  font-weight: 700; text-transform: uppercase; letter-spacing: .04em;
+  background: var(--panel2); color: var(--suave);
+}
+button.marcada { color: var(--aviso); background: var(--aviso-fondo); }
+
+.nav-preguntas {
+  display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0 4px;
+}
+.nav-q {
+  width: 34px; height: 34px; padding: 0; border-radius: 8px;
+  font-size: 13px; font-variant-numeric: tabular-nums;
+  display: grid; place-items: center;
+}
+.nav-q.hecha { background: var(--acento-suave); border-color: var(--acento-suave); color: var(--acento); font-weight: 700; }
+.nav-q.marcada { box-shadow: inset 0 0 0 2px var(--aviso); }
+.nav-q.aqui { border-color: var(--acento); border-width: 2px; font-weight: 700; }
+
+/* --- resultado --- */
+.resultado-examen h2 { margin: 0 0 12px; font-size: 20px; }
+.nota-caja {
+  display: flex; align-items: baseline; justify-content: center; gap: 14px;
+  padding: 20px; border-radius: var(--radio); background: var(--panel2);
+}
+.nota-caja.bien { background: var(--ok-fondo); color: var(--ok); }
+.nota-caja.regular { background: var(--aviso-fondo); color: var(--aviso); }
+.nota-caja.mal { background: var(--mal-fondo); color: var(--mal); }
+.nota-grande { font-size: 34px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.nota-pct { font-size: 18px; opacity: .8; }
+
+.por-tema { margin: 6px 0 14px; }
+.tema-fila { display: flex; align-items: center; gap: 10px; padding: 5px 0; }
+.tema-nom { flex: 0 0 38%; font-size: 13.5px; }
+.tema-barra { flex: 1; height: 8px; border-radius: 999px; background: var(--panel2); overflow: hidden; }
+.tema-rell { height: 100%; background: var(--suave); }
+.tema-rell.bien { background: var(--ok); }
+.tema-rell.regular { background: var(--aviso); }
+.tema-rell.mal { background: var(--mal); }
+.tema-num {
+  flex: 0 0 44px; text-align: right; font-size: 13px; color: var(--suave);
+  font-variant-numeric: tabular-nums;
+}
+.sugerencia {
+  margin: 10px 0; padding: 11px 13px; border-radius: var(--radio);
+  background: var(--acento-suave); color: var(--acento); font-size: 13.5px;
+}
+
+.revision { border-bottom: 1px solid var(--borde); }
+.revision:last-child { border-bottom: none; }
+.revision summary {
+  display: flex; align-items: baseline; gap: 7px; flex-wrap: wrap;
+  padding: 9px 2px; cursor: pointer; font-size: 14px;
+}
+.revision summary::-webkit-details-marker { display: none; }
+.revision .marca { font-weight: 700; width: 16px; }
+.revision.ok .marca { color: var(--ok); }
+.revision.fallo .marca { color: var(--mal); }
+.revision .num { color: var(--suave); font-variant-numeric: tabular-nums; }
+.revision summary small { flex: 1 1 100%; color: var(--suave); padding-left: 23px; }
+.revision .cuerpo { padding: 4px 2px 14px 23px; }
+.revision .cuerpo ol { margin: 8px 0; padding-left: 20px; color: var(--suave); font-size: 13.5px; }
+.revision .cuerpo li { margin: 3px 0; }
+
+@media (max-width: 560px) {
+  .tema-nom { flex-basis: 45%; font-size: 12.5px; }
+  .nav-q { width: 30px; height: 30px; font-size: 12px; }
+  .nota-grande { font-size: 28px; }
+}
