@@ -416,8 +416,7 @@ teoría de conjuntos · distribución binomial
 
 ### Física
 
-En construcción. Se va armando tema por tema, con el mismo formato que matemáticas
-(paso a paso incluido).
+21 temas, con el mismo formato que matemáticas (paso a paso incluido).
 
 **Cinemática:** MRU y MUA · caída libre y tiro vertical
 
@@ -430,5 +429,8 @@ En construcción. Se va armando tema por tema, con el mismo formato que matemát
 **Termodinámica:** las cuatro leyes (ley cero, ΔU = Q − W, entropía y rendimiento,
 cero absoluto)
 
-Pendientes: leyes de Boyle, Charles y Gay-Lussac · ley de Hooke · principio de Pascal ·
-principio de Arquímedes · ley de Ohm · ley de Snell.
+**Gases:** ley de Boyle · ley de Charles · ley de Gay-Lussac
+
+**Elasticidad y fluidos:** ley de Hooke · principio de Pascal · principio de Arquímedes
+
+**Electromagnetismo y óptica:** ley de Ohm · ley de Snell

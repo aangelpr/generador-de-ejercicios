@@ -2314,5 +2314,145 @@
     };
   };
 
+  /* ---------- leyes de los gases: Boyle, Charles y Gay-Lussac ----------
+     Las tres dicen lo mismo con distintas letras: dos magnitudes ligadas
+     mientras la tercera se mantiene fija. Lo unico que cambia de verdad es
+     si la relacion es inversa (Boyle) o directa (las otras dos), asi que
+     comparten guia y cada tema le pasa su escena y su porque.
+
+     c.ley      nombre de la ley
+     c.fija     magnitud que se mantiene constante
+     c.inversa  true si al subir una baja la otra
+     c.X        { s, n, u }  la que nos dan dos veces
+     c.Y        { s, n, u }  la que buscamos
+     c.x1, c.y1, c.x2        datos, ya en las unidades buenas
+     c.celsius  { t1, t2 }   si las temperaturas venian en Celsius
+     c.escena   la situacion, en una frase
+     c.porque   por que la relacion es inversa o directa
+     c.leyTxt   la ley en su forma canonica (la del formulario del tema)
+     c.malTxt   la ley de al lado, como distractor
+     c.ejemplo  un ejemplo cotidiano para el paso final                */
+  guia.leyGas = function (c) {
+    var X = c.X, Y = c.Y;
+    var factor = c.inversa ? c.x1 / c.x2 : c.x2 / c.x1;
+    var y2 = c.y1 * factor;
+    var sube = y2 > c.y1;
+    var subeX = c.x2 > c.x1;
+    var pasos = [];
+    var n = 0;
+    function num() { n++; return 'Paso ' + n + ': '; }
+    /* X.n y Y.n vienen con articulo ("el volumen"), asi que al pegarles una
+       preposicion hay que contraer: "a el volumen" no es espanol. */
+    function aA(txt) { return txt.indexOf('el ') === 0 ? 'al ' + txt.slice(3) : 'a ' + txt; }
+
+    /* La ley se escribe SIEMPRE en su forma canonica, la del formulario, aunque
+       el ejercicio busque la otra magnitud. Generarla a partir de X e Y daba
+       cosas como V1P1 = V2P2, correctas pero que no cuadraban con lo que el
+       alumno tiene memorizado. Por eso cada tema pasa c.leyTxt. */
+    var ley = c.leyTxt || (c.inversa
+      ? X.s + '<sub>1</sub>' + Y.s + '<sub>1</sub> = ' + X.s + '<sub>2</sub>' + Y.s + '<sub>2</sub>'
+      : Y.s + '<sub>1</sub>/' + X.s + '<sub>1</sub> = ' + Y.s + '<sub>2</sub>/' + X.s + '<sub>2</sub>');
+    var mal = c.malTxt || (c.inversa
+      ? Y.s + '<sub>1</sub>/' + X.s + '<sub>1</sub> = ' + Y.s + '<sub>2</sub>/' + X.s + '<sub>2</sub>'
+      : X.s + '<sub>1</sub>' + Y.s + '<sub>1</sub> = ' + X.s + '<sub>2</sub>' + Y.s + '<sub>2</sub>');
+    var razon = c.inversa ? X.s + '<sub>1</sub> / ' + X.s + '<sub>2</sub>' : X.s + '<sub>2</sub> / ' + X.s + '<sub>1</sub>';
+    var cuentaFactor = c.inversa ? F.n(c.x1, 2) + ' &divide; ' + F.n(c.x2, 2) : F.n(c.x2, 2) + ' &divide; ' + F.n(c.x1, 2);
+
+    if (c.celsius) {
+      pasos.push({
+        seccion: num() + 'pasar a kelvin',
+        queHacemos: 'Convertimos las dos temperaturas sumando 273.',
+        paraQue: 'La ley divide una temperatura entre otra, y eso solo significa algo en una escala que empiece en el cero real. Con grados Celsius el resultado sale mal, y es el error mas comun de todo el tema.',
+        queda: c.celsius.t1 + ' &deg;C = ' + c.x1 + ' K,  ' + c.celsius.t2 + ' &deg;C = ' + c.x2 + ' K',
+        pregunta: 'Convierte ' + c.celsius.t1 + ' &deg;C a kelvin (0 decimales)',
+        resp: R.numero(c.x1, { dec: 0, tol: 0.5, unidad: 'K' }),
+        pista: 'Suma 273.',
+        despues: 'Y la otra: ' + c.celsius.t2 + ' &deg;C = ' + c.x2 + ' K.'
+      });
+    }
+
+    pasos.push({
+      seccion: num() + 'que se mantiene fijo',
+      queHacemos: 'Miramos cual de las tres magnitudes no cambia.',
+      paraQue: 'Aqui ' + c.fija + ' se mantiene constante, y eso es lo que permite usar la ley de ' + c.ley + ' en vez de la formula general de los gases.',
+      queda: c.fija + ' constante',
+      pregunta: '&iquest;Que se mantiene constante en este problema?',
+      resp: R.opcion([c.fija.charAt(0).toUpperCase() + c.fija.slice(1), 'Nada: cambian las tres'], 0),
+      pista: 'Lee el enunciado: hay una magnitud de la que no te dan dos valores.',
+      despues: ''
+    });
+
+    pasos.push({
+      seccion: num() + 'inversa o directa',
+      queHacemos: 'Decidimos si las dos magnitudes suben juntas o al reves.',
+      paraQue: c.porque,
+      queda: c.inversa ? 'relacion inversa: ' + ley : 'relacion directa: ' + ley,
+      pregunta: 'Al subir ' + X.n + ', &iquest;que le pasa ' + aA(Y.n) + '?',
+      resp: R.opcion(c.inversa
+        ? ['Baja: van al reves', 'Sube: van juntas']
+        : ['Sube: van juntas', 'Baja: van al reves'], 0),
+      pista: c.ejemplo,
+      despues: 'Por eso la ley se escribe ' + ley + '.'
+    });
+
+    pasos.push({
+      seccion: num() + 'despejar ' + Y.s + '<sub>2</sub>',
+      queHacemos: 'Sacamos la incognita de la ley.',
+      paraQue: 'De ' + ley + ' se llega a ' + Y.s + '<sub>2</sub> = ' + Y.s + '<sub>1</sub> &middot; ' + razon + '. Fijate en el orden: ' + (c.inversa ? 'en la inversa va el dato viejo arriba' : 'en la directa va el dato nuevo arriba') + '.',
+      queda: Y.s + '<sub>2</sub> = ' + Y.s + '<sub>1</sub> &middot; ' + razon,
+      pregunta: '&iquest;Como se despeja ' + Y.s + '<sub>2</sub>?',
+      resp: R.opcion([Y.s + '<sub>2</sub> = ' + Y.s + '<sub>1</sub> &middot; ' + razon,
+        Y.s + '<sub>2</sub> = ' + Y.s + '<sub>1</sub> &middot; ' + (c.inversa ? X.s + '<sub>2</sub> / ' + X.s + '<sub>1</sub>' : X.s + '<sub>1</sub> / ' + X.s + '<sub>2</sub>')], 0),
+      pista: 'Parte de ' + ley + ' y deja sola la incognita. Cuidado: ' + mal + ' seria la otra ley.',
+      despues: ''
+    });
+
+    pasos.push({
+      seccion: num() + 'el factor',
+      queHacemos: 'Calculamos ' + razon + '.',
+      paraQue: 'Ese numero dice en que proporcion cambia ' + Y.n + '. Si sale mayor que 1, ' + Y.n + ' aumenta; si sale menor, disminuye. Conviene mirarlo antes de seguir.',
+      queda: razon + ' = ' + F.n(factor, 4),
+      pregunta: 'Calcula ' + cuentaFactor + ' (4 decimales)',
+      resp: R.numero(factor, { dec: 4, tol: 0.0015 }),
+      pista: 'Division directa.',
+      despues: 'Como sale ' + (factor > 1 ? 'mayor' : 'menor') + ' que 1, ' + Y.n + ' va a ' + (factor > 1 ? 'subir' : 'bajar') + '.'
+    });
+
+    pasos.push({
+      seccion: num() + 'multiplicar',
+      queHacemos: 'Aplicamos el factor ' + aA(Y.n) + ' inicial.',
+      paraQue: 'Es el calculo final: ' + F.n(c.y1, 2) + ' ' + Y.u + ' multiplicado por ' + F.n(factor, 4) + '.',
+      queda: Y.s + '<sub>2</sub> = ' + F.n(y2, 2) + ' ' + Y.u,
+      pregunta: 'Calcula ' + F.n(c.y1, 2) + ' &times; ' + F.n(factor, 4) + ' (2 decimales)',
+      resp: R.numero(y2, { dec: 2, tol: 0.08, unidad: Y.u }),
+      pista: 'Multiplicacion directa.',
+      despues: ''
+    });
+
+    pasos.push({
+      seccion: num() + 'comprobar que tiene sentido',
+      queHacemos: 'Miramos si el resultado va en la direccion correcta.',
+      paraQue: X.n.charAt(0).toUpperCase() + X.n.slice(1) + ' ' + (subeX ? 'subio' : 'bajo') + ', y la relacion es ' + (c.inversa ? 'inversa' : 'directa') + ', asi que ' + Y.n + ' tenia que ' + (sube ? 'subir' : 'bajar') + '. Y eso es lo que salio. Esta comprobacion caza casi cualquier error de despeje.',
+      queda: F.n(c.y1, 2) + ' &rarr; ' + F.n(y2, 2) + ' ' + Y.u,
+      pregunta: 'Con ' + X.n + ' ' + (subeX ? 'mayor' : 'menor') + ', &iquest;era de esperar que ' + Y.n + ' ' + (sube ? 'subiera' : 'bajara') + '?',
+      resp: R.opcion(['Si, es lo que dice la ley', 'No, deberia haber pasado lo contrario'], 0),
+      pista: 'Compara el resultado con ' + F.n(c.y1, 2) + ' ' + Y.u + '.',
+      despues: ''
+    });
+
+    return {
+      intro: c.escena + '<br>' +
+        'Con ' + c.fija + ' fija, ' + X.n + ' y ' + Y.n + ' estan ligadas: es la <b>ley de ' + c.ley + '</b>, ' +
+        '<b>' + ley + '</b>.',
+      pasos: pasos,
+      final: Y.s + '<sub>2</sub> = <b>' + F.n(y2, 2) + ' ' + Y.u + '</b>',
+      receta: ['Con ' + c.fija + ' fija vale la ley de ' + c.ley + ': ' + ley,
+        (c.celsius ? 'Las temperaturas, SIEMPRE en kelvin' : 'Comprobar que las unidades coinciden'),
+        'Despejar: ' + Y.s + '<sub>2</sub> = ' + Y.s + '<sub>1</sub> &middot; ' + razon,
+        'Calcular el factor y ver si es mayor o menor que 1',
+        'Comprobar que el resultado va en el sentido esperado']
+    };
+  };
+
   EJ.guia = guia;
 })(window);
