@@ -3,7 +3,7 @@
    nueva) y, si no hay internet o tarda demasiado, usa la copia guardada. */
 /* Sube este numero cada vez que cambies archivos de la app: obliga al celular
    a bajar la version nueva completa. */
-var CACHE = 'generador-ejercicios-v37';
+var CACHE = 'generador-ejercicios-v38';
 
 var ARCHIVOS = [
   './',
@@ -148,5 +148,7 @@ function redPrimero(req) {
 self.addEventListener('fetch', function (e) {
   if (e.request.method !== 'GET') return;
   if (e.request.url.indexOf('http') !== 0) return;
+  /* la letra de Google Fonts la maneja el navegador; sin internet usa la del sistema */
+  if (e.request.url.indexOf(self.location.origin) !== 0) return;
   e.respondWith(redPrimero(e.request));
 });

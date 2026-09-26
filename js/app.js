@@ -3,7 +3,7 @@
   'use strict';
   /* Sube esto junto con la version de sw.js. Se ve en Ajustes y sirve para
      saber de un vistazo si el celular ya tiene la version nueva. */
-  var VERSION = 'v37 (26 sep 2026)';
+  var VERSION = 'v38 (26 sep 2026)';
 
   var cfg = EJ.almacen.config;
   var estado = null;
@@ -24,6 +24,18 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   }
+  /* Las tarjetas entran con una animacion corta solo cuando cambia el
+     ejercicio o la vista. En cada paso del guiado no: seria lento y molesto. */
+  var relojEntrada = null;
+  function animarEntrada() {
+    var z = $('zona');
+    z.classList.remove('entra');
+    void z.offsetWidth;
+    z.classList.add('entra');
+    clearTimeout(relojEntrada);
+    relojEntrada = setTimeout(function () { z.classList.remove('entra'); }, 600);
+  }
+
   function crear(tag, clase, html) {
     var e = document.createElement(tag);
     if (clase) e.className = clase;
@@ -160,6 +172,7 @@
 
   /* ---------------- ejercicio ---------------- */
   function nuevoEjercicio(semilla) {
+    animarEntrada();
     if (cfg.mezcla) {
       var pool = temasDeLaMezcla();
       if (!pool.length) return pintarVacio();
@@ -201,7 +214,15 @@
   }
 
   function pintarVacio() {
-    $('zona').innerHTML = '<div class="tarjeta vacio">Elige un tema de la lista para empezar.</div>';
+    animarEntrada();
+    $('zona').innerHTML =
+      '<div class="tarjeta vacio vacio-inicio">' +
+        '<div class="vacio-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">' +
+          '<path d="M4 19V5a1 1 0 0 1 1-1h10l5 5v10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1Z"/><path d="M14 4v5h5M8 13h8M8 17h5"/></svg></div>' +
+        '<h2>Elige un tema para empezar</h2>' +
+        '<p>' + (esCelular() ? 'Abre la lista con el boton de menu de arriba' : 'Escoge uno de la lista de la izquierda') +
+        ' o prueba la practica mixta para repasar varios temas a la vez.</p>' +
+      '</div>';
   }
 
   /* En que dificultades de este tema hay entrenamiento guiado. */
@@ -216,12 +237,14 @@
   /* Los dos modos de estudio: resolver completo, o guiado paso a paso. */
   function selectorModo() {
     var fila = crear('div', 'modos');
+    var seg = crear('div', 'segmento');
+    fila.appendChild(seg);
     var conGuia = (!cfg.mezcla && cfg.tema) ? dificultadesConGuia(cfg.tema) : [];
     var aqui = conGuia.indexOf(cfg.dificultad) !== -1;
 
     var bNormal = crear('button', cfg.guiado ? '' : 'activo', 'Resolver yo');
     bNormal.onclick = function () { cambiarModo(false); };
-    fila.appendChild(bNormal);
+    seg.appendChild(bNormal);
 
     var bGuiado = crear('button', cfg.guiado ? 'activo' : '', 'Ensename paso a paso');
     bGuiado.disabled = !conGuia.length;
@@ -236,7 +259,7 @@
       }
       cambiarModo(true);
     };
-    fila.appendChild(bGuiado);
+    seg.appendChild(bGuiado);
 
     if (!cfg.mezcla) {
       if (!conGuia.length) {
@@ -265,7 +288,11 @@
       };
       difs.appendChild(b);
     });
-    cab.appendChild(difs);
+    /* dificultad y modo de estudio van en la misma fila */
+    var controles = crear('div', 'controles');
+    controles.appendChild(difs);
+    controles.appendChild(selectorModo());
+    cab.appendChild(controles);
 
     if (cfg.mezcla) {
       /* en la mezcla se elige el GRUPO del que salen los ejercicios */
@@ -302,7 +329,6 @@
       det.innerHTML = '<summary>Formulario del tema</summary><div class="cuerpo">' + tema.formulario + '</div>';
       cab.appendChild(det);
     }
-    cab.appendChild(selectorModo());
     return cab;
   }
 
@@ -807,6 +833,7 @@
 
   function abrirArmador() {
     vistaExamen = 'armar';
+    animarEntrada();
     cfg.mezcla = false;
     EJ.almacen.set('mezcla', false);
     pintarTemas();
@@ -994,6 +1021,7 @@
     }
     EJ.examen.guardarCurso(examen);
     vistaExamen = 'haciendo';
+    animarEntrada();
     pintarTemas();
     cerrarListaEnCelular();
     pintarExamen();
@@ -1010,6 +1038,7 @@
 
   function irAPregunta(i) {
     guardarRespuestaActual();
+    animarEntrada();
     examen.actual = Math.min(examen.preguntas.length - 1, Math.max(0, i));
     EJ.examen.guardarCurso(examen);
     pintarExamen();
@@ -1156,6 +1185,7 @@
     EJ.examen.registrar(examen, nota);
     EJ.examen.borrarCurso();
     vistaExamen = 'resultado';
+    animarEntrada();
     pintarTemas();
     pintarResultado();
     window.scrollTo({ top: 0, behavior: 'smooth' });

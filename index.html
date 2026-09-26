@@ -4,10 +4,16 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Generador de ejercicios</title>
+<meta name="description" content="Ejercicios de matematicas y fisica generados al azar, con pistas, solucion paso a paso y examenes.">
+<!-- la letra viene de Google Fonts; sin internet se usa la del sistema -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap">
 <link rel="stylesheet" href="css/estilos.css">
 <!-- para instalarlo en el celular y que funcione sin internet -->
 <link rel="manifest" href="manifest.webmanifest">
-<meta name="theme-color" content="#2f6feb">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#15191f" media="(prefers-color-scheme: dark)">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -18,19 +24,31 @@
 <body>
 
 <header class="app">
-  <button id="btn-temas" class="solo-movil" title="Ver la lista de temas">&#9776; Temas</button>
-  <h1>Generador de ejercicios</h1>
-  <select id="materia" style="width:auto"></select>
+  <button id="btn-temas" class="solo-movil icono" title="Ver la lista de temas" aria-label="Ver la lista de temas">
+    <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg>
+  </button>
+  <div class="marca">
+    <span class="marca-logo" aria-hidden="true">x²</span>
+    <h1>Generador de ejercicios</h1>
+  </div>
+  <select id="materia" aria-label="Materia"></select>
   <span class="sep"></span>
   <div class="estadisticas" id="estadisticas"></div>
-  <button id="btn-config" class="fantasma" title="Configuracion">Ajustes</button>
+  <button id="btn-config" class="fantasma icono" title="Ajustes" aria-label="Ajustes">
+    <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h9M17 6h3M4 12h3M11 12h9M4 18h11M19 18h1"/><circle cx="15" cy="6" r="2"/><circle cx="9" cy="12" r="2"/><circle cx="17" cy="18" r="2"/></svg>
+  </button>
 </header>
 
 <div class="layout">
   <aside>
     <div class="buscador">
-      <input type="search" id="buscar" placeholder="Buscar tema...">
-      <button id="aleatorio" title="Tema al azar">Azar</button>
+      <div class="campo-buscar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2"/></svg>
+        <input type="search" id="buscar" placeholder="Buscar tema" aria-label="Buscar tema">
+      </div>
+      <button id="aleatorio" class="icono" title="Practica mixta: temas al azar" aria-label="Practica mixta: temas al azar">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 3h5v5M4 20 21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/></svg>
+      </button>
     </div>
     <div class="lista" id="temas"></div>
   </aside>
@@ -61,7 +79,7 @@
   <div class="acciones">
     <button id="cfg-guardar" class="primario">Guardar</button>
     <button id="cfg-cerrar">Cancelar</button>
-    <span class="sep" style="flex:1"></span>
+    <span class="sep"></span>
     <button id="cfg-reiniciar" class="fantasma">Borrar progreso</button>
   </div>
   <div class="ayuda" id="cfg-version"></div>
