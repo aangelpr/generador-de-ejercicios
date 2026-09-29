@@ -18,16 +18,23 @@
   });
 
   EJ.materia({
+    id: 'prepa',
+    nombre: 'Modo prepa',
+    descripcion: 'Preguntas de opcion multiple como las del examen de admision a la prepa: matematicas, razonamiento y fisica.',
+    orden: 3
+  });
+
+  EJ.materia({
     id: 'ciencias',
     nombre: 'Ciencias',
     descripcion: 'Quimica y biologia. Pendiente de contenido.',
-    orden: 3
+    orden: 4
   });
 
   EJ.materia({
     id: 'historia',
     nombre: 'Historia',
     descripcion: 'Fechas, personajes y procesos. Pendiente de contenido.',
-    orden: 4
+    orden: 5
   });
 })();
