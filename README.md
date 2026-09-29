@@ -155,6 +155,19 @@ reglas de derivación y puntos críticos: 259 de 317 subtemas. En los demás tem
 está en un subtema representativo; el resto sigue con **Cómo se resuelve** (la
 regla y un ejemplo resuelto) mientras se les escribe el guion.
 
+### Modo prepa
+
+En el selector de materia de arriba está **Modo prepa**: preguntas de opción
+múltiple (incisos A, B, C y D) como las de un examen de admisión a la prepa, en seis
+temas: aritmética y porcentajes, álgebra, geometría y medición, estadística y
+probabilidad, razonamiento matemático y física básica. Son problemas redactados
+(descuentos, edades, escaleras recargadas en la pared, autobuses que se encuentran...)
+y los incisos incorrectos salen de los errores típicos, no de números al azar: sumar
+dos descuentos, olvidar dividir entre 2, confundir diámetro con radio, etc.
+
+Funciona con todo lo demás: fácil / medio / difícil, subtemas, pistas, práctica
+mixta y **Armar un examen** para hacer un simulacro calificado.
+
 ### Práctica mixta
 
 El primer botón de la lista, **Práctica mixta**, mezcla ejercicios de varios temas al

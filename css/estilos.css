@@ -875,3 +875,6 @@ table.datos th {
   background: var(--panel2); color: var(--suave);
   font-weight: 600; font-size: 12.5px; text-align: right; white-space: nowrap;
 }
+
+/* Modo prepa: la operacion o sucesion del enunciado, un poco mas grande */
+.expr { display: inline-block; margin: 6px 0; font-size: 1.12em; font-variant-numeric: tabular-nums; }
