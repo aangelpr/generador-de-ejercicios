@@ -157,6 +157,49 @@
     };
   }
 
+  /* Simulacro: un examen con preguntas fijas, en un orden fijo y con tiempo.
+     `def` = {nombre, minutos, reactivos: [{t: temaId, s: subtema, g: grupo}]}.
+     Los reactivos del mismo grupo (un multirreactivo) usan la misma semilla
+     para que hablen de los mismos datos. */
+  function armarSimulacro(def) {
+    var semillas = {};
+    var preguntas = [];
+    def.reactivos.forEach(function (it) {
+      var tema = EJ.buscarTema(it.t);
+      if (!tema) return;
+      var semilla;
+      if (it.g) {
+        if (!semillas[it.g]) semillas[it.g] = ((Date.now() ^ Math.floor(Math.random() * 1e9)) >>> 0) || 1;
+        semilla = semillas[it.g];
+      }
+      var st;
+      try { st = EJ.motor.nuevo(it.t, tema.dificultades[0], semilla, it.s); } catch (e) { return; }
+      preguntas.push({
+        temaId: it.t,
+        temaNombre: tema.nombre,
+        dificultad: st.dificultad,
+        subtema: st.subtema || null,
+        subtemaNombre: st.subtemaNombre || '',
+        semilla: st.semilla,
+        dada: null,
+        marcada: false
+      });
+    });
+    if (!preguntas.length) throw new Error('No se pudo generar ninguna pregunta.');
+    var ahora = Date.now();
+    return {
+      creado: ahora,
+      titulo: 'Simulacro de ' + def.nombre,
+      simulacro: def.id,
+      minutos: def.minutos,
+      limite: def.minutos ? ahora + def.minutos * 60000 : null,
+      preguntas: preguntas,
+      actual: 0,
+      terminado: false,
+      temas: preguntas.map(function (q) { return q.temaId; }).filter(function (t, i, a) { return a.indexOf(t) === i; })
+    };
+  }
+
   /* De facil a dificil, y dentro de cada bloque se intercalan los temas para
      no encadenar cinco seguidas del mismo. */
   function ordenar(preguntas) {
@@ -242,6 +285,7 @@
     var h = historial();
     h.unshift({
       fecha: Date.now(),
+      titulo: ex.titulo || null,
       total: nota.total,
       aciertos: nota.aciertos,
       porcentaje: nota.porcentaje,
@@ -260,6 +304,7 @@
     reparto: reparto,
     totalReal: totalReal,
     armar: armar,
+    armarSimulacro: armarSimulacro,
     ejercicioDe: ejercicioDe,
     contestada: contestada,
     calificar: calificar,

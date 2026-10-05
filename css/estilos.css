@@ -878,3 +878,20 @@ table.datos th {
 
 /* Modo prepa: la operacion o sucesion del enunciado, un poco mas grande */
 .expr { display: inline-block; margin: 6px 0; font-size: 1.12em; font-variant-numeric: tabular-nums; }
+
+/* Modo prepa: formato del cuadernillo */
+.considere { margin: 10px 0 2px; padding: 8px 12px; border-left: 3px solid var(--borde-fuerte); color: var(--suave); font-size: .95em; }
+.lectura { margin: 8px 0 12px; padding: 10px 14px; background: var(--hundido); border-radius: var(--r-md); line-height: 1.6; }
+.lectura-titulo { font-size: .8em; font-weight: 600; color: var(--suave); text-transform: uppercase; letter-spacing: .04em; margin-bottom: 4px; }
+.hueco { letter-spacing: -1px; color: var(--suave); }
+.lista-num { margin: 8px 0 0 6px; line-height: 2.2; }
+table.relacione td { text-align: left; vertical-align: middle; }
+.sobre { position: relative; display: inline-block; padding-top: .45em; line-height: 1; }
+.sobre::before { content: attr(data-s); position: absolute; top: -.15em; left: 0; right: 0; text-align: center; font-size: .75em; line-height: 1; }
+.opcion .mini-graf svg { display: block; width: 130px; height: auto; color: var(--texto); }
+.examen-titulo { font-weight: 600; margin-bottom: 6px; }
+.reloj-examen { font-variant-numeric: tabular-nums; }
+.reloj-examen.poco { color: var(--mal); }
+.simulacros { display: grid; gap: 10px; margin-top: 14px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+.simulacro-btn { display: flex; flex-direction: column; align-items: flex-start; gap: 3px; padding: 14px 16px; text-align: left; }
+.simulacro-btn small { color: var(--suave); font-weight: 400; }

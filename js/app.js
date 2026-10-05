@@ -75,8 +75,16 @@
       bm.onclick = activarMezcla;
       cont.appendChild(bm);
 
+      var haySimulacro = !!simulacrosDeMateria().length;
+      if (haySimulacro) {
+        var bs = crear('button', 'tema-btn examen' + (enSimulacro() ? ' activo' : ''));
+        bs.innerHTML = 'Simulacro tipo examen<small>Mismo orden, preguntas y tiempo que la guia</small>';
+        bs.onclick = abrirSimulacros;
+        cont.appendChild(bs);
+      }
+
       var nSel = EJ.examen.seleccion().temas.length;
-      var bx = crear('button', 'tema-btn examen' + (enExamen() ? ' activo' : ''));
+      var bx = crear('button', 'tema-btn examen' + (enExamen() && !enSimulacro() ? ' activo' : ''));
       bx.innerHTML = 'Armar un examen<small>' +
         (nSel ? nSel + (nSel === 1 ? ' tema elegido' : ' temas elegidos') : 'Junta varios temas y calificate') +
         '</small>';
@@ -281,6 +289,7 @@
       ? 'Ejercicios de temas revueltos, como en un examen. Elige de que grupo quieres que salgan.'
       : tema.descripcion));
     var difs = crear('div', 'dificultades');
+    if (tema.dificultades.length < 2 && !cfg.mezcla) difs.style.display = 'none';
     tema.dificultades.forEach(function (d) {
       var b = crear('button', d === cfg.dificultad ? 'activo' : '', NOMBRES_DIF[d] || d);
       b.onclick = function () {
@@ -831,6 +840,118 @@
     else pintarVacio();
   }
 
+  /* ---------------- simulacros (Modo prepa) ---------------- */
+  function simulacrosDeMateria() {
+    return cfg.materia === 'prepa' && EJ.prepa && EJ.prepa.simulacros ? EJ.prepa.simulacros : [];
+  }
+  function enSimulacro() {
+    return vistaExamen === 'simulacro' || (!!examen && !!examen.titulo && vistaExamen !== 'armar');
+  }
+
+  function abrirSimulacros() {
+    vistaExamen = 'simulacro'; examen = null; nota = null;
+    animarEntrada();
+    cfg.mezcla = false;
+    EJ.almacen.set('mezcla', false);
+    pintarTemas();
+    cerrarListaEnCelular();
+    pintarSimulacros();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function pintarSimulacros() {
+    var zona = $('zona');
+    zona.innerHTML = '';
+    var card = crear('div', 'tarjeta examen-armador');
+    card.appendChild(crear('h2', null, 'Simulacro tipo examen'));
+    card.appendChild(crear('p', 'ayuda',
+      'Las mismas preguntas, en el mismo orden y con el mismo tiempo que la version de practica, pero con datos nuevos cada vez. ' +
+      'Cada pregunta tiene cuatro opciones, A), B), C) y D), y solo una es correcta. No se dice si acertaste hasta que entregas; ' +
+      'si se acaba el tiempo, el examen se entrega solo.'));
+    card.appendChild(crear('p', 'ayuda',
+      'Recomendacion: no te detengas demasiado en las preguntas dificiles. Marca una respuesta, usa "Marcar para revisar" y regresa al final.'));
+
+    var curso = EJ.examen.leerCurso();
+    if (curso && !curso.terminado) {
+      var aviso = crear('div', 'aviso-examen');
+      var hechas = curso.preguntas.filter(EJ.examen.contestada).length;
+      aviso.appendChild(crear('div', null, '<b>Tienes ' + (curso.titulo ? 'un ' + curso.titulo.toLowerCase() : 'un examen') +
+        ' a medias:</b> ' + hechas + ' de ' + curso.preguntas.length + ' contestadas.'));
+      var fila = crear('div', 'acciones');
+      var seguir = crear('button', 'primario', 'Continuar');
+      seguir.onclick = function () {
+        examen = curso; vistaExamen = 'haciendo';
+        pintarTemas(); cerrarListaEnCelular(); pintarExamen();
+      };
+      var tirar = crear('button', 'fantasma', 'Descartarlo');
+      tirar.onclick = function () {
+        if (!confirm('Se pierden las respuestas de ese examen. Continuar?')) return;
+        EJ.examen.borrarCurso(); pintarSimulacros();
+      };
+      fila.appendChild(seguir); fila.appendChild(tirar);
+      aviso.appendChild(fila);
+      card.appendChild(aviso);
+    }
+
+    var lista = crear('div', 'simulacros');
+    simulacrosDeMateria().forEach(function (def) {
+      var b = crear('button', 'simulacro-btn',
+        '<b>' + def.nombre + '</b><small>' + def.reactivos.length + ' preguntas &middot; ' + def.minutos + ' minutos</small>');
+      b.onclick = function () { empezarSimulacro(def); };
+      lista.appendChild(b);
+    });
+    card.appendChild(lista);
+    zona.appendChild(card);
+    zona.appendChild(tarjetaHistorial(pintarSimulacros));
+  }
+
+  function empezarSimulacro(def) {
+    var curso = EJ.examen.leerCurso();
+    if (curso && !curso.terminado &&
+      !confirm('Tienes un examen a medias y se va a perder. Empezar el simulacro de todos modos?')) return;
+    try {
+      examen = EJ.examen.armarSimulacro(def);
+    } catch (e) {
+      alert('No se pudo armar el simulacro: ' + e.message);
+      return;
+    }
+    nota = null;
+    EJ.examen.guardarCurso(examen);
+    vistaExamen = 'haciendo';
+    animarEntrada();
+    pintarTemas();
+    cerrarListaEnCelular();
+    pintarExamen();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  /* Reloj del simulacro: se actualiza cada segundo y entrega solo al llegar a 0. */
+  var relojExamen = null;
+  function textoTiempo(ms) {
+    var s = Math.max(0, Math.ceil(ms / 1000));
+    var m = Math.floor(s / 60), r = s % 60;
+    return m + ':' + (r < 10 ? '0' : '') + r;
+  }
+  function vigilarTiempo() {
+    if (relojExamen) { clearInterval(relojExamen); relojExamen = null; }
+    if (!examen || !examen.limite || vistaExamen !== 'haciendo') return;
+    relojExamen = setInterval(function () {
+      if (!examen || !examen.limite || vistaExamen !== 'haciendo') {
+        clearInterval(relojExamen); relojExamen = null; return;
+      }
+      var queda = examen.limite - Date.now();
+      var el = $('reloj-examen');
+      if (el) {
+        el.innerHTML = 'Tiempo: <b>' + textoTiempo(queda) + '</b>';
+        el.classList.toggle('poco', queda < 5 * 60000);
+      }
+      if (queda <= 0) {
+        clearInterval(relojExamen); relojExamen = null;
+        terminarExamen(true);
+      }
+    }, 1000);
+  }
+
   function abrirArmador() {
     vistaExamen = 'armar';
     animarEntrada();
@@ -985,7 +1106,7 @@
     pintarArmador();
   }
 
-  function tarjetaHistorial() {
+  function tarjetaHistorial(repintar) {
     var h = EJ.examen.historial();
     var card = crear('div', 'tarjeta');
     card.appendChild(crear('div', 'rotulo', 'Examenes anteriores'));
@@ -998,14 +1119,14 @@
       var f = new Date(x.fecha);
       var li = crear('li', null,
         '<b>' + x.aciertos + '/' + x.total + '</b> <span class="pct">' + x.porcentaje + '%</span>' +
-        '<small>' + f.toLocaleDateString() + ' &middot; ' + x.temas.join(', ') + '</small>');
+        '<small>' + f.toLocaleDateString() + ' &middot; ' + (x.titulo || x.temas.join(', ')) + '</small>');
       ul.appendChild(li);
     });
     card.appendChild(ul);
     var b = crear('button', 'fantasma chico', 'Borrar historial');
     b.onclick = function () {
       if (!confirm('Borrar el historial de examenes?')) return;
-      EJ.examen.borrarHistorial(); pintarArmador();
+      EJ.examen.borrarHistorial(); (repintar || pintarArmador)();
     };
     card.appendChild(b);
     return card;
@@ -1031,6 +1152,7 @@
 
   function guardarRespuestaActual() {
     if (vistaExamen !== 'haciendo' || !examen || !estado) return;
+    if (!$('card-ejercicio')) return;   // la pregunta no esta en pantalla: no hay nada que leer
     var q = examen.preguntas[examen.actual];
     q.dada = valores(estado.ej.respuesta);
     EJ.examen.guardarCurso(examen);
@@ -1079,11 +1201,23 @@
     var total = examen.preguntas.length;
     var contestadas = examen.preguntas.filter(EJ.examen.contestada).length;
 
+    /* simulacro con el tiempo ya vencido (por ejemplo, si se dejo para despues) */
+    if (examen.limite && Date.now() >= examen.limite) {
+      setTimeout(function () { terminarExamen(true); }, 0);
+      return;
+    }
+
     /* cabecera con el avance */
     var top = crear('div', 'tarjeta examen-top');
+    if (examen.titulo) top.appendChild(crear('div', 'examen-titulo', examen.titulo));
     var linea = crear('div', 'examen-linea');
     linea.appendChild(crear('div', 'examen-cuenta',
       'Pregunta <b>' + (examen.actual + 1) + '</b> de ' + total));
+    if (examen.limite) {
+      var reloj = crear('div', 'reloj-examen', 'Tiempo: <b>' + textoTiempo(examen.limite - Date.now()) + '</b>');
+      reloj.id = 'reloj-examen';
+      linea.appendChild(reloj);
+    }
     linea.appendChild(crear('div', 'examen-hechas', contestadas + ' contestadas'));
     top.appendChild(linea);
     var barra = crear('div', 'barra-progreso');
@@ -1095,9 +1229,10 @@
     /* la pregunta */
     var card = crear('div', 'tarjeta');
     card.id = 'card-ejercicio';
+    var unNivel = estado.tema && estado.tema.dificultades.length < 2;
     card.appendChild(crear('div', 'insignia',
       q.temaNombre + (q.subtemaNombre ? ' &middot; ' + q.subtemaNombre : '') +
-      ' <span class="nivel-tag">' + (NOMBRES_DIF[q.dificultad] || q.dificultad) + '</span>'));
+      (unNivel ? '' : ' <span class="nivel-tag">' + (NOMBRES_DIF[q.dificultad] || q.dificultad) + '</span>')));
     card.appendChild(crear('div', 'enunciado', estado.ej.enunciado));
     card.appendChild(pintarCampos(estado.ej.respuesta));
 
@@ -1160,24 +1295,29 @@
     var fin = crear('button', 'primario grande', 'Entregar y calificar');
     fin.onclick = terminarExamen;
     accF.appendChild(fin);
-    var salir = crear('button', 'fantasma', 'Dejarlo para despues');
+    var salir = crear('button', 'fantasma', examen.limite ? 'Salir (el tiempo sigue corriendo)' : 'Dejarlo para despues');
     salir.onclick = function () {
       guardarRespuestaActual();
-      vistaExamen = 'armar'; pintarTemas(); pintarArmador();
+      if (examen.titulo) { vistaExamen = 'simulacro'; pintarTemas(); pintarSimulacros(); }
+      else { vistaExamen = 'armar'; pintarTemas(); pintarArmador(); }
       window.scrollTo({ top: 0, behavior: 'smooth' });
     };
     accF.appendChild(salir);
     navCard.appendChild(accF);
     zona.appendChild(navCard);
+    vigilarTiempo();
 
     var primero = card.querySelector('input[type="text"]');
     if (primero) primero.focus();
   }
 
-  function terminarExamen() {
+  function terminarExamen(sinPreguntar) {
+    if (!examen || vistaExamen !== 'haciendo') return;
     guardarRespuestaActual();
     var blancos = examen.preguntas.filter(function (q) { return !EJ.examen.contestada(q); }).length;
-    if (blancos && !confirm('Quedan ' + blancos + ' ' + (blancos === 1 ? 'pregunta' : 'preguntas') +
+    if (sinPreguntar === true) {
+      alert(examen.limite && Date.now() >= examen.limite ? 'Se acabo el tiempo: el examen se entrego solo.' : 'El examen se entrego.');
+    } else if (blancos && !confirm('Quedan ' + blancos + ' ' + (blancos === 1 ? 'pregunta' : 'preguntas') +
       ' sin contestar y se van a contar como error. Entregar de todos modos?')) return;
 
     nota = EJ.examen.calificar(examen);
@@ -1198,7 +1338,7 @@
     zona.innerHTML = '';
 
     var card = crear('div', 'tarjeta resultado-examen');
-    card.appendChild(crear('h2', null, 'Resultado del examen'));
+    card.appendChild(crear('h2', null, 'Resultado ' + (examen && examen.titulo ? 'del ' + examen.titulo.toLowerCase() : 'del examen')));
 
     var caja = crear('div', 'nota-caja' +
       (nota.porcentaje >= 70 ? ' bien' : nota.porcentaje >= 50 ? ' regular' : ' mal'));
@@ -1238,12 +1378,25 @@
     }
 
     var acc = crear('div', 'acciones');
-    var otra = crear('button', 'primario', 'Otro examen con los mismos temas');
-    otra.onclick = empezarExamen;
-    acc.appendChild(otra);
-    var armar = crear('button', null, 'Cambiar los temas');
-    armar.onclick = function () { vistaExamen = 'armar'; pintarTemas(); pintarArmador(); };
-    acc.appendChild(armar);
+    var defSim = null;
+    if (examen && examen.simulacro) {
+      simulacrosDeMateria().forEach(function (d) { if (d.id === examen.simulacro) defSim = d; });
+    }
+    if (defSim) {
+      var otroSim = crear('button', 'primario', 'Otro simulacro de ' + defSim.nombre.toLowerCase());
+      otroSim.onclick = function () { empezarSimulacro(defSim); };
+      acc.appendChild(otroSim);
+      var verSim = crear('button', null, 'Ver los simulacros');
+      verSim.onclick = abrirSimulacros;
+      acc.appendChild(verSim);
+    } else {
+      var otra = crear('button', 'primario', 'Otro examen con los mismos temas');
+      otra.onclick = empezarExamen;
+      acc.appendChild(otra);
+      var armar = crear('button', null, 'Cambiar los temas');
+      armar.onclick = function () { vistaExamen = 'armar'; pintarTemas(); pintarArmador(); };
+      acc.appendChild(armar);
+    }
     var fuera = crear('button', 'fantasma', 'Volver a practicar');
     fuera.onclick = salirDelExamen;
     acc.appendChild(fuera);
@@ -1255,8 +1408,14 @@
     rev.appendChild(crear('div', 'rotulo', 'Revisa cada pregunta'));
     nota.detalle.forEach(function (d, i) {
       var det = crear('details', 'revision' + (d.ok ? ' ok' : ' fallo'));
+      /* en opcion multiple se guarda el numero de la opcion: se muestra su texto */
+      var campos = d.estado ? d.estado.ej.respuesta.campos : [];
       var tuya = d.enBlanco ? '<i>en blanco</i>'
-        : d.q.dada.filter(function (v) { return String(v).trim() !== ''; }).join(', ');
+        : d.q.dada.map(function (v, k) {
+          var c = campos[k];
+          if (c && c.tipo === 'opcion' && String(v).trim() !== '' && c.opciones[+v] !== undefined) return c.opciones[+v];
+          return v;
+        }).filter(function (v) { return String(v).trim() !== ''; }).join(', ');
       det.innerHTML =
         '<summary><span class="marca">' + (d.ok ? '&check;' : '&times;') + '</span>' +
         '<span class="num">' + (i + 1) + '.</span> ' + d.q.temaNombre +

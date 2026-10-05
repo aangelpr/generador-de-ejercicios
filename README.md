@@ -157,16 +157,29 @@ regla y un ejemplo resuelto) mientras se les escribe el guion.
 
 ### Modo prepa
 
-En el selector de materia de arriba está **Modo prepa**: preguntas de opción
-múltiple (incisos A, B, C y D) como las de un examen de admisión a la prepa, en seis
-temas: aritmética y porcentajes, álgebra, geometría y medición, estadística y
-probabilidad, razonamiento matemático y física básica. Son problemas redactados
-(descuentos, edades, escaleras recargadas en la pared, autobuses que se encuentran...)
-y los incisos incorrectos salen de los errores típicos, no de números al azar: sumar
-dos descuentos, olvidar dividir entre 2, confundir diámetro con radio, etc.
+En el selector de materia de arriba está **Modo prepa**. Sus preguntas copian el
+formato de la *versión de práctica* (`Version_práctica.pdf`), pero con datos nuevos
+cada vez:
 
-Funciona con todo lo demás: fácil / medio / difícil, subtemas, pistas, práctica
-mixta y **Armar un examen** para hacer un simulacro calificado.
+- Cuatro incisos A), B), C) y D), ordenados como en el cuadernillo: los números de
+  menor a mayor y el texto en orden alfabético.
+- Los mismos tipos de pregunta: directa, **"Complete correctamente el siguiente
+  texto"** (con huecos `_______`), **"Relacione..."** (dos columnas y respuestas
+  tipo `1c, 2a, 3b, 4d`), la línea **"Considere..."** con la fórmula, y
+  **multirreactivos** (un texto que sirve para varias preguntas seguidas).
+- **Matemáticas**: los 40 reactivos de la guía repartidos en seis temas (números y
+  álgebra, geometría y trigonometría, geometría analítica, funciones, cálculo y
+  estadística y probabilidad), un subtema por reactivo.
+- **Física**: los 18 reactivos de física del área de ciencias experimentales.
+
+**Simulacro tipo examen** (botón en la lista): arma las preguntas en el mismo orden
+que la guía y con su tiempo: Matemáticas, 40 preguntas en 60 minutos; Física, 18 en
+18. Corre un reloj, puedes saltar entre preguntas y marcarlas, y al acabarse el
+tiempo se entrega solo. Las preguntas de un multirreactivo (34 a 37 y 38 a 40)
+hablan de los mismos datos.
+
+Los simulacros viven en `js/temas/prepa/simulacros.js`: cada reactivo dice de qué
+tema y subtema sale, y los que comparten `g` (grupo) reciben la misma semilla.
 
 ### Práctica mixta
 
