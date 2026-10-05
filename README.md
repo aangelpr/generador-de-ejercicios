@@ -157,29 +157,49 @@ regla y un ejemplo resuelto) mientras se les escribe el guion.
 
 ### Modo prepa
 
-En el selector de materia de arriba está **Modo prepa**. Sus preguntas copian el
-formato de la *versión de práctica* (`Version_práctica.pdf`), pero con datos nuevos
-cada vez:
+En el selector de materia de arriba está **Modo prepa**: las **10 áreas** de la
+*versión de práctica* (`Version_práctica.pdf`), con su mismo formato y datos o
+variantes nuevas cada vez.
 
+| Área | Reactivos | Tiempo |
+|---|---|---|
+| Matemáticas | 40 | 60 min |
+| Humanidades | 40 | 40 min |
+| Ciencias experimentales (biología, geografía, química y física) | 60 | 60 min |
+| Comunicación (incluye inglés) | 32 | 40 min |
+| Ciencias sociales | 40 | 40 min |
+| Introducción al trabajo | 20 | 20 min |
+| Recursos humanos | 40 | 40 min |
+| Contabilidad | 40 | 40 min |
+| Informática | 40 | 40 min |
+| Turismo | 40 | 40 min |
+
+- Cada reactivo de la guía es un **subtema**, y los temas de cada área siguen el
+  orden del cuadernillo.
 - Cuatro incisos A), B), C) y D), ordenados como en el cuadernillo: los números de
   menor a mayor y el texto en orden alfabético.
 - Los mismos tipos de pregunta: directa, **"Complete correctamente el siguiente
-  texto"** (con huecos `_______`), **"Relacione..."** (dos columnas y respuestas
-  tipo `1c, 2a, 3b, 4d`), la línea **"Considere..."** con la fórmula, y
+  texto"**, **"Relacione..."** (con respuestas tipo `1c, 2a, 3b` o `1ac, 2bd`),
+  **"Del siguiente listado, identifique..."** (`1, 3, 5`), **"Ordene..."**, la línea
+  **"Considere..."** con la fórmula, código con números de línea y
   **multirreactivos** (un texto que sirve para varias preguntas seguidas).
-- **Matemáticas**: los 40 reactivos de la guía repartidos en seis temas (números y
-  álgebra, geometría y trigonometría, geometría analítica, funciones, cálculo y
-  estadística y probabilidad), un subtema por reactivo.
-- **Física**: los 18 reactivos de física del área de ciencias experimentales.
+- Lo que se calcula (matemáticas, física, nómina, contabilidad, costos de hotel)
+  sale con números nuevos; lo de conceptos sale de un banco con varias variantes
+  por reactivo, con filas e incisos revueltos.
 
-**Simulacro tipo examen** (botón en la lista): arma las preguntas en el mismo orden
-que la guía y con su tiempo: Matemáticas, 40 preguntas en 60 minutos; Física, 18 en
-18. Corre un reloj, puedes saltar entre preguntas y marcarlas, y al acabarse el
-tiempo se entrega solo. Las preguntas de un multirreactivo (34 a 37 y 38 a 40)
-hablan de los mismos datos.
+**Simulacro tipo examen** (botón en la lista): un simulacro por área con el mismo
+orden, número de preguntas y tiempo de la guía. Corre un reloj, puedes saltar entre
+preguntas y marcarlas, y al acabarse el tiempo se entrega solo. Las preguntas de un
+multirreactivo hablan del mismo texto o de los mismos datos.
 
-Los simulacros viven en `js/temas/prepa/simulacros.js`: cada reactivo dice de qué
-tema y subtema sale, y los que comparten `g` (grupo) reciben la misma semilla.
+Cómo está hecho:
+
+- `js/temas/prepa/comun.js` arma los incisos y los formatos del cuadernillo.
+- `js/temas/prepa/banco.js` convierte una lista de preguntas en un tema. Cada
+  variante es un objeto (`{p, b, m}`, `{c, b, m}`, `{rel, pares}`, `{lista, si, no}`,
+  `{orden, pasos}`) o una función `(r) => variante` para preguntas con datos al azar.
+- `js/temas/prepa/simulacros.js` arma los simulacros; los reactivos que comparten
+  `g` (grupo) reciben la misma semilla.
 
 ### Práctica mixta
 

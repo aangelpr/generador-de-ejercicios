@@ -3,7 +3,7 @@
    nueva) y, si no hay internet o tarda demasiado, usa la copia guardada. */
 /* Sube este numero cada vez que cambies archivos de la app: obliga al celular
    a bajar la version nueva completa. */
-var CACHE = 'generador-ejercicios-v40';
+var CACHE = 'generador-ejercicios-v41';
 
 var ARCHIVOS = [
   './',
@@ -76,12 +76,21 @@ var ARCHIVOS = [
   './js/temas/matematicas/probabilidad.js',
   './js/temas/matematicas/binomial.js',
   './js/temas/prepa/comun.js',
+  './js/temas/prepa/banco.js',
   './js/temas/prepa/mate-algebra.js',
   './js/temas/prepa/mate-geometria.js',
   './js/temas/prepa/mate-analitica.js',
   './js/temas/prepa/mate-funciones.js',
   './js/temas/prepa/mate-estadistica.js',
+  './js/temas/prepa/humanidades.js',
+  './js/temas/prepa/ciencias.js',
   './js/temas/prepa/fisica.js',
+  './js/temas/prepa/comunicacion.js',
+  './js/temas/prepa/sociales.js',
+  './js/temas/prepa/trabajo.js',
+  './js/temas/prepa/contabilidad.js',
+  './js/temas/prepa/informatica.js',
+  './js/temas/prepa/turismo.js',
   './js/temas/prepa/simulacros.js',
   './js/app.js'
 ];

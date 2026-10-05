@@ -895,3 +895,5 @@ table.relacione td { text-align: left; vertical-align: middle; }
 .simulacros { display: grid; gap: 10px; margin-top: 14px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
 .simulacro-btn { display: flex; flex-direction: column; align-items: flex-start; gap: 3px; padding: 14px 16px; text-align: left; }
 .simulacro-btn small { color: var(--suave); font-weight: 400; }
+pre.codigo { margin: 10px 0; padding: 10px 12px; background: var(--hundido); border-radius: var(--r-md); font-family: 'Geist Mono', ui-monospace, monospace; font-size: 13.5px; line-height: 1.55; overflow-x: auto; white-space: pre; }
+pre.codigo .ln { display: inline-block; min-width: 1.6em; color: var(--tenue); user-select: none; }

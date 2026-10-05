@@ -20,7 +20,7 @@
   EJ.materia({
     id: 'prepa',
     nombre: 'Modo prepa',
-    descripcion: 'Preguntas con el formato de la version de practica (matematicas y fisica) y simulacros cronometrados.',
+    descripcion: 'Las 10 areas de la version de practica, con su formato, y un simulacro cronometrado por area.',
     orden: 3
   });
 
