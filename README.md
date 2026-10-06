@@ -89,6 +89,11 @@ en el celular no se mezcla con lo de la computadora.
    aplica, un **ejemplo resuelto paso a paso** de ese mismo subtema (con otros números,
    nunca el ejercicio que tienes enfrente) y las fórmulas del tema. No gasta intentos.
    Con *Otro ejemplo* te genera otro cuantas veces quieras.
+   Debajo de la pregunta está el recuadro **Procedimiento**, una hoja de borrador para
+   hacer tus cuentas: en *Escribir* tecleas, y en *Dibujar* escribes con el dedo sobre
+   una cuadrícula (con *Deshacer* y *Borrar todo*). No se califica. En los exámenes y
+   simulacros cada pregunta tiene su propia hoja: lo escrito se guarda con el examen, y
+   lo dibujado se conserva mientras la app siga abierta.
 5. Escribe tu respuesta y presiona **Comprobar** (o Enter). Debajo de la casilla verás
    en vivo cómo se interpreta lo que escribiste: si tecleas `x^2` te lo muestra como x²,
    así confirmas que el `^` quedó donde querías.

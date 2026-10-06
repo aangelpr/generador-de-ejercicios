@@ -3,7 +3,7 @@
   'use strict';
   /* Sube esto junto con la version de sw.js. Se ve en Ajustes y sirve para
      saber de un vistazo si el celular ya tiene la version nueva. */
-  var VERSION = 'v38 (26 sep 2026)';
+  var VERSION = 'v44 (6 oct 2026)';
 
   var cfg = EJ.almacen.config;
   var estado = null;
@@ -485,6 +485,11 @@
       : estado.subtemaNombre;
     if (etiqueta) card.appendChild(crear('div', 'insignia', etiqueta));
     card.appendChild(crear('div', 'enunciado', ej.enunciado));
+    card.appendChild(EJ.notas.caja({
+      texto: estado.notas, dibujo: estado.dibujo,
+      alEscribir: function (t) { estado.notas = t; },
+      alDibujar: function (d) { estado.dibujo = d; }
+    }));
 
     card.appendChild(pintarCampos(ej.respuesta));
 
@@ -1312,6 +1317,15 @@
 
   /* ---------------- hacer el examen ---------------- */
 
+  var dibujosExamen = {};
+  var relojNotas = null;
+  function guardarNotasLuego() {
+    clearTimeout(relojNotas);
+    relojNotas = setTimeout(function () {
+      if (examen && vistaExamen === 'haciendo') EJ.examen.guardarCurso(examen);
+    }, 400);
+  }
+
   function guardarRespuestaActual() {
     if (vistaExamen !== 'haciendo' || !examen || !estado) return;
     if (!$('card-ejercicio')) return;   // la pregunta no esta en pantalla: no hay nada que leer
@@ -1396,6 +1410,14 @@
       q.temaNombre + (q.subtemaNombre ? ' &middot; ' + q.subtemaNombre : '') +
       (unNivel ? '' : ' <span class="nivel-tag">' + (NOMBRES_DIF[q.dificultad] || q.dificultad) + '</span>')));
     card.appendChild(crear('div', 'enunciado', estado.ej.enunciado));
+    /* el texto se guarda con el examen; el dibujo solo mientras la app esta
+       abierta (las imagenes llenarian el almacenamiento del navegador) */
+    var claveDibujo = examen.creado + '|' + examen.actual;
+    card.appendChild(EJ.notas.caja({
+      texto: q.notas, dibujo: dibujosExamen[claveDibujo],
+      alEscribir: function (t) { q.notas = t; guardarNotasLuego(); },
+      alDibujar: function (d) { dibujosExamen[claveDibujo] = d; }
+    }));
     card.appendChild(pintarCampos(estado.ej.respuesta));
 
     var ayuda = estado.ej.respuesta.campos[0].ayuda || estado.ej.respuesta.ayuda;
