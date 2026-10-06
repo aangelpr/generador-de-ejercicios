@@ -157,14 +157,30 @@
     };
   }
 
-  /* Simulacro: un examen con preguntas fijas, en un orden fijo y con tiempo.
-     `def` = {nombre, minutos, reactivos: [{t: temaId, s: subtema, g: grupo}]}.
+  /* Simulacro: un examen con preguntas fijas y con tiempo.
+     `def` = {nombre, minutos, reactivos: [{t: temaId, s: subtema, d: nivel, g: grupo}]}.
      Los reactivos del mismo grupo (un multirreactivo) usan la misma semilla
-     para que hablen de los mismos datos. */
-  function armarSimulacro(def) {
+     para que hablen de los mismos datos.
+     op.porDificultad: de facil a dificil en vez del orden de la guia. */
+  var RANGO = { facil: 0, medio: 1, dificil: 2 };
+
+  /* Ordena de facil a dificil; dentro de cada nivel se respeta el orden de
+     la guia. Las preguntas de un multirreactivo pueden quedar separadas, pero
+     cada una trae su texto completo y, como comparten semilla, hablan de los
+     mismos datos. */
+  function porDificultad(reactivos) {
+    function rango(it) { return RANGO[it.d] === undefined ? 1 : RANGO[it.d]; }
+    return reactivos.map(function (it, i) { return { it: it, pos: i }; })
+      .sort(function (a, b) { return rango(a.it) - rango(b.it) || a.pos - b.pos; })
+      .map(function (x) { return x.it; });
+  }
+
+  function armarSimulacro(def, op) {
+    op = op || {};
     var semillas = {};
     var preguntas = [];
-    def.reactivos.forEach(function (it) {
+    var reactivos = op.porDificultad ? porDificultad(def.reactivos) : def.reactivos;
+    reactivos.forEach(function (it) {
       var tema = EJ.buscarTema(it.t);
       if (!tema) return;
       var semilla;
@@ -172,8 +188,9 @@
         if (!semillas[it.g]) semillas[it.g] = ((Date.now() ^ Math.floor(Math.random() * 1e9)) >>> 0) || 1;
         semilla = semillas[it.g];
       }
+      var nivel = tema.dificultades.indexOf(it.d) !== -1 ? it.d : tema.dificultades[0];
       var st;
-      try { st = EJ.motor.nuevo(it.t, tema.dificultades[0], semilla, it.s); } catch (e) { return; }
+      try { st = EJ.motor.nuevo(it.t, nivel, semilla, it.s); } catch (e) { return; }
       preguntas.push({
         temaId: it.t,
         temaNombre: tema.nombre,
@@ -191,6 +208,7 @@
       creado: ahora,
       titulo: 'Simulacro de ' + def.nombre,
       simulacro: def.id,
+      orden: op.porDificultad ? 'dificultad' : 'guia',
       minutos: def.minutos,
       limite: def.minutos ? ahora + def.minutos * 60000 : null,
       preguntas: preguntas,
@@ -305,6 +323,7 @@
     totalReal: totalReal,
     armar: armar,
     armarSimulacro: armarSimulacro,
+    porDificultad: porDificultad,
     ejercicioDe: ejercicioDe,
     contestada: contestada,
     calificar: calificar,

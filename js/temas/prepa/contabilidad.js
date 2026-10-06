@@ -96,6 +96,11 @@
     nombre: 'Fundamentos y empresa',
     descripcion: 'Origen de la contabilidad, leyes que la regulan, objetivo de la contabilidad financiera, tipos de empresa y recursos. Reactivos 1 a 6 de la capacitacion.',
     etiquetas: ['pacioli', 'codigo fiscal', 'empresa', 'recursos'],
+    niveles: {
+      facil: ['pacioli', 'empresas', 'recursos'],
+      medio: ['objetivo', 'tipoEmpresa'],
+      dificil: ['leyes']
+    },
     items: [
       { s: 'pacioli', n: 'Origen de la contabilidad', v: [
         { p: '¿A quién se le considera el padre de la contabilidad?', b: 'Fray Luca Pacioli', m: ['Fray Luis de León', 'Frederick Taylor', 'Adam Smith'] },
@@ -134,6 +139,11 @@
     nombre: 'Cuentas y registro',
     descripcion: 'Cuentas, estado de resultados, asientos con IVA, compras netas, clasificacion de cuentas, partida doble, sistemas de inventario, documentos y registros. Reactivos 7 a 21 de la capacitacion.',
     etiquetas: ['cuentas', 'asiento', 'iva', 'compras netas', 'partida doble', 'peps', 'factura'],
+    niveles: {
+      facil: ['partidaDoble', 'notaCredito', 'factura', 'balanzaConcepto'],
+      medio: ['cuentas', 'pasivo', 'nominales', 'analitico', 'valuacion', 'sistema', 'mayor'],
+      dificil: ['utilidad', 'asientoVenta', 'comprasNetas', 'asientoIVA']
+    },
     items: [
       { s: 'cuentas', n: 'Descripcion de cuentas', v: [
         { rel: 'Relacione las cuentas con su descripción.', cols: ['Cuenta', 'Descripción'],
@@ -195,6 +205,11 @@
     nombre: 'Balanza, ajustes y estados financieros',
     descripcion: 'Sumas de la balanza, ajustes, ecuacion contable, compras totales y estados financieros. Reactivos 22 a 27 de la capacitacion.',
     etiquetas: ['balanza', 'ajustes', 'activo', 'pasivo', 'capital', 'estado de resultados'],
+    niveles: {
+      facil: ['ajustes', 'ecuacion'],
+      medio: ['ajusteIntereses', 'comprasTotales', 'dinamico'],
+      dificil: ['sumasBalanza']
+    },
     items: [
       { s: 'sumasBalanza', n: 'Sumas de la balanza', v: [balanza] },
       { s: 'ajusteIntereses', n: 'Asientos de ajuste', v: [
@@ -228,6 +243,11 @@
     nombre: 'Caja y bancos',
     descripcion: 'Fondo fijo de caja, reembolso y conciliacion bancaria. Reactivos 28 a 32 de la capacitacion.',
     etiquetas: ['fondo fijo', 'caja chica', 'conciliacion bancaria'],
+    niveles: {
+      facil: ['fondoFijo', 'finalidad'],
+      medio: ['reembolso'],
+      dificil: ['conciliacion', 'noCorrespondido']
+    },
     items: [
       { s: 'reembolso', n: 'Reembolso de caja', v: [
         { p: 'Los siguientes documentos integran el reembolso del fondo fijo de caja, excepto:', b: 'la póliza de creación del fondo',
@@ -258,6 +278,11 @@
     descripcion: 'IVA trasladado y acreditable, IVA a cargo, ISR de salarios y de personas morales, prima vacacional y salario base de cotizacion. Reactivos 33 a 40 de la capacitacion.',
     etiquetas: ['iva', 'isr', 'nomina', 'prima vacacional'],
     formulario: 'IVA a cargo = IVA trasladado &minus; IVA acreditable &minus; saldo a favor anterior &nbsp;&middot;&nbsp; Tasa general del IVA: 16%<br>ISR = (ingreso &minus; límite inferior) &times; tasa + cuota fija &minus; subsidio &nbsp;&middot;&nbsp; ISR personas morales: 30%',
+    niveles: {
+      facil: ['ivaTrasladado', 'isrSalarios', 'primaVacacional', 'tipoNomina'],
+      medio: ['isrMorales', 'sbc'],
+      dificil: ['ivaCargo', 'conceptosISR']
+    },
     items: [
       { s: 'ivaTrasladado', n: 'Tipos de IVA', v: [
         { p: 'Término con el que se registra el IVA que se cobra al vender mercancía de contado:', b: 'IVA trasladado', m: ['IVA acreditable', 'IVA por acreditar', 'IVA por trasladar'] },

@@ -176,6 +176,11 @@ variantes nuevas cada vez.
 
 - Cada reactivo de la guía es un **subtema**, y los temas de cada área siguen el
   orden del cuadernillo.
+- **Por dificultad:** cada subtema está clasificado como **Fácil** (recordar un dato
+  o reconocer un concepto, cuentas de un paso), **Medio** (relacionar datos o aplicar
+  una fórmula) o **Difícil** (varios pasos, análisis o incisos muy parecidos). Al
+  practicar un tema eliges el nivel y salen sólo sus subtemas; en total son 134
+  fáciles, 160 medios y 98 difíciles.
 - Cuatro incisos A), B), C) y D), ordenados como en el cuadernillo: los números de
   menor a mayor y el texto en orden alfabético.
 - Los mismos tipos de pregunta: directa, **"Complete correctamente el siguiente
@@ -187,10 +192,12 @@ variantes nuevas cada vez.
   sale con números nuevos; lo de conceptos sale de un banco con varias variantes
   por reactivo, con filas e incisos revueltos.
 
-**Simulacro tipo examen** (botón en la lista): un simulacro por área con el mismo
-orden, número de preguntas y tiempo de la guía. Corre un reloj, puedes saltar entre
-preguntas y marcarlas, y al acabarse el tiempo se entrega solo. Las preguntas de un
-multirreactivo hablan del mismo texto o de los mismos datos.
+**Simulacro tipo examen** (botón en la lista): un simulacro por área con las mismas
+preguntas y el mismo tiempo de la guía. Por defecto las preguntas van **de fácil a
+difícil**; con *Orden de las preguntas: Como en la guía* salen en el orden del
+cuadernillo. Corre un reloj, puedes saltar entre preguntas y marcarlas, y al
+acabarse el tiempo se entrega solo. Las preguntas de un multirreactivo hablan del
+mismo texto o de los mismos datos.
 
 Cómo está hecho:
 
@@ -198,6 +205,9 @@ Cómo está hecho:
 - `js/temas/prepa/banco.js` convierte una lista de preguntas en un tema. Cada
   variante es un objeto (`{p, b, m}`, `{c, b, m}`, `{rel, pares}`, `{lista, si, no}`,
   `{orden, pasos}`) o una función `(r) => variante` para preguntas con datos al azar.
+- El nivel de cada subtema va en el mismo tema: en los bancos, con
+  `niveles: {facil: [...], medio: [...], dificil: [...]}`; en matemáticas y física,
+  como tercer dato de cada subtema (`['grado', 'Grado de un polinomio', 'facil']`).
 - `js/temas/prepa/simulacros.js` arma los simulacros; los reactivos que comparten
   `g` (grupo) reciben la misma semilla.
 

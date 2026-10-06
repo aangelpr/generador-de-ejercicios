@@ -78,7 +78,7 @@
       var haySimulacro = !!simulacrosDeMateria().length;
       if (haySimulacro) {
         var bs = crear('button', 'tema-btn examen' + (enSimulacro() ? ' activo' : ''));
-        bs.innerHTML = 'Simulacro tipo examen<small>Mismo orden, preguntas y tiempo que la guia</small>';
+        bs.innerHTML = 'Simulacro tipo examen<small>Mismas preguntas y tiempo que la guia</small>';
         bs.onclick = abrirSimulacros;
         cont.appendChild(bs);
       }
@@ -865,7 +865,7 @@
     var card = crear('div', 'tarjeta examen-armador');
     card.appendChild(crear('h2', null, 'Simulacro tipo examen'));
     card.appendChild(crear('p', 'ayuda',
-      'Las mismas preguntas, en el mismo orden y con el mismo tiempo que la version de practica, pero con datos nuevos cada vez. ' +
+      'Las mismas preguntas y el mismo tiempo que la version de practica, pero con datos nuevos cada vez. ' +
       'Cada pregunta tiene cuatro opciones, A), B), C) y D), y solo una es correcta. No se dice si acertaste hasta que entregas; ' +
       'si se acaba el tiempo, el examen se entrega solo.'));
     card.appendChild(crear('p', 'ayuda',
@@ -893,6 +893,19 @@
       card.appendChild(aviso);
     }
 
+    /* orden de las preguntas: de facil a dificil (por defecto) o como en la guia */
+    var porDif = cfg.ordenSimulacro !== 'guia';
+    var filaOrden = crear('div', 'fila-orden');
+    filaOrden.appendChild(crear('span', 'etiqueta-sub', 'Orden de las preguntas:'));
+    var ord = crear('div', 'dificultades');
+    [['dificultad', 'De fácil a difícil'], ['guia', 'Como en la guía']].forEach(function (o) {
+      var b = crear('button', (o[0] === 'dificultad') === porDif ? 'activo' : '', o[1]);
+      b.onclick = function () { cfg.ordenSimulacro = o[0]; EJ.almacen.set('ordenSimulacro', o[0]); pintarSimulacros(); };
+      ord.appendChild(b);
+    });
+    filaOrden.appendChild(ord);
+    card.appendChild(filaOrden);
+
     var lista = crear('div', 'simulacros');
     simulacrosDeMateria().forEach(function (def) {
       var b = crear('button', 'simulacro-btn',
@@ -910,7 +923,7 @@
     if (curso && !curso.terminado &&
       !confirm('Tienes un examen a medias y se va a perder. Empezar el simulacro de todos modos?')) return;
     try {
-      examen = EJ.examen.armarSimulacro(def);
+      examen = EJ.examen.armarSimulacro(def, { porDificultad: cfg.ordenSimulacro !== 'guia' });
     } catch (e) {
       alert('No se pudo armar el simulacro: ' + e.message);
       return;

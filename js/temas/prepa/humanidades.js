@@ -16,6 +16,11 @@
     nombre: 'Filosofia',
     descripcion: 'Saberes (mito, ciencia, filosofia), caracteristicas y disciplinas de la filosofia, metafisica y metodos filosoficos. Reactivos 1 a 8 del area.',
     etiquetas: ['filosofia', 'mito', 'metafisica', 'hermeneutica'],
+    niveles: {
+      facil: ['tipoSaber', 'mitoCiencia'],
+      medio: ['vision', 'caracteristicas', 'disciplinas', 'corrientes'],
+      dificil: ['metafisica', 'metodos']
+    },
     items: [
       { s: 'tipoSaber', n: 'Tipos de saber', v: [
         { p: 'Identifique el área de estudio a la que pertenece el siguiente problema:<br><i>El conocimiento humano no puede ser medido ni determinado; es un error suponer que la verdad reside en leyes invariables y cuantificables. El conocimiento surge de las cualidades de la especie y de la ideología de su época.</i>',
@@ -72,6 +77,11 @@
     nombre: 'Etica',
     descripcion: 'Reflexion etica, corrientes eticas, bioetica, libertad y determinismo, conciencia, utopia y derechos. Reactivos 9 a 25 del area.',
     etiquetas: ['etica', 'moral', 'utilitarismo', 'estoicismo', 'determinismo', 'utopia', 'derechos'],
+    niveles: {
+      facil: ['disciplinaEtica', 'ethos', 'antropocentrismo', 'determinismo', 'utopia'],
+      medio: ['aristoteles', 'utilitarismo', 'ataraxia', 'biocentrismo', 'libertad', 'pensamientoUtopico', 'derechoConsuetudinario'],
+      dificil: ['reflexionEtica', 'estoicismo', 'conciencia', 'equidad', 'consuetudinario']
+    },
     items: [
       { s: 'reflexionEtica', n: 'Reflexion etica', v: [
         { lista: '¿Cuáles de las siguientes son características de una reflexión ética?',
@@ -166,6 +176,11 @@
     nombre: 'Logica y argumentacion',
     descripcion: 'Premisas y conclusion, condicionales, leyes logicas, reglas de inferencia, conectivas, validez y falacias. Reactivos 26 a 35 del area.',
     etiquetas: ['logica', 'premisa', 'modus ponens', 'falacia', 'silogismo'],
+    niveles: {
+      facil: ['premisas', 'conector', 'falacias'],
+      medio: ['modusPonens', 'modusTollens', 'conectivas', 'validez'],
+      dificil: ['condicional', 'adicion', 'peticionPrincipio']
+    },
     items: [
       { s: 'premisas', n: 'Premisas (multirreactivo)', v: [
         { lec: ARG[0], p: 'Los siguientes enunciados son premisas del razonamiento anterior, excepto:', b: 'los conejos son las mejores mascotas',
@@ -224,6 +239,11 @@
     nombre: 'Pensamiento en Mexico y Latinoamerica',
     descripcion: 'Modernidad y posmodernidad, positivismo en Mexico, alienacion, Habermas y filosofia de la liberacion. Reactivos 36 a 40 del area.',
     etiquetas: ['posmodernidad', 'positivismo', 'alienacion', 'habermas', 'liberacion'],
+    niveles: {
+      facil: ['alienacion'],
+      medio: ['posmodernidad', 'positivismo'],
+      dificil: ['habermas', 'liberacion']
+    },
     items: [
       { s: 'posmodernidad', n: 'Modernidad y posmodernidad', v: [
         { p: 'México accedió a la modernidad en el siglo XX con obras públicas, tecnología y una gran confianza en la razón y la ciencia; sin embargo, el país vive pobreza, violencia e injusticia, y la modernidad no llega a todos. ¿Cómo se designa este estado de la cultura?',

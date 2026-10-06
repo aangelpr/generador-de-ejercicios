@@ -10,6 +10,11 @@
     nombre: 'Ciencias sociales, Estado y sociedad',
     descripcion: 'Objeto de las ciencias sociales y sus disciplinas, formas de gobierno, democracia, funciones sociales, valores civicos y conceptos sociologicos. Reactivos 1 a 10 del area.',
     etiquetas: ['ciencias sociales', 'democracia', 'socializacion', 'anomia', 'valores civicos'],
+    niveles: {
+      facil: ['objeto', 'democracia'],
+      medio: ['disciplinas', 'disciplinas2', 'formasGobierno', 'familia', 'socializacion'],
+      dificil: ['humanidades', 'valoresCivicos', 'anomia']
+    },
     items: [
       { s: 'objeto', n: 'Objeto de las ciencias sociales', v: [
         { p: '¿Cuál es el principal objeto de estudio de las ciencias sociales?', b: 'El comportamiento humano, tanto individual como colectivo',
@@ -67,6 +72,11 @@
     nombre: 'Historia de Mexico: de Mesoamerica a la Reforma',
     descripcion: 'Culturas mesoamericanas, conquista, virreinato, Independencia, primeras decadas del Mexico independiente, intervenciones, Reforma y Segundo Imperio. Reactivos 11 a 21 del area.',
     etiquetas: ['mesoamerica', 'conquista', 'virreinato', 'independencia', 'reforma', 'intervencion'],
+    niveles: {
+      facil: ['conquista', 'pasteles', 'guadalupe'],
+      medio: ['mesoamerica', 'independencia', 'constitucion57', 'reforma', 'segundoImperio'],
+      dificil: ['culturas', 'ordenes', 'proyectos']
+    },
     items: [
       { s: 'mesoamerica', n: 'Civilizaciones mesoamericanas', v: [
         { rel: 'Relacione cada civilización mesoamericana con su característica.', cols: ['Civilización', 'Característica'],
@@ -131,6 +141,11 @@
     nombre: 'Historia de Mexico: del Porfiriato a hoy',
     descripcion: 'Porfiriato, Revolucion, posrevolucion, cardenismo, desarrollo estabilizador, represion de los años sesenta y setenta, neoliberalismo y diversidad cultural. Reactivos 22 a 32 del area.',
     etiquetas: ['porfiriato', 'revolucion', 'madero', 'zapata', 'cardenas', 'neoliberalismo'],
+    niveles: {
+      facil: ['madero', 'ayala', 'guerraSucia'],
+      medio: ['porfiriato', 'huelgas', 'posguerra', 'cardenas', 'pueblos'],
+      dificil: ['calles', 'aleman', 'neoliberal']
+    },
     items: [
       { s: 'porfiriato', n: 'Porfiriato', v: [
         { lista: 'Del siguiente listado, identifique las características del Porfiriato.',
@@ -187,6 +202,11 @@
     nombre: 'Mexico actual: poblacion, bienestar y economia',
     descripcion: 'Politicas publicas y poblacion, fecundidad, salud, educacion, genero, pobreza y sectores economicos con datos. Reactivos 33 a 40 del area.',
     etiquetas: ['poblacion', 'fecundidad', 'pobreza', 'pib', 'genero', 'inegi'],
+    niveles: {
+      facil: ['analfabetismo', 'genero'],
+      medio: ['salud', 'pobreza', 'pibRegion'],
+      dificil: ['politicaPoblacion', 'fecundidad', 'pibNacional']
+    },
     items: [
       { s: 'politicaPoblacion', n: 'Politicas publicas y poblacion', v: [
         { p: 'Los estados con mayor inversión en educación y salud para la primera infancia muestran menor crecimiento de la población infantil, y los de menor inversión, crecimiento más alto. ¿Qué relación se puede inferir?',
