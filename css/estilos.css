@@ -934,3 +934,7 @@ pre.codigo .ln { display: inline-block; min-width: 1.6em; color: var(--tenue); u
 .notas-barra button { border: 1px solid var(--borde); background: var(--panel); }
 .notas-barra button:disabled { opacity: .45; cursor: default; }
 .notas [hidden] { display: none !important; }
+
+/* figuras de geometria: lo que se pregunta va en el color de acento */
+.fig .ac { stroke: var(--acento); }
+.fig .ac-relleno { fill: var(--acento); }
