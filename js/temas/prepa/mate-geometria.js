@@ -23,6 +23,26 @@
     return 'perigonal';
   }
 
+  /* ---------- dibujo ---------- */
+  function r1(x) { return Math.round(x * 10) / 10; }
+  function etiqueta(x, y, t, clase) {
+    return '<text x="' + r1(x) + '" y="' + r1(y) + '" text-anchor="middle" dominant-baseline="middle" stroke="none" fill="currentColor" ' +
+      'font-size="14" font-style="italic" font-family="Georgia, \'Times New Roman\', serif"' + (clase ? ' class="' + clase + '"' : '') + '>' + t + '</text>';
+  }
+  function linea(a, b, extra) {
+    return '<line x1="' + r1(a[0]) + '" y1="' + r1(a[1]) + '" x2="' + r1(b[0]) + '" y2="' + r1(b[1]) + '"' + (extra || '') + '/>';
+  }
+  /* punta de flecha en b, apuntando de a hacia b */
+  function flecha(a, b, extra) {
+    var dx = b[0] - a[0], dy = b[1] - a[1], L = Math.sqrt(dx * dx + dy * dy) || 1;
+    var ux = dx / L, uy = dy / L, px = -uy, py = ux;
+    var p1 = [b[0] - 10 * ux + 4.5 * px, b[1] - 10 * uy + 4.5 * py], p2 = [b[0] - 10 * ux - 4.5 * px, b[1] - 10 * uy - 4.5 * py];
+    return '<path d="M' + r1(b[0]) + ' ' + r1(b[1]) + ' L' + r1(p1[0]) + ' ' + r1(p1[1]) + ' L' + r1(p2[0]) + ' ' + r1(p2[1]) + ' Z" fill="currentColor" stroke="none"' + (extra || '') + '/>';
+  }
+  function punto(p) { return '<circle cx="' + r1(p[0]) + '" cy="' + r1(p[1]) + '" r="3.2" fill="currentColor" stroke="none"/>'; }
+  var CURVAS = ['&#119966;', '&#119967;', '&#119974;'];          // C, D, K caligraficas
+  var ELL = '&ell;';
+
   var casos = {};
 
   /* 9. Definiciones (completar texto) */
@@ -53,27 +73,79 @@
       []);
   };
 
-  /* 10. Notacion de objetos geometricos (relacione) */
+  /* 10. Notacion de objetos geometricos con base en el grafico (relacione) */
   casos.notacion = function (r) {
+    var W = 280, H = 185;
+    var letras = r.muestra(['A', 'B', 'C', 'D', 'E', 'M', 'N', 'O', 'P', 'Q', 'R', 'S'], 3);
+    var nA = letras[0], nB = letras[1], nO = letras[2];
+    var nRay = r.elige(['k', 'j', 'h', 't']);
+    var nRecta = r.elige([ELL, 'm', 'n', 's']);
+    var nCurva = r.elige(CURVAS);
+    var esp = r.bool();                       // figura en espejo para variar
+    function P2(x, y) { return [esp ? W - x : x, y]; }
+
+    var B = P2(212, 104), A = P2(88, 160), O = P2(40, 92);
+    var L1 = P2(40, 22), L2 = P2(258, 126);   // recta que pasa por B
+    var R2 = P2(268, 112);                    // la semirrecta sigue despues de B
+    var c0 = P2(62, 28), cq = P2(160, 96), c1 = P2(62, 170);
+
+    var dib = F.svg(W, H,
+      '<path class="ac" d="M' + c0[0] + ' ' + c0[1] + ' Q' + cq[0] + ' ' + cq[1] + ' ' + c1[0] + ' ' + c1[1] + '"/>' +
+      linea(L1, L2) + flecha(L2, L1) + flecha(L1, L2) +
+      linea(O, R2) + flecha(O, R2) +
+      linea(A, B, ' class="ac"') +
+      punto(A) + punto(B) + punto(O) +
+      etiqueta(A[0] + (esp ? 10 : -10), A[1] + 12, nA) +
+      etiqueta(B[0], B[1] - 14, nB) +
+      etiqueta(O[0] + (esp ? 12 : -12), O[1] + 2, nO) +
+      etiqueta(P2(158, 0)[0], 112, nRay) +
+      etiqueta(P2(122, 0)[0], 48, nRecta) +
+      etiqueta(P2(74, 0)[0], 66, nCurva));
+
     var objs = [
-      { s: sobre('AB', '&mdash;'), o: 'Segmento' },
-      { s: sobre('AB', '&rarr;'), o: 'Semirrecta' },
-      { s: sobre('AB', '&harr;'), o: 'L&iacute;nea recta' },
-      { s: sobre('AB', '&#8994;'), o: 'Arco' },
-      { s: '&ang;ABC', o: '&Aacute;ngulo' },
-      { s: '&ell; &#8741; m', o: 'Rectas paralelas' },
-      { s: '&ell; &perp; m', o: 'Rectas perpendiculares' },
-      { s: '&#9651;ABC', o: 'Tri&aacute;ngulo' }
+      { s: sobre(nA + nB, '&mdash;'), o: 'Segmento' },
+      { s: nO + '<i>' + nRay + '</i>', o: 'Semirrecta' },
+      { s: '<i>' + nRecta + '</i>', o: 'L&iacute;nea recta' },
+      { s: nCurva, o: 'L&iacute;nea curva' },
+      { s: nO, o: 'Punto' }
     ];
-    var elegidos = r.muestra(objs, 4);
-    var extra = r.elige(objs.filter(function (x) { return elegidos.indexOf(x) === -1; }));
-    var der = r.baraja(elegidos.concat([extra]));
-    var pares = elegidos.map(function (x) { return der.indexOf(x); });
-    return P.relacione(r, 'Relacione los s&iacute;mbolos con los objetos que les correspondan.', ['S&iacute;mbolo', 'Objeto'],
-      elegidos.map(function (x) { return x.s; }), der.map(function (x) { return x.o; }), pares,
-      ['Una raya arriba (sin flechas) es un segmento: tiene principio y fin.',
-        'Una flecha es semirrecta (empieza en A y sigue sin fin); doble flecha es recta completa.'], []);
+    var elegidos = r.muestra(objs.slice(0, 4), r.bool() ? 4 : 3);
+    if (elegidos.length === 3) elegidos.push(objs[4]);
+    elegidos = r.baraja(elegidos);
+    var resto = objs.filter(function (x) { return elegidos.indexOf(x) === -1; }).map(function (x) { return x.o; })
+      .concat(['&Aacute;ngulo', 'L&iacute;nea poligonal']);
+    var der = r.baraja(elegidos.map(function (x) { return x.o; }).concat([r.elige(resto)]));
+    var pares = elegidos.map(function (x) { return der.indexOf(x.o); });
+    return P.relacione(r, 'Con base en el gr&aacute;fico, relacione los s&iacute;mbolos con los objetos que les correspondan.' + dib,
+      ['S&iacute;mbolo del gr&aacute;fico', 'Objetos del gr&aacute;fico'],
+      elegidos.map(function (x) { return x.s; }), der, pares,
+      ['Busca cada simbolo en el dibujo. Dos puntos unidos sin flechas (' + nA + nB + ') son un segmento: tiene principio y fin.',
+        'La que sale de ' + nO + ' y tiene flecha solo en un extremo es semirrecta; la que tiene flecha en los dos extremos es la recta completa. ' + nCurva + ' es la linea curva.'],
+      []);
   };
+
+  /* el angulo dibujado: lado inicial horizontal y el arco que gira hacia el final */
+  function dibujoAngulo(r, g) {
+    var W = 220, H = 184, cx = 110, cy = 92, R = 62, ra = g > 180 ? 28 : 24;
+    var t = g * Math.PI / 180;
+    var V = [cx, cy], ini = [cx + R, cy], fin = [cx + R * Math.cos(t), cy - R * Math.sin(t)];
+    var nombres = r.muestra(['A', 'B', 'C', 'O', 'P', 'Q'], 3);
+    var a0 = [cx + ra, cy], a1 = [cx + ra * Math.cos(t), cy - ra * Math.sin(t)];
+    var arco = g >= 360
+      ? '<path class="ac" d="M' + r1(a0[0]) + ' ' + r1(a0[1]) + ' A' + ra + ' ' + ra + ' 0 1 0 ' + (cx - ra) + ' ' + cy + ' A' + ra + ' ' + ra + ' 0 1 0 ' + r1(a0[0]) + ' ' + r1(a0[1] - 0.01) + '"/>'
+      : '<path class="ac" d="M' + r1(a0[0]) + ' ' + r1(a0[1]) + ' A' + ra + ' ' + ra + ' 0 ' + (g > 180 ? 1 : 0) + ' 0 ' + r1(a1[0]) + ' ' + r1(a1[1]) + '"/>';
+    /* la punta del arco sigue la tangente (sentido contrario a las manecillas) */
+    var tg = [-Math.sin(t), -Math.cos(t)];
+    var punta = flecha([a1[0] - tg[0] * 6, a1[1] - tg[1] * 6], [a1[0] + tg[0] * 2, a1[1] + tg[1] * 2], ' class="ac-relleno"');
+    var mid = (g >= 360 ? 225 : g / 2) * Math.PI / 180, rl = ra + 16;
+    var lado2 = g >= 360 ? '' : linea(V, fin);
+    var nFin = g >= 360 ? '' : etiqueta(cx + (R + 12) * Math.cos(t), cy - (R + 12) * Math.sin(t), nombres[2]);
+    return F.svg(W, H,
+      linea(V, ini) + lado2 + arco + punta + punto(V) + punto(ini) + (g >= 360 ? '' : punto(fin)) +
+      etiqueta(cx + 15 * Math.cos(mid + Math.PI), cy - 15 * Math.sin(mid + Math.PI), nombres[0]) +
+      etiqueta(ini[0] + 12, ini[1] + 1, nombres[1]) + nFin +
+      etiqueta(cx + rl * Math.cos(mid), cy - rl * Math.sin(mid), '&theta;'));
+  }
 
   /* 11. Caracteristicas de un angulo (grados, radianes y tipo) */
   casos.angulos = function (r) {
@@ -96,15 +168,74 @@
       frase(tipoAngulo(gMal[2]), gMal[2], 2)
     ];
     return P.ejercicio(
-      'Seleccione la opci&oacute;n que concentra las caracter&iacute;sticas de un &aacute;ngulo de ' + g + '&deg;.',
+      'Seleccione la opci&oacute;n que concentra las caracter&iacute;sticas de un &aacute;ngulo de ' + g + '&deg;.' + dibujoAngulo(r, g),
       P.opciones(r, bien, malas),
       ['Para pasar a radianes multiplica por &pi;/180: ' + g + '&deg; = ' + g + '&pi;/180.',
         'Agudo &lt; 90&deg;, recto = 90&deg;, obtuso entre 90&deg; y 180&deg;, llano = 180&deg;, concavo entre 180&deg; y 360&deg;.'],
       [g + '&deg; &times; &pi;/180 = ' + rad(g) + ' radianes', 'Por su medida es un angulo <b>' + tipo + '</b>']);
   };
 
-  /* 12. Relaciones entre rectas (relacione) */
+  /* 12. Relaciones entre rectas con base en el grafico: una circunferencia con
+     dos tangentes paralelas, una recta perpendicular a ellas por el centro y
+     otra oblicua. Todo el dibujo se gira un angulo al azar. */
+  function rectasGrafico(r) {
+    var W = 300, H = 236, cx = 150, cy = 118, R = 48;
+    var giro = r.entero(-35, 35) * Math.PI / 180, inc = r.elige([30, 35, 40, 50, 55]) * Math.PI / 180;
+    if (r.bool()) inc = -inc;
+    function G(x, y) {   // coordenadas locales (centro en 0,0) -> pantalla
+      return [cx + x * Math.cos(giro) - y * Math.sin(giro), cy + x * Math.sin(giro) + y * Math.cos(giro)];
+    }
+    var nombres = r.baraja(['1', '2', '3', '4']);
+    function nom(k) { return ELL + '<tspan font-size="10" dy="4">' + nombres[k] + '</tspan>'; }
+    function nomHtml(k) { return '<i>' + ELL + '</i><sub>' + nombres[k] + '</sub>'; }
+    var nC = r.elige(CURVAS);
+    var punteada = ' stroke-dasharray="2 4" stroke-width="1.6"';
+    /* 0 y 1: tangentes (arriba y abajo); 2: perpendicular por el centro; 3: oblicua por el centro */
+    var t0a = G(-112, -R), t0b = G(112, -R), t1a = G(-112, R), t1b = G(112, R);
+    var p2a = G(0, -96), p2b = G(0, 96);
+    var L3 = 104, o3a = G(-L3 * Math.cos(inc), -L3 * Math.sin(inc)), o3b = G(L3 * Math.cos(inc), L3 * Math.sin(inc));
+    function esquina(x, y, sx, sy) {   // marca de angulo recto en (x,y) de lado 8
+      var a = G(x + 8 * sx, y), b = G(x + 8 * sx, y + 8 * sy), c = G(x, y + 8 * sy);
+      return '<path class="ac" stroke-width="1.4" d="M' + r1(a[0]) + ' ' + r1(a[1]) + ' L' + r1(b[0]) + ' ' + r1(b[1]) + ' L' + r1(c[0]) + ' ' + r1(c[1]) + '"/>';
+    }
+    var O = G(0, 0), T0 = G(0, -R), T1 = G(0, R);
+    function dentro(q) { return [Math.min(W - 14, Math.max(14, q[0])), Math.min(H - 10, Math.max(12, q[1]))]; }
+    var e0 = dentro(G(124, -R)), e1 = dentro(G(124, R)), e2 = dentro(G(0, -108)), e3 = dentro(G(118 * Math.cos(inc), 118 * Math.sin(inc)));
+    var eC = G(-R - 14, 0);
+    var dib = F.svg(W, H,
+      '<circle class="ac" cx="' + cx + '" cy="' + cy + '" r="' + R + '"/>' +
+      linea(t0a, t0b) + linea(t1a, t1b) + linea(p2a, p2b, punteada) + linea(o3a, o3b, punteada) +
+      esquina(0, -R, 1, 1) + esquina(0, R, 1, -1) +
+      punto(O) + punto(T0) + punto(T1) +
+      etiqueta(O[0] - 12, O[1] + 4, 'O') +
+      etiqueta(e0[0], e0[1], nom(0)) + etiqueta(e1[0], e1[1], nom(1)) +
+      etiqueta(e2[0], e2[1], nom(2)) + etiqueta(e3[0], e3[1], nom(3)) +
+      etiqueta(eC[0], eC[1], nC));
+
+    var y = ' &nbsp;y&nbsp; ';
+    var porRel = {
+      'Paralelas': [nomHtml(0) + y + nomHtml(1)],
+      'Perpendiculares': [nomHtml(2) + y + nomHtml(0), nomHtml(2) + y + nomHtml(1)],
+      'Oblicuas': [nomHtml(3) + y + nomHtml(2), nomHtml(3) + y + nomHtml(0), nomHtml(3) + y + nomHtml(1)],
+      'Tangente a ': [nomHtml(0), nomHtml(1)],
+      'Secante a ': [nomHtml(2), nomHtml(3)]
+    };
+    var rels = r.muestra(Object.keys(porRel), 4);
+    var filas = r.baraja(rels.map(function (k) { return { izq: r.elige(porRel[k]), rel: k }; }));
+    function texto(k) { return /a $/.test(k) ? k + nC : k; }
+    var der = r.baraja(Object.keys(porRel)).map(texto);
+    var asign = filas.map(function (f) { return der.indexOf(texto(f.rel)); });
+    return P.relacione(r, 'Con base en el gr&aacute;fico, identifique las relaciones entre las rectas.' + dib,
+      ['Objeto del gr&aacute;fico', 'Relaci&oacute;n'],
+      filas.map(function (f) { return f.izq; }), der, asign,
+      ['Las rectas que tocan a ' + nC + ' en un solo punto son tangentes; las que pasan por el centro O la cortan en dos puntos: son secantes.',
+        'Las dos tangentes nunca se cruzan: son paralelas. La recta con la marca de angulo recto es perpendicular a ellas; la otra que pasa por O las corta inclinada: oblicua.'],
+      []);
+  }
+
+  /* 12. Relaciones entre rectas (relacione): con dibujo o con ecuaciones */
   casos.relacionRectas = function (r) {
+    if (r.entero(0, 2) > 0) return rectasGrafico(r);
     var m = r.enteroNoCero(-4, 4), b1 = r.entero(-6, 6), b2 = r.entero(-6, 6);
     while (b2 === b1) b2 = r.entero(-6, 6);
     var R5 = r.elige([2, 3, 4, 5]);
