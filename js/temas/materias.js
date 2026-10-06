@@ -20,7 +20,7 @@
   EJ.materia({
     id: 'prepa',
     nombre: 'Modo prepa',
-    descripcion: 'Preguntas de opcion multiple como las del examen de admision a la prepa: matematicas, razonamiento y fisica.',
+    descripcion: 'Las 10 areas de la version de practica, con su formato, y un simulacro cronometrado por area.',
     orden: 3
   });
 
