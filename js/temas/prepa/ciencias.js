@@ -10,6 +10,11 @@
     nombre: 'Biologia',
     descripcion: 'Origen de la vida, biomoleculas, taxonomia, celula, fotosintesis, division celular, herencia, evolucion y ecologia. Reactivos 1 a 14 del area.',
     etiquetas: ['celula', 'biomoleculas', 'mendel', 'evolucion', 'ecologia', 'fotosintesis'],
+    niveles: {
+      facil: ['carbohidratos', 'respiracion', 'caracteristicasVida', 'evolucion'],
+      medio: ['origenVida', 'biomoleculas', 'taxonomia', 'organelos', 'mitosis', 'poblacion', 'interespecificas'],
+      dificil: ['fotosintesis', 'mendel', 'ecosistema']
+    },
     items: [
       { s: 'origenVida', n: 'Origen de la vida', v: [
         { rel: 'Relacione las teorías del origen de la vida con su descripción.', cols: ['Teoría', 'Descripción'],
@@ -134,6 +139,11 @@
     nombre: 'Geografia',
     descripcion: 'Mapas y SIG, relieve y erosion, recursos naturales, fenomenos naturales, climas, poblacion, riesgos y territorio de Mexico. Reactivos 15 a 24 del area.',
     etiquetas: ['mapa', 'sig', 'erosion', 'recursos', 'clima', 'poblacion', 'riesgos'],
+    niveles: {
+      facil: ['mapa', 'sig', 'fenomenos'],
+      medio: ['erosion', 'recursos', 'sectores', 'demografia', 'riesgos'],
+      dificil: ['clima', 'territorio']
+    },
     items: [
       { s: 'mapa', n: 'Elementos del mapa', v: [
         { p: 'Además del título y la escala, ¿qué otros elementos deben estar siempre presentes en un mapa?', b: 'Simbología y coordenadas',
@@ -210,6 +220,11 @@
     descripcion: 'Atomo, tabla periodica, estados de la materia, mezclas, oxido-reduccion, acidos y bases, enlaces, gases y quimica organica. Reactivos 25 a 42 del area.',
     etiquetas: ['atomo', 'tabla periodica', 'enlace', 'redox', 'acido', 'gas ideal', 'organica'],
     formulario: 'PV = nRT, R = 0.0821 atm&middot;L/(mol&middot;K) &nbsp;&middot;&nbsp; pH &lt; 7 &aacute;cido, pH = 7 neutro, pH &gt; 7 b&aacute;sico',
+    niveles: {
+      facil: ['octeto', 'cambiosEstado', 'estados', 'mezclas', 'compuesto', 'ph'],
+      medio: ['particulas', 'bohr', 'tablaPeriodica', 'neutralizacion', 'enlaces', 'grupoFuncional', 'nomenclatura'],
+      dificil: ['oxidante', 'seOxida', 'acidoBase', 'caracEnlaces', 'gasIdeal']
+    },
     items: [
       { s: 'particulas', n: 'Particulas del atomo', v: [
         { rel: 'Relacione las partículas con sus características.', cols: ['Partícula', 'Característica'],

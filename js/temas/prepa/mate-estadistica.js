@@ -172,6 +172,16 @@
         'P = ' + comb(n, k) + ' &times; (' + F.fracTxt(1, c.q) + ')<sup>' + k + '</sup> &times; (' + F.fracTxt(c.q - 1, c.q) + ')<sup>' + (n - k) + '</sup> = <b>' + f3(v) + '</b>']);
   };
 
+  var SUB_ESTADISTICA = [
+    ['muestraVariable', 'Muestra y variable', 'facil'],
+    ['mediana', 'Mediana', 'facil'],
+    ['varianza', 'Varianza', 'dificil'],
+    ['grafica', 'Grafica de la distribucion', 'medio'],
+    ['deterministico', 'Deterministico o aleatorio', 'facil'],
+    ['independientes', 'Eventos independientes', 'medio'],
+    ['binomial', 'Distribucion binomial', 'dificil']
+  ];
+
   EJ.tema({
     id: 'prepa-estadistica',
     materia: 'prepa',
@@ -179,19 +189,11 @@
     nombre: 'Estadistica y probabilidad',
     descripcion: 'Multirreactivos: muestra y variable, mediana, varianza y graficas de un grupo; torneo con probabilidad, eventos independientes y binomial. Reactivos 34 a 40 de la guia.',
     etiquetas: ['muestra', 'variable', 'mediana', 'varianza', 'grafica', 'probabilidad', 'binomial'],
-    dificultades: ['medio'],
+    dificultades: P.registrarSubtemas('prepa-estadistica', SUB_ESTADISTICA),
     formulario: 'Media: x&#772; = &sum;x<sub>i</sub>/n &nbsp;&middot;&nbsp; Varianza muestral: S = &sum;(x<sub>i</sub> &minus; x&#772;)' + F.sup(2) + '/(n &minus; 1)<br>' +
       'Independientes: P(A &cap; B) = P(A)P(B) &nbsp;&middot;&nbsp; Binomial: C(n, k) p<sup>k</sup>(1 &minus; p)<sup>n&minus;k</sup>',
     generar: function (dif, r) {
-      var t = r.subtema([
-        ['muestraVariable', 'Muestra y variable'],
-        ['mediana', 'Mediana'],
-        ['varianza', 'Varianza'],
-        ['grafica', 'Grafica de la distribucion'],
-        ['deterministico', 'Deterministico o aleatorio'],
-        ['independientes', 'Eventos independientes'],
-        ['binomial', 'Distribucion binomial']
-      ]);
+      var t = P.subtemaDe(r, dif, 'prepa-estadistica', SUB_ESTADISTICA);
       return casos[t](r);
     }
   });

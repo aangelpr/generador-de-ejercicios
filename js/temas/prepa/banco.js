@@ -118,10 +118,23 @@
 
   /* Registra un tema hecho de un banco.
      def: {id, grupo, nombre, descripcion, etiquetas, formulario,
-           items: [{s: 'id', n: 'Nombre visible', v: [variantes]}]} */
+           items: [{s: 'id', n: 'Nombre visible', v: [variantes]}],
+           niveles: {facil: ['id', ...], medio: [...], dificil: [...]}}
+     Cada subtema debe aparecer en exactamente un nivel. */
   P.temaBanco = function (def) {
-    var porId = {};
+    var porId = {}, nivelDe = {};
     def.items.forEach(function (it) { porId[it.s] = it; });
+    Object.keys(def.niveles || {}).forEach(function (n) {
+      def.niveles[n].forEach(function (s) {
+        if (!porId[s]) throw new Error('Nivel para un subtema que no existe: ' + def.id + '|' + s);
+        if (nivelDe[s]) throw new Error('Subtema con dos niveles: ' + def.id + '|' + s);
+        nivelDe[s] = n;
+      });
+    });
+    var lista = def.items.map(function (it) {
+      if (!nivelDe[it.s]) throw new Error('Subtema sin nivel: ' + def.id + '|' + it.s);
+      return [it.s, it.n, nivelDe[it.s]];
+    });
     EJ.tema({
       id: def.id,
       materia: 'prepa',
@@ -130,9 +143,9 @@
       descripcion: def.descripcion,
       etiquetas: def.etiquetas || [],
       formulario: def.formulario || '',
-      dificultades: ['medio'],
+      dificultades: P.registrarSubtemas(def.id, lista),
       generar: function (dif, r) {
-        var s = r.subtema(def.items.map(function (it) { return [it.s, it.n]; }));
+        var s = P.subtemaDe(r, dif, def.id, lista);
         var it = porId[s];
         /* la variante sale primero: en un multirreactivo, misma semilla = misma lectura */
         var v = r.elige(it.v);

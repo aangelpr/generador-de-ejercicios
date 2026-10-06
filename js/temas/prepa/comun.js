@@ -191,4 +191,35 @@
 
   /* Negativos entre parentesis: 4 -> "4", -4 -> "(-4)" */
   prepa.np = function (k) { return k < 0 ? '(' + k + ')' : String(k); };
+
+  /* ---------- niveles de dificultad ----------
+     Cada reactivo de la guia (un subtema) tiene su nivel:
+       facil   recordar un dato o reconocer un concepto; cuenta de un paso
+       medio   relacionar varios datos o aplicar una formula
+       dificil varios pasos, analisis o distractores muy parecidos
+     Al practicar, cada nivel muestra solo sus subtemas (en el orden de la
+     guia). El simulacro usa estos niveles para ir de facil a dificil. */
+  var NIVELES = ['facil', 'medio', 'dificil'];
+  prepa.orden = {};   // temaId -> [subtema, ...] en el orden de la guia
+  prepa.nivel = {};   // 'temaId|subtema' -> 'facil' | 'medio' | 'dificil'
+
+  /* lista: [[id, 'Nombre visible', nivel], ...]. Devuelve los niveles que
+     tiene el tema, para EJ.tema({dificultades}). */
+  prepa.registrarSubtemas = function (temaId, lista) {
+    prepa.orden[temaId] = lista.map(function (x) { return x[0]; });
+    lista.forEach(function (x) {
+      if (NIVELES.indexOf(x[2]) === -1) throw new Error('Nivel invalido en ' + temaId + '|' + x[0]);
+      prepa.nivel[temaId + '|' + x[0]] = x[2];
+    });
+    return NIVELES.filter(function (n) { return lista.some(function (x) { return x[2] === n; }); });
+  };
+
+  /* Elige el subtema: uno del nivel pedido. Si viene forzado (un examen o un
+     simulacro que se reconstruye), manda el nivel de ese subtema. */
+  prepa.subtemaDe = function (r, dif, temaId, lista) {
+    var nivel = (r.forzado && prepa.nivel[temaId + '|' + r.forzado]) || dif;
+    var deNivel = lista.filter(function (x) { return x[2] === nivel; });
+    if (!deNivel.length) deNivel = lista;
+    return r.subtema(deNivel.map(function (x) { return [x[0], x[1]]; }));
+  };
 })();

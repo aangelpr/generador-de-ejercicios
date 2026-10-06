@@ -43,6 +43,11 @@
     descripcion: 'Destrezas, sectores, plan de vida, reclutamiento, documentos, tipos de contratacion y trabajador, y derechos y obligaciones de la Ley Federal del Trabajo. Los 20 reactivos del area.',
     etiquetas: ['ley federal del trabajo', 'aguinaldo', 'vacaciones', 'curp', 'nss', 'ptu', 'contrato'],
     formulario: 'Jornada diurna: 8 h, nocturna: 7 h, mixta: 7.5 h &nbsp;&middot;&nbsp; Aguinaldo: 15 días mínimo<br>Vacaciones: 1 año 12 días, 2 años 14, 3 años 16, 4 años 18, 5 años 20 &nbsp;&middot;&nbsp; PTU: 10% de las utilidades',
+    niveles: {
+      facil: ['destreza', 'sectores', 'curriculum', 'curp', 'tipoTrabajador', 'jornada', 'aguinaldo', 'obligaciones'],
+      medio: ['planVida', 'fuentes', 'nss', 'contratacion', 'vacaciones', 'salario', 'prohibiciones'],
+      dificil: ['pruebas', 'ptu', 'exceptuados', 'suspension', 'rescision']
+    },
     items: [
       { s: 'destreza', n: 'Destrezas', v: [
         { p: 'Las destrezas son habilidades específicas para realizar una actividad. ¿Cuál opción describe una destreza deportiva?', b: 'Ejecutar movimientos precisos como driblar un balón',
@@ -186,6 +191,11 @@
     nombre: 'Administracion',
     descripcion: 'Escuelas de la administracion, planeacion, principios de Fayol, proceso administrativo, areas funcionales y manuales. Reactivos 1 a 14 de la capacitacion.',
     etiquetas: ['taylor', 'fayol', 'proceso administrativo', 'planeacion', 'manuales'],
+    niveles: {
+      facil: ['escuelas', 'importancia', 'areaFuncional', 'areaRH', 'gestion'],
+      medio: ['humanista', 'planeacion', 'principios', 'proceso', 'etapas', 'manuales'],
+      dificil: ['globalizacion', 'etapaAjuste', 'manualProc']
+    },
     items: [
       { s: 'escuelas', n: 'Escuelas de la administracion', v: [
         { p: '¿Quién es el precursor de la administración científica?', b: 'Frederick W. Taylor', m: ['Elton Mayo', 'Max Weber', 'William Ouchi'] },
@@ -252,6 +262,11 @@
     nombre: 'Reclutamiento y seleccion',
     descripcion: 'Conceptos de reclutamiento, analisis y requisicion de puestos, tipos de reclutamiento y entrevista, examen medico, contratos e induccion. Reactivos 15 a 22 de la capacitacion.',
     etiquetas: ['reclutamiento', 'seleccion', 'entrevista', 'contrato', 'induccion'],
+    niveles: {
+      facil: ['definicion', 'interno', 'examenMedico', 'induccion'],
+      medio: ['conceptos', 'entrevista', 'contratos'],
+      dificil: ['requisicion']
+    },
     items: [
       { s: 'conceptos', n: 'Conceptos de reclutamiento', v: [
         { rel: 'Relacione cada concepto del proceso de reclutamiento con su definición.', cols: ['Concepto', 'Definición'],
@@ -303,6 +318,11 @@
     formulario: 'Salario diario = mensual / 30 &nbsp;&middot;&nbsp; Aguinaldo = 15 días &times; diario &times; días trabajados / 365<br>' +
       'Prima vacacional = 25% &times; días de vacaciones &times; diario &nbsp;&middot;&nbsp; Horas extra (primeras 9 a la semana) = 2 &times; hora normal<br>' +
       'ISR = cuota fija + (ingreso &minus; límite inferior) &times; %',
+    niveles: {
+      facil: ['sbc', 'sindical', 'lss'],
+      medio: ['sbc2', 'aguinaldo', 'prima', 'extra1', 'extra2'],
+      dificil: ['isr', 'neto', 'falta']
+    },
     items: [
       { s: 'sbc', n: 'Salario base de cotizacion', v: [
         { p: 'El salario base de cotización se integra con los pagos en efectivo por cuota diaria, gratificaciones y percepciones. ¿En qué ley se establece?', b: 'Ley del Seguro Social', m: ['Ley del Impuesto sobre la Renta', 'Ley del INFONAVIT', 'Ley Federal del Trabajo'] }
@@ -331,6 +351,11 @@
     nombre: 'Seguridad e higiene',
     descripcion: 'Seguridad e higiene laboral, NOM, factores de riesgo, equipo de proteccion y prevencion. Reactivos 34 a 40 de la capacitacion.',
     etiquetas: ['seguridad', 'higiene', 'riesgos', 'nom', 'epp'],
+    niveles: {
+      facil: ['higiene', 'seguridad', 'epp'],
+      medio: ['nom', 'riesgos', 'programa'],
+      dificil: ['ergonomia']
+    },
     items: [
       { s: 'higiene', n: 'Higiene laboral', v: [
         { p: '¿Qué disciplina busca prevenir enfermedades de trabajo identificando y controlando los factores de riesgo del ambiente laboral?', b: 'Higiene laboral', m: ['Salud pública', 'Seguridad laboral', 'Mercadotecnia'] }

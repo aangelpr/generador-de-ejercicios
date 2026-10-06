@@ -16,6 +16,11 @@
     nombre: 'Comunicacion y redaccion',
     descripcion: 'Barreras e intencion comunicativa, lenguaje denotativo y connotativo, esquema de redaccion, idea principal, oraciones, ortografia, sinonimos y homofonos. Reactivos 1 a 9 del area.',
     etiquetas: ['barreras', 'intencion', 'connotativo', 'ortografia', 'homofonos', 'oracion'],
+    niveles: {
+      facil: ['barreras', 'intencion', 'lenguaje', 'sinonimos'],
+      medio: ['esquemaRedaccion', 'ortografia', 'homofonos'],
+      dificil: ['ideaPrincipal', 'oraciones']
+    },
     items: [
       { s: 'barreras', n: 'Barreras de la comunicacion', v: [
         { p: 'En una fiesta, con la música a todo volumen, Carlos le preguntó la hora a Mario, y Mario respondió que estaba feliz y siguió bailando. ¿Qué tipo de barrera comunicativa se ejemplifica?',
@@ -87,6 +92,11 @@
     nombre: 'Tipos de texto y literatura',
     descripcion: 'Textos narrativo, expositivo, periodistico y publicitario; hechos y opiniones; generos literarios, mito, drama, tragedia, figuras retoricas y subgeneros liricos. Reactivos 10 a 21 del area.',
     etiquetas: ['narrativo', 'expositivo', 'nota informativa', 'mito', 'tragedia', 'oda', 'figuras retoricas'],
+    niveles: {
+      facil: ['tipoTexto', 'hechos', 'personajes', 'tragedia'],
+      medio: ['expositivo', 'notaInformativa', 'propaganda', 'mito', 'figuras'],
+      dificil: ['periodisticoOpinion', 'dramatico', 'lirica']
+    },
     items: [
       { s: 'tipoTexto', n: 'Tipo de texto', v: [
         { p: '¿Qué tipo de texto es el fragmento?<br><i>¡Qué frío hacía! Nevaba y comenzaba a oscurecer; era la última noche del año. Por la calle pasaba una pobre niña descalza y con la cabeza descubierta...</i> (H. C. Andersen)',
@@ -161,6 +171,11 @@
     nombre: 'Investigacion',
     descripcion: 'Tecnicas de recopilacion, tipos de investigacion, citas y notas en trabajos academicos. Reactivos 22 a 24 del area.',
     etiquetas: ['observacion', 'correlacional', 'cita', 'nota al pie'],
+    niveles: {
+      facil: ['tecnicas'],
+      medio: ['citas'],
+      dificil: ['tipoInvestigacion']
+    },
     items: [
       { s: 'tecnicas', n: 'Tecnicas de recopilacion', v: [
         { p: '¿Qué técnica se usa? Un investigador pasa una hora en un parque observando a los niños jugar, sin intervenir, para describir su comportamiento espontáneo.', b: 'Observación no participante',
@@ -192,6 +207,11 @@
     nombre: 'Ingles',
     descripcion: 'Wh-questions, verbos modales, presente simple y continuo, pasado simple y continuo, futuro y comprension de lectura. Reactivos 25 a 32 del area.',
     etiquetas: ['ingles', 'wh questions', 'modal', 'past', 'future', 'reading'],
+    niveles: {
+      facil: ['wh', 'ideaGeneral', 'vocabulario'],
+      medio: ['presente', 'futuro', 'detalle'],
+      dificil: ['modales', 'pasado']
+    },
     items: [
       { s: 'wh', n: 'Wh-questions', v: [
         { c: 'Mark: Hi, I am Mark. ___ are you?<br>Lisa: I am Lisa. I am from Mexico. ___ are you from?<br>Mark: I am from Australia. ___ did you arrive?<br>Lisa: Yesterday, at midnight.<br>Mark: ___ did you arrive so late?<br>Lisa: Because I lost my flight.',

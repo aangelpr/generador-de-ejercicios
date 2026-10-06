@@ -58,6 +58,11 @@
     descripcion: 'Clasificacion hotelera, tipos de habitacion, planes de alojamiento, costo de la estancia, formas de pago, check in, concierge, botones, guarda de equipaje, objetos olvidados y limpieza. Reactivos 1 a 12 de la capacitacion.',
     etiquetas: ['hotel', 'habitacion', 'plan americano', 'check in', 'botones', 'ama de llaves'],
     formulario: 'Costo de la estancia = tarifa &times; noches &times; (1 + 0.16 IVA + 0.03 ISH) &nbsp;&middot;&nbsp; Con propina de 10%: &times; 1.29',
+    niveles: {
+      facil: ['estrellas', 'habitacion', 'pagos', 'concierge'],
+      medio: ['planes', 'costo', 'checkIn', 'checkRoom', 'olvidados'],
+      dificil: ['costoPropina', 'botones', 'limpieza']
+    },
     items: [
       { s: 'estrellas', n: 'Clasificacion hotelera', v: [
         { p: '¿Qué institución otorga en México la clasificación de estrellas a los hoteles?', b: 'Secretaría de Turismo (SECTUR)', m: ['American Automobile Association (AAA)', 'Asociación Mexicana de Hoteles y Moteles', 'Organización Mundial del Turismo (OMT)'] }
@@ -111,6 +116,11 @@
     nombre: 'Cocina',
     descripcion: 'Equipo de cocina, condimentos, terminos culinarios, metodos de coccion, higiene, cortes, fondos y salsas madre. Reactivos 13 a 20 de la capacitacion.',
     etiquetas: ['cocina', 'cortes', 'fondos', 'salsas madre', 'coccion'],
+    niveles: {
+      facil: ['condimento', 'lechuga', 'fondos'],
+      medio: ['equipoMayor', 'terminos', 'coccion'],
+      dificil: ['cortes', 'salsas']
+    },
     items: [
       { s: 'equipoMayor', n: 'Equipo mayor de cocina', v: [
         { lista: 'Del siguiente listado, identifique el equipo mayor de cocina.', si: ['Horno', 'Plancha', 'Salamandra', 'Estufa', 'Freidora'], no: ['Batidor de globo', 'Cuchillo', 'Pala', 'Colador', 'Tabla de picar'] }
@@ -155,6 +165,11 @@
     nombre: 'Restaurante y bar',
     descripcion: 'Terminos de restaurante, equipo de servicio, tipos de servicio y montaje, stock, reservaciones, recepcion del comensal, carta y menu, charoleo, cristaleria, equipo de bar y bebidas. Reactivos 21 a 35 de la capacitacion.',
     etiquetas: ['restaurante', 'montaje', 'servicio', 'bar', 'cristaleria', 'bebidas'],
+    niveles: {
+      facil: ['coffeeBreak', 'montajeMesa', 'recepcionComensal', 'menu', 'charoleo', 'bebidasSin'],
+      medio: ['terminosRest', 'tipoServicio', 'montaje', 'stock', 'reservacion', 'cristaleria', 'bebidasAlcohol'],
+      dificil: ['equipoServicio', 'equipoBar']
+    },
     items: [
       { s: 'terminosRest', n: 'Terminos de restaurante', v: [
         { rel: 'Relacione los términos de restaurante con su definición.', cols: ['Término', 'Definición'],
@@ -228,6 +243,11 @@
     nombre: 'Caja de restaurante y recepcion',
     descripcion: 'Conceptos de caja, procedimientos del cajero de restaurante y de recepcion, ajustes y saldos de huespedes. Reactivos 36 a 40 de la capacitacion.',
     etiquetas: ['caja', 'cargo', 'abono', 'ish', 'divisa', 'saldo'],
+    niveles: {
+      facil: ['ajuste'],
+      medio: ['conceptosCaja', 'cajeroRecep'],
+      dificil: ['cajeroRest', 'saldos']
+    },
     items: [
       { s: 'conceptosCaja', n: 'Conceptos de caja', v: [
         { rel: 'Relacione cada concepto de caja con su definición.', cols: ['Concepto', 'Definición'],

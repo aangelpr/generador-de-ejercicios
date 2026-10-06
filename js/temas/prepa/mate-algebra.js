@@ -223,6 +223,17 @@
         cuad + ' = ' + fx(q) + fx(s)]);
   };
 
+  var SUB_ALGEBRA = [
+    ['racionales', 'Ordenar racionales', 'facil'],
+    ['grado', 'Grado de un polinomio', 'facil'],
+    ['lenguaje', 'Lenguaje algebraico', 'facil'],
+    ['progAritmetica', 'Progresion aritmetica', 'medio'],
+    ['progGeometrica', 'Progresion geometrica', 'dificil'],
+    ['proporcionInversa', 'Proporcionalidad inversa', 'medio'],
+    ['variacion', 'Variacion lineal y proporcional', 'medio'],
+    ['factorizacion', 'Factorizacion', 'dificil']
+  ];
+
   EJ.tema({
     id: 'prepa-algebra',
     materia: 'prepa',
@@ -230,22 +241,13 @@
     nombre: 'Numeros, algebra y variacion',
     descripcion: 'Racionales, grado, lenguaje algebraico, progresiones, proporcionalidad inversa, variacion y factorizacion. Reactivos 1 a 8 de la guia.',
     etiquetas: ['racionales', 'grado', 'lenguaje algebraico', 'progresion', 'proporcionalidad', 'factorizacion'],
-    dificultades: ['medio'],
+    dificultades: P.registrarSubtemas('prepa-algebra', SUB_ALGEBRA),
     formulario: 'Aritmetica: a<sub>n</sub> = a<sub>1</sub> + (n &minus; 1)r, S<sub>n</sub> = n(a<sub>1</sub> + a<sub>n</sub>)/2<br>' +
       'Geometrica: a<sub>n</sub> = a<sub>1</sub>r<sup>n&minus;1</sup>, S<sub>n</sub> = (r&middot;a<sub>n</sub> &minus; a<sub>1</sub>)/(r &minus; 1)<br>' +
       'Proporcional: y = kx &nbsp;&middot;&nbsp; Lineal: y = mx + b &nbsp;&middot;&nbsp; Inversa: x&middot;y = k',
 
     generar: function (dif, r) {
-      var t = r.subtema([
-        ['racionales', 'Ordenar racionales'],
-        ['grado', 'Grado de un polinomio'],
-        ['lenguaje', 'Lenguaje algebraico'],
-        ['progAritmetica', 'Progresion aritmetica'],
-        ['progGeometrica', 'Progresion geometrica'],
-        ['proporcionInversa', 'Proporcionalidad inversa'],
-        ['variacion', 'Variacion lineal y proporcional'],
-        ['factorizacion', 'Factorizacion']
-      ]);
+      var t = P.subtemaDe(r, dif, 'prepa-algebra', SUB_ALGEBRA);
       return casos[t](r);
     }
   });

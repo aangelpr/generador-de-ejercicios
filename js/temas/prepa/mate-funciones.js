@@ -149,6 +149,14 @@
         '= ' + (a * T * T * T) + ' + ' + (b * T * T) + ' + ' + (c * T) + ' = <b>' + total + ' cm</b>']);
   };
 
+  var SUB_FUNCIONES = [
+    ['rango', 'Rango de funciones trigonometricas', 'facil'],
+    ['paridad', 'Paridad', 'medio'],
+    ['tipos', 'Tipos de funciones', 'facil'],
+    ['logaritmos', 'Logaritmos e interes', 'dificil'],
+    ['limite', 'Limites', 'medio']
+  ];
+
   EJ.tema({
     id: 'prepa-funciones',
     materia: 'prepa',
@@ -156,20 +164,20 @@
     nombre: 'Funciones',
     descripcion: 'Rango, paridad, tipos de funcion, logaritmos y limites. Reactivos 26 a 30 de la guia.',
     etiquetas: ['rango', 'paridad', 'exponencial', 'logaritmo', 'limite'],
-    dificultades: ['medio'],
+    dificultades: P.registrarSubtemas('prepa-funciones', SUB_FUNCIONES),
     formulario: '&minus;1 &le; sen x, cos x &le; 1 &nbsp;&middot;&nbsp; Par: f(&minus;x) = f(x) &nbsp;&middot;&nbsp; Impar: f(&minus;x) = &minus;f(x)<br>' +
       'log(a<sup>t</sup>) = t&middot;log(a) &nbsp;&middot;&nbsp; a' + F.sup(2) + ' &minus; b' + F.sup(2) + ' = (a &minus; b)(a + b)',
     generar: function (dif, r) {
-      var t = r.subtema([
-        ['rango', 'Rango de funciones trigonometricas'],
-        ['paridad', 'Paridad'],
-        ['tipos', 'Tipos de funciones'],
-        ['logaritmos', 'Logaritmos e interes'],
-        ['limite', 'Limites']
-      ]);
+      var t = P.subtemaDe(r, dif, 'prepa-funciones', SUB_FUNCIONES);
       return funciones[t](r);
     }
   });
+
+  var SUB_CALCULO = [
+    ['derivada', 'Derivada', 'facil'],
+    ['maximo', 'Maximo en un intervalo', 'dificil'],
+    ['integral', 'Integral definida', 'medio']
+  ];
 
   EJ.tema({
     id: 'prepa-calculo',
@@ -178,15 +186,11 @@
     nombre: 'Calculo',
     descripcion: 'Derivada como razon de cambio, maximos en un intervalo e integral como acumulacion. Reactivos 31 a 33 de la guia.',
     etiquetas: ['derivada', 'maximo', 'integral'],
-    dificultades: ['medio'],
+    dificultades: P.registrarSubtemas('prepa-calculo', SUB_CALCULO),
     formulario: '(t<sup>n</sup>)\' = n&middot;t<sup>n&minus;1</sup> &nbsp;&middot;&nbsp; Maximos y minimos: f\'(t) = 0<br>' +
       '&int;<sub>a</sub><sup>b</sup> f\'(t) dt = f(b) &minus; f(a)',
     generar: function (dif, r) {
-      var t = r.subtema([
-        ['derivada', 'Derivada'],
-        ['maximo', 'Maximo en un intervalo'],
-        ['integral', 'Integral definida']
-      ]);
+      var t = P.subtemaDe(r, dif, 'prepa-calculo', SUB_CALCULO);
       return calculo[t](r);
     }
   });

@@ -218,6 +218,27 @@
       ['n<sub>2</sub> = ' + ang[1].toFixed(2) + ' / ' + s2.toFixed(2) + ' = <b>' + P.num(nCalc) + '</b>']);
   };
 
+  var SUB_FISICA = [
+    ['velocidad', 'Velocidad', 'facil'],
+    ['aceleracion', 'Aceleracion', 'facil'],
+    ['fuerzaNeta', 'Fuerza neta', 'medio'],
+    ['aceleracionNewton', 'Segunda ley de Newton', 'facil'],
+    ['masaPeso', 'Masa y peso', 'facil'],
+    ['kepler', 'Leyes de Kepler', 'facil'],
+    ['calor', 'Transferencia de calor', 'facil'],
+    ['temperaturaCalor', 'Temperatura y calor', 'medio'],
+    ['sistemas', 'Sistemas termodinamicos', 'medio'],
+    ['leyesTermo', 'Leyes de la termodinamica', 'medio'],
+    ['charles', 'Ley de Charles', 'medio'],
+    ['boyle', 'Ley de Boyle', 'dificil'],
+    ['hooke', 'Ley de Hooke', 'dificil'],
+    ['pascal', 'Principio de Pascal', 'medio'],
+    ['arquimedes', 'Principio de Arquimedes', 'medio'],
+    ['ohmCorriente', 'Ley de Ohm: corriente', 'facil'],
+    ['ohmVoltaje', 'Ley de Ohm: voltaje', 'facil'],
+    ['snell', 'Ley de Snell', 'dificil']
+  ];
+
   EJ.tema({
     id: 'prepa-fisica',
     materia: 'prepa',
@@ -225,31 +246,12 @@
     nombre: 'Fisica',
     descripcion: 'Movimiento, Newton, peso, Kepler, calor y termodinamica, gases, Hooke, Pascal, Arquimedes, Ohm y Snell. La parte de fisica del area de ciencias experimentales de la guia.',
     etiquetas: ['velocidad', 'aceleracion', 'newton', 'kepler', 'calor', 'termodinamica', 'boyle', 'charles', 'hooke', 'pascal', 'arquimedes', 'ohm', 'snell'],
-    dificultades: ['medio'],
+    dificultades: P.registrarSubtemas('prepa-fisica', SUB_FISICA),
     formulario: 'v = d/t &nbsp;&middot;&nbsp; a = (v<sub>f</sub> &minus; v<sub>0</sub>)/t &nbsp;&middot;&nbsp; F = ma &nbsp;&middot;&nbsp; W = mg<br>' +
       'Boyle: P<sub>1</sub>V<sub>1</sub> = P<sub>2</sub>V<sub>2</sub> &nbsp;&middot;&nbsp; Charles: V<sub>1</sub>/T<sub>1</sub> = V<sub>2</sub>/T<sub>2</sub> &nbsp;&middot;&nbsp; Hooke: F = kx<br>' +
       'Pascal: F<sub>1</sub>/A<sub>1</sub> = F<sub>2</sub>/A<sub>2</sub> &nbsp;&middot;&nbsp; Arquimedes: E = &rho;gV &nbsp;&middot;&nbsp; Ohm: V = IR &nbsp;&middot;&nbsp; Snell: n<sub>1</sub>sen&theta;<sub>1</sub> = n<sub>2</sub>sen&theta;<sub>2</sub>',
     generar: function (dif, r) {
-      var t = r.subtema([
-        ['velocidad', 'Velocidad'],
-        ['aceleracion', 'Aceleracion'],
-        ['fuerzaNeta', 'Fuerza neta'],
-        ['aceleracionNewton', 'Segunda ley de Newton'],
-        ['masaPeso', 'Masa y peso'],
-        ['kepler', 'Leyes de Kepler'],
-        ['calor', 'Transferencia de calor'],
-        ['temperaturaCalor', 'Temperatura y calor'],
-        ['sistemas', 'Sistemas termodinamicos'],
-        ['leyesTermo', 'Leyes de la termodinamica'],
-        ['charles', 'Ley de Charles'],
-        ['boyle', 'Ley de Boyle'],
-        ['hooke', 'Ley de Hooke'],
-        ['pascal', 'Principio de Pascal'],
-        ['arquimedes', 'Principio de Arquimedes'],
-        ['ohmCorriente', 'Ley de Ohm: corriente'],
-        ['ohmVoltaje', 'Ley de Ohm: voltaje'],
-        ['snell', 'Ley de Snell']
-      ]);
+      var t = P.subtemaDe(r, dif, 'prepa-fisica', SUB_FISICA);
       return casos[t](r);
     }
   });

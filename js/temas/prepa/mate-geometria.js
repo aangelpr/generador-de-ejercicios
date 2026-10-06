@@ -266,6 +266,19 @@
         'Area = ' + (c / 2) + ' &times; ' + (c / 2) + '&radic;3 / 2 = <b>' + bien + '</b>']);
   };
 
+  var SUB_GEOMETRIA = [
+    ['definiciones', 'Definiciones (completar)', 'facil'],
+    ['notacion', 'Notacion geometrica', 'facil'],
+    ['angulos', 'Angulos y radianes', 'medio'],
+    ['relacionRectas', 'Relacion entre rectas', 'medio'],
+    ['triangulos', 'Clasificacion de triangulos', 'facil'],
+    ['semejanza', 'Triangulos semejantes', 'medio'],
+    ['volumen', 'Volumenes', 'medio'],
+    ['razones', 'Razones trigonometricas', 'medio'],
+    ['sumaAngulos', 'Circunferencia unitaria', 'dificil'],
+    ['areaTrig', 'Area con seno', 'dificil']
+  ];
+
   EJ.tema({
     id: 'prepa-geometria',
     materia: 'prepa',
@@ -273,24 +286,13 @@
     nombre: 'Geometria y trigonometria',
     descripcion: 'Definiciones, notacion, angulos y radianes, rectas, triangulos, semejanza, volumenes y trigonometria. Reactivos 9 a 18 de la guia.',
     etiquetas: ['circunferencia', 'angulos', 'radianes', 'triangulos', 'semejanza', 'volumen', 'seno', 'coseno'],
-    dificultades: ['medio'],
+    dificultades: P.registrarSubtemas('prepa-geometria', SUB_GEOMETRIA),
     formulario: 'Grados a radianes: &times; &pi;/180 &nbsp;&middot;&nbsp; Cilindro: &pi;r' + F.sup(2) + 'h &nbsp;&middot;&nbsp; Cono: &pi;r' + F.sup(2) + 'h/3 &nbsp;&middot;&nbsp; Esfera: 4&pi;r' + F.sup(3) + '/3<br>' +
       'sen = op/hip &nbsp;&middot;&nbsp; cos = ady/hip &nbsp;&middot;&nbsp; tan = op/ady<br>' +
       'cos(&alpha; + &beta;) = cos&alpha; cos&beta; &minus; sen&alpha; sen&beta; &nbsp;&middot;&nbsp; sen(&alpha; + &beta;) = sen&alpha; cos&beta; + cos&alpha; sen&beta;',
 
     generar: function (dif, r) {
-      var t = r.subtema([
-        ['definiciones', 'Definiciones (completar)'],
-        ['notacion', 'Notacion geometrica'],
-        ['angulos', 'Angulos y radianes'],
-        ['relacionRectas', 'Relacion entre rectas'],
-        ['triangulos', 'Clasificacion de triangulos'],
-        ['semejanza', 'Triangulos semejantes'],
-        ['volumen', 'Volumenes'],
-        ['razones', 'Razones trigonometricas'],
-        ['sumaAngulos', 'Circunferencia unitaria'],
-        ['areaTrig', 'Area con seno']
-      ]);
+      var t = P.subtemaDe(r, dif, 'prepa-geometria', SUB_GEOMETRIA);
       return casos[t](r);
     }
   });

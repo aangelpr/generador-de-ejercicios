@@ -157,6 +157,16 @@
         ? ['b = &radic;(' + (a * a) + ' &minus; ' + (c * c) + ') = <b>' + b + ' m</b>'] : ['Semidistancia focal: <b>' + c + ' m</b>']));
   };
 
+  var SUB_ANALITICA = [
+    ['polares', 'Coordenadas polares', 'medio'],
+    ['puntoMedio', 'Punto medio', 'facil'],
+    ['pendiente', 'Pendiente', 'facil'],
+    ['sistema', 'Sistemas de ecuaciones', 'dificil'],
+    ['vertice', 'Vertice de la parabola', 'medio'],
+    ['conicas', 'Identificar conicas', 'medio'],
+    ['excentricidad', 'Excentricidad de la elipse', 'dificil']
+  ];
+
   EJ.tema({
     id: 'prepa-analitica',
     materia: 'prepa',
@@ -164,20 +174,12 @@
     nombre: 'Geometria analitica',
     descripcion: 'Coordenadas polares, punto medio, pendiente, sistemas de ecuaciones, vertice de la parabola, conicas y excentricidad. Reactivos 19 a 25 de la guia.',
     etiquetas: ['polares', 'punto medio', 'pendiente', 'sistemas', 'parabola', 'conicas', 'elipse'],
-    dificultades: ['medio'],
+    dificultades: P.registrarSubtemas('prepa-analitica', SUB_ANALITICA),
     formulario: 'Punto medio: ((x<sub>1</sub> + x<sub>2</sub>)/2, (y<sub>1</sub> + y<sub>2</sub>)/2) &nbsp;&middot;&nbsp; Polares: r = &radic;(x' + F.sup(2) + ' + y' + F.sup(2) + '), &theta; = arctan(y/x)<br>' +
       'Vertice: x = &minus;b/2a &nbsp;&middot;&nbsp; Elipse: e = c/a, a' + F.sup(2) + ' = b' + F.sup(2) + ' + c' + F.sup(2) + ', eje mayor = 2a',
 
     generar: function (dif, r) {
-      var t = r.subtema([
-        ['polares', 'Coordenadas polares'],
-        ['puntoMedio', 'Punto medio'],
-        ['pendiente', 'Pendiente'],
-        ['sistema', 'Sistemas de ecuaciones'],
-        ['vertice', 'Vertice de la parabola'],
-        ['conicas', 'Identificar conicas'],
-        ['excentricidad', 'Excentricidad de la elipse']
-      ]);
+      var t = P.subtemaDe(r, dif, 'prepa-analitica', SUB_ANALITICA);
       return casos[t](r);
     }
   });

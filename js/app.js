@@ -70,15 +70,23 @@
 
     /* practica mixta y examen */
     if (!filtro) {
+      var er = EJ.ruta.estado(cfg.materia);
+      var br = crear('button', 'tema-btn mixta ruta' + (cfg.ruta && !enExamen() ? ' activo' : ''));
+      br.innerHTML = 'Ruta en orden<small>' + (!er.total ? 'Sin temas'
+        : er.actual ? 'Paso ' + (er.paso + 1) + ' de ' + er.total + ': ' + EJ.buscarTema(er.actual.temaId).nombre
+          : 'Terminada: ' + er.total + ' de ' + er.total + ' pasos') + '</small>';
+      br.onclick = activarRuta;
+      cont.appendChild(br);
+
       var bm = crear('button', 'tema-btn mixta' + (cfg.mezcla ? ' activo' : ''));
-      bm.innerHTML = 'Practica mixta<small>Ejercicios de varios temas al azar</small>';
+      bm.innerHTML = 'Modo aleatorio<small>Ejercicios de todos los temas al azar</small>';
       bm.onclick = activarMezcla;
       cont.appendChild(bm);
 
       var haySimulacro = !!simulacrosDeMateria().length;
       if (haySimulacro) {
         var bs = crear('button', 'tema-btn examen' + (enSimulacro() ? ' activo' : ''));
-        bs.innerHTML = 'Simulacro tipo examen<small>Mismo orden, preguntas y tiempo que la guia</small>';
+        bs.innerHTML = 'Simulacro tipo examen<small>Mismas preguntas y tiempo que la guia</small>';
         bs.onclick = abrirSimulacros;
         cont.appendChild(bs);
       }
@@ -137,6 +145,8 @@
   /* ---------------- practica mixta ---------------- */
   function activarMezcla() {
     vistaExamen = null; examen = null; nota = null;
+    cfg.ruta = false;
+    EJ.almacen.set('ruta', false);
     cfg.mezcla = true;
     cfg.guiado = false;          // la mezcla siempre es para resolver tu
     EJ.almacen.set('mezcla', true);
@@ -145,11 +155,104 @@
     nuevoEjercicio();
   }
 
+  /* ---------------- ruta en orden ---------------- */
+  function activarRuta() {
+    vistaExamen = null; examen = null; nota = null;
+    cfg.mezcla = false;
+    EJ.almacen.set('mezcla', false);
+    cfg.ruta = true;
+    cfg.guiado = false;
+    EJ.almacen.set('ruta', true);
+    pintarTemas();
+    cerrarListaEnCelular();
+    nuevoEjercicio();
+  }
+
+  function cabeceraRuta() {
+    var e = EJ.ruta.estado(cfg.materia);
+    var cab = crear('div', 'tarjeta ruta-cab');
+    cab.id = 'cab-ruta';
+    cab.appendChild(crear('h2', null, 'Ruta en orden'));
+    cab.appendChild(crear('p', 'desc', 'Empiezas en lo más básico y avanzas solo: con ' + e.meta +
+      ' aciertos pasas al siguiente paso. Cada tema va de Fácil a Medio a Difícil.'));
+    if (e.actual) {
+      var t = EJ.buscarTema(e.actual.temaId);
+      var linea = crear('div', 'ruta-linea');
+      linea.appendChild(crear('div', 'ruta-paso', 'Paso <b>' + (e.paso + 1) + '</b> de ' + e.total + ': <b>' + t.nombre +
+        '</b> <span class="nivel-tag">' + (NOMBRES_DIF[e.actual.nivel] || e.actual.nivel) + '</span>'));
+      var puntos = '';
+      for (var i = 0; i < e.meta; i++) puntos += '<span class="punto' + (i < e.aciertos ? ' lleno' : '') + '"></span>';
+      linea.appendChild(crear('div', 'ruta-aciertos', puntos + ' ' + e.aciertos + ' de ' + e.meta + ' aciertos'));
+      cab.appendChild(linea);
+    }
+    var barra = crear('div', 'barra-progreso');
+    barra.appendChild(crear('div', 'relleno')).style.width = Math.round(100 * e.paso / Math.max(1, e.total)) + '%';
+    cab.appendChild(barra);
+
+    var acc = crear('div', 'acciones');
+    if (e.actual) {
+      var saltar = crear('button', 'fantasma', 'Saltar este paso');
+      saltar.onclick = function () { EJ.ruta.saltar(cfg.materia); pintarTemas(); nuevoEjercicio(); };
+      acc.appendChild(saltar);
+    }
+    var reini = crear('button', 'fantasma', 'Empezar de nuevo');
+    reini.onclick = function () {
+      if (!confirm('Vuelves al primer paso de la ruta. Continuar?')) return;
+      EJ.ruta.reiniciar(cfg.materia); pintarTemas(); nuevoEjercicio();
+    };
+    acc.appendChild(reini);
+    cab.appendChild(acc);
+
+    /* la ruta completa: tocar un nivel lleva a ese paso */
+    var det = crear('details', 'formulario ruta-mapa');
+    det.innerHTML = '<summary>Ver la ruta completa</summary>';
+    var cuerpo = crear('div', 'cuerpo');
+    var porTema = [];
+    e.pasos.forEach(function (p, i) {
+      var ult = porTema[porTema.length - 1];
+      if (!ult || ult.temaId !== p.temaId) porTema.push(ult = { temaId: p.temaId, pasos: [] });
+      ult.pasos.push({ nivel: p.nivel, i: i });
+    });
+    porTema.forEach(function (g) {
+      var fila = crear('div', 'ruta-fila');
+      fila.appendChild(crear('span', 'ruta-tema', EJ.buscarTema(g.temaId).nombre));
+      g.pasos.forEach(function (p) {
+        var b = crear('button', 'ruta-chip' + (p.i < e.paso ? ' hecho' : p.i === e.paso ? ' aqui' : ''),
+          (p.i < e.paso ? '&check; ' : '') + (NOMBRES_DIF[p.nivel] || p.nivel));
+        b.title = 'Ir a este paso';
+        b.onclick = function () { EJ.ruta.irA(cfg.materia, p.i); pintarTemas(); nuevoEjercicio(); };
+        fila.appendChild(b);
+      });
+      cuerpo.appendChild(fila);
+    });
+    det.appendChild(cuerpo);
+    cab.appendChild(det);
+    return cab;
+  }
+
+  function pintarRutaTerminada() {
+    var e = EJ.ruta.estado(cfg.materia);
+    var zona = $('zona');
+    zona.innerHTML = '';
+    var card = crear('div', 'tarjeta vacio vacio-inicio');
+    card.appendChild(crear('h2', null, '¡Terminaste la ruta!'));
+    card.appendChild(crear('p', null, 'Superaste los ' + e.total + ' pasos, de lo más básico a lo más difícil. Ahora repasa en el modo aleatorio o empieza otra vez.'));
+    var acc = crear('div', 'acciones');
+    var ale = crear('button', 'primario', 'Modo aleatorio');
+    ale.onclick = activarMezcla;
+    var otra = crear('button', null, 'Empezar de nuevo');
+    otra.onclick = function () { EJ.ruta.reiniciar(cfg.materia); pintarTemas(); nuevoEjercicio(); };
+    acc.appendChild(ale); acc.appendChild(otra);
+    card.appendChild(acc);
+    zona.appendChild(card);
+  }
+
   /* Temas que entran en la mezcla: los del grupo elegido (o todos) que
-     tengan la dificultad actual. */
+     tengan la dificultad actual (o todos, si la dificultad va revuelta). */
   function temasDeLaMezcla() {
     var lista = EJ.temas(cfg.materia);
     if (cfg.mezclaGrupo) lista = lista.filter(function (t) { return t.grupo === cfg.mezclaGrupo; });
+    if (cfg.mezclaRevuelta) return lista;
     var conDif = lista.filter(function (t) { return t.dificultades.indexOf(cfg.dificultad) !== -1; });
     return conDif.length ? conDif : lista;
   }
@@ -158,6 +261,8 @@
     vistaExamen = null; examen = null; nota = null;
     cfg.mezcla = false;
     EJ.almacen.set('mezcla', false);
+    cfg.ruta = false;
+    EJ.almacen.set('ruta', false);
     cfg.tema = id;
     cfg.subtema = null;              // al cambiar de tema se vuelve a "Mezcla"
     EJ.almacen.set('tema', id);
@@ -181,12 +286,27 @@
   /* ---------------- ejercicio ---------------- */
   function nuevoEjercicio(semilla) {
     animarEntrada();
+    if (cfg.ruta) {
+      var paso = EJ.ruta.estado(cfg.materia).actual;
+      if (!paso) return pintarRutaTerminada();
+      try {
+        estado = EJ.motor.nuevo(paso.temaId, paso.nivel, semilla, null);
+      } catch (e) {
+        $('zona').innerHTML = '';
+        $('zona').appendChild(crear('div', 'tarjeta', '<b>No se pudo generar el ejercicio.</b><br><small>' + e.message + '</small>'));
+        return;
+      }
+      return pintarEjercicio();
+    }
     if (cfg.mezcla) {
       var pool = temasDeLaMezcla();
       if (!pool.length) return pintarVacio();
       var elegido = pool[Math.floor(Math.random() * pool.length)];
+      var difMezcla = cfg.mezclaRevuelta
+        ? elegido.dificultades[Math.floor(Math.random() * elegido.dificultades.length)]
+        : cfg.dificultad;
       try {
-        estado = EJ.motor.nuevo(elegido.id, cfg.dificultad, semilla, null);
+        estado = EJ.motor.nuevo(elegido.id, difMezcla, semilla, null);
       } catch (e) {
         $('zona').innerHTML = '';
         $('zona').appendChild(crear('div', 'tarjeta', '<b>No se pudo generar el ejercicio.</b><br><small>' + e.message + '</small>'));
@@ -229,7 +349,7 @@
           '<path d="M4 19V5a1 1 0 0 1 1-1h10l5 5v10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1Z"/><path d="M14 4v5h5M8 13h8M8 17h5"/></svg></div>' +
         '<h2>Elige un tema para empezar</h2>' +
         '<p>' + (esCelular() ? 'Abre la lista con el boton de menu de arriba' : 'Escoge uno de la lista de la izquierda') +
-        ' o prueba la practica mixta para repasar varios temas a la vez.</p>' +
+        ' o usa la ruta en orden (empieza en lo más básico) o el modo aleatorio.</p>' +
       '</div>';
   }
 
@@ -284,19 +404,28 @@
   function cabeceraTema() {
     var tema = estado.tema;
     var cab = crear('div', 'tarjeta');
-    cab.appendChild(crear('h2', null, cfg.mezcla ? 'Practica mixta' : tema.nombre));
+    cab.appendChild(crear('h2', null, cfg.mezcla ? 'Modo aleatorio' : tema.nombre));
     cab.appendChild(crear('p', 'desc', cfg.mezcla
-      ? 'Ejercicios de temas revueltos, como en un examen. Elige de que grupo quieres que salgan.'
+      ? 'Ejercicios de temas revueltos, como en un examen. Elige el nivel (o revuelto) y de que grupo quieres que salgan.'
       : tema.descripcion));
     var difs = crear('div', 'dificultades');
     if (tema.dificultades.length < 2 && !cfg.mezcla) difs.style.display = 'none';
-    tema.dificultades.forEach(function (d) {
-      var b = crear('button', d === cfg.dificultad ? 'activo' : '', NOMBRES_DIF[d] || d);
+    (cfg.mezcla ? ['facil', 'medio', 'dificil'] : tema.dificultades).forEach(function (d) {
+      var activo = d === cfg.dificultad && !(cfg.mezcla && cfg.mezclaRevuelta);
+      var b = crear('button', activo ? 'activo' : '', NOMBRES_DIF[d] || d);
       b.onclick = function () {
-        cfg.dificultad = d; EJ.almacen.set('dificultad', d); nuevoEjercicio();
+        cfg.dificultad = d; EJ.almacen.set('dificultad', d);
+        cfg.mezclaRevuelta = false; EJ.almacen.set('mezclaRevuelta', false);
+        nuevoEjercicio();
       };
       difs.appendChild(b);
     });
+    if (cfg.mezcla) {
+      var bRev = crear('button', cfg.mezclaRevuelta ? 'activo' : '', 'Revuelta');
+      bRev.title = 'La dificultad tambien sale al azar';
+      bRev.onclick = function () { cfg.mezclaRevuelta = true; EJ.almacen.set('mezclaRevuelta', true); nuevoEjercicio(); };
+      difs.appendChild(bRev);
+    }
     /* dificultad y modo de estudio van en la misma fila */
     var controles = crear('div', 'controles');
     controles.appendChild(difs);
@@ -346,12 +475,12 @@
     var zona = $('zona');
     zona.innerHTML = '';
 
-    zona.appendChild(cabeceraTema());
+    zona.appendChild(cfg.ruta ? cabeceraRuta() : cabeceraTema());
 
     /* ejercicio */
     var card = crear('div', 'tarjeta');
     card.id = 'card-ejercicio';
-    var etiqueta = cfg.mezcla
+    var etiqueta = (cfg.mezcla || cfg.ruta)
       ? tema.nombre + (estado.subtemaNombre ? ' &middot; ' + estado.subtemaNombre : '')
       : estado.subtemaNombre;
     if (etiqueta) card.appendChild(crear('div', 'insignia', etiqueta));
@@ -516,6 +645,7 @@
         var e = $('campo-' + i); if (e) { e.classList.add('bien'); e.classList.remove('mal'); }
       });
       mostrarAviso('ok', '<b>&iexcl;Correcto!</b> ' + (estado.intentos === 1 ? 'A la primera.' : 'Lo lograste en ' + estado.intentos + ' intentos.'));
+      if (cfg.ruta) avanzarRuta();
       if (cfg.mostrarSolucion) mostrarSolucion(true);
       terminar();
     } else if (res.revelar) {
@@ -802,6 +932,21 @@
     zonaFeedback().appendChild(d);
   }
 
+  /* Un acierto en la ruta: cuenta para el paso y, si se completa, avisa cual sigue. */
+  function avanzarRuta() {
+    var r = EJ.ruta.acierto(cfg.materia);
+    var e = EJ.ruta.estado(cfg.materia);
+    if (r.terminada) {
+      mostrarAviso('ok', '<b>&iexcl;Terminaste la ruta completa!</b>');
+    } else if (r.avanzo) {
+      mostrarAviso('ok', '<b>Paso superado.</b> Sigue: ' + EJ.buscarTema(e.actual.temaId).nombre + ' &middot; ' + (NOMBRES_DIF[e.actual.nivel] || e.actual.nivel) + '.');
+    } else {
+      mostrarAviso('ok', 'Llevas ' + e.aciertos + ' de ' + e.meta + ' aciertos en este paso.');
+    }
+    var viejo = $('cab-ruta');
+    if (viejo) viejo.parentNode.replaceChild(cabeceraRuta(), viejo);
+  }
+
   function terminar() {
     ['btn-comprobar', 'btn-pista', 'btn-ver'].forEach(function (id) {
       var b = $(id); if (b) b.disabled = true;
@@ -853,6 +998,8 @@
     animarEntrada();
     cfg.mezcla = false;
     EJ.almacen.set('mezcla', false);
+    cfg.ruta = false;
+    EJ.almacen.set('ruta', false);
     pintarTemas();
     cerrarListaEnCelular();
     pintarSimulacros();
@@ -865,7 +1012,7 @@
     var card = crear('div', 'tarjeta examen-armador');
     card.appendChild(crear('h2', null, 'Simulacro tipo examen'));
     card.appendChild(crear('p', 'ayuda',
-      'Las mismas preguntas, en el mismo orden y con el mismo tiempo que la version de practica, pero con datos nuevos cada vez. ' +
+      'Las mismas preguntas y el mismo tiempo que la version de practica, pero con datos nuevos cada vez. ' +
       'Cada pregunta tiene cuatro opciones, A), B), C) y D), y solo una es correcta. No se dice si acertaste hasta que entregas; ' +
       'si se acaba el tiempo, el examen se entrega solo.'));
     card.appendChild(crear('p', 'ayuda',
@@ -893,6 +1040,19 @@
       card.appendChild(aviso);
     }
 
+    /* orden de las preguntas: de facil a dificil (por defecto) o como en la guia */
+    var porDif = cfg.ordenSimulacro !== 'guia';
+    var filaOrden = crear('div', 'fila-orden');
+    filaOrden.appendChild(crear('span', 'etiqueta-sub', 'Orden de las preguntas:'));
+    var ord = crear('div', 'dificultades');
+    [['dificultad', 'De fácil a difícil'], ['guia', 'Como en la guía']].forEach(function (o) {
+      var b = crear('button', (o[0] === 'dificultad') === porDif ? 'activo' : '', o[1]);
+      b.onclick = function () { cfg.ordenSimulacro = o[0]; EJ.almacen.set('ordenSimulacro', o[0]); pintarSimulacros(); };
+      ord.appendChild(b);
+    });
+    filaOrden.appendChild(ord);
+    card.appendChild(filaOrden);
+
     var lista = crear('div', 'simulacros');
     simulacrosDeMateria().forEach(function (def) {
       var b = crear('button', 'simulacro-btn',
@@ -910,7 +1070,7 @@
     if (curso && !curso.terminado &&
       !confirm('Tienes un examen a medias y se va a perder. Empezar el simulacro de todos modos?')) return;
     try {
-      examen = EJ.examen.armarSimulacro(def);
+      examen = EJ.examen.armarSimulacro(def, { porDificultad: cfg.ordenSimulacro !== 'guia' });
     } catch (e) {
       alert('No se pudo armar el simulacro: ' + e.message);
       return;
@@ -957,6 +1117,8 @@
     animarEntrada();
     cfg.mezcla = false;
     EJ.almacen.set('mezcla', false);
+    cfg.ruta = false;
+    EJ.almacen.set('ruta', false);
     pintarTemas();
     pintarArmador();
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -1464,7 +1626,10 @@
 
     $('materia').onchange = function () {
       cfg.materia = this.value; EJ.almacen.set('materia', this.value);
-      cfg.tema = null; pintarTemas(); pintarVacio();
+      cfg.tema = null; pintarTemas();
+      if (cfg.ruta) activarRuta();
+      else if (cfg.mezcla) activarMezcla();
+      else pintarVacio();
     };
     $('buscar').oninput = pintarTemas;
     $('aleatorio').onclick = activarMezcla;
@@ -1483,6 +1648,7 @@
     });
 
     if (EJ.examen.leerCurso()) abrirArmador();
+    else if (cfg.ruta) activarRuta();
     else if (cfg.mezcla) activarMezcla();
     else if (cfg.tema && EJ.tienTema(cfg.tema)) elegirTema(cfg.tema);
     else pintarVacio();

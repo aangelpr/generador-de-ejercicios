@@ -176,6 +176,11 @@ variantes nuevas cada vez.
 
 - Cada reactivo de la guía es un **subtema**, y los temas de cada área siguen el
   orden del cuadernillo.
+- **Por dificultad:** cada subtema está clasificado como **Fácil** (recordar un dato
+  o reconocer un concepto, cuentas de un paso), **Medio** (relacionar datos o aplicar
+  una fórmula) o **Difícil** (varios pasos, análisis o incisos muy parecidos). Al
+  practicar un tema eliges el nivel y salen sólo sus subtemas; en total son 134
+  fáciles, 160 medios y 98 difíciles.
 - Cuatro incisos A), B), C) y D), ordenados como en el cuadernillo: los números de
   menor a mayor y el texto en orden alfabético.
 - Los mismos tipos de pregunta: directa, **"Complete correctamente el siguiente
@@ -187,10 +192,12 @@ variantes nuevas cada vez.
   sale con números nuevos; lo de conceptos sale de un banco con varias variantes
   por reactivo, con filas e incisos revueltos.
 
-**Simulacro tipo examen** (botón en la lista): un simulacro por área con el mismo
-orden, número de preguntas y tiempo de la guía. Corre un reloj, puedes saltar entre
-preguntas y marcarlas, y al acabarse el tiempo se entrega solo. Las preguntas de un
-multirreactivo hablan del mismo texto o de los mismos datos.
+**Simulacro tipo examen** (botón en la lista): un simulacro por área con las mismas
+preguntas y el mismo tiempo de la guía. Por defecto las preguntas van **de fácil a
+difícil**; con *Orden de las preguntas: Como en la guía* salen en el orden del
+cuadernillo. Corre un reloj, puedes saltar entre preguntas y marcarlas, y al
+acabarse el tiempo se entrega solo. Las preguntas de un multirreactivo hablan del
+mismo texto o de los mismos datos.
 
 Cómo está hecho:
 
@@ -198,19 +205,31 @@ Cómo está hecho:
 - `js/temas/prepa/banco.js` convierte una lista de preguntas en un tema. Cada
   variante es un objeto (`{p, b, m}`, `{c, b, m}`, `{rel, pares}`, `{lista, si, no}`,
   `{orden, pasos}`) o una función `(r) => variante` para preguntas con datos al azar.
+- El nivel de cada subtema va en el mismo tema: en los bancos, con
+  `niveles: {facil: [...], medio: [...], dificil: [...]}`; en matemáticas y física,
+  como tercer dato de cada subtema (`['grado', 'Grado de un polinomio', 'facil']`).
 - `js/temas/prepa/simulacros.js` arma los simulacros; los reactivos que comparten
   `g` (grupo) reciben la misma semilla.
 
-### Práctica mixta
+### Ruta en orden y modo aleatorio
 
-El primer botón de la lista, **Práctica mixta**, mezcla ejercicios de varios temas al
-azar, como en un examen. Puedes limitarlos a un grupo (solo Cálculo, solo Álgebra…) con
-los botones de *Salen de:*. Cada ejercicio dice de qué tema y subtema salió, y el
-progreso se guarda en el tema que le corresponde.
+Los dos primeros botones de la lista están en todas las materias:
+
+- **Ruta en orden**: recorre los temas de lo más básico a lo más avanzado, en el
+  orden de la lista (en Matemáticas empieza en ley de signos, en Física en MRU y MUA).
+  Cada tema va de Fácil a Medio a Difícil, y con **3 aciertos** se pasa solo al
+  siguiente paso. Arriba se ve en qué paso vas y cuántos aciertos llevas; puedes
+  saltar un paso, empezar de nuevo o abrir *Ver la ruta completa* y tocar cualquier
+  nivel para ir ahí. El avance se guarda por materia.
+- **Modo aleatorio** (antes *Práctica mixta*): mezcla ejercicios de varios temas al
+  azar. Eliges el nivel o **Revuelta** (la dificultad también sale al azar) y, con
+  los botones de *Salen de:*, puedes limitarlo a un grupo (solo Cálculo, solo
+  Álgebra…). Cada ejercicio dice de qué tema y subtema salió, y el progreso se guarda
+  en el tema que le corresponde.
 
 ### Armar un examen
 
-El segundo botón de la lista, **Armar un examen**, sirve para juntar varios temas y
+El botón **Armar un examen** sirve para juntar varios temas y
 calificarte sobre todos a la vez.
 
 1. Toca los temas de la lista y se van agregando. **La selección se guarda**, así que

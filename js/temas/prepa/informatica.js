@@ -17,6 +17,11 @@
     nombre: 'Algoritmos y programacion',
     descripcion: 'Constantes y variables, operadores, algoritmos, paradigmas, diagramas de flujo, pseudocodigo, estructuras de control, datos estructurados e IDE. Reactivos 1 a 12 de la capacitacion.',
     etiquetas: ['algoritmo', 'pseudocodigo', 'diagrama de flujo', 'estructura de control', 'variable'],
+    niveles: {
+      facil: ['constante', 'diagrama', 'pseudocodigo', 'secuencial', 'selectiva'],
+      medio: ['operadores', 'decision', 'iterativa', 'estructurados'],
+      dificil: ['algoritmo', 'paradigmas', 'ide']
+    },
     items: [
       { s: 'constante', n: 'Constantes y variables', v: [
         { p: '¿Cómo se llama el dato que permanece sin cambios durante la ejecución de un programa?', b: 'Constante', m: ['Expresión', 'Relación', 'Variable'] },
@@ -77,6 +82,11 @@
     nombre: 'PHP y ciclo de vida del software',
     descripcion: 'Lectura de codigo PHP, asignacion de variables y etapas del ciclo de vida. Reactivos 13 a 15 de la capacitacion.',
     etiquetas: ['php', 'if', 'variables', 'ciclo de vida'],
+    niveles: {
+      facil: ['asignar'],
+      medio: ['cicloVida'],
+      dificil: ['salidaPHP']
+    },
     items: [
       { s: 'salidaPHP', n: 'Salida de un programa', v: [
         { p: '¿Cuál es la salida del siguiente código?' + cod(['<?php', "if ($sexo == 'M') {", '    $saludo = "Bienvenida, ";', '} else {', '    $saludo = "Bienvenido, ";', '}', '$saludo = $saludo . $nombre;', 'print($saludo);', '?>']),
@@ -101,6 +111,11 @@
     nombre: 'Bases de datos y SQL',
     descripcion: 'Ciclo de vida de los datos, modelo entidad-relacion, normalizacion, diseño fisico, SGBD, SQL, operadores, diccionario de datos y consultas. Reactivos 16 a 29 de la capacitacion.',
     etiquetas: ['base de datos', 'sql', 'select', 'where', 'alter table', 'normalizacion'],
+    niveles: {
+      facil: ['sql', 'and', 'diccionario', 'update'],
+      medio: ['entidadRelacion', 'fases', 'sgbd', 'orderBy', 'where', 'alterAdd'],
+      dificil: ['cicloDatos', 'normalizacion', 'errorSintaxis', 'alterDrop']
+    },
     items: [
       { s: 'cicloDatos', n: 'Ciclo de vida de los datos', v: [
         { p: 'Las siguientes son etapas del ciclo de vida de los datos, excepto:', b: 'registro de buenas prácticas', m: ['intercambio y uso de datos', 'publicación de datos', 'almacenamiento de datos'] }
@@ -165,6 +180,11 @@
     nombre: 'Java y Android',
     descripcion: 'Sintaxis de Java, programacion orientada a objetos, tipos de dato, operadores, estructuras de control, ciclos y componentes de Android. Reactivos 30 a 40 de la capacitacion.',
     etiquetas: ['java', 'poo', 'herencia', 'switch', 'do while', 'android'],
+    niveles: {
+      facil: ['llaves', 'tiposDato', 'aritmeticos', 'ifElse'],
+      medio: ['poo', 'asignacion', 'switch', 'switchAndroid'],
+      dificil: ['variable', 'doWhile', 'android']
+    },
     items: [
       { s: 'llaves', n: 'Sintaxis de Java', v: [
         { p: '¿Qué símbolo se usa en Java para marcar el inicio y el fin de clases, métodos y bloques de sentencias?', b: '{ }', m: ['*', '||', '< >'] },
