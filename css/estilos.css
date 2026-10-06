@@ -915,3 +915,22 @@ pre.codigo .ln { display: inline-block; min-width: 1.6em; color: var(--tenue); u
 .ruta-chip { padding: 3px 10px; font-size: 12.5px; border-radius: 999px; }
 .ruta-chip.hecho { color: var(--ok); border-color: var(--ok-borde); background: var(--ok-fondo); }
 .ruta-chip.aqui { color: var(--sobre-acento); background: var(--acento); border-color: var(--acento); }
+
+/* ================= procedimiento (hoja de borrador) ================= */
+.notas { margin: 14px 0 4px; border: 1px dashed var(--borde-fuerte); border-radius: var(--r-md); background: var(--panel2); padding: 8px 10px 10px; }
+.notas-cab { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 8px; }
+.notas-titulo { font-size: 12px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: var(--suave); }
+.notas-pestanas { display: inline-flex; background: var(--hundido); border-radius: var(--r-sm); padding: 2px; }
+.notas-pestanas button, .notas-barra button { font: inherit; font-size: 13px; border: 0; background: transparent; color: var(--suave); padding: 5px 12px; border-radius: 6px; cursor: pointer; min-height: 0; box-shadow: none; }
+.notas-pestanas button.activa { background: var(--panel); color: var(--texto); box-shadow: var(--sombra); }
+.notas-texto { display: block; width: 100%; box-sizing: border-box; min-height: 76px; resize: vertical; font-family: var(--mono); font-size: 15px; line-height: 1.5; color: var(--texto); background: var(--panel); border: 1px solid var(--borde); border-radius: var(--r-sm); padding: 8px 10px; }
+.notas-texto:focus { outline: none; border-color: var(--acento-borde); box-shadow: var(--anillo); }
+.notas-hoja { position: relative; }
+.notas-lienzo { display: block; width: 100%; height: 240px; touch-action: none; cursor: crosshair; border: 1px solid var(--borde); border-radius: var(--r-sm);
+  background-color: var(--panel);
+  background-image: linear-gradient(color-mix(in srgb, var(--borde) 55%, transparent) 1px, transparent 1px), linear-gradient(90deg, color-mix(in srgb, var(--borde) 55%, transparent) 1px, transparent 1px);
+  background-size: 22px 22px; }
+.notas-barra { display: flex; justify-content: flex-end; gap: 6px; margin-top: 6px; }
+.notas-barra button { border: 1px solid var(--borde); background: var(--panel); }
+.notas-barra button:disabled { opacity: .45; cursor: default; }
+.notas [hidden] { display: none !important; }
