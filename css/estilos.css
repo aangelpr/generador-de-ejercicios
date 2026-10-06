@@ -899,3 +899,19 @@ pre.codigo { margin: 10px 0; padding: 10px 12px; background: var(--hundido); bor
 pre.codigo .ln { display: inline-block; min-width: 1.6em; color: var(--tenue); user-select: none; }
 .fila-orden { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: 14px; }
 .fila-orden .etiqueta-sub { font-size: 12.5px; color: var(--tenue); font-weight: 500; }
+
+/* ruta en orden */
+.tema-btn.mixta.ruta {
+  --ico: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 20h5v-5h5v-5h5V5h3'/%3E%3C/svg%3E");
+}
+.ruta-linea { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 16px; margin: 12px 0 8px; }
+.ruta-aciertos { display: flex; align-items: center; gap: 5px; font-size: 13px; color: var(--suave); }
+.ruta-aciertos .punto { width: 10px; height: 10px; border-radius: 50%; border: 1.5px solid var(--acento); }
+.ruta-aciertos .punto.lleno { background: var(--acento); }
+.ruta-cab .acciones { margin-top: 10px; }
+.ruta-mapa .cuerpo { display: grid; gap: 6px; }
+.ruta-fila { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+.ruta-tema { flex: 1 1 180px; font-size: 14px; }
+.ruta-chip { padding: 3px 10px; font-size: 12.5px; border-radius: 999px; }
+.ruta-chip.hecho { color: var(--ok); border-color: var(--ok-borde); background: var(--ok-fondo); }
+.ruta-chip.aqui { color: var(--sobre-acento); background: var(--acento); border-color: var(--acento); }

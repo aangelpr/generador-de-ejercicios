@@ -211,16 +211,25 @@ Cómo está hecho:
 - `js/temas/prepa/simulacros.js` arma los simulacros; los reactivos que comparten
   `g` (grupo) reciben la misma semilla.
 
-### Práctica mixta
+### Ruta en orden y modo aleatorio
 
-El primer botón de la lista, **Práctica mixta**, mezcla ejercicios de varios temas al
-azar, como en un examen. Puedes limitarlos a un grupo (solo Cálculo, solo Álgebra…) con
-los botones de *Salen de:*. Cada ejercicio dice de qué tema y subtema salió, y el
-progreso se guarda en el tema que le corresponde.
+Los dos primeros botones de la lista están en todas las materias:
+
+- **Ruta en orden**: recorre los temas de lo más básico a lo más avanzado, en el
+  orden de la lista (en Matemáticas empieza en ley de signos, en Física en MRU y MUA).
+  Cada tema va de Fácil a Medio a Difícil, y con **3 aciertos** se pasa solo al
+  siguiente paso. Arriba se ve en qué paso vas y cuántos aciertos llevas; puedes
+  saltar un paso, empezar de nuevo o abrir *Ver la ruta completa* y tocar cualquier
+  nivel para ir ahí. El avance se guarda por materia.
+- **Modo aleatorio** (antes *Práctica mixta*): mezcla ejercicios de varios temas al
+  azar. Eliges el nivel o **Revuelta** (la dificultad también sale al azar) y, con
+  los botones de *Salen de:*, puedes limitarlo a un grupo (solo Cálculo, solo
+  Álgebra…). Cada ejercicio dice de qué tema y subtema salió, y el progreso se guarda
+  en el tema que le corresponde.
 
 ### Armar un examen
 
-El segundo botón de la lista, **Armar un examen**, sirve para juntar varios temas y
+El botón **Armar un examen** sirve para juntar varios temas y
 calificarte sobre todos a la vez.
 
 1. Toca los temas de la lista y se van agregando. **La selección se guarda**, así que
