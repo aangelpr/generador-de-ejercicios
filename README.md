@@ -215,9 +215,9 @@ variantes nuevas cada vez.
   un *Complete* de varios huecos queda de uno solo, de un *Ordene* se pregunta qué
   paso va después de otro y de un *listado* cuál sí forma parte (o "todas excepto").
 - **Todo el temario de la guía de estudio** (*Temas fundamentales y bibliografía*),
-  no sólo lo que trae el cuadernillo. En matemáticas, ciencias experimentales y
-  humanidades cada subtema también pregunta los temas de la guía que el cuadernillo
-  no usa:
+  no sólo lo que trae el cuadernillo. En matemáticas, ciencias experimentales,
+  humanidades y comunicación cada subtema también pregunta los temas de la guía que
+  el cuadernillo no usa:
   - Álgebra: conjuntos numéricos, propiedades de los reales, leyes de los
     exponentes, notación científica, suma de polinomios, productos notables, suma y
     diferencia de cubos, factorización por agrupación y binomio de Newton.
@@ -241,6 +241,17 @@ variantes nuevas cada vez.
     sentido de la vida, las etapas de Comte, objetivación y alienación, Habermas y
     la filosofía de la liberación. El multirreactivo de argumentación tiene cuatro
     textos.
+  - Comunicación (de 73 a 180 variantes, 82 armadas al azar): elementos y cinco
+    tipos de barreras de la comunicación, intenciones comunicativas (convencer frente
+    a persuadir), sentido denotativo y connotativo, ideas principales, oraciones por
+    la actitud del hablante, por su predicado y compuestas, ortografía con las reglas
+    de c, s, z, b y v, acentuación, tilde diacrítica, tipos de coma, sinónimos,
+    antónimos y homófonos; tipos de texto, textos expositivos y periodísticos, hechos,
+    opiniones y suposiciones, publicidad y propaganda, narrador, trama, mito, leyenda
+    y fábula, subgéneros dramáticos y líricos, figuras retóricas; técnicas, etapas y
+    tipos de investigación, citas; en inglés, Wh-questions, modales, presente,
+    pasado (con verbos irregulares) y futuro. El multirreactivo de lectura en inglés
+    tiene cuatro textos.
   - Biología (de 38 a 104 variantes, 36 con datos al azar): Redi, Pasteur, panspermia
     y síntesis abiótica, biomoléculas orgánicas e inorgánicas, monosacáridos,
     disacáridos y polisacáridos, taxonomía y nomenclatura binomial, teoría celular,
