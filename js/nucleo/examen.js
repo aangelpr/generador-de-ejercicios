@@ -14,7 +14,7 @@
   /* Sube cuando cambian los generadores de preguntas: un examen a medias
      guardado con otra version ya no se reconstruiria igual (con la misma
      semilla saldria otra pregunta), asi que se descarta. */
-  var VERSION_PREGUNTAS = 3;
+  var VERSION_PREGUNTAS = 4;
   var CLAVE_HIST = 'ejgen.examen.historial.v1';
 
   var TOTAL_POR_DEFECTO = 20;
