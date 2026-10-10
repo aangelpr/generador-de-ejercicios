@@ -11,6 +11,10 @@
 
   var CLAVE_SEL = 'ejgen.examen.seleccion.v1';
   var CLAVE_CURSO = 'ejgen.examen.curso.v1';
+  /* Sube cuando cambian los generadores de preguntas: un examen a medias
+     guardado con otra version ya no se reconstruiria igual (con la misma
+     semilla saldria otra pregunta), asi que se descarta. */
+  var VERSION_PREGUNTAS = 2;
   var CLAVE_HIST = 'ejgen.examen.historial.v1';
 
   var TOTAL_POR_DEFECTO = 20;
@@ -150,6 +154,7 @@
 
     return {
       creado: Date.now(),
+      version: VERSION_PREGUNTAS,
       preguntas: preguntas,
       actual: 0,
       terminado: false,
@@ -206,6 +211,7 @@
     var ahora = Date.now();
     return {
       creado: ahora,
+      version: VERSION_PREGUNTAS,
       titulo: 'Simulacro de ' + def.nombre,
       simulacro: def.id,
       orden: op.porDificultad ? 'dificultad' : 'guia',
@@ -290,6 +296,7 @@
   function leerCurso() {
     var ex = leer(CLAVE_CURSO, null);
     if (!ex || !ex.preguntas || !ex.preguntas.length) return null;
+    if ((ex.version || 1) !== VERSION_PREGUNTAS) { borrar(CLAVE_CURSO); return null; }
     /* si algun tema desaparecio, el examen ya no se puede reconstruir */
     var roto = ex.preguntas.some(function (q) { return !EJ.buscarTema(q.temaId); });
     return roto ? null : ex;

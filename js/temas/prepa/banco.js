@@ -105,6 +105,96 @@
       [v.ex || '', 'Orden correcto: ' + pasos.join(' &rarr; ')].filter(Boolean));
   }
 
+  /* ---------- otras formas de preguntar lo mismo ----------
+     El examen no repite las preguntas de la guia: pregunta los mismos temas
+     de otra manera. De una variante se saca una pregunta equivalente en otro
+     formato:
+       - Relacione -> pregunta directa ("Teoria: X. Que descripcion le
+                      corresponde?") o al reves ("Descripcion: ... A que
+                      teoria corresponde?")
+       - Complete con varios huecos -> uno de un solo hueco
+       - Ordene    -> que va despues de un paso (o que va primero o al final)
+       - Listado   -> cual si forma parte, o "todas excepto"
+     Devuelve null si la variante no se presta. */
+  function minus(t) { return t.charAt(0).toLowerCase() + t.slice(1); }
+  function columnas(v) { return v.cols || ['Concepto', 'Descripci&oacute;n']; }
+
+  function relDirecta(r, v) {
+    var cols = columnas(v), p = r.elige(v.pares);
+    var otras = v.pares.filter(function (q) { return q !== p; }).map(function (q) { return q[1]; }).concat(v.extra || []);
+    var pide = /^estudia$/i.test(cols[1]) ? '&iquest;Qu&eacute; estudia?'
+      : '&iquest;Qu&eacute; ' + minus(cols[1]) + ' le ' + (/s$/.test(cols[1]) ? 'corresponden' : 'corresponde') + '?';
+    return { p: '<b>' + cols[0] + ':</b> ' + p[0] + '<br>' + pide, b: p[1], m: r.muestra(otras, Math.min(otras.length, 5)) };
+  }
+
+  function relInversa(r, v) {
+    if (v.pares.length < 4) return relDirecta(r, v);
+    var cols = columnas(v), p = r.elige(v.pares);
+    var otras = v.pares.filter(function (q) { return q !== p; }).map(function (q) { return q[0]; });
+    return { p: '<b>' + cols[1] + ':</b> ' + p[1] + '<br>&iquest;A qu&eacute; ' + minus(cols[0]) + ' corresponde?',
+      b: p[0], m: r.muestra(otras, Math.min(otras.length, 5)) };
+  }
+
+  function unHueco(r, v) {
+    var lugares = r.baraja(v.b.map(function (_, i) { return i; }));
+    for (var n = 0; n < lugares.length; n++) {
+      var j = lugares[n], malas = [];
+      v.m.forEach(function (c) { if (c[j] !== v.b[j] && malas.indexOf(c[j]) === -1) malas.push(c[j]); });
+      if (malas.length < 3) continue;
+      var k = 0;
+      var texto = v.c.replace(/___/g, function () { var i = k++; return i === j ? '___' : v.b[i]; });
+      return { c: texto, b: [v.b[j]], m: malas.map(function (x) { return [x]; }) };
+    }
+    return null;
+  }
+
+  function queSigue(r, v) {
+    var pasos = v.pasos, n = pasos.length;
+    var tipo = n >= 5 ? r.entero(0, 2) : r.entero(1, 2);
+    var arriba = '<div class="lectura">' + v.orden + '</div>Si se ordena correctamente, ';
+    if (tipo === 0) {
+      var i = r.entero(0, n - 2);
+      return { p: arriba + '&iquest;qu&eacute; va inmediatamente despu&eacute;s de <b>' + pasos[i] + '</b>?', b: pasos[i + 1],
+        m: pasos.filter(function (_, k) { return k !== i && k !== i + 1; }) };
+    }
+    var primero = tipo === 1;
+    return { p: arriba + '&iquest;qu&eacute; va ' + (primero ? 'en primer lugar' : 'al final') + '?',
+      b: primero ? pasos[0] : pasos[n - 1], m: primero ? pasos.slice(1) : pasos.slice(0, n - 1) };
+  }
+
+  function unoDelListado(r, v) {
+    var tema = v.lista.replace(/^Del siguiente listado,\s*/i, '').replace(/^(identifique|seleccione)\s+/i, '')
+      .replace(/^&iquest;|^¿/, '').replace(/^Cu(&aacute;|á)les de las siguientes son\s+/i, '').replace(/[.?]\s*$/, '');
+    tema = minus(tema);
+    var de = (' de ' + tema).replace(/ de el /, ' del ');
+    if (v.si.length >= 3 && r.bool()) {
+      return { p: 'Todas las siguientes opciones forman parte' + de + ', excepto:', b: r.elige(v.no), m: r.muestra(v.si, 3) };
+    }
+    return { p: '&iquest;Cu&aacute;l de las siguientes opciones forma parte' + de + '?', b: r.elige(v.si), m: r.muestra(v.no, Math.min(v.no.length, 5)) };
+  }
+
+  function otraForma(r, v) {
+    var formas = [];
+    if (v.rel && v.pares.length >= 4 && !Array.isArray(v.pares[0][1])) formas.push(relDirecta, relInversa);
+    if (v.c && v.b.length >= 2) formas.push(unHueco);
+    if (v.orden && v.pasos.length >= 4) formas.push(queSigue);
+    if (v.lista && v.si.length >= 1 && v.no.length >= 3) formas.push(unoDelListado);
+    if (!formas.length) return null;
+    var o = r.elige(formas)(r, v);
+    if (!o) return null;
+    /* hacen falta tres distractores distintos de la respuesta */
+    if (o.p) {
+      var distintos = o.m.filter(function (x, i) { return x !== o.b && o.m.indexOf(x) === i; });
+      if (distintos.length < 3) return null;
+      o.m = distintos;
+    }
+    if (v.lec) o.lec = v.lec;
+    if (v.ex) o.ex = v.ex;
+    if (v.pista) o.pista = v.pista;
+    return o;
+  }
+  P.otraForma = otraForma;
+
   P.generarVariante = function (r, v) {
     var e;
     if (v.rel) e = relacione(r, v);
@@ -151,6 +241,8 @@
         var v = r.elige(it.v);
         /* una variante tambien puede ser una funcion (r) -> variante, para datos al azar */
         if (typeof v === 'function') v = v(r);
+        /* casi la mitad de las veces, el mismo contenido preguntado de otra forma */
+        if (r.bool(0.45)) v = otraForma(r, v) || v;
         return P.generarVariante(r, v);
       }
     });
