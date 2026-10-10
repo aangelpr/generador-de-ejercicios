@@ -215,8 +215,9 @@ variantes nuevas cada vez.
   un *Complete* de varios huecos queda de uno solo, de un *Ordene* se pregunta qué
   paso va después de otro y de un *listado* cuál sí forma parte (o "todas excepto").
 - **Todo el temario de la guía de estudio** (*Temas fundamentales y bibliografía*),
-  no sólo lo que trae el cuadernillo. En matemáticas y ciencias experimentales cada
-  subtema también pregunta los temas de la guía que el cuadernillo no usa:
+  no sólo lo que trae el cuadernillo. En matemáticas, ciencias experimentales y
+  humanidades cada subtema también pregunta los temas de la guía que el cuadernillo
+  no usa:
   - Álgebra: conjuntos numéricos, propiedades de los reales, leyes de los
     exponentes, notación científica, suma de polinomios, productos notables, suma y
     diferencia de cubos, factorización por agrupación y binomio de Newton.
@@ -227,6 +228,19 @@ variantes nuevas cada vez.
     unión de sucesos.
   - Física: tiro vertical, procesos termodinámicos (isobárico, isocórico,
     isotérmico, adiabático), buenos y malos conductores del calor y entropía.
+  - Humanidades (de 73 a 180 variantes, 62 armadas al azar): tipos de saber, rasgos
+    y ramas de la filosofía, los ocho métodos filosóficos, corrientes, ética y moral,
+    eudaimonía, areté y el justo medio de Aristóteles, teorías éticas (utilitarismo,
+    ética formal, hedonismo, estoicismo, contractualismo, multiculturalismo,
+    existencialismo), autonomía y heteronomía, derechos individuales y colectivos,
+    tipos de conciencia, utopías, derechos humanos; en lógica, valor de verdad con
+    los conectivos, casos en que una condicional o bicondicional es falsa o
+    verdadera, leyes lógicas (De Morgan, contraposición), siete reglas de inferencia
+    con letras y con palabras, tipos de argumento (deductivo, inductivo, analógico,
+    abductivo), validez frente a verdad y las ocho falacias de la guía; además, el
+    sentido de la vida, las etapas de Comte, objetivación y alienación, Habermas y
+    la filosofía de la liberación. El multirreactivo de argumentación tiene cuatro
+    textos.
   - Biología (de 38 a 104 variantes, 36 con datos al azar): Redi, Pasteur, panspermia
     y síntesis abiótica, biomoléculas orgánicas e inorgánicas, monosacáridos,
     disacáridos y polisacáridos, taxonomía y nomenclatura binomial, teoría celular,
