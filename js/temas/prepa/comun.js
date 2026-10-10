@@ -26,10 +26,25 @@
       .replace(/&[a-z]+;/g, ' '));
   }
 
+  /* El valor de un inciso que es solo un numero o una fraccion (con o sin
+     signo); NaN si es cualquier otra cosa. */
+  function valorDe(html) {
+    var t = String(html).replace(/&minus;/g, '-').replace(/\s+/g, '');
+    if (/^-?\d+(\.\d+)?$/.test(t)) return parseFloat(t);
+    var f = t.match(/^(-?)<spanclass="frac"><spanclass="num">(\d+)<\/span><spanclass="den">(\d+)<\/span><\/span>$/);
+    if (f) return (f[1] ? -1 : 1) * Number(f[2]) / Number(f[3]);
+    return NaN;
+  }
+
   /* Cuatro incisos: `correcta` mas tres de `errores`.
      - Los valores pueden ser numeros o texto (HTML).
-     - Si faltan distractores (porque dos errores dan lo mismo), se completan
-       con valores cercanos a la respuesta.
+     - Los errores van del mas tipico al menos tipico; se usan primero.
+     - Los incisos se ordenan (numeros de menor a mayor, texto en orden
+       alfabetico), pero la letra correcta NO debe adivinarse: antes de
+       ordenar se sortea en que lugar queda la respuesta y se escogen los
+       distractores para que caiga ahi. En los numericos, si los errores
+       tipicos quedan todos de un lado, se completan con valores cercanos
+       del otro lado; asi "la mas grande" no es siempre la buena.
      op: {dec, unidad, antes, fmt, enteros, fijo}
        dec     decimales al imprimir numeros (2 por defecto)
        unidad  texto que va despues ("cm", "km/h")
@@ -41,45 +56,130 @@
        conSigno deja pasar distractores negativos aunque la respuesta sea positiva */
   prepa.opciones = function (r, correcta, errores, op) {
     op = op || {};
+    errores = errores || [];
     var dec = op.dec === undefined ? 2 : op.dec;
     var imprime = op.fmt || function (v) {
       if (typeof v !== 'number') return String(v);
       return op.fijo ? prepa.num(v, dec) : F.n(v, dec);
     };
     function texto(v) { return (op.antes || '') + imprime(v) + (op.unidad ? ' ' + op.unidad : ''); }
+    var numerica = typeof correcta === 'number' && errores.every(function (v) { return typeof v === 'number'; });
+    function compara(a, b) {
+      if (numerica) return a.v - b.v;
+      /* fracciones y numeros escritos como texto se ordenan por su valor */
+      var na = valorDe(a.t), nb = valorDe(b.t);
+      if (isFinite(na) && isFinite(nb)) return na - nb;
+      return plano(a.t).localeCompare(plano(b.t), 'es', { numeric: true });
+    }
 
     var bien = { v: correcta, t: texto(correcta) };
-    var usados = [bien.t], malas = [];
-    function agrega(v) {
-      if (malas.length >= 3) return;
+    var usados = [bien.t];
+    /* si nada es negativo (por ejemplo, una mediana de 0), tampoco los inventados */
+    var sinNegativos = !op.conSigno && typeof correcta === 'number' && correcta >= 0 &&
+      errores.every(function (v) { return typeof v !== 'number' || v >= 0; });
+    function valido(v) {
       /* nada de negativos (ni un "0" por redondeo) si la respuesta es positiva */
-      if (typeof v === 'number' && (!isFinite(v) || (correcta > 0 && !op.conSigno && F.redondea(v, dec) <= 0))) return;
+      if (typeof v === 'number' && (!isFinite(v) || (correcta > 0 && !op.conSigno && F.redondea(v, dec) <= 0))) return null;
+      if (typeof v === 'number' && sinNegativos && v < 0) return null;
       var t = texto(v);
-      if (usados.indexOf(t) !== -1) return;
-      usados.push(t); malas.push({ v: v, t: t });
-    }
-    (errores || []).forEach(agrega);
-
-    if (malas.length < 3 && typeof correcta === 'number') {
-      var enteros = op.enteros === undefined ? Math.round(correcta) === correcta : op.enteros;
-      var paso = Math.max(enteros ? 1 : Math.pow(10, -dec), Math.abs(correcta) * 0.1);
-      if (enteros) paso = Math.max(1, Math.round(paso));
-      var rellenos = [];
-      for (var k = 1; k <= 6; k++) rellenos.push(correcta + k * paso, correcta - k * paso);
-      r.baraja(rellenos).forEach(function (v) {
-        agrega(enteros ? Math.round(v) : F.redondea(v, dec));
-      });
+      if (usados.indexOf(t) !== -1) return null;
+      usados.push(t);
+      return { v: v, t: t };
     }
 
+    /* errores validos, separados por si quedan antes o despues de la respuesta */
+    var antes = [], despues = [], empates = [];
+    errores.forEach(function (v) {
+      var c = valido(v);
+      if (!c) return;
+      var s = compara(c, bien);
+      (s < 0 ? antes : s > 0 ? despues : empates).push(c);
+    });
+
+    /* valores cercanos inventados de un lado (-1 abajo, +1 arriba) */
+    var enteros = op.enteros === undefined ? Math.round(correcta) === correcta : op.enteros;
+    var paso = Math.max(enteros ? 1 : Math.pow(10, -dec), Math.abs(correcta) * 0.1);
+    if (numerica) {
+      /* que los inventados esten a una distancia parecida a la de los errores
+         tipicos (si la respuesta es 0, el 10% no sirve de nada) */
+      var dist = antes.concat(despues).map(function (c) { return Math.abs(c.v - correcta); }).sort(function (a, b) { return a - b; });
+      if (dist.length) paso = Math.max(paso, dist[Math.floor(dist.length / 2)] / 3);
+    }
+    if (enteros) paso = Math.max(1, Math.round(paso));
+    else paso = Math.max(Math.pow(10, -dec), F.redondea(paso, dec));
+    function cercano(lado, libre) {
+      if (!numerica) return null;
+      var ks = r.baraja([1, 2, 3, 4, 5, 6]);
+      for (var i = 0; i < ks.length; i++) {
+        var v = correcta + lado * ks[i] * paso;
+        /* nada absurdo: ni la cuarta parte de la respuesta ni cuatro veces mas */
+        if (!libre && correcta > 0 && (v < correcta / 4 || v > correcta * 4)) continue;
+        var c = valido(enteros ? Math.round(v) : F.redondea(v, dec));
+        if (c) return c;
+      }
+      return null;
+    }
+
+    var malas = [];
+    function toma(lista, n) { while (n > 0 && lista.length && malas.length < 3) { malas.push(lista.shift()); n--; } return n; }
+    function inventa(lado, n, libre) { while (n > 0 && malas.length < 3) { var c = cercano(lado, libre); if (!c) break; malas.push(c); n--; } return n; }
+    var lugar = r.entero(0, 3);           // cuantos incisos quedan antes de la respuesta
+    var faltaAntes = toma(empates, toma(antes, lugar));
+    var faltaDespues = toma(empates, toma(despues, 3 - lugar));
+    inventa(-1, faltaAntes);
+    inventa(1, faltaDespues);
+    /* lo que no se pudo de un lado sale del otro */
+    toma(antes.concat(despues, empates), 3 - malas.length);
+    inventa(r.bool() ? 1 : -1, 3 - malas.length);
+    inventa(1, 3 - malas.length);
+    inventa(-1, 3 - malas.length);
+    inventa(1, 3 - malas.length, true);
+    inventa(-1, 3 - malas.length, true);
+
+    /* los empates (por ejemplo, incisos que son dibujos) quedan en orden al azar */
     var todos = [bien].concat(malas);
-    var numericos = todos.every(function (x) { return typeof x.v === 'number'; });
-    todos.sort(numericos
-      ? function (a, b) { return a.v - b.v; }
-      : function (a, b) { return plano(a.t).localeCompare(plano(b.t), 'es', { numeric: true }); });
+    todos.forEach(function (x) { x.k = r.real(0, 1); });
+    todos.sort(function (a, b) { return compara(a, b) || a.k - b.k; });
     var indice = todos.indexOf(bien);
     return R.opcion(todos.map(function (x, i) {
       return '<b>' + LETRAS.charAt(i) + ')</b>&nbsp; ' + x.t;
     }), indice, { sinMezclar: true, etiqueta: 'Elige la respuesta correcta' });
+  };
+
+  /* Varias formas de preguntar lo mismo: escoge una de las funciones de la
+     lista y la llama con r y los demas argumentos. */
+  prepa.enfoque = function (r, lista) {
+    var args = Array.prototype.slice.call(arguments, 2);
+    return r.elige(lista).apply(null, [r].concat(args));
+  };
+
+  /* Grafica chiquita de una funcion, para un inciso o para el enunciado.
+     op: {x: [min, max], y: [min, max], w, h, puntos: [[x, y], ...]} */
+  prepa.miniGrafica = function (f, op) {
+    op = op || {};
+    var W = op.w || 130, H = op.h || 96;
+    var xa = op.x ? op.x[0] : -5, xb = op.x ? op.x[1] : 5, ya = op.y ? op.y[0] : -5, yb = op.y ? op.y[1] : 5;
+    function X(x) { return (6 + (x - xa) / (xb - xa) * (W - 12)).toFixed(1); }
+    function Y(y) { return (H - 6 - (y - ya) / (yb - ya) * (H - 12)).toFixed(1); }
+    var s = '';
+    if (xa < 0 && xb > 0) s += '<line x1="' + X(0) + '" y1="1" x2="' + X(0) + '" y2="' + (H - 1) + '" stroke-width="1" opacity="0.5"/>';
+    if (ya < 0 && yb > 0) s += '<line x1="1" y1="' + Y(0) + '" x2="' + (W - 1) + '" y2="' + Y(0) + '" stroke-width="1" opacity="0.5"/>';
+    var d = '', pluma = false, prev = null, N = 160, alto = yb - ya;
+    for (var i = 0; i <= N; i++) {
+      var x = xa + (xb - xa) * i / N, y = f(x);
+      if (!isFinite(y)) { pluma = false; prev = null; continue; }
+      /* se corta en los saltos (asintotas) y se recorta fuera del recuadro */
+      if (prev !== null && Math.abs(y - prev) > alto) pluma = false;
+      prev = y;
+      var yy = Math.max(ya - alto * 0.3, Math.min(yb + alto * 0.3, y));
+      d += (pluma ? ' L' : ' M') + X(x) + ' ' + Y(yy);
+      pluma = true;
+    }
+    s += '<path class="ac" d="' + d.trim() + '"/>';
+    (op.puntos || []).forEach(function (p) {
+      s += '<circle cx="' + X(p[0]) + '" cy="' + Y(p[1]) + '" r="2.6" fill="currentColor" stroke="none"/>';
+    });
+    return '<span class="mini-graf">' + F.svg(W, H, s) + '</span>';
   };
 
   /* Letra del inciso correcto, para escribirla en la solucion. */

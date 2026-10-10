@@ -186,8 +186,11 @@ variantes nuevas cada vez.
   una fórmula) o **Difícil** (varios pasos, análisis o incisos muy parecidos). Al
   practicar un tema eliges el nivel y salen sólo sus subtemas; en total son 134
   fáciles, 160 medios y 98 difíciles.
-- Cuatro incisos A), B), C) y D), ordenados como en el cuadernillo: los números de
-  menor a mayor y el texto en orden alfabético.
+- Cuatro incisos A), B), C) y D), ordenados como en el cuadernillo: los números (y
+  las fracciones) de menor a mayor y el texto en orden alfabético. Antes de ordenar
+  se sortea en qué letra queda la respuesta y se escogen los distractores para que
+  caiga ahí, así que la letra correcta no se puede adivinar (antes, por ejemplo, la
+  respuesta de progresión aritmética siempre era la más grande).
 - Los mismos tipos de pregunta: directa, **"Complete correctamente el siguiente
   texto"**, **"Relacione..."** (con respuestas tipo `1c, 2a, 3b` o `1ac, 2bd`),
   **"Del siguiente listado, identifique..."** (`1, 3, 5`), **"Ordene..."**, la línea
@@ -196,6 +199,19 @@ variantes nuevas cada vez.
 - Lo que se calcula (matemáticas, física, nómina, contabilidad, costos de hotel)
   sale con números nuevos; lo de conceptos sale de un banco con varias variantes
   por reactivo, con filas e incisos revueltos.
+- **Varias formas de preguntar lo mismo.** El examen no repite las preguntas de la
+  guía: pregunta los mismos temas de otra manera. Por eso cada subtema de
+  matemáticas y física tiene varios *enfoques* (274 en total para 58 subtemas): la
+  pregunta de la guía y otras que piden lo mismo desde otro lado. Por ejemplo, en
+  razones trigonométricas: el valor de una expresión (como en la guía), problemas de
+  escaleras, sombras, rampas o drones con seno, coseno y tangente, leer la razón en
+  un triángulo dibujado, sacar una razón a partir de otra y encontrar un ángulo. En
+  geometría hay dibujos de paralelas cortadas por una transversal, del teorema de
+  Tales y de triángulos rectángulos.
+- En los bancos de conceptos, casi la mitad de las veces el mismo contenido se
+  pregunta en otro formato: un *Relacione* se vuelve pregunta directa (o al revés),
+  un *Complete* de varios huecos queda de uno solo, de un *Ordene* se pregunta qué
+  paso va después de otro y de un *listado* cuál sí forma parte (o "todas excepto").
 
 **Simulacro tipo examen** (botón en la lista): un simulacro por área con las mismas
 preguntas y el mismo tiempo de la guía. Por defecto las preguntas van **de fácil a
@@ -207,6 +223,14 @@ mismo texto o de los mismos datos.
 Cómo está hecho:
 
 - `js/temas/prepa/comun.js` arma los incisos y los formatos del cuadernillo.
+  `P.enfoque(r, lista, ...)` escoge una de varias funciones (las formas de preguntar
+  un subtema) y `P.miniGrafica(f, op)` dibuja gráficas chicas para incisos.
+- En matemáticas y física cada archivo tiene un mapa `ENFOQUES` (subtema → lista de
+  funciones). En estadística primero se arma el contexto del multirreactivo y luego
+  se escoge el enfoque, para que todas las preguntas sigan hablando de los mismos
+  datos.
+- Si cambian los generadores, sube `VERSION_PREGUNTAS` en `js/nucleo/examen.js`: un
+  examen a medias de otra versión ya no se reconstruiría igual y se descarta.
 - `js/temas/prepa/banco.js` convierte una lista de preguntas en un tema. Cada
   variante es un objeto (`{p, b, m}`, `{c, b, m}`, `{rel, pares}`, `{lista, si, no}`,
   `{orden, pasos}`) o una función `(r) => variante` para preguntas con datos al azar.
