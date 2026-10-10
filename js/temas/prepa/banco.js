@@ -50,7 +50,7 @@
   }
 
   function directa(r, v) {
-    return P.ejercicio(v.p, P.opciones(r, v.b, r.muestra(v.m, Math.min(v.m.length, 5)), opcionesDe(v)),
+    return P.ejercicio(v.p, P.opciones(r, v.b, r.baraja(v.m), opcionesDe(v)),
       pistasDe(v, 'Descarta primero los incisos que sabes que no son; luego compara los que quedan con la pregunta.'),
       [v.ex || '', 'Respuesta correcta: <b>' + (v.fmt ? v.fmt(v.b) : v.b) + '</b>'].filter(Boolean));
   }

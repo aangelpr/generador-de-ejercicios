@@ -2,7 +2,344 @@
    (los reactivos 1 a 42 del area; la fisica, 43 a 60, esta en fisica.js) */
 (function () {
   'use strict';
-  var P = EJ.prepa;
+  var P = EJ.prepa, F = EJ.fmt;
+
+  /* ================= Biologia y geografia: temario de la guia =================
+     Preguntas con datos al azar para los temas 3 (Biologia) y 4 (Geografia)
+     de la guia "Temas fundamentales y bibliografia". */
+
+  /* pregunta "a que grupo pertenece": cada grupo con sus ejemplos; la
+     respuesta es el grupo del ejemplo y los distractores, otros grupos */
+  function clasifica(r, grupos, pregunta, extra) {
+    var nombres = Object.keys(grupos), g = r.elige(nombres), ej = r.elige(grupos[g]);
+    return { p: pregunta(ej), b: g, m: nombres.filter(function (x) { return x !== g; }).concat(extra || []) };
+  }
+
+  /* ---------- 3.1 Origen de la vida ---------- */
+  function qRedi(r) {
+    var exp = 'Francesco Redi puso carne en tres frascos: uno lo dejó abierto, otro lo cubrió con una tela y el último lo selló. ' +
+      'Sólo en la carne del frasco abierto aparecieron larvas.';
+    if (r.bool()) {
+      return { p: exp + ' ¿Qué teoría refutó con este experimento?', b: 'La generación espontánea (abiogénesis)',
+        m: ['La biogénesis', 'La panspermia', 'La síntesis abiótica', 'La selección natural', 'La teoría celular'],
+        ex: 'La generación espontánea decía que los gusanos salían de la carne podrida; Redi mostró que salían de huevos de moscas.' };
+    }
+    return { p: exp + ' ¿Qué idea apoyó con este experimento?', b: 'Que todo ser vivo proviene de otro ser vivo (biogénesis)',
+      m: ['Que la vida surge de la materia en descomposición', 'Que la vida llegó del espacio en meteoritos', 'Que las especies cambian por el uso y desuso de sus órganos',
+        'Que la vida se formó de moléculas inorgánicas en la sopa primigenia'],
+      ex: 'La biogénesis, que después comprobó Pasteur, dice que un ser vivo sólo puede proceder de otro ser vivo.' };
+  }
+
+  /* ---------- 3.2 Biomoleculas ---------- */
+  var BIOMOLECULAS = {
+    'Carbohidratos': ['la glucosa', 'el almidón', 'la celulosa', 'la sacarosa', 'el glucógeno'],
+    'Lípidos': ['el colesterol', 'los aceites', 'los fosfolípidos', 'las grasas'],
+    'Proteínas': ['la queratina', 'la hemoglobina', 'la insulina', 'la amilasa (una enzima)'],
+    'Ácidos nucleicos': ['el ADN', 'el ARN']
+  };
+  function qGrupoBiomolecula(r) {
+    var q = clasifica(r, BIOMOLECULAS, function (ej) { return '¿A qué grupo de biomoléculas pertenece ' + ej + '?'; }, ['Biomoléculas inorgánicas', 'Sales minerales']);
+    q.ex = 'Carbohidratos: glucosa, almidón, celulosa. Lípidos: grasas, aceites, colesterol. Proteínas: queratina, hemoglobina, enzimas. Ácidos nucleicos: ADN y ARN.';
+    return q;
+  }
+  var AZUCARES = { 'Monosacárido': ['la glucosa', 'la fructosa', 'la galactosa', 'la ribosa'], 'Disacárido': ['la sacarosa', 'la lactosa', 'la maltosa'],
+    'Polisacárido': ['el almidón', 'la celulosa', 'el glucógeno'] };
+  function qAzucar(r) {
+    var q = clasifica(r, AZUCARES, function (ej) { return '¿Qué tipo de carbohidrato es ' + ej + '?'; }, ['Lípido', 'Aminoácido', 'Nucleótido']);
+    q.ex = 'Monosacáridos: azúcares simples (glucosa, fructosa). Disacáridos: dos azúcares (sacarosa, lactosa). Polisacáridos: cadenas de muchos (almidón, celulosa, glucógeno).';
+    return q;
+  }
+  function qInorganica(r) {
+    return { p: '¿Cuál de las siguientes es una biomolécula inorgánica?', b: r.elige(['El agua (H<sub>2</sub>O)', 'Una sal mineral (NaCl)', 'El amoniaco (NH<sub>3</sub>)']),
+      m: ['La glucosa', 'El colesterol', 'La hemoglobina', 'El ADN', 'El almidón'],
+      ex: 'Las biomoléculas inorgánicas no están basadas en el carbono: agua, amoniaco, sales minerales y ozono.' };
+  }
+
+  /* ---------- 3.3 Taxonomia ---------- */
+  var CATEGORIAS = ['Dominio', 'Reino', 'Phylum (filo)', 'Clase', 'Orden', 'Familia', 'Género', 'Especie'];
+  function qCategorias(r) {
+    /* cinco de las ocho, en su orden */
+    var idx = r.muestra([0, 1, 2, 3, 4, 5, 6, 7], 5).sort(function (a, b) { return a - b; });
+    return { orden: 'Ordene las siguientes categorías taxonómicas de la más general (incluyente) a la más particular.',
+      pasos: idx.map(function (i) { return CATEGORIAS[i]; }),
+      ex: 'Orden completo: dominio, reino, phylum, clase, orden, familia, género y especie.' };
+  }
+  var BINOMIOS = [['el lobo', 'Canis lupus'], ['el perro doméstico', 'Canis familiaris'], ['el jaguar', 'Panthera onca'], ['el león', 'Panthera leo'],
+    ['el ser humano', 'Homo sapiens'], ['el gato doméstico', 'Felis catus'], ['el maíz', 'Zea mays']];
+  function qBinomio(r) {
+    var e = r.elige(BINOMIOS), partes = e[1].split(' '), genero = r.bool();
+    return { p: ('El nombre científico de ' + e[0] + ' es <i>' + e[1] + '</i>. ¿Qué indica la palabra <i>' + (genero ? partes[0] : partes[1]) + '</i>?').replace('de el ', 'del '),
+      b: genero ? 'El género' : 'La especie', m: [genero ? 'La especie' : 'El género', 'La familia', 'El orden', 'El reino', 'La clase'],
+      ex: 'En la nomenclatura binomial de Linneo, la primera palabra es el género (con mayúscula) y la segunda, la especie.' };
+  }
+
+  /* ---------- 3.4 Celula ---------- */
+  function qTipoCelula(r) {
+    var C = { 'Procariota': ['No tiene un núcleo verdadero', 'No tiene organelos membranosos como mitocondrias', 'Es la célula de las bacterias (reino Monera)'],
+      'Eucariota': ['Tiene un núcleo verdadero rodeado de membrana', 'Tiene organelos membranosos como mitocondrias y aparato de Golgi', 'Es la célula de hongos, plantas, animales y protistas'] };
+    var q = clasifica(r, C, function (ej) { return '¿A qué tipo de célula corresponde la siguiente característica?<br><i>' + ej + '.</i>'; }, ['Ambas', 'Ninguna de las dos']);
+    q.ex = 'Procariotas: sin núcleo verdadero ni organelos membranosos (bacterias). Eucariotas: con núcleo y organelos membranosos (protistas, hongos, plantas y animales).';
+    return q;
+  }
+
+  /* ---------- 3.5 Fotosintesis ---------- */
+  function qFaseFotosintesis(r) {
+    var F2 = { 'Fase luminosa': ['La clorofila absorbe la energía de la luz', 'Se rompe el agua (fotólisis) y se libera oxígeno', 'Se producen ATP y NADPH'],
+      'Fase oscura': ['Se usan el ATP y el NADPH para reducir el CO<sub>2</sub>', 'Se producen compuestos orgánicos como la glucosa', 'Ocurre sin usar directamente la energía de la luz'] };
+    var q = clasifica(r, F2, function (ej) { return '¿En qué fase de la fotosíntesis ocurre lo siguiente?<br><i>' + ej + '.</i>'; }, ['Glucólisis', 'Ciclo de Krebs']);
+    q.ex = 'Fase luminosa (en los tilacoides): luz, fotólisis del agua, oxígeno, ATP y NADPH. Fase oscura (en el estroma): con ATP y NADPH el CO<sub>2</sub> se convierte en glucosa.';
+    return q;
+  }
+
+  /* ---------- 3.6 Reproduccion celular ---------- */
+  function qFaseMitosis(r) {
+    var M = { 'Profase': 'La cromatina se condensa, los cromosomas se hacen visibles y empieza a formarse el huso acromático',
+      'Metafase': 'Los cromosomas se alinean en el centro (plano ecuatorial) de la célula',
+      'Anafase': 'El huso acromático jala cada cromátida hacia un polo opuesto',
+      'Telofase': 'Se forman las membranas nucleares, el huso se desintegra y la célula se divide en dos' };
+    var f = r.elige(Object.keys(M));
+    return { p: '¿En qué fase de la mitosis ocurre lo siguiente?<br><i>' + M[f] + '.</i>', b: f,
+      m: Object.keys(M).filter(function (x) { return x !== f; }).concat(['Interfase']),
+      ex: 'Profase: se condensan los cromosomas. Metafase: se alinean al centro. Anafase: se separan las cromátidas. Telofase: se forman dos núcleos y la célula se divide.' };
+  }
+  function qMitosisMeiosis(r) {
+    var D = { 'Mitosis': ['Produce dos células hijas idénticas a la célula madre', 'Las células hijas conservan el mismo número de cromosomas',
+        'Sirve para el crecimiento y la reparación de tejidos'],
+      'Meiosis': ['Produce cuatro células hijas con la mitad de cromosomas', 'Tiene dos divisiones celulares consecutivas',
+        'Hay intercambio genético durante la profase', 'Forma los gametos (óvulos y espermatozoides)'] };
+    var q = clasifica(r, D, function (ej) { return '¿A qué tipo de división celular corresponde la siguiente característica?<br><i>' + ej + '.</i>'; }, ['Fisión binaria', 'Gemación']);
+    q.ex = 'Mitosis: 2 células idénticas con el mismo número de cromosomas. Meiosis: 2 divisiones, 4 células con la mitad de cromosomas e intercambio genético; forma gametos.';
+    return q;
+  }
+  var CROMOSOMAS = [['un ser humano', 46], ['un perro', 78], ['un gato', 38], ['una planta de maíz', 20], ['una mosca de la fruta', 8], ['un chimpancé', 48], ['un caballo', 64]];
+  function qCromosomas(r) {
+    var e = r.elige(CROMOSOMAS), n = e[1], meiosis = r.bool(), b = meiosis ? n / 2 : n;
+    return { p: 'Una célula de ' + e[0] + ' tiene ' + n + ' cromosomas y se divide por ' + (meiosis ? 'meiosis' : 'mitosis') + '. ¿Cuántos cromosomas tiene cada célula hija?',
+      b: b, m: [meiosis ? n : n / 2, 2 * n, n / 4, 4 * n].filter(function (x) { return x === Math.round(x); }),
+      ex: meiosis ? 'La meiosis reduce a la mitad el número de cromosomas: ' + n + ' / 2 = ' + b + ' (y salen cuatro células).'
+        : 'En la mitosis las células hijas conservan el mismo número de cromosomas que la madre: ' + n + ' (y salen dos células).' };
+  }
+
+  /* ---------- 3.8 Genetica ---------- */
+  var RASGOS = [['flores moradas', 'flores blancas', 'A'], ['semillas lisas', 'semillas rugosas', 'L'], ['tallo alto', 'tallo enano', 'T'], ['vainas verdes', 'vainas amarillas', 'V']];
+  function qPunnett(r) {
+    var t = r.elige(RASGOS), X = t[2], x = X.toLowerCase();
+    var G = [X + X, X + x, x + x], p1 = r.elige(G), p2 = r.elige(G);
+    var hijos = [];
+    [p1.charAt(0), p1.charAt(1)].forEach(function (a) { [p2.charAt(0), p2.charAt(1)].forEach(function (b) { hijos.push(a === X || b !== X ? a + b : b + a); }); });
+    var pide = r.elige([['sean homocigotos dominantes (' + X + X + ')', function (h) { return h === X + X; }], ['sean heterocigotos (' + X + x + ')', function (h) { return h === X + x; }],
+      ['sean homocigotos recesivos (' + x + x + ')', function (h) { return h === x + x; }], ['tenga ' + t[0] + ' (fenotipo dominante)', function (h) { return h.indexOf(X) !== -1; }],
+      ['tenga ' + t[1] + ' (fenotipo recesivo)', function (h) { return h === x + x; }]]);
+    var pct = hijos.filter(pide[1]).length * 25;
+    return { p: 'En los chícharos, el alelo ' + X + ' (' + t[0] + ') es dominante sobre ' + x + ' (' + t[1] + '). Si se cruzan dos plantas ' + p1 + ' &times; ' + p2 +
+        ', ¿qué porcentaje de la descendencia se espera que ' + pide[0] + '?',
+      b: pct, m: [0, 25, 50, 75, 100].filter(function (v) { return v !== pct; }), fmt: function (v) { return v + '%'; }, op: { rango: [0, 100] },
+      ex: 'Cuadro de Punnett: ' + hijos.join(', ') + ' (cada casilla es el 25%). Cumplen la condición ' + hijos.filter(pide[1]).length + ' de 4: ' + pct + '%.' };
+  }
+  function qLeyMendel(r) {
+    var L = { 'Primera ley (uniformidad)': 'Al cruzar dos razas puras (AA &times; aa), todos los hijos de la primera generación son iguales (Aa)',
+      'Segunda ley (segregación)': 'Al cruzar dos híbridos (Aa &times; Aa) reaparece el carácter recesivo en una cuarta parte de la descendencia',
+      'Tercera ley (transmisión independiente)': 'Los alelos de genes distintos se heredan de forma independiente; en un cruce dihíbrido sale la proporción 9:3:3:1' };
+    var l = r.elige(Object.keys(L));
+    return { p: '¿Qué ley de Mendel describe el siguiente enunciado?<br><i>' + L[l] + '.</i>', b: l,
+      m: Object.keys(L).filter(function (x) { return x !== l; }).concat(['Herencia ligada al sexo', 'Codominancia']) };
+  }
+
+  /* ---------- 3.9 Evolucion ---------- */
+  function qAdaptacion(r) {
+    var A = { 'Morfológica (forma)': ['El insecto hoja tiene la forma y el color de una hoja', 'El pelaje blanco del oso polar lo camufla en la nieve'],
+      'Fisiológica (función)': ['El camello produce orina muy concentrada para ahorrar agua', 'Los peces de mar eliminan el exceso de sal por sus branquias'],
+      'Conductual (comportamiento)': ['Las aves migran hacia el sur cuando llega el invierno', 'Las abejas avisan dónde hay flores con una danza'] };
+    var q = clasifica(r, A, function (ej) { return '¿Qué tipo de adaptación al medio es la siguiente?<br><i>' + ej + '.</i>'; }, ['Ninguna: es un carácter adquirido por el uso']);
+    q.ex = 'Morfológicas: de forma (camuflaje). Fisiológicas: de funcionamiento del cuerpo. Conductuales: de comportamiento (migrar, cortejar).';
+    return q;
+  }
+
+  /* ---------- 3.10 Poblaciones ---------- */
+  function qPoblacionNumeros(r) {
+    var tipo = r.entero(0, 2), N = r.entero(4, 30) * 50, nac = r.entero(3, 20) * 5, mue = r.entero(2, 20) * 5;
+    var esp = r.elige(['conejos', 'venados', 'ardillas', 'lagartijas', 'ranas']);
+    if (tipo === 2) {
+      var A = r.elige([2, 4, 5, 8, 10, 20, 25]), dens = N / A;
+      return { p: 'En una reserva de ' + A + ' hectáreas viven ' + N + ' ' + esp + '. ¿Cuál es la densidad de esa población?',
+        b: dens, m: [A / N, N * A, N / (A * 10), N - A], fmt: function (v) { return P.num(v, v === Math.round(v) ? 0 : 2) + ' por hectárea'; }, op: { dec: 2 },
+        ex: 'Densidad = individuos / superficie = ' + N + ' / ' + A + ' = ' + P.num(dens, dens === Math.round(dens) ? 0 : 2) + ' ' + esp + ' por hectárea.' };
+    }
+    var dato = 'Una población de ' + N + ' ' + esp + ' tuvo en un año ' + nac + ' nacimientos y ' + mue + ' muertes, sin inmigración ni emigración.';
+    if (tipo === 0) {
+      var fin = N + nac - mue;
+      return { p: dato + ' ¿Cuántos individuos tiene al final del año?', b: fin, m: [N + nac + mue, N - nac + mue, nac - mue, N + nac],
+        ex: 'Crecimiento = natalidad &minus; mortalidad = ' + nac + ' &minus; ' + mue + ' = ' + F.n(nac - mue).replace('-', '&minus;') + '; al final: ' + N + ' + (' + F.n(nac - mue).replace('-', '&minus;') + ') = ' + fin + '.' };
+    }
+    var tasa = F.redondea((nac - mue) / N * 100, 2);
+    return { p: dato + ' ¿Cuál fue su tasa de crecimiento?', b: tasa,
+      m: [F.redondea((nac + mue) / N * 100, 2), F.redondea((mue - nac) / N * 100, 2), F.redondea(nac / N * 100, 2), F.redondea((nac - mue) / N * 10, 2)],
+      fmt: function (v) { return (v < 0 ? '&minus;' : '') + P.num(Math.abs(v), 2) + '%'; }, op: { dec: 2, conSigno: true },
+      ex: 'Tasa = (nacimientos &minus; muertes) / población &times; 100 = (' + nac + ' &minus; ' + mue + ') / ' + N + ' &times; 100 = ' + P.num(tasa, 2) + '%. ' +
+        (tasa > 0 ? 'Es positiva: la población crece.' : tasa < 0 ? 'Es negativa: la población disminuye.' : 'Es cero: la población no cambia.') };
+  }
+  function qSignoCrecimiento(r) {
+    var c = r.entero(0, 2);
+    var cond = ['la tasa de natalidad es mayor que la de mortalidad', 'la tasa de natalidad es igual a la de mortalidad', 'la tasa de natalidad es menor que la de mortalidad'][c];
+    var b = ['positivo', 'cero', 'negativo'][c];
+    return { p: 'Si en una población sin migraciones ' + cond + ', su crecimiento es:', b: b,
+      m: ['positivo', 'cero', 'negativo', 'imposible de saber sin conocer la densidad'].filter(function (x) { return x !== b; }),
+      ex: 'Sin migraciones, el crecimiento es la natalidad menos la mortalidad: puede ser positivo, cero o negativo.' };
+  }
+
+  /* ---------- 3.11 Comunidad ---------- */
+  var INTERACCIONES = {
+    'Mutualismo': ['Los hongos y las raíces de las plantas forman micorrizas y ambos se benefician', 'Los insectos comen el néctar de las flores y, al llevar el polen, las polinizan'],
+    'Comensalismo': ['Las orquídeas crecen sobre las ramas de un árbol, que no se ve afectado', 'La rémora come los restos de las presas del tiburón sin dañarlo'],
+    'Competencia': ['Los leones y las hienas pelean por las mismas presas, que son escasas', 'Dos especies de plantas crecen juntas y se quitan la luz y el agua'],
+    'Amensalismo': ['Las nutrias acumulan su excremento y matan a las plantas del lugar sin ganar nada', 'El hongo <i>Penicillium</i> produce penicilina, que mata a las bacterias cercanas'],
+    'Depredación': ['El coyote caza y se come a los ratones de campo', 'La orca se alimenta de crías de lobo marino'],
+    'Parasitismo': ['Las garrapatas se alimentan de la sangre de un perro', 'La lombriz intestinal vive en el intestino humano y le quita nutrientes']
+  };
+  function qInteraccion(r) {
+    var q = clasifica(r, INTERACCIONES, function (ej) { return '¿Qué tipo de relación interespecífica es la siguiente?<br><i>' + ej + '.</i>'; });
+    q.ex = 'Mutualismo (+,+), comensalismo (+,0), competencia (&minus;,&minus;), amensalismo (&minus;,0), depredación y parasitismo (+,&minus;).';
+    return q;
+  }
+  function qSignosInteraccion(r) {
+    var S = { 'Mutualismo': '(+, +)', 'Comensalismo': '(+, 0)', 'Competencia': '(&minus;, &minus;)', 'Amensalismo': '(&minus;, 0)', 'Depredación': '(+, &minus;)', 'Parasitismo': '(+, &minus;)' };
+    var k = r.elige(Object.keys(S));
+    return { p: 'Los efectos de una relación interespecífica se simbolizan con + (beneficio), &minus; (perjuicio) y 0 (sin efecto). ¿Qué símbolos le corresponden al ' + k.toLowerCase() + '?',
+      b: S[k], m: ['(+, +)', '(+, 0)', '(&minus;, &minus;)', '(&minus;, 0)', '(+, &minus;)'].filter(function (x) { return x !== S[k]; }),
+      ex: 'Mutualismo (+,+), comensalismo (+,0), competencia (&minus;,&minus;), amensalismo (&minus;,0), depredación y parasitismo (+,&minus;).' };
+  }
+
+  /* ---------- 3.12 Ecosistemas ---------- */
+  function qDiezPorCiento(r) {
+    var E = r.elige([1000, 2000, 5000, 10000, 20000, 50000, 100000]), nivel = r.entero(1, 3);
+    var NOMBRE = ['', 'consumidores primarios (herbívoros)', 'consumidores secundarios', 'consumidores terciarios'];
+    var b = F.redondea(E * Math.pow(0.1, nivel), 2);
+    return { p: 'En un ecosistema, los productores fijan ' + P.num(E, 0) + ' kcal de energía. Si sólo cerca del 10% pasa de un nivel trófico al siguiente, ¿cuánta energía llega a los ' + NOMBRE[nivel] + '?',
+      b: b, m: [E * 0.1, E * 0.01, E * 0.001, E * 0.9, E / 2, E * 0.1 * nivel].map(function (x) { return F.redondea(x, 2); }).filter(function (x) { return x !== b; }),
+      fmt: function (v) { return P.num(v, v === Math.round(v) ? 0 : 1) + ' kcal'; }, op: { dec: 1 },
+      ex: 'En cada paso queda el 10%: ' + P.num(E, 0) + ' &times; 0.1' + (nivel > 1 ? F.sup(nivel) : '') + ' = ' + P.num(b, b === Math.round(b) ? 0 : 1) + ' kcal.' };
+  }
+  function qFactorEcosistema(r) {
+    var q = clasifica(r, { 'Factor biótico': ['los hongos del suelo', 'las bacterias', 'los árboles', 'los insectos'],
+      'Factor abiótico': ['la luz solar', 'la temperatura', 'la humedad', 'el suelo', 'el agua'] },
+      function (ej) { return 'En un ecosistema, ¿qué son ' + ej + '?'; }, ['Un ciclo biogeoquímico', 'Una pirámide trófica']);
+    q.ex = 'Bióticos: los seres vivos. Abióticos: lo que no tiene vida (luz, temperatura, agua, suelo, humedad).';
+    return q;
+  }
+  function qCiclos(r) {
+    if (r.bool()) {
+      return { p: '¿Cuál de los siguientes es un ciclo biogeoquímico gaseoso?', b: r.elige(['El ciclo del carbono', 'El ciclo del nitrógeno', 'El ciclo del oxígeno']),
+        m: ['El ciclo del fósforo', 'El ciclo de Krebs', 'El ciclo celular', 'El ciclo de Calvin'],
+        ex: 'Ciclos gaseosos: oxígeno, nitrógeno y carbono. Sedimentarios: azufre y fósforo. Los de Krebs, Calvin y el celular no son ciclos biogeoquímicos.' };
+    }
+    return { p: '¿Cuál de los siguientes es un ciclo biogeoquímico sedimentario?', b: 'El ciclo del fósforo',
+      m: ['El ciclo del carbono', 'El ciclo del nitrógeno', 'El ciclo del oxígeno', 'El ciclo de Krebs'],
+      ex: 'Ciclos gaseosos: oxígeno, nitrógeno y carbono. Sedimentarios: azufre y fósforo.' };
+  }
+
+  /* ---------- 4.1 Sistema solar ---------- */
+  function qPlanetas(r) {
+    var ROC = ['Mercurio', 'Venus', 'la Tierra', 'Marte'], GAS = ['Júpiter', 'Saturno', 'Urano', 'Neptuno'], tipo = r.entero(0, 2);
+    var ex = 'Rocosos (telúricos): Mercurio, Venus, Tierra y Marte. Gaseosos (gigantes): Júpiter, Saturno, Urano y Neptuno.';
+    function cap(t) { return t.charAt(0).toUpperCase() + t.slice(1); }
+    if (tipo === 0) return { p: '¿Cuál de los siguientes es un planeta rocoso o telúrico?', b: cap(r.elige(ROC)), m: GAS.slice(), ex: ex };
+    if (tipo === 1) return { p: '¿Cuál de los siguientes es un planeta gaseoso o gigante?', b: r.elige(GAS), m: ROC.map(cap), ex: ex };
+    var gas = r.bool();
+    return { p: '¿Cuál es una característica de los planetas ' + (gas ? 'gaseosos (Júpiter, Saturno, Urano y Neptuno)' : 'rocosos (Mercurio, Venus, Tierra y Marte)') + '?',
+      b: gas ? 'Tienen anillos y muchos satélites naturales' : 'Tienen una superficie sólida de rocas y metales',
+      m: gas ? ['Tienen una superficie sólida de rocas y metales', 'Son los más cercanos al Sol', 'Son pequeños y de alta densidad', 'Tienen pocas lunas y no tienen anillos']
+        : ['Tienen anillos y muchos satélites naturales', 'Están formados sobre todo por hidrógeno y helio', 'Son los más alejados del Sol', 'Son los planetas más grandes'],
+      ex: 'Los rocosos son pequeños, densos, con superficie sólida, pocas lunas, sin anillos y cerca del Sol; los gaseosos, lo contrario.' };
+  }
+
+  /* ---------- 4.4 y 4.5 Fenomenos naturales y riesgos ---------- */
+  function qTipoFenomeno(r) {
+    var q = clasifica(r, { 'Meteorológico': ['un huracán', 'una granizada', 'una nevada', 'el fenómeno de El Niño', 'un arcoíris'],
+      'Hidrológico': ['un tsunami', 'un fuerte oleaje', 'una corriente oceánica'],
+      'Geológico': ['un terremoto', 'una erupción volcánica', 'un deslizamiento de tierra', 'un hundimiento del suelo'] },
+      function (ej) { return '¿Qué tipo de fenómeno natural es ' + ej + '?'; }, ['Astronómico', 'Químico']);
+    q.ex = 'Meteorológicos: vientos, lluvias, granizadas, nevadas, huracanes. Hidrológicos: oleajes y tsunamis. Geológicos: terremotos, erupciones, derrumbes, deslizamientos y hundimientos.';
+    return q;
+  }
+  function qRiesgoCenapred(r) {
+    var q = clasifica(r, { 'Geológico': ['un sismo', 'una erupción volcánica', 'un deslizamiento de laderas'],
+      'Hidrometeorológico': ['un huracán', 'una inundación', 'una sequía', 'una helada'],
+      'Químico-tecnológico': ['la explosión de una pipa de gas', 'una fuga de sustancias tóxicas', 'un incendio en una fábrica'],
+      'Sanitario-ecológico': ['una epidemia', 'una plaga', 'la contaminación del agua de un río'],
+      'Socio-organizativo': ['una estampida en un concierto', 'un accidente aéreo', 'un sabotaje'] },
+      function (ej) { return 'Según la clasificación de riesgos del CENAPRED, ¿qué tipo de fenómeno perturbador es ' + ej + '?'; });
+    q.ex = 'Geológicos (sismos, volcanes, laderas), hidrometeorológicos (huracanes, lluvias, sequías), químico-tecnológicos (explosiones, fugas, incendios), sanitario-ecológicos (epidemias, plagas, contaminación) y socio-organizativos (accidentes, concentraciones masivas).';
+    return q;
+  }
+
+  /* ---------- 4.3 Recursos ---------- */
+  function qTipoRecurso(r) {
+    var q = clasifica(r, { 'Renovable': ['los bosques', 'el suelo', 'la fauna silvestre', 'la flora'],
+      'No renovable': ['el petróleo', 'el gas natural', 'el cobre', 'el carbón mineral'],
+      'Inagotable': ['la energía solar', 'la energía del viento', 'la energía de las olas'] },
+      function (ej) { return '¿Qué tipo de recurso natural es ' + ej + '?'; }, ['Artificial']);
+    q.ex = 'Renovables: se regeneran si se usan bien (suelo, flora, fauna). No renovables: se agotan (petróleo, gas, minerales). Inagotables: sol, viento, olas.';
+    return q;
+  }
+  function qSector(r) {
+    if (r.bool()) {
+      var q = clasifica(r, { 'agrícola': ['Una plaga destruye los cultivos de maíz y frijol', 'Una sequía impide sembrar trigo'],
+        'ganadero': ['Un brote de fiebre aftosa enferma al ganado', 'La falta de pastos obliga a vender las reses'],
+        'forestal': ['Un incendio arrasa miles de hectáreas de pinos', 'Una plaga de escarabajos seca los bosques maderables'],
+        'pesquero': ['Un derrame de petróleo mata peces y camarones en el golfo', 'La marea roja obliga a cerrar la captura de ostiones'],
+        'turístico': ['Un huracán destruye hoteles y playas en Cancún', 'El sargazo aleja a los visitantes de las playas del Caribe'] },
+        function (ej) { return '¿Qué sector económico resulta más afectado?<br><i>' + ej + '.</i>'; }, ['minero']);
+      return q;
+    }
+    var S = { 'primario': 'la agricultura, la ganadería, la pesca y la minería', 'secundario': 'la industria manufacturera y la construcción', 'terciario': 'el comercio, el turismo y los servicios' };
+    var k = r.elige(Object.keys(S));
+    return { p: '¿A qué sector económico pertenecen ' + S[k] + '?', b: 'Sector ' + k,
+      m: Object.keys(S).filter(function (x) { return x !== k; }).map(function (x) { return 'Sector ' + x; }).concat(['Sector informal']),
+      ex: 'Primario: obtiene recursos de la naturaleza. Secundario: los transforma (industria). Terciario: comercio y servicios.' };
+  }
+
+  /* ---------- 4.6 Climas ---------- */
+  var KOPPEN = { 'A (tropical)': 'No hay invierno: todos los meses tienen temperatura media mayor de 18 °C',
+    'B (seco)': 'La evaporación supera a la precipitación; hay plantas xerófilas y no hay árboles',
+    'C (templado)': 'Los inviernos son suaves: el mes más frío nunca baja de &minus;3 °C de temperatura media',
+    'D (frío)': 'Los inviernos son fríos, con meses por debajo de &minus;3 °C, pero el mes más cálido supera los 10 °C',
+    'E (polar)': 'No hay verano: el mes más cálido no llega a 10 °C y no hay vegetación' };
+  function qKoppen(r) {
+    if (r.bool(0.6)) {
+      var k = r.elige(Object.keys(KOPPEN));
+      return { p: 'En la clasificación de Köppen, ¿a qué grupo de clima corresponde la siguiente descripción?<br><i>' + KOPPEN[k] + '.</i>', b: 'Grupo ' + k,
+        m: Object.keys(KOPPEN).filter(function (x) { return x !== k; }).map(function (x) { return 'Grupo ' + x; }),
+        ex: 'A tropical (sin invierno), B seco, C templado, D frío y E polar (sin verano).' };
+    }
+    var L = { 'f': 'Hay precipitaciones todo el año', 'm': 'Es monzónico: tiene estación seca, pero compensada por muchas lluvias al año',
+      's': 'La estación seca es en verano', 'w': 'La estación seca es en invierno (llueve en verano)' };
+    var l = r.elige(Object.keys(L));
+    return { p: 'En la clasificación de Köppen, ¿qué indica la segunda letra <b>' + l + '</b> en un clima como A' + l + ' o C' + l + '?', b: L[l],
+      m: Object.keys(L).filter(function (x) { return x !== l; }).map(function (x) { return L[x]; }).concat(['La evaporación es más del doble de la lluvia']),
+      ex: 'f: lluvias todo el año; m: monzónico; s: seco en verano; w: seco en invierno. En los climas B, S es estepario y W desértico.' };
+  }
+  function qElementoClima(r) {
+    var q = clasifica(r, { 'Un elemento del clima': ['la temperatura', 'la precipitación', 'la presión atmosférica', 'la humedad', 'el viento'],
+      'Un factor del clima': ['la latitud', 'la altitud', 'el relieve', 'las corrientes marinas', 'la distancia al mar'] },
+      function (ej) { return '¿Qué es ' + ej + '?'; }, ['Un fenómeno geológico', 'Un recurso no renovable']);
+    q.ex = 'Elementos: lo que se mide del clima (temperatura, precipitación, presión, humedad, viento). Factores: lo que lo modifica (latitud, altitud, relieve, corrientes marinas, distancia al mar).';
+    return q;
+  }
+
+  /* ---------- 4.7 Poblacion ---------- */
+  function qIndicadorNumero(r) {
+    if (r.bool()) {
+      var hab = r.entero(20, 300) * 1000, km = r.elige([50, 80, 100, 120, 150, 200, 250, 400, 500]), d = hab / km;
+      return { p: 'Un municipio tiene ' + P.num(hab, 0) + ' habitantes y una superficie de ' + km + ' km' + F.sup(2) + '. ¿Cuál es su densidad de población?',
+        b: F.redondea(d, 1), m: [km / hab, hab * km, hab / km / 10, hab / (km * 1000)].map(function (x) { return F.redondea(x, 4); }),
+        fmt: function (v) { return P.num(v, v === Math.round(v) ? 0 : (v < 1 ? 4 : 1)) + ' hab/km' + F.sup(2); }, op: { dec: 1 },
+        ex: 'Densidad = habitantes / superficie = ' + P.num(hab, 0) + ' / ' + km + ' = ' + P.num(d, d === Math.round(d) ? 0 : 1) + ' hab/km' + F.sup(2) + '.' };
+    }
+    var pob = r.entero(5, 60) * 10000, tasa = r.entero(10, 25), nac = pob * tasa / 1000;
+    return { p: 'En una ciudad de ' + P.num(pob, 0) + ' habitantes hubo ' + P.num(nac, 0) + ' nacimientos en un año. ¿Cuál es su tasa de natalidad?',
+      b: tasa, m: [tasa / 10, tasa * 10, F.redondea(pob / nac, 2), tasa * 100], fmt: function (v) { return P.num(v, v === Math.round(v) ? 0 : 2) + ' por cada mil habitantes'; },
+      ex: 'Tasa de natalidad = nacimientos / población &times; 1000 = ' + P.num(nac, 0) + ' / ' + P.num(pob, 0) + ' &times; 1000 = ' + tasa + ' por cada mil.' };
+  }
 
   P.temaBanco({
     id: 'prepa-biologia',
@@ -27,7 +364,22 @@
           b: 'Louis Pasteur', m: ['Alexander Oparin', 'Francesco Redi', 'Charles Darwin', 'Stanley Miller'],
           ex: 'Pasteur (1862) hirvió caldo en matraces de cuello de cisne: sin contacto con microorganismos del aire, no apareció vida.' },
         { c: 'Según la teoría de Oparin-Haldane, en la atmósfera primitiva, que carecía de ___, se formaron moléculas orgánicas que se agruparon en estructuras llamadas ___.',
-          b: ['oxígeno libre', 'coacervados'], m: [['hidrógeno', 'coacervados'], ['oxígeno libre', 'ribosomas'], ['metano', 'células eucariotas'], ['nitrógeno', 'virus']] }
+          b: ['oxígeno libre', 'coacervados'], m: [['hidrógeno', 'coacervados'], ['oxígeno libre', 'ribosomas'], ['metano', 'células eucariotas'], ['nitrógeno', 'virus']] },
+        qRedi, qRedi,
+        { p: '¿Quién propuso en 1908 la panspermia, la idea de que la vida llegó a la Tierra desde el espacio en meteoritos, cometas o polvo cósmico?',
+          b: 'Svante Arrhenius', m: ['Alexander Oparin', 'Louis Pasteur', 'Francesco Redi', 'Charles Darwin', 'Stanley Miller'] },
+        { p: 'Según la síntesis abiótica de Oparin y Haldane, ¿qué hizo que los gases de la atmósfera primitiva disueltos en los océanos formaran moléculas orgánicas sencillas?',
+          b: 'Las descargas eléctricas y la radiación ultravioleta', m: ['La llegada de meteoritos con bacterias', 'La descomposición de la carne',
+            'La fotosíntesis de las primeras plantas', 'La respiración de los primeros animales'],
+          ex: 'En la "sopa primigenia" se formaron moléculas precursoras de la vida, como la alanina (un aminoácido), la ribosa (un azúcar), la adenina y la citosina.' },
+        { rel: 'Relacione a cada científico con su aportación sobre el origen de la vida.', cols: ['Científico', 'Aportación'],
+          pares: [['Francesco Redi', 'Con frascos de carne abiertos, tapados con tela y sellados refutó la generación espontánea'],
+            ['Louis Pasteur', 'Con matraces de cuello de cisne comprobó que la vida no surge de manera espontánea'],
+            ['Svante Arrhenius', 'Propuso que la vida llegó del espacio en meteoritos o polvo cósmico'],
+            ['Alexander Oparin y John Haldane', 'Propusieron que la vida surgió de moléculas inorgánicas en una sopa primigenia']],
+          extra: ['Explicó la evolución de las especies por selección natural'] },
+        { c: 'En la sopa primigenia se formaron moléculas precursoras de la vida, como la alanina, que es un ___, y la ribosa, que es un ___.',
+          b: ['aminoácido', 'azúcar'], m: [['azúcar', 'aminoácido'], ['lípido', 'azúcar'], ['aminoácido', 'lípido'], ['ácido nucleico', 'aminoácido'], ['mineral', 'azúcar']] }
       ] },
       { s: 'biomoleculas', n: 'Biomoleculas', v: [
         { rel: 'Relacione la biomolécula con su función.', cols: ['Biomolécula', 'Función'],
@@ -38,35 +390,70 @@
           extra: ['Regulan la temperatura corporal por evaporación'] },
         { p: '¿Cuáles son las unidades estructurales (monómeros) de las proteínas?', b: 'Aminoácidos',
           m: ['Nucleótidos', 'Monosacáridos', 'Ácidos grasos', 'Glicerol'] },
-        { p: '¿Qué biomolécula está formada por nucleótidos?', b: 'Ácidos nucleicos', m: ['Proteínas', 'Lípidos', 'Carbohidratos', 'Vitaminas'] }
+        { p: '¿Qué biomolécula está formada por nucleótidos?', b: 'Ácidos nucleicos', m: ['Proteínas', 'Lípidos', 'Carbohidratos', 'Vitaminas'] },
+        qInorganica,
+        { p: '¿Cuál es el principal portador de energía en las reacciones de las células, un nucleótido con tres fosfatos?', b: 'El ATP',
+          m: ['El ADN', 'El ARN', 'La glucosa', 'El colesterol', 'El almidón'] },
+        { p: 'Los nucleótidos que forman los ácidos nucleicos están formados por:', b: 'un grupo fosfato, un azúcar de cinco carbonos y una base nitrogenada',
+          m: ['un aminoácido, un grupo fosfato y glicerol', 'tres ácidos grasos y una molécula de glicerol', 'varias moléculas de glucosa unidas', 'un azúcar de seis carbonos y un aminoácido'] },
+        { p: 'El agua es conocida como el disolvente universal porque:', b: 'su naturaleza polar le permite disolver la mayor parte de los compuestos iónicos',
+          m: ['es una molécula orgánica con mucho carbono', 'es el principal portador de energía de la célula', 'no tiene carga eléctrica en ninguna parte', 'forma la doble hélice del ADN'] },
+        { p: 'El carbonato de calcio y el fosfato de calcio de los huesos son sales minerales con una función principalmente:', b: 'esquelética o de sostén',
+          m: ['energética', 'hereditaria', 'enzimática', 'hormonal'] }
       ] },
       { s: 'carbohidratos', n: 'Clasificacion de biomoleculas', v: [
         { p: 'De las siguientes opciones, elija aquella que corresponda a un monosacárido.', b: 'Glucosa', m: ['Almidón', 'Celulosa', 'Colesterol', 'Sacarosa', 'Glucógeno'] },
         { p: 'De las siguientes opciones, elija aquella que corresponda a un polisacárido.', b: 'Almidón', m: ['Glucosa', 'Fructosa', 'Colesterol', 'Sacarosa', 'Galactosa'] },
         { p: 'De las siguientes opciones, elija aquella que corresponda a un lípido.', b: 'Colesterol', m: ['Glucosa', 'Almidón', 'Hemoglobina', 'Celulosa', 'Queratina'] },
-        { p: 'De las siguientes opciones, elija aquella que corresponda a un disacárido.', b: 'Sacarosa', m: ['Glucosa', 'Almidón', 'Celulosa', 'Fructosa', 'Glucógeno'] }
+        { p: 'De las siguientes opciones, elija aquella que corresponda a un disacárido.', b: 'Sacarosa', m: ['Glucosa', 'Almidón', 'Celulosa', 'Fructosa', 'Glucógeno'] },
+        qGrupoBiomolecula, qGrupoBiomolecula, qAzucar, qAzucar
       ] },
       { s: 'taxonomia', n: 'Categorias taxonomicas', v: [
         { orden: 'Ordene las categorías taxonómicas de la más general a la más particular.', pasos: ['Reino', 'Clase', 'Familia', 'Género', 'Especie'] },
         { orden: 'Ordene las categorías taxonómicas de la más general a la más particular.', pasos: ['Dominio', 'Reino', 'Filo', 'Orden', 'Especie'] },
         { p: 'El nombre científico del jaguar es <i>Panthera onca</i>. ¿A qué categoría taxonómica corresponde la palabra <i>Panthera</i>?',
-          b: 'Género', m: ['Especie', 'Familia', 'Orden', 'Reino'], ex: 'En la nomenclatura binomial la primera palabra es el género y la segunda el epíteto de la especie.' }
+          b: 'Género', m: ['Especie', 'Familia', 'Orden', 'Reino'], ex: 'En la nomenclatura binomial la primera palabra es el género y la segunda el epíteto de la especie.' },
+        qCategorias, qBinomio, qBinomio,
+        { p: '¿Quién propuso la nomenclatura binomial, en la que cada organismo tiene un nombre científico formado por un género y una especie?', b: 'Carlos Linneo',
+          m: ['Aristóteles', 'Charles Darwin', 'Gregor Mendel', 'Robert Whittaker', 'Carl Woese'] },
+        { p: 'Los dominios agrupan a los seres vivos por sus características celulares. ¿Cuáles son los tres dominios?', b: 'Eukarya, Bacteria y Archaea',
+          m: ['Animal, Plantae y Fungi', 'Monera, Protista y Fungi', 'Eukarya, Monera y Plantae', 'Bacteria, Protista y Animal'] },
+        { lista: 'Del siguiente listado, identifique los reinos de la clasificación de los seres vivos.',
+          si: ['Animal', 'Plantae (vegetal)', 'Fungi', 'Monera', 'Protista'], no: ['Eukarya', 'Mamíferos', 'Cordados', 'Felinos'] }
       ] },
-      { s: 'organelos', n: 'Organelos celulares', v: [
+      { s: 'organelos', n: 'La celula y sus organelos', v: [
         { rel: 'Relacione el organelo celular con el proceso que le corresponde.', cols: ['Organelo', 'Proceso'],
           pares: [['Cloroplasto', 'Fotosíntesis'], ['Mitocondria', 'Respiración celular y generación de energía'],
             ['Núcleo', 'Contiene el ADN responsable de la expresión genética'], ['Ribosoma', 'Síntesis de proteínas'],
             ['Lisosoma', 'Degradación de moléculas'], ['Aparato de Golgi', 'Empaque y distribución de proteínas']] },
         { p: '¿Qué organelo está presente en la célula vegetal pero NO en la célula animal?', b: 'Cloroplasto', m: ['Mitocondria', 'Ribosoma', 'Núcleo', 'Aparato de Golgi'] },
         { p: '¿Qué característica distingue a una célula procariota de una eucariota?', b: 'No tiene un núcleo definido por membrana',
-          m: ['No tiene material genético', 'No tiene membrana celular', 'Siempre es más grande', 'Tiene mitocondrias y cloroplastos'] }
+          m: ['No tiene material genético', 'No tiene membrana celular', 'Siempre es más grande', 'Tiene mitocondrias y cloroplastos'] },
+        qTipoCelula, qTipoCelula,
+        { rel: 'Relacione cada parte de la célula con su función.', cols: ['Parte', 'Función'],
+          pares: [['Membrana celular', 'Regula el intercambio de sustancias entre la célula y su medio externo'], ['Citoplasma', 'Ahí ocurren las reacciones químicas de la ruta metabólica'],
+            ['Centriolo', 'Participa en la división celular'], ['Vacuola', 'Contiene agua y enzimas digestivas'],
+            ['Pared celular', 'Da forma y rigidez a las células de plantas, bacterias y hongos'], ['Retículo endoplásmico liso', 'Sintetiza y procesa lípidos']] },
+        { p: '¿Quiénes propusieron la teoría celular entre 1838 y 1839?', b: 'Matthias Schleiden y Theodor Schwann',
+          m: ['James Watson y Francis Crick', 'Alexander Oparin y John Haldane', 'Charles Darwin y Alfred Wallace', 'Francesco Redi y Louis Pasteur', 'Robert Hooke y Anton van Leeuwenhoek'] },
+        { c: 'Según la teoría celular, todos los seres vivos están formados por células (unidad ___), toda célula proviene de otra célula (unidad de ___) y en la célula se realizan los procesos vitales (unidad ___).',
+          b: ['estructural', 'origen', 'funcional'], m: [['funcional', 'origen', 'estructural'], ['estructural', 'energía', 'funcional'], ['genética', 'origen', 'funcional'],
+            ['estructural', 'origen', 'reproductiva'], ['química', 'reproducción', 'funcional']] },
+        { rel: 'Relacione cada tipo de comunicación celular con su descripción.', cols: ['Comunicación', 'Descripción'],
+          pares: [['Autocrina', 'La misma célula que secreta la señal (ligando) es la que la recibe'], ['Endocrina', 'La hormona viaja por la sangre hasta células que están lejos'],
+            ['Paracrina', 'La señal sólo afecta a las células que están cerca de la que la secretó'], ['Yuxtacrina', 'La señal pasa por contacto directo entre dos células']],
+          extra: ['La señal pasa de los padres a los hijos en la reproducción'] }
       ] },
       { s: 'respiracion', n: 'Respiracion celular', v: [
         { p: '¿Cuál es el proceso para extraer energía en forma de ATP de la glucosa de los alimentos que consumimos a diario?',
           b: 'Respiración celular', m: ['Fase oscura', 'Fotosíntesis', 'Respiración anaerobia', 'Digestión'] },
         { p: '¿Qué proceso realizan las levaduras para producir alcohol y CO<sub>2</sub> a partir de glucosa sin oxígeno?',
           b: 'Fermentación alcohólica', m: ['Fermentación láctica', 'Fotosíntesis', 'Respiración aerobia', 'Ciclo de Calvin'] },
-        { p: '¿En qué organelo se realiza el ciclo de Krebs?', b: 'Mitocondria', m: ['Cloroplasto', 'Ribosoma', 'Núcleo', 'Lisosoma'] }
+        { p: '¿En qué organelo se realiza el ciclo de Krebs?', b: 'Mitocondria', m: ['Cloroplasto', 'Ribosoma', 'Núcleo', 'Lisosoma'] },
+        { p: 'La respiración celular que se realiza sin la participación del oxígeno se llama:', b: 'anaeróbica', m: ['aeróbica', 'fotosíntesis', 'fotólisis', 'transpiración'] },
+        { p: '¿Cuál es la "moneda de energía" que obtienen las células con la respiración celular?', b: 'El ATP', m: ['El ADN', 'La glucosa', 'El oxígeno', 'La clorofila', 'El dióxido de carbono'] },
+        { p: 'Las células procariotas no tienen mitocondrias. ¿Dónde realizan la respiración celular?', b: 'En el citoplasma o en las superficies internas de la célula',
+          m: ['En el cloroplasto', 'En el núcleo', 'En el aparato de Golgi', 'En las vacuolas'] }
       ] },
       { s: 'fotosintesis', n: 'Fases de la fotosintesis', v: [
         { rel: 'Relacione la fase de la fotosíntesis con los procesos que le corresponden.', cols: ['Fase', 'Proceso'],
@@ -74,12 +461,21 @@
             ['Oscura', ['Se usan el ATP y el NADPH para producir glucosa', 'Se realiza en el estroma del cloroplasto']]],
           extra: ['Como producto se libera dióxido de carbono'] },
         { c: 'En la fase ___ de la fotosíntesis se rompe la molécula de agua y se libera ___ a la atmósfera.',
-          b: ['luminosa', 'oxígeno'], m: [['oscura', 'oxígeno'], ['luminosa', 'dióxido de carbono'], ['oscura', 'glucosa'], ['luminosa', 'nitrógeno']] }
+          b: ['luminosa', 'oxígeno'], m: [['oscura', 'oxígeno'], ['luminosa', 'dióxido de carbono'], ['oscura', 'glucosa'], ['luminosa', 'nitrógeno']] },
+        qFaseFotosintesis, qFaseFotosintesis,
+        { p: '¿Cuáles son los productos de la fotosíntesis (6CO<sub>2</sub> + 6H<sub>2</sub>O + luz &rarr; ?)?', b: 'Glucosa (C<sub>6</sub>H<sub>12</sub>O<sub>6</sub>) y oxígeno (O<sub>2</sub>)',
+          m: ['Dióxido de carbono y agua', 'Glucosa y dióxido de carbono', 'Oxígeno y agua', 'ATP y dióxido de carbono'] },
+        { p: 'Algunas bacterias sulfurosas usan ácido sulfhídrico (H<sub>2</sub>S) en lugar de agua como fuente de hidrógeno y no liberan oxígeno. ¿Qué tipo de fotosíntesis realizan?',
+          b: 'Anoxigénica (anaerobia)', m: ['Oxigénica (aerobia)', 'Respiración celular', 'Fermentación láctica', 'Fotólisis del agua'] },
+        { p: 'En la fase luminosa, la ruptura de las moléculas de agua por la energía de la luz se llama:', b: 'fotólisis', m: ['glucólisis', 'fermentación', 'ciclo de Krebs', 'hidrólisis'] }
       ] },
       { s: 'mitosis', n: 'Division celular', v: [
         { orden: '¿Cuál es el orden correcto de las fases de la mitosis?', pasos: ['Profase', 'Metafase', 'Anafase', 'Telofase'] },
         { p: '¿En qué fase de la mitosis los cromosomas se alinean en el centro (plano ecuatorial) de la célula?', b: 'Metafase', m: ['Profase', 'Anafase', 'Telofase', 'Interfase'] },
-        { p: '¿Qué tipo de división celular produce gametos con la mitad de cromosomas?', b: 'Meiosis', m: ['Mitosis', 'Fisión binaria', 'Gemación', 'Citocinesis'] }
+        { p: '¿Qué tipo de división celular produce gametos con la mitad de cromosomas?', b: 'Meiosis', m: ['Mitosis', 'Fisión binaria', 'Gemación', 'Citocinesis'] },
+        qFaseMitosis, qMitosisMeiosis, qMitosisMeiosis, qCromosomas, qCromosomas,
+        { orden: 'Ordene las etapas del ciclo celular.', pasos: ['G1: crecimiento de las células hijas', 'S: replicación del ADN',
+          'G2: síntesis de proteínas y preparación para la división', 'M: división celular por mitosis'] }
       ] },
       { s: 'caracteristicasVida', n: 'Caracteristicas de los seres vivos', v: [
         { p: 'La capacidad de las células de mantener estables sus condiciones internas (temperatura, pH, agua) aunque cambie el medio que las rodea es la:',
@@ -87,7 +483,11 @@
         { p: 'Una planta que dobla su tallo hacia la luz responde a un estímulo del ambiente. Esto es ejemplo de:',
           b: 'irritabilidad', m: ['homeostasis', 'reproducción', 'crecimiento', 'metabolismo'] },
         { p: 'El conjunto de reacciones químicas con las que un ser vivo obtiene energía y construye sus moléculas se llama:',
-          b: 'metabolismo', m: ['homeostasis', 'irritabilidad', 'organización', 'evolución'] }
+          b: 'metabolismo', m: ['homeostasis', 'irritabilidad', 'organización', 'evolución'] },
+        { rel: 'Relacione cada característica de los seres vivos con su ejemplo.', cols: ['Característica', 'Ejemplo'],
+          pares: [['Homeostasis', 'Al hacer ejercicio, el cuerpo suda para mantener su temperatura'], ['Irritabilidad', 'Una planta dobla su tallo hacia la luz'],
+            ['Metabolismo', 'Las células transforman la glucosa en energía'], ['Reproducción', 'Una bacteria se divide en dos'],
+            ['Adaptación', 'El cactus guarda agua en su tallo para vivir en el desierto'], ['Crecimiento', 'Una semilla se convierte en un árbol']] }
       ] },
       { s: 'mendel', n: 'Leyes de Mendel', v: [
         { p: 'Al cruzar una planta de semillas lisas (LL) con una de semillas rugosas (ll), toda la primera generación tiene semillas lisas (Ll). Este enunciado corresponde a la:',
@@ -95,7 +495,12 @@
         { p: 'Al cruzar dos plantas Ll entre sí, aparecen en la descendencia plantas lisas y rugosas en proporción 3:1. Esto corresponde a la:',
           b: 'segunda ley de Mendel', m: ['primera ley de Mendel', 'tercera ley de Mendel', 'herencia ligada al sexo', 'codominancia'] },
         { p: 'Si se cruzan dos individuos heterocigotos (Aa × Aa), ¿qué proporción de la descendencia será homocigota recesiva (aa)?',
-          b: '1/4', m: ['1/2', '3/4', '0', '1'], ex: 'Cuadro de Punnett: AA, Aa, Aa, aa → 1 de 4.' }
+          b: '1/4', m: ['1/2', '3/4', '0', '1'], ex: 'Cuadro de Punnett: AA, Aa, Aa, aa → 1 de 4.' },
+        qPunnett, qPunnett, qPunnett, qLeyMendel,
+        { rel: 'Relacione cada concepto de genética con su definición.', cols: ['Concepto', 'Definición'],
+          pares: [['Gen', 'Segmento de ADN con la información para sintetizar una proteína'], ['Alelo', 'Cada una de las variantes de un gen, como A o a'],
+            ['Homocigoto', 'Individuo con dos alelos iguales para un carácter (AA o aa)'], ['Heterocigoto', 'Individuo con dos alelos distintos para un carácter (Aa)'],
+            ['Fenotipo', 'Característica que se observa, como el color de la flor'], ['Genotipo', 'Combinación de alelos que tiene un individuo']] }
       ] },
       { s: 'evolucion', n: 'Teorias de la evolucion', v: [
         { p: '¿A qué teoría se refiere el texto?<br><i>Los seres vivos han evolucionado gradualmente; los individuos con variaciones favorables sobreviven y se reproducen más (selección natural), lo que puede originar nuevas especies.</i>',
@@ -103,7 +508,18 @@
         { p: '¿A qué teoría se refiere el texto?<br><i>Los órganos que se usan se desarrollan y los que no se usan se atrofian, y estos caracteres adquiridos se heredan a la descendencia.</i>',
           b: 'Lamarckista', m: ['Darwinista', 'Sintética', 'Catastrofista', 'Fijista'] },
         { p: '¿A qué teoría se refiere el texto?<br><i>Une la selección natural de Darwin con la genética de Mendel y las mutaciones para explicar la evolución.</i>',
-          b: 'Sintética', m: ['Lamarckista', 'Catastrofista', 'Creacionista', 'Fijista'] }
+          b: 'Sintética', m: ['Lamarckista', 'Catastrofista', 'Creacionista', 'Fijista'] },
+        { rel: 'Relacione cada idea sobre la evolución con su autor.', cols: ['Idea', 'Autor'],
+          pares: [['Uso y desuso de los órganos y herencia de los caracteres adquiridos', 'Jean-Baptiste Lamarck'],
+            ['Tras cada gran catástrofe morían todas las especies y aparecían otras nuevas', 'Georges Cuvier'],
+            ['Selección natural: sobreviven y se reproducen los más aptos', 'Charles Darwin'],
+            ['Une la selección natural con la genética de Mendel y las mutaciones', 'Theodosius Dobzhansky y Ernst Mayr']],
+          extra: ['Gregor Mendel'] },
+        { lista: 'Del siguiente listado, identifique los postulados de la teoría de Darwin.', si: ['Variabilidad', 'Sobreproducción', 'Lucha por la existencia', 'Supervivencia del más apto'],
+          no: ['Uso y desuso de los órganos', 'Herencia de los caracteres adquiridos', 'Catástrofes que extinguen a todas las especies', 'Generación espontánea'] },
+        { p: '¿Cuál de las siguientes NO es una evidencia de la evolución?', b: 'La aparición de gusanos en la carne podrida',
+          m: ['El registro fósil', 'La anatomía comparada', 'La embriología comparada', 'La genética de poblaciones'] },
+        qAdaptacion, qAdaptacion
       ] },
       { s: 'poblacion', n: 'Propiedades de la poblacion', v: [
         { rel: 'Relacione la característica de la población con su descripción.', cols: ['Propiedad', 'Descripción'],
@@ -111,7 +527,11 @@
             ['Migración', 'Desplazamiento de la población de una región a otra'],
             ['Natalidad', 'Número de organismos que nacen en un tiempo y lugar determinados'],
             ['Potencial biótico', 'Máxima capacidad de reproducción de una población en condiciones óptimas'],
-            ['Resistencia ambiental', 'Conjunto de factores que limita el crecimiento de una población']] }
+            ['Resistencia ambiental', 'Conjunto de factores que limita el crecimiento de una población']] },
+        qPoblacionNumeros, qPoblacionNumeros, qSignoCrecimiento,
+        { p: 'Una población es:', b: 'un grupo de organismos de la misma especie que conviven en el mismo espacio y tiempo y se cruzan entre sí',
+          m: ['el conjunto de poblaciones de distintas especies que interactúan en un lugar', 'el lugar físico donde vive una especie',
+            'el conjunto de factores bióticos y abióticos de una región', 'el papel que cumple una especie en su ecosistema'] }
       ] },
       { s: 'interespecificas', n: 'Relaciones interespecificas', v: [
         { rel: 'Relacione la relación interespecífica con su definición.', cols: ['Relación', 'Definición'],
@@ -121,14 +541,20 @@
             ['Comensalismo', 'Una especie se beneficia y la otra no se beneficia ni se perjudica'],
             ['Depredación', 'Una especie caza y se alimenta de la otra']] },
         { p: 'La rémora se adhiere al tiburón y se alimenta de los restos de sus presas sin causarle daño. ¿Qué tipo de relación es?',
-          b: 'Comensalismo', m: ['Mutualismo', 'Parasitismo', 'Competencia', 'Depredación'] }
+          b: 'Comensalismo', m: ['Mutualismo', 'Parasitismo', 'Competencia', 'Depredación'] },
+        qInteraccion, qInteraccion, qInteraccion, qSignosInteraccion
       ] },
       { s: 'ecosistema', n: 'Flujo de energia y materia', v: [
         { c: 'El movimiento de energía en un ecosistema se representa mediante ___, donde sólo cerca del 10% de la energía pasa de un nivel a otro. El flujo de la materia se representa por ___ de elementos como el carbono, el nitrógeno y el fósforo.',
           b: ['la pirámide trófica', 'los ciclos biogeoquímicos'],
           m: [['la cadena trófica', 'los ciclos biológicos'], ['la red trófica', 'la pirámide trófica'], ['los ciclos biogeoquímicos', 'la red trófica'], ['la pirámide de edades', 'los ciclos lunares']] },
         { p: 'En una cadena alimenticia, ¿qué organismos son los productores?', b: 'Las plantas y algas que hacen fotosíntesis',
-          m: ['Los herbívoros', 'Los carnívoros', 'Los hongos y bacterias descomponedores', 'Los omnívoros'] }
+          m: ['Los herbívoros', 'Los carnívoros', 'Los hongos y bacterias descomponedores', 'Los omnívoros'] },
+        qDiezPorCiento, qDiezPorCiento, qFactorEcosistema, qCiclos,
+        { orden: 'Ordene los niveles de una cadena alimenticia, empezando por el que aprovecha la energía del Sol.',
+          pasos: ['Productores (plantas)', 'Consumidores primarios (herbívoros)', 'Consumidores secundarios (carnívoros)', 'Consumidores terciarios (superdepredadores)'] },
+        { c: 'En un ecosistema los materiales se ___ y la energía fluye en una sola dirección; su principal fuente de energía es ___.',
+          b: ['reciclan', 'el Sol'], m: [['pierden', 'el Sol'], ['reciclan', 'la Luna'], ['acumulan', 'el suelo'], ['reciclan', 'el agua'], ['destruyen', 'el viento']] }
       ] }
     ]
   });
@@ -145,31 +571,59 @@
       dificil: ['clima', 'territorio']
     },
     items: [
-      { s: 'mapa', n: 'Elementos del mapa', v: [
+      { s: 'mapa', n: 'Sistema solar y mapas', v: [
         { p: 'Además del título y la escala, ¿qué otros elementos deben estar siempre presentes en un mapa?', b: 'Simbología y coordenadas',
           m: ['Autor y simbología', 'Relieve y autor', 'Orientación y relieve', 'Fotografías y autor'] },
         { p: 'En un mapa, ¿qué elemento indica la relación entre las distancias del mapa y las distancias reales?', b: 'Escala',
           m: ['Simbología', 'Rosa de los vientos', 'Coordenadas', 'Título'] },
         { p: 'Las líneas imaginarias que van de polo a polo y sirven para medir la longitud son los:', b: 'meridianos',
-          m: ['paralelos', 'trópicos', 'círculos polares', 'husos horarios'] }
+          m: ['paralelos', 'trópicos', 'círculos polares', 'husos horarios'] },
+        qPlanetas, qPlanetas,
+        { p: 'Un mapa es una representación:', b: 'plana, reducida y simplificada de la superficie terrestre o de una parte de ella',
+          m: ['tridimensional y a escala real de la Tierra', 'esférica de la Tierra, sin deformaciones', 'fotográfica de la Tierra tomada desde un satélite', 'de los astros vistos desde la Tierra'] },
+        { p: 'Los cartógrafos idearon las proyecciones cartográficas. ¿Para qué sirven?', b: 'Para reducir la deformación al representar en un plano la Tierra, que es un geoide',
+          m: ['Para medir la temperatura de cada región', 'Para calcular la población de cada país', 'Para localizar satélites artificiales', 'Para predecir sismos y huracanes'] },
+        { lista: 'Del siguiente listado, identifique los usos de los mapas.',
+          si: ['Saber dónde estamos y cómo llegar a otro lugar', 'Ubicar continentes, países y ciudades', 'Conocer la relación entre los elementos de un espacio geográfico'],
+          no: ['Medir la intensidad de un sismo', 'Pronosticar el clima de la próxima semana', 'Calcular el producto interno bruto', 'Medir la humedad del aire'] }
       ] },
       { s: 'sig', n: 'Herramientas geograficas', v: [
         { p: '¿Qué herramienta geográfica permite crear consultas interactivas, analizar información espacial, editar datos y mapas y presentar los resultados de forma dinámica?',
           b: 'SIG (Sistema de Información Geográfica)', m: ['Carta topográfica', 'Croquis', 'Imagen de satélite', 'Brújula'] },
         { p: '¿Qué herramienta usa una red de satélites para determinar la posición exacta de un punto en la Tierra?',
-          b: 'GPS', m: ['SIG', 'Croquis', 'Carta topográfica', 'Planisferio'] }
+          b: 'GPS', m: ['SIG', 'Croquis', 'Carta topográfica', 'Planisferio'] },
+        { p: 'Los Sistemas de Información Geográfica (SIG) tienen dos componentes. ¿Cuáles son?', b: 'Una base de datos georreferenciada y funciones o comandos para consultarla',
+          m: ['Un globo terráqueo y una brújula', 'Una rosa de los vientos y una escala gráfica', 'Satélites meteorológicos y radares', 'Un sismógrafo y un pluviómetro'] },
+        { p: 'Al usar Google Maps en el celular para llegar a un lugar se combinan un SIG y:', b: 'el Sistema de Posicionamiento Global (GPS)',
+          m: ['una carta topográfica impresa', 'un croquis hecho a mano', 'un sismógrafo', 'una brújula magnética'] },
+        { rel: 'Relacione cada herramienta geográfica con su descripción.', cols: ['Herramienta', 'Descripción'],
+          pares: [['GPS', 'Determina la posición exacta de un punto con una red de satélites'], ['SIG', 'Conecta mapas con bases de datos para consultar y analizar información geográfica'],
+            ['Imagen de satélite', 'Fotografía de la superficie terrestre tomada desde el espacio'], ['Carta topográfica', 'Mapa que representa el relieve con curvas de nivel'],
+            ['Croquis', 'Dibujo sencillo, sin escala precisa, para ubicar un lugar']] }
       ] },
       { s: 'erosion', n: 'Agentes que modelan el relieve', v: [
         { lista: 'Del siguiente listado, identifique los tipos de erosión que modelan el relieve terrestre.',
           si: ['Eólica', 'Marina', 'Fluvial', 'Glaciar'], no: ['Tectónica', 'Volcánica', 'Sísmica'] },
         { p: 'Las fuerzas que forman el relieve desde el interior de la Tierra (como el vulcanismo y el tectonismo) se llaman:',
-          b: 'endógenas', m: ['exógenas', 'erosivas', 'eólicas', 'fluviales'] }
+          b: 'endógenas', m: ['exógenas', 'erosivas', 'eólicas', 'fluviales'] },
+        { c: 'El ___ transforma y destruye las rocas de forma mecánica o química; la ___ transporta y deposita los materiales que ya se desgastaron.',
+          b: ['intemperismo', 'erosión'], m: [['erosión', 'intemperismo'], ['vulcanismo', 'erosión'], ['tectonismo', 'fotosíntesis'], ['intemperismo', 'tectónica'], ['magnetismo', 'erosión']] },
+        { lista: 'Del siguiente listado, identifique los agentes externos que modelan el relieve.', si: ['El viento', 'El agua', 'Los cambios de temperatura', 'Los seres vivos'],
+          no: ['El vulcanismo', 'El tectonismo', 'El movimiento de las placas'] },
+        { p: 'Los sismos se producen por:', b: 'la liberación repentina de energía acumulada en las rocas',
+          m: ['el calentamiento del aire por el Sol', 'la atracción de la Luna sobre los océanos', 'la erosión del suelo por el viento', 'el exceso de lluvia en las montañas'] },
+        { p: 'Por su origen, los sismos pueden ser tectónicos, volcánicos o:', b: 'artificiales', m: ['marinos', 'solares', 'eólicos', 'glaciares'] }
       ] },
       { s: 'recursos', n: 'Recursos naturales', v: [
         { rel: 'Relacione el tipo de recurso con sus ejemplos.', cols: ['Recurso', 'Ejemplo'],
           pares: [['Inagotables', 'Energía solar, energía eólica y geotérmica'], ['Renovables', 'Agua, flora y fauna'],
             ['No renovables', 'Minerales, metales e hidrocarburos']], extra: ['Vidrio, plástico y aluminio'] },
-        { p: 'El petróleo y el gas natural son recursos:', b: 'no renovables', m: ['renovables', 'inagotables', 'biológicos', 'reciclables'] }
+        { p: 'El petróleo y el gas natural son recursos:', b: 'no renovables', m: ['renovables', 'inagotables', 'biológicos', 'reciclables'] },
+        qTipoRecurso, qTipoRecurso,
+        { p: 'Los recursos naturales son escasos y dependientes. ¿Qué significa que sean dependientes?', b: 'Que lo que duren depende del uso correcto que les demos',
+          m: ['Que dependen de otros países para existir', 'Que sólo existen en zonas tropicales', 'Que dependen de la energía solar para formarse', 'Que nunca se acaban'] },
+        { p: '¿Qué pasa con el costo de un recurso no renovable conforme se acerca su fin?', b: 'Se vuelve más caro',
+          m: ['Se vuelve más barato', 'Se mantiene igual', 'Deja de tener valor', 'Baja a la mitad'] }
       ] },
       { s: 'fenomenos', n: 'Fenomenos naturales', v: [
         { p: '¿A qué tipo de fenómeno se refiere el texto?<br><i>El 20 de febrero de 1943 nació en un campo de cultivo de Michoacán el Paricutín, que con su actividad sepultó al pueblo de San Juan Parangaricutiro.</i>',
@@ -177,13 +631,20 @@
         { p: '¿A qué tipo de fenómeno se refiere el texto?<br><i>El 19 de septiembre de 1985 y el 19 de septiembre de 2017 la Ciudad de México sufrió el derrumbe de edificios por el movimiento brusco de las placas tectónicas.</i>',
           b: 'Sismicidad', m: ['Erupción volcánica', 'Huracán', 'Tsunami', 'Deslave'] },
         { p: '¿A qué tipo de fenómeno se refiere el texto?<br><i>En 2005, Wilma llegó a la península de Yucatán con vientos de más de 200 km/h y lluvias intensas durante varios días.</i>',
-          b: 'Ciclón tropical (huracán)', m: ['Sismicidad', 'Erupción volcánica', 'Sequía', 'Helada'] }
+          b: 'Ciclón tropical (huracán)', m: ['Sismicidad', 'Erupción volcánica', 'Sequía', 'Helada'] },
+        qTipoFenomeno, qTipoFenomeno,
+        { p: 'Un fenómeno natural se convierte en desastre natural cuando:', b: 'rebasa sus límites normales y causa pérdidas humanas y materiales',
+          m: ['ocurre en el mar y no en tierra', 'sucede de manera constante y espontánea', 'lo estudian los científicos', 'dura menos de un día'] },
+        { p: 'Un derrame de petróleo que contamina una playa no es un desastre natural, sino un:', b: 'desastre medioambiental',
+          m: ['fenómeno hidrológico', 'fenómeno meteorológico', 'fenómeno geológico', 'fenómeno astronómico'] },
+        { p: 'Un terremoto muy intenso cerca de la costa puede provocar otro desastre. ¿Cuál?', b: 'Un tsunami', m: ['Un huracán', 'Una sequía', 'Una helada', 'Una granizada'] }
       ] },
       { s: 'sectores', n: 'Actividades economicas afectadas', v: [
         { p: 'El derrame de ácido sulfúrico en el mar de Cortés en 2019 dañó la flora y la fauna marinas. Esto afectó principalmente al sector:',
           b: 'pesquero', m: ['agrícola', 'ganadero', 'industrial', 'forestal'] },
         { p: 'Una sequía prolongada en el norte del país que impide sembrar maíz y frijol afecta principalmente al sector:',
-          b: 'agrícola', m: ['pesquero', 'turístico', 'industrial', 'minero'] }
+          b: 'agrícola', m: ['pesquero', 'turístico', 'industrial', 'minero'] },
+        qSector, qSector, qSector
       ] },
       { s: 'clima', n: 'Tipos de clima', v: [
         { p: '¿Qué tipo de clima describe el texto?<br><i>En Manzanillo, Colima, la temperatura media es superior a 18 °C todo el año y la mayor parte de la lluvia cae en verano.</i>',
@@ -191,24 +652,49 @@
         { p: '¿Qué tipo de clima describe el texto?<br><i>En Sonora y Baja California casi no llueve durante el año y en el día hace mucho calor.</i>',
           b: 'BW - Seco desértico', m: ['Aw - Tropical con lluvias en verano', 'Cw - Templado con lluvias en verano', 'Af - Tropical con lluvias todo el año', 'ET - Frío de tundra'] },
         { p: '¿Qué tipo de clima describe el texto?<br><i>En Toluca la temperatura es fresca la mayor parte del año (media entre 12 y 18 °C) y llueve sobre todo en verano.</i>',
-          b: 'Cw - Templado con lluvias en verano', m: ['Aw - Tropical con lluvias en verano', 'BW - Seco desértico', 'Af - Tropical con lluvias todo el año', 'Cf - Templado con lluvias todo el año'] }
+          b: 'Cw - Templado con lluvias en verano', m: ['Aw - Tropical con lluvias en verano', 'BW - Seco desértico', 'Af - Tropical con lluvias todo el año', 'Cf - Templado con lluvias todo el año'] },
+        qKoppen, qKoppen, qKoppen, qElementoClima,
+        { p: 'La clasificación climática de Köppen se basa en que el clima tiene una clara relación con:', b: 'la vegetación natural',
+          m: ['la altitud de las montañas', 'el tipo de suelo', 'la cantidad de población', 'las corrientes marinas'] }
       ] },
       { s: 'demografia', n: 'Indicadores demograficos', v: [
         { p: 'Los indicadores demográficos describen el comportamiento de la población. Todos los siguientes son indicadores demográficos, excepto:',
           b: 'morbilidad', m: ['fecundidad', 'migración', 'natalidad', 'mortalidad'], ex: 'La morbilidad (proporción de enfermos) es un indicador de salud, no demográfico.' },
-        { p: 'El número de nacimientos por cada mil habitantes en un año es la tasa de:', b: 'natalidad', m: ['mortalidad', 'fecundidad', 'migración', 'morbilidad'] }
+        { p: 'El número de nacimientos por cada mil habitantes en un año es la tasa de:', b: 'natalidad', m: ['mortalidad', 'fecundidad', 'migración', 'morbilidad'] },
+        qIndicadorNumero, qIndicadorNumero,
+        { lista: 'Del siguiente listado, identifique los indicadores que usa el Índice de Desarrollo Humano (IDH).', si: ['Esperanza de vida', 'Educación', 'Ingreso per cápita'],
+          no: ['Número de habitantes', 'Superficie territorial', 'Densidad de población', 'Cantidad de recursos naturales'] },
+        { p: '¿Qué organismo estableció el Índice de Desarrollo Humano (IDH)?', b: 'El Programa de las Naciones Unidas para el Desarrollo (PNUD)',
+          m: ['El Banco de México', 'El INEGI', 'La Organización Mundial de la Salud', 'El Fondo Monetario Internacional'] },
+        { p: 'La salida de personas de su país para irse a vivir a otro se llama:', b: 'emigración', m: ['inmigración', 'natalidad', 'mortalidad', 'densidad de población'] },
+        { p: 'La llegada de personas de otro país para vivir en el nuestro se llama:', b: 'inmigración', m: ['emigración', 'natalidad', 'mortalidad', 'densidad de población'] }
       ] },
       { s: 'riesgos', n: 'Riesgos geologicos', v: [
         { lista: 'Del siguiente listado, identifique los fenómenos geológicos que ponen en riesgo a las personas.',
           si: ['Erupción volcánica', 'Deslizamiento de laderas', 'Tsunami', 'Sismo'], no: ['Explosión por sustancias inflamables', 'Fuga de sustancias tóxicas', 'Residuos biológicos', 'Huracán'] },
         { lista: 'Del siguiente listado, identifique los fenómenos hidrometeorológicos.',
-          si: ['Huracán', 'Inundación', 'Granizada', 'Sequía'], no: ['Sismo', 'Erupción volcánica', 'Incendio industrial', 'Deslizamiento de laderas'] }
+          si: ['Huracán', 'Inundación', 'Granizada', 'Sequía'], no: ['Sismo', 'Erupción volcánica', 'Incendio industrial', 'Deslizamiento de laderas'] },
+        qRiesgoCenapred, qRiesgoCenapred,
+        { p: '¿Cuál de las siguientes es una medida de prevención ante un sismo?', b: 'Identificar las rutas de evacuación y las zonas de menor riesgo',
+          m: ['Construir viviendas en laderas inestables', 'Usar el elevador para salir rápido', 'Correr por las escaleras mientras tiembla', 'Guardar los documentos importantes en el sótano'] }
       ] },
       { s: 'territorio', n: 'Territorio de Mexico', v: [
         { p: '¿Cómo se llama la franja de mar que se extiende hasta 370 km (200 millas náuticas) desde la costa, donde México puede pescar y aprovechar los recursos?',
           b: 'Zona Económica Exclusiva', m: ['Mar territorial', 'Superficie insular', 'Superficie continental', 'Plataforma continental'] },
         { p: '¿Cuántas millas náuticas, medidas desde la costa, abarca el mar territorial de México?', b: '12 millas náuticas',
-          m: ['200 millas náuticas', '24 millas náuticas', '370 millas náuticas', '50 millas náuticas'] }
+          m: ['200 millas náuticas', '24 millas náuticas', '370 millas náuticas', '50 millas náuticas'] },
+        { p: '¿Cuántas entidades federativas integran los Estados Unidos Mexicanos?', b: 32, m: [31, 30, 33, 29, 34] },
+        { p: '¿Cuál es el nombre oficial de nuestro país?', b: 'Estados Unidos Mexicanos',
+          m: ['República Mexicana', 'Estados Mexicanos Unidos', 'República Federal de México', 'Unión de Estados de México'] },
+        { p: 'El mar territorial se extiende 12 millas náuticas mar adentro. ¿A cuántos kilómetros equivale?', b: 22.2, m: [12, 200, 370, 1.85, 44.4],
+          fmt: function (v) { return F.n(v, 2) + ' km'; } },
+        { rel: 'Relacione cada parte del territorio de México con su descripción.', cols: ['Parte', 'Descripción'],
+          pares: [['Mar territorial', 'Franja de 12 millas náuticas donde el Estado tiene plena soberanía sobre el agua, el lecho, el subsuelo y el espacio aéreo'],
+            ['Zona Económica Exclusiva', 'Franja de 200 millas náuticas donde México aprovecha los recursos, pero los barcos extranjeros circulan libremente'],
+            ['Superficie continental', 'Parte del territorio unida al continente americano, junto con las islas'],
+            ['Ciudad de México', 'Capital del país y sede de los poderes Ejecutivo, Legislativo y Judicial']] },
+        { p: '¿Con qué países tiene México tratados que definen su mar territorial y su Zona Económica Exclusiva?', b: 'Estados Unidos, Guatemala, Belice, Honduras y Cuba',
+          m: ['Canadá, Estados Unidos y Guatemala', 'Guatemala, Belice y El Salvador', 'Estados Unidos, Canadá y Cuba', 'Cuba, Jamaica y Belice'] }
       ] }
     ]
   });
@@ -217,7 +703,6 @@
      Preguntas con datos al azar para los temas de "5. Quimica" de la guia:
      particulas del atomo, configuracion electronica, octeto, numeros de
      oxidacion, acidos y bases, pH, enlaces, gases, masa molecular y alcanos. */
-  var F = EJ.fmt;
 
   /* formula quimica: los numeros van como subindices, salvo el coeficiente del principio */
   function fq(t) {

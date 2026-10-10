@@ -186,11 +186,13 @@ variantes nuevas cada vez.
   una fórmula) o **Difícil** (varios pasos, análisis o incisos muy parecidos). Al
   practicar un tema eliges el nivel y salen sólo sus subtemas; en total son 134
   fáciles, 160 medios y 98 difíciles.
-- Cuatro incisos A), B), C) y D), ordenados como en el cuadernillo: los números (y
-  las fracciones) de menor a mayor y el texto en orden alfabético. Antes de ordenar
-  se sortea en qué letra queda la respuesta y se escogen los distractores para que
-  caiga ahí, así que la letra correcta no se puede adivinar (antes, por ejemplo, la
-  respuesta de progresión aritmética siempre era la más grande).
+- Cuatro incisos A), B), C) y D). Los números (y las fracciones) van de menor a
+  mayor, como en el cuadernillo: antes de ordenar se sortea en qué letra queda la
+  respuesta y se escogen los distractores para que caiga ahí (antes, por ejemplo, la
+  respuesta de progresión aritmética siempre era la más grande). El texto va
+  revuelto: el cuadernillo no siempre lo ordena (casi la mitad de sus preguntas de
+  texto no van en orden alfabético) y, en orden alfabético, la misma pregunta dejaba
+  la respuesta siempre en la misma letra. Así la letra correcta no se puede adivinar.
 - Los mismos tipos de pregunta: directa, **"Complete correctamente el siguiente
   texto"**, **"Relacione..."** (con respuestas tipo `1c, 2a, 3b` o `1ac, 2bd`),
   **"Del siguiente listado, identifique..."** (`1, 3, 5`), **"Ordene..."**, la línea
@@ -213,8 +215,8 @@ variantes nuevas cada vez.
   un *Complete* de varios huecos queda de uno solo, de un *Ordene* se pregunta qué
   paso va después de otro y de un *listado* cuál sí forma parte (o "todas excepto").
 - **Todo el temario de la guía de estudio** (*Temas fundamentales y bibliografía*),
-  no sólo lo que trae el cuadernillo. En matemáticas, física y química cada subtema
-  también pregunta los temas de la guía que el cuadernillo no usa:
+  no sólo lo que trae el cuadernillo. En matemáticas y ciencias experimentales cada
+  subtema también pregunta los temas de la guía que el cuadernillo no usa:
   - Álgebra: conjuntos numéricos, propiedades de los reales, leyes de los
     exponentes, notación científica, suma de polinomios, productos notables, suma y
     diferencia de cubos, factorización por agrupación y binomio de Newton.
@@ -225,6 +227,20 @@ variantes nuevas cada vez.
     unión de sucesos.
   - Física: tiro vertical, procesos termodinámicos (isobárico, isocórico,
     isotérmico, adiabático), buenos y malos conductores del calor y entropía.
+  - Biología (de 38 a 104 variantes, 36 con datos al azar): Redi, Pasteur, panspermia
+    y síntesis abiótica, biomoléculas orgánicas e inorgánicas, monosacáridos,
+    disacáridos y polisacáridos, taxonomía y nomenclatura binomial, teoría celular,
+    procariotas y eucariotas, comunicación celular, fases de la fotosíntesis, ciclo
+    celular, mitosis y meiosis (cromosomas de las células hijas), cuadros de Punnett,
+    leyes de Mendel, teorías y evidencias de la evolución, adaptaciones, crecimiento y
+    densidad de poblaciones, relaciones interespecíficas (con amensalismo), la regla
+    del 10% de la energía y los ciclos biogeoquímicos.
+  - Geografía (de 23 a 66 variantes, 17 con datos al azar): planetas rocosos y
+    gaseosos, mapas y proyecciones, SIG y GPS, intemperismo, erosión y sismos, tipos
+    de recursos, fenómenos meteorológicos, hidrológicos y geológicos, riesgos del
+    CENAPRED, sectores económicos, grupos y letras de Köppen, elementos y factores del
+    clima, IDH, densidad de población y tasa de natalidad, migración y territorio de
+    México.
   - Química (de 39 a 102 variantes, 38 con datos al azar): protones, neutrones y
     electrones de átomos e iones, modelos atómicos, historia de la tabla periódica,
     configuración electrónica, metales, no metales y gases nobles, regla del

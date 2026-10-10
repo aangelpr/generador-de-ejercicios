@@ -9,10 +9,11 @@
      - "Considere ..." cuando el cuadernillo da la formula
      - multirreactivo: un texto que sirve para varias preguntas seguidas
 
-   Como en el cuadernillo, los incisos van ORDENADOS: los numeros de menor a
-   mayor y el texto en orden alfabetico. Asi la letra correcta no da pistas y
-   se ve igual que en el examen. Los incisos incorrectos salen de errores
-   tipicos, no de numeros al azar. */
+   Como en el cuadernillo, los numeros van de menor a mayor. El texto va
+   revuelto: el cuadernillo no siempre lo ordena (casi la mitad de sus
+   preguntas de texto no van en orden alfabetico) y, ordenado, la misma
+   pregunta dejaria la respuesta siempre en la misma letra. Los incisos
+   incorrectos salen de errores tipicos, no de numeros al azar. */
 (function () {
   'use strict';
   var F = EJ.fmt, R = EJ.resp;
@@ -39,12 +40,14 @@
   /* Cuatro incisos: `correcta` mas tres de `errores`.
      - Los valores pueden ser numeros o texto (HTML).
      - Los errores van del mas tipico al menos tipico; se usan primero.
-     - Los incisos se ordenan (numeros de menor a mayor, texto en orden
-       alfabetico), pero la letra correcta NO debe adivinarse: antes de
-       ordenar se sortea en que lugar queda la respuesta y se escogen los
-       distractores para que caiga ahi. En los numericos, si los errores
-       tipicos quedan todos de un lado, se completan con valores cercanos
-       del otro lado; asi "la mas grande" no es siempre la buena.
+     - Los numeros (tambien las fracciones y los textos que empiezan con un
+       numero, como "1c, 2a, 3b") se ordenan de menor a mayor, pero la letra
+       correcta NO debe adivinarse: antes de ordenar se sortea en que lugar
+       queda la respuesta y se escogen los distractores para que caiga ahi.
+       Si los errores tipicos quedan todos de un lado, se completan con
+       valores cercanos del otro lado; asi "la mas grande" no es siempre la
+       buena.
+     - El demas texto toma los primeros tres errores y va revuelto.
      op: {dec, unidad, antes, fmt, enteros, fijo}
        dec     decimales al imprimir numeros (2 por defecto)
        unidad  texto que va despues ("cm", "km/h")
@@ -88,11 +91,24 @@
       return { v: v, t: t };
     }
 
+    var validos = [];
+    errores.forEach(function (v) { var c = valido(v); if (c) validos.push(c); });
+    function inciso(x, i) { return '<b>' + LETRAS.charAt(i) + ')</b>&nbsp; ' + x.t; }
+
+    /* texto que no es cantidad: tres errores (los mas tipicos) y revuelto.
+       "7.5 h" o "1c, 2a, 3b" son cantidades; "1. Cuota fija, 2. ..." no. */
+    function esCantidad(c) {
+      var t = plano(c.t);
+      return isFinite(valorDe(c.t)) || (/^\d/.test(t) && !/^\d+\.\s/.test(t));
+    }
+    if (!numerica && ![bien].concat(validos).every(esCantidad)) {
+      var revueltos = r.baraja([bien].concat(validos.slice(0, 3)));
+      return R.opcion(revueltos.map(inciso), revueltos.indexOf(bien), { sinMezclar: true, etiqueta: 'Elige la respuesta correcta' });
+    }
+
     /* errores validos, separados por si quedan antes o despues de la respuesta */
     var antes = [], despues = [], empates = [];
-    errores.forEach(function (v) {
-      var c = valido(v);
-      if (!c) return;
+    validos.forEach(function (c) {
       var s = compara(c, bien);
       (s < 0 ? antes : s > 0 ? despues : empates).push(c);
     });
@@ -149,10 +165,7 @@
     var todos = [bien].concat(malas);
     todos.forEach(function (x) { x.k = r.real(0, 1); });
     todos.sort(function (a, b) { return compara(a, b) || a.k - b.k; });
-    var indice = todos.indexOf(bien);
-    return R.opcion(todos.map(function (x, i) {
-      return '<b>' + LETRAS.charAt(i) + ')</b>&nbsp; ' + x.t;
-    }), indice, { sinMezclar: true, etiqueta: 'Elige la respuesta correcta' });
+    return R.opcion(todos.map(inciso), todos.indexOf(bien), { sinMezclar: true, etiqueta: 'Elige la respuesta correcta' });
   };
 
   /* Varias formas de preguntar lo mismo: escoge una de las funciones de la

@@ -974,7 +974,8 @@
     var prod = a * b, exp = e1 + e2, mant = prod, ex = exp;
     if (prod >= 10) { mant = prod / 10; ex = exp + 1; }
     return P.ejercicio('&iquest;Cu&aacute;l es el resultado de <span class="expr">(' + cientifico(a, e1) + ')(' + cientifico(b, e2) + ')</span> en notaci&oacute;n cient&iacute;fica?',
-      P.opciones(r, cientifico(mant, ex), [cientifico(mant, e1 * e2 === ex ? ex + 2 : e1 * e2), cientifico(a + b, exp), cientifico(prod >= 10 ? prod : mant, prod >= 10 ? exp : ex - 1), cientifico(mant, ex + 1)]),
+      P.opciones(r, cientifico(mant, ex), [cientifico(mant, e1 * e2 === ex ? ex + 2 : e1 * e2), cientifico(a + b, exp), cientifico(prod >= 10 ? prod : mant, prod >= 10 ? exp : ex - 1),
+        cientifico(mant, ex + 1), cientifico(mant, ex - 2), cientifico(a + b, e1 * e2)]),
       ['Multiplica las partes decimales y SUMA los exponentes de 10.', 'Si la parte decimal queda de 10 o mas, recorre el punto y suma 1 al exponente.'],
       [a + ' &times; ' + b + ' = ' + prod + ' y 10<sup>' + m(e1) + '</sup> &times; 10<sup>' + m(e2) + '</sup> = 10<sup>' + m(exp) + '</sup>', 'Resultado: <b>' + cientifico(mant, ex) + '</b>']);
   }
@@ -989,8 +990,10 @@
     var mal2 = A.map(function (v, i) { return i === 0 ? v - B[i] * (resta ? 1 : -1) : (resta ? v + B[i] : v - B[i]); });
     var mal3 = [res[0], res[1], resta ? A[2] - (-B[2]) : A[2] - B[2]];
     var mal4 = [A[0] * B[0], res[1], res[2]];
+    var mal5 = [res[0], resta ? A[1] + B[1] : A[1] - B[1], res[2]];   // signo equivocado solo en x
+    var mal6 = [res[0], A[1] * B[1], res[2]];                           // multiplica en lugar de sumar
     return P.ejercicio('&iquest;Cu&aacute;l es el resultado de <span class="expr">(' + pol(A) + ') ' + (resta ? '&minus;' : '+') + ' (' + pol(B) + ')</span>?',
-      P.opciones(r, pol(res), [pol(mal1), pol(mal2), pol(mal3), pol(mal4)].filter(function (t) { return t !== pol(res); })),
+      P.opciones(r, pol(res), [pol(mal1), pol(mal2), pol(mal3), pol(mal4), pol(mal5), pol(mal6)].filter(function (t) { return t !== pol(res); })),
       ['Solo se suman (o restan) los terminos SEMEJANTES: misma variable con el mismo exponente.', resta ? 'El signo menos antes del parentesis cambia el signo de TODOS los terminos del segundo polinomio.' : 'Suma los coeficientes de x' + F.sup(2) + ', luego los de x y al final los numeros.'],
       ['x' + F.sup(2) + ': ' + m(A[0]) + (resta ? ' &minus; ' : ' + ') + P.np(B[0]) + ' = ' + m(res[0]) + '; x: ' + m(A[1]) + (resta ? ' &minus; ' : ' + ') + P.np(B[1]) + ' = ' + m(res[1]) +
         '; numeros: ' + m(A[2]) + (resta ? ' &minus; ' : ' + ') + P.np(B[2]) + ' = ' + m(res[2]), 'Resultado: <b>' + pol(res) + '</b>']);
