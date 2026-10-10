@@ -1106,7 +1106,8 @@
     var c = Math.cos(t), sn = Math.sin(t);
     function pt(x, y) { return '(' + exacto(x) + ', ' + exacto(y) + ')'; }
     var bien = pt(c, sn);
-    return P.ejercicio('&iquest;Cu&aacute;les son las coordenadas del punto de la circunferencia unitaria que corresponde a un &aacute;ngulo de ' + g + '&deg;?',
+    return P.ejercicio('&iquest;Cu&aacute;les son las coordenadas del punto de la circunferencia unitaria que corresponde a un &aacute;ngulo de ' + g + '&deg;?' +
+      P.considere(P.valoresRef(g) + '.'),
       P.opciones(r, bien, [pt(sn, c), pt(-c, sn), pt(c, -sn), pt(-c, -sn), pt(-sn, c)]),
       ['En la circunferencia unitaria el punto es (cos &theta;, sen &theta;): primero el coseno.',
         'Ubica el cuadrante para los signos: en el II cuadrante x es negativa; en el III, las dos; en el IV, y es negativa.'],

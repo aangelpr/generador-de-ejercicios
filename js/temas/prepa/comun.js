@@ -240,6 +240,15 @@
     return '<div class="considere">Considere ' + html + '</div>';
   };
 
+  /* "sen 30° = 1/2 y cos 30° = √3/2": los valores del angulo de referencia
+     (30°, 45° o 60°) de un angulo como 150° o 225°, como los da el cuadernillo. */
+  prepa.valoresRef = function (g) {
+    var a = g % 180, ref = a > 90 ? 180 - a : a;
+    var MEDIO = F.frac(1, 2), R2 = F.frac('&radic;2', 2), R3 = F.frac('&radic;3', 2);
+    if (ref === 45) return 'sen 45&deg; = cos 45&deg; = ' + R2;
+    return 'sen ' + ref + '&deg; = ' + (ref === 30 ? MEDIO : R3) + ' y cos ' + ref + '&deg; = ' + (ref === 30 ? R3 : MEDIO);
+  };
+
   /* Texto de un multirreactivo: va arriba de cada una de sus preguntas. */
   prepa.lectura = function (html) {
     return '<div class="lectura"><div class="lectura-titulo">Lea el siguiente texto y conteste</div>' + html + '</div>';

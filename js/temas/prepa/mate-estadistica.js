@@ -155,12 +155,16 @@
       ['P(A) = P(B) = ' + F.frac(1, c.q), 'P(A &cap; B) = ' + F.frac(1, c.q) + ' &times; ' + F.frac(1, c.q) + ' = <b>' + bien + '</b>']);
   };
 
+  /* la formula que da el cuadernillo para la binomial */
+  function considereBinomial() {
+    return P.considere('P(X = k; n, p) = ' + F.frac('n!', 'k!&middot;(n &minus; k)!') + ' &middot; p<sup>k</sup> &middot; (1 &minus; p)<sup>n&minus;k</sup>.');
+  }
+
   casos.binomial = function (r, c) {
     var n = c.N - 1, k = r.entero(1, Math.min(3, n - 1)), p = c.p;
     var v = comb(n, k) * Math.pow(p, k) * Math.pow(1 - p, n - k);
     var f3 = function (x) { return x.toFixed(3); };
-    return P.ejercicio(c.texto + '&iquest;Cu&aacute;l es la probabilidad de que un equipo gane exactamente ' + (k === 1 ? 'uno' : k === 2 ? 'dos' : 'tres') + ' de sus partidos?' +
-      P.considere('P(X = k; n, p) = ' + F.frac('n!', 'k!&middot;(n &minus; k)!') + ' &middot; p<sup>k</sup> &middot; (1 &minus; p)<sup>n&minus;k</sup>.'),
+    return P.ejercicio(c.texto + '&iquest;Cu&aacute;l es la probabilidad de que un equipo gane exactamente ' + (k === 1 ? 'uno' : k === 2 ? 'dos' : 'tres') + ' de sus partidos?' + considereBinomial(),
       P.opciones(r, v, [Math.pow(p, k) * Math.pow(1 - p, n - k), Math.pow(p, k), comb(n, k) * Math.pow(p, k), Math.pow(p, n)], { fmt: f3, dec: 3, enteros: false }),
       ['n = ' + n + ' partidos, k = ' + k + ' victorias, p = ' + F.fracSimp(1, c.q) + '.',
         'No olvides el numero de formas, C(' + n + ', ' + k + ') = ' + comb(n, k) + '.'],
@@ -361,7 +365,7 @@
 
   function binAlMenosUno(r, c) {
     var n = c.N - 1, v = 1 - Math.pow(1 - c.p, n), f3 = function (x) { return x.toFixed(3); };
-    return P.ejercicio(c.texto + '&iquest;Cu&aacute;l es la probabilidad de que un equipo gane al menos uno de sus partidos?',
+    return P.ejercicio(c.texto + '&iquest;Cu&aacute;l es la probabilidad de que un equipo gane al menos uno de sus partidos?' + considereBinomial(),
       P.opciones(r, v, [Math.pow(1 - c.p, n), n * c.p > 1 ? c.p : n * c.p, 1 - Math.pow(c.p, n), Math.pow(c.p, n)], { fmt: f3, dec: 3, enteros: false }),
       ['"Al menos uno" es lo contrario de "ninguno".', 'P(al menos uno) = 1 &minus; P(no gana ninguno) = 1 &minus; (1 &minus; p)<sup>n</sup>.'],
       ['P(ninguno) = (' + F.fracTxt(c.q - 1, c.q) + ')<sup>' + n + '</sup> = ' + f3(Math.pow(1 - c.p, n)), '1 &minus; ' + f3(Math.pow(1 - c.p, n)) + ' = <b>' + f3(v) + '</b>']);
@@ -377,7 +381,7 @@
 
   function binNinguno(r, c) {
     var n = c.N - 1, v = Math.pow(1 - c.p, n), f3 = function (x) { return x.toFixed(3); };
-    return P.ejercicio(c.texto + '&iquest;Cu&aacute;l es la probabilidad de que un equipo no gane ninguno de sus partidos?',
+    return P.ejercicio(c.texto + '&iquest;Cu&aacute;l es la probabilidad de que un equipo no gane ninguno de sus partidos?' + considereBinomial(),
       P.opciones(r, v, [1 - v, Math.pow(c.p, n), 1 - c.p, (1 - c.p) / n], { fmt: f3, dec: 3, enteros: false }),
       ['No ganar un partido: 1 &minus; p = ' + F.fracTxt(c.q - 1, c.q) + '.', 'Ninguno de ' + n + ': multiplica esa probabilidad ' + n + ' veces.'],
       ['(' + F.fracTxt(c.q - 1, c.q) + ')<sup>' + n + '</sup> = <b>' + f3(v) + '</b>']);

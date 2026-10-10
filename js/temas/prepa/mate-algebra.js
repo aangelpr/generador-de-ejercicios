@@ -432,7 +432,7 @@
       var d = r.enteroNoCero(-7, 9), p = r.entero(2, 6), q = p + r.entero(4, 12), a1 = r.entero(-10, 15);
       var ap = a1 + (p - 1) * d, aq = a1 + (q - 1) * d;
       return P.ejercicio('En una progresi&oacute;n aritm&eacute;tica el t&eacute;rmino ' + p + ' es ' + m(ap) + ' y el t&eacute;rmino ' + q + ' es ' + m(aq) +
-        '. &iquest;Cu&aacute;l es la diferencia de la progresi&oacute;n?',
+        '. &iquest;Cu&aacute;l es la diferencia de la progresi&oacute;n?' + P.considere('a<sub>n</sub> = a<sub>1</sub> + (n &minus; 1)d.'),
         P.opciones(r, d, [(aq - ap) / (q - p + 1), aq - ap, (aq - ap) / q, (aq + ap) / (q - p)], { conSigno: true, dec: 2, fmt: m2 }),
         ['Entre el termino ' + p + ' y el ' + q + ' hay ' + (q - p) + ' saltos de tamano d.',
           'Asi que d = (a<sub>' + q + '</sub> &minus; a<sub>' + p + '</sub>) / ' + (q - p) + '.'],
@@ -443,7 +443,7 @@
     function (r) {
       var a1 = r.entero(1, 15), d = r.entero(2, 9), n = r.entero(15, 45), an = a1 + (n - 1) * d;
       var terms = [a1, a1 + d, a1 + 2 * d].join(', ');
-      return P.ejercicio('&iquest;Cu&aacute;ntos t&eacute;rminos tiene la sucesi&oacute;n ' + terms + ', &hellip;, ' + an + '?',
+      return P.ejercicio('&iquest;Cu&aacute;ntos t&eacute;rminos tiene la sucesi&oacute;n ' + terms + ', &hellip;, ' + an + '?' + P.considere('a<sub>n</sub> = a<sub>1</sub> + (n &minus; 1)d.'),
         P.opciones(r, n, [n - 1, n + 1, Math.round(an / d), Math.round((an + a1) / d)]),
         ['Despeja n de a<sub>n</sub> = a<sub>1</sub> + (n &minus; 1)d.', 'No olvides sumar 1 al final: los saltos son uno menos que los terminos.'],
         [an + ' = ' + a1 + ' + (n &minus; 1)(' + d + ') &rarr; n &minus; 1 = ' + (an - a1) + ' / ' + d + ' = ' + (n - 1), 'n = <b>' + n + '</b>']);
@@ -459,7 +459,7 @@
       var terms = [a1, a1 + d, a1 + 2 * d, a1 + 3 * d].map(m).join(', ');
       var malas = [gen(d, a1), gen(a1 === 0 ? 2 : a1, d), gen(d, -c), gen(d + 1, c - 1), gen(c === 0 ? 1 : c, d),
         gen(d, c - 1), gen(2 * d, c), gen(d, c + 2)];
-      return P.ejercicio('&iquest;Cu&aacute;l es el t&eacute;rmino general de la sucesi&oacute;n ' + terms + ', &hellip;?',
+      return P.ejercicio('&iquest;Cu&aacute;l es el t&eacute;rmino general de la sucesi&oacute;n ' + terms + ', &hellip;?' + P.considere('a<sub>n</sub> = a<sub>1</sub> + (n &minus; 1)d.'),
         P.opciones(r, gen(d, c), malas),
         ['El numero que acompana a n es la diferencia: d = ' + m(d) + '.',
           'Comprueba con n = 1: el resultado debe ser el primer termino, ' + m(a1) + '.'],
@@ -477,7 +477,7 @@
         ['Un auto tiene ' + P.num(ini, 0) + ' km en el od&oacute;metro de su viaje pendiente y cada d&iacute;a avanza ' + baja + ' km.', '&iquest;Cu&aacute;ntos kil&oacute;metros le faltar&aacute;n despu&eacute;s de ' + t + ' d&iacute;as?', 'km']
       ]);
       var v = ini - baja * t;
-      return P.ejercicio(ctx[0] + ' ' + ctx[1],
+      return P.ejercicio(ctx[0] + ' ' + ctx[1] + P.considere('a<sub>n</sub> = a<sub>1</sub> + (n &minus; 1)d.'),
         P.opciones(r, v, [ini - baja * (t - 1), ini - baja * (t + 1), baja * t, ini + baja * t], { unidad: ctx[2], fmt: function (x) { return P.num(x, 0); } }),
         ['Es una progresion aritmetica con diferencia negativa: cada vez se resta ' + baja + '.',
           'Despues de ' + t + ' periodos se resto ' + t + ' veces.'],
@@ -525,7 +525,7 @@
       var a1 = r.entero(1, 5), q = r.elige([2, 3, 4, 5]), k = r.elige([3, 4]);
       var ak = a1 * Math.pow(q, k - 1), cociente = ak / a1;
       return P.ejercicio('En una progresi&oacute;n geom&eacute;trica, el primer t&eacute;rmino es ' + a1 + ' y el t&eacute;rmino ' + k + ' es ' + P.num(ak, 0) +
-        '. &iquest;Cu&aacute;l es la raz&oacute;n de la progresi&oacute;n?',
+        '. &iquest;Cu&aacute;l es la raz&oacute;n de la progresi&oacute;n?' + P.considere('a<sub>n</sub> = a<sub>1</sub> &middot; r<sup>n&minus;1</sup>.'),
         P.opciones(r, q, [cociente, cociente / (k - 1), (ak - a1) / (k - 1), q + 1], { dec: 2 }),
         ['a<sub>' + k + '</sub> = a<sub>1</sub> &middot; r<sup>' + (k - 1) + '</sup>, asi que r<sup>' + (k - 1) + '</sup> = ' + P.num(ak, 0) + ' / ' + a1 + '.',
           'Luego saca raiz ' + (k === 3 ? 'cuadrada' : 'cubica') + '.'],
@@ -540,7 +540,7 @@
       var unidad = cosa.indexOf('bacterias') !== -1 ? 'bacterias' : cosa.indexOf('levaduras') !== -1 ? 'c&eacute;lulas' : 'seguidores';
       var cuantos = unidad === 'seguidores' ? 'cu&aacute;ntos' : 'cu&aacute;ntas';
       return P.ejercicio(cosa + ' se ' + (q === 2 ? 'duplica' : 'triplica') + ' cada hora. Si al inicio hay ' + ini + ' ' + unidad +
-        ', &iquest;' + cuantos + ' habr&aacute; despu&eacute;s de ' + t + ' horas?',
+        ', &iquest;' + cuantos + ' habr&aacute; despu&eacute;s de ' + t + ' horas?' + P.considere('a<sub>n</sub> = a<sub>1</sub> &middot; r<sup>n&minus;1</sup>.'),
         P.opciones(r, v, [ini * Math.pow(q, t - 1), ini * q * t, ini * Math.pow(q, t + 1), ini + Math.pow(q, t)], { fmt: function (x) { return P.num(x, 0); } }),
         ['Cada hora se multiplica por ' + q + ': despues de t horas es ' + ini + ' &middot; ' + q + '<sup>t</sup>.',
           'No es ' + ini + ' &times; ' + q + ' &times; ' + t + ': el crecimiento es multiplicativo, no se suma lo mismo cada hora.'],
@@ -552,7 +552,7 @@
       var c = r.elige([[64, 1, 2], [81, 2, 3], [256, 3, 4], [128, 1, 2], [243, 2, 3]]), k = r.entero(2, 4);
       var h = c[0] * Math.pow(c[1] / c[2], k);
       return P.ejercicio('Una pelota se deja caer desde ' + c[0] + ' m de altura y en cada rebote sube ' + F.frac(c[1], c[2]) +
-        ' de la altura anterior. &iquest;Qu&eacute; altura alcanza en el rebote n&uacute;mero ' + k + '?',
+        ' de la altura anterior. &iquest;Qu&eacute; altura alcanza en el rebote n&uacute;mero ' + k + '?' + P.considere('a<sub>n</sub> = a<sub>1</sub> &middot; r<sup>n&minus;1</sup>.'),
         P.opciones(r, h, [c[0] * Math.pow(c[1] / c[2], k - 1), c[0] * Math.pow(c[1] / c[2], k + 1), c[0] - k * c[0] * (1 - c[1] / c[2]), c[0] * c[1] / c[2] / k], { unidad: 'm', dec: 2 }),
         ['Cada rebote multiplica la altura anterior por ' + F.frac(c[1], c[2]) + '.',
           'Despues de ' + k + ' rebotes: ' + c[0] + ' &middot; (' + c[1] + '/' + c[2] + ')<sup>' + k + '</sup>.'],
