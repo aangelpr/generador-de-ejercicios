@@ -183,7 +183,7 @@
     var t = g * Math.PI / 180, c = Math.cos(t), s = Math.sin(t);
     function pt(x, y) { return '(' + exactoPor(rr, x) + ', ' + exactoPor(rr, y) + ')'; }
     return P.ejercicio('&iquest;Cu&aacute;les son las coordenadas cartesianas del punto que en coordenadas polares es (' + rr + ', ' + g + '&deg;)?' +
-      P.considere('x = r cos &theta; &nbsp;y&nbsp; y = r sen &theta;.'),
+      P.considere('x = r cos &theta; &nbsp;y&nbsp; y = r sen &theta;; ' + P.valoresRef(g) + '.'),
       P.opciones(r, pt(c, s), [pt(s, c), pt(-c, s), pt(c, -s), pt(-c, -s), pt(-s, -c)]),
       ['x va con el COSENO y y con el SENO.', 'Fijate en el cuadrante de ' + g + '&deg; para los signos.'],
       ['x = ' + rr + ' cos ' + g + '&deg; = ' + exactoPor(rr, c), 'y = ' + rr + ' sen ' + g + '&deg; = ' + exactoPor(rr, s), 'Punto: <b>' + pt(c, s) + '</b>']);
@@ -192,7 +192,8 @@
   function polDistancia(r) {
     var t = r.elige(TRIPLES), x = t[0] * r.signo(), y = t[1] * r.signo();
     if (r.bool()) { var tmp = x; x = y; y = tmp; }
-    return P.ejercicio('&iquest;A qu&eacute; distancia del origen se encuentra el punto ' + pm(x, y) + '? (Es el valor de r en coordenadas polares.)',
+    return P.ejercicio('&iquest;A qu&eacute; distancia del origen se encuentra el punto ' + pm(x, y) + '? (Es el valor de r en coordenadas polares.)' +
+      P.considere('r' + F.sup(2) + ' = x' + F.sup(2) + ' + y' + F.sup(2) + '.'),
       P.opciones(r, t[2], [Math.abs(x) + Math.abs(y), Math.abs(Math.abs(x) - Math.abs(y)), x * x + y * y, Math.abs(x * y) / 2]),
       ['r = &radic;(x' + F.sup(2) + ' + y' + F.sup(2) + '): es el teorema de Pitagoras.', 'Los signos no importan porque se elevan al cuadrado.'],
       ['r = &radic;(' + (x * x) + ' + ' + (y * y) + ') = &radic;' + (x * x + y * y) + ' = <b>' + t[2] + '</b>']);

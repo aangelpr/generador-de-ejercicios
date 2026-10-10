@@ -859,10 +859,14 @@
       b: oxida ? x[2] : x[1], m: [oxida ? x[1] : x[2]].concat(x[3]),
       ex: x[7] + '. El que pierde electrones (se oxida) es el agente reductor; el que los gana (se reduce) es el agente oxidante.' };
   }
+  /* como en el cuadernillo, se dan los numeros de oxidacion de los que no cambian */
+  function datosOxidacion(eq) {
+    return P.considere(/SO4/.test(eq) ? 'O: &minus;2 y S: +6.' : 'H: +1 y Cl: &minus;1 en los compuestos.');
+  }
   function qSeOxida(r) {
     var x = r.elige(REDOX.filter(function (y) { return y[4]; })), oxida = r.bool();
     var b = oxida ? x[5] : x[6];
-    return { p: '¿Qué elemento se ' + (oxida ? 'oxida' : 'reduce') + ' en la reacción?<br>' + ecuacion(x[0]),
+    return { p: '¿Qué elemento se ' + (oxida ? 'oxida' : 'reduce') + ' en la reacción?<br>' + ecuacion(x[0]) + datosOxidacion(x[0]),
       b: b, m: distintos(b, x[4].concat(['Ninguno: no hay cambios en los números de oxidación'])),
       ex: x[7] + '. Se oxida el que aumenta su número de oxidación (pierde electrones) y se reduce el que lo disminuye (gana electrones).' };
   }
@@ -965,7 +969,7 @@
         ex: 'Si pH = &minus;log[H<sup>+</sup>], entonces [H<sup>+</sup>] = 10<sup>&minus;pH</sup> = 10<sup>&minus;' + p + '</sup> mol/L.' };
     }
     var a = r.entero(1, 6), d = r.entero(2, 4), veces = function (x) { return x + ' veces'; };
-    return { p: 'La disolución A tiene pH = ' + a + ' y la disolución B tiene pH = ' + (a + d) + '. ¿Cuántas veces es mayor la concentración de iones H<sup>+</sup> de A que la de B?',
+    return { p: 'La disolución A tiene pH = ' + a + ' y la disolución B tiene pH = ' + (a + d) + '. ¿Cuántas veces es mayor la concentración de iones H<sup>+</sup> de A que la de B?' + P.considere('pH = &minus;log[H<sup>+</sup>].'),
       b: veces(Math.pow(10, d)), m: [veces(d), veces(10 * d), veces(Math.pow(10, d + 1)), veces(Math.pow(10, d - 1))],
       ex: 'La escala de pH es logarítmica: cada unidad de pH menos es 10 veces más H<sup>+</sup>. Con ' + d + ' unidades de diferencia: 10<sup>' + d + '</sup> = ' + Math.pow(10, d) + ' veces.' };
   }
@@ -1223,7 +1227,7 @@
       { s: 'seOxida', n: 'Elemento que se oxida', v: [
         { p: '¿Qué elemento se oxida en la reacción?<br>2HNO<sub>3</sub> + 6HBr &rarr; 3Br<sub>2</sub> + 2NO + 4H<sub>2</sub>O<br><small>Considere O: &minus;2 y H: +1.</small>', b: 'Br', m: ['O', 'H', 'N'],
           ex: 'El bromo pasa de −1 (en HBr) a 0 (en Br₂): pierde electrones.' },
-        { p: '¿Qué elemento se reduce en la reacción?<br>Fe<sub>2</sub>O<sub>3</sub> + 3CO &rarr; 2Fe + 3CO<sub>2</sub>', b: 'Fe', m: ['C', 'O', 'Ninguno: no hay cambios de estado de oxidación'],
+        { p: '¿Qué elemento se reduce en la reacción?<br>Fe<sub>2</sub>O<sub>3</sub> + 3CO &rarr; 2Fe + 3CO<sub>2</sub>' + P.considere('O: &minus;2.'), b: 'Fe', m: ['C', 'O', 'Ninguno: no hay cambios de estado de oxidación'],
           ex: 'El hierro pasa de +3 a 0: gana electrones.' },
         qSeOxida, qNumOxidacion, qNumOxidacion, qRedoxRel
       ] },

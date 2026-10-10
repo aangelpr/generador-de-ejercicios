@@ -198,6 +198,13 @@ variantes nuevas cada vez.
   **"Del siguiente listado, identifique..."** (`1, 3, 5`), **"Ordene..."**, la línea
   **"Considere..."** con la fórmula, código con números de línea y
   **multirreactivos** (un texto que sirve para varias preguntas seguidas).
+- **Las fórmulas y los datos que da la versión de práctica.** En los temas donde el
+  cuadernillo pone una línea "Considere..." (progresiones, π = 3.14, valores de seno
+  y coseno, coordenadas polares, logaritmos, desviación estándar, probabilidad de
+  sucesos independientes y binomial, números de oxidación, R = 0.0821, g = 9.81,
+  densidad del agua e índice de refracción), toda pregunta con cálculo la trae,
+  también las formas nuevas de preguntar. Las preguntas de conceptos (en qué
+  cuadrante está un punto, qué propiedad es, qué ley explica algo) van sin ella.
 - Lo que se calcula (matemáticas, física, nómina, contabilidad, costos de hotel)
   sale con números nuevos; lo de conceptos sale de un banco con varias variantes
   por reactivo, con filas e incisos revueltos.
