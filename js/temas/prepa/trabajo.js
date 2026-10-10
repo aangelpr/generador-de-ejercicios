@@ -23,6 +23,11 @@
   function miles(v) { return '$' + String(Math.round(v)).replace(/\B(?=(\d{3})+(?!\d))/g, ','); }
   var VAC = { 1: 12, 2: 14, 3: 16, 4: 18, 5: 20 };
 
+  /* Formulas sugeridas ("Considere ...") de las cuentas de nomina */
+  var DIARIO = 'salario diario = ' + F.frac('salario mensual', '30');
+  var CONS_DIARIO = P.considere(DIARIO + '.');
+  var ISR_TXT = 'ISR = (ingreso &minus; l&iacute;mite inferior) &times; % sobre excedente + cuota fija';
+
   /* tabla mensual del ISR (Anexo 8, RMF 2025): limite inferior, cuota fija, % */
   var ISR = [[0.01, 0, 1.92], [746.05, 14.32, 6.40], [6332.06, 371.83, 10.88], [11128.02, 893.63, 16.00], [12935.83, 1182.88, 17.92], [15487.72, 1640.18, 21.36]];
   function isr(base) {
@@ -182,19 +187,19 @@
   }
   function qSalarioDiario(r) {
     var d = r.entero(25, 90) * 10, mensual = d * 30;
-    return { p: 'Una persona gana ' + pesos(mensual) + ' al mes. Con el criterio de la Ley Federal del Trabajo (mes de 30 días), ¿cuál es su salario diario?',
+    return { p: 'Una persona gana ' + pesos(mensual) + ' al mes. Con el criterio de la Ley Federal del Trabajo (mes de 30 días), ¿cuál es su salario diario?' + CONS_DIARIO,
       b: d, m: [mensual / 31, mensual / 28, mensual / 15, mensual / 7], fmt: pesos,
       ex: 'Salario diario = salario mensual &divide; 30 = ' + pesos(mensual) + ' &divide; 30 = ' + pesos(d) + '.' };
   }
   function qAguinaldoMinimo(r) {
     var d = r.entero(25, 70) * 10;
-    return { p: 'Una persona gana ' + miles(d) + ' diarios y trabajó todo el año. ¿Cuánto debe recibir, como mínimo, de aguinaldo?', b: 15 * d,
+    return { p: 'Una persona gana ' + miles(d) + ' diarios y trabajó todo el año. ¿Cuánto debe recibir, como mínimo, de aguinaldo?' + P.considere('aguinaldo mínimo = 15 días &times; salario diario.'), b: 15 * d,
       m: [12 * d, 30 * d, 10 * d, 20 * d, 7 * d], fmt: miles,
       ex: 'El aguinaldo mínimo equivale a 15 días de salario: 15 &times; ' + miles(d) + ' = ' + miles(15 * d) + '.' };
   }
   function qPTU(r) {
     var u = r.entero(5, 90) * 10000;
-    return { p: 'Una empresa obtuvo utilidades por ' + miles(u) + ' en el año. ¿Cuánto debe repartir entre sus trabajadores como PTU?',
+    return { p: 'Una empresa obtuvo utilidades por ' + miles(u) + ' en el año. ¿Cuánto debe repartir entre sus trabajadores como PTU?' + P.considere('PTU = 10% de las utilidades.'),
       b: u * 0.1, m: [u * 0.15, u * 0.05, u * 0.2, u * 0.01], fmt: miles,
       ex: 'La participación de los trabajadores en las utilidades (PTU) es el 10% de las utilidades: 10% de ' + miles(u) + ' = ' + miles(u * 0.1) + '.' };
   }
@@ -420,46 +425,50 @@
   function aguinaldoProp(r) {
     var q = r.elige(NOMBRES), dias = r.entero(120, 340), mensual = r.entero(25, 90) * 200;
     var diario = mensual / 30, v = diario * 15 * dias / 365;
-    return { p: 'Si ' + q + ' lleva trabajando ' + dias + ' días en su empresa con un sueldo mensual de ' + pesos(mensual) + ', ¿cuánto le pagarán de aguinaldo?',
+    return { p: 'Si ' + q + ' lleva trabajando ' + dias + ' días en su empresa con un sueldo mensual de ' + pesos(mensual) + ', ¿cuánto le pagarán de aguinaldo?' +
+        P.considere(DIARIO + ' y aguinaldo = 15 &times; salario diario &times; ' + F.frac('días trabajados', '365') + '.'),
       b: v, m: [diario * 15, mensual * dias / 365 / 2.5, (mensual / 31) * 15 * dias / 365, diario * 12 * dias / 365], fmt: pesos,
       ex: 'Salario diario = ' + pesos(mensual) + ' / 30 = ' + pesos(diario) + '; aguinaldo = 15 × ' + pesos(diario) + ' × ' + dias + ' / 365 = ' + pesos(v) };
   }
   function primaVac(r) {
     var anios = r.entero(1, 4), mensual = r.entero(30, 90) * 200, diario = mensual / 30, dv = VAC[anios];
     var v = diario * dv * 0.25;
-    return { p: '¿Cuánto pagará de prima vacacional una empresa que otorga las prestaciones mínimas de ley a un empleado con sueldo mensual de ' + pesos(mensual) + ' y ' + anios + (anios === 1 ? ' año cumplido' : ' años cumplidos') + '?',
+    return { p: '¿Cuánto pagará de prima vacacional una empresa que otorga las prestaciones mínimas de ley a un empleado con sueldo mensual de ' + pesos(mensual) + ' y ' + anios + (anios === 1 ? ' año cumplido' : ' años cumplidos') + '?' +
+        P.considere(DIARIO + ', prima vacacional = 25% &times; días de vacaciones &times; salario diario, y vacaciones: 12 días el primer año y 2 más por cada año de servicio.'),
       b: v, m: [diario * dv, (mensual / 31) * dv * 0.25, diario * dv * 0.5, mensual * 0.25], fmt: pesos,
       ex: 'Le tocan ' + dv + ' días de vacaciones; prima = 25% × ' + dv + ' × ' + pesos(diario) + ' = ' + pesos(v) };
   }
   function horasExtra(r) {
     var q = r.elige(NOMBRES), mensual = r.entero(30, 90) * 200, h = r.entero(2, 9);
     var hora = mensual / 30 / 8, v = hora * h * 2;
-    return { p: q + ' tiene una jornada diurna de 8 horas y un sueldo mensual de ' + pesos(mensual) + '. Si esta semana trabajó ' + h + ' horas extra, ¿cuánto le pagarán por ellas?',
+    return { p: q + ' tiene una jornada diurna de 8 horas y un sueldo mensual de ' + pesos(mensual) + '. Si esta semana trabajó ' + h + ' horas extra, ¿cuánto le pagarán por ellas?' +
+        P.considere('hora normal = ' + F.frac('salario mensual', '30 &times; 8') + ' y que las primeras 9 horas extra de la semana se pagan al doble.'),
       b: v, m: [hora * h, hora * h * 3, (mensual / 31 / 8) * h * 2, (mensual / 31 / 8) * h], fmt: pesos,
       ex: 'Hora normal = ' + pesos(mensual) + ' / 30 / 8 = ' + pesos(hora) + '; las primeras 9 horas extra se pagan al doble: ' + h + ' × 2 × ' + pesos(hora) + ' = ' + pesos(v) };
   }
   function cuotaSindical(r) {
     var q = r.elige(NOMBRES), mensual = r.entero(30, 90) * 200, pct = r.elige([1, 2, 3, 4]), v = mensual * pct / 100 / 2;
-    return { p: q + ' gana ' + pesos(mensual) + ' al mes y el sindicato le descuenta ' + pct + '% de cuota sindical. ¿Cuánto se le descuenta por quincena?',
+    return { p: q + ' gana ' + pesos(mensual) + ' al mes y el sindicato le descuenta ' + pct + '% de cuota sindical. ¿Cuánto se le descuenta por quincena?' + P.considere('descuento por quincena = ' + F.frac('% &times; sueldo mensual', '2') + '.'),
       b: v, m: [v * 2, mensual / 31 * 15 * pct / 100, v / 2, mensual * pct / 100 / 31 * 7], fmt: pesos,
       ex: pct + '% de ' + pesos(mensual) + ' = ' + pesos(v * 2) + ' al mes; por quincena, la mitad: ' + pesos(v) };
   }
   function faltaSemana(r) {
     var q = r.elige(NOMBRES), d = r.entero(25, 60) * 10, v = d * 7 - d - d / 6;
-    return { p: q + ' gana ' + pesos(d) + ' diarios. Si faltó un día sin justificar, ¿cuánto recibirá esa semana? (Se descuenta el día y la parte proporcional del séptimo día.)',
+    return { p: q + ' gana ' + pesos(d) + ' diarios. Si faltó un día sin justificar, ¿cuánto recibirá esa semana? (Se descuenta el día y la parte proporcional del séptimo día.)' +
+        P.considere('que el séptimo día se gana con los seis días trabajados: por cada falta se pierde ' + F.frac(1, 6) + ' de él.'),
       b: v, m: [d * 7, d * 6, d * 5, d * 7 - d / 6], fmt: pesos,
       ex: 'Semana completa: 7 × ' + pesos(d) + ' = ' + pesos(7 * d) + '; menos el día (' + pesos(d) + ') y 1/6 del séptimo día (' + pesos(d / 6) + ') = ' + pesos(v) };
   }
   function isrMensual(r) {
     var q = r.elige(NOMBRES), mensual = r.entero(35, 64) * 200, t = isr(mensual);
     var exced = mensual - t.fila[0];
-    return { p: tablaISR() + 'Si ' + q + ' gana ' + pesos(mensual) + ' mensuales, ¿cuánto le retendrán de ISR?',
+    return { p: tablaISR() + 'Si ' + q + ' gana ' + pesos(mensual) + ' mensuales, ¿cuánto le retendrán de ISR?' + P.considere(ISR_TXT + '.'),
       b: t.valor, m: [exced * t.fila[2] / 100, t.fila[1], mensual * t.fila[2] / 100, t.fila[1] + mensual * t.fila[2] / 100], fmt: pesos,
       ex: 'Excedente: ' + pesos(mensual) + ' − ' + pesos(t.fila[0]) + ' = ' + pesos(exced) + '; × ' + t.fila[2] + '% = ' + pesos(exced * t.fila[2] / 100) + '; más la cuota fija ' + pesos(t.fila[1]) + ' = ' + pesos(t.valor) };
   }
   function netoMensual(r) {
     var q = r.elige(NOMBRES), d = r.entero(250, 420), mensual = d * 30, t = isr(mensual), neto = mensual - t.valor;
-    return { p: tablaISR() + 'Identifique la percepción neta mensual de ' + q + ' si percibe ' + pesos(d) + ' de salario diario (considere 30 días y sólo la retención del ISR).',
+    return { p: tablaISR() + 'Identifique la percepción neta mensual de ' + q + ' si percibe ' + pesos(d) + ' de salario diario (considere 30 días y sólo la retención del ISR).' + P.considere('neto = salario mensual &minus; ISR, con ' + ISR_TXT + '.'),
       b: neto, m: [mensual, t.valor, mensual - t.fila[1], mensual - (mensual - t.fila[0]) * t.fila[2] / 100], fmt: pesos,
       ex: 'Mensual: ' + pesos(mensual) + '; ISR: ' + pesos(t.valor) + '; neto = ' + pesos(neto) };
   }

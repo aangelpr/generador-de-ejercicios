@@ -18,7 +18,8 @@
    - orden:     {orden: 'pregunta', pasos: ['primero', 'segundo', ...]}
 
    Campos opcionales en todas: lec (texto de lectura que va arriba),
-   ex (explicacion para la solucion), pista.
+   ex (explicacion para la solucion), pista, considere (la formula sugerida
+   que va debajo de la pregunta, como en el cuadernillo: "Considere ...").
 
    Una variante tambien puede ser una funcion (r) que devuelve una variante:
    sirve para preguntas con datos al azar (nomina, contabilidad...). Si `b` y
@@ -200,6 +201,7 @@
     if (v.lec) o.lec = v.lec;
     if (v.ex) o.ex = v.ex;
     if (v.pista) o.pista = v.pista;
+    if (v.considere) o.considere = v.considere;
     return o;
   }
   P.otraForma = otraForma;
@@ -212,6 +214,7 @@
     else if (v.orden) e = orden(r, v);
     else e = directa(r, v);
     if (v.lec) e.enunciado = P.lectura(v.lec) + e.enunciado;
+    if (v.considere) e.enunciado += P.considere(v.considere);
     return e;
   };
 

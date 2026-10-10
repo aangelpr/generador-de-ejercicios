@@ -33,6 +33,13 @@
       ['r = &radic;(' + (x * x) + ' + ' + (y * y) + ') = ' + rTxt, '&theta; = ' + th + '&deg;', 'Polares: <b>' + bien + '</b>']);
   };
 
+  /* Formulas sugeridas ("Considere ...") que comparten varias formas */
+  var CONS_PM = 'M = (' + F.frac('x<sub>1</sub> + x<sub>2</sub>', 2) + ', ' + F.frac('y<sub>1</sub> + y<sub>2</sub>', 2) + ')';
+  var CONS_DIST = 'd = &radic;((x<sub>2</sub> &minus; x<sub>1</sub>)' + F.sup(2) + ' + (y<sub>2</sub> &minus; y<sub>1</sub>)' + F.sup(2) + ')';
+  var CONS_SISTEMA = P.considere('que para a<sub>1</sub>x + b<sub>1</sub>y = c<sub>1</sub> y a<sub>2</sub>x + b<sub>2</sub>y = c<sub>2</sub>: x = ' +
+    F.frac('c<sub>1</sub>b<sub>2</sub> &minus; c<sub>2</sub>b<sub>1</sub>', 'a<sub>1</sub>b<sub>2</sub> &minus; a<sub>2</sub>b<sub>1</sub>') + ' y y = ' +
+    F.frac('a<sub>1</sub>c<sub>2</sub> &minus; a<sub>2</sub>c<sub>1</sub>', 'a<sub>1</sub>b<sub>2</sub> &minus; a<sub>2</sub>b<sub>1</sub>') + '.');
+
   /* 20. Punto medio */
   casos.puntoMedio = function (r) {
     var mx = r.enteroNoCero(-6, 6), my = r.enteroNoCero(-6, 6), dx = r.entero(1, 6), dy = r.enteroNoCero(-6, 6);
@@ -40,7 +47,7 @@
     var bien = par(mx, my);
     var malas = [par(-mx, my), par(mx, -my), par(-mx, -my), par(dx, dy), par(x2 - x1, y2 - y1)];
     return P.ejercicio(
-      '&iquest;Cu&aacute;l es el punto medio del segmento de recta comprendido entre los puntos ' + par(x1, y1) + ' y ' + par(x2, y2) + '?',
+      '&iquest;Cu&aacute;l es el punto medio del segmento de recta comprendido entre los puntos ' + par(x1, y1) + ' y ' + par(x2, y2) + '?' + P.considere(CONS_PM + '.'),
       P.opciones(r, bien, malas),
       ['Punto medio = ((x1 + x2)/2, (y1 + y2)/2): se SUMAN, no se restan.', 'Cuida los signos al sumar negativos.'],
       ['x = (' + x1 + ' + ' + P.np(x2) + ')/2 = ' + mx, 'y = (' + y1 + ' + ' + P.np(y2) + ')/2 = ' + my, 'Punto medio: <b>' + bien + '</b>']);
@@ -56,7 +63,7 @@
     ]);
     return P.ejercicio(
       ctx[0] + ' y la ecuaci&oacute;n ' + m + 'x &minus; y = ' + c + ' representa la relaci&oacute;n entre ' + ctx[1] + ' y ' + ctx[2] +
-        '. Encuentre la medida de inclinaci&oacute;n (pendiente) de la gr&aacute;fica.',
+        '. Encuentre la medida de inclinaci&oacute;n (pendiente) de la gr&aacute;fica.' + P.considere('y = mx + b, donde m es la pendiente.'),
       P.opciones(r, m, [-m, -c, c / m, 1, -1], { conSigno: true }),
       ['Despeja y para dejarla como y = mx + b: la pendiente es el numero que multiplica a x.',
         'Al pasar &minus;y al otro lado cambian los signos: ' + m + 'x &minus; ' + c + ' = y.'],
@@ -79,7 +86,7 @@
     return P.ejercicio(
       quien[0] + ' compr&oacute; ' + a1 + ' ' + cosas[0] + ' y ' + b1 + ' ' + cosas[1] + ', pagando $' + c1 + '. ' +
         quien[1] + ' pag&oacute; $' + c2 + ' por ' + a2 + ' ' + cosas[0] + ' y ' + b2 + ' ' + cosas[1] + '. ' +
-        '&iquest;Cu&aacute;l es el precio de cada ' + cosas[2].toLowerCase() + ' y cada ' + cosas[3] + '?',
+        '&iquest;Cu&aacute;l es el precio de cada ' + cosas[2].toLowerCase() + ' y cada ' + cosas[3] + '?' + CONS_SISTEMA,
       P.opciones(r, bien, malas),
       ['Plantea: ' + a1 + 'x + ' + b1 + 'y = ' + c1 + ' y ' + a2 + 'x + ' + b2 + 'y = ' + c2 + '.',
         'Tambien puedes comprobar cada inciso: sustituye los precios en las dos compras.'],
@@ -221,7 +228,7 @@
       if ((ay + by) % 2 !== 0) by++;
     } while (ax === bx || ay === by);
     var mx = (ax + bx) / 2, my = (ay + by) / 2;
-    return P.ejercicio('El punto M' + pm(mx, my) + ' es el punto medio del segmento AB. Si A = ' + pm(ax, ay) + ', &iquest;cu&aacute;les son las coordenadas de B?',
+    return P.ejercicio('El punto M' + pm(mx, my) + ' es el punto medio del segmento AB. Si A = ' + pm(ax, ay) + ', &iquest;cu&aacute;les son las coordenadas de B?' + P.considere(CONS_PM + '.'),
       P.opciones(r, pm(bx, by), [pm((ax + mx) / 2, (ay + my) / 2), pm(mx - ax, my - ay), pm(ax - 2 * mx, ay - 2 * my), pm(2 * ax - mx, 2 * ay - my)]),
       ['Si M es el punto medio, para llegar de A a B hay que dar el mismo salto que de A a M otra vez.', 'B = (2x<sub>M</sub> &minus; x<sub>A</sub>, 2y<sub>M</sub> &minus; y<sub>A</sub>).'],
       ['x<sub>B</sub> = 2(' + m(mx) + ') &minus; ' + P.np(ax) + ' = ' + m(bx), 'y<sub>B</sub> = 2(' + m(my) + ') &minus; ' + P.np(ay) + ' = ' + m(by), 'B = <b>' + pm(bx, by) + '</b>']);
@@ -244,7 +251,8 @@
     var dx = t[0], dy = t[1];
     var ax = cx - dx, ay = cy - dy, bx = cx + dx, by = cy + dy;
     function op(x, y, rr) { return 'Centro ' + pm(x, y) + ', radio ' + rr; }
-    return P.ejercicio('Los puntos ' + pm(ax, ay) + ' y ' + pm(bx, by) + ' son los extremos de un di&aacute;metro de una circunferencia. &iquest;Cu&aacute;les son su centro y su radio?',
+    return P.ejercicio('Los puntos ' + pm(ax, ay) + ' y ' + pm(bx, by) + ' son los extremos de un di&aacute;metro de una circunferencia. &iquest;Cu&aacute;les son su centro y su radio?' +
+      P.considere('que el centro es el punto medio, ' + CONS_PM + ', y que el radio es la mitad de la distancia entre los extremos, ' + CONS_DIST + '.'),
       P.opciones(r, op(cx, cy, t[2]), [op(cx, cy, 2 * t[2]), op(dx, dy, t[2]), op(bx - ax, by - ay, t[2]), op(cx, cy, dx + dy)]),
       ['El centro es el punto medio del diametro.', 'El radio es la mitad del diametro (la distancia entre los extremos).'],
       ['Centro: ((' + m(ax) + ' + ' + P.np(bx) + ')/2, (' + m(ay) + ' + ' + P.np(by) + ')/2) = ' + pm(cx, cy),
@@ -291,7 +299,8 @@
 
   function penEcuacion(r) {
     var mm = r.enteroNoCero(-5, 5), x0 = r.enteroNoCero(-5, 5), y0 = r.entero(-8, 8), b = y0 - mm * x0;
-    return P.ejercicio('&iquest;Cu&aacute;l es la ecuaci&oacute;n de la recta que pasa por el punto ' + pm(x0, y0) + ' y tiene pendiente ' + m(mm) + '?',
+    return P.ejercicio('&iquest;Cu&aacute;l es la ecuaci&oacute;n de la recta que pasa por el punto ' + pm(x0, y0) + ' y tiene pendiente ' + m(mm) + '?' +
+      P.considere('y &minus; y<sub>1</sub> = m(x &minus; x<sub>1</sub>).'),
       P.opciones(r, rectaTxt(mm, 1, b), [rectaTxt(mm, 1, y0), rectaTxt(mm, 1, y0 + mm * x0), rectaTxt(x0, 1, y0), rectaTxt(-mm, 1, b)]),
       ['Usa punto-pendiente: y &minus; y<sub>1</sub> = m(x &minus; x<sub>1</sub>).', 'Despeja y: la ordenada al origen NO es la y del punto.'],
       ['y &minus; ' + P.np(y0) + ' = ' + m(mm) + '(x &minus; ' + P.np(x0) + ')', '<b>' + rectaTxt(mm, 1, b) + '</b>']);
@@ -328,7 +337,8 @@
     function op(mm, bb) { return 'm = ' + mm + ', b = ' + bb; }
     var ec = (A < 0 ? '&minus;' : '') + (Math.abs(A) === 1 ? '' : Math.abs(A)) + 'x' + (B < 0 ? ' &minus; ' : ' + ') + (Math.abs(B) === 1 ? '' : Math.abs(B)) + 'y' +
       (C === 0 ? '' : C < 0 ? ' &minus; ' + (-C) : ' + ' + C) + ' = 0';
-    return P.ejercicio('&iquest;Cu&aacute;les son la pendiente (m) y la ordenada al origen (b) de la recta <span class="expr">' + ec + '</span>?',
+    return P.ejercicio('&iquest;Cu&aacute;les son la pendiente (m) y la ordenada al origen (b) de la recta <span class="expr">' + ec + '</span>?' +
+      P.considere('que la recta Ax + By + C = 0 tiene pendiente m = &minus;A/B y ordenada al origen b = &minus;C/B.'),
       P.opciones(r, op(mT, bT), [op(fr(A, B), bT), op(mT, m(C / B)), op(fr(-B, A), bT), op(fr(A, B), m(C / B)), op(mT, m(-C))]),
       ['Despeja y: deja By de un lado y pasa lo demas al otro con signo contrario.', 'Al final divide todo entre ' + m(B) + '.'],
       ['y = ' + fr(-A, B) + 'x + ' + P.np(-C / B), '<b>' + op(mT, bT) + '</b>']);
@@ -341,7 +351,7 @@
     while (a1 * b2 - a2 * b1 === 0 || Math.abs(x) === Math.abs(y));
     function ec(a, b, c) { return (a === 1 ? '' : a === -1 ? '&minus;' : m(a)) + 'x ' + (b < 0 ? '&minus; ' : '+ ') + (Math.abs(b) === 1 ? '' : Math.abs(b)) + 'y = ' + m(c); }
     return P.ejercicio('&iquest;Cu&aacute;l es la soluci&oacute;n del sistema de ecuaciones?<br><span class="expr">' + ec(a1, b1, a1 * x + b1 * y) + '</span><br><span class="expr">' +
-      ec(a2, b2, a2 * x + b2 * y) + '</span>',
+      ec(a2, b2, a2 * x + b2 * y) + '</span>' + CONS_SISTEMA,
       P.opciones(r, pm(x, y), [pm(y, x), pm(-x, y), pm(x, -y), pm(-x, -y), pm(x + 1, y - 1)]),
       ['Puedes resolver por suma y resta o por sustitucion.', 'Tambien sirve comprobar: el inciso correcto cumple LAS DOS ecuaciones.'],
       ['Comprobacion: ' + m(a1) + '(' + m(x) + ') + ' + P.np(b1) + '(' + m(y) + ') = ' + m(a1 * x + b1 * y) + ' y ' + m(a2) + '(' + m(x) + ') + ' + P.np(b2) + '(' + m(y) + ') = ' + m(a2 * x + b2 * y),
@@ -355,7 +365,10 @@
     else { A2 = a + r.enteroNoCero(-3, 3); B2 = b; C2 = r.entero(-10, 10); if (A2 * b - a * B2 === 0) A2 += 1; if (A2 === 0) A2 = 7; }
     function ec(A, B, C) { return (A === 1 ? '' : A === -1 ? '&minus;' : m(A)) + 'x ' + (B < 0 ? '&minus; ' : '+ ') + (Math.abs(B) === 1 ? '' : Math.abs(B)) + 'y = ' + m(C); }
     var NOM = ['Infinitas soluciones (son la misma recta)', 'Ninguna soluci&oacute;n (las rectas son paralelas)', 'Una sola soluci&oacute;n (las rectas se cortan)'];
-    return P.ejercicio('&iquest;Cu&aacute;ntas soluciones tiene el siguiente sistema de ecuaciones?<br><span class="expr">' + ec(a, b, c) + '</span><br><span class="expr">' + ec(A2, B2, C2) + '</span>',
+    return P.ejercicio('&iquest;Cu&aacute;ntas soluciones tiene el siguiente sistema de ecuaciones?<br><span class="expr">' + ec(a, b, c) + '</span><br><span class="expr">' + ec(A2, B2, C2) + '</span>' +
+      P.considere('que si ' + F.frac('a<sub>1</sub>', 'a<sub>2</sub>') + ' = ' + F.frac('b<sub>1</sub>', 'b<sub>2</sub>') + ' = ' + F.frac('c<sub>1</sub>', 'c<sub>2</sub>') +
+        ' son la misma recta; si s&oacute;lo ' + F.frac('a<sub>1</sub>', 'a<sub>2</sub>') + ' = ' + F.frac('b<sub>1</sub>', 'b<sub>2</sub>') + ', son paralelas; y si ' +
+        F.frac('a<sub>1</sub>', 'a<sub>2</sub>') + ' &ne; ' + F.frac('b<sub>1</sub>', 'b<sub>2</sub>') + ', se cortan en un punto.'),
       P.opciones(r, NOM[tipo], NOM.filter(function (_, i) { return i !== tipo; }).concat(['Exactamente dos soluciones'])),
       ['Compara las ecuaciones: si una es multiplo de la otra son la misma recta.', 'Si solo los coeficientes de x y y son proporcionales (y el resultado no), son paralelas: no se cortan.'],
       [tipo === 0 ? 'La segunda ecuacion es la primera por ' + k : tipo === 1 ? 'Los coeficientes son proporcionales (por ' + k + ') pero el resultado no' : 'Las pendientes son distintas', '<b>' + NOM[tipo] + '</b>']);
@@ -380,7 +393,7 @@
       bien = x10; malas = [x5, Math.round((5 * x5 + 10 * x10) / 10), Math.round((x5 + x10) / 2), x10 + 3];
       sol = ['c + d = ' + (x5 + x10) + ' y 5c + 10d = ' + (5 * x5 + 10 * x10), 'Sustituyendo c = ' + (x5 + x10) + ' &minus; d: 5d = ' + (5 * x10), 'd = <b>' + x10 + '</b>'];
     }
-    return P.ejercicio(enun, P.opciones(r, bien, malas),
+    return P.ejercicio(enun + CONS_SISTEMA, P.opciones(r, bien, malas),
       ['Usa dos incognitas y escribe dos ecuaciones: una con las cantidades y otra con el dinero (o con la diferencia).', 'Comprueba el inciso en las dos condiciones del problema.'], sol);
   }
 
@@ -402,7 +415,8 @@
     var b = -a * (t1 + t2), c = a * t1 * t2;   /* h(t) = -5(t - t1)(t - t2) */
     var h0 = -c;
     return P.ejercicio('Una piedra se lanza hacia arriba desde lo alto de un edificio. Su altura en metros es h(t) = &minus;5t' + F.sup(2) + ' + ' + (-b) + 't + ' + h0 +
-      ', con t en segundos. &iquest;Despu&eacute;s de cu&aacute;nto tiempo llega al suelo?',
+      ', con t en segundos. &iquest;Despu&eacute;s de cu&aacute;nto tiempo llega al suelo?' +
+      P.considere('que llega al suelo cuando h(t) = 0, y t = ' + F.frac('&minus;b &plusmn; &radic;(b' + F.sup(2) + ' &minus; 4ac)', '2a') + '.'),
       P.opciones(r, t2, [-t1, (t1 + t2) / 2, t2 + 1, h0 / 5], { unidad: 's', dec: 2 }),
       ['Llega al suelo cuando h(t) = 0.', 'Divide entre &minus;5 y factoriza; de las dos soluciones solo sirve la positiva.'],
       ['&minus;5t' + F.sup(2) + ' + ' + (-b) + 't + ' + h0 + ' = 0 &rarr; t' + F.sup(2) + ' &minus; ' + (t1 + t2) + 't &minus; ' + (-t1 * t2) + ' = 0',
@@ -413,7 +427,8 @@
     var h = r.enteroNoCero(-6, 6), k = r.entero(-9, 9);
     var b = -2 * h, c = h * h + k;
     function can(hh, kk) { return 'y = (x ' + (hh > 0 ? '&minus; ' + hh : '+ ' + (-hh)) + ')' + F.sup(2) + (kk === 0 ? '' : kk > 0 ? ' + ' + kk : ' &minus; ' + (-kk)); }
-    return P.ejercicio('&iquest;Cu&aacute;l es la forma y = (x &minus; h)' + F.sup(2) + ' + k de la par&aacute;bola <span class="expr">y = ' + P.poli([1, b, c]).replace(/ - /g, ' &minus; ') + '</span>?',
+    return P.ejercicio('&iquest;Cu&aacute;l es la forma y = (x &minus; h)' + F.sup(2) + ' + k de la par&aacute;bola <span class="expr">y = ' + P.poli([1, b, c]).replace(/ - /g, ' &minus; ') + '</span>?' +
+      P.considere('(x &minus; h)' + F.sup(2) + ' = x' + F.sup(2) + ' &minus; 2hx + h' + F.sup(2) + '.'),
       P.opciones(r, can(h, k), [can(-h, k), can(h, c), can(h, -k), can(b, k)]),
       ['Completa el cuadrado: la mitad del coeficiente de x es ' + m(b / 2) + '.', '(x ' + (h > 0 ? '&minus; ' + h : '+ ' + (-h)) + ')' + F.sup(2) + ' da x' + F.sup(2) + ' ' + (b < 0 ? '&minus; ' : '+ ') + Math.abs(b) + 'x + ' + (h * h) + '; ajusta la constante.'],
       ['x' + F.sup(2) + ' ' + (b < 0 ? '&minus; ' : '+ ') + Math.abs(b) + 'x + ' + (h * h) + ' &minus; ' + (h * h) + ' + ' + P.np(c), '<b>' + can(h, k) + '</b> (vertice ' + pm(h, k) + ')']);
@@ -425,7 +440,8 @@
     var b = -2 * a * h, c = a * h * h + k;
     var abre = a > 0 ? 'hacia arriba' : 'hacia abajo';
     function op(x, ab) { return 'Eje x = ' + m(x) + ', abre ' + ab; }
-    return P.ejercicio('Para la par&aacute;bola <span class="expr">y = ' + P.poli([a, b, c]).replace(/ - /g, ' &minus; ').replace(/^-/, '&minus;') + '</span>, &iquest;cu&aacute;l es su eje de simetr&iacute;a y hacia d&oacute;nde abre?',
+    return P.ejercicio('Para la par&aacute;bola <span class="expr">y = ' + P.poli([a, b, c]).replace(/ - /g, ' &minus; ').replace(/^-/, '&minus;') + '</span>, &iquest;cu&aacute;l es su eje de simetr&iacute;a y hacia d&oacute;nde abre?' +
+      P.considere('el eje de simetr&iacute;a x = &minus;b / 2a, y que la par&aacute;bola abre hacia arriba si a &gt; 0 y hacia abajo si a &lt; 0.'),
       P.opciones(r, op(h, abre), [op(-h, abre), op(h, a > 0 ? 'hacia abajo' : 'hacia arriba'), op(-h, a > 0 ? 'hacia abajo' : 'hacia arriba'), op(k, abre)]),
       ['El eje de simetria pasa por el vertice: x = &minus;b / 2a.', 'Si a &gt; 0 abre hacia arriba; si a &lt; 0, hacia abajo.'],
       ['x = &minus;(' + m(b) + ') / (2 &middot; ' + P.np(a) + ') = ' + m(h), 'a = ' + m(a) + ': abre ' + abre]);
@@ -461,7 +477,8 @@
       ec = (h === 0 ? 'x' + F.sup(2) : '(x ' + (h > 0 ? '&minus; ' + h : '+ ' + (-h)) + ')' + F.sup(2)) + ' + ' +
         (k === 0 ? 'y' + F.sup(2) : '(y ' + (k > 0 ? '&minus; ' + k : '+ ' + (-k)) + ')' + F.sup(2)) + ' = ' + (rr * rr);
     }
-    return P.ejercicio('&iquest;Cu&aacute;les son el centro y el radio de la circunferencia <span class="expr">' + ec + '</span>?',
+    return P.ejercicio('&iquest;Cu&aacute;les son el centro y el radio de la circunferencia <span class="expr">' + ec + '</span>?' +
+      P.considere('(x &minus; h)' + F.sup(2) + ' + (y &minus; k)' + F.sup(2) + ' = r' + F.sup(2) + ', con centro (h, k) y radio r.'),
       P.opciones(r, op(h, k, rr), [op(-h, -k, rr), op(h, k, rr * rr), op(-h, k, rr), op(h, -k, rr)]),
       ['La forma ordinaria es (x &minus; h)' + F.sup(2) + ' + (y &minus; k)' + F.sup(2) + ' = r' + F.sup(2) + ': el centro es (h, k) con el signo CONTRARIO al del parentesis.',
         general ? 'Completa cuadrados: h es la mitad del coeficiente de x con signo cambiado, y lo mismo para k.' : 'El radio es la raiz del numero de la derecha.'],
@@ -475,7 +492,8 @@
     var bien = enX ? op(pm(p, 0), 'x = ' + m(-p)) : op(pm(0, p), 'y = ' + m(-p));
     var malas = enX ? [op(pm(-p, 0), 'x = ' + m(p)), op(pm(0, p), 'y = ' + m(-p)), op(pm(4 * p, 0), 'x = ' + m(-4 * p)), op(pm(p, 0), 'y = ' + m(-p))]
       : [op(pm(0, -p), 'y = ' + m(p)), op(pm(p, 0), 'x = ' + m(-p)), op(pm(0, 4 * p), 'y = ' + m(-4 * p)), op(pm(0, p), 'x = ' + m(-p))];
-    return P.ejercicio('&iquest;Cu&aacute;les son el foco y la directriz de la par&aacute;bola <span class="expr">' + ec + '</span>?',
+    return P.ejercicio('&iquest;Cu&aacute;les son el foco y la directriz de la par&aacute;bola <span class="expr">' + ec + '</span>?' +
+      P.considere('que y' + F.sup(2) + ' = 4px tiene foco (p, 0) y directriz x = &minus;p, y que x' + F.sup(2) + ' = 4py tiene foco (0, p) y directriz y = &minus;p.'),
       P.opciones(r, bien, malas),
       ['Compara con ' + (enX ? 'y' + F.sup(2) + ' = 4px' : 'x' + F.sup(2) + ' = 4py') + ': 4p = ' + m(4 * p) + '.', 'El foco esta a p del vertice (0, 0) y la directriz a p del otro lado.'],
       ['p = ' + m(4 * p) + ' / 4 = ' + m(p), '<b>' + bien + '</b>']);

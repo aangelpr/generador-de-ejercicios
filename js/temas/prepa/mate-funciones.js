@@ -19,7 +19,7 @@
     var malas = [intervalo(neg(-B), neg(B), false), '(&minus;&infin;, &infin;)', intervalo(neg(-1), neg(1), true),
       intervalo(neg(-A), neg(A), true), intervalo(neg(D - B), neg(D + B), true)];
     return P.ejercicio(
-      'Identifique el rango de la funci&oacute;n <span class="expr">' + f + '</span>.',
+      'Identifique el rango de la funci&oacute;n <span class="expr">' + f + '</span>.' + CONS_SENCOS,
       P.opciones(r, bien, malas),
       [trig + '(lo que sea) siempre esta entre &minus;1 y 1, sin importar el ' + B + ' de adentro.',
         'Multiplica esos extremos por ' + A + (D ? ' y luego sumales ' + D : '') + '.'],
@@ -85,7 +85,8 @@
       'La cantidad de peces en un lago contaminado', 'El n&uacute;mero de ajolotes en un canal']);
     return P.ejercicio(
       ctx + ' se modela con la funci&oacute;n M(t) = ' + K + ' &minus; ' + F.frac('t' + F.sup(2) + ' &minus; ' + (a * a), 't &minus; ' + a) +
-        ', donde t es el tiempo en a&ntilde;os. &iquest;Cu&aacute;ntos habr&aacute; en ' + a + ' a&ntilde;os?',
+        ', donde t es el tiempo en a&ntilde;os. &iquest;Cu&aacute;ntos habr&aacute; en ' + a + ' a&ntilde;os?' +
+        P.considere('t' + F.sup(2) + ' &minus; a' + F.sup(2) + ' = (t &minus; a)(t + a).'),
       P.opciones(r, v, [K - a, K - a * a, K - 2 * a - a, K, K - 2 * a + 2]),
       ['Si sustituyes t = ' + a + ' directo te sale 0/0: hay que simplificar primero (es un limite).',
         't' + F.sup(2) + ' &minus; ' + (a * a) + ' = (t &minus; ' + a + ')(t + ' + a + '): cancela el factor (t &minus; ' + a + ').'],
@@ -104,7 +105,7 @@
     var malas = [P.poli([3 * a, -2 * b, c], 't'), P.poli([3 * a, 2 * b, -c], 't'), P.poli([3 * a, -2 * b, -c], 't'), P.poli([a, b, c], 't')];
     return P.ejercicio(
       ctx[0] + ' se expresa en funci&oacute;n del tiempo t por medio de <span class="expr">' + f + '</span>. ' +
-        '&iquest;Cu&aacute;l es la funci&oacute;n que describe ' + ctx[2] + ' respecto al tiempo?',
+        '&iquest;Cu&aacute;l es la funci&oacute;n que describe ' + ctx[2] + ' respecto al tiempo?' + P.considere("(t<sup>n</sup>)' = n&middot;t<sup>n&minus;1</sup>."),
       P.opciones(r, bien, malas),
       ['El cambio respecto al tiempo es la DERIVADA.', 'Regla de la potencia: la derivada de t<sup>n</sup> es n&middot;t<sup>n&minus;1</sup>; los signos se conservan.'],
       ['Derivo termino a termino: ' + a + 't' + F.sup(3) + ' &rarr; ' + (3 * a) + 't' + F.sup(2) + ', ' + b + 't' + F.sup(2) + ' &rarr; ' + (2 * b) + 't, ' + c + 't &rarr; ' + c,
@@ -123,7 +124,8 @@
     return P.ejercicio(
       'En un experimento se midi&oacute;, durante ' + tMin + ' segundos, la presi&oacute;n de un gas expuesto a condiciones extremas. ' +
         'El modelo es <span class="expr">' + f + '</span>, con t en segundos y p(t) en kilopascales. ' +
-        '&iquest;Cu&aacute;l es la presi&oacute;n m&aacute;xima y en qu&eacute; tiempo se alcanz&oacute;?',
+        '&iquest;Cu&aacute;l es la presi&oacute;n m&aacute;xima y en qu&eacute; tiempo se alcanz&oacute;?' +
+        P.considere("que los m&aacute;ximos y m&iacute;nimos est&aacute;n donde p'(t) = 0, y que (u<sup>n</sup>)' = n&middot;u<sup>n&minus;1</sup>&middot;u'."),
       P.opciones(r, bien, malas),
       ['Deriva y busca donde p\'(t) = 0: p\'(t) = 3' + u + F.sup(2) + ' &minus; ' + (3 * k * k) + '.',
         'Salen dos tiempos; el maximo es donde la funcion pasa de subir a bajar (compara los valores).'],
@@ -141,7 +143,8 @@
     var unidad = 'cm';
     return P.ejercicio(
       ctx + ' se mide en cent&iacute;metros por cada segundo transcurrido y est&aacute; dado por la funci&oacute;n <span class="expr">c\'(t) = ' +
-        P.poli([3 * a, 2 * b, c], 't') + '</span>. &iquest;Cu&aacute;ntos cent&iacute;metros creci&oacute; en ' + T + (T === 1 ? ' segundo' : ' segundos') + '?',
+        P.poli([3 * a, 2 * b, c], 't') + '</span>. &iquest;Cu&aacute;ntos cent&iacute;metros creci&oacute; en ' + T + (T === 1 ? ' segundo' : ' segundos') + '?' +
+        P.considere("que lo que creci&oacute; es &int;<sub>0</sub><sup>T</sup> c'(t) dt y que &int;t<sup>n</sup> dt = " + F.frac('t<sup>n+1</sup>', 'n + 1') + '.'),
       P.opciones(r, total, [deriv, 6 * a * T + 2 * b, 0, total - c * T, total + c], { unidad: unidad }),
       ['c\'(t) es la RAPIDEZ de crecimiento; lo que crecio en total es la integral de 0 a ' + T + '.',
         'Una antiderivada es c(t) = ' + P.poli([a, b, c, 0], 't') + '.'],
@@ -150,6 +153,11 @@
   };
 
   /* ================= otras formas de preguntar ================= */
+  /* Formulas sugeridas ("Considere ...") que comparten varias formas */
+  var CONS_SENCOS = P.considere('que &minus;1 &le; sen x &le; 1 y &minus;1 &le; cos x &le; 1.');
+  var CONS_PARIDAD = P.considere('que f es par si f(&minus;x) = f(x) e impar si f(&minus;x) = &minus;f(x).');
+  var CONS_POTENCIA = '(x<sup>n</sup>)\' = n&middot;x<sup>n&minus;1</sup>';
+  var CONS_INTEGRAL = '&int;x<sup>n</sup> dx = ' + F.frac('x<sup>n+1</sup>', 'n + 1');
   function m(v) { return F.n(v).replace(/^-/, '&minus;'); }
   function fr(a, b) {
     var s = F.simplifica(a, b);
@@ -170,7 +178,8 @@
     var A = r.entero(2, 9), B = r.elige([2, 3, 4, 6]), trig = r.elige(['sen', 'cos']);
     while (A === B) A = r.entero(2, 9);
     function op(a, p) { return 'Amplitud ' + a + ', periodo ' + p; }
-    return P.ejercicio('&iquest;Cu&aacute;les son la amplitud y el periodo de la funci&oacute;n <span class="expr">f(x) = ' + A + ' ' + trig + '(' + B + 'x)</span>?',
+    return P.ejercicio('&iquest;Cu&aacute;les son la amplitud y el periodo de la funci&oacute;n <span class="expr">f(x) = ' + A + ' ' + trig + '(' + B + 'x)</span>?' +
+      P.considere('que en f(x) = A sen(Bx) o A cos(Bx) la amplitud es A y el periodo es ' + F.frac('2&pi;', 'B') + '.'),
       P.opciones(r, op(A, pi(2, B)), [op(B, pi(2, A)), op(A, pi(2 * B, 1)), op(2 * A, pi(2, B)), op(A, pi(2, 1))]),
       ['La amplitud es el numero que multiplica a ' + trig + ' (cuanto sube y baja desde el centro).', 'El periodo de ' + trig + '(Bx) es 2&pi; / B.'],
       ['Amplitud: ' + A, 'Periodo: 2&pi; / ' + B + ' = ' + pi(2, B), '<b>' + op(A, pi(2, B)) + '</b>']);
@@ -185,7 +194,8 @@
     else if (tipo === 1) { f = F.frac(1, xMenos(a)); bien = 'menos'; exp = 'No se puede dividir entre cero: x no puede valer ' + m(a) + '.'; }
     else if (tipo === 2) { f = '&radic;(' + m(a) + ' &minus; x)'; bien = 'izq'; exp = m(a) + ' &minus; x &ge; 0, o sea x &le; ' + m(a) + '.'; }
     else { f = 'ln(' + xMenos(a) + ')'; bien = 'abierto'; exp = 'El logaritmo solo acepta positivos (sin el cero): ' + xMenos(a) + ' &gt; 0.'; }
-    return P.ejercicio('&iquest;Cu&aacute;l es el dominio de la funci&oacute;n <span class="expr">f(x) = ' + f + '</span>?',
+    return P.ejercicio('&iquest;Cu&aacute;l es el dominio de la funci&oacute;n <span class="expr">f(x) = ' + f + '</span>?' +
+      P.considere('que no hay ra&iacute;ces cuadradas de negativos, ni divisiones entre cero, ni logaritmos de n&uacute;meros menores o iguales a 0.'),
       P.opciones(r, ops[bien], Object.keys(ops).filter(function (k) { return k !== bien; }).map(function (k) { return ops[k]; })),
       ['El dominio son los valores de x que SI se pueden sustituir.', 'Cuidado con raices de negativos, division entre cero y logaritmos de negativos o cero.'],
       [exp, 'Dominio: <b>' + ops[bien] + '</b>']);
@@ -199,7 +209,8 @@
     function arriba(v) { return '[' + m(v) + ', &infin;)'; }
     function abajo(v) { return '(&minus;&infin;, ' + m(v) + ']'; }
     var bien = a > 0 ? arriba(k) : abajo(k);
-    return P.ejercicio('&iquest;Cu&aacute;l es el rango de la funci&oacute;n <span class="expr">f(x) = ' + f + '</span>?',
+    return P.ejercicio('&iquest;Cu&aacute;l es el rango de la funci&oacute;n <span class="expr">f(x) = ' + f + '</span>?' +
+      P.considere('que y = a(x &minus; h)' + F.sup(2) + ' + k tiene v&eacute;rtice (h, k), y que abre hacia arriba si a &gt; 0 y hacia abajo si a &lt; 0.'),
       P.opciones(r, bien, [a > 0 ? abajo(k) : arriba(k), a > 0 ? arriba(h) : abajo(h), 'Todos los n&uacute;meros reales', a > 0 ? arriba(-k) : abajo(-k)]),
       ['Es una parabola: su vertice marca el valor mas bajo (si abre hacia arriba) o el mas alto (si abre hacia abajo).',
         'El rango habla de los valores de y: depende de la k del vertice, no de la h.'],
@@ -210,7 +221,7 @@
     var A = r.entero(2, 9), B = r.entero(2, 6), D = r.enteroNoCero(-8, 8), trig = r.elige(['sen', 'cos']), max = r.bool();
     var v = max ? D + A : D - A;
     return P.ejercicio('&iquest;Cu&aacute;l es el valor ' + (max ? 'm&aacute;ximo' : 'm&iacute;nimo') + ' que alcanza la funci&oacute;n <span class="expr">f(x) = ' + A + ' ' + trig + '(' + B + 'x) ' +
-      (D > 0 ? '+ ' + D : '&minus; ' + (-D)) + '</span>?',
+      (D > 0 ? '+ ' + D : '&minus; ' + (-D)) + '</span>?' + CONS_SENCOS,
       P.opciones(r, v, [max ? D - A : D + A, A, D, A * D, max ? A + B : B - A], { conSigno: true, fmt: m }),
       [trig + ' siempre esta entre &minus;1 y 1.', 'El ' + (max ? 'maximo' : 'minimo') + ' sale cuando ' + trig + ' vale ' + (max ? '1' : '&minus;1') + '.'],
       [A + '(' + (max ? '1' : '&minus;1') + ') ' + (D > 0 ? '+ ' + D : '&minus; ' + (-D)) + ' = <b>' + m(v) + '</b>']);
@@ -224,7 +235,7 @@
   function parUna(r) {
     var par = r.bool(), bien = r.elige(par ? PARES : IMPARES);
     var malas = r.muestra(par ? IMPARES : PARES, 2).concat(r.muestra(NINGUNA, 1));
-    return P.ejercicio('&iquest;Cu&aacute;l de las siguientes funciones es ' + (par ? 'par' : 'impar') + '?',
+    return P.ejercicio('&iquest;Cu&aacute;l de las siguientes funciones es ' + (par ? 'par' : 'impar') + '?' + CONS_PARIDAD,
       P.opciones(r, 'f(x) = ' + bien, malas.map(function (x) { return 'f(x) = ' + x; })),
       ['Sustituye x por &minus;x en cada inciso.', 'Par: f(&minus;x) = f(x). Impar: f(&minus;x) = &minus;f(x).'],
       ['f(x) = ' + bien + ' es <b>' + (par ? 'par' : 'impar') + '</b>']);
@@ -243,7 +254,7 @@
     var par = r.bool(), a = r.entero(2, 9), v = r.enteroNoCero(-15, 15), suma = r.bool(0.35);
     var res = suma ? (par ? 2 * v : 0) : (par ? v : -v);
     return P.ejercicio('Si f es una funci&oacute;n ' + (par ? 'par' : 'impar') + ' y f(' + a + ') = ' + m(v) + ', &iquest;cu&aacute;nto vale ' +
-      (suma ? 'f(' + a + ') + f(&minus;' + a + ')' : 'f(&minus;' + a + ')') + '?',
+      (suma ? 'f(' + a + ') + f(&minus;' + a + ')' : 'f(&minus;' + a + ')') + '?' + CONS_PARIDAD,
       P.opciones(r, res, suma ? [par ? 0 : 2 * v, v, -v, a] : [par ? -v : v, 0, -a, F.redondea(1 / v, 2)], { conSigno: true, fmt: m }),
       ['Par: f(&minus;x) = f(x). Impar: f(&minus;x) = &minus;f(x).', 'Aplica la regla con x = ' + a + '.'],
       ['f(&minus;' + a + ') = ' + m(par ? v : -v) + (suma ? ', asi que la suma es ' + m(res) : ''), 'Resultado: <b>' + m(res) + '</b>']);
@@ -252,7 +263,7 @@
   function parClasifica(r) {
     var tipo = r.entero(0, 2), f = r.elige([PARES, IMPARES, NINGUNA][tipo]);
     var NOM = ['Par', 'Impar', 'Ni par ni impar', 'Par e impar a la vez'];
-    return P.ejercicio('&iquest;C&oacute;mo es la funci&oacute;n <span class="expr">f(x) = ' + f + '</span>?',
+    return P.ejercicio('&iquest;C&oacute;mo es la funci&oacute;n <span class="expr">f(x) = ' + f + '</span>?' + CONS_PARIDAD,
       P.opciones(r, NOM[tipo], NOM.filter(function (_, i) { return i !== tipo; })),
       ['Calcula f(&minus;x) y comparalo con f(x) y con &minus;f(x).', 'Si no coincide con ninguno, no es par ni impar.'],
       ['f(x) = ' + f + ': <b>' + NOM[tipo].toLowerCase() + '</b>']);
@@ -297,7 +308,8 @@
     function g(x) { return x * x + c; }
     var v = fog ? f(g(k)) : g(f(k)), otro = fog ? g(f(k)) : f(g(k));
     var gTxt = 'x' + F.sup(2) + (c === 0 ? '' : c > 0 ? ' + ' + c : ' &minus; ' + (-c));
-    return P.ejercicio('Si <span class="expr">f(x) = ' + pol([a, b]) + '</span> y <span class="expr">g(x) = ' + gTxt + '</span>, &iquest;cu&aacute;nto vale (' + (fog ? 'f &#8728; g' : 'g &#8728; f') + ')(' + m(k) + ')?',
+    return P.ejercicio('Si <span class="expr">f(x) = ' + pol([a, b]) + '</span> y <span class="expr">g(x) = ' + gTxt + '</span>, &iquest;cu&aacute;nto vale (' + (fog ? 'f &#8728; g' : 'g &#8728; f') + ')(' + m(k) + ')?' +
+      P.considere('(f &#8728; g)(x) = f(g(x)) y (g &#8728; f)(x) = g(f(x)).'),
       P.opciones(r, v, [otro, f(k) * g(k), f(k) + g(k), fog ? f(k) : g(k)], { conSigno: true, fmt: m }),
       ['(' + (fog ? 'f &#8728; g' : 'g &#8728; f') + ')(x) = ' + (fog ? 'f(g(x))' : 'g(f(x))') + ': primero se evalua la de adentro.',
         'Calcula ' + (fog ? 'g' : 'f') + '(' + m(k) + ') y ese resultado lo metes en ' + (fog ? 'f' : 'g') + '.'],
@@ -309,7 +321,8 @@
     while (Math.abs(a) === 1) a = r.enteroNoCero(-5, 6);
     function sobre(num, den) { return den === 1 ? num : den === -1 ? '&minus;(' + num + ')' : F.frac(num, m(den)); }
     var bien = sobre(xMenos(b), a);
-    return P.ejercicio('&iquest;Cu&aacute;l es la funci&oacute;n inversa de <span class="expr">f(x) = ' + pol([a, b]) + '</span>?',
+    return P.ejercicio('&iquest;Cu&aacute;l es la funci&oacute;n inversa de <span class="expr">f(x) = ' + pol([a, b]) + '</span>?' +
+      P.considere('que para obtener la inversa se escribe y = f(x), se intercambian x y y, y se despeja y.'),
       P.opciones(r, 'f<sup>&minus;1</sup>(x) = ' + bien, [sobre(xMenos(-b), a), pol([a, -b]), F.frac(1, pol([a, b])), sobre(xMenos(b), -a)].map(function (t) { return 'f<sup>&minus;1</sup>(x) = ' + t; })),
       ['Escribe y = ' + pol([a, b]) + ', intercambia x con y y despeja y.', 'La inversa deshace en orden contrario: primero quita el ' + m(b) + ' y luego divide entre ' + m(a) + '.'],
       ['x = ' + pol([a, b], 'y') + ' &rarr; y = ' + bien, 'f<sup>&minus;1</sup>(x) = <b>' + bien + '</b>']);
@@ -320,15 +333,18 @@
     if (tipo === 0) {
       var c = r.entero(2, 6), b = r.elige([2, 3]), n = r.entero(2, b === 2 ? 6 : 4);
       v = c * Math.pow(b, n); enun = 'Si f(x) = ' + c + ' &middot; ' + b + '<sup>x</sup>, &iquest;cu&aacute;nto vale f(' + n + ')?';
-      malas = [Math.pow(c * b, n), c * b * n, c + Math.pow(b, n), c * Math.pow(b, n - 1)]; sol = c + ' &middot; ' + b + '<sup>' + n + '</sup> = ' + c + ' &middot; ' + Math.pow(b, n) + ' = <b>' + v + '</b>';
+      malas = [Math.pow(c * b, n), c * b * n, c + Math.pow(b, n), c * Math.pow(b, n - 1)];
+      enun += P.considere('que primero se calcula la potencia y despu&eacute;s se multiplica.'); sol = c + ' &middot; ' + b + '<sup>' + n + '</sup> = ' + c + ' &middot; ' + Math.pow(b, n) + ' = <b>' + v + '</b>';
     } else if (tipo === 1) {
       var b2 = r.elige([2, 3, 5, 10]), k = r.entero(2, b2 === 2 ? 7 : 4), N = Math.pow(b2, k), c2 = r.entero(1, 9);
       v = k + c2; enun = 'Si g(x) = log<sub>' + b2 + '</sub>(x) + ' + c2 + ', &iquest;cu&aacute;nto vale g(' + P.num(N, 0) + ')?';
-      malas = [N / b2 + c2, k * c2, k, N + c2]; sol = 'log<sub>' + b2 + '</sub>(' + N + ') = ' + k + ' porque ' + b2 + '<sup>' + k + '</sup> = ' + N + '; ' + k + ' + ' + c2 + ' = <b>' + v + '</b>';
+      malas = [N / b2 + c2, k * c2, k, N + c2];
+      enun += P.considere('que log<sub>b</sub>(N) = k significa que b<sup>k</sup> = N.'); sol = 'log<sub>' + b2 + '</sub>(' + N + ') = ' + k + ' porque ' + b2 + '<sup>' + k + '</sup> = ' + N + '; ' + k + ' + ' + c2 + ' = <b>' + v + '</b>';
     } else {
       var A = r.entero(2, 9), x0 = r.elige([1, 3]);
       v = x0 === 1 ? A : -A; enun = 'Si h(x) = ' + A + ' sen(' + F.frac('&pi;x', 2) + '), &iquest;cu&aacute;nto vale h(' + x0 + ')?';
-      malas = [x0 === 1 ? -A : A, 0, A / 2, 2 * A]; sol = 'h(' + x0 + ') = ' + A + ' sen(' + (x0 === 1 ? F.frac('&pi;', 2) : F.frac('3&pi;', 2)) + ') = ' + A + '(' + (x0 === 1 ? '1' : '&minus;1') + ') = <b>' + m(v) + '</b>';
+      malas = [x0 === 1 ? -A : A, 0, A / 2, 2 * A];
+      enun += P.considere('sen(' + F.frac('&pi;', 2) + ') = 1 y sen(' + F.frac('3&pi;', 2) + ') = &minus;1.'); sol = 'h(' + x0 + ') = ' + A + ' sen(' + (x0 === 1 ? F.frac('&pi;', 2) : F.frac('3&pi;', 2)) + ') = ' + A + '(' + (x0 === 1 ? '1' : '&minus;1') + ') = <b>' + m(v) + '</b>';
     }
     return P.ejercicio(enun, P.opciones(r, v, malas, { conSigno: true, fmt: m }),
       ['Sustituye el valor en lugar de x y respeta el orden: primero la potencia, el logaritmo o el seno; despues lo demas.', 'log<sub>b</sub>(N) es el exponente al que hay que elevar b para obtener N.'], [sol]);
@@ -342,7 +358,8 @@
     else if (tipo === 2) { b = r.elige([2, 3]); k = -r.entero(2, 4); N = F.frac(1, Math.pow(b, -k)); txt = 'log<sub>' + b + '</sub> ' + N; }
     else { b = 'e'; k = r.entero(2, 9); N = 'e<sup>' + k + '</sup>'; txt = 'ln(' + N + ')'; }
     var malas = [k + 1, -k, k * 2, typeof b === 'number' ? b * k : k - 1, k - 1];
-    return P.ejercicio('&iquest;Cu&aacute;l es el valor de <span class="expr">' + txt + '</span>?',
+    return P.ejercicio('&iquest;Cu&aacute;l es el valor de <span class="expr">' + txt + '</span>?' +
+      P.considere('que log<sub>b</sub>(N) = k significa que b<sup>k</sup> = N; log es en base 10 y ln en base e.'),
       P.opciones(r, k, malas, { conSigno: true, fmt: m }),
       ['log<sub>b</sub>(N) = k quiere decir b<sup>k</sup> = N: busca el exponente.', 'Un logaritmo de un numero entre 0 y 1 es negativo.'],
       [(b === 'e' ? 'e' : b) + '<sup>' + k + '</sup> = ' + N + ', asi que ' + txt + ' = <b>' + m(k) + '</b>']);
@@ -352,7 +369,8 @@
     var b = r.elige([2, 3, 5]), k = r.entero(2, b === 2 ? 7 : 4), c = r.enteroNoCero(-3, 3), a = r.elige([1, 1, 2]);
     var N = Math.pow(b, k), x = (k - c) / a;
     var exp = (a === 1 ? 'x' : a + 'x') + (c > 0 ? ' + ' + c : ' &minus; ' + (-c));
-    return P.ejercicio('Resuelva la ecuaci&oacute;n <span class="expr">' + b + '<sup>' + exp + '</sup> = ' + N + '</span>.',
+    return P.ejercicio('Resuelva la ecuaci&oacute;n <span class="expr">' + b + '<sup>' + exp + '</sup> = ' + N + '</span>.' +
+      P.considere('que si b<sup>m</sup> = b<sup>n</sup>, entonces m = n.'),
       P.opciones(r, x, [(k + c) / a, k, N / b - c, (N - c) / a].map(function (v) { return F.redondea(v, 2); }), { conSigno: true, dec: 2, fmt: function (v) { return 'x = ' + m(F.redondea(v, 2)); } }),
       ['Escribe ' + N + ' como potencia de ' + b + ': ' + N + ' = ' + b + '<sup>' + k + '</sup>.', 'Con la misma base, los exponentes son iguales: ' + exp + ' = ' + k + '.'],
       [exp + ' = ' + k + ' &rarr; x = <b>' + m(x) + '</b>']);
@@ -386,7 +404,8 @@
     if (tipo === 0) {
       var ini = r.elige([40, 80, 120, 160, 200, 320]), vida = r.elige([3, 5, 8, 10, 20]), n = r.entero(2, 4);
       v = ini / Math.pow(2, n); u = 'g';
-      enun = 'Una sustancia radiactiva se reduce a la mitad cada ' + vida + ' a&ntilde;os. Si hoy hay ' + ini + ' g, &iquest;cu&aacute;nto quedar&aacute; dentro de ' + (vida * n) + ' a&ntilde;os?';
+      enun = 'Una sustancia radiactiva se reduce a la mitad cada ' + vida + ' a&ntilde;os. Si hoy hay ' + ini + ' g, &iquest;cu&aacute;nto quedar&aacute; dentro de ' + (vida * n) + ' a&ntilde;os?' +
+        P.considere('C = ' + F.frac('C<sub>0</sub>', '2<sup>n</sup>') + ', donde n es el n&uacute;mero de vidas medias que pasan.');
       malas = [ini / (2 * n), ini / Math.pow(2, n - 1), ini - ini / 2 * n, ini / Math.pow(2, n + 1)];
       sol = (vida * n) + ' a&ntilde;os son ' + n + ' vidas medias: ' + ini + ' / 2<sup>' + n + '</sup> = <b>' + F.n(v, 2) + ' g</b>';
     } else {
@@ -404,7 +423,8 @@
   function limSustitucion(r) {
     var a = r.enteroNoCero(-4, 5), b = r.enteroNoCero(-6, 6), c = r.entero(-9, 9), x0 = r.enteroNoCero(-3, 4);
     var v = a * x0 * x0 + b * x0 + c;
-    return P.ejercicio('Calcule <span class="expr">lim<sub>x&rarr;' + m(x0) + '</sub> (' + pol([a, b, c]) + ')</span>.',
+    return P.ejercicio('Calcule <span class="expr">lim<sub>x&rarr;' + m(x0) + '</sub> (' + pol([a, b, c]) + ')</span>.' +
+      P.considere('que el l&iacute;mite de un polinomio se obtiene sustituyendo x por el valor al que tiende.'),
       P.opciones(r, v, [a * x0 * x0 - b * x0 + c, a * x0 + b * x0 + c, a * x0 * x0 + b * x0, -v], { conSigno: true, fmt: m }),
       ['Los polinomios son continuos: basta con sustituir x = ' + m(x0) + '.', 'Usa parentesis al sustituir negativos.'],
       [m(a) + '(' + m(x0) + ')' + F.sup(2) + ' + ' + P.np(b) + '(' + m(x0) + ') + ' + P.np(c) + ' = <b>' + m(v) + '</b>']);
@@ -416,7 +436,8 @@
     if (tipo === 0) { num = pol([a, 0, b]); den = pol([c, d, 0]); bien = fr(a, c); malas = [fr(b, d), '0', 'No existe (crece sin l&iacute;mite)', fr(c, a)]; exp = 'Mismo grado arriba y abajo: el limite es el cociente de los coeficientes principales, ' + a + '/' + c + '.'; }
     else if (tipo === 1) { num = pol([a, b]); den = pol([c, 0, d]); bien = '0'; malas = [fr(a, c), fr(b, d), 'No existe (crece sin l&iacute;mite)', '1']; exp = 'El denominador tiene mayor grado: la fraccion se hace cada vez mas chica.'; }
     else { num = pol([a, 0, 0, b]); den = pol([c, d]); bien = 'No existe (crece sin l&iacute;mite)'; malas = [fr(a, c), '0', fr(b, d), '1']; exp = 'El numerador tiene mayor grado: la fraccion crece sin limite.'; }
-    return P.ejercicio('Calcule <span class="expr">lim<sub>x&rarr;&infin;</sub> ' + F.frac(num, den) + '</span>.',
+    return P.ejercicio('Calcule <span class="expr">lim<sub>x&rarr;&infin;</sub> ' + F.frac(num, den) + '</span>.' +
+      P.considere('que, si el grado de arriba y el de abajo son iguales, el l&iacute;mite es el cociente de los coeficientes principales; si el de abajo es mayor, es 0; y si el de arriba es mayor, no existe.'),
       P.opciones(r, bien, malas),
       ['Compara el grado (el mayor exponente) de arriba y de abajo.', 'Puedes dividir todo entre la potencia mas alta del denominador.'],
       [exp, 'Limite: <b>' + bien + '</b>']);
@@ -426,7 +447,8 @@
     var a, b;
     do { a = r.enteroNoCero(-6, 6); b = r.enteroNoCero(-6, 6); } while (a === b || a === -b);
     var num = pol([1, -(a + b), a * b]), v = a - b;
-    return P.ejercicio('Calcule <span class="expr">lim<sub>x&rarr;' + m(a) + '</sub> ' + F.frac(num, xMenos(a)) + '</span>.',
+    return P.ejercicio('Calcule <span class="expr">lim<sub>x&rarr;' + m(a) + '</sub> ' + F.frac(num, xMenos(a)) + '</span>.' +
+      P.considere('x' + F.sup(2) + ' &minus; (a + b)x + ab = (x &minus; a)(x &minus; b).'),
       P.opciones(r, String(m(v)), [m(a + b), '0', 'No existe', m(a * b), m(b - a)]),
       ['Si sustituyes directo sale 0/0: factoriza el numerador.', num + ' = (' + xMenos(a) + ')(' + xMenos(b) + '); cancela el factor repetido.'],
       [F.frac(num, xMenos(a)) + ' = ' + xMenos(b), 'Sustituyendo x = ' + m(a) + ': ' + m(a) + ' &minus; ' + P.np(b) + ' = <b>' + m(v) + '</b>']);
@@ -447,7 +469,7 @@
   function limContinuidad(r) {
     var p = r.enteroNoCero(-9, 9), q = r.enteroNoCero(-9, 9);
     while (q === p || q === -p) q = r.enteroNoCero(-9, 9);
-    return P.ejercicio('&iquest;En qu&eacute; valor de x la funci&oacute;n <span class="expr">f(x) = ' + F.frac(xMenos(-p), xMenos(q)) + '</span> no es continua?',
+    return P.ejercicio('&iquest;En qu&eacute; valor de x la funci&oacute;n <span class="expr">f(x) = ' + F.frac(xMenos(-p), xMenos(q)) + '</span> no es continua?' + P.considere('que una fracci&oacute;n no est&aacute; definida donde su denominador vale 0.'),
       P.opciones(r, 'x = ' + m(q), ['x = ' + m(-q), 'x = ' + m(-p), 'x = ' + m(p), 'x = 0']),
       ['Una fraccion se rompe donde el denominador vale 0.', 'Iguala ' + xMenos(q) + ' a cero y despeja.'],
       [xMenos(q) + ' = 0 &rarr; x = <b>' + m(q) + '</b>']);
@@ -457,7 +479,7 @@
   function derValor(r) {
     var a = r.enteroNoCero(-5, 6), b = r.enteroNoCero(-9, 9), c = r.entero(0, 20), t0 = r.entero(1, 5);
     var v = 2 * a * t0 + b;
-    return P.ejercicio('La posici&oacute;n de un objeto (en metros) es <span class="expr">s(t) = ' + pol([a, b, c], 't') + '</span>, con t en segundos. &iquest;Cu&aacute;l es su velocidad en t = ' + t0 + ' s?',
+    return P.ejercicio('La posici&oacute;n de un objeto (en metros) es <span class="expr">s(t) = ' + pol([a, b, c], 't') + '</span>, con t en segundos. &iquest;Cu&aacute;l es su velocidad en t = ' + t0 + ' s?' + P.considere("v(t) = s'(t) y (t<sup>n</sup>)' = n&middot;t<sup>n&minus;1</sup>."),
       P.opciones(r, v, [a * t0 * t0 + b * t0 + c, 2 * a * t0, a * t0 + b, 2 * a * t0 * t0 + b], { conSigno: true, fmt: function (x) { return m(x) + ' m/s'; } }),
       ['La velocidad es la derivada de la posicion: v(t) = s\'(t).', 'Deriva y despues sustituye t = ' + t0 + '; no sustituyas en s(t).'],
       ['v(t) = ' + pol([2 * a, b], 't'), 'v(' + t0 + ') = ' + m(2 * a) + '(' + t0 + ') + ' + P.np(b) + ' = <b>' + m(v) + ' m/s</b>']);
@@ -479,7 +501,8 @@
     } else {
       f = 'ln(' + k + 'x)'; bien = F.frac(1, 'x'); malas = [F.frac(k, 'x'), F.frac(1, k + 'x'), 'ln(' + k + ')', k + ' ln(x)'];
     }
-    return P.ejercicio('&iquest;Cu&aacute;l es la derivada de <span class="expr">f(x) = ' + f + '</span>?',
+    return P.ejercicio('&iquest;Cu&aacute;l es la derivada de <span class="expr">f(x) = ' + f + '</span>?' +
+      P.considere("(u<sup>n</sup>)' = n&middot;u<sup>n&minus;1</sup>&middot;u', (sen u)' = cos u&middot;u', (cos u)' = &minus;sen u&middot;u', (e<sup>u</sup>)' = e<sup>u</sup>&middot;u' y (ln u)' = " + F.frac("u'", 'u') + '.'),
       P.opciones(r, 'f\'(x) = ' + bien, malas.map(function (t) { return 'f\'(x) = ' + t; })),
       ['Regla de la cadena: deriva la funcion de afuera y multiplica por la derivada de lo de adentro.',
         '(sen u)\' = cos u &middot; u\', (cos u)\' = &minus;sen u &middot; u\', (e<sup>u</sup>)\' = e<sup>u</sup> &middot; u\', (ln u)\' = u\'/u.'],
@@ -490,13 +513,15 @@
     var a = r.enteroNoCero(-3, 4), b = r.enteroNoCero(-6, 6), c = r.entero(-8, 8), x0 = r.enteroNoCero(-3, 3);
     var mm = 2 * a * x0 + b, y0 = a * x0 * x0 + b * x0 + c, bb = y0 - mm * x0;
     if (r.bool()) {
-      return P.ejercicio('&iquest;Cu&aacute;l es la pendiente de la recta tangente a la curva <span class="expr">y = ' + pol([a, b, c]) + '</span> en el punto donde x = ' + m(x0) + '?',
+      return P.ejercicio('&iquest;Cu&aacute;l es la pendiente de la recta tangente a la curva <span class="expr">y = ' + pol([a, b, c]) + '</span> en el punto donde x = ' + m(x0) + '?' +
+        P.considere("que la pendiente de la tangente es y'(x<sub>0</sub>) y " + CONS_POTENCIA + '.'),
         P.opciones(r, mm, [y0, 2 * a + b, a * x0 + b, -mm], { conSigno: true, fmt: m }),
         ['La pendiente de la tangente es la derivada evaluada en ese punto.', 'y\' = ' + pol([2 * a, b]) + '.'],
         ['y\'(' + m(x0) + ') = ' + m(2 * a) + '(' + m(x0) + ') + ' + P.np(b) + ' = <b>' + m(mm) + '</b>']);
     }
     function rec(mm2, b2) { return 'y = ' + pol([mm2, b2]); }
-    return P.ejercicio('&iquest;Cu&aacute;l es la ecuaci&oacute;n de la recta tangente a <span class="expr">y = ' + pol([a, b, c]) + '</span> en x = ' + m(x0) + '?',
+    return P.ejercicio('&iquest;Cu&aacute;l es la ecuaci&oacute;n de la recta tangente a <span class="expr">y = ' + pol([a, b, c]) + '</span> en x = ' + m(x0) + '?' +
+      P.considere("que la pendiente de la tangente es y'(x<sub>0</sub>), " + CONS_POTENCIA + ' y y &minus; y<sub>1</sub> = m(x &minus; x<sub>1</sub>).'),
       P.opciones(r, rec(mm, bb), [rec(mm, y0), rec(y0, bb), rec(-mm, bb), rec(mm, c), rec(mm, bb + 2 * x0), rec(mm + 1, bb - x0), rec(mm, -bb - 1)]
         .filter(function (t) { return t !== rec(mm, bb); })),
       ['Necesitas un punto y una pendiente: el punto es (' + m(x0) + ', f(' + m(x0) + ')) y la pendiente es f\'(' + m(x0) + ').', 'Luego usa y &minus; y<sub>1</sub> = m(x &minus; x<sub>1</sub>).'],
@@ -548,7 +573,8 @@
     var k = r.entero(1, 4), c = r.entero(-9, 9), maxi = r.bool();
     var f = 'x' + F.sup(3) + ' &minus; ' + (3 * k * k) + 'x' + (c === 0 ? '' : c > 0 ? ' + ' + c : ' &minus; ' + (-c));
     var bien = maxi ? -k : k;
-    return P.ejercicio('&iquest;En qu&eacute; valor de x tiene un ' + (maxi ? 'm&aacute;ximo' : 'm&iacute;nimo') + ' relativo la funci&oacute;n <span class="expr">f(x) = ' + f + '</span>?',
+    return P.ejercicio('&iquest;En qu&eacute; valor de x tiene un ' + (maxi ? 'm&aacute;ximo' : 'm&iacute;nimo') + ' relativo la funci&oacute;n <span class="expr">f(x) = ' + f + '</span>?' +
+      P.considere("que en un punto cr&iacute;tico f'(x) = 0, y que si f''(x) &lt; 0 hay un m&aacute;ximo y si f''(x) &gt; 0, un m&iacute;nimo."),
       P.opciones(r, 'x = ' + m(bien), ['x = ' + m(-bien), 'x = 0', 'x = ' + (3 * k * k), 'x = ' + m(c)].filter(function (t) { return t !== 'x = ' + m(bien); })),
       ['f\'(x) = 3x' + F.sup(2) + ' &minus; ' + (3 * k * k) + ' = 0 da dos puntos criticos.', 'Usa la segunda derivada f\'\'(x) = 6x: negativa en un maximo, positiva en un minimo.'],
       ['Puntos criticos: x = &plusmn;' + k, 'f\'\'(' + m(-k) + ') = ' + m(-6 * k) + ' &lt; 0 (maximo) y f\'\'(' + k + ') = ' + (6 * k) + ' &gt; 0 (minimo)', '<b>x = ' + m(bien) + '</b>']);
@@ -559,7 +585,8 @@
     var f = pol([a, -2 * a * h, a * h * h + k]), crece = r.bool();
     var der = '(' + m(h) + ', &infin;)', izq = '(&minus;&infin;, ' + m(h) + ')';
     var bien = (a > 0) === crece ? der : izq;
-    return P.ejercicio('&iquest;En qu&eacute; intervalo es ' + (crece ? 'creciente' : 'decreciente') + ' la funci&oacute;n <span class="expr">f(x) = ' + f + '</span>?',
+    return P.ejercicio('&iquest;En qu&eacute; intervalo es ' + (crece ? 'creciente' : 'decreciente') + ' la funci&oacute;n <span class="expr">f(x) = ' + f + '</span>?' +
+      P.considere("que f es creciente donde f'(x) &gt; 0 y decreciente donde f'(x) &lt; 0."),
       P.opciones(r, bien, [bien === der ? izq : der, '(' + m(-h) + ', &infin;)', '(&minus;&infin;, ' + m(-h) + ')', '(&minus;&infin;, &infin;)']),
       ['f es creciente donde f\'(x) &gt; 0 y decreciente donde f\'(x) &lt; 0.', 'f\'(x) = ' + pol([2 * a, -2 * a * h]) + ' cambia de signo en x = ' + m(h) + '.'],
       ['f\'(x) = ' + pol([2 * a, -2 * a * h]), (crece ? 'Creciente' : 'Decreciente') + ' en <b>' + bien + '</b>']);
@@ -569,7 +596,8 @@
     var q = r.entero(1, 5), xs = r.entero(10, 60), p = 2 * q * xs;
     var I = p * xs - q * xs * xs;
     function op(x, v) { return x + ' productos, ingreso de $' + P.num(v, 0).replace(/ /g, ','); }
-    return P.ejercicio('El ingreso por vender x productos es <span class="expr">I(x) = ' + p + 'x &minus; ' + (q === 1 ? '' : q) + 'x' + F.sup(2) + '</span> pesos. &iquest;Cu&aacute;ntos productos hay que vender para obtener el ingreso m&aacute;ximo y de cu&aacute;nto es?',
+    return P.ejercicio('El ingreso por vender x productos es <span class="expr">I(x) = ' + p + 'x &minus; ' + (q === 1 ? '' : q) + 'x' + F.sup(2) + '</span> pesos. &iquest;Cu&aacute;ntos productos hay que vender para obtener el ingreso m&aacute;ximo y de cu&aacute;nto es?' +
+      P.considere("que el m&aacute;ximo est&aacute; donde I'(x) = 0 y que " + CONS_POTENCIA + '.'),
       P.opciones(r, op(xs, I), [op(2 * xs, I), op(xs, p * xs), op(Math.round(xs / 2), p * Math.round(xs / 2) - q * Math.round(xs / 2) * Math.round(xs / 2)), op(p, I)]),
       ['Deriva: I\'(x) = ' + p + ' &minus; ' + (2 * q) + 'x, iguala a cero y despeja.', 'Despues sustituye ese x en I(x).'],
       ['x = ' + p + ' / ' + (2 * q) + ' = ' + xs, 'I(' + xs + ') = ' + P.num(I, 0), '<b>' + op(xs, I) + '</b>']);
@@ -588,7 +616,7 @@
     var a = 3 * r.enteroNoCero(-3, 3), b = 2 * r.enteroNoCero(-4, 4), c = r.enteroNoCero(-9, 9);
     var bien = pol([a / 3, b / 2, c, 0]) + ' + C';
     var malas = [pol([a, b, c, 0]) + ' + C', pol([2 * a, b]) + ' + C', pol([a / 3, b / 2, 0, 0]) + ' + C', pol([a / 2, b, c, 0]) + ' + C'];
-    return P.ejercicio('&iquest;Cu&aacute;l es el resultado de <span class="expr">&int;(' + pol([a, b, c]) + ') dx</span>?',
+    return P.ejercicio('&iquest;Cu&aacute;l es el resultado de <span class="expr">&int;(' + pol([a, b, c]) + ') dx</span>?' + P.considere(CONS_INTEGRAL + ' + C.'),
       P.opciones(r, bien, malas),
       ['Regla de la potencia para integrar: &int;x<sup>n</sup> dx = x<sup>n+1</sup> / (n + 1) + C.', 'Sube el exponente en 1 y divide entre el nuevo exponente; la constante se vuelve ' + c + 'x.'],
       ['&int;' + pol([a, 0, 0]) + ' dx = ' + pol([a / 3, 0, 0, 0]) + ', &int;' + pol([b, 0]) + ' dx = ' + pol([b / 2, 0, 0]) + ', &int;' + m(c) + ' dx = ' + pol([c, 0]),
@@ -599,7 +627,8 @@
     var tipo = r.entero(0, 1), a = r.entero(2, 6), v, f, malas, sol;
     if (tipo === 0) { f = 'x' + F.sup(2); v = a * a * a / 3; malas = [a * a, a * a * a, 2 * a, a * a / 2]; sol = '&int;<sub>0</sub><sup>' + a + '</sup> x' + F.sup(2) + ' dx = ' + a + F.sup(3) + '/3'; }
     else { var k = r.entero(2, 6); f = k + 'x'; v = k * a * a / 2; malas = [k * a * a, k * a, k, k * a * a / 4]; sol = '&int;<sub>0</sub><sup>' + a + '</sup> ' + k + 'x dx = ' + k + '(' + a + F.sup(2) + ')/2'; }
-    return P.ejercicio('&iquest;Cu&aacute;l es el &aacute;rea bajo la curva <span class="expr">y = ' + f + '</span>, entre x = 0 y x = ' + a + '?',
+    return P.ejercicio('&iquest;Cu&aacute;l es el &aacute;rea bajo la curva <span class="expr">y = ' + f + '</span>, entre x = 0 y x = ' + a + '?' +
+      P.considere('que el &aacute;rea es &int;<sub>0</sub><sup>' + a + '</sup> f(x) dx y que ' + CONS_INTEGRAL + '.'),
       P.opciones(r, F.redondea(v, 2), malas.map(function (x) { return F.redondea(x, 2); }), { dec: 2, unidad: 'u' + F.sup(2) }),
       ['El area bajo la curva es la integral definida de 0 a ' + a + '.', 'Integra, evalua en ' + a + ' y resta lo que da en 0.'],
       [sol + ' = <b>' + F.n(v, 2) + ' u' + F.sup(2) + '</b>']);
@@ -609,7 +638,8 @@
     var mm = r.enteroNoCero(-4, 6), c = r.enteroNoCero(-6, 8), a = r.entero(-2, 2), b = a + r.entero(1, 4);
     function Fx(x) { return mm * x * x / 2 + c * x; }
     var v = Fx(b) - Fx(a);
-    return P.ejercicio('Calcule <span class="expr">&int;<sub>' + m(a) + '</sub><sup>' + m(b) + '</sup> (' + pol([mm, c]) + ') dx</span>.',
+    return P.ejercicio('Calcule <span class="expr">&int;<sub>' + m(a) + '</sub><sup>' + m(b) + '</sup> (' + pol([mm, c]) + ') dx</span>.' +
+      P.considere('&int;<sub>a</sub><sup>b</sup> f(x) dx = F(b) &minus; F(a) y ' + CONS_INTEGRAL + '.'),
       P.opciones(r, F.redondea(v, 2), [Fx(b), Fx(b) + Fx(a), mm * b + c, (mm * b + c) - (mm * a + c)].map(function (x) { return F.redondea(x, 2); }), { conSigno: true, dec: 2, fmt: function (x) { return m(F.redondea(x, 2)); } }),
       ['Integra: F(x) = ' + F.frac(m(mm), 2) + 'x' + F.sup(2) + ' + ' + P.np(c) + 'x.', 'Despues F(' + m(b) + ') &minus; F(' + m(a) + '): primero el de arriba menos el de abajo.'],
       ['F(' + m(b) + ') = ' + m(F.redondea(Fx(b), 2)) + ', F(' + m(a) + ') = ' + m(F.redondea(Fx(a), 2)), 'Resultado: <b>' + m(F.redondea(v, 2)) + '</b>']);
@@ -621,7 +651,8 @@
     else if (tipo === 1) { enun = '&int; sen x dx'; bien = '&minus;cos x + C'; malas = ['cos x + C', 'sen x + C', '&minus;sen x + C']; }
     else if (tipo === 2) { enun = '&int;<sub>0</sub><sup>&pi;</sup> sen x dx'; bien = '2'; malas = ['0', '1', '&minus;2', '&pi;']; }
     else { enun = '&int;<sub>0</sub><sup>&pi;/2</sup> cos x dx'; bien = '1'; malas = ['0', '&minus;1', '2', F.frac('&pi;', 2)]; }
-    return P.ejercicio('&iquest;Cu&aacute;l es el resultado de <span class="expr">' + enun + '</span>?',
+    return P.ejercicio('&iquest;Cu&aacute;l es el resultado de <span class="expr">' + enun + '</span>?' +
+      P.considere("(sen x)' = cos x, (cos x)' = &minus;sen x" + (tipo >= 2 ? ', sen 0 = 0, sen(' + F.frac('&pi;', 2) + ') = 1, cos 0 = 1 y cos &pi; = &minus;1' : '') + '.'),
       P.opciones(r, bien, malas),
       ['La integral deshace la derivada: (sen x)\' = cos x y (cos x)\' = &minus;sen x.', 'Para la definida evalua la antiderivada en los limites: sen(&pi;/2) = 1, cos(&pi;) = &minus;1.'],
       [enun + ' = <b>' + bien + '</b>']);

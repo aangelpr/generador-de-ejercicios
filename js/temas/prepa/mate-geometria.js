@@ -305,6 +305,15 @@
       ['Razon: ' + ac + ' / ' + ec + ' = ' + k, 'AB = ' + k + ' &times; ' + de + ' = <b>' + ab + '</b>']);
   };
 
+  /* Formulas sugeridas ("Considere ...") que comparten varias formas */
+  var CONS_SUMA180 = P.considere('que los &aacute;ngulos interiores de un tri&aacute;ngulo suman 180&deg;.');
+  var CONS_COMPLEMENTO = P.considere('que dos &aacute;ngulos complementarios suman 90&deg; y dos suplementarios, 180&deg;.');
+  var CONS_PITAGORAS = P.considere('el teorema de Pit&aacute;goras: c' + F.sup(2) + ' = a' + F.sup(2) + ' + b' + F.sup(2) + '.');
+  function consRazones(extra) {
+    return P.considere('sen &theta; = ' + F.frac('cateto opuesto', 'hipotenusa') + ', cos &theta; = ' + F.frac('cateto adyacente', 'hipotenusa') +
+      ' y tan &theta; = ' + F.frac('cateto opuesto', 'cateto adyacente') + (extra ? '; ' + extra : '') + '.');
+  }
+
   /* 15. Volumenes */
   casos.volumen = function (r) {
     var t = r.entero(0, 2), rr = r.entero(2, 9), h = r.entero(3, 15), v, err, enun, form;
@@ -321,7 +330,7 @@
       err = [4 * 3.14 * rr * rr, 3.14 * rr * rr * rr, 4 * 3.14 * rr * rr * rr];
       enun = 'Determine el volumen de una esfera de ' + P.num(rr) + ' cm de radio.';
     }
-    return P.ejercicio(enun + P.considere('&pi; = 3.14.'),
+    return P.ejercicio(enun + P.considere(form + ' y &pi; = 3.14.'),
       P.opciones(r, v, err, { unidad: 'cm' + F.sup(3), fijo: true, enteros: false }),
       ['Formula: ' + form + '.', 'Eleva al cuadrado (o al cubo) solo el radio, y multiplica al final por 3.14.'],
       [form, 'V = <b>' + P.num(v) + ' cm' + F.sup(3) + '</b>']);
@@ -340,7 +349,8 @@
     var err = [cos, sen, 1 / tan, ac * ab / (cb), sen + cos, cos * cos];
     return P.ejercicio(
       'Considere &#9651;ABC con &ang;BAC recto, la hipotenusa ' + sobre('CB', '&mdash;') + ' = ' + cb + ' cm, el cateto ' + sobre('AB', '&mdash;') + ' = ' + ab +
-        ' cm y el cateto ' + sobre('AC', '&mdash;') + ' = ' + ac + ' cm. &iquest;Cu&aacute;l es el valor de la expresi&oacute;n ' + txt + '?',
+        ' cm y el cateto ' + sobre('AC', '&mdash;') + ' = ' + ac + ' cm. &iquest;Cu&aacute;l es el valor de la expresi&oacute;n ' + txt + '?' +
+        consRazones(exp === 2 ? 'cot &theta; = ' + F.frac(1, 'tan &theta;') : ''),
       P.opciones(r, v, err, { fijo: true, enteros: false }),
       ['Desde el angulo C: el cateto opuesto es AB y el adyacente es AC.',
         'sen = opuesto/hipotenusa, cos = adyacente/hipotenusa, tan = opuesto/adyacente.'],
@@ -503,13 +513,13 @@
   function angRadianes(r) {
     var g = r.elige([30, 45, 60, 120, 135, 150, 210, 225, 240, 270, 300, 315, 330]);
     if (r.bool()) {
-      return P.ejercicio('&iquest;A cu&aacute;ntos grados equivale un &aacute;ngulo de ' + rad(g) + ' radianes?',
+      return P.ejercicio('&iquest;A cu&aacute;ntos grados equivale un &aacute;ngulo de ' + rad(g) + ' radianes?' + P.considere('&pi; rad = 180&deg;.'),
         P.opciones(r, g, [g / 2, 2 * g, 360 - g, g + 90], { fmt: grados }),
         ['&pi; radianes = 180&deg;: cambia &pi; por 180&deg; y haz la operacion.', 'Por ejemplo, ' + rad(90) + ' = 180&deg;/2 = 90&deg;.'],
         [rad(g) + ' &times; 180&deg;/&pi; = <b>' + g + '&deg;</b>']);
     }
     var otros = [30, 45, 60, 90, 120, 135, 150, 180, 210, 225, 240, 270, 300, 315, 330].filter(function (x) { return x !== g; });
-    return P.ejercicio('&iquest;A cu&aacute;ntos radianes equivale un &aacute;ngulo de ' + g + '&deg;?',
+    return P.ejercicio('&iquest;A cu&aacute;ntos radianes equivale un &aacute;ngulo de ' + g + '&deg;?' + P.considere('180&deg; = &pi; rad.'),
       P.opciones(r, rad(g) + ' rad', [rad(g / 2), rad(2 * g > 360 ? 2 * g - 360 : 2 * g), rad(360 - g)].concat(r.muestra(otros, 3).map(rad))
         .filter(function (t) { return t !== rad(g); }).map(function (t) { return t + ' rad'; })),
       ['Multiplica los grados por &pi;/180 y simplifica la fraccion.', '180&deg; = &pi;, 90&deg; = &pi;/2, 60&deg; = &pi;/3, 45&deg; = &pi;/4, 30&deg; = &pi;/6.'],
@@ -519,7 +529,7 @@
   function angComplemento(r) {
     var sup = r.bool(), g = sup ? r.entero(15, 165) : r.entero(5, 85), v = (sup ? 180 : 90) - g;
     var malas = sup ? [90 - g, 360 - g, 180 + g, 270 - g] : [180 - g, 360 - g, 90 + g, 270 - g];
-    return P.ejercicio('&iquest;Cu&aacute;l es el ' + (sup ? 'suplemento' : 'complemento') + ' de un &aacute;ngulo de ' + g + '&deg;?',
+    return P.ejercicio('&iquest;Cu&aacute;l es el ' + (sup ? 'suplemento' : 'complemento') + ' de un &aacute;ngulo de ' + g + '&deg;?' + CONS_COMPLEMENTO,
       P.opciones(r, v, malas, { fmt: grados }),
       ['Complementarios: suman 90&deg;. Suplementarios: suman 180&deg;.', 'Resta el angulo de ' + (sup ? '180&deg;' : '90&deg;') + '.'],
       [(sup ? '180&deg;' : '90&deg;') + ' &minus; ' + g + '&deg; = <b>' + v + '&deg;</b>']);
@@ -575,7 +585,8 @@
       linea(t0, t1) + punto(X(cruce[0])) + punto(X(cruce[1])) +
       marca(e[0], e[1], dado + '&deg;', 13) + marca(e[2], e[3], 'x', 21));
     var rel = e[4];
-    return P.ejercicio('En la figura, las dos rectas horizontales son paralelas y las corta una transversal. &iquest;Cu&aacute;nto mide el &aacute;ngulo x?' + dib,
+    return P.ejercicio('En la figura, las dos rectas horizontales son paralelas y las corta una transversal. &iquest;Cu&aacute;nto mide el &aacute;ngulo x?' + dib +
+      P.considere('que entre paralelas los &aacute;ngulos correspondientes, los alternos y los opuestos por el v&eacute;rtice son iguales, y los conjugados y los adyacentes suman 180&deg;.'),
       P.opciones(r, x, [180 - x, 90 - x, 360 - x, x / 2, 90 + x], { fmt: grados }),
       ['Los angulos marcados son ' + rel[0] + '.', 'Entre paralelas, los angulos que se ven "iguales" miden lo mismo; los que no, suman 180&deg;.'],
       ['Son angulos ' + rel[0] + ': ' + (rel[1] ? 'son iguales' : 'suman 180&deg;'),
@@ -595,7 +606,9 @@
       enun = '&iquest;Cu&aacute;nto mide cada &aacute;ngulo exterior de un ' + pol[1] + ' regular?';
       v = 360 / n; malas = [suma / n, 180 / n, 360 / (n - 2), 360 * n / 10]; sol = 'Los exteriores siempre suman 360&deg;: 360&deg; &divide; ' + n + ' = <b>' + F.n(v, 2) + '&deg;</b>';
     }
-    return P.ejercicio(enun, P.opciones(r, v, malas, { fmt: grados, dec: 2 }),
+    var cons = tipo === 2 ? 'que los &aacute;ngulos exteriores de cualquier pol&iacute;gono suman 360&deg;.'
+      : 'S = (n &minus; 2) &times; 180&deg;' + (tipo === 1 ? ' y que en un pol&iacute;gono regular todos los &aacute;ngulos interiores son iguales.' : '.');
+    return P.ejercicio(enun + P.considere(cons), P.opciones(r, v, malas, { fmt: grados, dec: 2 }),
       ['Los angulos interiores de un poligono de n lados suman (n &minus; 2) &times; 180&deg;.', 'Los exteriores de cualquier poligono suman 360&deg;; si es regular, todos son iguales.'],
       ['Un ' + pol[1] + ' tiene ' + n + ' lados', sol]);
   }
@@ -608,7 +621,7 @@
     var otro = total === 90 ? 180 : 90;
     var malas = [(otro - b1 - b2) / (a1 + a2), (total + b1 + b2) / (a1 + a2), total / (a1 + a2), x + 5];
     return P.ejercicio('Dos &aacute;ngulos son ' + (total === 90 ? 'complementarios' : 'suplementarios') + ' y miden ' + lin(a1, b1) + ' y ' + lin(a2, b2) +
-      '. &iquest;Cu&aacute;l es el valor de x?',
+      '. &iquest;Cu&aacute;l es el valor de x?' + CONS_COMPLEMENTO,
       P.opciones(r, x, malas, { dec: 2 }),
       [(total === 90 ? 'Complementarios' : 'Suplementarios') + ': la suma de los dos es ' + total + '&deg;.', 'Junta las x y los numeros y despeja.'],
       [lin(a1, b1).replace('&deg;', '') + ' + ' + lin(a2, b2).replace('&deg;', '') + ' = ' + total,
@@ -630,7 +643,8 @@
     var b = r.enteroNoCero(-9, 9), perp = r.bool(0.6);
     var bien = perp ? fr(-mm[1], mm[0]) : fr(mm[0], mm[1]);
     var malas = [fr(mm[0], mm[1]), fr(-mm[0], mm[1]), fr(mm[1], mm[0]), fr(-mm[1], mm[0]), m(b)];
-    return P.ejercicio('&iquest;Cu&aacute;l es la pendiente de una recta ' + (perp ? 'perpendicular' : 'paralela') + ' a <span class="expr">' + rectaTxt(mm[0], mm[1], b) + '</span>?',
+    return P.ejercicio('&iquest;Cu&aacute;l es la pendiente de una recta ' + (perp ? 'perpendicular' : 'paralela') + ' a <span class="expr">' + rectaTxt(mm[0], mm[1], b) + '</span>?' +
+      P.considere('que en y = mx + b la pendiente es m; las paralelas tienen la misma pendiente y las perpendiculares cumplen m<sub>1</sub> &middot; m<sub>2</sub> = &minus;1.'),
       P.opciones(r, bien, malas),
       ['Paralelas: tienen la MISMA pendiente. Perpendiculares: sus pendientes multiplicadas dan &minus;1.',
         'Para la perpendicular voltea la fraccion y cambiale el signo.'],
@@ -658,7 +672,8 @@
     }
     var NOM = ['Paralelas', 'Perpendiculares', 'Coincidentes', 'Oblicuas (se cortan sin formar &aacute;ngulo recto)'];
     var m1 = fr(p, q), m2 = fr(-A2, B2);
-    return P.ejercicio('Las rectas <span class="expr">' + ec(A1, B1, C1) + '</span> y <span class="expr">' + ec(A2, B2, C2) + '</span> son:',
+    return P.ejercicio('Las rectas <span class="expr">' + ec(A1, B1, C1) + '</span> y <span class="expr">' + ec(A2, B2, C2) + '</span> son:' +
+      P.considere('que la recta Ax + By = C tiene pendiente m = &minus;A/B; las paralelas tienen la misma pendiente y las perpendiculares cumplen m<sub>1</sub> &middot; m<sub>2</sub> = &minus;1.'),
       P.opciones(r, NOM[tipo], NOM.filter(function (_, i) { return i !== tipo; })),
       ['Despeja y en cada ecuacion para ver su pendiente (y su ordenada al origen).',
         'Misma pendiente: paralelas (o la misma recta si tambien coincide la ordenada). Pendientes que multiplicadas dan &minus;1: perpendiculares.'],
@@ -673,7 +688,8 @@
     var bien = rectaTxt(num, den, b2);
     var malas = [rectaTxt(num, den, y0), rectaTxt(num, den, y0 + num * x0 / den), rectaTxt(perp ? mm : -1, perp ? 1 : mm, b2), rectaTxt(mm, 1, b)];
     return P.ejercicio('&iquest;Cu&aacute;l es la ecuaci&oacute;n de la recta que pasa por el punto (' + m(x0) + ', ' + m(y0) + ') y es ' + (perp ? 'perpendicular' : 'paralela') +
-      ' a <span class="expr">' + rectaTxt(mm, 1, b) + '</span>?',
+      ' a <span class="expr">' + rectaTxt(mm, 1, b) + '</span>?' +
+      P.considere('y &minus; y<sub>1</sub> = m(x &minus; x<sub>1</sub>); las paralelas tienen la misma pendiente y las perpendiculares cumplen m<sub>1</sub> &middot; m<sub>2</sub> = &minus;1.'),
       P.opciones(r, bien, malas),
       ['Primero la pendiente: ' + (perp ? 'la perpendicular es &minus;1/' + m(mm) : 'la paralela es la misma, ' + m(mm)) + '.',
         'Luego punto-pendiente: y &minus; y<sub>1</sub> = m(x &minus; x<sub>1</sub>), y despeja y.'],
@@ -694,7 +710,7 @@
     var s = a + b;
     if (s < 180) malas.push(op(s, tipoPorAngulo(Math.max(a, b, s))));
     malas.push(op(360 - a - b, 'obtus&aacute;ngulo'));
-    return P.ejercicio('Dos &aacute;ngulos de un tri&aacute;ngulo miden ' + a + '&deg; y ' + b + '&deg;. &iquest;Cu&aacute;nto mide el tercer &aacute;ngulo y c&oacute;mo se clasifica el tri&aacute;ngulo?',
+    return P.ejercicio('Dos &aacute;ngulos de un tri&aacute;ngulo miden ' + a + '&deg; y ' + b + '&deg;. &iquest;Cu&aacute;nto mide el tercer &aacute;ngulo y c&oacute;mo se clasifica el tri&aacute;ngulo?' + CONS_SUMA180,
       P.opciones(r, op(c, tipo), malas),
       ['Los tres angulos de un triangulo suman 180&deg;.', 'Se clasifica por su angulo mayor: menor de 90&deg; acutangulo, 90&deg; rectangulo, mayor de 90&deg; obtusangulo.'],
       ['Tercer angulo: 180&deg; &minus; ' + a + '&deg; &minus; ' + b + '&deg; = ' + c + '&deg;', 'El mayor mide ' + mayor + '&deg;: es <b>' + tipo + '</b>']);
@@ -710,7 +726,8 @@
       else if (malas.length < 4 && malas.indexOf(t) === -1) malas.push(t);
     }
     var bien = si ? buenas[0] : malas[0], otras = si ? malas.slice(0, 3) : buenas.slice(0, 3);
-    return P.ejercicio('&iquest;Con cu&aacute;l de las siguientes medidas ' + (si ? 'S&Iacute;' : 'NO') + ' es posible construir un tri&aacute;ngulo?',
+    return P.ejercicio('&iquest;Con cu&aacute;l de las siguientes medidas ' + (si ? 'S&Iacute;' : 'NO') + ' es posible construir un tri&aacute;ngulo?' +
+      P.considere('que en todo tri&aacute;ngulo cada lado es menor que la suma de los otros dos.'),
       P.opciones(r, bien, otras),
       ['Desigualdad del triangulo: la suma de los dos lados mas chicos debe ser MAYOR que el lado mas grande.',
         'Si los dos chicos suman igual o menos que el grande, no alcanzan a cerrar el triangulo.'],
@@ -746,23 +763,24 @@
     var a = r.entero(25, 80), b = r.entero(25, 80), ext = a + b;
     while (ext >= 175) { b -= 10; ext = a + b; }
     return P.ejercicio('Un &aacute;ngulo exterior de un tri&aacute;ngulo mide ' + ext + '&deg; y uno de los dos &aacute;ngulos interiores que no son adyacentes a &eacute;l mide ' + a +
-      '&deg;. &iquest;Cu&aacute;nto mide el otro &aacute;ngulo interior no adyacente?',
+      '&deg;. &iquest;Cu&aacute;nto mide el otro &aacute;ngulo interior no adyacente?' + P.considere('que un &aacute;ngulo exterior de un tri&aacute;ngulo es igual a la suma de los dos interiores no adyacentes.'),
       P.opciones(r, b, [180 - ext, 180 - a, ext + a, 180 - b - a], { fmt: grados }),
       ['Un angulo exterior es igual a la SUMA de los dos interiores que no estan pegados a el.', 'Asi que el que falta es el exterior menos el que conoces.'],
       [ext + '&deg; = ' + a + '&deg; + x &rarr; x = <b>' + b + '&deg;</b>']);
   }
 
+  var CONS_ISOSCELES = P.considere('que los &aacute;ngulos interiores de un tri&aacute;ngulo suman 180&deg; y que en un tri&aacute;ngulo is&oacute;sceles los dos &aacute;ngulos de la base son iguales.');
   function triIsosceles(r) {
     var desigual, igual;
     do { desigual = r.entero(10, 160); } while (desigual % 2 !== 0);
     igual = (180 - desigual) / 2;
     if (r.bool()) {
-      return P.ejercicio('En un tri&aacute;ngulo is&oacute;sceles, el &aacute;ngulo desigual mide ' + desigual + '&deg;. &iquest;Cu&aacute;nto mide cada uno de los otros dos &aacute;ngulos?',
+      return P.ejercicio('En un tri&aacute;ngulo is&oacute;sceles, el &aacute;ngulo desigual mide ' + desigual + '&deg;. &iquest;Cu&aacute;nto mide cada uno de los otros dos &aacute;ngulos?' + CONS_ISOSCELES,
         P.opciones(r, igual, [180 - desigual, desigual, desigual / 2, 90 - desigual / 4], { fmt: grados, dec: 2 }),
         ['En un isosceles los dos angulos de la base son iguales.', 'Quita el desigual a 180&deg; y reparte lo que queda entre dos.'],
         ['(180&deg; &minus; ' + desigual + '&deg;) / 2 = <b>' + igual + '&deg;</b>']);
     }
-    return P.ejercicio('En un tri&aacute;ngulo is&oacute;sceles, cada uno de los &aacute;ngulos iguales mide ' + igual + '&deg;. &iquest;Cu&aacute;nto mide el &aacute;ngulo desigual?',
+    return P.ejercicio('En un tri&aacute;ngulo is&oacute;sceles, cada uno de los &aacute;ngulos iguales mide ' + igual + '&deg;. &iquest;Cu&aacute;nto mide el &aacute;ngulo desigual?' + CONS_ISOSCELES,
       P.opciones(r, desigual, [180 - igual, 2 * igual, 90 - igual, igual], { fmt: grados, dec: 2 }),
       ['Los dos angulos iguales suman ' + (2 * igual) + '&deg;.', 'Lo que falta para 180&deg; es el angulo desigual.'],
       ['180&deg; &minus; 2(' + igual + '&deg;) = <b>' + desigual + '&deg;</b>']);
@@ -775,7 +793,8 @@
     var H = F.redondea(S * k, 2);
     var cosa = r.elige(['un poste', 'un &aacute;rbol', 'un edificio peque&ntilde;o', 'una antena']);
     return P.ejercicio('A cierta hora del d&iacute;a, ' + cosa + ' proyecta una sombra de ' + S + ' m. A la misma hora, una persona de ' + P.num(per[0]) +
-      ' m de estatura proyecta una sombra de ' + P.num(per[1]) + ' m. &iquest;Cu&aacute;l es la altura de ' + cosa.replace(/^un[a]? /, function (t) { return t === 'una ' ? 'la ' : 'el '; }) + '?',
+      ' m de estatura proyecta una sombra de ' + P.num(per[1]) + ' m. &iquest;Cu&aacute;l es la altura de ' + cosa.replace(/^un[a]? /, function (t) { return t === 'una ' ? 'la ' : 'el '; }) + '?' +
+      P.considere('que a la misma hora las alturas y las sombras son proporcionales: ' + F.frac('altura<sub>1</sub>', 'sombra<sub>1</sub>') + ' = ' + F.frac('altura<sub>2</sub>', 'sombra<sub>2</sub>') + '.'),
       P.opciones(r, H, [S * per[1] / per[0], S * per[0], S + per[0] - per[1], S / per[0]].map(function (v) { return F.redondea(v, 2); }), { unidad: 'm', dec: 2 }),
       ['Los rayos del sol llegan con el mismo angulo: los dos triangulos (objeto-sombra) son semejantes.',
         'Altura / sombra es la misma razon: ' + P.num(per[0]) + ' / ' + P.num(per[1]) + ' = h / ' + S + '.'],
@@ -806,13 +825,15 @@
     s += medio(t1[0], t1[1], -16, String(a)) + medio(t1[1], t1[2], -16, String(b)) + medio(t2[0], t2[1], 16, String(d)) + medio(t2[1], t2[2], 16, 'x');
     var dib = F.svg(W, H, s);
     return P.ejercicio('En la figura, las tres rectas horizontales son paralelas. Si ' + sobre(L[0] + L[1], '&mdash;') + ' = ' + a + ', ' + sobre(L[1] + L[2], '&mdash;') + ' = ' + b +
-      ' y ' + sobre(L[3] + L[4], '&mdash;') + ' = ' + d + ', &iquest;cu&aacute;nto mide x = ' + sobre(L[4] + L[5], '&mdash;') + '?' + dib,
+      ' y ' + sobre(L[3] + L[4], '&mdash;') + ' = ' + d + ', &iquest;cu&aacute;nto mide x = ' + sobre(L[4] + L[5], '&mdash;') + '?' + dib +
+      P.considere('el teorema de Tales: las paralelas cortan a las dos transversales en segmentos proporcionales.'),
       P.opciones(r, x, [d * a / b, d + b - a, a * b / d, d * b], { dec: 1 }),
       ['Teorema de Tales: paralelas cortan a las transversales en segmentos proporcionales.',
         'Plantea ' + F.frac(L[0] + L[1], L[1] + L[2]) + ' = ' + F.frac(L[3] + L[4], L[4] + L[5]) + '.'],
       [F.frac(a, b) + ' = ' + F.frac(d, 'x') + ' &rarr; x = ' + d + ' &times; ' + b + ' / ' + a + ' = <b>' + F.n(x) + '</b>']);
   }
 
+  var CONS_ESCALA = P.considere('que si las medidas se multiplican por k, los per&iacute;metros se multiplican por k, las &aacute;reas por k' + F.sup(2) + ' y los vol&uacute;menes por k' + F.sup(3) + '.');
   function semRazonAreas(r) {
     var k = r.entero(2, 5), tipo = r.entero(0, 2), base = r.entero(2, 12), v, malas, enun, u;
     if (tipo === 0) {
@@ -828,7 +849,7 @@
         ' cm, &iquest;cu&aacute;l es el per&iacute;metro del mayor?';
       v = base * k; malas = [base * k * k, base + k, base * k * k * k, base * 2]; u = 'cm';
     }
-    return P.ejercicio(enun, P.opciones(r, v, malas, { unidad: u }),
+    return P.ejercicio(enun + CONS_ESCALA, P.opciones(r, v, malas, { unidad: u }),
       ['Si las longitudes se multiplican por k, las areas se multiplican por k' + F.sup(2) + ' y los volumenes por k' + F.sup(3) + '.',
         'El perimetro es una longitud: se multiplica solo por k.'],
       ['k = ' + k + ' &rarr; factor ' + (tipo === 0 ? 'k' + F.sup(2) + ' = ' + (k * k) : tipo === 1 ? 'k' + F.sup(3) + ' = ' + (k * k * k) : 'k = ' + k),
@@ -850,7 +871,7 @@
     var esc = r.elige([10000, 20000, 25000, 50000, 100000, 250000]), cm = r.entero(2, 15);
     var km = cm * esc / 100000;
     return P.ejercicio('En un mapa con escala 1:' + P.num(esc, 0).replace(/ /g, ',') + ', dos pueblos est&aacute;n separados ' + cm +
-      ' cm. &iquest;Cu&aacute;l es la distancia real entre ellos?',
+      ' cm. &iquest;Cu&aacute;l es la distancia real entre ellos?' + P.considere('que en la escala 1:n, 1 cm del mapa equivale a n cm reales, y que 1 km = 100 000 cm.'),
       P.opciones(r, km, [km * 10, km / 10, cm * esc / 1000, km * 100], { unidad: 'km', dec: 3 }),
       ['1:' + esc + ' quiere decir que 1 cm del mapa son ' + esc + ' cm reales.', 'Para pasar de centimetros a kilometros divide entre 100 000.'],
       [cm + ' &times; ' + esc + ' = ' + P.num(cm * esc, 0) + ' cm', P.num(cm * esc, 0) + ' cm &divide; 100 000 = <b>' + F.n(km, 3) + ' km</b>']);
@@ -869,7 +890,7 @@
       enun = 'Determine el volumen de un prisma triangular cuya base es un tri&aacute;ngulo de ' + a + ' cm de base y ' + b + ' cm de altura, y que mide ' + h + ' cm de largo.';
       v = a * b * h / 2; malas = [a * b * h, a * b * h / 3, a * b / 2 + h, a * b * h / 6]; form = 'V = (b &times; h / 2) &times; largo';
     }
-    return P.ejercicio(enun, P.opciones(r, v, malas, { unidad: 'cm' + F.sup(3), dec: 2 }),
+    return P.ejercicio(enun + P.considere(form + '.'), P.opciones(r, v, malas, { unidad: 'cm' + F.sup(3), dec: 2 }),
       ['Prismas: area de la base por la altura. Piramides y conos: lo mismo dividido entre 3.', form + '.'],
       [form, 'V = <b>' + F.n(v, 2) + ' cm' + F.sup(3) + '</b>']);
   }
@@ -891,12 +912,12 @@
     if (tipo === 0) {
       var l = r.entero(10, 30) / 10, a = r.entero(8, 20) / 10, h = r.entero(8, 20) / 10;
       v = F.redondea(l * a * h * 1000, 2);
-      enun = 'Una cisterna tiene forma de prisma rectangular de ' + F.n(l) + ' m de largo, ' + F.n(a) + ' m de ancho y ' + F.n(h) + ' m de profundidad. &iquest;Cu&aacute;ntos litros le caben?';
+      enun = 'Una cisterna tiene forma de prisma rectangular de ' + F.n(l) + ' m de largo, ' + F.n(a) + ' m de ancho y ' + F.n(h) + ' m de profundidad. &iquest;Cu&aacute;ntos litros le caben?' + P.considere('V = largo &times; ancho &times; altura y 1 m' + F.sup(3) + ' = 1 000 L.');
       sol = ['V = ' + F.n(l) + ' &times; ' + F.n(a) + ' &times; ' + F.n(h) + ' = ' + F.n(l * a * h, 3) + ' m' + F.sup(3), '1 m' + F.sup(3) + ' = 1 000 L &rarr; <b>' + P.num(v, 0) + ' L</b>'];
     } else {
       var d = r.elige([0.8, 1, 1.2, 1.4, 1.6]), hh = r.elige([1, 1.2, 1.5, 1.8, 2]), rr = d / 2;
       v = F.redondea(3.14 * rr * rr * hh * 1000, 2);
-      enun = 'Un tinaco cil&iacute;ndrico mide ' + F.n(d) + ' m de di&aacute;metro y ' + F.n(hh) + ' m de altura. &iquest;Cu&aacute;ntos litros le caben?' + P.considere('&pi; = 3.14.');
+      enun = 'Un tinaco cil&iacute;ndrico mide ' + F.n(d) + ' m de di&aacute;metro y ' + F.n(hh) + ' m de altura. &iquest;Cu&aacute;ntos litros le caben?' + P.considere('V = &pi;r' + F.sup(2) + 'h, &pi; = 3.14 y 1 m' + F.sup(3) + ' = 1 000 L.');
       sol = ['Radio = ' + F.n(rr) + ' m', 'V = 3.14 &times; ' + F.n(rr) + F.sup(2) + ' &times; ' + F.n(hh) + ' = ' + F.n(v / 1000, 4) + ' m' + F.sup(3), '&times; 1 000 = <b>' + P.num(v, 0) + ' L</b>'];
     }
     return P.ejercicio(enun, P.opciones(r, v, [v / 10, v * 10, v / 1000, tipo === 1 ? v * 4 : v / 100], { unidad: 'L', fmt: function (x) { return P.num(x, x === Math.round(x) ? 0 : 2); } }),
@@ -907,7 +928,7 @@
     var tipo = r.entero(0, 2), a, v, malas, enun, sol;
     if (tipo === 0) {
       a = r.entero(2, 15);
-      enun = '&iquest;Cu&aacute;l es el &aacute;rea total de la superficie de un cubo de ' + a + ' cm de arista?';
+      enun = '&iquest;Cu&aacute;l es el &aacute;rea total de la superficie de un cubo de ' + a + ' cm de arista?' + P.considere('A = 6a' + F.sup(2) + ', donde a es la arista.');
       v = 6 * a * a; malas = [a * a * a, 4 * a * a, a * a, 12 * a]; sol = 'A = 6a' + F.sup(2) + ' = 6 &times; ' + (a * a) + ' = <b>' + v + ' cm' + F.sup(2) + '</b>';
     } else if (tipo === 1) {
       var rr = r.entero(2, 9), h = r.entero(3, 15);
@@ -928,7 +949,7 @@
     var k = r.entero(2, 4), cuerpo = r.elige([['el radio de una esfera', 'volumen'], ['la arista de un cubo', 'volumen'], ['el radio de un c&iacute;rculo', '&aacute;rea'], ['el lado de un cuadrado', '&aacute;rea']]);
     var VEZ = { 2: 'duplica', 3: 'triplica', 4: 'cuadruplica' };
     var vol = cuerpo[1] === 'volumen', v = vol ? k * k * k : k * k;
-    return P.ejercicio('Si ' + cuerpo[0] + ' se ' + VEZ[k] + ', &iquest;por cu&aacute;nto se multiplica su ' + cuerpo[1] + '?',
+    return P.ejercicio('Si ' + cuerpo[0] + ' se ' + VEZ[k] + ', &iquest;por cu&aacute;nto se multiplica su ' + cuerpo[1] + '?' + CONS_ESCALA,
       P.opciones(r, 'Por ' + v, (vol ? [k, k * k, 3 * k, k + 1] : [k, k * k * k, 2 * k, k + 1]).filter(function (x) { return x !== v; }).map(function (x) { return 'Por ' + x; })),
       ['El ' + cuerpo[1] + ' depende de la medida elevada al ' + (vol ? 'cubo' : 'cuadrado') + '.', 'Asi que se multiplica por ' + k + (vol ? F.sup(3) : F.sup(2)) + '.'],
       [k + (vol ? F.sup(3) : F.sup(2)) + ' = <b>' + v + '</b>']);
@@ -1022,7 +1043,7 @@
     var malas = ['sen', 'cos', 'tan'].filter(function (f) { return f !== fun; }).map(function (f) { return q(val[f]); })
       .concat([q([val[fun][1], val[fun][0]]), q([hip, op])]);
     var dib = dibujoRect(r, hor, ver, hip, nombres, enHor, [String(hor), String(ver), String(hip)]);
-    return P.ejercicio('Con base en el tri&aacute;ngulo rect&aacute;ngulo de la figura, &iquest;cu&aacute;l es el valor de ' + fun + ' &theta;?' + dib,
+    return P.ejercicio('Con base en el tri&aacute;ngulo rect&aacute;ngulo de la figura, &iquest;cu&aacute;l es el valor de ' + fun + ' &theta;?' + dib + consRazones(),
       P.opciones(r, bien, malas),
       ['Desde &theta;: el cateto OPUESTO es el que esta enfrente; el ADYACENTE es el que lo toca (sin ser la hipotenusa).',
         'sen = opuesto/hipotenusa, cos = adyacente/hipotenusa, tan = opuesto/adyacente.'],
@@ -1039,7 +1060,7 @@
       : 'Los catetos de un tri&aacute;ngulo rect&aacute;ngulo miden ' + a + ' cm y ' + b + ' cm. Si &alpha; es el &aacute;ngulo opuesto al cateto de ' + a + ' cm, &iquest;cu&aacute;nto vale ' + fun + ' &alpha;?';
     function q(p) { return F.frac(p[0], p[1]); }
     var malas = ['sen', 'cos', 'tan'].filter(function (f) { return f !== fun; }).map(function (f) { return q(val[f]); }).concat([q([val[fun][1], val[fun][0]])]);
-    return P.ejercicio(enun, P.opciones(r, q(val[fun]), malas),
+    return P.ejercicio(enun + consRazones('c' + F.sup(2) + ' = a' + F.sup(2) + ' + b' + F.sup(2)), P.opciones(r, q(val[fun]), malas),
       ['Primero completa el triangulo con Pitagoras: ' + (conHip ? 'el otro cateto es &radic;(' + c + F.sup(2) + ' &minus; ' + a + F.sup(2) + ')' : 'la hipotenusa es &radic;(' + a + F.sup(2) + ' + ' + b + F.sup(2) + ')') + '.',
         'Desde &alpha;, el cateto de ' + a + ' es el opuesto.'],
       [(conHip ? 'Otro cateto = ' + b : 'Hipotenusa = ' + c), fun + ' &alpha; = <b>' + q(val[fun]) + '</b>']);
@@ -1056,7 +1077,8 @@
     var malas = Object.keys(R).filter(function (k) { return k !== pide; }).map(q);
     var falta = dada === 'tan' ? 'la hipotenusa: &radic;(' + R.tan[0] + F.sup(2) + ' + ' + R.tan[1] + F.sup(2) + ') = ' + hip
       : 'el otro cateto: &radic;(' + hip + F.sup(2) + ' &minus; ' + R[dada][0] + F.sup(2) + ') = ' + (dada === 'sen' ? ady : op);
-    return P.ejercicio('Si ' + dada + ' &theta; = ' + q(dada) + ' y &theta; es un &aacute;ngulo agudo, &iquest;cu&aacute;nto vale ' + pide + ' &theta;?',
+    return P.ejercicio('Si ' + dada + ' &theta; = ' + q(dada) + ' y &theta; es un &aacute;ngulo agudo, &iquest;cu&aacute;nto vale ' + pide + ' &theta;?' +
+      consRazones('csc &theta; = ' + F.frac(1, 'sen &theta;') + ', sec &theta; = ' + F.frac(1, 'cos &theta;') + ', cot &theta; = ' + F.frac(1, 'tan &theta;') + ' y c' + F.sup(2) + ' = a' + F.sup(2) + ' + b' + F.sup(2)),
       P.opciones(r, q(pide), malas),
       ['Dibuja un triangulo rectangulo con esos lados: ' + dada + ' = ' + R[dada][0] + '/' + R[dada][1] + '.', 'Con Pitagoras sacas el lado que falta y luego armas la razon que te piden.'],
       ['Falta ' + falta, 'Opuesto ' + op + ', adyacente ' + ady + ', hipotenusa ' + hip, pide + ' &theta; = <b>' + q(pide) + '</b>']);
@@ -1204,12 +1226,12 @@
   function triangulo45(r) {
     var c = r.entero(2, 12), deCateto = r.bool();
     if (deCateto) {
-      return P.ejercicio('Los catetos de un tri&aacute;ngulo rect&aacute;ngulo is&oacute;sceles miden ' + c + ' cm cada uno. &iquest;Cu&aacute;nto mide la hipotenusa?',
+      return P.ejercicio('Los catetos de un tri&aacute;ngulo rect&aacute;ngulo is&oacute;sceles miden ' + c + ' cm cada uno. &iquest;Cu&aacute;nto mide la hipotenusa?' + CONS_PITAGORAS,
         P.opciones(r, c + R2 + ' cm', [2 * c + ' cm', c + R3 + ' cm', (2 * c) + R2 + ' cm', F.frac(c + R2, 2) + ' cm']),
         ['En el triangulo de 45&deg;-45&deg;-90&deg; la hipotenusa es el cateto por &radic;2.', 'Por Pitagoras: &radic;(' + c + F.sup(2) + ' + ' + c + F.sup(2) + ') = &radic;(2 &middot; ' + (c * c) + ').'],
         ['h = &radic;(' + (c * c) + ' + ' + (c * c) + ') = &radic;' + (2 * c * c) + ' = <b>' + c + R2 + ' cm</b>']);
     }
-    return P.ejercicio('La hipotenusa de un tri&aacute;ngulo rect&aacute;ngulo is&oacute;sceles mide ' + c + R2 + ' cm. &iquest;Cu&aacute;nto mide cada cateto?',
+    return P.ejercicio('La hipotenusa de un tri&aacute;ngulo rect&aacute;ngulo is&oacute;sceles mide ' + c + R2 + ' cm. &iquest;Cu&aacute;nto mide cada cateto?' + CONS_PITAGORAS,
       P.opciones(r, c + ' cm', [c + R2 + ' cm', (2 * c) + ' cm', F.frac(c, 2) + ' cm', c + R3 + ' cm']),
       ['En el triangulo de 45&deg;-45&deg;-90&deg; la hipotenusa es el cateto por &radic;2.', 'Divide la hipotenusa entre &radic;2.'],
       [c + R2 + ' &divide; ' + R2 + ' = <b>' + c + ' cm</b>']);
@@ -1260,15 +1282,15 @@
     var tipo = r.entero(0, 5), enun, v, malas, sol, u = 'cm' + F.sup(2);
     if (tipo === 0) {
       var d1 = r.entero(4, 20), d2 = r.entero(4, 20);
-      enun = '&iquest;Cu&aacute;l es el &aacute;rea de un rombo cuyas diagonales miden ' + d1 + ' cm y ' + d2 + ' cm?';
+      enun = '&iquest;Cu&aacute;l es el &aacute;rea de un rombo cuyas diagonales miden ' + d1 + ' cm y ' + d2 + ' cm?' + P.considere('A = ' + F.frac('d<sub>1</sub> &middot; d<sub>2</sub>', 2) + '.');
       v = d1 * d2 / 2; malas = [d1 * d2, (d1 + d2) * 2, d1 * d2 / 4, (d1 + d2) / 2]; sol = 'A = d<sub>1</sub>d<sub>2</sub> / 2 = ' + d1 + ' &times; ' + d2 + ' / 2';
     } else if (tipo === 1) {
       var b1 = r.entero(6, 20), b2 = r.entero(2, b1 - 2), h = r.entero(3, 12);
-      enun = '&iquest;Cu&aacute;l es el &aacute;rea de un trapecio de bases ' + b1 + ' cm y ' + b2 + ' cm, y altura ' + h + ' cm?';
+      enun = '&iquest;Cu&aacute;l es el &aacute;rea de un trapecio de bases ' + b1 + ' cm y ' + b2 + ' cm, y altura ' + h + ' cm?' + P.considere('A = ' + F.frac('(B + b)h', 2) + '.');
       v = (b1 + b2) * h / 2; malas = [(b1 + b2) * h, b1 * b2 * h / 2, b1 * h / 2 + b2, (b1 - b2) * h / 2]; sol = 'A = (b<sub>1</sub> + b<sub>2</sub>)h / 2 = (' + b1 + ' + ' + b2 + ') &times; ' + h + ' / 2';
     } else if (tipo === 2) {
       var b = r.entero(5, 20), hh = r.entero(3, 12), lado = hh + r.entero(1, 5);
-      enun = 'Un paralelogramo tiene ' + b + ' cm de base, ' + lado + ' cm de lado inclinado y ' + hh + ' cm de altura. &iquest;Cu&aacute;l es su &aacute;rea?';
+      enun = 'Un paralelogramo tiene ' + b + ' cm de base, ' + lado + ' cm de lado inclinado y ' + hh + ' cm de altura. &iquest;Cu&aacute;l es su &aacute;rea?' + P.considere('A = base &times; altura.');
       v = b * hh; malas = [b * lado, b * hh / 2, 2 * (b + lado), b * lado / 2]; sol = 'A = base &times; altura = ' + b + ' &times; ' + hh + ' (no se usa el lado inclinado)';
     } else if (tipo === 3) {
       var n = r.elige([5, 6, 8]), l = r.entero(4, 12), ap = F.redondea(l / (2 * Math.tan(Math.PI / n)), 2), nom = { 5: 'pent&aacute;gono', 6: 'hex&aacute;gono', 8: 'oct&aacute;gono' }[n];
@@ -1277,18 +1299,18 @@
     } else if (tipo === 4) {
       var rr = r.entero(2, 15), area = r.bool();
       if (area) {
-        enun = '&iquest;Cu&aacute;l es el &aacute;rea de un c&iacute;rculo de ' + rr + ' cm de radio?' + P.considere('&pi; = 3.14.');
+        enun = '&iquest;Cu&aacute;l es el &aacute;rea de un c&iacute;rculo de ' + rr + ' cm de radio?' + P.considere('A = &pi;r' + F.sup(2) + ' y &pi; = 3.14.');
         v = F.redondea(3.14 * rr * rr, 2); malas = [2 * 3.14 * rr, 3.14 * rr, 3.14 * 4 * rr * rr, 3.14 * rr * rr / 2]; sol = 'A = &pi;r' + F.sup(2) + ' = 3.14 &times; ' + (rr * rr);
       } else {
         u = 'cm';
-        enun = '&iquest;Cu&aacute;nto mide la circunferencia (el per&iacute;metro) de un c&iacute;rculo de ' + (2 * rr) + ' cm de di&aacute;metro?' + P.considere('&pi; = 3.14.');
+        enun = '&iquest;Cu&aacute;nto mide la circunferencia (el per&iacute;metro) de un c&iacute;rculo de ' + (2 * rr) + ' cm de di&aacute;metro?' + P.considere('C = &pi;d y &pi; = 3.14.');
         v = F.redondea(2 * 3.14 * rr, 2); malas = [3.14 * rr * rr, 3.14 * rr, 4 * 3.14 * rr, 3.14 * 4 * rr * rr]; sol = 'C = &pi;d = 3.14 &times; ' + (2 * rr);
       }
     } else {
       var a = r.entero(3, 15), bb = r.entero(3, 15);
       while (bb === a) bb = r.entero(3, 15);
       u = 'cm';
-      enun = 'Un rect&aacute;ngulo mide ' + a + ' cm de largo y ' + bb + ' cm de ancho. &iquest;Cu&aacute;l es su per&iacute;metro?';
+      enun = 'Un rect&aacute;ngulo mide ' + a + ' cm de largo y ' + bb + ' cm de ancho. &iquest;Cu&aacute;l es su per&iacute;metro?' + P.considere('P = 2(largo + ancho).');
       v = 2 * (a + bb); malas = [a * bb, a + bb, 4 * a, 2 * a * bb]; sol = 'P = 2(a + b) = 2(' + a + ' + ' + bb + ')';
     }
     return P.ejercicio(enun, P.opciones(r, v, malas.map(function (x) { return F.redondea(x, 2); }), { unidad: u, dec: 2 }),

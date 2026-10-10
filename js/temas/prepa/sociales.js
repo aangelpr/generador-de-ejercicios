@@ -314,7 +314,8 @@
   }
   function qBrecha(r) {
     var mu = r.entero(80, 100) / 2, ho = r.entero(140, 156) / 2, b = ho - mu;
-    return { p: 'En una encuesta, ' + F.n(mu) + '% de las mujeres y ' + F.n(ho) + '% de los hombres participan en la actividad económica. ¿De cuántos puntos porcentuales es la brecha de género?',
+    return { p: 'En una encuesta, ' + F.n(mu) + '% de las mujeres y ' + F.n(ho) + '% de los hombres participan en la actividad económica. ¿De cuántos puntos porcentuales es la brecha de género?' +
+        P.considere('brecha = porcentaje mayor &minus; porcentaje menor.'),
       b: b, m: [ho + mu, 100 - ho, 100 - mu, b / 2, b * 2], fmt: function (v) { return F.n(v, 1) + ' puntos'; }, op: { dec: 1 },
       ex: 'La brecha es la diferencia entre los dos porcentajes: ' + F.n(ho) + ' &minus; ' + F.n(mu) + ' = ' + F.n(b, 1) + ' puntos porcentuales.' };
   }
@@ -331,7 +332,8 @@
   function qRiqueza(r) {
     var casa = r.entero(6, 15) * 100000, auto = r.entero(5, 30) * 10000, ahorro = r.entero(1, 20) * 10000, deuda = r.entero(5, 40) * 10000;
     var b = casa + auto + ahorro - deuda;
-    return { p: 'Una familia tiene una casa que vale ' + pesos(casa) + ', un auto de ' + pesos(auto) + ' y ahorros por ' + pesos(ahorro) + '; debe ' + pesos(deuda) + ' de un crédito. ¿Cuál es su riqueza (patrimonio neto)?',
+    return { p: 'Una familia tiene una casa que vale ' + pesos(casa) + ', un auto de ' + pesos(auto) + ' y ahorros por ' + pesos(ahorro) + '; debe ' + pesos(deuda) + ' de un crédito. ¿Cuál es su riqueza (patrimonio neto)?' +
+        P.considere('riqueza = activos (lo que se posee) &minus; pasivos (lo que se debe).'),
       b: b, m: [casa + auto + ahorro, casa + auto + ahorro + deuda, casa - deuda, ahorro - deuda + auto], fmt: pesos,
       ex: 'Riqueza = activos (lo que se posee) &minus; pasivos (lo que se debe) = ' + pesos(casa + auto + ahorro) + ' &minus; ' + pesos(deuda) + ' = ' + pesos(b) + '. El ingreso, en cambio, es un flujo de dinero, como un sueldo.' };
   }
@@ -348,7 +350,7 @@
   }
   function qSectorPIB(r) {
     var a = r.entero(3, 20), s = r.entero(20, 45), t = 100 - a - s;
-    return { p: 'En una región, el sector primario aporta ' + a + '% del PIB y el secundario ' + s + '%. ¿Cuánto aporta el sector terciario?',
+    return { p: 'En una región, el sector primario aporta ' + a + '% del PIB y el secundario ' + s + '%. ¿Cuánto aporta el sector terciario?' + P.considere('que los tres sectores suman el 100% del PIB.'),
       b: t, m: [a + s, 100 - a, 100 - s, t - 10, Math.abs(s - a)], fmt: function (v) { return v + '%'; }, op: { rango: [1, 99] },
       ex: 'Los tres sectores suman 100%: terciario = 100 &minus; ' + a + ' &minus; ' + s + ' = ' + t + '%.' };
   }
@@ -364,7 +366,7 @@
   }
   function qPerCapita(r) {
     var hab = r.elige([10, 20, 25, 40, 50, 80]), pc = r.entero(4, 30) * 500, pib = pc * hab / 1000;
-    return { p: 'Un país tiene un PIB de ' + F.n(pib) + ' mil millones de dólares y ' + hab + ' millones de habitantes. ¿Cuál es su PIB per cápita?',
+    return { p: 'Un país tiene un PIB de ' + F.n(pib) + ' mil millones de dólares y ' + hab + ' millones de habitantes. ¿Cuál es su PIB per cápita?' + P.considere('PIB per cápita = ' + F.frac('PIB', 'habitantes') + '.'),
       b: pc, m: [pc * 10, pc / 10, pc * 2, pc / 2, pib], fmt: function (v) { return pesos(v) + ' dólares'; },
       ex: 'PIB per cápita = PIB &divide; habitantes = ' + F.n(pib) + ' mil millones &divide; ' + hab + ' millones = ' + pesos(pc) + ' dólares por persona.' };
   }

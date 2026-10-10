@@ -24,6 +24,8 @@
     var filas = r.baraja([['Ventas', p0(v)], ['Costo de ventas', p0(cv)], ['Gastos de administración', p0(ga)], ['Gastos de venta', p0(gv)],
       ['Productos financieros', p0(pf)], ['Gastos financieros', p0(gf)], ['Otros productos', p0(op)], ['Otros gastos', p0(og)]]);
     return { p: 'Con los siguientes datos, determine la utilidad del ejercicio (antes de impuestos).' + tabla(filas, ['Cuenta', 'Monto']),
+      considere: 'utilidad bruta = ventas &minus; costo de ventas; utilidad de operación = utilidad bruta &minus; gastos de administración &minus; gastos de venta; ' +
+        'utilidad del ejercicio = utilidad de operación + productos financieros &minus; gastos financieros + otros productos &minus; otros gastos.',
       b: u, m: [ub, uo, u - 2 * (pf - gf), v - cv - ga - gv - gf - og, u + og], fmt: p0,
       ex: 'Utilidad bruta = ' + p0(v) + ' − ' + p0(cv) + ' = ' + p0(ub) + '; utilidad de operación = ' + p0(ub) + ' − ' + p0(ga + gv) + ' = ' + p0(uo) +
         '; + productos financieros − gastos financieros + otros productos − otros gastos = ' + p0(u) };
@@ -35,6 +37,7 @@
       ['Devoluciones sobre compras', p0(dev)], ['Rebajas sobre compras', p0(reb)], ['Bonificaciones sobre compras', p0(bon)], ['Descuentos sobre compras', p0(des)],
       ['Devoluciones sobre ventas', p0(cien(r, 100, 600))], ['Inventario final', p0(cien(r, 3000, 6000))]]);
     return { p: 'De acuerdo con la siguiente información, calcule las compras netas.' + tabla(filas, ['Cuenta', 'Saldo']),
+      considere: 'compras totales = compras + gastos de compra, y compras netas = compras totales &minus; devoluciones, rebajas, bonificaciones y descuentos sobre compras.',
       b: net, m: [c - dev - reb - bon - des, tot, net + 2 * g, c - dev], fmt: p0,
       ex: 'Compras totales = ' + p0(c) + ' + ' + p0(g) + ' = ' + p0(tot) + '; menos devoluciones, rebajas, bonificaciones y descuentos sobre compras (' + p0(dev + reb + bon + des) + ') = ' + p0(net) };
   }
@@ -46,6 +49,7 @@
     return { p: 'Determine las cantidades que faltan para completar el asiento (compra de mercancía más IVA, pagando una parte con cheque).' +
         tabla([['Almacén', pesos(costo), ''], ['IVA acreditable', '1. ______', ''], ['IVA por acreditar', '2. ______', ''], ['Bancos', '', pesos(banco)],
           ['Documentos por pagar', '', pesos(doc)], ['Proveedores', '', pesos(prov)]], ['Cuenta', 'Debe', 'Haber']),
+      considere: 'IVA = 16% del costo; lo pagado con cheque ya incluye el IVA: IVA acreditable = (pago &divide; 1.16) &times; 0.16, y el resto del IVA queda por acreditar.',
       b: op(ivaA, ivaP), m: [op(banco * 0.16, iva - banco * 0.16), op(ivaP, ivaA), op(iva / 2, iva / 2), op(ivaA, iva)],
       ex: 'IVA total = 16% de ' + pesos(costo) + ' = ' + pesos(iva) + '. Lo pagado (bancos) ya incluye IVA: ' + pesos(banco) + ' / 1.16 × 0.16 = ' + pesos(ivaA) + ' es acreditable; el resto, ' + pesos(ivaP) + ', queda por acreditar.' };
   }
@@ -76,6 +80,7 @@
     });
     function op(m, s) { return 'Movimientos ' + p0(m) + ', saldos ' + p0(s); }
     return { p: 'Con la siguiente balanza de comprobación, determine la suma de movimientos y la suma de saldos.' + tabla(filas, ['Cuenta', 'Mov. deudor', 'Mov. acreedor', 'Saldo deudor', 'Saldo acreedor']),
+      considere: 'que en una balanza correcta la suma de los movimientos deudores es igual a la de los acreedores, y la suma de los saldos deudores es igual a la de los acreedores.',
       b: op(md, sd), m: [op(md + ma, sd), op(md, sd + sa), op(md + sd, sd), op(sd, md), op(md - sd, sd), op(md, sd - 1000)],
       ex: 'Suma de movimientos: deudor ' + p0(md) + ' = acreedor ' + p0(ma) + '; suma de saldos: deudor ' + p0(sd) + ' = acreedor ' + p0(sa) + '. En una balanza correcta, cada par debe ser igual.' };
   }
@@ -86,6 +91,7 @@
     var filas = r.baraja([['IVA acreditable del mes', p0(acred)], ['IVA por acreditar del mes', p0(xa)], ['IVA trasladado del mes', p0(tras)], ['IVA por trasladar del mes', p0(xt)],
       ['IVA a favor del mes anterior', p0(favor)]]);
     return { p: 'Con la siguiente información, determine el IVA a cargo del mes.' + tabla(filas, ['Concepto', 'Importe']),
+      considere: 'IVA a cargo = IVA trasladado &minus; IVA acreditable &minus; IVA a favor del mes anterior.',
       b: v, m: [tras - acred, tras - acred + favor, tras + xt - acred - xa - favor, tras + xt - acred - xa], fmt: p0,
       ex: 'IVA a cargo = IVA trasladado − IVA acreditable − saldo a favor anterior = ' + p0(tras) + ' − ' + p0(acred) + ' − ' + p0(favor) + ' = ' + p0(v) + '. El IVA "por trasladar" y "por acreditar" todavía no se cobra ni se paga.' };
   }
@@ -224,7 +230,8 @@
       ] },
       { s: 'ecuacion', n: 'Ecuacion contable', v: [
         { p: '¿Cuál es la fórmula del estado de situación financiera en forma de cuenta?', b: 'Activo = Pasivo + Capital', m: ['Activo = Pasivo − Capital', 'Pasivo = Activo + Capital', 'Capital = Pasivo − Activo'] },
-        { p: 'Si una empresa tiene activo por $500,000 y pasivo por $180,000, ¿cuánto es su capital?', b: 320000, m: [680000, 500000, 180000], fmt: p0 }
+        { p: 'Si una empresa tiene activo por $500,000 y pasivo por $180,000, ¿cuánto es su capital?', b: 320000, m: [680000, 500000, 180000], fmt: p0,
+          considere: 'capital = activo &minus; pasivo.' }
       ] },
       { s: 'comprasTotales', n: 'Compras totales', v: [
         { p: 'La suma de estos conceptos es lo que se conoce como compras totales:', b: 'Compras y gastos de compra', m: ['Inmuebles y gastos de compra', 'Inventarios y gastos de compra', 'Ventas brutas y gastos de compra'] },
