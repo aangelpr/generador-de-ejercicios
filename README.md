@@ -52,18 +52,6 @@ tienen instalada seguirán usando la copia guardada.
    el sitio no se borre, y desde ahí puedes arrastrar la carpeta otra vez para
    actualizarlo.
 
-### Sin subir nada, solo en tu casa
-
-Sirve si la computadora está prendida y el celular está en la misma WiFi:
-
-```bash
-python -m http.server 8777
-```
-
-Busca la IP de la computadora (en Windows: `ipconfig`, la línea *Dirección IPv4*, algo
-como `192.168.1.70`) y en el celular abre `http://192.168.1.70:8777`. Ojo: así no se
-puede instalar como app ni funciona sin internet, porque eso necesita `https`.
-
 ### Instalarlo como app en el celular
 
 Abre la página en el celular y:
