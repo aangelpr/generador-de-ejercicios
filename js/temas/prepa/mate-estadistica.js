@@ -383,15 +383,56 @@
       ['(' + F.fracTxt(c.q - 1, c.q) + ')<sup>' + n + '</sup> = <b>' + f3(v) + '</b>']);
   }
 
+  /* ================= temas de la guia de estudio =================
+     1.29 Probabilidad: casos favorables entre casos posibles, sucesos
+     imposibles y union de sucesos, y conteo (permutaciones). */
+  function probDatos(r, c) {
+    var f = frecuencias(c), k = r.entero(0, c.tema.max), mas = r.bool(), cuenta;
+    cuenta = mas ? c.datos.filter(function (x) { return x > k; }).length : f[k];
+    if (cuenta === 0 || cuenta === c.n) { mas = false; k = f.indexOf(Math.max.apply(null, f)); cuenta = f[k]; }
+    var bien = F.fracSimp(cuenta, c.n);
+    return P.ejercicio(c.texto + 'Si se elige al azar a uno de los ' + c.n + ' alumnos, &iquest;cu&aacute;l es la probabilidad de que haya respondido ' + (mas ? 'm&aacute;s de ' + k : k) + '?' +
+      P.considere('P = ' + F.frac('casos favorables', 'casos posibles') + '.'),
+      P.opciones(r, bien, [F.fracSimp(c.n - cuenta, c.n), F.fracSimp(cuenta, c.n - cuenta || 1), F.fracSimp(1, c.n), F.fracSimp(cuenta + 1, c.n), F.fracSimp(1, c.tema.max + 1)]),
+      ['Casos posibles: los ' + c.n + ' alumnos.', 'Casos favorables: cuenta cuantos respondieron ' + (mas ? 'mas de ' + k : k) + '.'],
+      ['Favorables: ' + cuenta + ' de ' + c.n, 'P = ' + F.frac(cuenta, c.n) + ' = <b>' + bien + '</b>']);
+  }
+
+  function detPodio(r, c) {
+    var lugares = r.entero(2, Math.min(3, c.N - 1)), v = 1;
+    for (var i = 0; i < lugares; i++) v *= (c.N - i);
+    var comb = v; for (var j = 2; j <= lugares; j++) comb /= j;
+    return P.ejercicio(c.texto + '&iquest;De cu&aacute;ntas maneras distintas pueden quedar ' + (lugares === 2 ? 'el primer y el segundo lugar' : 'los tres primeros lugares') + ' del torneo?' +
+      P.considere('las permutaciones: P(n, r) = ' + F.frac('n!', '(n &minus; r)!') + '.'),
+      P.opciones(r, v, [comb, Math.pow(c.N, lugares), c.N * lugares, c.N + lugares]),
+      ['Importa el orden (no es lo mismo quedar primero que segundo): son permutaciones.', 'Para el primer lugar hay ' + c.N + ' opciones, para el segundo ' + (c.N - 1) + (lugares === 3 ? ' y para el tercero ' + (c.N - 2) : '') + '.'],
+      [Array.apply(null, Array(lugares)).map(function (_, i) { return c.N - i; }).join(' &times; ') + ' = <b>' + v + '</b>']);
+  }
+
+  function indUnionSucesos(r, c) {
+    if (c.q === 2) {
+      var ops = ['0, porque es un suceso imposible', F.fracSimp(1, 2), F.fracSimp(1, 3), '1, porque es un suceso seguro'];
+      return P.ejercicio(c.texto + '&iquest;Cu&aacute;l es la probabilidad de que un partido termine empatado?',
+        P.opciones(r, ops[0], ops.slice(1)),
+        ['En este deporte no hay empates: ese resultado no esta en el espacio muestral.', 'Un suceso que no puede ocurrir se llama imposible y su probabilidad es 0.'],
+        ['El empate no es posible: <b>P = 0</b>']);
+    }
+    return P.ejercicio(c.texto + '&iquest;Cu&aacute;l es la probabilidad de que un equipo gane o empate su primer partido?' +
+      P.considere('que ganar y empatar son sucesos que no pueden ocurrir a la vez: P(A &cup; B) = P(A) + P(B).'),
+      P.opciones(r, F.fracSimp(2, 3), [F.fracSimp(1, 9), F.fracSimp(1, 3), '1', F.fracSimp(1, 6)]),
+      ['Ganar y empatar son incompatibles (no pasan al mismo tiempo): sus probabilidades se SUMAN.', 'Cada resultado tiene probabilidad ' + F.frac(1, 3) + '.'],
+      [F.frac(1, 3) + ' + ' + F.frac(1, 3) + ' = <b>' + F.frac(2, 3) + '</b>']);
+  }
+
   var ENF_DATOS = {
     muestraVariable: [casos.muestraVariable, mvTipoVariable, mvPoblacion, mvFrecuencia],
     mediana: [casos.mediana, medModa, medRango, medPorcentaje, medNuevaMedia],
     varianza: [casos.varianza, varDesviacion, varPoblacional, varConcepto],
-    grafica: [casos.grafica, casos.grafica, grafCircular, grafFrecRelativa]
+    grafica: [casos.grafica, casos.grafica, grafCircular, grafFrecRelativa, probDatos]
   };
   var ENF_TORNEO = {
-    deterministico: [casos.deterministico, detEspacio, detPartidos, detOtros],
-    independientes: [casos.independientes, indComplemento, indTodos, indNoPierde],
+    deterministico: [casos.deterministico, detEspacio, detPartidos, detOtros, detPodio],
+    independientes: [casos.independientes, indComplemento, indTodos, indNoPierde, indUnionSucesos],
     binomial: [casos.binomial, binAlMenosUno, binEsperanza, binNinguno]
   };
 

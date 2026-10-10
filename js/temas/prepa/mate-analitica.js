@@ -530,12 +530,52 @@
       ['c = &radic;(' + (a * a) + ' &minus; ' + (b * b) + ') = ' + c, 'Distancia entre focos: 2c = <b>' + (2 * c) + ' cm</b>']);
   }
 
+  /* ================= temas de la guia de estudio =================
+     1.21 Ecuaciones de segundo grado: formula general y discriminante. */
+  function polA(c) { return P.poli(c).replace(/ - /g, ' &minus; ').replace(/^-/, '&minus;'); }
+
+  function formulaGeneral(r) {
+    var a, p, q;
+    /* a(x - p/a)... se arma con raices racionales: (a x - u)(x - v) */
+    do { a = r.elige([1, 2, 3]); p = r.enteroNoCero(-6, 6); q = r.enteroNoCero(-6, 6); } while (a * q === p);
+    /* (a x - p)(x - q) = a x^2 - (aq + p) x + pq ; raices x = p/a y x = q */
+    var A = a, B = -(a * q + p), C = p * q;
+    function raiz(n, d) { return fr(n, d); }
+    function sol(x1, x2) {
+      var l = [[x1[0] / x1[1], raiz(x1[0], x1[1])], [x2[0] / x2[1], raiz(x2[0], x2[1])]].sort(function (u, v) { return u[0] - v[0]; });
+      return 'x<sub>1</sub> = ' + l[0][1] + ', x<sub>2</sub> = ' + l[1][1];
+    }
+    var bien = sol([p, a], [q, 1]);
+    var malas = [sol([-p, a], [-q, 1]), sol([p, 1], [q, a]), sol([-p, a], [q, 1]), sol([p, a], [-q, 1]), sol([p, 2 * a], [q, 1]), sol([p, a], [2 * q, 1])]
+      .filter(function (t) { return t !== bien; });
+    var ec = polA([A, B, C]) + ' = 0';
+    return P.ejercicio('Resuelva la ecuaci&oacute;n de segundo grado <span class="expr">' + ec + '</span>.' +
+      P.considere('la f&oacute;rmula general: x = ' + F.frac('&minus;b &plusmn; &radic;(b' + F.sup(2) + ' &minus; 4ac)', '2a') + '.'),
+      P.opciones(r, bien, malas),
+      ['Identifica a = ' + A + ', b = ' + m(B) + ' y c = ' + m(C) + '.', 'Calcula primero el discriminante b' + F.sup(2) + ' &minus; 4ac = ' + (B * B - 4 * A * C) + '.'],
+      ['&radic;(' + (B * B - 4 * A * C) + ') = ' + Math.round(Math.sqrt(B * B - 4 * A * C)), 'x = (' + m(-B) + ' &plusmn; ' + Math.round(Math.sqrt(B * B - 4 * A * C)) + ') / ' + (2 * A), '<b>' + bien + '</b>']);
+  }
+
+  function discriminante(r) {
+    var tipo = r.entero(0, 2), a = r.enteroNoCero(-4, 4), b, c;
+    if (tipo === 0) { var h = r.entero(-5, 5); b = -2 * a * h; c = a * h * h; }
+    else if (tipo === 1) { do { b = r.entero(-9, 9); c = r.entero(-9, 9); } while (b * b - 4 * a * c <= 0); }
+    else { do { b = r.entero(-6, 6); c = r.enteroNoCero(-9, 9); } while (b * b - 4 * a * c >= 0); }
+    var D = b * b - 4 * a * c;
+    var NOM = ['Una soluci&oacute;n real (doble)', 'Dos soluciones reales distintas', 'Ninguna soluci&oacute;n real (son complejas)', 'Tres soluciones reales'];
+    return P.ejercicio('&iquest;Cu&aacute;ntas soluciones reales tiene la ecuaci&oacute;n <span class="expr">' + polA([a, b, c]).replace(/^-/, '&minus;') + ' = 0</span>?' +
+      P.considere('el discriminante &Delta; = b' + F.sup(2) + ' &minus; 4ac.'),
+      P.opciones(r, NOM[tipo], NOM.filter(function (_, i) { return i !== tipo; })),
+      ['Si &Delta; &gt; 0 hay dos soluciones reales; si &Delta; = 0, una (doble); si &Delta; &lt; 0, ninguna real.', 'Graficamente: cuantas veces la parabola corta al eje x.'],
+      ['&Delta; = (' + m(b) + ')' + F.sup(2) + ' &minus; 4(' + m(a) + ')(' + m(c) + ') = ' + m(D), '<b>' + NOM[tipo] + '</b>']);
+  }
+
   var ENFOQUES = {
     polares: [casos.polares, polAcartesianas, polDistancia, polCuadrante],
     puntoMedio: [casos.puntoMedio, pmExtremo, pmDistancia, pmCentroRadio, pmDivision],
     pendiente: [casos.pendiente, penDosPuntos, penEcuacion, penAngulo, penInterpreta, penGeneral],
     sistema: [casos.sistema, sisResolver, sisClasificar, sisProblema],
-    vertice: [casos.vertice, verMinimo, verRaices, verCanonica, verEje],
+    vertice: [casos.vertice, verMinimo, verRaices, verCanonica, verEje, formulaGeneral, discriminante],
     conicas: [casos.conicas, conIdentificar, conCirculo, conParabola, conEjemplos],
     excentricidad: [casos.excentricidad, excDeEcuacion, excInterpreta, excFocos]
   };

@@ -880,6 +880,199 @@
     }
   ];
 
+  /* ================= temas de la guia de estudio =================
+     Formas extra para cubrir todo el temario (1.1 Concepto y uso de los
+     numeros, 1.2 Algebra basica y 1.6 Procedimientos algebraicos), no solo
+     lo que trae la version de practica. */
+
+  /* 1.1 conjuntos numericos */
+  function conjuntosNumericos(r) {
+    var nums = [
+      ['7', 'Naturales'], ['15', 'Naturales'], ['0', 'Naturales'], ['&minus;4', 'Enteros'], ['&minus;12', 'Enteros'],
+      [F.frac(3, 4), 'Racionales'], ['&minus;' + F.frac(2, 5), 'Racionales'], ['0.25', 'Racionales'], ['0.333&hellip; (peri&oacute;dico)', 'Racionales'],
+      ['&radic;2', 'Irracionales'], ['&pi;', 'Irracionales'], ['&radic;5', 'Irracionales'], ['e (n&uacute;mero de Euler)', 'Irracionales']];
+    if (r.bool()) {
+      var x = r.elige(nums);
+      var CON = ['Naturales', 'Enteros', 'Racionales', 'Irracionales'];
+      return P.ejercicio('&iquest;Cu&aacute;l es el conjunto num&eacute;rico m&aacute;s peque&ntilde;o al que pertenece el n&uacute;mero <span class="expr">' + x[0] + '</span>?',
+        P.opciones(r, x[1], CON.filter(function (c) { return c !== x[1]; })),
+        ['Naturales: 0, 1, 2, 3... Enteros: tambien los negativos. Racionales: los que se escriben como p/q (incluye decimales finitos y periodicos).',
+          'Irracionales: decimales infinitos que no se repiten, como &pi; o &radic;2.'],
+        [x[0] + ' pertenece a los <b>' + x[1].toLowerCase() + '</b>']);
+    }
+    var irr = r.elige(nums.filter(function (n) { return n[1] === 'Irracionales'; }));
+    var otros = r.muestra(nums.filter(function (n) { return n[1] !== 'Irracionales'; }).concat([['&radic;9', 'Naturales'], ['&radic;16', 'Naturales']]), 3);
+    return P.ejercicio('&iquest;Cu&aacute;l de los siguientes n&uacute;meros es irracional?',
+      P.opciones(r, irr[0], otros.map(function (n) { return n[0]; })),
+      ['Un irracional no se puede escribir como fraccion: su parte decimal es infinita y no se repite.', 'Cuidado: &radic;9 = 3 y &radic;16 = 4 son enteros.'],
+      ['<b>' + irr[0] + '</b> es irracional']);
+  }
+
+  /* 1.1 propiedades de los numeros reales */
+  function propiedadesReales(r) {
+    var a = r.entero(2, 9), b = r.entero(2, 9), c = r.entero(2, 9);
+    var props = [
+      [a + ' + (' + b + ' + ' + c + ') = (' + a + ' + ' + b + ') + ' + c, 'Asociativa de la adici&oacute;n'],
+      [a + ' + ' + b + ' = ' + b + ' + ' + a, 'Conmutativa de la adici&oacute;n'],
+      [a + ' &middot; (' + b + ' &middot; ' + c + ') = (' + a + ' &middot; ' + b + ') &middot; ' + c, 'Asociativa de la multiplicaci&oacute;n'],
+      [a + ' &middot; ' + b + ' = ' + b + ' &middot; ' + a, 'Conmutativa de la multiplicaci&oacute;n'],
+      [a + ' &middot; (' + b + ' + ' + c + ') = ' + a + ' &middot; ' + b + ' + ' + a + ' &middot; ' + c, 'Distributiva'],
+      [a + ' + 0 = ' + a, 'Elemento neutro de la adici&oacute;n'],
+      [a + ' &middot; 1 = ' + a, 'Elemento neutro de la multiplicaci&oacute;n'],
+      [a + ' + (&minus;' + a + ') = 0', 'Inverso aditivo'],
+      [a + ' &middot; ' + F.frac(1, a) + ' = 1', 'Inverso multiplicativo']];
+    var p = r.elige(props);
+    return P.ejercicio('&iquest;Qu&eacute; propiedad de los n&uacute;meros reales se aplica en la siguiente igualdad?<br><span class="expr">' + p[0] + '</span>',
+      P.opciones(r, p[1], r.muestra(props.filter(function (x) { return x !== p; }), 5).map(function (x) { return x[1]; })),
+      ['Conmutativa: cambia el ORDEN. Asociativa: cambia la forma de AGRUPAR (los parentesis).',
+        'Distributiva: un numero multiplica a una suma. Neutro: no cambia nada (0 al sumar, 1 al multiplicar). Inverso: da el neutro.'],
+      ['Es la propiedad <b>' + p[1].toLowerCase() + '</b>']);
+  }
+
+  /* 1.1 leyes de los exponentes */
+  function leyesExponentes(r) {
+    var tipo = r.entero(0, 4), a = r.entero(2, 9), b = r.entero(2, 9), c = r.entero(2, 5), k = r.entero(2, 5), enun, bien, malas, sol;
+    function x(n) { return n === 0 ? '1' : n === 1 ? 'x' : 'x<sup>' + m(n) + '</sup>'; }
+    if (tipo === 0) {
+      enun = 'x<sup>' + a + '</sup> &middot; x<sup>' + b + '</sup>'; bien = x(a + b); malas = [x(a * b), x(a + b + 1), '2' + x(a + b), x(Math.abs(a - b) || 1)];
+      sol = 'Misma base que se multiplica: se SUMAN los exponentes, ' + a + ' + ' + b + ' = ' + (a + b);
+    } else if (tipo === 1) {
+      var s = a + b;
+      enun = F.frac('x<sup>' + s + '</sup>', 'x<sup>' + b + '</sup>'); bien = x(a); malas = [x(s * b), x(s + b), x(F.redondea(s / b, 2)), x(b), x(-a), x(a + 1), '1'];
+      sol = 'Misma base que se divide: se RESTAN los exponentes, ' + s + ' &minus; ' + b + ' = ' + a;
+    } else if (tipo === 2) {
+      enun = '(' + k + 'x<sup>' + a + '</sup>)<sup>' + c + '</sup>'; bien = Math.pow(k, c) + x(a * c);
+      malas = [k * c + x(a * c), k + x(a * c), Math.pow(k, c) + x(a + c), k * c + x(a + c), Math.pow(k, c) + x(a), (Math.pow(k, c) + k) + x(a * c)];
+      sol = 'Potencia de un producto: (' + k + ')<sup>' + c + '</sup> = ' + Math.pow(k, c) + ' y (x<sup>' + a + '</sup>)<sup>' + c + '</sup> = x<sup>' + (a * c) + '</sup>';
+    } else if (tipo === 3) {
+      enun = 'x<sup>&minus;' + a + '</sup>'; bien = F.frac(1, x(a)); malas = ['&minus;' + x(a), F.frac(1, x(-a)), '&minus;' + F.frac(1, x(a)), x(F.redondea(1 / a, 2))];
+      sol = 'Exponente negativo: x<sup>&minus;n</sup> = 1 / x<sup>n</sup>';
+    } else {
+      enun = '&radic;(x<sup>' + a + '</sup>)'; var fe = F.simplifica(a, 2);
+      bien = 'x<sup>' + (fe[1] === 1 ? fe[0] : fe[0] + '/' + fe[1]) + '</sup>'; malas = [x(2 * a), 'x<sup>2/' + a + '</sup>', x(a - 2), F.frac(x(a), 2)];
+      sol = 'Raiz cuadrada = exponente 1/2: x<sup>' + a + '/2</sup>';
+    }
+    return P.ejercicio('Aplicando las leyes de los exponentes, &iquest;a qu&eacute; es igual <span class="expr">' + enun + '</span>?',
+      P.opciones(r, bien, malas.filter(function (t) { return t && t !== bien; })),
+      ['x<sup>a</sup> &middot; x<sup>b</sup> = x<sup>a+b</sup>, x<sup>a</sup>/x<sup>b</sup> = x<sup>a&minus;b</sup>, (x<sup>a</sup>)<sup>b</sup> = x<sup>ab</sup>.', 'x<sup>&minus;b</sup> = 1/x<sup>b</sup> y la raiz b-esima de x<sup>a</sup> es x<sup>a/b</sup>.'],
+      [sol, 'Resultado: <b>' + bien + '</b>']);
+  }
+
+  /* 1.1 notacion cientifica */
+  function notacionCientifica(r) {
+    function cientifico(mant, exp) { return F.n(mant) + ' &times; 10<sup>' + m(exp) + '</sup>'; }
+    if (r.bool()) {
+      var dig = r.entero(11, 99), e = r.elige([-6, -5, -4, -3, 3, 4, 5, 6, 7]);
+      var mant = dig / 10, valor = mant * Math.pow(10, e);
+      var txt = e < 0 ? '0.' + '0'.repeat(-e - 1) + String(dig) : P.num(valor, 0).replace(/ /g, ',');
+      return P.ejercicio('&iquest;C&oacute;mo se escribe en notaci&oacute;n cient&iacute;fica el n&uacute;mero ' + txt + '?',
+        P.opciones(r, cientifico(mant, e), [cientifico(mant, -e), cientifico(dig, e - 1 === 0 ? 2 : e - 1), cientifico(mant, e + (e < 0 ? -1 : 1)), cientifico(mant / 10, e + 1)]),
+        ['En notacion cientifica queda un solo digito (distinto de 0) antes del punto: ' + F.n(mant) + '.', 'El exponente cuenta cuantos lugares se movio el punto: negativo si el numero es menor que 1.'],
+        [txt + ' = <b>' + cientifico(mant, e) + '</b>']);
+    }
+    var a = r.entero(2, 9), b = r.entero(1, 4), e1 = r.entero(-5, 8), e2 = r.entero(-6, 6);
+    var prod = a * b, exp = e1 + e2, mant = prod, ex = exp;
+    if (prod >= 10) { mant = prod / 10; ex = exp + 1; }
+    return P.ejercicio('&iquest;Cu&aacute;l es el resultado de <span class="expr">(' + cientifico(a, e1) + ')(' + cientifico(b, e2) + ')</span> en notaci&oacute;n cient&iacute;fica?',
+      P.opciones(r, cientifico(mant, ex), [cientifico(mant, e1 * e2 === ex ? ex + 2 : e1 * e2), cientifico(a + b, exp), cientifico(prod >= 10 ? prod : mant, prod >= 10 ? exp : ex - 1), cientifico(mant, ex + 1)]),
+      ['Multiplica las partes decimales y SUMA los exponentes de 10.', 'Si la parte decimal queda de 10 o mas, recorre el punto y suma 1 al exponente.'],
+      [a + ' &times; ' + b + ' = ' + prod + ' y 10<sup>' + m(e1) + '</sup> &times; 10<sup>' + m(e2) + '</sup> = 10<sup>' + m(exp) + '</sup>', 'Resultado: <b>' + cientifico(mant, ex) + '</b>']);
+  }
+
+  /* 1.2 suma y resta de polinomios */
+  function sumaPolinomios(r) {
+    var A = [r.enteroNoCero(-6, 6), r.enteroNoCero(-9, 9), r.entero(-9, 9)], B = [r.enteroNoCero(-6, 6), r.enteroNoCero(-9, 9), r.entero(-9, 9)];
+    var resta = r.bool();
+    var res = A.map(function (v, i) { return resta ? v - B[i] : v + B[i]; });
+    if (res[0] === 0) { A[0] += 1; res[0] = resta ? A[0] - B[0] : A[0] + B[0]; if (res[0] === 0) { A[0] += 1; res[0] += 1; } }
+    var mal1 = A.map(function (v, i) { return resta ? v + B[i] : v - B[i]; });
+    var mal2 = A.map(function (v, i) { return i === 0 ? v - B[i] * (resta ? 1 : -1) : (resta ? v + B[i] : v - B[i]); });
+    var mal3 = [res[0], res[1], resta ? A[2] - (-B[2]) : A[2] - B[2]];
+    var mal4 = [A[0] * B[0], res[1], res[2]];
+    return P.ejercicio('&iquest;Cu&aacute;l es el resultado de <span class="expr">(' + pol(A) + ') ' + (resta ? '&minus;' : '+') + ' (' + pol(B) + ')</span>?',
+      P.opciones(r, pol(res), [pol(mal1), pol(mal2), pol(mal3), pol(mal4)].filter(function (t) { return t !== pol(res); })),
+      ['Solo se suman (o restan) los terminos SEMEJANTES: misma variable con el mismo exponente.', resta ? 'El signo menos antes del parentesis cambia el signo de TODOS los terminos del segundo polinomio.' : 'Suma los coeficientes de x' + F.sup(2) + ', luego los de x y al final los numeros.'],
+      ['x' + F.sup(2) + ': ' + m(A[0]) + (resta ? ' &minus; ' : ' + ') + P.np(B[0]) + ' = ' + m(res[0]) + '; x: ' + m(A[1]) + (resta ? ' &minus; ' : ' + ') + P.np(B[1]) + ' = ' + m(res[1]) +
+        '; numeros: ' + m(A[2]) + (resta ? ' &minus; ' : ' + ') + P.np(B[2]) + ' = ' + m(res[2]), 'Resultado: <b>' + pol(res) + '</b>']);
+  }
+
+  /* 1.6 productos notables */
+  function productosNotables(r) {
+    var a = r.entero(1, 5), b = r.entero(1, 9), tipo = r.entero(0, 3), sg = r.bool() ? 1 : -1, enun, bien, malas, nombre;
+    var ax = (a === 1 ? '' : a) + 'x';
+    if (tipo === 0) {
+      enun = '(' + ax + (sg > 0 ? ' + ' : ' &minus; ') + b + ')' + F.sup(2); nombre = 'cuadrado de un binomio: (a &plusmn; b)' + F.sup(2) + ' = a' + F.sup(2) + ' &plusmn; 2ab + b' + F.sup(2);
+      bien = pol([a * a, 2 * a * b * sg, b * b]); malas = [pol([a * a, 0, b * b]), pol([a * a, a * b * sg, b * b]), pol([a * a, -2 * a * b * sg, b * b]), pol([a * a, 2 * a * b * sg, -b * b])];
+    } else if (tipo === 1) {
+      enun = '(' + ax + ' + ' + b + ')(' + ax + ' &minus; ' + b + ')'; nombre = 'binomios conjugados: (a + b)(a &minus; b) = a' + F.sup(2) + ' &minus; b' + F.sup(2);
+      bien = pol([a * a, 0, -b * b]); malas = [pol([a * a, 0, b * b]), pol([a * a, -2 * a * b, -b * b]), pol([a * a, 2 * a * b, -b * b]), pol([a, 0, -b])];
+    } else if (tipo === 2) {
+      var c = r.enteroNoCero(-9, 9), d = r.enteroNoCero(-9, 9);
+      while (c === d || c === -d) d = r.enteroNoCero(-9, 9);
+      enun = '(x ' + (c > 0 ? '+ ' + c : '&minus; ' + (-c)) + ')(x ' + (d > 0 ? '+ ' + d : '&minus; ' + (-d)) + ')'; nombre = 'binomios con un termino comun: (x + a)(x + b) = x' + F.sup(2) + ' + (a + b)x + ab';
+      bien = pol([1, c + d, c * d]); malas = [pol([1, c * d, c + d]), pol([1, 0, c * d]), pol([1, c + d, -c * d]), pol([1, -(c + d), c * d])];
+    } else {
+      if (b === 1) b = r.entero(2, 5);
+      enun = '(x ' + (sg > 0 ? '+ ' : '&minus; ') + b + ')' + F.sup(3); nombre = 'cubo de un binomio: (a &plusmn; b)' + F.sup(3) + ' = a' + F.sup(3) + ' &plusmn; 3a' + F.sup(2) + 'b + 3ab' + F.sup(2) + ' &plusmn; b' + F.sup(3);
+      bien = pol([1, 3 * b * sg, 3 * b * b, b * b * b * sg]); malas = [pol([1, 0, 0, b * b * b * sg]), pol([1, b * sg, b * b, b * b * b * sg]), pol([1, 3 * b * sg, 3 * b * b * sg, b * b * b]), pol([1, 3 * b * sg, 3 * b, b * b * b * sg])];
+    }
+    return P.ejercicio('Desarrolle el producto notable <span class="expr">' + enun + '</span>.',
+      P.opciones(r, bien, malas.filter(function (t) { return t !== bien; })),
+      ['Es un ' + nombre + '.', 'Puedes comprobar multiplicando termino a termino.'],
+      [enun + ' = <b>' + bien + '</b>']);
+  }
+
+  /* 1.6 suma o diferencia de cubos */
+  function sumaCubos(r) {
+    var a = r.entero(1, 3), b = r.entero(1, 5), suma = r.bool();
+    var ax = (a === 1 ? '' : a) + 'x', a3 = a * a * a, b3 = b * b * b;
+    var expr = (a3 === 1 ? '' : a3) + 'x' + F.sup(3) + (suma ? ' + ' : ' &minus; ') + b3;
+    function tri(s1) { return '(' + (a * a === 1 ? '' : a * a) + 'x' + F.sup(2) + (s1 > 0 ? ' + ' : ' &minus; ') + (a * b === 1 ? '' : a * b) + 'x + ' + (b * b) + ')'; }
+    var bien = '(' + ax + (suma ? ' + ' : ' &minus; ') + b + ')' + tri(suma ? -1 : 1);
+    var malas = ['(' + ax + (suma ? ' + ' : ' &minus; ') + b + ')' + tri(suma ? 1 : -1), '(' + ax + (suma ? ' &minus; ' : ' + ') + b + ')' + tri(suma ? -1 : 1),
+      '(' + ax + (suma ? ' + ' : ' &minus; ') + b + ')' + F.sup(3), '(' + ax + (suma ? ' &minus; ' : ' + ') + b + ')' + tri(suma ? 1 : -1)];
+    return P.ejercicio('Factorice la ' + (suma ? 'suma' : 'diferencia') + ' de cubos <span class="expr">' + expr + '</span>.',
+      P.opciones(r, bien, malas),
+      ['a' + F.sup(3) + ' &plusmn; b' + F.sup(3) + ' = (a &plusmn; b)(a' + F.sup(2) + ' &#8723; ab + b' + F.sup(2) + '): el binomio lleva el MISMO signo y el ab el contrario.',
+        'Aqui a = ' + ax + ' (porque (' + ax + ')' + F.sup(3) + ' = ' + (a3 === 1 ? '' : a3) + 'x' + F.sup(3) + ') y b = ' + b + '.'],
+      [expr + ' = <b>' + bien + '</b>']);
+  }
+
+  /* 1.6 factorizacion por agrupacion de cuatro terminos */
+  function agrupacion(r) {
+    var p, q, s, t;
+    do { p = r.entero(1, 5); q = r.enteroNoCero(-6, 6); s = r.entero(1, 4); t = r.enteroNoCero(-6, 6); }
+    while (F.mcd(p, Math.abs(q)) !== 1 || F.mcd(s, Math.abs(t)) !== 1);
+    /* (p x + q)(s y + t) = ps xy + pt x + qs y + qt */
+    function bin(c1, v, c2) { return '(' + (c1 === 1 ? '' : c1) + v + (c2 < 0 ? ' &minus; ' + (-c2) : ' + ' + c2) + ')'; }
+    function term(c, v, primero) { return (primero ? (c < 0 ? '&minus;' : '') : (c < 0 ? ' &minus; ' : ' + ')) + (Math.abs(c) === 1 && v ? '' : Math.abs(c)) + v; }
+    var expr = term(p * s, 'xy', true) + term(p * t, 'x') + term(q * s, 'y') + term(q * t, '');
+    var bien = bin(p, 'x', q) + bin(s, 'y', t);
+    var malas = [bin(p, 'x', t) + bin(s, 'y', q), bin(p, 'x', -q) + bin(s, 'y', -t), bin(p, 'x', q) + bin(s, 'y', -t), bin(p, 'y', q) + bin(s, 'x', t)];
+    return P.ejercicio('Factorice por agrupaci&oacute;n de t&eacute;rminos: <span class="expr">' + expr + '</span>.',
+      P.opciones(r, bien, malas.filter(function (x) { return x !== bien; })),
+      ['Agrupa de dos en dos: (' + term(p * s, 'xy', true) + term(p * t, 'x') + ') + (' + term(q * s, 'y', true) + term(q * t, '') + ').', 'Saca el factor comun de cada grupo; debe quedar el mismo binomio en los dos.'],
+      [(p === 1 ? '' : p) + 'x' + bin(s, 'y', t) + ' ' + (q < 0 ? '&minus; ' : '+ ') + Math.abs(q) + bin(s, 'y', t), '= <b>' + bien + '</b>']);
+  }
+
+  /* 1.6 teorema del binomio */
+  function coefBinomial(r) {
+    var n = r.entero(4, 7), k = r.entero(1, n - 1);
+    function C(nn, kk) { var x = 1; for (var i = 1; i <= kk; i++) x = x * (nn - kk + i) / i; return Math.round(x); }
+    var v = C(n, k);
+    var termino = 'x' + (n - k > 1 ? '<sup>' + (n - k) + '</sup>' : '') + 'y' + (k > 1 ? '<sup>' + k + '</sup>' : '');
+    return P.ejercicio('Al desarrollar <span class="expr">(x + y)<sup>' + n + '</sup></span> con el teorema del binomio, &iquest;cu&aacute;l es el coeficiente del t&eacute;rmino ' + termino + '?' +
+      P.considere('(' + n + ' sobre ' + k + ') = ' + F.frac('n!', 'k!(n &minus; k)!') + '.'),
+      P.opciones(r, v, [n * k, C(n, k - 1) === v ? n + k : C(n, k - 1), n, Math.pow(2, n)]),
+      ['El coeficiente es el numero combinatorio (n sobre k) con n = ' + n + ' y k = ' + k + '.', 'Tambien sale del triangulo de Pascal, renglon ' + n + '.'],
+      ['(' + n + ' sobre ' + k + ') = ' + n + '! / (' + k + '! &middot; ' + (n - k) + '!) = <b>' + v + '</b>']);
+  }
+
+  /* las formas de la guia de estudio se suman a las del reactivo mas cercano */
+  casos.racionales = casos.racionales.concat([conjuntosNumericos, propiedadesReales, leyesExponentes, notacionCientifica]);
+  casos.grado = casos.grado.concat([sumaPolinomios, leyesExponentes]);
+  casos.factorizacion = casos.factorizacion.concat([productosNotables, productosNotables, sumaCubos, agrupacion, coefBinomial]);
+
   var SUB_ALGEBRA = [
     ['racionales', 'Numeros racionales', 'facil'],
     ['grado', 'Polinomios y grado', 'facil'],

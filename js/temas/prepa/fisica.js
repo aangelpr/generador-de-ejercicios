@@ -762,17 +762,71 @@
       ['sen &theta;<sub>2</sub> = 1 &times; ' + ang[1].toFixed(2) + ' / ' + n2 + ' = <b>' + s2.toFixed(2) + '</b>']);
   }
 
+  /* ================= temas de la guia de estudio =================
+     Lo que la guia trae y la version de practica no pregunta: tiro
+     vertical, procesos termodinamicos, conductores del calor y entropia. */
+  function tiroVertical(r) {
+    var vi = r.elige([9.81, 19.62, 29.43, 14.72, 24.53]), tipo = r.entero(0, 2), enun, v, malas, sol, u;
+    var t = vi / 9.81;
+    if (tipo === 0) {
+      v = F.redondea(vi * vi / (2 * 9.81), 2); u = 'm';
+      enun = 'Se lanza una pelota verticalmente hacia arriba con una velocidad de ' + P.num(vi) + ' m/s. &iquest;Qu&eacute; altura m&aacute;xima alcanza?' +
+        P.considere('h<sub>m&aacute;x</sub> = ' + F.frac('v<sub>i</sub>' + F.sup(2), '2g') + ' y ' + G + '.');
+      malas = [vi * vi / 9.81, vi / (2 * 9.81), vi * t, vi * vi / 2]; sol = 'h = ' + P.num(vi) + F.sup(2) + ' / (2 &times; 9.81) = <b>' + P.num(v) + ' m</b>';
+    } else if (tipo === 1) {
+      v = F.redondea(2 * vi / 9.81, 2); u = 's';
+      enun = 'Se lanza una pelota verticalmente hacia arriba con una velocidad de ' + P.num(vi) + ' m/s. &iquest;Cu&aacute;nto tiempo tarda en volver al punto de lanzamiento?' +
+        P.considere('t = ' + F.frac('2v<sub>i</sub>', 'g') + ' y ' + G + '.');
+      malas = [vi / 9.81, vi * 9.81 / 100, 4 * vi / 9.81, vi / 2]; sol = 't = 2 &times; ' + P.num(vi) + ' / 9.81 = <b>' + P.num(v) + ' s</b>';
+    } else {
+      var tt = r.entero(1, Math.max(1, Math.floor(t))) / 2;
+      v = F.redondea(vi - 9.81 * tt, 2); u = 'm/s';
+      enun = 'Se lanza una pelota verticalmente hacia arriba a ' + P.num(vi) + ' m/s. &iquest;Qu&eacute; velocidad lleva ' + F.n(tt) + ' s despu&eacute;s?' +
+        P.considere('v<sub>f</sub> = v<sub>i</sub> &minus; g&middot;t y ' + G + '.');
+      malas = [vi + 9.81 * tt, 9.81 * tt, vi - tt, vi * tt]; sol = 'v = ' + P.num(vi) + ' &minus; 9.81 &times; ' + F.n(tt) + ' = <b>' + P.num(v) + ' m/s</b>';
+    }
+    return P.ejercicio(enun, num(r, v, malas, u),
+      ['En el tiro vertical la gravedad frena la subida: la velocidad baja 9.81 m/s cada segundo.', 'En el punto mas alto la velocidad es cero.'], [sol]);
+  }
+
+  function procesosTermo(r) {
+    var c = r.elige([['la presi&oacute;n', 'Isob&aacute;rico'], ['el volumen', 'Isoc&oacute;rico'], ['la temperatura', 'Isot&eacute;rmico']]);
+    var todos = ['Isob&aacute;rico', 'Isoc&oacute;rico', 'Isot&eacute;rmico', 'Adiab&aacute;tico'];
+    return P.ejercicio('&iquest;C&oacute;mo se llama el proceso termodin&aacute;mico en el que ' + c[0] + ' del sistema permanece constante?',
+      P.opciones(r, c[1], todos.filter(function (x) { return x !== c[1]; })),
+      ['Iso- significa "igual". Baros: presion. Coro: volumen (espacio). Termo: temperatura.', 'Adiabatico es el proceso en el que no hay intercambio de calor.'],
+      ['Con ' + c[0] + ' constante el proceso es <b>' + c[1].toLowerCase() + '</b>']);
+  }
+
+  function conductores(r) {
+    var buenos = ['Cobre', 'Aluminio', 'Hierro', 'Plata'], malos = ['Corcho', 'Madera', 'Pl&aacute;stico', 'Lana', 'Porcelana', 'Vidrio', 'Papel'];
+    var pideBueno = r.bool();
+    var bien = r.elige(pideBueno ? buenos : malos);
+    return P.ejercicio('&iquest;Cu&aacute;l de los siguientes materiales es un ' + (pideBueno ? 'buen' : 'mal') + ' conductor del calor?',
+      P.opciones(r, bien, r.muestra(pideBueno ? malos : buenos, 3)),
+      ['Los metales son buenos conductores del calor: por eso las ollas son de metal.', 'El corcho, la madera, el plastico, la lana, la porcelana, el vidrio y el papel son malos conductores (aislantes).'],
+      ['<b>' + bien + '</b> es ' + (pideBueno ? 'buen' : 'mal') + ' conductor']);
+  }
+
+  function entropia(r) {
+    var ops = ['El grado de desorden de un sistema', 'La cantidad de calor que contiene un cuerpo', 'La temperatura m&iacute;nima que puede alcanzar un sistema', 'La energ&iacute;a que se transforma en trabajo'];
+    return P.ejercicio('Seg&uacute;n la segunda ley de la termodin&aacute;mica, la entrop&iacute;a del universo tiende a aumentar. &iquest;Qu&eacute; mide la entrop&iacute;a?',
+      P.opciones(r, ops[0], ops.slice(1)),
+      ['La segunda ley tambien se llama ley de la entropia.', 'En cada transformacion de energia una parte se pierde como calor y aumenta el desorden.'],
+      ['La entropia es una medida del <b>desorden</b> de un sistema']);
+  }
+
   var ENFOQUES = {
     velocidad: [casos.velocidad, velDistancia, velTiempo, velConversion, velMedia],
-    aceleracion: [casos.aceleracion, acelVf, acelDistancia, acelFrenado, caidaLibre],
+    aceleracion: [casos.aceleracion, acelVf, acelDistancia, acelFrenado, caidaLibre, tiroVertical],
     fuerzaNeta: [casos.fuerzaNeta, fnOpuestas, fnFriccion, fnPrimeraLey],
     aceleracionNewton: [casos.aceleracionNewton, newtonMasa, newtonFuerza, newtonLeyes],
     masaPeso: [casos.masaPeso, pesoDeMasa, pesoLuna, masaConcepto],
     kepler: [casos.kepler, keplerRelacione, keplerTercera, gravitacion],
-    calor: [casos.calor, calorEjemplo, calorEjemplo, calorQ],
+    calor: [casos.calor, calorEjemplo, calorEjemplo, calorQ, conductores],
     temperaturaCalor: [casos.temperaturaCalor, tempConversion, tempEquilibrio, tempUnidades],
-    sistemas: [casos.sistemas, sisEjemplo, sisEjemplo],
-    leyesTermo: [casos.leyesTermo, primeraLeyCalc, eficiencia, leyEjemplo],
+    sistemas: [casos.sistemas, sisEjemplo, sisEjemplo, procesosTermo],
+    leyesTermo: [casos.leyesTermo, primeraLeyCalc, eficiencia, leyEjemplo, entropia],
     charles: [casos.charles, gayLussac, charlesCelsius, leyGas],
     boyle: [casos.boyle, boylePresion, boyleConcepto, gasesCombinada],
     hooke: [casos.hooke, hookeElongacion, hookeEnergia],
