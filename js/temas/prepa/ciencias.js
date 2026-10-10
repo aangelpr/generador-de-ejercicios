@@ -111,16 +111,18 @@
     q.ex = 'Mitosis: 2 células idénticas con el mismo número de cromosomas. Meiosis: 2 divisiones, 4 células con la mitad de cromosomas e intercambio genético; forma gametos.';
     return q;
   }
+  var CONS_PLOIDIA = P.considere('que las células del cuerpo son diploides (2n) y los gametos son haploides (n).');
   var CROMOSOMAS = [['un ser humano', 46], ['un perro', 78], ['un gato', 38], ['una planta de maíz', 20], ['una mosca de la fruta', 8], ['un chimpancé', 48], ['un caballo', 64]];
   function qCromosomas(r) {
     var e = r.elige(CROMOSOMAS), n = e[1], meiosis = r.bool(), b = meiosis ? n / 2 : n;
-    return { p: 'Una célula de ' + e[0] + ' tiene ' + n + ' cromosomas y se divide por ' + (meiosis ? 'meiosis' : 'mitosis') + '. ¿Cuántos cromosomas tiene cada célula hija?',
+    return { p: 'Una célula de ' + e[0] + ' tiene ' + n + ' cromosomas y se divide por ' + (meiosis ? 'meiosis' : 'mitosis') + '. ¿Cuántos cromosomas tiene cada célula hija?' + CONS_PLOIDIA,
       b: b, m: [meiosis ? n : n / 2, 2 * n, n / 4, 4 * n].filter(function (x) { return x === Math.round(x); }),
       ex: meiosis ? 'La meiosis reduce a la mitad el número de cromosomas: ' + n + ' / 2 = ' + b + ' (y salen cuatro células).'
         : 'En la mitosis las células hijas conservan el mismo número de cromosomas que la madre: ' + n + ' (y salen dos células).' };
   }
 
   /* ---------- 3.8 Genetica ---------- */
+  var CONS_PUNNETT = P.considere('el cuadro de Punnett: cada progenitor aporta uno de sus dos alelos y las cuatro combinaciones son igual de probables.');
   var RASGOS = [['flores moradas', 'flores blancas', 'A'], ['semillas lisas', 'semillas rugosas', 'L'], ['tallo alto', 'tallo enano', 'T'], ['vainas verdes', 'vainas amarillas', 'V']];
   function qPunnett(r) {
     var t = r.elige(RASGOS), X = t[2], x = X.toLowerCase();
@@ -132,7 +134,7 @@
       ['tenga ' + t[1] + ' (fenotipo recesivo)', function (h) { return h === x + x; }]]);
     var pct = hijos.filter(pide[1]).length * 25;
     return { p: 'En los chícharos, el alelo ' + X + ' (' + t[0] + ') es dominante sobre ' + x + ' (' + t[1] + '). Si se cruzan dos plantas ' + p1 + ' &times; ' + p2 +
-        ', ¿qué porcentaje de la descendencia se espera que ' + pide[0] + '?',
+        ', ¿qué porcentaje de la descendencia se espera que ' + pide[0] + '?' + CONS_PUNNETT,
       b: pct, m: [0, 25, 50, 75, 100].filter(function (v) { return v !== pct; }), fmt: function (v) { return v + '%'; }, op: { rango: [0, 100] },
       ex: 'Cuadro de Punnett: ' + hijos.join(', ') + ' (cada casilla es el 25%). Cumplen la condición ' + hijos.filter(pide[1]).length + ' de 4: ' + pct + '%.' };
   }
@@ -161,18 +163,20 @@
     var esp = r.elige(['conejos', 'venados', 'ardillas', 'lagartijas', 'ranas']);
     if (tipo === 2) {
       var A = r.elige([2, 4, 5, 8, 10, 20, 25]), dens = N / A;
-      return { p: 'En una reserva de ' + A + ' hectáreas viven ' + N + ' ' + esp + '. ¿Cuál es la densidad de esa población?',
+      return { p: 'En una reserva de ' + A + ' hectáreas viven ' + N + ' ' + esp + '. ¿Cuál es la densidad de esa población?' + P.considere('densidad = ' + F.frac('número de individuos', 'superficie') + '.'),
         b: dens, m: [A / N, N * A, N / (A * 10), N - A], fmt: function (v) { return P.num(v, v === Math.round(v) ? 0 : 2) + ' por hectárea'; }, op: { dec: 2 },
         ex: 'Densidad = individuos / superficie = ' + N + ' / ' + A + ' = ' + P.num(dens, dens === Math.round(dens) ? 0 : 2) + ' ' + esp + ' por hectárea.' };
     }
     var dato = 'Una población de ' + N + ' ' + esp + ' tuvo en un año ' + nac + ' nacimientos y ' + mue + ' muertes, sin inmigración ni emigración.';
     if (tipo === 0) {
       var fin = N + nac - mue;
-      return { p: dato + ' ¿Cuántos individuos tiene al final del año?', b: fin, m: [N + nac + mue, N - nac + mue, nac - mue, N + nac],
+      return { p: dato + ' ¿Cuántos individuos tiene al final del año?' +
+          P.considere('población final = población inicial + nacimientos &minus; muertes + inmigrantes &minus; emigrantes.'), b: fin, m: [N + nac + mue, N - nac + mue, nac - mue, N + nac],
         ex: 'Crecimiento = natalidad &minus; mortalidad = ' + nac + ' &minus; ' + mue + ' = ' + F.n(nac - mue).replace('-', '&minus;') + '; al final: ' + N + ' + (' + F.n(nac - mue).replace('-', '&minus;') + ') = ' + fin + '.' };
     }
     var tasa = F.redondea((nac - mue) / N * 100, 2);
-    return { p: dato + ' ¿Cuál fue su tasa de crecimiento?', b: tasa,
+    return { p: dato + ' ¿Cuál fue su tasa de crecimiento?' +
+        P.considere('tasa de crecimiento = ' + F.frac('nacimientos &minus; muertes', 'población') + ' &times; 100.'), b: tasa,
       m: [F.redondea((nac + mue) / N * 100, 2), F.redondea((mue - nac) / N * 100, 2), F.redondea(nac / N * 100, 2), F.redondea((nac - mue) / N * 10, 2)],
       fmt: function (v) { return (v < 0 ? '&minus;' : '') + P.num(Math.abs(v), 2) + '%'; }, op: { dec: 2, conSigno: true },
       ex: 'Tasa = (nacimientos &minus; muertes) / población &times; 100 = (' + nac + ' &minus; ' + mue + ') / ' + N + ' &times; 100 = ' + P.num(tasa, 2) + '%. ' +
@@ -214,7 +218,8 @@
     var E = r.elige([1000, 2000, 5000, 10000, 20000, 50000, 100000]), nivel = r.entero(1, 3);
     var NOMBRE = ['', 'consumidores primarios (herbívoros)', 'consumidores secundarios', 'consumidores terciarios'];
     var b = F.redondea(E * Math.pow(0.1, nivel), 2);
-    return { p: 'En un ecosistema, los productores fijan ' + P.num(E, 0) + ' kcal de energía. Si sólo cerca del 10% pasa de un nivel trófico al siguiente, ¿cuánta energía llega a los ' + NOMBRE[nivel] + '?',
+    return { p: 'En un ecosistema, los productores fijan ' + P.num(E, 0) + ' kcal de energía. Si sólo cerca del 10% pasa de un nivel trófico al siguiente, ¿cuánta energía llega a los ' + NOMBRE[nivel] + '?' +
+        P.considere('E = E<sub>productores</sub> &times; (0.1)<sup>n</sup>, donde n es el número de pasos de un nivel trófico al siguiente.'),
       b: b, m: [E * 0.1, E * 0.01, E * 0.001, E * 0.9, E / 2, E * 0.1 * nivel].map(function (x) { return F.redondea(x, 2); }).filter(function (x) { return x !== b; }),
       fmt: function (v) { return P.num(v, v === Math.round(v) ? 0 : 1) + ' kcal'; }, op: { dec: 1 },
       ex: 'En cada paso queda el 10%: ' + P.num(E, 0) + ' &times; 0.1' + (nivel > 1 ? F.sup(nivel) : '') + ' = ' + P.num(b, b === Math.round(b) ? 0 : 1) + ' kcal.' };
@@ -330,13 +335,13 @@
   function qIndicadorNumero(r) {
     if (r.bool()) {
       var hab = r.entero(20, 300) * 1000, km = r.elige([50, 80, 100, 120, 150, 200, 250, 400, 500]), d = hab / km;
-      return { p: 'Un municipio tiene ' + P.num(hab, 0) + ' habitantes y una superficie de ' + km + ' km' + F.sup(2) + '. ¿Cuál es su densidad de población?',
+      return { p: 'Un municipio tiene ' + P.num(hab, 0) + ' habitantes y una superficie de ' + km + ' km' + F.sup(2) + '. ¿Cuál es su densidad de población?' + P.considere('densidad de población = ' + F.frac('habitantes', 'superficie') + '.'),
         b: F.redondea(d, 1), m: [km / hab, hab * km, hab / km / 10, hab / (km * 1000)].map(function (x) { return F.redondea(x, 4); }),
         fmt: function (v) { return P.num(v, v === Math.round(v) ? 0 : (v < 1 ? 4 : 1)) + ' hab/km' + F.sup(2); }, op: { dec: 1 },
         ex: 'Densidad = habitantes / superficie = ' + P.num(hab, 0) + ' / ' + km + ' = ' + P.num(d, d === Math.round(d) ? 0 : 1) + ' hab/km' + F.sup(2) + '.' };
     }
     var pob = r.entero(5, 60) * 10000, tasa = r.entero(10, 25), nac = pob * tasa / 1000;
-    return { p: 'En una ciudad de ' + P.num(pob, 0) + ' habitantes hubo ' + P.num(nac, 0) + ' nacimientos en un año. ¿Cuál es su tasa de natalidad?',
+    return { p: 'En una ciudad de ' + P.num(pob, 0) + ' habitantes hubo ' + P.num(nac, 0) + ' nacimientos en un año. ¿Cuál es su tasa de natalidad?' + P.considere('tasa de natalidad = ' + F.frac('nacimientos', 'población') + ' &times; 1 000.'),
       b: tasa, m: [tasa / 10, tasa * 10, F.redondea(pob / nac, 2), tasa * 100], fmt: function (v) { return P.num(v, v === Math.round(v) ? 0 : 2) + ' por cada mil habitantes'; },
       ex: 'Tasa de natalidad = nacimientos / población &times; 1000 = ' + P.num(nac, 0) + ' / ' + P.num(pob, 0) + ' &times; 1000 = ' + tasa + ' por cada mil.' };
   }
@@ -494,7 +499,7 @@
           b: 'primera ley de Mendel', m: ['segunda ley de Mendel', 'tercera ley de Mendel', 'herencia ligada al sexo', 'adquisición de caracteres'] },
         { p: 'Al cruzar dos plantas Ll entre sí, aparecen en la descendencia plantas lisas y rugosas en proporción 3:1. Esto corresponde a la:',
           b: 'segunda ley de Mendel', m: ['primera ley de Mendel', 'tercera ley de Mendel', 'herencia ligada al sexo', 'codominancia'] },
-        { p: 'Si se cruzan dos individuos heterocigotos (Aa × Aa), ¿qué proporción de la descendencia será homocigota recesiva (aa)?',
+        { p: 'Si se cruzan dos individuos heterocigotos (Aa × Aa), ¿qué proporción de la descendencia será homocigota recesiva (aa)?' + CONS_PUNNETT,
           b: '1/4', m: ['1/2', '3/4', '0', '1'], ex: 'Cuadro de Punnett: AA, Aa, Aa, aa → 1 de 4.' },
         qPunnett, qPunnett, qPunnett, qLeyMendel,
         { rel: 'Relacione cada concepto de genética con su definición.', cols: ['Concepto', 'Definición'],
@@ -686,7 +691,7 @@
         { p: '¿Cuántas entidades federativas integran los Estados Unidos Mexicanos?', b: 32, m: [31, 30, 33, 29, 34] },
         { p: '¿Cuál es el nombre oficial de nuestro país?', b: 'Estados Unidos Mexicanos',
           m: ['República Mexicana', 'Estados Mexicanos Unidos', 'República Federal de México', 'Unión de Estados de México'] },
-        { p: 'El mar territorial se extiende 12 millas náuticas mar adentro. ¿A cuántos kilómetros equivale?', b: 22.2, m: [12, 200, 370, 1.85, 44.4],
+        { p: 'El mar territorial se extiende 12 millas náuticas mar adentro. ¿A cuántos kilómetros equivale?' + P.considere('1 milla náutica = 1.852 km.'), b: 22.2, m: [12, 200, 370, 1.85, 44.4],
           fmt: function (v) { return F.n(v, 2) + ' km'; } },
         { rel: 'Relacione cada parte del territorio de México con su descripción.', cols: ['Parte', 'Descripción'],
           pares: [['Mar territorial', 'Franja de 12 millas náuticas donde el Estado tiene plena soberanía sobre el agua, el lecho, el subsuelo y el espacio aéreo'],
@@ -728,11 +733,12 @@
   function trio(p, n, e) {
     return 'p<sup>+</sup> = ' + p + ', n<sup>0</sup> = ' + n + ', e<sup>&minus;</sup> = ' + e;
   }
+  var CONS_ISOTOPO = P.considere('número de masa = protones + neutrones; en un átomo neutro, electrones = protones = número atómico.');
   function qParticulas(r) {
     var tipo = r.entero(0, 2);
     if (tipo === 2) {
       var io = r.elige(IONES), z0 = io[1], q = io[2], el = z0 - q;
-      return { p: 'El ion ' + io[0] + carga(q) + ' proviene de un átomo con número atómico ' + z0 + '. ¿Cuántos electrones tiene el ion?',
+      return { p: 'El ion ' + io[0] + carga(q) + ' proviene de un átomo con número atómico ' + z0 + '. ¿Cuántos electrones tiene el ion?' + P.considere('que en un ion, electrones = número atómico &minus; carga.'),
         b: el, m: [z0, z0 + q, z0 - 2 * q, z0 + 2 * q],
         ex: 'Un ion positivo perdió electrones y uno negativo los ganó: electrones = ' + z0 + (q > 0 ? ' &minus; ' + q : ' + ' + (-q)) + ' = ' + el + '.' };
     }
@@ -742,10 +748,10 @@
       '; neutrones = número de masa &minus; número atómico = ' + a + ' &minus; ' + z + ' = ' + n + '.';
     if (tipo === 0) {
       var b = trio(z, n, z);
-      return { p: dato + ' ¿Cuántos protones, neutrones y electrones tiene?', b: b,
+      return { p: dato + ' ¿Cuántos protones, neutrones y electrones tiene?' + CONS_ISOTOPO, b: b,
         m: distintos(b, [trio(n, z, n), trio(z, a, z), trio(z, n, n), trio(a, n, a), trio(z, a + z, z)]), ex: ex };
     }
-    return { p: dato + ' ¿Cuántos neutrones tiene en su núcleo?', b: n, m: [z, a, a + z, 2 * z], ex: ex };
+    return { p: dato + ' ¿Cuántos neutrones tiene en su núcleo?' + CONS_ISOTOPO, b: n, m: [z, a, a + z, 2 * z], ex: ex };
   }
 
   /* ---------- 5.2 Configuracion electronica y tabla periodica ---------- */
@@ -774,6 +780,7 @@
     else { u[1]--; c.push([ORDEN_BIEN[c.length], 1]); }
     return c.filter(function (x) { return x[1] > 0; });
   }
+  var CONS_LLENADO = P.considere('el orden de llenado 1s 2s 2p 3s 3p 4s 3d 4p y que en s caben 2 electrones, en p 6 y en d 10.');
   function qConfiguracion(r) {
     var tipo = r.entero(0, 2);
     var lista = tipo === 1 ? ELEMENTOS.filter(function (x) { return x[0] <= 20 || x[0] >= 31; }) : ELEMENTOS;
@@ -783,18 +790,18 @@
       var b = confTxt(l), m = [confTxt(llenar(z - 1, ORDEN_BIEN)), confTxt(llenar(z + 1, ORDEN_BIEN)), confTxt(corrida(l))];
       if (z > 18) m.push(confTxt(llenar(z, ORDEN_MAL)));
       if (z > 10) m.push(confTxt(llenar(z, ORDEN_BIEN, true)));
-      return { p: '¿Cuál es la configuración electrónica del ' + e[1] + ' (Z = ' + z + ')?', b: b, m: distintos(b, m), ex: ex };
+      return { p: '¿Cuál es la configuración electrónica del ' + e[1] + ' (Z = ' + z + ')?' + CONS_LLENADO, b: b, m: distintos(b, m), ex: ex };
     }
     if (tipo === 1) {
       var nmax = Math.max.apply(null, l.map(function (x) { return +x[0].charAt(0); }));
       var v = l.filter(function (x) { return +x[0].charAt(0) === nmax; }).reduce(function (s, x) { return s + x[1]; }, 0);
-      return { p: 'Un elemento tiene la configuración electrónica ' + confTxt(l) + '. ¿Cuántos electrones de valencia tiene?',
+      return { p: 'Un elemento tiene la configuración electrónica ' + confTxt(l) + '. ¿Cuántos electrones de valencia tiene?' + P.considere('que los electrones de valencia son los del último nivel de energía.'),
         b: v, m: [l[l.length - 1][1], nmax, 8 - v, v + 1],
         ex: 'Los electrones de valencia son los del último nivel (n = ' + nmax + '): ' +
           l.filter(function (x) { return +x[0].charAt(0) === nmax; }).map(function (x) { return x[0] + '<sup>' + x[1] + '</sup>'; }).join(' + ') + ' = ' + v + '.' };
     }
     var ult = l[l.length - 1][0].charAt(1);
-    return { p: '¿En qué tipo de subnivel termina la configuración electrónica del ' + e[1] + ' (Z = ' + z + ')?',
+    return { p: '¿En qué tipo de subnivel termina la configuración electrónica del ' + e[1] + ' (Z = ' + z + ')?' + CONS_LLENADO,
       b: 'Subnivel ' + ult, m: ['s', 'p', 'd', 'f'].filter(function (x) { return x !== ult; }).map(function (x) { return 'Subnivel ' + x; }),
       ex: 'Su configuración es ' + confTxt(l) + '. Los grupos 1 y 2 terminan en s, los grupos 13 a 18 en p y los metales de transición en d.' };
   }
@@ -855,9 +862,14 @@
   function ecuacion(t) { return t.split(' ').map(function (x) { return /^[A-Z0-9(]/.test(x) ? fq(x) : x; }).join(' '); }
   function qAgente(r) {
     var x = r.elige(REDOX), eq = ecuacion(x[0]), oxida = r.bool();
-    return { p: 'Determine el agente ' + (oxida ? 'oxidante' : 'reductor') + ' en la reacción:<br>' + eq,
+    return { p: 'Determine el agente ' + (oxida ? 'oxidante' : 'reductor') + ' en la reacción:<br>' + eq + datosAgente(x[0]),
       b: oxida ? x[2] : x[1], m: [oxida ? x[1] : x[2]].concat(x[3]),
       ex: x[7] + '. El que pierde electrones (se oxida) es el agente reductor; el que los gana (se reduce) es el agente oxidante.' };
+  }
+  /* para el agente oxidante o reductor: los numeros de oxidacion que no se preguntan */
+  function datosAgente(eq) {
+    var d = /SO4/.test(eq) ? 'O: &minus;2 y S: +6' : /HCl/.test(eq) ? 'H: +1 y Cl: &minus;1 en los compuestos' : /O2/.test(eq) ? 'O: &minus;2 en los compuestos' : 'Cl: &minus;1 en los compuestos';
+    return P.considere(d + '; los elementos sin combinar tienen número de oxidación 0.');
   }
   /* como en el cuadernillo, se dan los numeros de oxidacion de los que no cambian */
   function datosOxidacion(eq) {
@@ -1043,7 +1055,7 @@
   function masaDe(c) { return F.redondea(c[2].reduce(function (s, x) { return s + x[1] * parseFloat(MASA[x[0]]); }, 0), 3); }
   function uma(x) { return F.n(x, 3) + ' u'; }
   function masasConsidere(els) {
-    return P.considere('las masas atómicas: ' + els.map(function (e) { return e + ' = ' + MASA[e] + ' u'; }).join(', ') + '.');
+    return P.considere('que la masa molecular es la suma de las masas de todos sus átomos; masas atómicas: ' + els.map(function (e) { return e + ' = ' + MASA[e] + ' u'; }).join(', ') + '.');
   }
   function qMasaMolecular(r) {
     if (r.bool(0.7)) {
@@ -1077,6 +1089,7 @@
   /* ---------- 5.11 Compuestos del carbono ---------- */
   var ALCANOS = ['Metano', 'Etano', 'Propano', 'Butano', 'Pentano', 'Hexano', 'Heptano', 'Octano', 'Nonano', 'Decano'];
   function formulaCH(c, h) { return 'C' + (c > 1 ? '<sub>' + c + '</sub>' : '') + 'H<sub>' + h + '</sub>'; }
+  var CONS_ALCANO = P.considere('que la fórmula general de los alcanos es C<sub>n</sub>H<sub>2n+2</sub>.');
   function qAlcanos(r) {
     var tipo = r.entero(0, 2), n = tipo === 2 ? r.entero(2, 7) : r.entero(1, 10), nom = ALCANOS[n - 1], f = formulaCH(n, 2 * n + 2);
     var raiz = nom.replace(/ano$/, '');
@@ -1085,9 +1098,9 @@
     if (tipo === 0) {
       var malas = [formulaCH(n, 2 * n), formulaCH(n, 2 * n + 4), formulaCH(n + 1, 2 * n + 4)];
       if (n >= 2) malas.push(formulaCH(n, 2 * n - 2), formulaCH(n - 1, 2 * n));
-      return { p: '¿Cuál es la fórmula molecular del ' + nom.toLowerCase() + '?', b: f, m: distintos(f, malas), ex: ex };
+      return { p: '¿Cuál es la fórmula molecular del ' + nom.toLowerCase() + '?' + CONS_ALCANO, b: f, m: distintos(f, malas), ex: ex };
     }
-    if (tipo === 1) return { p: '¿Cómo se llama el alcano de fórmula ' + f + '?', b: nom, m: vecinos, ex: ex };
+    if (tipo === 1) return { p: '¿Cómo se llama el alcano de fórmula ' + f + '?' + CONS_ALCANO, b: nom, m: vecinos, ex: ex };
     var semi = 'CH<sub>3</sub>';
     for (var i = 0; i < n - 2; i++) semi += '&ndash;CH<sub>2</sub>';
     semi += '&ndash;CH<sub>3</sub>';
@@ -1127,7 +1140,7 @@
           pares: [['Protón', ['Determina el número atómico', 'Tiene carga positiva']],
             ['Neutrón', ['Tiene masa, pero no tiene carga', 'Si varía su número se forman isótopos']],
             ['Electrón', ['Se distribuye en niveles de energía', 'Interactúa para formar enlaces químicos']]] },
-        { p: 'Un átomo de sodio tiene número atómico 11 y número de masa 23. ¿Cuántos neutrones tiene?', b: '12', m: ['11', '23', '34', '22'],
+        { p: 'Un átomo de sodio tiene número atómico 11 y número de masa 23. ¿Cuántos neutrones tiene?' + CONS_ISOTOPO, b: '12', m: ['11', '23', '34', '22'],
           ex: 'Neutrones = masa − número atómico = 23 − 11 = 12.' },
         qParticulas, qParticulas,
         { p: '¿Qué determina a qué elemento químico pertenece un átomo?', b: 'Su número de protones (número atómico)',

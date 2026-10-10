@@ -6,6 +6,18 @@
 
   var MS = 'm/s', MS2 = 'm/s' + F.sup(2);
 
+  /* Formulas sugeridas ("Considere ...") que se repiten en varias formas */
+  var ACEL = 'a = ' + F.frac('v<sub>f</sub> &minus; v<sub>0</sub>', 't');
+  var CHARLES = F.frac('V<sub>1</sub>', 'T<sub>1</sub>') + ' = ' + F.frac('V<sub>2</sub>', 'T<sub>2</sub>');
+  var CONS_VEL = P.considere('v = ' + F.frac('d', 't') + '.');
+  var CONS_KMH = P.considere('1 km = 1 000 m y 1 h = 3 600 s.');
+  var CONS_NEWTON = P.considere('F = m&middot;a.');
+  var CONS_BOYLE = P.considere('P<sub>1</sub>V<sub>1</sub> = P<sub>2</sub>V<sub>2</sub>.');
+  var CONS_HOOKE = P.considere('F = k&middot;x.');
+  var CONS_PASCAL = P.considere(F.frac('F<sub>1</sub>', 'A<sub>1</sub>') + ' = ' + F.frac('F<sub>2</sub>', 'A<sub>2</sub>') + '.');
+  var CONS_OHM = P.considere('V = I&middot;R.');
+  var CONS_POTENCIA = P.considere('P = V&middot;I.');
+
   /* opciones numericas con decimales fijos, como en el cuadernillo */
   function num(r, v, malas, unidad, dec) {
     return P.opciones(r, v, malas, { unidad: unidad, fijo: true, dec: dec === undefined ? 2 : dec, enteros: false });
@@ -17,7 +29,7 @@
   casos.velocidad = function (r) {
     var v = r.entero(2, 30), t = r.entero(2, 12), d = v * t;
     var cosa = r.elige(['una pelota', 'un ciclista', 'un carrito de juguete', 'un patinador']);
-    return P.ejercicio('&iquest;Cu&aacute;l es la velocidad de ' + cosa + ' si despu&eacute;s de ' + P.num(t, 1) + ' s est&aacute; a ' + P.num(d, 1) + ' m de distancia?',
+    return P.ejercicio('&iquest;Cu&aacute;l es la velocidad de ' + cosa + ' si despu&eacute;s de ' + P.num(t, 1) + ' s est&aacute; a ' + P.num(d, 1) + ' m de distancia?' + CONS_VEL,
       num(r, v, [t / d * 10, d / (t + 1), d - t, v / 2], MS, 1),
       ['Velocidad = distancia / tiempo.', 'v = ' + d + ' / ' + t + '.'],
       ['v = d / t = ' + d + ' / ' + t + ' = <b>' + P.num(v, 1) + ' m/s</b>']);
@@ -27,7 +39,7 @@
   casos.aceleracion = function (r) {
     var a = r.entero(1, 6), t = r.entero(2, 10), v0 = r.entero(2, 30), vf = v0 + a * t;
     var cosa = r.elige(['una motocicleta', 'un autom&oacute;vil', 'un tren']);
-    return P.ejercicio('&iquest;Cu&aacute;l es la aceleraci&oacute;n de ' + cosa + ' que pasa de ' + v0 + ' m/s a ' + vf + ' m/s en ' + t + ' s?',
+    return P.ejercicio('&iquest;Cu&aacute;l es la aceleraci&oacute;n de ' + cosa + ' que pasa de ' + v0 + ' m/s a ' + vf + ' m/s en ' + t + ' s?' + P.considere(ACEL + '.'),
       num(r, a, [vf / t, (vf + v0) / t, v0 / t, a * 2], MS2, 0),
       ['Aceleracion = cambio de velocidad / tiempo.', 'a = (v<sub>f</sub> &minus; v<sub>0</sub>) / t: primero RESTA las velocidades.'],
       ['a = (' + vf + ' &minus; ' + v0 + ') / ' + t + ' = ' + (vf - v0) + ' / ' + t + ' = <b>' + a + ' m/s' + F.sup(2) + '</b>']);
@@ -37,7 +49,7 @@
   casos.fuerzaNeta = function (r) {
     var m = r.elige([10, 20, 25, 40, 50, 60, 80]), a = r.entero(1, 6), t = r.entero(2, 8), v0 = r.entero(5, 20), vf = v0 + a * t;
     var f = m * a;
-    return P.ejercicio('Un cuerpo de ' + m + ' kg pasa de ' + v0 + ' m/s a ' + vf + ' m/s en ' + t + ' s. &iquest;Cu&aacute;l es su fuerza neta?',
+    return P.ejercicio('Un cuerpo de ' + m + ' kg pasa de ' + v0 + ' m/s a ' + vf + ' m/s en ' + t + ' s. &iquest;Cu&aacute;l es su fuerza neta?' + P.considere(ACEL + ' y F = m&middot;a.'),
       num(r, f, [m * vf / t, m, m * (vf - v0), f / 2], 'N', 0),
       ['Primero la aceleracion: a = (v<sub>f</sub> &minus; v<sub>0</sub>)/t.', 'Luego la segunda ley de Newton: F = m &middot; a.'],
       ['a = (' + vf + ' &minus; ' + v0 + ') / ' + t + ' = ' + a + ' m/s' + F.sup(2), 'F = ' + m + ' &times; ' + a + ' = <b>' + f + ' N</b>']);
@@ -47,7 +59,7 @@
   casos.aceleracionNewton = function (r) {
     var m = r.elige([40, 50, 60, 75, 80, 90, 100]), a = r.entero(1, 9) / 10, fza = m * a;
     var quien = r.elige(['una persona', 'un carrito de supermercado', 'una caja']);
-    return P.ejercicio('&iquest;Qu&eacute; aceleraci&oacute;n tendr&aacute; ' + quien + ' de ' + P.num(m, 1) + ' kg si recibe un empuje de ' + P.num(fza, 1) + ' N?',
+    return P.ejercicio('&iquest;Qu&eacute; aceleraci&oacute;n tendr&aacute; ' + quien + ' de ' + P.num(m, 1) + ' kg si recibe un empuje de ' + P.num(fza, 1) + ' N?' + CONS_NEWTON,
       num(r, a, [m / fza, fza / 10, m * fza / 1000, a * 9.8], MS2, 1),
       ['Segunda ley de Newton: F = m &middot; a, asi que a = F / m.', 'Divide la fuerza entre la masa (no al reves).'],
       ['a = ' + F.n(fza) + ' / ' + m + ' = <b>' + P.num(a, 1) + ' m/s' + F.sup(2) + '</b>']);
@@ -58,7 +70,7 @@
     var w = r.entero(3, 40) * 50, m = w / 9.81;
     var bien = P.num(m) + ' kg';
     var malas = [P.num(w / 9.81 / 9.81 * 3) + ' N', P.num(w / 9) + ' N', P.num(w * 9.81 / 100) + ' kg', P.num(w / 10) + ' N', P.num(m * 2) + ' kg'];
-    return P.ejercicio('&iquest;Cu&aacute;l es la masa de un cuerpo cuyo peso es de ' + P.num(w) + ' N?' + P.considere('g = 9.81 m/s' + F.sup(2) + '.'),
+    return P.ejercicio('&iquest;Cu&aacute;l es la masa de un cuerpo cuyo peso es de ' + P.num(w) + ' N?' + P.considere('W = m&middot;g y g = 9.81 m/s' + F.sup(2) + '.'),
       P.opciones(r, bien, malas),
       ['Peso = masa &times; gravedad (W = mg), asi que m = W / g.', 'La masa se mide en kilogramos, no en newtons: fijate en la unidad.'],
       ['m = ' + P.num(w) + ' / 9.81 = <b>' + bien + '</b>']);
@@ -135,7 +147,7 @@
     do { V1 = r.entero(2, 9) * 100; T1 = r.entero(5, 8) * 50; V2 = r.entero(2, 9) * 100; T2 = T1 * V2 / V1; }
     while (V1 === V2 || T2 !== Math.round(T2));
     var gas = r.elige(['helio', 'nitr&oacute;geno', 'arg&oacute;n', 'ox&iacute;geno']);
-    return P.ejercicio('Una muestra de ' + gas + ' ocupa ' + V1 + ' ml a ' + T1 + ' K. &iquest;A qu&eacute; temperatura ocupar&aacute; ' + V2 + ' ml si la presi&oacute;n no cambia?',
+    return P.ejercicio('Una muestra de ' + gas + ' ocupa ' + V1 + ' ml a ' + T1 + ' K. &iquest;A qu&eacute; temperatura ocupar&aacute; ' + V2 + ' ml si la presi&oacute;n no cambia?' + P.considere(CHARLES + '.'),
       num(r, T2, [T1 * V1 / V2, T1 + (V2 - V1), V2 - V1 + T1 / 2, T1], 'K', 0),
       ['Con presion constante es la ley de Charles: V<sub>1</sub>/T<sub>1</sub> = V<sub>2</sub>/T<sub>2</sub>.', 'Si el volumen crece, la temperatura tambien (es directa).'],
       ['T<sub>2</sub> = T<sub>1</sub> &middot; V<sub>2</sub> / V<sub>1</sub> = ' + T1 + ' &times; ' + V2 + ' / ' + V1 + ' = <b>' + T2 + ' K</b>']);
@@ -146,7 +158,7 @@
     var V1 = r.entero(10, 40) * 5, P1 = r.entero(2, 9), dp = r.entero(1, 5), P2 = P1 + dp;
     var V2 = P1 * V1 / P2;
     return P.ejercicio('Un gas ocupa un volumen de ' + P.num(V1, 1) + ' cm' + F.sup(3) + ' a una presi&oacute;n de ' + P.num(P1, 1) + ' atm. ' +
-      '&iquest;Cu&aacute;l ser&aacute; el volumen si la presi&oacute;n aumenta ' + P.num(dp, 1) + ' atm m&aacute;s y la temperatura no cambia?',
+      '&iquest;Cu&aacute;l ser&aacute; el volumen si la presi&oacute;n aumenta ' + P.num(dp, 1) + ' atm m&aacute;s y la temperatura no cambia?' + CONS_BOYLE,
       num(r, V2, [P1 * V1 / dp, V1 * P2 / P1, V1 - dp * 10, dp * V1 / P2], 'cm' + F.sup(3), 1),
       ['Con temperatura constante es la ley de Boyle: P<sub>1</sub>V<sub>1</sub> = P<sub>2</sub>V<sub>2</sub>.', 'La presion nueva es ' + P1 + ' + ' + dp + ' = ' + P2 + ' atm, no ' + dp + ' atm.'],
       ['P<sub>2</sub> = ' + P2 + ' atm', 'V<sub>2</sub> = ' + P1 + ' &times; ' + V1 + ' / ' + P2 + ' = <b>' + P.num(V2, 1) + ' cm' + F.sup(3) + '</b>']);
@@ -156,7 +168,7 @@
   casos.hooke = function (r) {
     var m = r.entero(1, 12), x = r.entero(10, 90) / 100, k = m * 9.81 / x;
     return P.ejercicio('Si a un resorte se le cuelga una masa de ' + P.num(m) + ' kg, &eacute;ste se deforma ' + P.num(x) + ' m. Determine el valor de la constante k del resorte en N/m.' +
-      P.considere('g = 9.81 m/s' + F.sup(2) + '.'),
+      P.considere('F = k&middot;x, W = m&middot;g y g = 9.81 m/s' + F.sup(2) + '.'),
       num(r, k, [m / x, m * 9.81 * x, x * 9.81 / m * 100, m * 9.81]),
       ['La fuerza que estira el resorte es el peso: F = mg.', 'Ley de Hooke: F = kx, asi que k = F / x.'],
       ['F = ' + m + ' &times; 9.81 = ' + P.num(m * 9.81) + ' N', 'k = ' + P.num(m * 9.81) + ' / ' + P.num(x) + ' = <b>' + P.num(k) + ' N/m</b>']);
@@ -166,7 +178,7 @@
   casos.pascal = function (r) {
     var A1 = r.elige([5, 10, 20, 25]), mult = r.entero(4, 30), A2 = A1 * mult, F1 = r.entero(2, 20) * 10, F2 = F1 * mult;
     return P.ejercicio('En una prensa hidr&aacute;ulica, el &eacute;mbolo peque&ntilde;o tiene un &aacute;rea de ' + A1 + ' cm' + F.sup(2) + ' y el grande de ' + A2 +
-      ' cm' + F.sup(2) + '. Si sobre el &eacute;mbolo peque&ntilde;o se aplica una fuerza de ' + F1 + ' N, &iquest;qu&eacute; fuerza se ejerce en el &eacute;mbolo grande?',
+      ' cm' + F.sup(2) + '. Si sobre el &eacute;mbolo peque&ntilde;o se aplica una fuerza de ' + F1 + ' N, &iquest;qu&eacute; fuerza se ejerce en el &eacute;mbolo grande?' + CONS_PASCAL,
       P.opciones(r, F2, [F1 / mult, F1 + A2, F1 * A1, A2 * 2], { unidad: 'N', fmt: function (v) { return P.num(v, 0); } }),
       ['Principio de Pascal: F<sub>1</sub>/A<sub>1</sub> = F<sub>2</sub>/A<sub>2</sub>.', 'El embolo grande tiene ' + mult + ' veces el area, asi que recibe ' + mult + ' veces la fuerza.'],
       ['F<sub>2</sub> = ' + F1 + ' &times; ' + A2 + ' / ' + A1 + ' = <b>' + P.num(F2, 0) + ' N</b>']);
@@ -177,7 +189,7 @@
     var V = r.entero(1, 30) / 10 * (r.bool() ? 1 : 10), E = 1000 * 9.81 * V;
     V = F.redondea(V, 2); E = 1000 * 9.81 * V;
     return P.ejercicio('Un cuerpo desplaza ' + P.num(V) + ' m' + F.sup(3) + ' de agua al sumergirse. &iquest;Cu&aacute;l es el empuje del agua sobre el cuerpo?' +
-      P.considere('g = 9.81 m/s' + F.sup(2) + ' y &rho;<sub>agua</sub> = 1 000.00 kg/m' + F.sup(3) + '.'),
+      P.considere('E = &rho;&middot;g&middot;V, g = 9.81 m/s' + F.sup(2) + ' y &rho;<sub>agua</sub> = 1 000.00 kg/m' + F.sup(3) + '.'),
       num(r, E, [1000 * V, 9.81 * V, 1000 * 9.81 / V, E / 2], 'N'),
       ['Empuje = peso del agua desalojada: E = &rho; &middot; g &middot; V.', 'Multiplica los tres datos.'],
       ['E = 1000 &times; 9.81 &times; ' + F.n(V) + ' = <b>' + P.num(E) + ' N</b>']);
@@ -187,7 +199,7 @@
   casos.ohmCorriente = function (r) {
     var V = r.elige([110, 120, 127, 220, 240]), I = r.elige([0.5, 1, 1.5, 2, 2.5, 4, 5]), R = V / I;
     if (R !== Math.round(R * 10) / 10) { V = 120; I = 2; R = 60; }
-    return P.ejercicio('Un aparato el&eacute;ctrico tiene una resistencia de ' + P.num(R, 1) + ' &Omega; cuando est&aacute; funcionando. &iquest;Cu&aacute;l ser&aacute; la intensidad de corriente al conectarlo a ' + P.num(V, 1) + ' V?',
+    return P.ejercicio('Un aparato el&eacute;ctrico tiene una resistencia de ' + P.num(R, 1) + ' &Omega; cuando est&aacute; funcionando. &iquest;Cu&aacute;l ser&aacute; la intensidad de corriente al conectarlo a ' + P.num(V, 1) + ' V?' + CONS_OHM,
       num(r, I, [R / V, V * R / 100, V - R > 0 ? V - R : R - V, I * 2], 'A', 1),
       ['Ley de Ohm: V = I &middot; R, asi que I = V / R.', 'Divide el voltaje entre la resistencia.'],
       ['I = ' + V + ' / ' + F.n(R) + ' = <b>' + P.num(I, 1) + ' A</b>']);
@@ -196,7 +208,7 @@
   /* 59. Ley de Ohm: voltaje */
   casos.ohmVoltaje = function (r) {
     var R = r.entero(1, 40) * 50, I = r.entero(1, 10) / 4, V = R * I;
-    return P.ejercicio('Determine el voltaje en una resistencia de ' + P.num(R) + ' &Omega; si a trav&eacute;s de ella circula una corriente de ' + P.num(I) + ' A.',
+    return P.ejercicio('Determine el voltaje en una resistencia de ' + P.num(R) + ' &Omega; si a trav&eacute;s de ella circula una corriente de ' + P.num(I) + ' A.' + CONS_OHM,
       num(r, V, [R / I, I / R * 1000, R + I, V / 2], 'V'),
       ['Ley de Ohm: V = I &middot; R.', 'Multiplica la corriente por la resistencia.'],
       ['V = ' + P.num(I) + ' &times; ' + P.num(R) + ' = <b>' + P.num(V) + ' V</b>']);
@@ -212,7 +224,7 @@
     var medio = r.elige(['un vidrio', 'un bloque de acr&iacute;lico', 'un prisma de cuarzo']);
     return P.ejercicio('A ' + medio + ' se le hace llegar desde el aire un rayo de luz con un &aacute;ngulo de incidencia de ' + ang[0] + '&deg; y se refracta con un &aacute;ngulo de ' + a2 +
       '&deg;. &iquest;Cu&aacute;l es el &iacute;ndice de refracci&oacute;n del material?' +
-      P.considere('n<sub>aire</sub> = 1, sen(' + ang[0] + '&deg;) = ' + ang[1].toFixed(2) + ' y sen(' + a2 + '&deg;) = ' + s2.toFixed(2) + '.'),
+      P.considere('n<sub>1</sub> sen &theta;<sub>1</sub> = n<sub>2</sub> sen &theta;<sub>2</sub>, n<sub>aire</sub> = 1, sen(' + ang[0] + '&deg;) = ' + ang[1].toFixed(2) + ' y sen(' + a2 + '&deg;) = ' + s2.toFixed(2) + '.'),
       num(r, nCalc, [s2 / ang[1], ang[1] * s2, ang[0] / a2 > 3 ? ang[1] + s2 : ang[0] / a2, ang[1] - s2 + 1]),
       ['Ley de Snell: n<sub>1</sub> sen &theta;<sub>1</sub> = n<sub>2</sub> sen &theta;<sub>2</sub>.', 'Despeja n<sub>2</sub> = sen &theta;<sub>1</sub> / sen &theta;<sub>2</sub> (porque n<sub>1</sub> = 1).'],
       ['n<sub>2</sub> = ' + ang[1].toFixed(2) + ' / ' + s2.toFixed(2) + ' = <b>' + P.num(nCalc) + '</b>']);
@@ -228,7 +240,7 @@
   function velDistancia(r) {
     var v = r.entero(2, 25), t = r.entero(5, 60), d = v * t;
     var quien = r.elige(['Un ciclista', 'Un corredor', 'Un tren de juguete', 'Una patinadora']);
-    return P.ejercicio(quien + ' se mueve con velocidad constante de ' + v + ' m/s durante ' + t + ' s. &iquest;Qu&eacute; distancia recorre?',
+    return P.ejercicio(quien + ' se mueve con velocidad constante de ' + v + ' m/s durante ' + t + ' s. &iquest;Qu&eacute; distancia recorre?' + P.considere('d = v&middot;t.'),
       num(r, d, [v / t, t / v, v + t, d / 2], 'm', 0),
       ['En movimiento uniforme: d = v &middot; t.', 'Multiplica la velocidad por el tiempo.'],
       ['d = ' + v + ' &times; ' + t + ' = <b>' + d + ' m</b>']);
@@ -236,7 +248,7 @@
 
   function velTiempo(r) {
     var v = r.entero(2, 20), t = r.entero(5, 90), d = v * t;
-    return P.ejercicio('&iquest;Cu&aacute;nto tiempo tarda en recorrer ' + P.num(d, 0) + ' m un m&oacute;vil que va a velocidad constante de ' + v + ' m/s?',
+    return P.ejercicio('&iquest;Cu&aacute;nto tiempo tarda en recorrer ' + P.num(d, 0) + ' m un m&oacute;vil que va a velocidad constante de ' + v + ' m/s?' + CONS_VEL,
       num(r, t, [d * v, v / d, d - v, d / (2 * v)], 's', 0),
       ['De v = d / t se despeja t = d / v.', 'Divide la distancia entre la velocidad.'],
       ['t = ' + d + ' / ' + v + ' = <b>' + t + ' s</b>']);
@@ -245,12 +257,12 @@
   function velConversion(r) {
     var ms = r.entero(2, 40), kmh = F.redondea(ms * 3.6, 2);
     if (r.bool()) {
-      return P.ejercicio('Un autom&oacute;vil viaja a ' + F.n(kmh) + ' km/h. &iquest;Cu&aacute;l es su velocidad en m/s?',
+      return P.ejercicio('Un autom&oacute;vil viaja a ' + F.n(kmh) + ' km/h. &iquest;Cu&aacute;l es su velocidad en m/s?' + CONS_KMH,
         num(r, ms, [kmh * 3.6, kmh * 1000 / 60, kmh / 36, kmh * 1000], 'm/s', 1),
         ['1 km = 1 000 m y 1 h = 3 600 s.', 'Para pasar de km/h a m/s divide entre 3.6.'],
         [F.n(kmh) + ' &times; 1 000 / 3 600 = <b>' + ms + ' m/s</b>']);
     }
-    return P.ejercicio('Un corredor va a ' + ms + ' m/s. &iquest;Cu&aacute;l es su velocidad en km/h?',
+    return P.ejercicio('Un corredor va a ' + ms + ' m/s. &iquest;Cu&aacute;l es su velocidad en km/h?' + CONS_KMH,
       num(r, kmh, [ms / 3.6, ms * 60, ms * 3600, ms * 1000 / 3600], 'km/h', 1),
       ['En una hora hay 3 600 s y en un kilometro 1 000 m.', 'Para pasar de m/s a km/h multiplica por 3.6.'],
       [ms + ' &times; 3.6 = <b>' + F.n(kmh) + ' km/h</b>']);
@@ -261,7 +273,8 @@
     do { v1 = r.entero(4, 12) * 10; t1 = r.entero(1, 4); v2 = r.entero(4, 12) * 10; t2 = r.entero(1, 4); }
     while (v1 === v2 || t1 === t2 || (v1 * t1 + v2 * t2) % (t1 + t2) !== 0);
     var d = v1 * t1 + v2 * t2, vm = d / (t1 + t2);
-    return P.ejercicio('Un autob&uacute;s viaja ' + t1 + ' h a ' + v1 + ' km/h y despu&eacute;s ' + t2 + ' h a ' + v2 + ' km/h. &iquest;Cu&aacute;l fue su velocidad media en todo el viaje?',
+    return P.ejercicio('Un autob&uacute;s viaja ' + t1 + ' h a ' + v1 + ' km/h y despu&eacute;s ' + t2 + ' h a ' + v2 + ' km/h. &iquest;Cu&aacute;l fue su velocidad media en todo el viaje?' +
+      P.considere('v<sub>media</sub> = ' + F.frac('distancia total', 'tiempo total') + ' y d = v&middot;t.'),
       num(r, vm, [(v1 + v2) / 2, d, v1 + v2, d / 2], 'km/h', 1),
       ['Velocidad media = distancia TOTAL / tiempo TOTAL.', 'No es el promedio de las dos velocidades, porque viaja distinto tiempo a cada una.'],
       ['d = ' + v1 + '(' + t1 + ') + ' + v2 + '(' + t2 + ') = ' + d + ' km en ' + (t1 + t2) + ' h', 'v = ' + d + ' / ' + (t1 + t2) + ' = <b>' + F.n(vm) + ' km/h</b>']);
@@ -270,7 +283,7 @@
   /* ---------- 44. aceleracion ---------- */
   function acelVf(r) {
     var v0 = r.bool(0.4) ? 0 : r.entero(2, 20), a = r.entero(1, 6), t = r.entero(2, 12), vf = v0 + a * t;
-    return P.ejercicio('Un autom&oacute;vil ' + (v0 ? 'que va a ' + v0 + ' m/s' : 'que parte del reposo') + ' acelera a ' + a + ' m/s' + F.sup(2) + ' durante ' + t + ' s. &iquest;Qu&eacute; velocidad alcanza?',
+    return P.ejercicio('Un autom&oacute;vil ' + (v0 ? 'que va a ' + v0 + ' m/s' : 'que parte del reposo') + ' acelera a ' + a + ' m/s' + F.sup(2) + ' durante ' + t + ' s. &iquest;Qu&eacute; velocidad alcanza?' + P.considere('v<sub>f</sub> = v<sub>0</sub> + a&middot;t.'),
       num(r, vf, [a * t, v0 + a, a * t * t + v0, v0 + a * t * t / 2], 'm/s', 0),
       ['v<sub>f</sub> = v<sub>0</sub> + a &middot; t.', v0 ? 'No olvides la velocidad que ya traia.' : 'Parte del reposo: v<sub>0</sub> = 0.'],
       ['v<sub>f</sub> = ' + v0 + ' + ' + a + ' &times; ' + t + ' = <b>' + vf + ' m/s</b>']);
@@ -287,7 +300,7 @@
 
   function acelFrenado(r) {
     var a = r.entero(2, 8), t = r.entero(2, 10), v0 = a * t;
-    return P.ejercicio('Un autom&oacute;vil que va a ' + v0 + ' m/s frena de manera uniforme y se detiene en ' + t + ' s. &iquest;Cu&aacute;l es su aceleraci&oacute;n?',
+    return P.ejercicio('Un autom&oacute;vil que va a ' + v0 + ' m/s frena de manera uniforme y se detiene en ' + t + ' s. &iquest;Cu&aacute;l es su aceleraci&oacute;n?' + P.considere(ACEL + '.'),
       P.opciones(r, -a, [a, -v0 * t, t / v0, -v0], { conSigno: true, fmt: function (x) { return m(F.redondea(x, 2)) + ' m/s' + F.sup(2); } }),
       ['a = (v<sub>f</sub> &minus; v<sub>0</sub>) / t, y al detenerse v<sub>f</sub> = 0.', 'Al frenar la aceleracion es NEGATIVA (va en contra del movimiento).'],
       ['a = (0 &minus; ' + v0 + ') / ' + t + ' = <b>' + m(-a) + ' m/s' + F.sup(2) + '</b>']);
@@ -296,12 +309,12 @@
   function caidaLibre(r) {
     var t = r.entero(1, 6), v = F.redondea(9.81 * t, 2), pideV = r.bool(), d = F.redondea(9.81 * t * t / 2, 2);
     if (pideV) {
-      return P.ejercicio('Se deja caer una piedra desde el reposo. &iquest;Qu&eacute; velocidad lleva despu&eacute;s de ' + t + ' s? (No considere la resistencia del aire.)' + P.considere(G + '.'),
+      return P.ejercicio('Se deja caer una piedra desde el reposo. &iquest;Qu&eacute; velocidad lleva despu&eacute;s de ' + t + ' s? (No considere la resistencia del aire.)' + P.considere('v = g&middot;t y ' + G + '.'),
         num(r, v, [d, 9.81 / t, 9.81 * t * t, 9.81], 'm/s'),
         ['Es caida libre: un movimiento acelerado con a = g.', 'v = g &middot; t (parte del reposo).'],
         ['v = 9.81 &times; ' + t + ' = <b>' + P.num(v) + ' m/s</b>']);
     }
-    return P.ejercicio('Se deja caer una piedra desde el reposo. &iquest;Qu&eacute; distancia ha ca&iacute;do despu&eacute;s de ' + t + ' s? (No considere la resistencia del aire.)' + P.considere(G + '.'),
+    return P.ejercicio('Se deja caer una piedra desde el reposo. &iquest;Qu&eacute; distancia ha ca&iacute;do despu&eacute;s de ' + t + ' s? (No considere la resistencia del aire.)' + P.considere('d = ' + F.frac(1, 2) + 'gt' + F.sup(2) + ' y ' + G + '.'),
       num(r, d, [v, 9.81 * t * t, 9.81 * t / 2, d / 2], 'm'),
       ['d = ' + F.frac(1, 2) + 'gt' + F.sup(2) + '.', 'Eleva el tiempo al cuadrado antes de multiplicar.'],
       ['d = ' + F.frac(1, 2) + '(9.81)(' + t + ')' + F.sup(2) + ' = <b>' + P.num(d) + ' m</b>']);
@@ -313,7 +326,8 @@
     while (f1 === f2) f2 = r.entero(5, 40) * 10;
     var neta = Math.abs(f1 - f2), lado = f1 > f2 ? 'derecha' : 'izquierda', otro = f1 > f2 ? 'izquierda' : 'derecha';
     function op(v, l) { return v + ' N hacia la ' + l; }
-    return P.ejercicio('Dos personas jalan una caja en sentidos opuestos: una con ' + f1 + ' N hacia la derecha y la otra con ' + f2 + ' N hacia la izquierda. &iquest;Cu&aacute;l es la fuerza neta sobre la caja?',
+    return P.ejercicio('Dos personas jalan una caja en sentidos opuestos: una con ' + f1 + ' N hacia la derecha y la otra con ' + f2 + ' N hacia la izquierda. &iquest;Cu&aacute;l es la fuerza neta sobre la caja?' +
+      P.considere('F<sub>neta</sub> = F<sub>1</sub> &minus; F<sub>2</sub> cuando dos fuerzas act&uacute;an en sentidos opuestos.'),
       P.opciones(r, op(neta, lado), [op(neta, otro), op(f1 + f2, lado), op(f1 + f2, otro), '0 N, porque las fuerzas se anulan']),
       ['Fuerzas en sentidos opuestos se RESTAN.', 'La fuerza neta va hacia el lado de la fuerza mayor.'],
       [Math.max(f1, f2) + ' &minus; ' + Math.min(f1, f2) + ' = ' + neta + ' N', '<b>' + op(neta, lado) + '</b>']);
@@ -321,7 +335,8 @@
 
   function fnFriccion(r) {
     var mm = r.entero(5, 40), a = r.entero(1, 5), fr = r.entero(2, 12) * 5, Fa = mm * a + fr;
-    return P.ejercicio('Se empuja una caja de ' + mm + ' kg con una fuerza de ' + Fa + ' N y la fricci&oacute;n con el piso es de ' + fr + ' N. &iquest;Qu&eacute; aceleraci&oacute;n adquiere la caja?',
+    return P.ejercicio('Se empuja una caja de ' + mm + ' kg con una fuerza de ' + Fa + ' N y la fricci&oacute;n con el piso es de ' + fr + ' N. &iquest;Qu&eacute; aceleraci&oacute;n adquiere la caja?' +
+      P.considere('F<sub>neta</sub> = F &minus; f<sub>fricci&oacute;n</sub> y F<sub>neta</sub> = m&middot;a.'),
       num(r, a, [Fa / mm, (Fa + fr) / mm, fr / mm, (Fa - fr) * mm], 'm/s' + F.sup(2), 2),
       ['La friccion va en contra del empuje: la fuerza neta es ' + Fa + ' &minus; ' + fr + '.', 'Luego a = F<sub>neta</sub> / m.'],
       ['F<sub>neta</sub> = ' + Fa + ' &minus; ' + fr + ' = ' + (Fa - fr) + ' N', 'a = ' + (Fa - fr) + ' / ' + mm + ' = <b>' + a + ' m/s' + F.sup(2) + '</b>']);
@@ -339,7 +354,7 @@
   /* ---------- 46. segunda y tercera ley ---------- */
   function newtonMasa(r) {
     var mm = r.entero(2, 60) * 5, a = r.entero(1, 8), f = mm * a;
-    return P.ejercicio('Una fuerza neta de ' + P.num(f, 0) + ' N produce en un cuerpo una aceleraci&oacute;n de ' + a + ' m/s' + F.sup(2) + '. &iquest;Cu&aacute;l es la masa del cuerpo?',
+    return P.ejercicio('Una fuerza neta de ' + P.num(f, 0) + ' N produce en un cuerpo una aceleraci&oacute;n de ' + a + ' m/s' + F.sup(2) + '. &iquest;Cu&aacute;l es la masa del cuerpo?' + CONS_NEWTON,
       num(r, mm, [f * a, a / f, f - a, f / (2 * a)], 'kg', 1),
       ['Segunda ley: F = m &middot; a, asi que m = F / a.', 'Divide la fuerza entre la aceleracion.'],
       ['m = ' + f + ' / ' + a + ' = <b>' + mm + ' kg</b>']);
@@ -348,7 +363,7 @@
   function newtonFuerza(r) {
     var mm = r.entero(4, 30) * 50, a = r.entero(1, 8) / 2, f = mm * a;
     var cosa = r.elige(['un autom&oacute;vil', 'una camioneta', 'un tractor']);
-    return P.ejercicio('&iquest;Qu&eacute; fuerza neta se necesita para que ' + cosa + ' de ' + P.num(mm, 0) + ' kg acelere a ' + F.n(a) + ' m/s' + F.sup(2) + '?',
+    return P.ejercicio('&iquest;Qu&eacute; fuerza neta se necesita para que ' + cosa + ' de ' + P.num(mm, 0) + ' kg acelere a ' + F.n(a) + ' m/s' + F.sup(2) + '?' + CONS_NEWTON,
       num(r, f, [mm / a, a / mm * 1000, mm + a, f * 9.81], 'N', 1),
       ['Segunda ley de Newton: F = m &middot; a.', 'Multiplica la masa por la aceleracion.'],
       ['F = ' + mm + ' &times; ' + F.n(a) + ' = <b>' + P.num(f, 1) + ' N</b>']);
@@ -372,7 +387,7 @@
   /* ---------- 47. masa y peso ---------- */
   function pesoDeMasa(r) {
     var mm = r.entero(20, 95), w = F.redondea(mm * 9.81, 2);
-    return P.ejercicio('&iquest;Cu&aacute;l es el peso de una persona de ' + mm + ' kg de masa?' + P.considere(G + '.'),
+    return P.ejercicio('&iquest;Cu&aacute;l es el peso de una persona de ' + mm + ' kg de masa?' + P.considere('W = m&middot;g y ' + G + '.'),
       P.opciones(r, P.num(w) + ' N', [P.num(mm) + ' N', P.num(mm / 9.81) + ' N', P.num(w) + ' kg', P.num(mm * 10) + ' kg']),
       ['Peso = masa &times; gravedad (W = mg).', 'El peso es una fuerza: se mide en newtons, no en kilogramos.'],
       ['W = ' + mm + ' &times; 9.81 = <b>' + P.num(w) + ' N</b>']);
@@ -380,7 +395,7 @@
 
   function pesoLuna(r) {
     var mm = r.entero(40, 95), w = F.redondea(mm * 1.62, 2);
-    return P.ejercicio('Un astronauta tiene una masa de ' + mm + ' kg. &iquest;Cu&aacute;nto pesa en la Luna?' + P.considere('g<sub>Luna</sub> = 1.62 m/s' + F.sup(2) + '.'),
+    return P.ejercicio('Un astronauta tiene una masa de ' + mm + ' kg. &iquest;Cu&aacute;nto pesa en la Luna?' + P.considere('W = m&middot;g y g<sub>Luna</sub> = 1.62 m/s' + F.sup(2) + '.'),
       num(r, w, [mm, mm * 9.81, mm / 1.62, mm * 9.81 / 6 * 1.62], 'N'),
       ['La masa es la misma en la Luna; lo que cambia es la gravedad.', 'W = m &middot; g<sub>Luna</sub>.'],
       ['W = ' + mm + ' &times; 1.62 = <b>' + P.num(w) + ' N</b>']);
@@ -407,7 +422,8 @@
 
   function keplerTercera(r) {
     var k = r.elige([4, 9, 16, 25]), T = Math.pow(k, 1.5);
-    return P.ejercicio('Un planeta est&aacute; ' + k + ' veces m&aacute;s lejos del Sol que otro. Seg&uacute;n la tercera ley de Kepler (T' + F.sup(2) + ' es proporcional a a' + F.sup(3) + '), &iquest;cu&aacute;ntas veces mayor es su periodo?',
+    return P.ejercicio('Un planeta est&aacute; ' + k + ' veces m&aacute;s lejos del Sol que otro. Seg&uacute;n la tercera ley de Kepler (T' + F.sup(2) + ' es proporcional a a' + F.sup(3) + '), &iquest;cu&aacute;ntas veces mayor es su periodo?' +
+      P.considere(F.frac('T<sub>1</sub>' + F.sup(2), 'T<sub>2</sub>' + F.sup(2)) + ' = ' + F.frac('a<sub>1</sub>' + F.sup(3), 'a<sub>2</sub>' + F.sup(3)) + '.'),
       P.opciones(r, T, [k, k * k, Math.sqrt(k), k * k * k], { fmt: function (x) { return F.n(x) + ' veces'; } }),
       ['Si la distancia se multiplica por ' + k + ', a' + F.sup(3) + ' se multiplica por ' + k + F.sup(3) + '.', 'T' + F.sup(2) + ' crece igual, asi que T crece como la raiz: &radic;(' + k + F.sup(3) + ').'],
       ['T' + F.sup(2) + ' &prop; ' + k + F.sup(3) + ' = ' + (k * k * k), 'T &prop; &radic;' + (k * k * k) + ' = <b>' + T + ' veces</b>']);
@@ -471,7 +487,8 @@
     var m1, t1, m2, t2, T;
     do { m1 = r.entero(1, 8) * 50; t1 = r.entero(50, 90); m2 = r.entero(1, 8) * 50; t2 = r.entero(5, 30); T = (m1 * t1 + m2 * t2) / (m1 + m2); }
     while (T !== Math.round(T * 10) / 10);
-    return P.ejercicio('Se mezclan ' + m1 + ' g de agua a ' + t1 + ' &deg;C con ' + m2 + ' g de agua a ' + t2 + ' &deg;C. Si no hay p&eacute;rdidas de calor, &iquest;cu&aacute;l es la temperatura final de la mezcla?',
+    return P.ejercicio('Se mezclan ' + m1 + ' g de agua a ' + t1 + ' &deg;C con ' + m2 + ' g de agua a ' + t2 + ' &deg;C. Si no hay p&eacute;rdidas de calor, &iquest;cu&aacute;l es la temperatura final de la mezcla?' +
+      P.considere('que el calor que cede el agua caliente lo gana la fr&iacute;a: m<sub>1</sub>(t<sub>1</sub> &minus; T) = m<sub>2</sub>(T &minus; t<sub>2</sub>).'),
       num(r, T, [(t1 + t2) / 2, t1 - t2, (m1 * t2 + m2 * t1) / (m1 + m2), (t1 * t2) / (t1 + t2)], '&deg;C', 1),
       ['El calor que pierde el agua caliente lo gana la fria: m<sub>1</sub>(t<sub>1</sub> &minus; T) = m<sub>2</sub>(T &minus; t<sub>2</sub>).', 'Queda T = (m<sub>1</sub>t<sub>1</sub> + m<sub>2</sub>t<sub>2</sub>) / (m<sub>1</sub> + m<sub>2</sub>): un promedio pesado por las masas.'],
       ['T = (' + m1 + '&times;' + t1 + ' + ' + m2 + '&times;' + t2 + ') / ' + (m1 + m2) + ' = <b>' + F.n(T) + ' &deg;C</b>']);
@@ -480,10 +497,11 @@
   function tempUnidades(r) {
     var c = r.elige([['el calor', 'Joule (J)'], ['la temperatura', 'Kelvin (K)'], ['la potencia', 'Watt (W)'], ['la presi&oacute;n', 'Pascal (Pa)']]);
     var todas = ['Joule (J)', 'Kelvin (K)', 'Watt (W)', 'Pascal (Pa)', 'Calor&iacute;a (cal)', 'Newton (N)'];
-    return P.ejercicio('&iquest;Cu&aacute;l es la unidad de ' + c[0] + ' en el Sistema Internacional?',
+    var de = c[0].indexOf('el ') === 0 ? 'del ' + c[0].slice(3) : 'de ' + c[0];
+    return P.ejercicio('&iquest;Cu&aacute;l es la unidad ' + de + ' en el Sistema Internacional?',
       P.opciones(r, c[1], r.muestra(todas.filter(function (x) { return x !== c[1]; }), 4)),
       ['El calor es energia: se mide igual que el trabajo.', 'La caloria se usa mucho, pero no es del Sistema Internacional.'],
-      ['Unidad de ' + c[0] + ': <b>' + c[1] + '</b>']);
+      ['Unidad ' + de + ': <b>' + c[1] + '</b>']);
   }
 
   /* ---------- 51. sistemas termodinamicos ---------- */
@@ -532,7 +550,7 @@
   function gayLussac(r) {
     var P1, T1, T2, P2;
     do { P1 = r.entero(1, 8); T1 = r.entero(5, 8) * 50; T2 = r.entero(5, 10) * 50; P2 = P1 * T2 / T1; } while (T1 === T2 || P2 !== Math.round(P2 * 100) / 100);
-    return P.ejercicio('Un tanque r&iacute;gido contiene un gas a ' + P1 + ' atm y ' + T1 + ' K. Si se calienta hasta ' + T2 + ' K, &iquest;cu&aacute;l ser&aacute; la presi&oacute;n?',
+    return P.ejercicio('Un tanque r&iacute;gido contiene un gas a ' + P1 + ' atm y ' + T1 + ' K. Si se calienta hasta ' + T2 + ' K, &iquest;cu&aacute;l ser&aacute; la presi&oacute;n?' + P.considere(F.frac('P<sub>1</sub>', 'T<sub>1</sub>') + ' = ' + F.frac('P<sub>2</sub>', 'T<sub>2</sub>') + '.'),
       num(r, P2, [P1 * T1 / T2, P1 + (T2 - T1) / 100, T2 / T1, P1 * (T2 - T1) / T1], 'atm'),
       ['Tanque rigido: el volumen no cambia. Es la ley de Gay-Lussac: P<sub>1</sub>/T<sub>1</sub> = P<sub>2</sub>/T<sub>2</sub>.', 'Si la temperatura sube, la presion sube en la misma proporcion.'],
       ['P<sub>2</sub> = ' + P1 + ' &times; ' + T2 + ' / ' + T1 + ' = <b>' + P.num(P2) + ' atm</b>']);
@@ -542,7 +560,7 @@
     var V1 = r.entero(2, 9), c1 = r.elige([27, 7, 17, 47, 77]), c2 = c1 + r.entero(2, 8) * 10;
     var T1 = c1 + 273, T2 = c2 + 273, V2 = F.redondea(V1 * T2 / T1, 2);
     return P.ejercicio('Un globo tiene un volumen de ' + V1 + ' L a ' + c1 + ' &deg;C. Si la presi&oacute;n no cambia, &iquest;qu&eacute; volumen tendr&aacute; a ' + c2 + ' &deg;C?' +
-      P.considere('K = &deg;C + 273.'),
+      P.considere(CHARLES + ' y K = &deg;C + 273.'),
       num(r, V2, [V1 * c2 / c1, V1 * T1 / T2, V1 + (c2 - c1) / 10, V1 * c1 / c2], 'L'),
       ['En las leyes de los gases la temperatura SIEMPRE va en kelvin.', 'Ley de Charles: V<sub>1</sub>/T<sub>1</sub> = V<sub>2</sub>/T<sub>2</sub>.'],
       ['T<sub>1</sub> = ' + T1 + ' K, T<sub>2</sub> = ' + T2 + ' K', 'V<sub>2</sub> = ' + V1 + ' &times; ' + T2 + ' / ' + T1 + ' = <b>' + P.num(V2) + ' L</b>']);
@@ -559,7 +577,7 @@
   function boylePresion(r) {
     var P1, V1, V2, P2;
     do { P1 = r.entero(1, 9); V1 = r.entero(2, 20) * 5; V2 = r.entero(2, 20) * 5; P2 = P1 * V1 / V2; } while (V1 === V2 || P2 !== Math.round(P2 * 100) / 100);
-    return P.ejercicio('Un gas a ' + P1 + ' atm ocupa ' + V1 + ' L. Si a temperatura constante se comprime (o expande) hasta ' + V2 + ' L, &iquest;cu&aacute;l ser&aacute; su presi&oacute;n?',
+    return P.ejercicio('Un gas a ' + P1 + ' atm ocupa ' + V1 + ' L. Si a temperatura constante se comprime (o expande) hasta ' + V2 + ' L, &iquest;cu&aacute;l ser&aacute; su presi&oacute;n?' + CONS_BOYLE,
       num(r, P2, [P1 * V2 / V1, P1 + (V1 - V2) / 10, V1 / V2, P1 * V1 * V2 / 100], 'atm'),
       ['Ley de Boyle: P<sub>1</sub>V<sub>1</sub> = P<sub>2</sub>V<sub>2</sub>.', 'Si el volumen baja, la presion sube (son inversamente proporcionales).'],
       ['P<sub>2</sub> = ' + P1 + ' &times; ' + V1 + ' / ' + V2 + ' = <b>' + P.num(P2) + ' atm</b>']);
@@ -568,7 +586,7 @@
   function boyleConcepto(r) {
     var c = r.elige([['se reduce a la mitad', 'Se duplica'], ['se duplica', 'Se reduce a la mitad'], ['se triplica', 'Se reduce a la tercera parte'], ['se reduce a la tercera parte', 'Se triplica']]);
     var todas = ['Se duplica', 'Se reduce a la mitad', 'Se triplica', 'Se reduce a la tercera parte', 'No cambia', 'Se cuadruplica'];
-    return P.ejercicio('A temperatura constante, si el volumen de un gas ' + c[0] + ', &iquest;qu&eacute; le pasa a su presi&oacute;n?',
+    return P.ejercicio('A temperatura constante, si el volumen de un gas ' + c[0] + ', &iquest;qu&eacute; le pasa a su presi&oacute;n?' + CONS_BOYLE,
       P.opciones(r, c[1], r.muestra(todas.filter(function (x) { return x !== c[1]; }), 4)),
       ['Ley de Boyle: P &middot; V = constante.', 'Si una se multiplica por un numero, la otra se divide entre ese numero.'],
       ['<b>' + c[1] + '</b>']);
@@ -589,12 +607,12 @@
   function hookeElongacion(r) {
     var k = r.entero(2, 40) * 25, x = r.entero(2, 40) / 100, f = F.redondea(k * x, 2);
     if (r.bool()) {
-      return P.ejercicio('Un resorte tiene una constante k = ' + k + ' N/m. &iquest;Cu&aacute;nto se estira si se le aplica una fuerza de ' + P.num(f) + ' N?',
+      return P.ejercicio('Un resorte tiene una constante k = ' + k + ' N/m. &iquest;Cu&aacute;nto se estira si se le aplica una fuerza de ' + P.num(f) + ' N?' + CONS_HOOKE,
         num(r, x, [f * k / 1000, k / f / 100, f / k * 10, x * 2], 'm'),
         ['Ley de Hooke: F = k &middot; x, asi que x = F / k.', 'Divide la fuerza entre la constante del resorte.'],
         ['x = ' + P.num(f) + ' / ' + k + ' = <b>' + P.num(x) + ' m</b>']);
     }
-    return P.ejercicio('&iquest;Qu&eacute; fuerza se necesita para estirar ' + P.num(x) + ' m un resorte cuya constante es k = ' + k + ' N/m?',
+    return P.ejercicio('&iquest;Qu&eacute; fuerza se necesita para estirar ' + P.num(x) + ' m un resorte cuya constante es k = ' + k + ' N/m?' + CONS_HOOKE,
       num(r, f, [k / x, x / k * 1000, k + x, f * 2], 'N'),
       ['Ley de Hooke: F = k &middot; x.', 'Multiplica la constante por lo que se estira (en metros).'],
       ['F = ' + k + ' &times; ' + P.num(x) + ' = <b>' + P.num(f) + ' N</b>']);
@@ -613,7 +631,7 @@
   function pascalArea(r) {
     var A1 = r.elige([5, 10, 20, 25]), mult = r.entero(4, 30), F1 = r.entero(2, 20) * 10, F2 = F1 * mult, A2 = A1 * mult;
     return P.ejercicio('En una prensa hidr&aacute;ulica se aplican ' + F1 + ' N sobre un &eacute;mbolo de ' + A1 + ' cm' + F.sup(2) + ' para levantar un auto que pesa ' + P.num(F2, 0) +
-      ' N. &iquest;Qu&eacute; &aacute;rea debe tener el &eacute;mbolo grande?',
+      ' N. &iquest;Qu&eacute; &aacute;rea debe tener el &eacute;mbolo grande?' + CONS_PASCAL,
       num(r, A2, [A1 * F1 / F2, F2 / A1, A1 + mult, A2 / 2], 'cm' + F.sup(2), 0),
       ['Principio de Pascal: F<sub>1</sub>/A<sub>1</sub> = F<sub>2</sub>/A<sub>2</sub>.', 'Despeja A<sub>2</sub> = A<sub>1</sub> &middot; F<sub>2</sub> / F<sub>1</sub>.'],
       ['A<sub>2</sub> = ' + A1 + ' &times; ' + F2 + ' / ' + F1 + ' = <b>' + A2 + ' cm' + F.sup(2) + '</b>']);
@@ -621,7 +639,7 @@
 
   function presionFA(r) {
     var A = r.elige([0.02, 0.05, 0.1, 0.2, 0.25, 0.5]), p = r.entero(2, 60) * 100, f = F.redondea(p * A, 2);
-    return P.ejercicio('Una caja ejerce una fuerza de ' + P.num(f) + ' N sobre una superficie de ' + F.n(A) + ' m' + F.sup(2) + '. &iquest;Qu&eacute; presi&oacute;n ejerce?',
+    return P.ejercicio('Una caja ejerce una fuerza de ' + P.num(f) + ' N sobre una superficie de ' + F.n(A) + ' m' + F.sup(2) + '. &iquest;Qu&eacute; presi&oacute;n ejerce?' + P.considere('P = ' + F.frac('F', 'A') + '.'),
       num(r, p, [f * A, A / f, f + A, f / A / 10], 'Pa', 0),
       ['Presion = fuerza / area.', 'Mientras mas chica el area, mayor la presion.'],
       ['P = ' + P.num(f) + ' / ' + F.n(A) + ' = <b>' + P.num(p, 0) + ' Pa</b>']);
@@ -650,7 +668,8 @@
 
   function arqPesoAparente(r) {
     var W = r.entero(10, 90), E = r.entero(2, W - 3), Wa = W - E;
-    return P.ejercicio('Un objeto pesa ' + W + ' N en el aire y ' + Wa + ' N cuando est&aacute; sumergido en agua. &iquest;Cu&aacute;l es el empuje que recibe?',
+    return P.ejercicio('Un objeto pesa ' + W + ' N en el aire y ' + Wa + ' N cuando est&aacute; sumergido en agua. &iquest;Cu&aacute;l es el empuje que recibe?' +
+      P.considere('E = peso en el aire &minus; peso sumergido (peso aparente).'),
       num(r, E, [W + Wa, W, Wa, W / Wa], 'N', 1),
       ['Dentro del agua "pesa menos" porque el empuje lo ayuda a sostenerse.', 'Empuje = peso en el aire &minus; peso aparente.'],
       ['E = ' + W + ' &minus; ' + Wa + ' = <b>' + E + ' N</b>']);
@@ -668,7 +687,7 @@
   /* ---------- 58 y 59. electricidad ---------- */
   function ohmResistencia(r) {
     var I = r.elige([0.5, 1, 1.5, 2, 2.5, 3, 4, 5]), R = r.entero(4, 60) * 5, V = I * R;
-    return P.ejercicio('Por un aparato conectado a ' + P.num(V, 1) + ' V circula una corriente de ' + P.num(I, 1) + ' A. &iquest;Cu&aacute;l es su resistencia?',
+    return P.ejercicio('Por un aparato conectado a ' + P.num(V, 1) + ' V circula una corriente de ' + P.num(I, 1) + ' A. &iquest;Cu&aacute;l es su resistencia?' + CONS_OHM,
       num(r, R, [V * I, I / V, V - I, R * 2], '&Omega;', 1),
       ['Ley de Ohm: V = I &middot; R, asi que R = V / I.', 'Divide el voltaje entre la corriente.'],
       ['R = ' + P.num(V, 1) + ' / ' + P.num(I, 1) + ' = <b>' + P.num(R, 1) + ' &Omega;</b>']);
@@ -677,7 +696,8 @@
   function resistenciasSerieParalelo(r) {
     if (r.bool()) {
       var rs = [r.entero(1, 20) * 5, r.entero(1, 20) * 5, r.entero(1, 20) * 5], tot = rs[0] + rs[1] + rs[2];
-      return P.ejercicio('Tres resistencias de ' + rs.join(' &Omega;, ') + ' &Omega; se conectan en serie. &iquest;Cu&aacute;l es la resistencia total?',
+      return P.ejercicio('Tres resistencias de ' + rs.join(' &Omega;, ') + ' &Omega; se conectan en serie. &iquest;Cu&aacute;l es la resistencia total?' +
+        P.considere('que en serie R<sub>T</sub> = R<sub>1</sub> + R<sub>2</sub> + R<sub>3</sub>.'),
         num(r, tot, [1 / (1 / rs[0] + 1 / rs[1] + 1 / rs[2]), tot / 3, rs[0] * rs[1] * rs[2] / 100, Math.max.apply(null, rs)], '&Omega;'),
         ['En serie la corriente pasa por una y luego por otra: las resistencias se SUMAN.', 'R<sub>T</sub> = R<sub>1</sub> + R<sub>2</sub> + R<sub>3</sub>.'],
         ['R<sub>T</sub> = ' + rs.join(' + ') + ' = <b>' + tot + ' &Omega;</b>']);
@@ -694,12 +714,12 @@
     var V = r.elige([110, 120, 127, 220]), I = r.entero(1, 20) / 2, Pw = F.redondea(V * I, 2);
     var aparato = r.elige(['una plancha', 'un horno de microondas', 'una secadora de cabello', 'un calentador']);
     if (r.bool()) {
-      return P.ejercicio('Si ' + aparato + ' conectada a ' + V + ' V consume una corriente de ' + F.n(I) + ' A, &iquest;cu&aacute;l es su potencia?',
+      return P.ejercicio('Si ' + aparato + (aparato.indexOf('una ') === 0 ? ' conectada a ' : ' conectado a ') + V + ' V consume una corriente de ' + F.n(I) + ' A, &iquest;cu&aacute;l es su potencia?' + CONS_POTENCIA,
         num(r, Pw, [V / I, I / V * 1000, V + I, Pw * 2], 'W', 1),
         ['Potencia electrica: P = V &middot; I.', 'Multiplica el voltaje por la corriente.'],
         ['P = ' + V + ' &times; ' + F.n(I) + ' = <b>' + P.num(Pw, 1) + ' W</b>']);
     }
-    return P.ejercicio('Un aparato de ' + P.num(Pw, 0) + ' W se conecta a ' + V + ' V. &iquest;Qu&eacute; corriente consume?',
+    return P.ejercicio('Un aparato de ' + P.num(Pw, 0) + ' W se conecta a ' + V + ' V. &iquest;Qu&eacute; corriente consume?' + CONS_POTENCIA,
       num(r, I, [Pw * V / 1000, V / Pw * 10, Pw - V, I * 2], 'A', 2),
       ['P = V &middot; I, asi que I = P / V.', 'Divide la potencia entre el voltaje.'],
       ['I = ' + P.num(Pw, 0) + ' / ' + V + ' = <b>' + P.num(I) + ' A</b>']);
@@ -708,7 +728,8 @@
   function energiaConsumo(r) {
     var W = r.elige([9, 15, 40, 60, 75, 100, 150, 1000, 1500]), h = r.entero(1, 8), d = r.elige([7, 15, 30]);
     var kwh = F.redondea(W * h * d / 1000, 3);
-    return P.ejercicio('Un aparato de ' + P.num(W, 0) + ' W se usa ' + h + ' h al d&iacute;a durante ' + d + ' d&iacute;as. &iquest;Cu&aacute;nta energ&iacute;a consume en kWh?',
+    return P.ejercicio('Un aparato de ' + P.num(W, 0) + ' W se usa ' + h + ' h al d&iacute;a durante ' + d + ' d&iacute;as. &iquest;Cu&aacute;nta energ&iacute;a consume en kWh?' +
+      P.considere('E = P&middot;t, con P en kW y t en horas; 1 kW = 1 000 W.'),
       num(r, kwh, [W * h * d, W * h / 1000, W * d / 1000, kwh * 10], 'kWh', 3),
       ['Energia = potencia &times; tiempo. Usa la potencia en kW y el tiempo en horas.', 'Horas totales: ' + h + ' &times; ' + d + ' = ' + (h * d) + '.'],
       [P.num(W, 0) + ' W = ' + F.n(W / 1000, 3) + ' kW', F.n(W / 1000, 3) + ' &times; ' + (h * d) + ' h = <b>' + F.n(kwh, 3) + ' kWh</b>']);

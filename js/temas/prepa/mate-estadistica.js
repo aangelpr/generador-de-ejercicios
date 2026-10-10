@@ -69,7 +69,8 @@
 
   casos.mediana = function (r, c) {
     var med = mediana(c.datos), orden = c.datos.slice().sort(function (a, b) { return a - b; });
-    var e = P.ejercicio(c.texto + '&iquest;Cu&aacute;l es la mediana de los datos del grupo?',
+    var e = P.ejercicio(c.texto + '&iquest;Cu&aacute;l es la mediana de los datos del grupo?' +
+      P.considere('que la mediana es el dato central de los datos ordenados; si n es par, es el promedio de los dos datos centrales.'),
       P.opciones(r, med, [0, 1, 2, 3, 4, c.media, c.datos[Math.floor(c.n / 2)]].filter(function (x) { return x !== med; }).slice(0, 5), { dec: 2 }),
       ['Primero ORDENA los datos de menor a mayor.', c.n % 2
         ? 'Con ' + c.n + ' datos, la mediana es el que queda en el lugar ' + ((c.n + 1) / 2) + '.'
@@ -222,7 +223,7 @@
     f.forEach(function (x, i) { if (x === max) modas.push(i); });
     if (modas.length > 1) return medRango(r, c);
     var moda = modas[0];
-    return P.ejercicio(c.texto + '&iquest;Cu&aacute;l es la moda de los datos?',
+    return P.ejercicio(c.texto + '&iquest;Cu&aacute;l es la moda de los datos?' + P.considere('que la moda es el dato con mayor frecuencia.'),
       P.opciones(r, moda, [0, 1, 2, 3, 4].filter(function (v) { return v !== moda && v <= c.tema.max; }).concat([max])),
       ['La moda es el dato que MAS se repite.', 'No la confundas con cuantas veces se repite (eso es su frecuencia).'],
       ['Frecuencias: ' + f.map(function (x, i) { return i + ' &rarr; ' + x; }).join(', '), 'Moda: <b>' + moda + '</b>']);
@@ -230,7 +231,7 @@
 
   function medRango(r, c) {
     var mx = Math.max.apply(null, c.datos), mn = Math.min.apply(null, c.datos);
-    return P.ejercicio(c.texto + '&iquest;Cu&aacute;l es el rango (o recorrido) de los datos?',
+    return P.ejercicio(c.texto + '&iquest;Cu&aacute;l es el rango (o recorrido) de los datos?' + P.considere('rango = dato mayor &minus; dato menor.'),
       P.opciones(r, mx - mn, [mx, mn + 1, F.redondea(c.media, 2), mx + mn, c.n].filter(function (v) { return v !== mx - mn; })),
       ['Rango = dato mayor &minus; dato menor.', 'No es el numero de datos ni la media.'],
       ['Mayor: ' + mx + ', menor: ' + mn, 'Rango: ' + mx + ' &minus; ' + mn + ' = <b>' + (mx - mn) + '</b>']);
@@ -239,7 +240,8 @@
   function medPorcentaje(r, c) {
     var k = r.entero(1, Math.min(2, c.tema.max)), cuenta = c.datos.filter(function (x) { return x >= k; }).length;
     var v = F.redondea(cuenta / c.n * 100, 2);
-    return P.ejercicio(c.texto + '&iquest;Qu&eacute; porcentaje de los alumnos respondi&oacute; ' + k + ' o m&aacute;s?',
+    return P.ejercicio(c.texto + '&iquest;Qu&eacute; porcentaje de los alumnos respondi&oacute; ' + k + ' o m&aacute;s?' +
+      P.considere('porcentaje = ' + F.frac('casos', 'total') + ' &times; 100.'),
       P.opciones(r, v, [F.redondea((c.n - cuenta) / c.n * 100, 2), cuenta, F.redondea(c.datos.filter(function (x) { return x > k; }).length / c.n * 100, 2), F.redondea(cuenta / 100 * c.n, 2)],
         { dec: 2, fmt: function (x) { return F.n(x, 2) + '%'; } }),
       ['Cuenta los datos que valen ' + k + ' o mas ("o mas" incluye al ' + k + ').', 'Divide entre el total de alumnos y multiplica por 100.'],
@@ -249,7 +251,8 @@
   function medNuevaMedia(r, c) {
     var nuevo = r.entero(0, c.tema.max + 2), sum = c.media * c.n;
     var v = F.redondea((sum + nuevo) / (c.n + 1), 2);
-    return P.ejercicio(c.texto + 'Si se encuesta a un alumno m&aacute;s que responde ' + nuevo + ', &iquest;cu&aacute;l es la nueva media del grupo? (Redondee a dos decimales.)',
+    return P.ejercicio(c.texto + 'Si se encuesta a un alumno m&aacute;s que responde ' + nuevo + ', &iquest;cu&aacute;l es la nueva media del grupo? (Redondee a dos decimales.)' +
+      P.considere('x&#772; = ' + F.frac('&sum;x<sub>i</sub>', 'n') + ', donde &sum;x<sub>i</sub> es la suma de los datos.'),
       P.opciones(r, v, [F.redondea((c.media + nuevo) / 2, 2), F.redondea((sum + nuevo) / c.n, 2), F.redondea(c.media, 2), F.redondea(sum / (c.n + 1), 2)], { dec: 2 }),
       ['Primero recupera la suma de los datos: media &times; n = ' + F.n(c.media, 2) + ' &times; ' + c.n + '.', 'Suma el dato nuevo y divide entre ' + (c.n + 1) + ' (ahora hay un dato mas).'],
       ['Suma: ' + F.n(sum, 2) + ' + ' + nuevo + ' = ' + F.n(sum + nuevo, 2), 'Media: ' + F.n(sum + nuevo, 2) + ' / ' + (c.n + 1) + ' = <b>' + F.n(v, 2) + '</b>']);
@@ -292,7 +295,8 @@
     var f = frecuencias(c), vals = [];
     f.forEach(function (x, i) { if (x > 0) vals.push(i); });
     var k = r.elige(vals), v = F.redondea(f[k] / c.n * 360, 2);
-    return P.ejercicio(c.texto + 'Si los datos se representan en una gr&aacute;fica circular (de pastel), &iquest;qu&eacute; &aacute;ngulo le corresponde al sector de los alumnos que respondieron ' + k + '?',
+    return P.ejercicio(c.texto + 'Si los datos se representan en una gr&aacute;fica circular (de pastel), &iquest;qu&eacute; &aacute;ngulo le corresponde al sector de los alumnos que respondieron ' + k + '?' +
+      P.considere('&aacute;ngulo = ' + F.frac('frecuencia', 'total') + ' &times; 360&deg;.'),
       P.opciones(r, v, [F.redondea(f[k] / c.n * 100, 2), f[k] * 10, F.redondea(360 / (c.tema.max + 1), 2), F.redondea(f[k] / c.n * 180, 2)], { dec: 2, fmt: function (x) { return F.n(x, 2) + '&deg;'; } }),
       ['El circulo completo (360&deg;) representa a los ' + c.n + ' alumnos.', 'Angulo = (frecuencia / total) &times; 360&deg;.'],
       ['Frecuencia del ' + k + ': ' + f[k], f[k] + ' / ' + c.n + ' &times; 360&deg; = <b>' + F.n(v, 2) + '&deg;</b>']);
@@ -302,7 +306,8 @@
     var f = frecuencias(c), vals = [];
     f.forEach(function (x, i) { if (x > 0) vals.push(i); });
     var k = r.elige(vals), v = F.redondea(f[k] / c.n * 100, 2);
-    return P.ejercicio(c.texto + '&iquest;Cu&aacute;l es la frecuencia relativa (en porcentaje) del valor ' + k + '?',
+    return P.ejercicio(c.texto + '&iquest;Cu&aacute;l es la frecuencia relativa (en porcentaje) del valor ' + k + '?' +
+      P.considere('frecuencia relativa = ' + F.frac('frecuencia del valor', 'total de datos') + ' &times; 100%.'),
       P.opciones(r, v, [f[k], F.redondea(f[k] / c.n, 2), F.redondea((c.n - f[k]) / c.n * 100, 2), F.redondea(k / c.n * 100, 2)], { dec: 2, fmt: function (x) { return F.n(x, 2) + '%'; } }),
       ['Frecuencia relativa = frecuencia del valor / total de datos.', 'Para pasarla a porcentaje multiplica por 100.'],
       [f[k] + ' / ' + c.n + ' = ' + F.n(f[k] / c.n, 4) + ' &rarr; <b>' + F.n(v, 2) + '%</b>']);
@@ -321,7 +326,8 @@
 
   function detPartidos(r, c) {
     var total = c.N * (c.N - 1) / 2;
-    return P.ejercicio(c.texto + '&iquest;Cu&aacute;ntos partidos se jugar&aacute;n en total en el torneo?',
+    return P.ejercicio(c.texto + '&iquest;Cu&aacute;ntos partidos se jugar&aacute;n en total en el torneo?' +
+      P.considere('las combinaciones: C(n, r) = ' + F.frac('n!', 'r!&middot;(n &minus; r)!') + '.'),
       P.opciones(r, total, [c.N * (c.N - 1), c.N - 1, c.N * c.N, c.N * (c.N + 1) / 2]),
       ['Cada pareja de equipos juega UNA vez: son combinaciones de ' + c.N + ' en 2.', 'Si cuentas ' + c.N + ' &times; ' + (c.N - 1) + ' cuentas cada partido dos veces.'],
       ['C(' + c.N + ', 2) = ' + c.N + ' &times; ' + (c.N - 1) + ' / 2 = <b>' + total + '</b>']);
@@ -339,7 +345,7 @@
   /* ---------- torneo: probabilidad ---------- */
   function indComplemento(r, c) {
     var bien = F.fracSimp(c.q - 1, c.q);
-    return P.ejercicio(c.texto + '&iquest;Cu&aacute;l es la probabilidad de que un equipo NO gane su primer partido?',
+    return P.ejercicio(c.texto + '&iquest;Cu&aacute;l es la probabilidad de que un equipo NO gane su primer partido?' + P.considere('P(no A) = 1 &minus; P(A).'),
       P.opciones(r, bien, [F.fracSimp(1, c.q), F.fracSimp(1, c.q * c.q), '0', F.fracSimp(c.q - 1, c.q * c.q), '1']),
       ['Evento complementario: P(no A) = 1 &minus; P(A).', 'Ganar tiene probabilidad ' + F.frac(1, c.q) + '.'],
       ['1 &minus; ' + F.frac(1, c.q) + ' = <b>' + bien + '</b>']);

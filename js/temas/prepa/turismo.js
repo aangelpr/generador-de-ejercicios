@@ -16,6 +16,7 @@
     var base = tarifa * noches, total = base * 1.19;
     return { p: 'Emilio, de reservaciones, recibe una llamada para apartar una habitación de ' + pesos(tarifa) + ' por noche (sin impuestos) durante ' + noches +
         ' noches. Debe aplicar 16% de IVA y 3% de impuesto sobre hospedaje (ISH). ¿Cuál será el costo total de la estancia?',
+      considere: 'costo total = subtotal + IVA + ISH, donde subtotal = tarifa &times; noches y los impuestos se calculan sobre el subtotal.',
       b: total, m: [base, base * 1.16, tarifa * 1.19, tarifa * (noches + 1) * 1.19], fmt: pesos,
       ex: pesos(tarifa) + ' × ' + noches + ' noches = ' + pesos(base) + '; más 16% + 3% = 19%: ' + pesos(base) + ' × 1.19 = ' + pesos(total) };
   }
@@ -24,6 +25,7 @@
     var base = tarifa * noches, total = base * 1.29;
     return { p: 'Se registró una reservación para ' + q + ' por ' + noches + ' noches en una habitación twin de ' + pesos(tarifa) +
         ' por noche (tarifa rack). Calcule el costo total incluyendo 16% de IVA, 3% de ISH y 10% de propina.',
+      considere: 'costo total = subtotal + IVA + ISH + propina, donde subtotal = tarifa &times; noches y los porcentajes se calculan sobre el subtotal.',
       b: total, m: [base, base * 1.16, base * 1.19, tarifa * (noches + 1) * 1.29], fmt: pesos,
       ex: pesos(base) + ' × (1 + 0.16 + 0.03 + 0.10) = ' + pesos(base) + ' × 1.29 = ' + pesos(total) };
   }
@@ -32,6 +34,7 @@
     var v = tarifa * noches * pct / 100;
     return { p: 'El señor Ramírez se hospedó ' + noches + ' noches en una Junior Suite de ' + pesos(tarifa) + ' por noche (sin impuestos). Por ser cliente VIP le correspondía ' + pct +
         '% de descuento, pero no se aplicó. ¿Cuál es el monto del ajuste (sin impuestos) que se le debe descontar?',
+      considere: 'ajuste = tarifa &times; noches &times; porcentaje de descuento.',
       b: v, m: [tarifa * pct / 100, v * 1.16, tarifa * noches - v, v * 1.19], fmt: pesos,
       ex: pesos(tarifa) + ' × ' + noches + ' = ' + pesos(tarifa * noches) + '; ' + pct + '% = ' + pesos(v) };
   }
@@ -48,7 +51,8 @@
         saldo: saldo === 0 ? 'Cuenta saldada' : pesos(Math.abs(saldo)) + (saldo > 0 ? ' deudor' : ' acreedor') });
     });
     return { rel: 'Relacione el saldo final con los cargos y abonos de cada habitación del grupo.', cols: ['Saldo', 'Cargos y abonos'],
-      pares: filas.map(function (f) { return [f.saldo, f.desc]; }), ex: 'Saldo = cargos − abonos: si los cargos son mayores el saldo es deudor; si el abono es mayor, acreedor.' };
+      pares: filas.map(function (f) { return [f.saldo, f.desc]; }), ex: 'Saldo = cargos − abonos: si los cargos son mayores el saldo es deudor; si el abono es mayor, acreedor.',
+      considere: 'saldo = cargos &minus; abonos; si los cargos son mayores el saldo es deudor y si los abonos son mayores, acreedor.' };
   }
 
   P.temaBanco({

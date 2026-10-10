@@ -28,6 +28,18 @@
 
   var casos = {};
 
+  /* Formulas sugeridas ("Considere ..."): toda pregunta que se calcula trae la
+     formula que se usa, aunque el cuadernillo no la de en ese reactivo. */
+  var CONS_DECIMAL = P.considere(F.frac('a', 'b') + ' = a &divide; b: para comparar fracciones, p&aacute;selas a decimal.');
+  var CONS_OP_FRAC = {
+    '+': F.frac('a', 'b') + ' + ' + F.frac('c', 'd') + ' = ' + F.frac('ad + bc', 'bd'),
+    '&minus;': F.frac('a', 'b') + ' &minus; ' + F.frac('c', 'd') + ' = ' + F.frac('ad &minus; bc', 'bd'),
+    '&times;': F.frac('a', 'b') + ' &times; ' + F.frac('c', 'd') + ' = ' + F.frac('ac', 'bd'),
+    '&divide;': F.frac('a', 'b') + ' &divide; ' + F.frac('c', 'd') + ' = ' + F.frac('ad', 'bc')
+  };
+  var CONS_INVERSA = P.considere('que en una proporcionalidad inversa el producto se conserva: x<sub>1</sub> &middot; y<sub>1</sub> = x<sub>2</sub> &middot; y<sub>2</sub>.');
+  var CONS_LINEAL = P.considere('y = mx + b, donde m es lo que se cobra por cada unidad y b la parte fija.');
+
   /* ---------------- 1. Numeros racionales ---------------- */
   casos.racionales = [
     /* la de la guia: ordenar tres fracciones */
@@ -46,7 +58,7 @@
         txt([orden[0], orden[2], orden[1]]), txt([2, 1, 0])];
       var lista = fs.map(function (s, i) { return (i + 1) + '. &nbsp;' + F.frac(s[0], s[1]); }).join('<br>');
       return P.ejercicio(
-        'Del siguiente listado de n&uacute;meros racionales, ordene de menor a mayor.<br><div class="lista-num">' + lista + '</div>',
+        'Del siguiente listado de n&uacute;meros racionales, ordene de menor a mayor.<br><div class="lista-num">' + lista + '</div>' + CONS_DECIMAL,
         P.opciones(r, bien, malas),
         ['Pasa cada fraccion a decimal (divide numerador entre denominador) o ponlas con el mismo denominador.',
           'No te fijes solo en el denominador: 1/5 es mas chico que 1/3 aunque 5 sea mas grande.'],
@@ -85,7 +97,8 @@
         txt([orden[0], orden[2], orden[1], orden[3]]), txt([orden[1], orden[0], orden[3], orden[2]])];
       var lista = items.map(function (t, i) { return (i + 1) + '. &nbsp;' + t; }).join('<br>');
       return P.ejercicio(
-        'Del siguiente listado de n&uacute;meros, ordene de ' + (asc ? 'menor a mayor' : 'mayor a menor') + '.<br><div class="lista-num">' + lista + '</div>',
+        'Del siguiente listado de n&uacute;meros, ordene de ' + (asc ? 'menor a mayor' : 'mayor a menor') + '.<br><div class="lista-num">' + lista + '</div>' +
+          P.considere(F.frac('a', 'b') + ' = a &divide; b y que, entre dos negativos, es menor el que est&aacute; m&aacute;s lejos del cero.'),
         P.opciones(r, bien, malas),
         ['Pasa todo a decimal para compararlos.',
           'Con negativos, el que esta mas lejos del cero es el MAS CHICO: &minus;2.5 &lt; &minus;0.5.'],
@@ -102,7 +115,7 @@
         fs.push(s); vals.push(v);
       }
       var ext = mayor ? Math.max.apply(null, vals) : Math.min.apply(null, vals), i = vals.indexOf(ext);
-      return P.ejercicio('&iquest;Cu&aacute;l de los siguientes n&uacute;meros es el ' + (mayor ? 'mayor' : 'menor') + '?',
+      return P.ejercicio('&iquest;Cu&aacute;l de los siguientes n&uacute;meros es el ' + (mayor ? 'mayor' : 'menor') + '?' + CONS_DECIMAL,
         P.opciones(r, F.frac(fs[i][0], fs[i][1]), fs.filter(function (_, k) { return k !== i; }).map(function (s) { return F.frac(s[0], s[1]); })),
         ['Divide numerador entre denominador y compara los decimales.',
           'Con el mismo numerador, la fraccion mas grande es la de denominador mas chico.'],
@@ -129,7 +142,7 @@
       }
       var bien = r.elige(dentro);
       var malas = r.muestra(fuera, 5).map(function (s) { return F.frac(s[0], s[1]); });
-      return P.ejercicio('&iquest;Cu&aacute;l de los siguientes n&uacute;meros se encuentra entre ' + F.frac(a[0], a[1]) + ' y ' + F.frac(b[0], b[1]) + '?',
+      return P.ejercicio('&iquest;Cu&aacute;l de los siguientes n&uacute;meros se encuentra entre ' + F.frac(a[0], a[1]) + ' y ' + F.frac(b[0], b[1]) + '?' + CONS_DECIMAL,
         P.opciones(r, F.frac(bien[0], bien[1]), malas),
         ['Convierte los dos extremos a decimal: ' + F.frac(a[0], a[1]) + ' = ' + F.n(va, 3) + ' y ' + F.frac(b[0], b[1]) + ' = ' + F.n(vb, 3) + '.',
           'Despues convierte cada inciso y busca el que quede en medio.'],
@@ -154,7 +167,7 @@
         '&minus;': 'Se busca el comun denominador: ' + F.frac('a&middot;d &minus; c&middot;b', 'b&middot;d') + '.',
         '&times;': 'Se multiplica numerador por numerador y denominador por denominador.',
         '&divide;': 'Se multiplica la primera por la segunda volteada: ' + F.frac('a', 'b') + ' &times; ' + F.frac('d', 'c') + '.' }[op];
-      return P.ejercicio('&iquest;Cu&aacute;l es el resultado de ' + F.frac(a, b) + ' ' + op + ' ' + F.frac(c, d) + '?',
+      return P.ejercicio('&iquest;Cu&aacute;l es el resultado de ' + F.frac(a, b) + ' ' + op + ' ' + F.frac(c, d) + '?' + P.considere(CONS_OP_FRAC[op] + '.'),
         P.opciones(r, fr(res[0], res[1]), malas),
         [nombre, 'Al final simplifica dividiendo arriba y abajo entre el mismo numero.'],
         [F.frac(a, b) + ' ' + op + ' ' + F.frac(c, d) + ' = ' + F.frac(m(res[0]), res[1]) + ' = <b>' + fr(res[0], res[1]) + '</b>']);
@@ -192,7 +205,8 @@
       txt += ' + ' + cte;
       var coefs = terminos.map(function (tm) { return Math.abs(tm.c); });
       return P.ejercicio(
-        '&iquest;Cu&aacute;l es el grado de la siguiente expresi&oacute;n?<br><span class="expr">' + txt + '</span>',
+        '&iquest;Cu&aacute;l es el grado de la siguiente expresi&oacute;n?<br><span class="expr">' + txt + '</span>' +
+          P.considere('que el grado de un t&eacute;rmino es la suma de los exponentes de sus variables, y el de la expresi&oacute;n, el mayor de esos grados.'),
         P.opciones(r, g, [terminos.length + 1, Math.max.apply(null, coefs), cte, g - 1, g + 1]),
         ['El grado de un termino es la suma de los exponentes de sus variables; el del polinomio es el mayor de esos.',
           'No es el numero de terminos ni el coeficiente mas grande.' + (mixto ? ' En un termino como x' + F.sup(2) + 'y' + F.sup(3) + ' el grado es 2 + 3.' : '')],
@@ -206,7 +220,8 @@
       var c = r.enteroNoCero(-15, 15), g = suma(exps);
       var t = (c < 0 ? '&minus;' : '') + (Math.abs(c) === 1 ? '' : Math.abs(c)) +
         vars.map(function (v, i) { return v + (exps[i] > 1 ? F.sup(exps[i]) : ''); }).join('');
-      return P.ejercicio('&iquest;Cu&aacute;l es el grado del siguiente monomio?<br><span class="expr">' + t + '</span>',
+      return P.ejercicio('&iquest;Cu&aacute;l es el grado del siguiente monomio?<br><span class="expr">' + t + '</span>' +
+        P.considere('que el grado de un monomio es la suma de los exponentes de sus variables.'),
         P.opciones(r, g, [Math.max.apply(null, exps), vars.length, Math.abs(c), g + 1, g - 1]),
         ['El grado de un monomio es la SUMA de los exponentes de todas sus variables.',
           'Una letra sin exponente tiene exponente 1; el coeficiente no cuenta.'],
@@ -221,7 +236,8 @@
         for (var i = 1; i <= g; i++) c.push(i === g ? r.enteroNoCero(-9, 9) : (r.bool(0.4) ? r.enteroNoCero(-9, 9) : 0));
         return pol(c);
       }
-      return P.ejercicio('&iquest;Cu&aacute;l es el grado del polinomio que resulta de la multiplicaci&oacute;n?<br><span class="expr">(' + poliDe(g1) + ')(' + poliDe(g2) + ')</span>',
+      return P.ejercicio('&iquest;Cu&aacute;l es el grado del polinomio que resulta de la multiplicaci&oacute;n?<br><span class="expr">(' + poliDe(g1) + ')(' + poliDe(g2) + ')</span>' +
+        P.considere('x<sup>m</sup> &middot; x<sup>n</sup> = x<sup>m+n</sup>.'),
         P.opciones(r, g1 + g2, [g1 * g2, Math.max(g1, g2), g1 + g2 + 1, g1 + g2 - 1]),
         ['No hace falta multiplicar todo: basta con el termino de mayor grado de cada parentesis.',
           'Al multiplicar potencias de la misma base los exponentes se SUMAN: x' + F.sup(g1) + ' &middot; x' + F.sup(g2) + ' = x' + F.sup(g1 + g2) + '.'],
@@ -261,7 +277,8 @@
         var lit = (t.x ? 'x' + (t.x > 1 ? F.sup(t.x) : '') : '') + (t.y ? 'y' + (t.y > 1 ? F.sup(t.y) : '') : '');
         txt += (k === 0 ? (t.c < 0 ? '&minus;' : '') : (t.c < 0 ? ' &minus; ' : ' + ')) + abs + lit;
       });
-      return P.ejercicio('&iquest;Cu&aacute;l es el grado del siguiente polinomio con respecto a la variable ' + pide + '?<br><span class="expr">' + txt + '</span>',
+      return P.ejercicio('&iquest;Cu&aacute;l es el grado del siguiente polinomio con respecto a la variable ' + pide + '?<br><span class="expr">' + txt + '</span>' +
+        P.considere('que el grado con respecto a una variable es el mayor exponente con que aparece esa variable.'),
         P.opciones(r, rel, [ga, otro, n, rel + 1]),
         ['El grado relativo a una variable es el MAYOR exponente con que aparece esa variable.',
           'No sumes los exponentes de x y de y: eso seria el grado absoluto.'],
@@ -278,7 +295,8 @@
       var expr = (a === 1 ? '' : a === -1 ? '&minus;' : m(a)) + 'x' + F.sup(2) +
         (b < 0 ? ' &minus; ' : ' + ') + (Math.abs(b) === 1 ? '' : Math.abs(b)) + 'xy' +
         (c < 0 ? ' &minus; ' : ' + ') + (Math.abs(c) === 1 ? '' : Math.abs(c)) + 'y' + F.sup(2);
-      return P.ejercicio('Si x = ' + m(x) + ' y y = ' + m(y) + ', &iquest;cu&aacute;l es el valor num&eacute;rico de la expresi&oacute;n?<br><span class="expr">' + expr + '</span>',
+      return P.ejercicio('Si x = ' + m(x) + ' y y = ' + m(y) + ', &iquest;cu&aacute;l es el valor num&eacute;rico de la expresi&oacute;n?<br><span class="expr">' + expr + '</span>' +
+        P.considere('(&minus;a)' + F.sup(2) + ' = a' + F.sup(2) + ', (&minus;a)(b) = &minus;ab y (&minus;a)(&minus;b) = ab.'),
         P.opciones(r, v, [e1, e2, e3, v + 2 * a], { conSigno: true, fmt: m2 }),
         ['Sustituye cada letra por su valor entre parentesis: x = (' + m(x) + '), y = (' + m(y) + ').',
           'Primero las potencias, luego las multiplicaciones y al final las sumas. Un negativo al cuadrado es positivo.'],
@@ -585,7 +603,7 @@
         'Un campamento de ' + a + ' scouts tiene v&iacute;veres para ' + d + ' d&iacute;as. Si llegan ' + k +
           ' scouts m&aacute;s, &iquest;para cu&aacute;ntos d&iacute;as alcanzar&aacute;n los v&iacute;veres?'
       ]);
-      return P.ejercicio(ctx,
+      return P.ejercicio(ctx + CONS_INVERSA,
         P.opciones(r, nd, [d * (a + k) / a, d - k, d, Math.round(d * a / k)].map(function (x) { return Math.round(x * 10) / 10; }), { dec: 1 }),
         ['A MAS animales, MENOS dias: es proporcionalidad inversa.', 'La comida total en "raciones-dia" no cambia: ' + a + ' &times; ' + d + ' = ' + (a * d) + '.'],
         ['Total de raciones: ' + a + ' &times; ' + d + ' = ' + (a * d), 'Ahora son ' + (a + k) + ': ' + (a * d) + ' &divide; ' + (a + k) + ' = <b>' + nd + ' d&iacute;as</b>']);
@@ -598,7 +616,7 @@
       while (b === a || x !== Math.round(x));
       var ctx = r.elige([['obreros', 'construyen una barda'], ['pintores', 'pintan una escuela'], ['jardineros', 'arreglan un parque']]);
       return P.ejercicio(a + ' ' + ctx[0] + ' ' + ctx[1] + ' en ' + d + ' d&iacute;as. &iquest;Cu&aacute;ntos d&iacute;as tardar&iacute;an ' + b + ' ' + ctx[0] +
-        ' trabajando al mismo ritmo?',
+        ' trabajando al mismo ritmo?' + CONS_INVERSA,
         P.opciones(r, x, [d * b / a, d + (a - b), d - (b - a) * 2, d * a / (b + a)].map(function (v) { return Math.round(v * 10) / 10; }), { dec: 1, unidad: 'd&iacute;as' }),
         ['Mas trabajadores terminan en MENOS dias: es inversa.', 'El trabajo total (trabajador-dias) se conserva: ' + a + ' &times; ' + d + ' = ' + (a * d) + '.'],
         [a + ' &times; ' + d + ' = ' + (a * d) + ' trabajador-dias', (a * d) + ' &divide; ' + b + ' = <b>' + x + ' d&iacute;as</b>']);
@@ -611,7 +629,8 @@
       while (v1 === v2 || t2 * 2 !== Math.round(t2 * 2));
       var horas = function (h) { return F.n(h, 2) + (h === 1 ? ' hora' : ' horas'); };
       return P.ejercicio('Un autob&uacute;s tarda ' + horas(t1) + ' en ir de una ciudad a otra a una velocidad constante de ' + v1 +
-        ' km/h. &iquest;Cu&aacute;nto tardar&iacute;a en el mismo recorrido a ' + v2 + ' km/h?',
+        ' km/h. &iquest;Cu&aacute;nto tardar&iacute;a en el mismo recorrido a ' + v2 + ' km/h?' +
+        P.considere('d = v &middot; t: la distancia es la misma, as&iacute; que v<sub>1</sub> &middot; t<sub>1</sub> = v<sub>2</sub> &middot; t<sub>2</sub>.'),
         P.opciones(r, t2, [t1 * v2 / v1, t1 * (1 - (v2 - v1) / v1), t1 + (v1 - v2) / 10].map(function (v) { return Math.round(v * 100) / 100; }), { fmt: horas }),
         ['La distancia no cambia: d = v &times; t = ' + v1 + ' &times; ' + t1 + ' = ' + (v1 * t1) + ' km.', 'Si va mas rapido tarda menos (inversa): t = d / v.'],
         ['d = ' + (v1 * t1) + ' km', 't = ' + (v1 * t1) + ' / ' + v2 + ' = <b>' + horas(t2) + '</b>']);
@@ -649,7 +668,7 @@
       var tabla = '<table class="tabla"><tr><th>x</th>' + filaX.map(function (t) { return '<td>' + t + '</td>'; }).join('') + '</tr>' +
         '<tr><th>y</th>' + filaY.map(function (t) { return '<td>' + t + '</td>'; }).join('') + '</tr></table>';
       var y0 = k / xs[0];
-      return P.ejercicio('La siguiente tabla representa una relaci&oacute;n de proporcionalidad inversa entre x y y. &iquest;Qu&eacute; valor falta?' + tabla,
+      return P.ejercicio('La siguiente tabla representa una relaci&oacute;n de proporcionalidad inversa entre x y y. &iquest;Qu&eacute; valor falta?' + tabla + CONS_INVERSA,
         P.opciones(r, y, [y0 * xs[oculto] / xs[0], k / (xs[oculto] + 1), y0 - (xs[oculto] - xs[0]), k * xs[oculto] / 100].map(function (v) { return Math.round(v * 100) / 100; }), { dec: 2 }),
         ['En la proporcionalidad inversa el PRODUCTO x &middot; y siempre es el mismo.', 'Calcula ese producto con una columna completa.'],
         ['k = ' + xs[0] + ' &times; ' + y0 + ' = ' + k, 'y = ' + k + ' &divide; ' + xs[oculto] + ' = <b>' + F.n(y) + '</b>']);
@@ -722,7 +741,7 @@
       var c = cobro(r);
       var bien = 'y = ' + c.v + 'x + ' + c.f;
       var malas = ['y = ' + c.f + 'x + ' + c.v, 'y = ' + (c.f + c.v) + 'x', 'y = ' + c.v + 'x', 'y = ' + c.v + '(x + ' + c.f + ')'];
-      return P.ejercicio(c.txt + ' &iquest;Qu&eacute; expresi&oacute;n representa lo que se paga (y) por x ' + c.x + '?',
+      return P.ejercicio(c.txt + ' &iquest;Qu&eacute; expresi&oacute;n representa lo que se paga (y) por x ' + c.x + '?' + CONS_LINEAL,
         P.opciones(r, bien, malas),
         ['Lo que se cobra por cada unidad multiplica a x; lo que se cobra una sola vez va sumado aparte.',
           'Comprueba con x = 1: debe dar ' + c.f + ' + ' + c.v + ' = ' + (c.f + c.v) + '.'],
@@ -732,7 +751,7 @@
     /* cuanto se paga con el modelo lineal */
     function (r) {
       var c = cobro(r), x = r.entero(3, 15), y = c.v * x + c.f;
-      return P.ejercicio(c.txt + ' &iquest;Cu&aacute;nto se paga por ' + x + ' ' + c.x + '?',
+      return P.ejercicio(c.txt + ' &iquest;Cu&aacute;nto se paga por ' + x + ' ' + c.x + '?' + CONS_LINEAL,
         P.opciones(r, y, [c.f * x + c.v, c.v * x, (c.f + c.v) * x, c.v * (x + 1)], { antes: '$', fmt: function (v) { return P.pesos(v).slice(1); } }),
         ['Modelo: y = ' + c.v + 'x + ' + c.f + '.', 'Sustituye x = ' + x + ' y suma la parte fija UNA sola vez.'],
         ['y = ' + c.v + '(' + x + ') + ' + c.f + ' = ' + (c.v * x) + ' + ' + c.f + ' = <b>' + P.pesos(y) + '</b>']);
@@ -744,7 +763,8 @@
       while (b === a) b = r.entero(3, 12);
       var cosa = r.elige([['kg de naranja', 'kg'], ['metros de tela', 'metros'], ['litros de pintura', 'litros']]);
       var pa = precio * a, pb = precio * b;
-      return P.ejercicio('En una tienda, ' + a + ' ' + cosa[0] + ' cuestan $' + pa + '. Si el precio es proporcional a la cantidad, &iquest;cu&aacute;nto cuestan ' + b + ' ' + cosa[1] + '?',
+      return P.ejercicio('En una tienda, ' + a + ' ' + cosa[0] + ' cuestan $' + pa + '. Si el precio es proporcional a la cantidad, &iquest;cu&aacute;nto cuestan ' + b + ' ' + cosa[1] + '?' +
+        P.considere('que en una proporcionalidad directa y = kx, donde k es el precio de una unidad.'),
         P.opciones(r, pb, [pa + (b - a), pa * a / b, pa + b, precio + b], { antes: '$', fmt: function (v) { return P.pesos(v).slice(1); } }),
         ['Proporcional: primero saca cuanto cuesta 1 (la constante k = y / x).', 'Luego multiplica por la nueva cantidad.'],
         ['k = ' + pa + ' / ' + a + ' = ' + precio, b + ' &times; ' + precio + ' = <b>' + P.pesos(pb) + '</b>']);
@@ -785,7 +805,8 @@
       var malas = [[fx(-p), cuad, fx(q), fx(s)], [fx(p), cuad, fx(-q), fx(-s)],
         [fx(p), P.poli([1, q + s, q * s]), fx(-q), fx(-s)], [fx(-p), P.poli([1, q + s, q * s]), fx(-q), fx(-s)]];
       var texto = 'Al evaluar el polinomio P(x) = ' + P.poli([1, c2, c1, c0]) + ' en x = ' + p + ' se obtiene 0, por lo que ___ es un factor. ' +
-        'Al dividir P(x) entre ese factor se obtiene ___. Este &uacute;ltimo se factoriza con ___ y ___ como factores.';
+        'Al dividir P(x) entre ese factor se obtiene ___. Este &uacute;ltimo se factoriza con ___ y ___ como factores.' +
+        P.considere('que si P(a) = 0, entonces (x &minus; a) es un factor de P(x).');
       return P.complete(r, texto, bien, malas,
         ['Si P(' + p + ') = 0, el factor es (x &minus; ' + P.np(p) + '): el signo dentro del parentesis es el contrario.',
           'Para la cuadratica busca dos numeros que multiplicados den ' + (q * s) + ' y sumados den ' + (-(q + s)) + '.'],
@@ -797,7 +818,8 @@
       var p, q;
       do { p = r.enteroNoCero(-9, 9); q = r.enteroNoCero(-9, 9); } while (p === q || p === -q);
       var tri = pol([1, -(p + q), p * q]);
-      return P.ejercicio('&iquest;Cu&aacute;l es la factorizaci&oacute;n del trinomio <span class="expr">' + tri + '</span>?',
+      return P.ejercicio('&iquest;Cu&aacute;l es la factorizaci&oacute;n del trinomio <span class="expr">' + tri + '</span>?' +
+        P.considere('x' + F.sup(2) + ' + (a + b)x + ab = (x + a)(x + b).'),
         P.opciones(r, fx(p) + fx(q), [fx(-p) + fx(-q), fx(p) + fx(-q), fx(-p) + fx(q)]),
         ['Busca dos numeros que MULTIPLICADOS den ' + m(p * q) + ' y SUMADOS den ' + m(-(p + q)) + '.',
           'Comprueba multiplicando los binomios del inciso.'],
@@ -811,7 +833,8 @@
       while (F.mcd(a, b) !== 1) b = r.entero(1, 9);
       var expr = (a * a) + 'x' + F.sup(2) + ' &minus; ' + (b * b);
       var bien = binom(a, -b) + binom(a, b);
-      return P.ejercicio('Factorice la expresi&oacute;n <span class="expr">' + expr + '</span>.',
+      return P.ejercicio('Factorice la expresi&oacute;n <span class="expr">' + expr + '</span>.' +
+        P.considere('a' + F.sup(2) + ' &minus; b' + F.sup(2) + ' = (a &minus; b)(a + b).'),
         P.opciones(r, bien, [binom(a, -b) + F.sup(2), binom(a, b) + F.sup(2), binom(a * a, -b) + binom(1, b), binom(a, -(b * b)) + binom(a, b * b)]),
         ['Es una diferencia de cuadrados: A' + F.sup(2) + ' &minus; B' + F.sup(2) + ' = (A &minus; B)(A + B).',
           'A es la raiz de ' + (a * a) + 'x' + F.sup(2) + ' y B la raiz de ' + (b * b) + '.'],
@@ -826,7 +849,8 @@
       var bien = g + 'x(' + pol([a, b, c]) + ')';
       var malas = [g + 'x(' + pol([a, b, 0]) + ')', g + 'x(' + pol([a, -b, c]) + ')', g + 'x' + F.sup(2) + '(' + pol([a, b, c]) + ')',
         g + 'x(' + pol([a, g * b, c]) + ')', (2 * g) + 'x(' + pol([a, b, c]) + ')'];
-      return P.ejercicio('Factorice completamente por factor com&uacute;n: <span class="expr">' + expr + '</span>.',
+      return P.ejercicio('Factorice completamente por factor com&uacute;n: <span class="expr">' + expr + '</span>.' +
+        P.considere('ab + ac + ad = a(b + c + d).'),
         P.opciones(r, bien, malas),
         ['El factor comun es el maximo comun divisor de los coeficientes y la x con el menor exponente.',
           'Divide CADA termino entre el factor comun; ningun termino se pierde.'],
@@ -844,7 +868,8 @@
       var cand = [[p, t, s, q], [p, -q, s, -t], [p, q, s, -t], [p, -q, s, t], [s, q, p, t]];
       var malas = cand.filter(function (c) { return !mismo(c[0], c[1], c[2], c[3]); }).map(function (c) { return binom(c[0], c[1]) + binom(c[2], c[3]); });
       var tri = pol([A, B, C]);
-      return P.ejercicio('&iquest;Cu&aacute;l es la factorizaci&oacute;n de <span class="expr">' + tri + '</span>?',
+      return P.ejercicio('&iquest;Cu&aacute;l es la factorizaci&oacute;n de <span class="expr">' + tri + '</span>?' +
+        P.considere('(px + q)(sx + t) = psx' + F.sup(2) + ' + (pt + qs)x + qt.'),
         P.opciones(r, binom(p, q) + binom(s, t), malas),
         ['Multiplica cada inciso: el primer termino debe dar ' + A + 'x' + F.sup(2) + ', el ultimo ' + m(C) + ' y el de en medio ' + m(B) + 'x.',
           'El termino de en medio sale de sumar los productos cruzados.'],
@@ -856,7 +881,8 @@
     function (r) {
       var k = r.enteroNoCero(-9, 9), tri = pol([1, 2 * k, k * k]);
       var bien = binom(1, k) + F.sup(2);
-      return P.ejercicio('Factorice el trinomio cuadrado perfecto <span class="expr">' + tri + '</span>.',
+      return P.ejercicio('Factorice el trinomio cuadrado perfecto <span class="expr">' + tri + '</span>.' +
+        P.considere('a' + F.sup(2) + ' + 2ab + b' + F.sup(2) + ' = (a + b)' + F.sup(2) + ' y a' + F.sup(2) + ' &minus; 2ab + b' + F.sup(2) + ' = (a &minus; b)' + F.sup(2) + '.'),
         P.opciones(r, bien, [binom(1, -k) + F.sup(2), binom(1, k) + binom(1, -k), binom(1, 2 * k) + F.sup(2), binom(1, k * k) + F.sup(2)]),
         ['x' + F.sup(2) + ' + 2kx + k' + F.sup(2) + ' = (x + k)' + F.sup(2) + '.', 'El signo del binomio es el del termino de en medio.'],
         ['k = ' + m(k) + ' porque 2(' + m(k) + ') = ' + m(2 * k) + ' y (' + m(k) + ')' + F.sup(2) + ' = ' + (k * k), tri + ' = <b>' + bien + '</b>']);
@@ -872,7 +898,8 @@
       for (var d = 1; d <= Math.abs(pq); d++) if (pq % d === 0 && d !== Math.abs(p) && d !== Math.abs(q)) otros.push([d, pq / d]);
       var malas = [sol(-p, -q), sol(p, -q), sol(-p, q)];
       if (otros.length) { var o = r.elige(otros); malas.push(sol(o[0], o[1])); }
-      return P.ejercicio('&iquest;Cu&aacute;les son las soluciones de la ecuaci&oacute;n <span class="expr">' + ec + '</span>?',
+      return P.ejercicio('&iquest;Cu&aacute;les son las soluciones de la ecuaci&oacute;n <span class="expr">' + ec + '</span>?' +
+        P.considere('x = ' + F.frac('&minus;b &plusmn; &radic;(b' + F.sup(2) + ' &minus; 4ac)', '2a') + '.'),
         P.opciones(r, sol(p, q), malas),
         ['Factoriza: busca dos numeros que multiplicados den ' + m(p * q) + ' y sumados ' + m(-(p + q)) + '.',
           'Si (x &minus; a)(x &minus; b) = 0, entonces x = a o x = b: los signos se invierten al despejar.'],
@@ -952,7 +979,9 @@
       bien = 'x<sup>' + (fe[1] === 1 ? fe[0] : fe[0] + '/' + fe[1]) + '</sup>'; malas = [x(2 * a), 'x<sup>2/' + a + '</sup>', x(a - 2), F.frac(x(a), 2)];
       sol = 'Raiz cuadrada = exponente 1/2: x<sup>' + a + '/2</sup>';
     }
-    return P.ejercicio('Aplicando las leyes de los exponentes, &iquest;a qu&eacute; es igual <span class="expr">' + enun + '</span>?',
+    return P.ejercicio('Aplicando las leyes de los exponentes, &iquest;a qu&eacute; es igual <span class="expr">' + enun + '</span>?' +
+      P.considere('a<sup>m</sup> &middot; a<sup>n</sup> = a<sup>m+n</sup>, ' + F.frac('a<sup>m</sup>', 'a<sup>n</sup>') + ' = a<sup>m&minus;n</sup>, (ab)<sup>n</sup> = a<sup>n</sup>b<sup>n</sup>, ' +
+        '(a<sup>m</sup>)<sup>n</sup> = a<sup>mn</sup>, a<sup>&minus;n</sup> = ' + F.frac(1, 'a<sup>n</sup>') + ' y &radic;(a<sup>m</sup>) = a<sup>m/2</sup>.'),
       P.opciones(r, bien, malas.filter(function (t) { return t && t !== bien; })),
       ['x<sup>a</sup> &middot; x<sup>b</sup> = x<sup>a+b</sup>, x<sup>a</sup>/x<sup>b</sup> = x<sup>a&minus;b</sup>, (x<sup>a</sup>)<sup>b</sup> = x<sup>ab</sup>.', 'x<sup>&minus;b</sup> = 1/x<sup>b</sup> y la raiz b-esima de x<sup>a</sup> es x<sup>a/b</sup>.'],
       [sol, 'Resultado: <b>' + bien + '</b>']);
@@ -965,7 +994,8 @@
       var dig = r.entero(11, 99), e = r.elige([-6, -5, -4, -3, 3, 4, 5, 6, 7]);
       var mant = dig / 10, valor = mant * Math.pow(10, e);
       var txt = e < 0 ? '0.' + '0'.repeat(-e - 1) + String(dig) : P.num(valor, 0).replace(/ /g, ',');
-      return P.ejercicio('&iquest;C&oacute;mo se escribe en notaci&oacute;n cient&iacute;fica el n&uacute;mero ' + txt + '?',
+      return P.ejercicio('&iquest;C&oacute;mo se escribe en notaci&oacute;n cient&iacute;fica el n&uacute;mero ' + txt + '?' +
+        P.considere('que en notaci&oacute;n cient&iacute;fica se escribe a &times; 10<sup>n</sup>, con 1 &le; a &lt; 10.'),
         P.opciones(r, cientifico(mant, e), [cientifico(mant, -e), cientifico(dig, e - 1 === 0 ? 2 : e - 1), cientifico(mant, e + (e < 0 ? -1 : 1)), cientifico(mant / 10, e + 1)]),
         ['En notacion cientifica queda un solo digito (distinto de 0) antes del punto: ' + F.n(mant) + '.', 'El exponente cuenta cuantos lugares se movio el punto: negativo si el numero es menor que 1.'],
         [txt + ' = <b>' + cientifico(mant, e) + '</b>']);
@@ -973,7 +1003,8 @@
     var a = r.entero(2, 9), b = r.entero(1, 4), e1 = r.entero(-5, 8), e2 = r.entero(-6, 6);
     var prod = a * b, exp = e1 + e2, mant = prod, ex = exp;
     if (prod >= 10) { mant = prod / 10; ex = exp + 1; }
-    return P.ejercicio('&iquest;Cu&aacute;l es el resultado de <span class="expr">(' + cientifico(a, e1) + ')(' + cientifico(b, e2) + ')</span> en notaci&oacute;n cient&iacute;fica?',
+    return P.ejercicio('&iquest;Cu&aacute;l es el resultado de <span class="expr">(' + cientifico(a, e1) + ')(' + cientifico(b, e2) + ')</span> en notaci&oacute;n cient&iacute;fica?' +
+      P.considere('(a &times; 10<sup>m</sup>)(b &times; 10<sup>n</sup>) = (a &middot; b) &times; 10<sup>m+n</sup>, y que el n&uacute;mero que multiplica a la potencia de 10 debe quedar entre 1 y 10.'),
       P.opciones(r, cientifico(mant, ex), [cientifico(mant, e1 * e2 === ex ? ex + 2 : e1 * e2), cientifico(a + b, exp), cientifico(prod >= 10 ? prod : mant, prod >= 10 ? exp : ex - 1),
         cientifico(mant, ex + 1), cientifico(mant, ex - 2), cientifico(a + b, e1 * e2)]),
       ['Multiplica las partes decimales y SUMA los exponentes de 10.', 'Si la parte decimal queda de 10 o mas, recorre el punto y suma 1 al exponente.'],
@@ -992,7 +1023,8 @@
     var mal4 = [A[0] * B[0], res[1], res[2]];
     var mal5 = [res[0], resta ? A[1] + B[1] : A[1] - B[1], res[2]];   // signo equivocado solo en x
     var mal6 = [res[0], A[1] * B[1], res[2]];                           // multiplica en lugar de sumar
-    return P.ejercicio('&iquest;Cu&aacute;l es el resultado de <span class="expr">(' + pol(A) + ') ' + (resta ? '&minus;' : '+') + ' (' + pol(B) + ')</span>?',
+    return P.ejercicio('&iquest;Cu&aacute;l es el resultado de <span class="expr">(' + pol(A) + ') ' + (resta ? '&minus;' : '+') + ' (' + pol(B) + ')</span>?' +
+      P.considere('que s&oacute;lo se suman o restan los t&eacute;rminos semejantes' + (resta ? ' y que el signo &minus; antes del par&eacute;ntesis cambia el signo de cada t&eacute;rmino' : '') + '.'),
       P.opciones(r, pol(res), [pol(mal1), pol(mal2), pol(mal3), pol(mal4), pol(mal5), pol(mal6)].filter(function (t) { return t !== pol(res); })),
       ['Solo se suman (o restan) los terminos SEMEJANTES: misma variable con el mismo exponente.', resta ? 'El signo menos antes del parentesis cambia el signo de TODOS los terminos del segundo polinomio.' : 'Suma los coeficientes de x' + F.sup(2) + ', luego los de x y al final los numeros.'],
       ['x' + F.sup(2) + ': ' + m(A[0]) + (resta ? ' &minus; ' : ' + ') + P.np(B[0]) + ' = ' + m(res[0]) + '; x: ' + m(A[1]) + (resta ? ' &minus; ' : ' + ') + P.np(B[1]) + ' = ' + m(res[1]) +
@@ -1019,7 +1051,7 @@
       enun = '(x ' + (sg > 0 ? '+ ' : '&minus; ') + b + ')' + F.sup(3); nombre = 'cubo de un binomio: (a &plusmn; b)' + F.sup(3) + ' = a' + F.sup(3) + ' &plusmn; 3a' + F.sup(2) + 'b + 3ab' + F.sup(2) + ' &plusmn; b' + F.sup(3);
       bien = pol([1, 3 * b * sg, 3 * b * b, b * b * b * sg]); malas = [pol([1, 0, 0, b * b * b * sg]), pol([1, b * sg, b * b, b * b * b * sg]), pol([1, 3 * b * sg, 3 * b * b * sg, b * b * b]), pol([1, 3 * b * sg, 3 * b, b * b * b * sg])];
     }
-    return P.ejercicio('Desarrolle el producto notable <span class="expr">' + enun + '</span>.',
+    return P.ejercicio('Desarrolle el producto notable <span class="expr">' + enun + '</span>.' + P.considere(nombre.split(': ')[1] + '.'),
       P.opciones(r, bien, malas.filter(function (t) { return t !== bien; })),
       ['Es un ' + nombre + '.', 'Puedes comprobar multiplicando termino a termino.'],
       [enun + ' = <b>' + bien + '</b>']);
@@ -1034,7 +1066,8 @@
     var bien = '(' + ax + (suma ? ' + ' : ' &minus; ') + b + ')' + tri(suma ? -1 : 1);
     var malas = ['(' + ax + (suma ? ' + ' : ' &minus; ') + b + ')' + tri(suma ? 1 : -1), '(' + ax + (suma ? ' &minus; ' : ' + ') + b + ')' + tri(suma ? -1 : 1),
       '(' + ax + (suma ? ' + ' : ' &minus; ') + b + ')' + F.sup(3), '(' + ax + (suma ? ' &minus; ' : ' + ') + b + ')' + tri(suma ? 1 : -1)];
-    return P.ejercicio('Factorice la ' + (suma ? 'suma' : 'diferencia') + ' de cubos <span class="expr">' + expr + '</span>.',
+    return P.ejercicio('Factorice la ' + (suma ? 'suma' : 'diferencia') + ' de cubos <span class="expr">' + expr + '</span>.' +
+      P.considere('a' + F.sup(3) + ' + b' + F.sup(3) + ' = (a + b)(a' + F.sup(2) + ' &minus; ab + b' + F.sup(2) + ') y a' + F.sup(3) + ' &minus; b' + F.sup(3) + ' = (a &minus; b)(a' + F.sup(2) + ' + ab + b' + F.sup(2) + ').'),
       P.opciones(r, bien, malas),
       ['a' + F.sup(3) + ' &plusmn; b' + F.sup(3) + ' = (a &plusmn; b)(a' + F.sup(2) + ' &#8723; ab + b' + F.sup(2) + '): el binomio lleva el MISMO signo y el ab el contrario.',
         'Aqui a = ' + ax + ' (porque (' + ax + ')' + F.sup(3) + ' = ' + (a3 === 1 ? '' : a3) + 'x' + F.sup(3) + ') y b = ' + b + '.'],
@@ -1052,7 +1085,8 @@
     var expr = term(p * s, 'xy', true) + term(p * t, 'x') + term(q * s, 'y') + term(q * t, '');
     var bien = bin(p, 'x', q) + bin(s, 'y', t);
     var malas = [bin(p, 'x', t) + bin(s, 'y', q), bin(p, 'x', -q) + bin(s, 'y', -t), bin(p, 'x', q) + bin(s, 'y', -t), bin(p, 'y', q) + bin(s, 'x', t)];
-    return P.ejercicio('Factorice por agrupaci&oacute;n de t&eacute;rminos: <span class="expr">' + expr + '</span>.',
+    return P.ejercicio('Factorice por agrupaci&oacute;n de t&eacute;rminos: <span class="expr">' + expr + '</span>.' +
+      P.considere('ax + ay + bx + by = a(x + y) + b(x + y) = (a + b)(x + y).'),
       P.opciones(r, bien, malas.filter(function (x) { return x !== bien; })),
       ['Agrupa de dos en dos: (' + term(p * s, 'xy', true) + term(p * t, 'x') + ') + (' + term(q * s, 'y', true) + term(q * t, '') + ').', 'Saca el factor comun de cada grupo; debe quedar el mismo binomio en los dos.'],
       [(p === 1 ? '' : p) + 'x' + bin(s, 'y', t) + ' ' + (q < 0 ? '&minus; ' : '+ ') + Math.abs(q) + bin(s, 'y', t), '= <b>' + bien + '</b>']);

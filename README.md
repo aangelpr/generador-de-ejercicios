@@ -189,13 +189,21 @@ variantes nuevas cada vez.
   **"Del siguiente listado, identifique..."** (`1, 3, 5`), **"Ordene..."**, la línea
   **"Considere..."** con la fórmula, código con números de línea y
   **multirreactivos** (un texto que sirve para varias preguntas seguidas).
-- **Las fórmulas y los datos que da la versión de práctica.** En los temas donde el
-  cuadernillo pone una línea "Considere..." (progresiones, π = 3.14, valores de seno
-  y coseno, coordenadas polares, logaritmos, desviación estándar, probabilidad de
-  sucesos independientes y binomial, números de oxidación, R = 0.0821, g = 9.81,
-  densidad del agua e índice de refracción), toda pregunta con cálculo la trae,
-  también las formas nuevas de preguntar. Las preguntas de conceptos (en qué
-  cuadrante está un punto, qué propiedad es, qué ley explica algo) van sin ella.
+- **La fórmula en cada pregunta que se calcula.** Como en la versión de práctica,
+  debajo de la pregunta va la línea "Considere..." con la fórmula o los datos que
+  hacen falta. El cuadernillo sólo la pone en algunos reactivos (progresiones,
+  π = 3.14, valores de seno y coseno, coordenadas polares, logaritmos, desviación
+  estándar, probabilidad, números de oxidación, R = 0.0821, g = 9.81, densidad del
+  agua e índice de refracción); aquí la trae **toda** pregunta con cuentas, también
+  las formas nuevas de preguntar: velocidad (v = d/t), aceleración, F = ma, Ohm
+  (V = IR), Boyle, Charles, Pascal, Hooke, pendiente, punto medio, distancia,
+  Pitágoras, áreas y volúmenes, factorización, límites, derivadas e integrales,
+  media, mediana y rango, A = Z + N, C<sub>n</sub>H<sub>2n+2</sub>, densidad de
+  población, tasa de natalidad, PIB per cápita, salario diario, aguinaldo, ISR,
+  utilidad, IVA a cargo, costo de la estancia con IVA e ISH... Van sin ella las
+  preguntas de conceptos (qué ley explica algo, en qué cuadrante está un punto) y las
+  que piden un dato de memoria (cuántos días de vacaciones tocan, cuántos electrones
+  caben en un subnivel), porque ahí la fórmula sería la respuesta.
 - Lo que se calcula (matemáticas, física, nómina, contabilidad, costos de hotel)
   sale con números nuevos; lo de conceptos sale de un banco con varias variantes
   por reactivo, con filas e incisos revueltos.
