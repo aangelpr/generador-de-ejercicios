@@ -53,7 +53,8 @@
        enteros si los rellenos deben ser enteros (por defecto, si la
                respuesta es entera)
        fijo    imprime siempre `dec` decimales (8.00 en vez de 8)
-       conSigno deja pasar distractores negativos aunque la respuesta sea positiva */
+       conSigno deja pasar distractores negativos aunque la respuesta sea positiva
+       rango   [min, max]: los valores inventados no salen de ahi */
   prepa.opciones = function (r, correcta, errores, op) {
     op = op || {};
     errores = errores || [];
@@ -107,15 +108,23 @@
     }
     if (enteros) paso = Math.max(1, Math.round(paso));
     else paso = Math.max(Math.pow(10, -dec), F.redondea(paso, dec));
+    /* si con ese paso no cabe nada de un lado (errores tipicos muy lejanos y
+       una respuesta chica), se prueba con un paso del 10% de la respuesta */
+    var pasos = [paso];
+    var corto = enteros ? Math.max(1, Math.round(Math.abs(correcta) * 0.1)) : Math.max(Math.pow(10, -dec), F.redondea(Math.abs(correcta) * 0.1, dec));
+    if (corto < paso) pasos.push(corto);
     function cercano(lado, libre) {
       if (!numerica) return null;
-      var ks = r.baraja([1, 2, 3, 4, 5, 6]);
-      for (var i = 0; i < ks.length; i++) {
-        var v = correcta + lado * ks[i] * paso;
-        /* nada absurdo: ni la cuarta parte de la respuesta ni cuatro veces mas */
-        if (!libre && correcta > 0 && (v < correcta / 4 || v > correcta * 4)) continue;
-        var c = valido(enteros ? Math.round(v) : F.redondea(v, dec));
-        if (c) return c;
+      for (var j = 0; j < pasos.length; j++) {
+        var ks = r.baraja([1, 2, 3, 4, 5, 6]);
+        for (var i = 0; i < ks.length; i++) {
+          var v = correcta + lado * ks[i] * pasos[j];
+          /* nada absurdo: ni la cuarta parte de la respuesta ni cuatro veces mas */
+          if (!libre && correcta > 0 && (v < correcta / 4 || v > correcta * 4)) continue;
+          if (op.rango && (v < op.rango[0] || v > op.rango[1])) continue;
+          var c = valido(enteros ? Math.round(v) : F.redondea(v, dec));
+          if (c) return c;
+        }
       }
       return null;
     }

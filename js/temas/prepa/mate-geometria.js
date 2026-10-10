@@ -836,13 +836,13 @@
   }
 
   function semCriterios(r) {
-    var C = [['Tienen dos &aacute;ngulos respectivamente iguales', '&Aacute;ngulo - &aacute;ngulo (AA)'],
+    var C = [['Tienen sus &aacute;ngulos correspondientes iguales', '&Aacute;ngulo - &aacute;ngulo - &aacute;ngulo (AAA)'],
       ['Sus tres lados correspondientes son proporcionales', 'Lado - lado - lado (LLL)'],
       ['Dos lados son proporcionales y el &aacute;ngulo que forman es igual', 'Lado - &aacute;ngulo - lado (LAL)']];
     var c = r.elige(C);
     return P.ejercicio('Dos tri&aacute;ngulos cumplen la siguiente condici&oacute;n. &iquest;Qu&eacute; criterio de semejanza se aplica?<br><div class="lectura">' + c[0] + '.</div>',
-      P.opciones(r, c[1], C.filter(function (x) { return x !== c; }).map(function (x) { return x[1]; }).concat(['Hipotenusa - cateto (HC)'])),
-      ['AA: basta con dos angulos iguales. LLL: los tres lados en la misma proporcion.', 'LAL: dos lados proporcionales y el angulo ENTRE ellos igual.'],
+      P.opciones(r, c[1], C.filter(function (x) { return x !== c; }).map(function (x) { return x[1]; }).concat(['&Aacute;ngulo - lado - &aacute;ngulo (ALA)'])),
+      ['AAA: los angulos correspondientes iguales. LLL: los tres lados en la misma proporcion.', 'LAL: dos lados proporcionales y el angulo ENTRE ellos igual.'],
       ['Criterio: <b>' + c[1] + '</b>']);
   }
 
@@ -1214,14 +1214,95 @@
       [c + R2 + ' &divide; ' + R2 + ' = <b>' + c + ' cm</b>']);
   }
 
+  /* ================= temas de la guia de estudio =================
+     1.12 Congruencia y semejanza y 1.13 Figuras geometricas. */
+
+  function poligonoNombre(r) {
+    var POL = [[3, 'Tri&aacute;ngulo'], [4, 'Cuadril&aacute;tero'], [5, 'Pent&aacute;gono'], [6, 'Hex&aacute;gono'], [7, 'Hept&aacute;gono'],
+      [8, 'Oct&aacute;gono'], [9, 'Ene&aacute;gono'], [10, 'Dec&aacute;gono'], [12, 'Dodec&aacute;gono']];
+    var p = r.elige(POL);
+    if (r.bool()) {
+      return P.ejercicio('&iquest;C&oacute;mo se llama el pol&iacute;gono que tiene ' + p[0] + ' lados?',
+        P.opciones(r, p[1], r.muestra(POL.filter(function (x) { return x !== p; }), 4).map(function (x) { return x[1]; })),
+        ['El nombre viene del griego: penta = 5, hexa = 6, hepta = 7, octa = 8, enea = 9, deca = 10, dodeca = 12.', 'Un poligono de n lados tambien tiene n vertices y n angulos.'],
+        ['Un poligono de ' + p[0] + ' lados es un <b>' + p[1].toLowerCase() + '</b>']);
+    }
+    var d = p[0] * (p[0] - 3) / 2;
+    return P.ejercicio('&iquest;Cu&aacute;ntas diagonales tiene un ' + p[1].toLowerCase() + '?' + P.considere('D = ' + F.frac('n(n &minus; 3)', 2) + '.'),
+      P.opciones(r, d, [p[0] * (p[0] - 3), p[0], p[0] * (p[0] - 1) / 2, p[0] - 3]),
+      ['Desde cada vertice salen n &minus; 3 diagonales (no hacia el mismo ni hacia sus dos vecinos).', 'Se divide entre 2 porque cada diagonal se conto dos veces.'],
+      ['D = ' + p[0] + '(' + p[0] + ' &minus; 3) / 2 = <b>' + d + '</b>']);
+  }
+
+  function congruencia(r) {
+    var C = [['Tienen dos lados iguales y el &aacute;ngulo comprendido entre ellos tambi&eacute;n es igual', 'Lado - &aacute;ngulo - lado (LAL)'],
+      ['Tienen un lado igual y los dos &aacute;ngulos adyacentes a ese lado tambi&eacute;n son iguales', '&Aacute;ngulo - lado - &aacute;ngulo (ALA)'],
+      ['Tienen sus tres lados respectivamente iguales', 'Lado - lado - lado (LLL)']];
+    var c = r.elige(C);
+    var sem = r.bool(0.35);
+    if (sem) {
+      var ops = ['Son congruentes: tienen la misma forma y el mismo tama&ntilde;o', 'Son semejantes: tienen la misma forma pero no necesariamente el mismo tama&ntilde;o',
+        'No guardan ninguna relaci&oacute;n', 'Son congruentes solo si son rect&aacute;ngulos'];
+      var k = r.entero(2, 4), l = [r.entero(3, 6), r.entero(4, 8), r.entero(5, 9)];
+      return P.ejercicio('Un tri&aacute;ngulo mide ' + l.join(', ') + ' cm y otro mide ' + l.map(function (x) { return x * k; }).join(', ') + ' cm. &iquest;Qu&eacute; relaci&oacute;n hay entre ellos?',
+        P.opciones(r, ops[1], [ops[0], ops[2], ops[3]]),
+        ['Congruentes: mismos lados y angulos (son copias exactas). Semejantes: lados proporcionales y angulos iguales.', 'Divide cada lado del segundo entre el del primero.'],
+        ['Cada lado es ' + k + ' veces el otro: <b>' + ops[1].toLowerCase() + '</b>']);
+    }
+    return P.ejercicio('Dos tri&aacute;ngulos cumplen la siguiente condici&oacute;n. &iquest;Qu&eacute; criterio de congruencia se aplica?<br><div class="lectura">' + c[0] + '.</div>',
+      P.opciones(r, c[1], C.filter(function (x) { return x !== c; }).map(function (x) { return x[1]; }).concat(['&Aacute;ngulo - &aacute;ngulo - &aacute;ngulo (AAA)'])),
+      ['Congruentes = misma forma y mismo tamano.', 'AAA no garantiza congruencia: dos triangulos con los mismos angulos pueden ser de distinto tamano (eso es semejanza).'],
+      ['Criterio: <b>' + c[1] + '</b>']);
+  }
+
+  function areasPerimetros(r) {
+    var tipo = r.entero(0, 5), enun, v, malas, sol, u = 'cm' + F.sup(2);
+    if (tipo === 0) {
+      var d1 = r.entero(4, 20), d2 = r.entero(4, 20);
+      enun = '&iquest;Cu&aacute;l es el &aacute;rea de un rombo cuyas diagonales miden ' + d1 + ' cm y ' + d2 + ' cm?';
+      v = d1 * d2 / 2; malas = [d1 * d2, (d1 + d2) * 2, d1 * d2 / 4, (d1 + d2) / 2]; sol = 'A = d<sub>1</sub>d<sub>2</sub> / 2 = ' + d1 + ' &times; ' + d2 + ' / 2';
+    } else if (tipo === 1) {
+      var b1 = r.entero(6, 20), b2 = r.entero(2, b1 - 2), h = r.entero(3, 12);
+      enun = '&iquest;Cu&aacute;l es el &aacute;rea de un trapecio de bases ' + b1 + ' cm y ' + b2 + ' cm, y altura ' + h + ' cm?';
+      v = (b1 + b2) * h / 2; malas = [(b1 + b2) * h, b1 * b2 * h / 2, b1 * h / 2 + b2, (b1 - b2) * h / 2]; sol = 'A = (b<sub>1</sub> + b<sub>2</sub>)h / 2 = (' + b1 + ' + ' + b2 + ') &times; ' + h + ' / 2';
+    } else if (tipo === 2) {
+      var b = r.entero(5, 20), hh = r.entero(3, 12), lado = hh + r.entero(1, 5);
+      enun = 'Un paralelogramo tiene ' + b + ' cm de base, ' + lado + ' cm de lado inclinado y ' + hh + ' cm de altura. &iquest;Cu&aacute;l es su &aacute;rea?';
+      v = b * hh; malas = [b * lado, b * hh / 2, 2 * (b + lado), b * lado / 2]; sol = 'A = base &times; altura = ' + b + ' &times; ' + hh + ' (no se usa el lado inclinado)';
+    } else if (tipo === 3) {
+      var n = r.elige([5, 6, 8]), l = r.entero(4, 12), ap = F.redondea(l / (2 * Math.tan(Math.PI / n)), 2), nom = { 5: 'pent&aacute;gono', 6: 'hex&aacute;gono', 8: 'oct&aacute;gono' }[n];
+      enun = '&iquest;Cu&aacute;l es el &aacute;rea de un ' + nom + ' regular de ' + l + ' cm de lado y ' + P.num(ap) + ' cm de apotema?' + P.considere('A = ' + F.frac('P &middot; a', 2) + ', donde P es el per&iacute;metro.');
+      v = F.redondea(n * l * ap / 2, 2); malas = [n * l * ap, n * l, l * ap / 2, n * l * ap / 4]; sol = 'P = ' + n + ' &times; ' + l + ' = ' + (n * l) + ' cm; A = ' + (n * l) + ' &times; ' + P.num(ap) + ' / 2';
+    } else if (tipo === 4) {
+      var rr = r.entero(2, 15), area = r.bool();
+      if (area) {
+        enun = '&iquest;Cu&aacute;l es el &aacute;rea de un c&iacute;rculo de ' + rr + ' cm de radio?' + P.considere('&pi; = 3.14.');
+        v = F.redondea(3.14 * rr * rr, 2); malas = [2 * 3.14 * rr, 3.14 * rr, 3.14 * 4 * rr * rr, 3.14 * rr * rr / 2]; sol = 'A = &pi;r' + F.sup(2) + ' = 3.14 &times; ' + (rr * rr);
+      } else {
+        u = 'cm';
+        enun = '&iquest;Cu&aacute;nto mide la circunferencia (el per&iacute;metro) de un c&iacute;rculo de ' + (2 * rr) + ' cm de di&aacute;metro?' + P.considere('&pi; = 3.14.');
+        v = F.redondea(2 * 3.14 * rr, 2); malas = [3.14 * rr * rr, 3.14 * rr, 4 * 3.14 * rr, 3.14 * 4 * rr * rr]; sol = 'C = &pi;d = 3.14 &times; ' + (2 * rr);
+      }
+    } else {
+      var a = r.entero(3, 15), bb = r.entero(3, 15);
+      while (bb === a) bb = r.entero(3, 15);
+      u = 'cm';
+      enun = 'Un rect&aacute;ngulo mide ' + a + ' cm de largo y ' + bb + ' cm de ancho. &iquest;Cu&aacute;l es su per&iacute;metro?';
+      v = 2 * (a + bb); malas = [a * bb, a + bb, 4 * a, 2 * a * bb]; sol = 'P = 2(a + b) = 2(' + a + ' + ' + bb + ')';
+    }
+    return P.ejercicio(enun, P.opciones(r, v, malas.map(function (x) { return F.redondea(x, 2); }), { unidad: u, dec: 2 }),
+      ['El area mide la superficie (unidades cuadradas); el perimetro, el contorno (unidades lineales).', 'Rombo: d<sub>1</sub>d<sub>2</sub>/2. Trapecio: (B + b)h/2. Paralelogramo: bh. Poligono regular: P&middot;a/2. Circulo: &pi;r' + F.sup(2) + ' y 2&pi;r.'],
+      [sol + ' = <b>' + F.n(v, 2) + ' ' + u + '</b>']);
+  }
+
   var ENFOQUES = {
-    definiciones: [casos.definiciones, defTermino, defDefinicion, defLugares],
+    definiciones: [casos.definiciones, defTermino, defDefinicion, defLugares, poligonoNombre],
     notacion: [casos.notacion, casos.notacion, notacionQueEs, notacionEscribir],
     angulos: [casos.angulos, angRadianes, angComplemento, angParalelas, angParalelas, angPoligono, angEcuacion],
     relacionRectas: [rectasGrafico, rectasGrafico, casos.relacionRectas, pendienteParPerp, rectasGeneral, rectaPorPunto],
     triangulos: [casos.triangulos, triTercerAngulo, triDesigualdad, triPitagoras, triExterior, triIsosceles],
-    semejanza: [casos.semejanza, semSombras, semTales, semRazonAreas, semCriterios, semEscala],
-    volumen: [casos.volumen, volPrismaPiramide, volDespeje, volLitros, volArea, volEscala],
+    semejanza: [casos.semejanza, semSombras, semTales, semRazonAreas, semCriterios, semEscala, congruencia],
+    volumen: [casos.volumen, volPrismaPiramide, volDespeje, volLitros, volArea, volEscala, areasPerimetros, areasPerimetros],
     razones: [casos.razones, razProblema, razProblema, razFigura, razPitagoras, razDeOtra, razAngulo],
     sumaAngulos: [casos.sumaAngulos, sumExacto, sumCircUnit, sumCuadrante, sumIdentidad, sumDoble],
     areaTrig: [casos.areaTrig, areaSeno, leySenos, leyCosenos, areaEquilatero, triangulo45]

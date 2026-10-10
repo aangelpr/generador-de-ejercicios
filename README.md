@@ -201,7 +201,7 @@ variantes nuevas cada vez.
   por reactivo, con filas e incisos revueltos.
 - **Varias formas de preguntar lo mismo.** El examen no repite las preguntas de la
   guía: pregunta los mismos temas de otra manera. Por eso cada subtema de
-  matemáticas y física tiene varios *enfoques* (274 en total para 58 subtemas): la
+  matemáticas y física tiene varios *enfoques* (296 en total para 58 subtemas): la
   pregunta de la guía y otras que piden lo mismo desde otro lado. Por ejemplo, en
   razones trigonométricas: el valor de una expresión (como en la guía), problemas de
   escaleras, sombras, rampas o drones con seno, coseno y tangente, leer la razón en
@@ -212,6 +212,26 @@ variantes nuevas cada vez.
   pregunta en otro formato: un *Relacione* se vuelve pregunta directa (o al revés),
   un *Complete* de varios huecos queda de uno solo, de un *Ordene* se pregunta qué
   paso va después de otro y de un *listado* cuál sí forma parte (o "todas excepto").
+- **Todo el temario de la guía de estudio** (*Temas fundamentales y bibliografía*),
+  no sólo lo que trae el cuadernillo. En matemáticas, física y química cada subtema
+  también pregunta los temas de la guía que el cuadernillo no usa:
+  - Álgebra: conjuntos numéricos, propiedades de los reales, leyes de los
+    exponentes, notación científica, suma de polinomios, productos notables, suma y
+    diferencia de cubos, factorización por agrupación y binomio de Newton.
+  - Geometría: nombres y diagonales de polígonos, criterios de congruencia, áreas y
+    perímetros (rombo, trapecio, paralelogramo, polígono regular, círculo).
+  - Analítica: fórmula general y discriminante.
+  - Estadística: probabilidad con los datos de la tabla, podio (permutaciones) y
+    unión de sucesos.
+  - Física: tiro vertical, procesos termodinámicos (isobárico, isocórico,
+    isotérmico, adiabático), buenos y malos conductores del calor y entropía.
+  - Química (de 39 a 102 variantes, 38 con datos al azar): protones, neutrones y
+    electrones de átomos e iones, modelos atómicos, historia de la tabla periódica,
+    configuración electrónica, metales, no metales y gases nobles, regla del
+    octeto, agentes oxidante y reductor, números de oxidación, pares
+    ácido-base conjugados, ácidos y bases de Lewis, neutralización, pH = −log[H⁺],
+    enlaces por ejemplos y por electronegatividad, gas ideal (presión, volumen y
+    moles), masa molecular, alcanos y grupos funcionales.
 
 **Simulacro tipo examen** (botón en la lista): un simulacro por área con las mismas
 preguntas y el mismo tiempo de la guía. Por defecto las preguntas van **de fácil a
@@ -234,6 +254,9 @@ Cómo está hecho:
 - `js/temas/prepa/banco.js` convierte una lista de preguntas en un tema. Cada
   variante es un objeto (`{p, b, m}`, `{c, b, m}`, `{rel, pares}`, `{lista, si, no}`,
   `{orden, pasos}`) o una función `(r) => variante` para preguntas con datos al azar.
+  Una variante numérica puede traer `fmt` (cómo se imprime) y `op` con opciones de
+  `P.opciones`, por ejemplo `{conSigno: true, rango: [-4, 8]}` para números de
+  oxidación (los valores inventados no salen del rango).
 - El nivel de cada subtema va en el mismo tema: en los bancos, con
   `niveles: {facil: [...], medio: [...], dificil: [...]}`; en matemáticas y física,
   como tercer dato de cada subtema (`['grado', 'Grado de un polinomio', 'facil']`).

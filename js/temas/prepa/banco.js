@@ -23,7 +23,8 @@
    Una variante tambien puede ser una funcion (r) que devuelve una variante:
    sirve para preguntas con datos al azar (nomina, contabilidad...). Si `b` y
    `m` son numeros, los incisos se ordenan de menor a mayor. Con `fmt` se
-   decide como se imprimen (por ejemplo, como dinero). */
+   decide como se imprimen (por ejemplo, como dinero) y en `op` van las demas
+   opciones de P.opciones (dec, conSigno...). */
 (function () {
   'use strict';
   var P = EJ.prepa;
@@ -40,8 +41,16 @@
     return p;
   }
 
+  function opcionesDe(v) {
+    if (!v.fmt && !v.op) return null;
+    var op = {};
+    Object.keys(v.op || {}).forEach(function (k) { op[k] = v.op[k]; });
+    if (v.fmt) op.fmt = v.fmt;
+    return op;
+  }
+
   function directa(r, v) {
-    return P.ejercicio(v.p, P.opciones(r, v.b, r.muestra(v.m, Math.min(v.m.length, 5)), v.fmt ? { fmt: v.fmt } : null),
+    return P.ejercicio(v.p, P.opciones(r, v.b, r.muestra(v.m, Math.min(v.m.length, 5)), opcionesDe(v)),
       pistasDe(v, 'Descarta primero los incisos que sabes que no son; luego compara los que quedan con la pregunta.'),
       [v.ex || '', 'Respuesta correcta: <b>' + (v.fmt ? v.fmt(v.b) : v.b) + '</b>'].filter(Boolean));
   }
