@@ -39,9 +39,15 @@
     var area = el('textarea', 'notas-texto');
     area.rows = 3;
     area.placeholder = 'Haz aqui tus cuentas o anotaciones...';
+    /* En el celular el teclado trabaja como en cualquier otra app: con
+       sugerencias y, en iOS 18, "Resultados matematicos" (al escribir 28x30=
+       ofrece 840). Con autocorrect apagado, iOS escondia esas sugerencias. En
+       la computadora no se subrayan las cuentas como faltas de ortografia. */
+    var tactil = !!(global.matchMedia && global.matchMedia('(pointer: coarse)').matches);
     area.setAttribute('autocapitalize', 'off');
-    area.setAttribute('autocorrect', 'off');
-    area.spellcheck = false;
+    area.setAttribute('autocorrect', 'on');
+    area.setAttribute('writingsuggestions', 'true');
+    area.spellcheck = tactil;
     area.value = op.texto || '';
     function crecer() {
       area.style.height = 'auto';

@@ -81,7 +81,10 @@ en el celular no se mezcla con lo de la computadora.
    hacer tus cuentas: en *Escribir* tecleas, y en *Dibujar* escribes con el dedo sobre
    una cuadrícula (con *Deshacer* y *Borrar todo*). No se califica. En los exámenes y
    simulacros cada pregunta tiene su propia hoja: lo escrito se guarda con el examen, y
-   lo dibujado se conserva mientras la app siga abierta.
+   lo dibujado se conserva mientras la app siga abierta. En el celular el teclado
+   funciona como en cualquier otra app, con sus sugerencias: en iOS 18, al escribir
+   una cuenta con "=" (por ejemplo `28x30=`) te ofrece el resultado (`840`), si tienes
+   activado *Resultados matemáticos* en Configuración → General → Teclado.
 5. Escribe tu respuesta y presiona **Comprobar** (o Enter). Debajo de la casilla verás
    en vivo cómo se interpreta lo que escribiste: si tecleas `x^2` te lo muestra como x²,
    así confirmas que el `^` quedó donde querías.
