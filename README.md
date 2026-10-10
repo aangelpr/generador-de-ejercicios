@@ -216,8 +216,8 @@ variantes nuevas cada vez.
   paso va después de otro y de un *listado* cuál sí forma parte (o "todas excepto").
 - **Todo el temario de la guía de estudio** (*Temas fundamentales y bibliografía*),
   no sólo lo que trae el cuadernillo. En matemáticas, ciencias experimentales,
-  humanidades y comunicación cada subtema también pregunta los temas de la guía que
-  el cuadernillo no usa:
+  humanidades, comunicación, ciencias sociales e introducción al trabajo cada
+  subtema también pregunta los temas de la guía que el cuadernillo no usa:
   - Álgebra: conjuntos numéricos, propiedades de los reales, leyes de los
     exponentes, notación científica, suma de polinomios, productos notables, suma y
     diferencia de cubos, factorización por agrupación y binomio de Newton.
@@ -273,6 +273,31 @@ variantes nuevas cada vez.
     ácido-base conjugados, ácidos y bases de Lewis, neutralización, pH = −log[H⁺],
     enlaces por ejemplos y por electronegatividad, gas ideal (presión, volumen y
     moles), masa molecular, alcanos y grupos funcionales.
+  - Ciencias sociales (de 59 a 272 variantes, 85 armadas al azar): campos del
+    conocimiento, objeto de las nueve disciplinas sociales y casos para elegir la
+    disciplina, enfoques cuantitativo y cualitativo, positivismo, materialismo
+    histórico y estructural-funcionalismo; Estado y gobierno, formas de gobierno,
+    democracia representativa, directa y participativa, artículos 39, 40 y 41,
+    división de poderes, instituciones, socialización, valores y obligaciones
+    ciudadanas; superáreas y periodos de Mesoamérica, culturas, fuentes y cronología
+    de la Conquista, instituciones del virreinato, Reformas Borbónicas, castas, etapas
+    de la Independencia, proyectos de nación, conflictos del siglo XIX, guerra con
+    Estados Unidos, Leyes de Reforma, Segundo Imperio y República Restaurada;
+    Porfiriato, huelgas, planes y personajes de la Revolución, artículos de 1917,
+    Maximato, cardenismo, Segunda Guerra Mundial, modelos económicos, hechos por
+    sexenio de 1940 a 2018, Guerra Sucia, reformas electorales y pueblos originarios;
+    demografía, salud, becas, empleo e informalidad, brecha de género (con cuentas),
+    coeficiente de Gini, ingreso frente a riqueza (patrimonio neto), regiones
+    económicas, PIB por sectores, PIB per cápita y tratados comerciales.
+  - Introducción al trabajo (de 37 a 125 variantes, 62 armadas al azar):
+    características personales, sectores (con el cuaternario), metas a corto,
+    mediano y largo plazo, fuentes y medios de reclutamiento, currículum, carta de
+    presentación y solicitud de empleo, tipos de entrevista, RFC, NSS, AFORE y CURP,
+    modalidades de contratación y tipos de contrato, tipos de trabajador, vacaciones
+    de la reforma de 2023 (hasta el décimo año), prima vacacional, jornadas por
+    horario, salario diario, aguinaldo y PTU con cantidades, exceptuados de la PTU,
+    obligaciones y prohibiciones de la Ley Federal del Trabajo, maternidad y
+    lactancia, y suspensión, rescisión y terminación.
 
 **Simulacro tipo examen** (botón en la lista): un simulacro por área con las mismas
 preguntas y el mismo tiempo de la guía. Por defecto las preguntas van **de fácil a
