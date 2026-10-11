@@ -119,13 +119,13 @@ class Plano:
     def add(self, s):
         self.cuerpo += s
 
-    def ejes(self, ident, xt=(), yt=(), xn='x', yn='y', rejilla=False, etiquetas_x=None, etiquetas_y=None):
+    def ejes(self, ident, xt=(), yt=(), xn='x', yn='y', rejilla=False, etiquetas_x=None, etiquetas_y=None, abajo=False):
         if rejilla:
             for x in range(math.ceil(self.xmin), math.floor(self.xmax) + 1):
                 self.add(linea(self.px(x), self.py(self.ymin), self.px(x), self.py(self.ymax), '#e3e7ee', 1))
             for y in range(math.ceil(self.ymin), math.floor(self.ymax) + 1):
                 self.add(linea(self.px(self.xmin), self.py(y), self.px(self.xmax), self.py(y), '#e3e7ee', 1))
-        y0 = 0 if self.ymin <= 0 <= self.ymax else self.ymin
+        y0 = 0 if (self.ymin <= 0 <= self.ymax and not abajo) else self.ymin
         x0 = 0 if self.xmin <= 0 <= self.xmax else self.xmin
         self.add(flechas(ident))
         self.add(linea(self.px(self.xmin), self.py(y0), self.px(self.xmax), self.py(y0), G, 1.2, fin=ident))
@@ -645,6 +645,554 @@ def fig_arbol():
     b += punto(raiz[0], raiz[1], T, 3.5)
     b += texto(95, 186, '1.er lanzamiento', G, 'middle', 8.5) + texto(175, 186, '2.º lanzamiento', G, 'middle', 8.5)
     return svg(300, 192, b)
+
+
+FIGURAS = {k[4:]: v for k, v in globals().items() if k.startswith('fig_')}
+
+
+# ================================================================ FISICA
+def anidar(ancho, alto, *partes, extra=''):
+    """Pone varios <svg> lado a lado dentro de uno solo. partes = (x, y, svg)."""
+    cuerpo = ''
+    for x, y, sv in partes:
+        cuerpo += sv.replace('<svg ', '<svg x="%s" y="%s" ' % (x, y), 1)
+    return svg(ancho, alto, cuerpo + extra)
+
+def flecha(x1, y1, x2, y2, color, ident, ancho=2.2):
+    return ('<defs><marker id="fl%s" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto">'
+            '<path d="M0,0 L9,4.5 L0,9 z" fill="%s"/></marker></defs>' % (ident, color) +
+            '<line x1="%s" y1="%s" x2="%s" y2="%s" stroke="%s" stroke-width="%s" marker-end="url(#fl%s)"/>' % (
+                n(x1), n(y1), n(x2), n(y2), color, ancho, ident))
+
+
+def fig_triangulo_formula():
+    b = ''
+    datos = [('d', 'v', 't', 'd = v · t', A), ('F', 'm', 'a', 'F = m · a', O), ('V', 'I', 'R', 'V = I · R', V)]
+    for i, (arriba, izq, der, nombre, c) in enumerate(datos):
+        x0 = 20 + i * 150
+        b += poligono([(x0 + 55, 10), (x0, 100), (x0 + 110, 100)], c, '#fff', 2)
+        b += linea(x0 + 22, 62, x0 + 88, 62, c, 1.6)
+        b += linea(x0 + 55, 62, x0 + 55, 100, c, 1.6)
+        b += texto(x0 + 55, 50, arriba, c, 'middle', 18, True, ital=True, serif=True)
+        b += texto(x0 + 33, 90, izq, c, 'middle', 16, True, ital=True, serif=True)
+        b += texto(x0 + 77, 90, der, c, 'middle', 16, True, ital=True, serif=True)
+        b += texto(x0 + 55, 120, nombre, T, 'middle', 10, True)
+    return svg(460, 128, b)
+
+
+def fig_mru_mua():
+    p1 = Plano(230, 180, 0, 6, 0, 13, 26)
+    p1.ejes('m1', xt=(1, 2, 3, 4, 5), yt=(4, 8, 12), xn='t (s)', yn='d (m)')
+    p1.curva(lambda t: 2 * t, 0, 5.8, A, 2.4)
+    p1.segmento(2, 0, 2, 4, G, 1, '3 3')
+    p1.segmento(0, 4, 2, 4, G, 1, '3 3')
+    p1.segmento(2, 4, 4, 4, V, 1.6)
+    p1.segmento(4, 4, 4, 8, O, 1.6)
+    p1.texto(3, 4, 'Δt = 2 s', V, 'middle', dy=12, tam=8.5, neg=True)
+    p1.texto(4, 6, 'Δd = 4 m', O, dx=4, tam=8.5, neg=True)
+    p2 = Plano(230, 180, 0, 6, 0, 13, 26)
+    pts = 'M%s,%s L%s,%s L%s,%s L%s,%s Z' % (n(p2.px(0)), n(p2.py(0)), n(p2.px(0)), n(p2.py(2)),
+                                            n(p2.px(5)), n(p2.py(12)), n(p2.px(5)), n(p2.py(0)))
+    p2.add(camino(pts, 'none', 0, FV))
+    p2.ejes('m2', xt=(1, 2, 3, 4, 5), yt=(2, 4, 8, 12), xn='t (s)', yn='v (m/s)')
+    p2.curva(lambda t: 2 + 2 * t, 0, 5.4, O, 2.4)
+    p2.punto(0, 2, O, 3.5)
+    p2.texto(2.5, 2.5, 'área = distancia', V, 'middle', tam=8.5, neg=True)
+    extra = texto(115, 14, 'MRU: pendiente = v = 2 m/s', A, 'middle', 9.5, True)
+    extra += texto(355, 14, 'MUA: pendiente = a = 2 m/s²', O, 'middle', 9.5, True)
+    return anidar(470, 200, (0, 20, p1.svg()), (240, 20, p2.svg()), extra=extra)
+
+def fig_fuerzas():
+    b = rect(10, 150, 300, 6, G, '#d9dee6', 0, 1)
+    b += rect(115, 90, 90, 60, A, FA, 4, 2)
+    b += texto(160, 125, '5 kg', A, 'middle', 12, True)
+    b += flecha(205, 112, 290, 112, O, 'fa')
+    b += texto(250, 104, 'F = 40 N', O, 'middle', 10, True)
+    b += flecha(115, 132, 45, 132, M, 'ff')
+    b += texto(72, 124, 'fricción 10 N', M, 'middle', 9, True)
+    b += flecha(160, 150, 160, 205, V, 'fp')
+    b += texto(168, 200, 'peso W = mg', V, tam=9, neg=True)
+    b += flecha(140, 90, 140, 40, T, 'fn')
+    b += texto(146, 50, 'normal N', T, tam=9, neg=True)
+    b += texto(160, 228, 'fuerza neta = 40 N − 10 N = 30 N →', T, 'middle', 10, True)
+    return svg(320, 236, b)
+
+def fig_tiro_vertical():
+    b = linea(20, 222, 310, 222, G, 1.6)
+    b += linea(30, 46, 300, 46, G, 1, '4 3')
+    b += texto(34, 40, 'altura máxima: v = 0', O, tam=9, neg=True)
+    ys = [205, 160, 120, 86]
+    vs = [46, 36, 26, 15]
+    for i, (y, v) in enumerate(zip(ys, vs)):
+        b += circulo(100, y, 7, A, FA, 1.6)
+        b += flecha(116, y + v / 2, 116, y - v / 2, A, 'tv%d' % i, 1.8)
+        b += circulo(200, y, 7, M, FM, 1.6)
+        b += flecha(216, y - v / 2, 216, y + v / 2, M, 'tb%d' % i, 1.8)
+    b += circulo(150, 56, 7, O, FO, 1.6)
+    b += texto(100, 240, 'sube: v disminuye', A, 'middle', 9, True)
+    b += texto(200, 240, 'baja: v aumenta', M, 'middle', 9, True)
+    b += flecha(270, 120, 270, 170, V, 'tg', 2.2)
+    b += texto(278, 150, 'g', V, tam=12, neg=True, ital=True, serif=True)
+    return svg(320, 248, b)
+
+def fig_kepler():
+    cx, cy, a, bb = 195, 100, 120, 95
+    c = math.sqrt(a * a - bb * bb)
+    sol = (cx + c, cy)
+    def pto(E):
+        return (cx + a * math.cos(E), cy - bb * math.sin(E))
+    elipse = 'M' + ' L'.join('%s,%s' % (n(x), n(y)) for x, y in (pto(math.radians(k)) for k in range(0, 361, 3))) + ' Z'
+    def sector(E1, E2, color):
+        pts = [pto(E1 + (E2 - E1) * k / 30) for k in range(31)]
+        d = 'M%s,%s L' % (n(sol[0]), n(sol[1])) + ' L'.join('%s,%s' % (n(x), n(y)) for x, y in pts) + ' Z'
+        return camino(d, color, 1.2, color + '55')
+    b = sector(-0.5, 0.5, '#2e7d4f')
+    d = 0.1288
+    b += sector(math.pi - d, math.pi + d, '#6b4fa3')
+    b += camino(elipse, A, 2)
+    b += circulo(sol[0], sol[1], 11, '#d4a017', '#ffd34d', 1.5)
+    b += texto(sol[0] - 4, sol[1] + 28, 'Sol (en un foco)', '#8a6400', 'middle', 9, True)
+    b += punto(cx - c, cy, G, 2.5)
+    b += texto(cx + a + 6, cy - 30, 'perihelio:', V, tam=9, neg=True)
+    b += texto(cx + a + 6, cy - 18, 'va más rápido', V, tam=9)
+    b += texto(cx - a - 6, cy - 30, 'afelio:', M, 'end', 9, True)
+    b += texto(cx - a - 6, cy - 18, 'va más lento', M, 'end', 9)
+    b += texto(cx, 214, 'Las dos áreas sombreadas son iguales: se recorren en el mismo tiempo', T, 'middle', 9, True)
+    return svg(400, 222, b)
+
+def onda(x1, y1, x2, y2, color, ancho=1.8):
+    dx, dy = x2 - x1, y2 - y1
+    L = math.hypot(dx, dy)
+    ux, uy = dx / L, dy / L
+    nx, ny = -uy, ux
+    pts = []
+    for k in range(0, 41):
+        t = k / 40
+        s = math.sin(t * 4 * 2 * math.pi) * 4
+        pts.append((x1 + dx * t + nx * s, y1 + dy * t + ny * s))
+    return camino('M' + ' L'.join('%s,%s' % (n(x), n(y)) for x, y in pts), color, ancho)
+
+
+def fig_calor():
+    b = ''
+    # conduccion
+    b += rect(20, 60, 120, 14, G, '#c9ced6', 3, 1.2)
+    b += poligono([(14, 96), (26, 72), (38, 96)], O, '#f6b38a', 1.2)
+    for k in range(3):
+        b += flecha(50 + k * 30, 54, 70 + k * 30, 54, O, 'cc%d' % k, 1.6)
+    b += texto(80, 116, 'Conducción', A, 'middle', 10, True)
+    b += texto(80, 130, 'por contacto, en sólidos', G, 'middle', 8.5)
+    # conveccion
+    b += rect(185, 40, 90, 60, A, '#dbeefa', 4, 1.6)
+    b += poligono([(218, 120), (230, 102), (242, 120)], O, '#f6b38a', 1.2)
+    b += camino('M205,90 C200,60 215,50 225,55 C240,62 235,85 230,90', O, 1.8)
+    b += camino('M255,90 C260,60 245,50 237,55', V, 1.8)
+    b += texto(230, 116 + 14, 'Convección', A, 'middle', 10, True)
+    b += texto(230, 144, 'el fluido caliente sube', G, 'middle', 8.5)
+    # radiacion
+    b += circulo(345, 60, 16, '#d4a017', '#ffd34d', 1.5)
+    for ang in range(0, 360, 45):
+        r1, r2 = 20, 26
+        b += linea(345 + r1 * math.cos(math.radians(ang)), 60 - r1 * math.sin(math.radians(ang)),
+                   345 + r2 * math.cos(math.radians(ang)), 60 - r2 * math.sin(math.radians(ang)), '#d4a017', 1.4)
+    b += onda(372, 60, 432, 60, O)
+    b += circulo(446, 60, 12, A, FA, 1.5)
+    b += texto(395, 116, 'Radiación', A, 'middle', 10, True)
+    b += texto(395, 130, 'ondas, aun en el vacío', G, 'middle', 8.5)
+    return svg(470, 150, b)
+
+
+def fig_sistemas():
+    b = ''
+    titulos = [('Abierto', 'materia y energía'), ('Cerrado', 'solo energía'), ('Aislado', 'nada')]
+    for i, (t, s) in enumerate(titulos):
+        x0 = 20 + i * 155
+        if i == 0:
+            b += camino('M%s,30 L%s,100 L%s,100 L%s,30' % (x0, x0, x0 + 90, x0 + 90), A, 2)
+        elif i == 1:
+            b += rect(x0, 30, 90, 70, A, 'none', 4, 2)
+        else:
+            b += rect(x0 - 4, 26, 98, 78, T, 'none', 6, 3)
+            b += rect(x0, 30, 90, 70, T, 'none', 4, 1.4)
+        b += rect(x0 + 2, 62, 86, 36, 'none', '#cfe6f5', 0, 0)
+        if i == 0:
+            b += flecha(x0 + 30, 50, x0 + 30, 8, O, 'sa1', 1.8)
+            b += texto(x0 + 36, 14, 'vapor', O, tam=8.5)
+            b += onda(x0 + 120, 70, x0 + 96, 70, '#d4a017', 1.5)
+        if i == 1:
+            b += onda(x0 + 122, 66, x0 + 96, 66, '#d4a017', 1.5)
+            b += texto(x0 + 100, 52, 'calor', '#8a6400', tam=8.5)
+        if i == 2:
+            b += linea(x0 + 104, 50, x0 + 124, 80, O, 2)
+            b += linea(x0 + 124, 50, x0 + 104, 80, O, 2)
+        b += texto(x0 + 45, 124, t, A, 'middle', 10, True)
+        b += texto(x0 + 45, 138, s, G, 'middle', 8.5)
+    return svg(480, 146, b)
+
+
+def fig_boyle():
+    p = Plano(250, 200, 0, 6.5, 0, 6.5, 26)
+    p.ejes('by', xt=(1, 2, 3, 4, 5, 6), yt=(1, 2, 3, 4, 5, 6), xn='V', yn='P')
+    p.curva(lambda v: 6 / v, 0.95, 6.3, A, 2.4)
+    for v, pr in ((2, 3), (3, 2)):
+        p.segmento(v, 0, v, pr, G, 1, '3 3')
+        p.segmento(0, pr, v, pr, G, 1, '3 3')
+        p.punto(v, pr, O, 4)
+    p.texto(2, 3, '2 × 3 = 6', O, dx=6, dy=-6, tam=9, neg=True)
+    p.texto(3, 2, '3 × 2 = 6', O, dx=6, dy=-6, tam=9, neg=True)
+    p.texto(6.3, 5.8, 'P · V = constante', A, 'end', tam=9.5, neg=True)
+    return p.svg()
+
+
+def resorte(x, y1, y2, vueltas=8, ancho=12, color=G):
+    pts = [(x, y1), (x, y1 + 6)]
+    paso = (y2 - y1 - 12) / (vueltas * 2)
+    for k in range(vueltas * 2):
+        pts.append((x + (ancho if k % 2 == 0 else -ancho), y1 + 6 + paso * (k + 0.5)))
+    pts += [(x, y2 - 6), (x, y2)]
+    return camino('M' + ' L'.join('%s,%s' % (n(a), n(c)) for a, c in pts), color, 1.6)
+
+
+def fig_hooke():
+    b = rect(20, 14, 160, 8, G, '#c9ced6', 0, 1)
+    b += resorte(60, 22, 90)
+    b += texto(60, 108, 'sin peso', G, 'middle', 8.5)
+    b += resorte(135, 22, 140)
+    b += rect(115, 140, 40, 30, A, FA, 3, 1.8)
+    b += texto(135, 160, 'm', A, 'middle', 12, True, ital=True, serif=True)
+    b += linea(160, 90, 178, 90, O, 1, '3 2') + linea(160, 140, 178, 140, O, 1, '3 2')
+    b += flecha(172, 100, 172, 136, O, 'hx', 1.6)
+    b += texto(182, 120, 'x', O, tam=12, neg=True, ital=True, serif=True)
+    b += flecha(135, 172, 135, 200, V, 'hw', 2)
+    b += texto(142, 198, 'F = mg', V, tam=9, neg=True)
+    p = Plano(200, 200, 0, 5, 0, 5, 26)
+    p.ejes('hk', xt=(1, 2, 3, 4), yt=(1, 2, 3, 4), xn='x', yn='F')
+    p.curva(lambda x: x, 0, 4.6, A, 2.4)
+    p.texto(2.2, 3.4, 'pendiente = k', A, 'end', tam=9, neg=True)
+    return anidar(420, 210, (0, 0, svg(210, 210, b)), (215, 5, p.svg()))
+
+
+def fig_prensa():
+    b = camino('M30,60 L30,170 L250,170 L250,40 L170,40 L170,140 L80,140 L80,60', G, 2)
+    b += camino('M32,92 L32,168 L248,168 L248,72 L172,72 L172,142 L78,142 L78,92 Z', 'none', 0, '#cfe6f5')
+    b += rect(30, 82, 50, 10, T, '#9aa3b2', 1, 1.2)
+    b += rect(170, 62, 80, 10, T, '#9aa3b2', 1, 1.2)
+    b += flecha(55, 30, 55, 78, O, 'pr1', 2.2)
+    b += texto(62, 40, 'F₁ (chica)', O, tam=9.5, neg=True)
+    b += flecha(210, 58, 210, 14, V, 'pr2', 3)
+    b += texto(224, 30, 'F₂ (grande)', V, tam=9.5, neg=True)
+    b += texto(55, 110, 'A₁', T, 'middle', 11, True)
+    b += texto(210, 100, 'A₂', T, 'middle', 11, True)
+    b += texto(140, 160, 'la presión se transmite igual', A, 'middle', 9, True)
+    return svg(300, 182, b)
+
+
+def fig_arquimedes():
+    b = rect(40, 50, 200, 140, G, 'none', 2, 2)
+    b += rect(42, 80, 196, 108, 'none', '#cfe6f5', 0, 0)
+    b += linea(42, 80, 238, 80, A, 1.4)
+    b += texto(234, 74, 'agua', A, 'end', 9)
+    b += rect(110, 105, 60, 50, T, '#d8c3a5', 2, 1.6)
+    b += flecha(140, 130, 140, 182, O, 'aw', 2.4)
+    b += texto(146, 178, 'peso W', O, tam=9.5, neg=True)
+    b += flecha(126, 130, 126, 66, V, 'ae', 2.4)
+    b += texto(114, 70, 'empuje E', V, 'end', 9.5, True)
+    b += texto(140, 210, 'E = peso del agua desalojada = ρ·g·V', T, 'middle', 9.5, True)
+    return svg(280, 218, b)
+
+
+def fig_circuito():
+    b = rect(40, 30, 220, 120, T, 'none', 2, 2)
+    b += rect(30, 70, 20, 40, '#fff', '#fff', 0, 0)
+    b += linea(26, 80, 54, 80, T, 2.4) + linea(32, 92, 48, 92, T, 4)
+    b += linea(26, 102, 54, 102, T, 2.4) + linea(32, 114, 48, 114, T, 4)
+    b += texto(22, 98, 'V', O, 'end', 13, True, ital=True, serif=True)
+    b += texto(22, 112, 'pila', G, 'end', 8.5)
+    zig = 'M110,30 L118,20 L130,40 L142,20 L154,40 L166,20 L178,40 L190,30'
+    b += rect(108, 18, 84, 24, '#fff', '#fff', 0, 0)
+    b += camino(zig, M, 2)
+    b += texto(150, 14, 'resistencia R', M, 'middle', 9.5, True)
+    b += flecha(190, 150, 120, 150, A, 'ci', 2.2)
+    b += texto(155, 168, 'corriente I', A, 'middle', 9.5, True)
+    return svg(290, 176, b)
+
+
+def fig_snell():
+    b = rect(10, 10, 280, 100, 'none', '#f4f8fb', 0, 0)
+    b += rect(10, 110, 280, 100, 'none', '#dbeefa', 0, 0)
+    b += linea(10, 110, 290, 110, A, 1.6)
+    b += linea(150, 15, 150, 205, G, 1.2, '5 4')
+    b += texto(154, 24, 'normal', G, tam=8.5)
+    t1, t2 = math.radians(50), math.radians(30)
+    x1, y1 = 150 - 95 * math.sin(t1), 110 - 95 * math.cos(t1)
+    x2, y2 = 150 + 95 * math.sin(t2), 110 + 95 * math.cos(t2)
+    b += flecha(x1, y1, 147, 107, O, 'sn1', 2.2)
+    b += linea(150, 110, x2, y2, O, 2.2)
+    b += camino('M150,80 A30,30 0 0 0 %s,%s' % (n(150 - 30 * math.sin(t1)), n(110 - 30 * math.cos(t1))), M, 1.6)
+    b += texto(132, 76, 'θ₁', M, 'middle', 11, True)
+    b += camino('M150,140 A30,30 0 0 0 %s,%s' % (n(150 + 30 * math.sin(t2)), n(110 + 30 * math.cos(t2))), V, 1.6)
+    b += texto(160, 158, 'θ₂', V, 'middle', 11, True)
+    b += texto(20, 28, 'medio 1: aire (n₁)', T, tam=9.5, neg=True)
+    b += texto(20, 200, 'medio 2: vidrio o agua (n₂)', T, tam=9.5, neg=True)
+    b += texto(286, 100, 'la luz se acerca a la normal', O, 'end', 8.5)
+    return svg(300, 216, b)
+
+
+# ================================================================ QUIMICA
+def fig_bohr():
+    cx, cy = 120, 110
+    b = ''
+    for r in (34, 62, 90):
+        b += circulo(cx, cy, r, G, 'none', 1.2, '4 3')
+    b += circulo(cx, cy, 16, O, FO, 1.6)
+    b += texto(cx, cy + 4, 'p⁺ n', O, 'middle', 9, True)
+    for r, angs in ((34, (90, 270)), (62, (20, 110, 200, 290)), (90, (60, 150))):
+        for ang in angs:
+            b += circulo(cx + r * math.cos(math.radians(ang)), cy - r * math.sin(math.radians(ang)), 4, A, A, 1)
+    b += texto(cx + 18, cy + 34 + 12, 'n = 1', G, tam=8)
+    b += texto(cx + 30, cy + 62 + 8, 'n = 2', G, tam=8)
+    b += texto(cx + 50, cy + 90 + 4, 'n = 3', G, tam=8)
+    b += onda(270, 50, cx + 70, cy - 52, '#d4a017', 1.6)
+    b += texto(272, 44, 'absorbe un fotón:', T, tam=8.5, neg=True)
+    b += texto(272, 56, 'sube de nivel', T, tam=8.5)
+    b += onda(cx + 64, cy + 30, 270, 170, M, 1.6)
+    b += texto(272, 182, 'emite un fotón:', T, tam=8.5, neg=True)
+    b += texto(272, 194, 'baja de nivel', T, tam=8.5)
+    b += texto(190, 214, 'núcleo: protones y neutrones · electrones en niveles', T, 'middle', 8.5, True)
+    return svg(380, 220, b)
+
+
+PERIODOS = {1: [1, 18], 2: [1, 2] + list(range(13, 19)), 3: [1, 2] + list(range(13, 19)),
+            4: list(range(1, 19)), 5: list(range(1, 19)), 6: list(range(1, 19)), 7: list(range(1, 19))}
+
+
+def fig_tabla_bloques():
+    s = 17
+    x0, y0 = 30, 26
+    b = ''
+    colores = {'s': (FO, O), 'p': (FV, V), 'd': (FA, A), 'f': (FM, M)}
+    def bloque(g):
+        if g <= 2:
+            return 's'
+        if g >= 13:
+            return 'p'
+        return 'd'
+    for per, grupos in PERIODOS.items():
+        for g in grupos:
+            blq = 's' if (per == 1 and g == 18) else bloque(g)
+            if per == 1 and g == 18:
+                blq = 's'
+            f, c = colores[blq]
+            b += rect(x0 + (g - 1) * s, y0 + (per - 1) * s, s - 1, s - 1, c, f, 1, 0.8)
+        b += texto(x0 - 6, y0 + (per - 1) * s + 12, str(per), G, 'end', 8.5)
+    for fila in range(2):
+        for k in range(14):
+            f, c = colores['f']
+            b += rect(x0 + (3 + k) * s, y0 + (8 + fila) * s - 6, s - 1, s - 1, c, f, 1, 0.8)
+    b += texto(x0 + s, y0 - 8, 's', O, 'middle', 11, True)
+    b += texto(x0 + 7.5 * s, y0 - 8, 'd', A, 'middle', 11, True)
+    b += texto(x0 + 15.5 * s, y0 - 8, 'p', V, 'middle', 11, True)
+    b += texto(x0 + 2.5 * s, y0 + 9 * s, 'f', M, 'middle', 11, True)
+    return svg(x0 + 18 * s + 10, y0 + 10 * s, b)
+
+
+def fig_tabla_tipos():
+    s = 18
+    x0, y0 = 20, 20
+    nometal = {(1, 1), (2, 14), (2, 15), (2, 16), (2, 17), (3, 15), (3, 16), (3, 17), (4, 16), (4, 17), (5, 17)}
+    metaloide = {(2, 13), (3, 14), (4, 14), (4, 15), (5, 15), (5, 16), (6, 17)}
+    simbolos = {(1, 1): 'H', (1, 18): 'He', (2, 1): 'Li', (2, 6 + 8): 'C', (2, 15): 'N', (2, 16): 'O', (2, 17): 'F',
+                (2, 18): 'Ne', (3, 1): 'Na', (3, 17): 'Cl', (4, 8): 'Fe', (4, 12): 'Zn', (4, 11): 'Cu', (3, 14): 'Si',
+                (6, 11): 'Au', (4, 2): 'Ca', (3, 13): 'Al', (2, 13): 'B'}
+    b = ''
+    for per, grupos in PERIODOS.items():
+        for g in grupos:
+            if g == 18:
+                f, c = '#fff3c4', '#b8860b'
+            elif (per, g) in nometal:
+                f, c = FV, V
+            elif (per, g) in metaloide:
+                f, c = FM, M
+            else:
+                f, c = FA, A
+            b += rect(x0 + (g - 1) * s, y0 + (per - 1) * s, s - 1, s - 1, c, f, 1, 0.8)
+            if (per, g) in simbolos:
+                b += texto(x0 + (g - 1) * s + s / 2 - 0.5, y0 + (per - 1) * s + 12, simbolos[(per, g)], T, 'middle', 7.5, True)
+    ly = y0 + 7 * s + 16
+    for i, (f, c, t) in enumerate(((FA, A, 'metales'), (FV, V, 'no metales'), (FM, M, 'metaloides'), ('#fff3c4', '#b8860b', 'gases nobles'))):
+        b += rect(x0 + i * 85, ly, 12, 12, c, f, 1, 0.8)
+        b += texto(x0 + i * 85 + 16, ly + 10, t, T, tam=9)
+    return svg(x0 + 18 * s + 10, ly + 22, b)
+
+
+def fig_moeller():
+    b = ''
+    cols = 's p d f'.split()
+    filas = {1: 1, 2: 2, 3: 3, 4: 4, 5: 4, 6: 3, 7: 2}
+    pos = {}
+    for nn, k in filas.items():
+        for j in range(k):
+            x, y = 40 + j * 52, 22 + (nn - 1) * 26
+            pos[(nn, j)] = (x, y)
+            b += texto(x, y + 4, '%d%s' % (nn, cols[j]), T, 'middle', 11, True)
+    for suma in range(1, 9):
+        cel = sorted([(nn, j) for (nn, j) in pos if nn + j == suma], key=lambda q: q[0])
+        if not cel:
+            continue
+        xa, ya = pos[cel[0]]
+        xb, yb = pos[cel[-1]]
+        if len(cel) == 1:
+            xa, ya = xa + 14, ya - 10
+            xb, yb = xb - 14, yb + 10
+        else:
+            xa, ya = xa + 12, ya - 10
+            xb, yb = xb - 12, yb + 10
+        b += flecha(xa, ya, xb, yb, O, 'mo%d' % suma, 1.4)
+    b += texto(260, 30, 'Sigue las flechas', A, tam=9.5, neg=True)
+    b += texto(260, 44, 'de arriba hacia abajo:', A, tam=9.5, neg=True)
+    b += texto(260, 64, '1s 2s 2p 3s 3p 4s', T, tam=9.5)
+    b += texto(260, 78, '3d 4p 5s 4d 5p 6s', T, tam=9.5)
+    b += texto(260, 92, '4f 5d 6p 7s 5f 6d 7p', T, tam=9.5)
+    b += texto(260, 118, 'Capacidad:', A, tam=9.5, neg=True)
+    b += texto(260, 132, 's = 2, p = 6,', T, tam=9.5)
+    b += texto(260, 146, 'd = 10, f = 14', T, tam=9.5)
+    return svg(400, 204, b)
+
+
+def fig_estados():
+    S_, L_, G_ = (60, 170), (300, 170), (180, 40)
+    b = ''
+    for (x, y), t, c, f in ((S_, 'SÓLIDO', A, FA), (L_, 'LÍQUIDO', V, FV), (G_, 'GAS', O, FO)):
+        b += rect(x - 45, y - 16, 90, 32, c, f, 8, 1.8)
+        b += texto(x, y + 5, t, c, 'middle', 11, True)
+    b += flecha(108, 162, 252, 162, '#b5542a', 'e1', 1.8)
+    b += texto(180, 155, 'fusión', '#b5542a', 'middle', 9, True)
+    b += flecha(252, 182, 108, 182, A, 'e2', 1.8)
+    b += texto(180, 198, 'solidificación', A, 'middle', 9, True)
+    b += flecha(282, 150, 210, 60, '#b5542a', 'e3', 1.8)
+    b += texto(258, 98, 'evaporación', '#b5542a', tam=9, neg=True)
+    b += flecha(196, 62, 266, 150, A, 'e4', 1.8)
+    b += texto(224, 104, 'condensación', A, 'end', 9, True)
+    b += flecha(76, 150, 150, 60, '#b5542a', 'e5', 1.8)
+    b += texto(98, 92, 'sublimación', '#b5542a', 'end', 9, True)
+    b += flecha(164, 62, 94, 150, A, 'e6', 1.8)
+    b += texto(128, 128, 'deposición', A, tam=9, neg=True)
+    b += texto(180, 224, 'naranja: absorbe calor · azul: libera calor', G, 'middle', 9)
+    return svg(360, 232, b)
+
+def fig_curva_calentamiento():
+    p = Plano(330, 220, 0, 165, -45, 145, 30)
+    p.ejes('cc', xt=(50, 100, 150), yt=(-20, 0, 20, 40, 60, 80, 100, 120), xn='tiempo', yn='T (°C)', abajo=True)
+    p.segmento(0, 0, 165, 0, '#c9ced6', 1, '3 3')
+    pts = [(0, -30), (20, 0), (50, 0), (90, 100), (130, 100), (150, 130)]
+    d = 'M' + ' L'.join('%s,%s' % (n(p.px(x)), n(p.py(y))) for x, y in pts)
+    p.add(camino(d, O, 2.6))
+    for (x, y), et in zip(pts, 'ABCDEF'):
+        p.punto(x, y, T, 3)
+        p.texto(x, y, et, T, dx=-4, dy=-7, tam=9, neg=True)
+    p.texto(13, -22, 'hielo', A, tam=8.5, neg=True)
+    p.texto(35, 0, 'fusión', V, 'middle', dy=14, tam=8.5, neg=True)
+    p.texto(72, 50, 'agua líquida', A, tam=8.5, neg=True)
+    p.texto(110, 100, 'ebullición', V, 'middle', dy=14, tam=8.5, neg=True)
+    p.texto(146, 122, 'vapor', A, 'end', tam=8.5, neg=True)
+    return p.svg()
+
+
+def fig_mezclas():
+    b = ''
+    def caja(x, y, w, h, t1, t2, c, f):
+        s = rect(x, y, w, h, c, f, 6, 1.6)
+        s += texto(x + w / 2, y + 15, t1, c, 'middle', 10, True)
+        if t2:
+            s += texto(x + w / 2, y + 29, t2, T, 'middle', 8.5)
+        return s
+    b += caja(170, 8, 120, 26, 'MATERIA', '', T, '#f4f6f8')
+    b += linea(230, 34, 230, 46, G, 1.4) + linea(110, 46, 350, 46, G, 1.4)
+    b += linea(110, 46, 110, 56, G, 1.4) + linea(350, 46, 350, 56, G, 1.4)
+    b += caja(30, 56, 160, 40, 'Sustancias puras', 'composición fija', A, FA)
+    b += caja(270, 56, 160, 40, 'Mezclas', 'se separan por medios físicos', O, FO)
+    b += linea(110, 96, 110, 106, G, 1.4) + linea(60, 106, 160, 106, G, 1.4)
+    b += linea(60, 106, 60, 116, G, 1.4) + linea(160, 106, 160, 116, G, 1.4)
+    b += caja(10, 116, 100, 40, 'Elementos', 'Fe, O₂, Au', A, '#fff')
+    b += caja(115, 116, 100, 40, 'Compuestos', 'H₂O, NaCl, CO₂', A, '#fff')
+    b += linea(350, 96, 350, 106, G, 1.4) + linea(290, 106, 410, 106, G, 1.4)
+    b += linea(290, 106, 290, 116, G, 1.4) + linea(410, 106, 410, 116, G, 1.4)
+    b += caja(232, 116, 116, 40, 'Homogéneas', 'una sola fase', O, '#fff')
+    b += caja(355, 116, 110, 40, 'Heterogéneas', 'fases distintas', O, '#fff')
+    b += texto(290, 172, 'disoluciones: agua salada,', T, 'middle', 8.5)
+    b += texto(290, 184, 'aire, vinagre, latón', T, 'middle', 8.5)
+    b += texto(410, 172, 'suspensiones, arena y', T, 'middle', 8.5)
+    b += texto(410, 184, 'agua (los coloides, en medio)', T, 'middle', 8.5)
+    return svg(476, 192, b)
+
+
+def fig_ph():
+    b = ''
+    colores = ['#d7263d', '#e8492f', '#f26b2a', '#f8962e', '#f9c22e', '#e6d63a', '#b9d84a', '#5cb85c',
+               '#3fae8f', '#3a9bb7', '#3b7dc4', '#4560bd', '#5a4bb0', '#6a3ea1', '#5b2a86']
+    w = 30
+    for k in range(15):
+        b += rect(15 + k * w, 70, w, 26, 'none', colores[k], 0, 0)
+        b += texto(15 + k * w + w / 2, 87, str(k), '#fff' if k not in (4, 5, 6) else T, 'middle', 10, True)
+    arriba = [(1.5, 'jugo gástrico'), (3, 'refresco'), (5, 'café'), (7, 'agua pura')]
+    abajo = [(7.4, 'sangre'), (8.3, 'bicarbonato'), (11, 'amoniaco'), (12.5, 'cloro (lejía)'), (14, 'sosa')]
+    def x(ph):
+        return 15 + ph * w + w / 2 if ph < 14 else 15 + 14 * w + w / 2
+    for i, (ph, t) in enumerate(arriba):
+        b += linea(x(ph), 66, x(ph), 54 - (i % 2) * 14, G, 1)
+        b += texto(x(ph), 50 - (i % 2) * 14, t, T, 'middle', 8.5)
+    for i, (ph, t) in enumerate(abajo):
+        b += linea(x(ph), 100, x(ph), 112 + (i % 2) * 14, G, 1)
+        b += texto(x(ph), 122 + (i % 2) * 14, t, T, 'middle', 8.5)
+    b += texto(15, 12, '← ÁCIDO (más H⁺)', '#d7263d', tam=10, neg=True)
+    b += texto(15 + 7.5 * w, 12, 'NEUTRO', '#2e7d4f', 'middle', 10, True)
+    b += texto(15 + 15 * w, 12, 'BÁSICO (alcalino) →', '#5a4bb0', 'end', 10, True)
+    return svg(15 + 15 * w + 15, 146, b)
+
+
+def lewis(x, y, simbolo, ne, color=T):
+    """Simbolo con sus electrones de valencia como puntos (arriba, derecha, abajo, izquierda)."""
+    b = texto(x, y + 6, simbolo, color, 'middle', 16, True)
+    h = 16 + 5 * (len(simbolo) - 1)
+    lados = [(0, -16), (h, 0), (0, 16), (-h, 0)]
+    cuenta = [0, 0, 0, 0]
+    for k in range(ne):
+        cuenta[k % 4] += 1
+    for (dx, dy), c in zip(lados, cuenta):
+        if c == 0:
+            continue
+        offs = [0] if c == 1 else [-4, 4]
+        for o in offs:
+            px = x + dx + (o if dx == 0 else 0)
+            py = y + dy + (o if dy == 0 else 0) + (1 if dy == 0 else 0)
+            b += punto(px, py, O, 2.2)
+    return b
+
+def fig_lewis():
+    b = ''
+    datos = [('Li', 1), ('Be', 2), ('B', 3), ('C', 4), ('N', 5), ('O', 6), ('F', 7), ('Ne', 8)]
+    for i, (s, ne) in enumerate(datos):
+        x = 32 + i * 58
+        b += lewis(x, 34, s, ne)
+        b += texto(x, 72, '%d e⁻' % ne, G, 'middle', 9)
+        b += texto(x, 86, 'grupo %d' % (i + 1 if i < 2 else i + 11), G, 'middle', 8)
+    b += texto(240, 106, 'electrones de valencia: los del último nivel', A, 'middle', 9.5, True)
+    return svg(480, 114, b)
+
+
+def fig_redox():
+    b = flechas('rx', T)
+    def px(v):
+        return 40 + (v + 3) * 46
+    b += linea(20, 70, 430, 70, T, 1.4, ini='rx', fin='rx')
+    for v in range(-3, 6):
+        b += linea(px(v), 64, px(v), 76, T, 1)
+        b += texto(px(v), 92, ('+%d' % v) if v > 0 else menos(v), T, 'middle', 10, True)
+    b += flecha(px(-1), 46, px(2), 46, O, 'ox', 2.4)
+    b += texto(px(0.5), 36, 'OXIDACIÓN: el número aumenta (pierde e⁻)', O, 'middle', 9.5, True)
+    b += flecha(px(4), 112, px(1), 112, A, 'rd', 2.4)
+    b += texto(px(2.5), 130, 'REDUCCIÓN: el número disminuye (gana e⁻)', A, 'middle', 9.5, True)
+    return svg(450, 140, b)
 
 
 FIGURAS = {k[4:]: v for k, v in globals().items() if k.startswith('fig_')}

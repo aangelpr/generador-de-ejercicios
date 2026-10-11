@@ -97,7 +97,7 @@ table.sint td.res { color: var(--verde); font-weight: bold; }
 .dos { display: flex; gap: 14px; align-items: flex-start; page-break-inside: avoid; }
 .dos > * { flex: 1; }
 .dos > .fig { flex: 0 0 auto; max-width: 52%; }
-.dos > .fig svg { max-width: none; }
+.dos > .fig svg { max-width: 100%; height: auto; }
 .fig { text-align: center; margin: 6px 0; page-break-inside: avoid; }
 .fig svg { max-width: 100%; height: auto; }
 .pie { font-size: 8.8pt; color: var(--suave); text-align: center; margin-top: 2px; }

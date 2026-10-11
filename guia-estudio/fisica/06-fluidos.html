@@ -1,0 +1,90 @@
+<section class="tema">
+  <h2>6.8 Hidrodinámica: principios de Pascal y de Arquímedes</h2>
+  <div class="reactivos">Reactivos 56 y 57 de la versión de práctica</div>
+
+  <p class="intro"><b>¿De qué trata esta lección?</b> Los fluidos (líquidos y gases) transmiten las fuerzas de maneras muy útiles. El principio de Pascal explica cómo un gato hidráulico levanta un auto con la fuerza de un brazo; el de Arquímedes, por qué un barco de acero flota y una piedra se hunde. (En rigor son temas de fluidos en reposo, la hidrostática, pero el temario los incluye en este apartado.)</p>
+
+  <h3>Primero: ¿qué es la presión?</h3>
+  <p>La <b>presión</b> es la fuerza repartida sobre un área:</p>
+  <p class="m" style="text-align:center;font-size:13pt">P = F / A &nbsp;&nbsp; (pascales: 1 Pa = 1 N/m²)</p>
+  <p>La misma fuerza en un área pequeña produce mucha presión, y en un área grande, poca. Por eso un cuchillo afilado corta (filo de área diminuta), un clavo entra por la punta, y unas raquetas de nieve evitan que te hundas (reparten tu peso). Dentro de un líquido, la presión aumenta con la profundidad: por eso te duelen los oídos en el fondo de una alberca.</p>
+
+  <h3>Principio de Pascal</h3>
+  <div class="caja formula"><b class="t">Enunciado</b> Toda presión que se ejerce sobre un líquido encerrado en un recipiente se transmite con la misma intensidad a todos los puntos del líquido y a las paredes del recipiente.</div>
+  <div class="dos">
+    <div>
+      <p><b>La prensa hidráulica.</b> Tiene dos émbolos de distinto tamaño conectados por un líquido. Si empujas el émbolo chico con una fuerza F₁, creas una presión P = F₁/A₁, y esa misma presión llega al émbolo grande, donde produce una fuerza F₂ = P·A₂. Como las presiones son iguales:</p>
+      <p class="m" style="text-align:center;font-size:13pt"><span class="fr"><span>F<sub>1</sub></span><span>A<sub>1</sub></span></span> = <span class="fr"><span>F<sub>2</sub></span><span>A<sub>2</sub></span></span> &nbsp;&nbsp; ⟹ &nbsp;&nbsp; F<sub>2</sub> = F<sub>1</sub>·<span class="fr"><span>A<sub>2</sub></span><span>A<sub>1</sub></span></span></p>
+      <p>La fuerza se <b>multiplica</b> tantas veces como el área grande es mayor que la chica. Así funcionan los gatos hidráulicos, los frenos de los autos, las sillas de dentista y las retroexcavadoras.</p>
+    </div>
+    <div class="fig"><!--FIG:prensa--></div>
+  </div>
+  <div class="caja idea"><b class="t">Nada es gratis</b> Si la fuerza se multiplica por 100, el émbolo chico tiene que recorrer 100 veces más distancia que lo que sube el grande. Por eso con el gato hidráulico das muchos “bombazos” para subir el auto unos centímetros.</div>
+  <div class="caja ejemplo"><b class="t">Ejemplo explicado: un gato hidráulico</b>
+    <div class="preg">El émbolo chico mide 5 cm² y el grande 500 cm². ¿Qué fuerza debes aplicar para levantar un auto de 10 000 N?</div>
+    <ol class="pasos">
+      <li><b>Pascal:</b> F₁/A₁ = F₂/A₂ → F₁ = F₂·A₁/A₂.</li>
+      <li><b>Sustituyo:</b> F₁ = 10 000 × 5/500 = 100 N. <span class="por">Las áreas están las dos en cm²: se cancelan, no hace falta convertir.</span></li>
+    </ol>
+  </div>
+
+  <h3>Principio de Arquímedes</h3>
+  <div class="caja formula"><b class="t">Enunciado</b> Todo cuerpo sumergido en un fluido recibe un empuje vertical hacia arriba igual al peso del fluido que desaloja.
+    <p class="m" style="text-align:center;font-size:13pt">E = ρ · g · V</p>
+    <p><span class="m">E</span>: empuje (N) · <span class="m">ρ</span>: densidad <b>del fluido</b> (kg/m³), no la del objeto · <span class="m">g</span> = 9.81 m/s² · <span class="m">V</span>: volumen de fluido desalojado, es decir, el volumen de la parte sumergida del cuerpo (m³).</p>
+  </div>
+  <div class="dos">
+    <div>
+      <div class="caja idea"><b class="t">La historia del “¡Eureka!”</b> Cuentan que el rey Hierón le pidió a Arquímedes averiguar si su corona era de oro puro sin dañarla. Al meterse a la bañera vio que el agua subía: un cuerpo sumergido desaloja su propio volumen de agua. Con eso pudo medir el volumen de la corona y comparar su densidad con la del oro. Salió corriendo gritando “¡Eureka!” (“¡lo encontré!”).</div>
+      <p><b>¿Flota o se hunde?</b> Compara el peso del objeto con el empuje, o lo que es lo mismo, las densidades: si el objeto es <b>menos denso</b> que el fluido, flota; si es <b>más denso</b>, se hunde. La madera (unos 600 kg/m³) flota en el agua (1 000 kg/m³) y el hierro (7 870 kg/m³) se hunde. Pero un barco de acero flota: por su forma lleva mucho aire adentro y su densidad promedio es menor que la del agua. El hielo (917 kg/m³) flota con 90% sumergido: “la punta del iceberg”.</p>
+    </div>
+    <div class="fig"><!--FIG:arquimedes--></div>
+  </div>
+  <table style="width:85%">
+    <tr><th>Sustancia</th><td>aire</td><td>madera</td><td>hielo</td><td>aceite</td><td>agua</td><td>agua de mar</td><td>hierro</td></tr>
+    <tr><th>Densidad (kg/m³)</th><td>1.2</td><td>≈ 600</td><td>917</td><td>≈ 920</td><td>1 000</td><td>≈ 1 025</td><td>7 870</td></tr>
+  </table>
+  <div class="caja ejemplo"><b class="t">Ejemplo explicado: peso aparente</b>
+    <div class="preg">Una piedra de 0.002 m³ que pesa 50 N se sumerge completa en agua. ¿Qué empuje recibe y cuánto “pesa” dentro del agua?</div>
+    <ol class="pasos">
+      <li><b>Empuje:</b> E = 1 000 × 9.81 × 0.002 = 19.62 N (la densidad es la del <b>agua</b>).</li>
+      <li><b>Peso aparente:</b> 50 − 19.62 = 30.38 N. Por eso las cosas se sienten más ligeras dentro de una alberca.</li>
+    </ol>
+  </div>
+
+  <div class="caja examen">
+    <div class="enc">Reactivo 56 del examen</div>
+    <div class="preg">En una prensa hidráulica, el émbolo pequeño tiene un área de 10 cm² y el grande de 200 cm². Si sobre el pequeño se aplica una fuerza de 50 N, ¿qué fuerza se ejerce en el émbolo grande? &nbsp; A) 200 N &nbsp; B) 500 N &nbsp; C) 1 000 N &nbsp; D) 1 500 N</div>
+    <ol class="pasos">
+      <li><b>Pascal:</b> F₂ = F₁·A₂/A₁ = 50 × 200/10.</li>
+      <li><b>Calculo:</b> el área grande es 20 veces la chica, así que la fuerza se multiplica por 20: 50 × 20 = 1 000 N.</li>
+    </ol>
+    <span class="resp">Respuesta: C) 1 000 N</span>
+  </div>
+  <div class="caja examen">
+    <div class="enc">Reactivo 57 del examen</div>
+    <div class="preg">Un cuerpo desplaza 3.00 m³ de agua al sumergirse, ¿cuál es el empuje del agua sobre el cuerpo sumergido? Considere g = 9.81 m/s² y ρ<sub>agua</sub> = 1 000.00 kg/m³. &nbsp; A) 1 268.00 N &nbsp; B) 3 270.00 N &nbsp; C) 12 832.00 N &nbsp; D) 29 430.00 N</div>
+    <ol class="pasos">
+      <li><b>Arquímedes:</b> E = ρ·g·V.</li>
+      <li><b>Sustituyo:</b> E = 1 000 × 9.81 × 3.00 = 29 430 N.</li>
+    </ol>
+    <p class="chico"><b>Revisión de unidades:</b> (kg/m³)·(m/s²)·(m³) = kg·m/s² = N ✔.</p>
+    <span class="resp">Respuesta: D) 29 430.00 N</span>
+  </div>
+
+  <div class="caja practica"><b class="t">Ahora tú</b>
+    <ol>
+      <li>¿Por qué un cuchillo afilado corta mejor que uno sin filo, si empujas con la misma fuerza?</li>
+      <li>En una prensa, A₁ = 4 cm², A₂ = 240 cm² y F₁ = 30 N. ¿Cuánto vale F₂?</li>
+      <li>Un cuerpo desaloja 0.5 m³ de agua de mar (ρ = 1 025 kg/m³). ¿Qué empuje recibe?</li>
+      <li>Un bloque de 2 kg con volumen de 0.003 m³ se suelta en agua. ¿Flota o se hunde?</li>
+      <li>¿Qué principio explica los frenos hidráulicos de un auto? ¿Y que los barcos floten?</li>
+    </ol>
+    <div class="sol">
+      <p><b>1)</b> Con menor área, la misma fuerza produce mayor presión. <b>2)</b> F₂ = 30 × 240/4 = 1 800 N.</p>
+      <p><b>3)</b> E = 1 025 × 9.81 × 0.5 ≈ 5 027.6 N.</p>
+      <p><b>4)</b> Su densidad es 2/0.003 ≈ 667 kg/m³, menor que la del agua: flota. (Su peso, 19.62 N, es menor que el empuje máximo, 1 000 × 9.81 × 0.003 = 29.43 N.)</p>
+      <p><b>5)</b> Pascal; Arquímedes.</p>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,1160 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Guía de estudio de Física — EXACER</title>
+<style>
+@page { size: Letter; margin: 15mm 15mm 16mm 15mm; }
+:root {
+  --tinta: #1d2330;
+  --suave: #5a6375;
+  --acento: #1f6f8b;
+  --acento-claro: #e6f2f6;
+  --ojo: #b5542a;
+  --ojo-claro: #fbefe8;
+  --verde: #2e7d4f;
+  --verde-claro: #e9f5ee;
+  --idea: #8a6400;
+  --idea-borde: #d4a017;
+  --idea-claro: #fff6dc;
+  --morado: #6b4fa3;
+  --morado-claro: #f3effa;
+  --linea: #d6dbe3;
+}
+* { box-sizing: border-box; }
+body {
+  font-family: "DejaVu Sans", "Liberation Sans", Arial, sans-serif;
+  color: var(--tinta);
+  background: #fff;
+  font-size: 10pt;
+  line-height: 1.5;
+  margin: 0;
+}
+h1, h2, h3, h4 { line-height: 1.25; }
+h2 {
+  font-size: 16pt;
+  color: var(--acento);
+  border-bottom: 2px solid var(--acento);
+  padding-bottom: 4px;
+  margin: 0 0 8px;
+}
+h3 { font-size: 11.6pt; margin: 18px 0 6px; color: var(--acento); page-break-after: avoid; }
+h4 { font-size: 10.8pt; margin: 12px 0 4px; page-break-after: avoid; }
+p { margin: 6px 0; }
+ul, ol { margin: 6px 0; padding-left: 22px; }
+li { margin: 3px 0; }
+.tema { page-break-before: always; }
+.reactivos { color: var(--suave); font-size: 9.5pt; margin: -2px 0 8px; }
+.intro {
+  background: #f4f8fb;
+  border-left: 4px solid var(--acento);
+  border-radius: 6px;
+  padding: 8px 12px;
+  margin: 6px 0 12px;
+  font-size: 10.2pt;
+}
+.caja { border-radius: 6px; padding: 8px 12px; margin: 10px 0; page-break-inside: avoid; }
+.caja.larga { page-break-inside: auto; }
+.caja b.t { display: block; margin-bottom: 3px; }
+.formula { background: var(--acento-claro); border-left: 4px solid var(--acento); }
+.formula b.t { color: var(--acento); }
+.idea { background: var(--idea-claro); border-left: 4px solid var(--idea-borde); }
+.idea b.t { color: var(--idea); }
+.ejemplo { background: var(--morado-claro); border-left: 4px solid var(--morado); }
+.ejemplo b.t { color: var(--morado); }
+.ojo { background: var(--ojo-claro); border-left: 4px solid var(--ojo); }
+.ojo b.t { color: var(--ojo); }
+.examen { border: 1.5px solid var(--linea); background: #fafbfc; }
+.examen .enc { font-weight: bold; color: var(--acento); margin-bottom: 4px; }
+.preg { font-style: italic; margin-bottom: 6px; }
+.resp { color: var(--verde); font-weight: bold; }
+.practica { background: var(--verde-claro); border-left: 4px solid var(--verde); }
+.practica b.t { color: var(--verde); }
+.check { border: 1.5px dashed var(--acento); background: #fff; }
+.check b.t { color: var(--acento); }
+.sol { color: var(--suave); font-size: 9.2pt; margin-top: 6px; }
+.sol p { margin: 3px 0; }
+.por { display: block; color: var(--suave); font-size: 9.2pt; margin-top: 1px; }
+.pasos { counter-reset: paso; list-style: none; padding-left: 0; }
+.pasos li { counter-increment: paso; padding-left: 26px; position: relative; margin: 5px 0; }
+.pasos li::before {
+  content: counter(paso);
+  position: absolute; left: 0; top: 1px;
+  width: 18px; height: 18px; border-radius: 50%;
+  background: var(--acento); color: #fff;
+  font-size: 8.5pt; text-align: center; line-height: 18px;
+}
+.ejemplo .pasos li::before { background: var(--morado); }
+.m { font-family: "DejaVu Serif", "Liberation Serif", serif; font-style: italic; }
+.nw { white-space: nowrap; }
+.fr { display: inline-block; vertical-align: middle; text-align: center; font-style: normal; margin: 0 2px; }
+.fr > span { display: block; padding: 0 2px; line-height: 1.15; font-size: 92%; }
+.fr > span:first-child { border-bottom: 1px solid currentColor; }
+table { border-collapse: collapse; width: 100%; margin: 8px 0; font-size: 9.3pt; page-break-inside: avoid; }
+th, td { border: 1px solid var(--linea); padding: 4px 6px; text-align: left; vertical-align: top; }
+th { background: var(--acento-claro); }
+.caja table { background: #fff; }
+table.sint { width: auto; margin: 6px 0; }
+table.sint td { text-align: center; min-width: 38px; border: none; padding: 2px 6px; font-family: "DejaVu Serif", serif; }
+table.sint tr:nth-child(2) td { border-bottom: 1.5px solid var(--tinta); }
+table.sint td.raiz { border-right: 1.5px solid var(--tinta); color: var(--ojo); font-weight: bold; }
+table.sint td.res { color: var(--verde); font-weight: bold; }
+.pascal { text-align: center; font-family: "DejaVu Sans Mono", monospace; line-height: 1.5; margin: 6px 0; }
+.dos { display: flex; gap: 14px; align-items: flex-start; page-break-inside: avoid; }
+.dos > * { flex: 1; }
+.dos > .fig { flex: 0 0 auto; max-width: 52%; }
+.dos > .fig svg { max-width: 100%; height: auto; }
+.fig { text-align: center; margin: 6px 0; page-break-inside: avoid; }
+.fig svg { max-width: 100%; height: auto; }
+.pie { font-size: 8.8pt; color: var(--suave); text-align: center; margin-top: 2px; }
+.portada { height: 232mm; display: flex; flex-direction: column; justify-content: center; text-align: center; }
+.portada h1 { font-size: 30pt; color: var(--acento); margin: 0 0 6px; }
+.portada .sub { font-size: 14pt; color: var(--suave); }
+.portada .chip { display: inline-block; margin-top: 24px; padding: 6px 14px; border: 1.5px solid var(--acento); border-radius: 20px; color: var(--acento); font-weight: bold; }
+.chico { font-size: 9pt; color: var(--suave); }
+.sub-tema { font-size: 11.5pt; color: var(--acento); margin: 16px 0 4px; border-bottom: 1px dashed var(--linea); page-break-after: avoid; }
+.leyenda .caja { margin: 6px 0; padding: 5px 10px; }
+.clave td { text-align: center; }
+table.compacta { font-size: 9.4pt; page-break-inside: auto; }
+table.compacta tr { page-break-inside: avoid; }
+table.compacta td, table.compacta th { padding: 2px 6px; line-height: 1.3; }
+</style>
+</head>
+<body>
+<section class="portada">
+  <h1>Guía de estudio<br>de Física</h1>
+  <div class="sub">Certificación por Evaluaciones Parciales “EXACER”<br>Área de formación básica · Ciencias Experimentales</div>
+  <div><span class="chip">Explicada como en clase · temario oficial 6.1 a 6.10 · reactivos 43 a 60 de la versión de práctica resueltos</span></div>
+  <p class="chico" style="margin-top:40px">Sigue el orden y el contenido de <i>Temas fundamentales y bibliografía</i> (sección 6. Física)<br>y resuelve paso a paso los reactivos de Física de la <i>Versión de práctica</i> (Ciencias Experimentales).<br>Ambos documentos están en este repositorio. Complementa la app <b>Generador de ejercicios</b>.</p>
+</section>
+
+<section class="tema">
+  <h2>Antes de empezar: cómo usar esta guía</h2>
+  <p class="intro">Esta guía está escrita como si un maestro te estuviera dando la clase. En cada lección primero te cuento <b>de qué se trata y para qué sirve</b>, luego te explico las ideas con ejemplos de la vida diaria, resolvemos problemas juntos paso a paso y al final atacamos las preguntas del examen. Ten a la mano lápiz, papel y una calculadora sencilla para practicar.</p>
+
+  <h3>El examen de Ciencias Experimentales</h3>
+  <ul>
+    <li>Son <b>60 reactivos en 60 minutos</b>: ¡un minuto por pregunta! Incluye cuatro materias: Biología (reactivos 1 a 14), Geografía (15 a 24), Química (25 a 42) y <b>Física (43 a 60)</b>.</li>
+    <li>Las preguntas de Física salen de los temas <b>6.1 a 6.10</b> del documento <i>Temas fundamentales y bibliografía</i>. Esta guía sigue ese orden.</li>
+    <li>La mayoría son <b>cálculos directos</b>: identificar la fórmula, sustituir y operar. Muchas traen un renglón <b>“Considere…”</b> con datos como g = 9.81 m/s². Si dominas las fórmulas y las unidades, son de los puntos más seguros del examen.</li>
+    <li>Las demás preguntan conceptos: leyes de Newton, de Kepler, de la termodinámica y formas de transferir calor.</li>
+  </ul>
+
+  <h3>Cómo está armada cada lección</h3>
+  <div class="leyenda">
+    <p class="intro" style="margin:6px 0"><b>¿De qué trata esta lección?</b> Para qué sirve el tema y qué vas a aprender.</p>
+    <div class="caja idea"><b class="t">Piénsalo así</b> Una comparación con la vida diaria o un truco para recordar.</div>
+    <div class="caja formula"><b class="t">Fórmulas</b> Lo que necesitas tener a la mano, con sus unidades.</div>
+    <div class="caja ejemplo"><b class="t">Ejemplo explicado</b> Un problema resuelto paso a paso, diciendo qué se hace y por qué.</div>
+    <div class="caja ojo"><b class="t">Error común</b> Las trampas más frecuentes y cómo evitarlas.</div>
+    <div class="caja examen"><div class="enc">Reactivo del examen</div> La pregunta de la versión de práctica, resuelta y con la respuesta de la clave oficial.</div>
+    <div class="caja practica"><b class="t">Ahora tú</b> Ejercicios con sus respuestas al final del recuadro: tápalas antes de resolver.</div>
+  </div>
+</section>
+
+<section class="tema">
+  <h2>Mapa: temario oficial ↔ reactivos de la versión de práctica</h2>
+  <table class="compacta">
+    <tr><th style="width:10%">Tema</th><th>Nombre en el temario</th><th style="width:20%">Reactivos</th></tr>
+    <tr><td>—</td><td>Antes de empezar: unidades, conversiones y despejes (herramientas para todos los temas)</td><td>todos</td></tr>
+    <tr><td>6.1</td><td>Movimiento (MRU y MUA)</td><td>43, 44</td></tr>
+    <tr><td>6.2</td><td>Mecánica clásica (gravedad, leyes de Newton, caída libre, tiro vertical)</td><td>45, 46, 47</td></tr>
+    <tr><td>6.3</td><td>Órbitas (leyes de Kepler)</td><td>48</td></tr>
+    <tr><td>6.4</td><td>Energía (tipos de transferencia de calor)</td><td>49</td></tr>
+    <tr><td>6.5</td><td>Leyes de la termodinámica (temperatura, calor, sistemas y procesos)</td><td>50, 51, 52</td></tr>
+    <tr><td>6.6</td><td>Gases (Boyle, Charles, Gay-Lussac) y elasticidad (ley de Hooke)</td><td>53, 54, 55</td></tr>
+    <tr><td>6.8</td><td>Hidrodinámica (principios de Pascal y de Arquímedes)</td><td>56, 57</td></tr>
+    <tr><td>6.9</td><td>Electromagnetismo (ley de Ohm)</td><td>58, 59</td></tr>
+    <tr><td>6.10</td><td>Óptica (ley de Snell)</td><td>60</td></tr>
+  </table>
+  <p class="chico">El temario salta del 6.6 al 6.8: la elasticidad (ley de Hooke) aparece dentro del 6.6, junto con los gases.</p>
+
+  <h3>Plan de estudio sugerido</h3>
+  <ol>
+    <li><b>Diagnóstico:</b> resuelve los reactivos 43 a 60 de la versión de práctica sin ver la guía (unos 18 minutos) y califícate con la clave del final.</li>
+    <li><b>Herramientas primero:</b> estudia la lección “Antes de empezar”. La mitad de los errores en Física son de unidades o de despejes, no de física.</li>
+    <li><b>Recorre los temas</b> en orden y haz los ejercicios de cada uno. Cada tema tiene pocas fórmulas: apréndelas junto con lo que significa cada letra y su unidad.</li>
+    <li><b>Practica</b> en la app (modo Prepa → Física) hasta que identifiques la fórmula en segundos.</li>
+    <li><b>Repaso final:</b> el formulario del final, con todas las fórmulas y sus unidades en una sola página.</li>
+  </ol>
+  <p class="chico">En el PDF puedes usar el panel de marcadores de tu lector para saltar directo a cada lección.</p>
+</section>
+<section class="tema">
+  <h2>Antes de empezar: las herramientas de la física</h2>
+  <div class="reactivos">Sirve para todos los reactivos de Física</div>
+
+  <p class="intro"><b>¿De qué trata esta lección?</b> La física estudia cómo y por qué se mueven las cosas, las fuerzas, la energía, el calor, la electricidad y la luz. Casi todas sus preguntas funcionan igual: te dan datos con unidades, eliges la fórmula, despejas y calculas. Aquí preparamos las herramientas que vas a usar en <b>todos</b> los temas: unidades, conversiones, despejes y un método para no equivocarte. Vale la pena dominarlas antes de seguir.</p>
+
+  <h3>Magnitudes y unidades</h3>
+  <p>Una <b>magnitud</b> es algo que se puede medir. Toda medida tiene un <b>número</b> y una <b>unidad</b>: “35” no dice nada; “35 m” y “35 km” son cosas muy distintas. En ciencia se usa el <b>Sistema Internacional (SI)</b>:</p>
+  <table>
+    <tr><th>Magnitud</th><th>Unidad (SI)</th><th>Símbolo</th><th>Equivalencias útiles</th></tr>
+    <tr><td>Longitud, distancia</td><td>metro</td><td>m</td><td>1 km = 1 000 m; 1 m = 100 cm</td></tr>
+    <tr><td>Masa</td><td>kilogramo</td><td>kg</td><td>1 kg = 1 000 g</td></tr>
+    <tr><td>Tiempo</td><td>segundo</td><td>s</td><td>1 min = 60 s; 1 h = 3 600 s</td></tr>
+    <tr><td>Temperatura</td><td>kelvin</td><td>K</td><td>K = °C + 273.15</td></tr>
+    <tr><td>Velocidad</td><td>metro por segundo</td><td>m/s</td><td>1 m/s = 3.6 km/h</td></tr>
+    <tr><td>Aceleración</td><td>metro por segundo al cuadrado</td><td>m/s²</td><td>g = 9.81 m/s²</td></tr>
+    <tr><td>Fuerza (y peso)</td><td>newton</td><td>N</td><td>1 N = 1 kg·m/s²</td></tr>
+    <tr><td>Presión</td><td>pascal</td><td>Pa</td><td>1 Pa = 1 N/m²; también se usa la atmósfera (atm)</td></tr>
+    <tr><td>Energía, trabajo, calor</td><td>joule</td><td>J</td><td>1 J = 1 N·m</td></tr>
+    <tr><td>Volumen</td><td>metro cúbico</td><td>m³</td><td>1 m³ = 1 000 L; 1 L = 1 000 mL = 1 000 cm³</td></tr>
+    <tr><td>Corriente, voltaje, resistencia</td><td>ampere, volt, ohm</td><td>A, V, Ω</td><td>1 mA = 0.001 A; 1 kΩ = 1 000 Ω</td></tr>
+  </table>
+  <p><b>Prefijos:</b> kilo (k) = 1 000 · centi (c) = 1/100 · mili (m) = 1/1 000 · micro (μ) = 1/1 000 000 · mega (M) = 1 000 000.</p>
+
+  <h3>Convertir unidades sin equivocarte</h3>
+  <p>El truco es multiplicar por una fracción que vale 1 (arriba y abajo lo mismo, en unidades distintas), acomodada para que se cancele la unidad que no quieres:</p>
+  <div class="caja ejemplo"><b class="t">Ejemplo explicado: 72 km/h a m/s</b>
+    <ol class="pasos">
+      <li><b>Cambio km por m:</b> como 1 km = 1 000 m, multiplico por (1 000 m / 1 km). Los km se cancelan.</li>
+      <li><b>Cambio h por s:</b> como 1 h = 3 600 s, multiplico por (1 h / 3 600 s). Las h se cancelan.</li>
+      <li><b>Opero:</b> 72 × 1 000 / 3 600 = 20 m/s.</li>
+    </ol>
+    <p><b>Atajo:</b> de km/h a m/s divide entre 3.6; de m/s a km/h multiplica por 3.6.</p>
+  </div>
+  <ul>
+    <li><b>Áreas:</b> como 1 m = 100 cm, 1 m² = 100 × 100 = 10 000 cm². Entonces 500 cm² = 0.05 m². ¡El factor también se eleva al cuadrado!</li>
+    <li><b>Volúmenes:</b> 1 m³ = 1 000 000 cm³ = 1 000 L. Así, 3 L = 0.003 m³.</li>
+    <li><b>Temperatura:</b> 25 °C = 25 + 273.15 = 298.15 K.</li>
+  </ul>
+  <div class="caja idea"><b class="t">¿Cuándo no hace falta convertir?</b> Cuando la fórmula compara la misma magnitud en los dos lados, como en la prensa hidráulica (F₁/A₁ = F₂/A₂) o en la ley de Boyle (P₁V₁ = P₂V₂): si las dos áreas están en cm² o los dos volúmenes en mL, las unidades se cancelan solas. La excepción: <b>en las leyes de los gases la temperatura siempre va en kelvin</b>.</div>
+
+  <h3>Escalares y vectores</h3>
+  <p>Una magnitud <b>escalar</b> solo tiene tamaño: la masa (5 kg), el tiempo (3 s), la temperatura (20 °C). Una <b>vectorial</b> tiene tamaño, dirección y sentido: la velocidad (20 m/s hacia el norte), la fuerza (40 N hacia la derecha), la aceleración. Por eso las fuerzas no siempre se suman como números: 40 N a la derecha y 10 N a la izquierda dan <b>30 N a la derecha</b>, no 50 N. También por eso se distingue la <b>rapidez</b> (cuánto avanzas, escalar) de la <b>velocidad</b> (cuánto y hacia dónde, vector).</p>
+
+  <h3>Despejar fórmulas: el triángulo</h3>
+  <div class="dos">
+    <div>
+      <p>Muchas fórmulas de física tienen la forma <span class="m nw">A = B·C</span>: <span class="m nw">d = v·t</span>, <span class="m nw">F = m·a</span>, <span class="m nw">V = I·R</span>, <span class="m nw">W = m·g</span>, <span class="m nw">F = k·x</span>, <span class="m nw">m = ρ·V</span>. Para todas sirve el triángulo: escribe arriba la que está sola y abajo las que se multiplican. Luego <b>tapa la que buscas</b>:</p>
+      <ul>
+        <li>Si tapas la de arriba, multiplica las de abajo: <span class="m nw">d = v·t</span>.</li>
+        <li>Si tapas una de abajo, divide la de arriba entre la otra: <span class="m nw">v = d/t</span>, <span class="m nw">t = d/v</span>.</li>
+      </ul>
+    </div>
+    <div class="fig"><svg width="460" height="128" viewBox="0 0 460 128" xmlns="http://www.w3.org/2000/svg" font-family="DejaVu Sans" font-size="10"><polygon points="75,10 20,100 130,100" stroke="#1f6f8b" fill="#fff" stroke-width="2"/><line x1="42" y1="62" x2="108" y2="62" stroke="#1f6f8b" stroke-width="1.6"/><line x1="75" y1="62" x2="75" y2="100" stroke="#1f6f8b" stroke-width="1.6"/><text x="75" y="50" fill="#1f6f8b" text-anchor="middle" font-size="18" font-weight="bold" font-style="italic" font-family="DejaVu Serif">d</text><text x="53" y="90" fill="#1f6f8b" text-anchor="middle" font-size="16" font-weight="bold" font-style="italic" font-family="DejaVu Serif">v</text><text x="97" y="90" fill="#1f6f8b" text-anchor="middle" font-size="16" font-weight="bold" font-style="italic" font-family="DejaVu Serif">t</text><text x="75" y="120" fill="#1d2330" text-anchor="middle" font-size="10" font-weight="bold">d = v · t</text><polygon points="225,10 170,100 280,100" stroke="#b5542a" fill="#fff" stroke-width="2"/><line x1="192" y1="62" x2="258" y2="62" stroke="#b5542a" stroke-width="1.6"/><line x1="225" y1="62" x2="225" y2="100" stroke="#b5542a" stroke-width="1.6"/><text x="225" y="50" fill="#b5542a" text-anchor="middle" font-size="18" font-weight="bold" font-style="italic" font-family="DejaVu Serif">F</text><text x="203" y="90" fill="#b5542a" text-anchor="middle" font-size="16" font-weight="bold" font-style="italic" font-family="DejaVu Serif">m</text><text x="247" y="90" fill="#b5542a" text-anchor="middle" font-size="16" font-weight="bold" font-style="italic" font-family="DejaVu Serif">a</text><text x="225" y="120" fill="#1d2330" text-anchor="middle" font-size="10" font-weight="bold">F = m · a</text><polygon points="375,10 320,100 430,100" stroke="#2e7d4f" fill="#fff" stroke-width="2"/><line x1="342" y1="62" x2="408" y2="62" stroke="#2e7d4f" stroke-width="1.6"/><line x1="375" y1="62" x2="375" y2="100" stroke="#2e7d4f" stroke-width="1.6"/><text x="375" y="50" fill="#2e7d4f" text-anchor="middle" font-size="18" font-weight="bold" font-style="italic" font-family="DejaVu Serif">V</text><text x="353" y="90" fill="#2e7d4f" text-anchor="middle" font-size="16" font-weight="bold" font-style="italic" font-family="DejaVu Serif">I</text><text x="397" y="90" fill="#2e7d4f" text-anchor="middle" font-size="16" font-weight="bold" font-style="italic" font-family="DejaVu Serif">R</text><text x="375" y="120" fill="#1d2330" text-anchor="middle" font-size="10" font-weight="bold">V = I · R</text></svg></div>
+  </div>
+  <p>Para fórmulas más largas usa las reglas del álgebra: lo que <b>suma</b> pasa al otro lado <b>restando</b>, y lo que <b>multiplica</b> pasa <b>dividiendo</b>. Por ejemplo, de <span class="m nw">v<sub>f</sub> = v<sub>i</sub> + a·t</span>: primero pasa v<sub>i</sub> restando (<span class="m nw">v<sub>f</sub> − v<sub>i</sub> = a·t</span>) y luego t dividiendo: <span class="m nw">a = (v<sub>f</sub> − v<sub>i</sub>)/t</span>.</p>
+
+  <h3>Masa y peso no son lo mismo</h3>
+  <p>La <b>masa</b> es la cantidad de materia de un cuerpo; se mide en <b>kilogramos</b> y es la misma en la Tierra que en la Luna. El <b>peso</b> es la <b>fuerza</b> con la que la Tierra te jala; se mide en <b>newtons</b> y se calcula con <span class="m nw">W = m·g</span>. Una persona de 60 kg pesa 60 × 9.81 = 588.6 N en la Tierra; en la Luna (g = 1.62 m/s²) pesa solo 97.2 N, pero su masa sigue siendo 60 kg. En la vida diaria decimos “peso 60 kilos”, pero en física eso es la masa.</p>
+
+  <h3>El método para resolver cualquier problema</h3>
+  <ol class="pasos">
+    <li><b>Anota los datos con sus unidades</b> (m = 50 kg, v<sub>i</sub> = 15 m/s…).</li>
+    <li><b>Identifica qué te piden</b> y en qué unidad debe salir.</li>
+    <li><b>Elige la fórmula</b> que une los datos con la incógnita (el “Considere” es una gran pista).</li>
+    <li><b>Convierte unidades</b> si hace falta, para que todo esté en el mismo sistema.</li>
+    <li><b>Despeja</b> la incógnita.</li>
+    <li><b>Sustituye y calcula</b>, escribiendo las unidades.</li>
+    <li><b>Revisa:</b> ¿la unidad es la correcta? ¿el número tiene sentido? Una persona no corre a 300 m/s ni pesa 3 N.</li>
+  </ol>
+  <div class="caja ejemplo"><b class="t">Ejemplo explicado: aplicando el método</b>
+    <div class="preg">Un ciclista recorre 9 km en 30 minutos a velocidad constante. ¿Cuál es su velocidad en m/s?</div>
+    <ol class="pasos">
+      <li><b>Datos:</b> d = 9 km, t = 30 min. <b>Incógnita:</b> v en m/s.</li>
+      <li><b>Fórmula:</b> v = d/t.</li>
+      <li><b>Convierto:</b> d = 9 000 m; t = 30 × 60 = 1 800 s.</li>
+      <li><b>Calculo:</b> v = 9 000/1 800 = 5 m/s.</li>
+      <li><b>Reviso:</b> 5 m/s × 3.6 = 18 km/h, una velocidad razonable para un ciclista ✔.</li>
+    </ol>
+  </div>
+  <div class="caja ojo"><b class="t">Errores comunes</b> Olvidar convertir km/h a m/s o minutos a segundos; usar °C en vez de K en los gases; dar la masa en newtons o el peso en kilogramos; escribir el resultado sin unidades. En el examen, varias opciones incorrectas están puestas justo para atrapar estos errores.</div>
+
+  <div class="caja practica"><b class="t">Ahora tú</b>
+    <ol>
+      <li>Convierte 108 km/h a m/s y 15 m/s a km/h.</li>
+      <li>¿Cuántos segundos hay en 2.5 h? ¿Cuántos m² son 200 cm²?</li>
+      <li>Despeja t de d = v·t, y m de F = m·a.</li>
+      <li>¿Cuánto pesa, en newtons, una mochila de 8 kg? ¿Cuál es la masa de un objeto que pesa 49.05 N?</li>
+      <li>Convierte 27 °C a kelvin y 350 K a °C.</li>
+    </ol>
+    <div class="sol">
+      <p><b>1)</b> 108/3.6 = 30 m/s; 15 × 3.6 = 54 km/h. <b>2)</b> 2.5 × 3 600 = 9 000 s; 200/10 000 = 0.02 m².</p>
+      <p><b>3)</b> t = d/v; m = F/a. <b>4)</b> W = 8 × 9.81 = 78.48 N; m = 49.05/9.81 = 5 kg.</p>
+      <p><b>5)</b> 27 + 273.15 = 300.15 K (≈ 300 K); 350 − 273.15 = 76.85 °C.</p>
+    </div>
+  </div>
+</section>
+<section class="tema">
+  <h2>6.1 Movimiento</h2>
+  <div class="reactivos">Reactivos 43 y 44 de la versión de práctica</div>
+
+  <p class="intro"><b>¿De qué trata esta lección?</b> De <b>describir</b> cómo se mueven las cosas: dónde están, qué tan rápido van y cómo cambia esa rapidez. Para entender <i>por qué</i> se mueven (las fuerzas, lección 6.2), primero hay que saber describir el movimiento. Verás los dos movimientos más sencillos: el rectilíneo uniforme (MRU) y el uniformemente acelerado (MUA).</p>
+
+  <h3>Las palabras del movimiento</h3>
+  <ul>
+    <li><b>Trayectoria:</b> el camino que sigue el objeto; puede ser recta o curva.</li>
+    <li><b>Distancia recorrida:</b> lo que mide todo el camino. <b>Desplazamiento:</b> qué tan lejos quedaste de donde empezaste, en línea recta y con dirección. Si das una vuelta completa a una pista de 400 m, recorres 400 m pero tu desplazamiento es 0.</li>
+    <li><b>Rapidez y velocidad:</b> cuánto avanzas por unidad de tiempo. La velocidad, además, tiene dirección. En línea recta y sin regresar, son lo mismo.</li>
+    <li><b>Aceleración:</b> qué tan rápido cambia la velocidad.</li>
+  </ul>
+  <p>En la vida real los objetos rozan, chocan y los empujan motores o la gravedad, así que su movimiento casi nunca es simple. Por eso primero se estudian situaciones simplificadas y luego se van agregando detalles.</p>
+
+  <h3>Movimiento rectilíneo uniforme (MRU)</h3>
+  <p>Tiene tres características (temario):</p>
+  <ul>
+    <li><b>Trayectoria recta.</b></li>
+    <li><b>Velocidad constante</b>: no cambia ni su tamaño, ni su dirección, ni su sentido.</li>
+    <li><b>La distancia recorrida es igual al desplazamiento.</b></li>
+  </ul>
+  <div class="caja idea"><b class="t">Piénsalo así</b> Velocidad constante significa recorrer <b>la misma distancia cada segundo</b>. A 20 m/s avanzas 20 m en el primer segundo, otros 20 en el segundo, y así: en 5 s, 100 m.</div>
+  <div class="caja formula"><b class="t">Fórmulas del MRU</b>
+    <table>
+      <tr><th>Para calcular</th><th>Fórmula</th><th>Unidades</th></tr>
+      <tr><td>Distancia</td><td class="m">d = v · t</td><td>m o km</td></tr>
+      <tr><td>Velocidad</td><td class="m">v = d / t</td><td>m/s o km/h</td></tr>
+      <tr><td>Tiempo</td><td class="m">t = d / v</td><td>s o h</td></tr>
+    </table>
+    <p>Es el triángulo de la lección anterior: d arriba; v y t abajo.</p>
+  </div>
+  <div class="caja ejemplo"><b class="t">Ejemplo explicado: un autobús en carretera</b>
+    <div class="preg">Un autobús viaja a 90 km/h constantes. ¿Qué distancia recorre en 2.5 h? ¿Cuánto tarda en recorrer 300 km? ¿Cuál es su velocidad en m/s?</div>
+    <ol class="pasos">
+      <li><b>Distancia:</b> d = v·t = 90 km/h × 2.5 h = 225 km. <span class="por">Las horas se cancelan y queda km.</span></li>
+      <li><b>Tiempo:</b> t = d/v = 300/90 = 3.33 h, es decir, 3 h y 20 min (0.33 h × 60 = 20 min).</li>
+      <li><b>En m/s:</b> 90 ÷ 3.6 = 25 m/s.</li>
+    </ol>
+  </div>
+
+  <h3>Movimiento uniformemente acelerado (MUA)</h3>
+  <p>Aquí la velocidad <b>cambia</b>, pero siempre la misma cantidad en tiempos iguales: la <b>aceleración es constante</b>. Imagina un auto que arranca: en cada segundo recorre más distancia que en el anterior, porque va cada vez más rápido.</p>
+  <div class="caja idea"><b class="t">¿Qué significa “m/s²”?</b> Una aceleración de 2 m/s² significa que la velocidad aumenta <b>2 m/s cada segundo</b>: si parte del reposo, a los 1, 2, 3 s va a 2, 4 y 6 m/s. Si el objeto va frenando, la aceleración es <b>negativa</b> (también se le dice desaceleración).</div>
+  <div class="caja formula"><b class="t">Fórmulas del MUA</b>
+    <table>
+      <tr><th>Para calcular</th><th>Fórmula</th><th>Unidades</th></tr>
+      <tr><td>Aceleración</td><td class="m">a = (v<sub>f</sub> − v<sub>i</sub>) / t</td><td>m/s²</td></tr>
+      <tr><td>Velocidad final</td><td class="m">v<sub>f</sub> = v<sub>i</sub> + a · t</td><td>m/s</td></tr>
+      <tr><td>Tiempo</td><td class="m">t = (v<sub>f</sub> − v<sub>i</sub>) / a</td><td>s</td></tr>
+      <tr><td>Distancia (también útil)</td><td class="m">d = v<sub>i</sub>·t + ½·a·t<sup>2</sup> &nbsp;o&nbsp; d = <span class="fr"><span>v<sub>i</sub> + v<sub>f</sub></span><span>2</span></span>·t</td><td>m</td></tr>
+    </table>
+    <p class="chico">El temario las escribe como a = v/t, v<sub>f</sub> = v<sub>i</sub> + a·t y t = v/a: ahí “v” significa el <b>cambio</b> de velocidad (v<sub>f</sub> − v<sub>i</sub>), o la velocidad que se alcanza si parte del reposo.</p>
+  </div>
+
+  <h3>Las gráficas del movimiento</h3>
+  <p>A la izquierda, un MRU: la gráfica de distancia contra tiempo es una recta y su <b>pendiente es la velocidad</b> (como la pendiente de una recta en Matemáticas, 1.19). A la derecha, un MUA: la gráfica de velocidad contra tiempo es una recta cuya <b>pendiente es la aceleración</b>, y el <b>área bajo la recta es la distancia recorrida</b> (la misma idea que la integral, en Matemáticas 1.27).</p>
+  <div class="fig"><svg width="470" height="200" viewBox="0 0 470 200" xmlns="http://www.w3.org/2000/svg" font-family="DejaVu Sans" font-size="10"><svg x="0" y="20" width="230" height="180" viewBox="0 0 230 180" xmlns="http://www.w3.org/2000/svg" font-family="DejaVu Sans" font-size="10"><defs><marker id="fdm1" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#5a6375"/></marker><marker id="fim1" markerWidth="8" markerHeight="8" refX="2" refY="4" orient="auto"><path d="M8,0 L0,4 L8,8 z" fill="#5a6375"/></marker></defs><line x1="26" y1="154" x2="204" y2="154" stroke="#5a6375" stroke-width="1.2" marker-end="url(#fdm1)"/><line x1="26" y1="154" x2="26" y2="26" stroke="#5a6375" stroke-width="1.2" marker-end="url(#fdm1)"/><text x="202" y="148" fill="#5a6375" text-anchor="end" font-style="italic">t (s)</text><text x="32" y="34" fill="#5a6375" text-anchor="start" font-style="italic">d (m)</text><line x1="55.7" y1="151" x2="55.7" y2="157" stroke="#5a6375" stroke-width="1"/><text x="55.7" y="168" fill="#5a6375" text-anchor="middle" font-size="9">1</text><line x1="85.3" y1="151" x2="85.3" y2="157" stroke="#5a6375" stroke-width="1"/><text x="85.3" y="168" fill="#5a6375" text-anchor="middle" font-size="9">2</text><line x1="115" y1="151" x2="115" y2="157" stroke="#5a6375" stroke-width="1"/><text x="115" y="168" fill="#5a6375" text-anchor="middle" font-size="9">3</text><line x1="144.7" y1="151" x2="144.7" y2="157" stroke="#5a6375" stroke-width="1"/><text x="144.7" y="168" fill="#5a6375" text-anchor="middle" font-size="9">4</text><line x1="174.3" y1="151" x2="174.3" y2="157" stroke="#5a6375" stroke-width="1"/><text x="174.3" y="168" fill="#5a6375" text-anchor="middle" font-size="9">5</text><line x1="23" y1="114.6" x2="29" y2="114.6" stroke="#5a6375" stroke-width="1"/><text x="20" y="117.6" fill="#5a6375" text-anchor="end" font-size="9">4</text><line x1="23" y1="75.2" x2="29" y2="75.2" stroke="#5a6375" stroke-width="1"/><text x="20" y="78.2" fill="#5a6375" text-anchor="end" font-size="9">8</text><line x1="23" y1="35.8" x2="29" y2="35.8" stroke="#5a6375" stroke-width="1"/><text x="20" y="38.8" fill="#5a6375" text-anchor="end" font-size="9">12</text><path d="M26,154 L26.7,153.5 L27.4,153 L28.2,152.6 L28.9,152.1 L29.6,151.6 L30.3,151.1 L31,150.7 L31.7,150.2 L32.5,149.7 L33.2,149.2 L33.9,148.8 L34.6,148.3 L35.3,147.8 L36,147.3 L36.8,146.9 L37.5,146.4 L38.2,145.9 L38.9,145.4 L39.6,145 L40.3,144.5 L41.1,144 L41.8,143.5 L42.5,143.1 L43.2,142.6 L43.9,142.1 L44.6,141.6 L45.4,141.2 L46.1,140.7 L46.8,140.2 L47.5,139.7 L48.2,139.2 L48.9,138.8 L49.7,138.3 L50.4,137.8 L51.1,137.3 L51.8,136.9 L52.5,136.4 L53.2,135.9 L54,135.4 L54.7,135 L55.4,134.5 L56.1,134 L56.8,133.5 L57.5,133.1 L58.3,132.6 L59,132.1 L59.7,131.6 L60.4,131.2 L61.1,130.7 L61.8,130.2 L62.6,129.7 L63.3,129.3 L64,128.8 L64.7,128.3 L65.4,127.8 L66.1,127.3 L66.9,126.9 L67.6,126.4 L68.3,125.9 L69,125.4 L69.7,125 L70.5,124.5 L71.2,124 L71.9,123.5 L72.6,123.1 L73.3,122.6 L74,122.1 L74.8,121.6 L75.5,121.2 L76.2,120.7 L76.9,120.2 L77.6,119.7 L78.3,119.3 L79.1,118.8 L79.8,118.3 L80.5,117.8 L81.2,117.4 L81.9,116.9 L82.6,116.4 L83.4,115.9 L84.1,115.5 L84.8,115 L85.5,114.5 L86.2,114 L86.9,113.5 L87.7,113.1 L88.4,112.6 L89.1,112.1 L89.8,111.6 L90.5,111.2 L91.2,110.7 L92,110.2 L92.7,109.7 L93.4,109.3 L94.1,108.8 L94.8,108.3 L95.5,107.8 L96.3,107.4 L97,106.9 L97.7,106.4 L98.4,105.9 L99.1,105.5 L99.8,105 L100.6,104.5 L101.3,104 L102,103.6 L102.7,103.1 L103.4,102.6 L104.1,102.1 L104.9,101.7 L105.6,101.2 L106.3,100.7 L107,100.2 L107.7,99.7 L108.4,99.3 L109.2,98.8 L109.9,98.3 L110.6,97.8 L111.3,97.4 L112,96.9 L112.8,96.4 L113.5,95.9 L114.2,95.5 L114.9,95 L115.6,94.5 L116.3,94 L117.1,93.6 L117.8,93.1 L118.5,92.6 L119.2,92.1 L119.9,91.7 L120.6,91.2 L121.4,90.7 L122.1,90.2 L122.8,89.8 L123.5,89.3 L124.2,88.8 L124.9,88.3 L125.7,87.9 L126.4,87.4 L127.1,86.9 L127.8,86.4 L128.5,85.9 L129.2,85.5 L130,85 L130.7,84.5 L131.4,84 L132.1,83.6 L132.8,83.1 L133.5,82.6 L134.3,82.1 L135,81.7 L135.7,81.2 L136.4,80.7 L137.1,80.2 L137.8,79.8 L138.6,79.3 L139.3,78.8 L140,78.3 L140.7,77.9 L141.4,77.4 L142.1,76.9 L142.9,76.4 L143.6,76 L144.3,75.5 L145,75 L145.7,74.5 L146.4,74 L147.2,73.6 L147.9,73.1 L148.6,72.6 L149.3,72.1 L150,71.7 L150.7,71.2 L151.5,70.7 L152.2,70.2 L152.9,69.8 L153.6,69.3 L154.3,68.8 L155,68.3 L155.8,67.9 L156.5,67.4 L157.2,66.9 L157.9,66.4 L158.6,66 L159.4,65.5 L160.1,65 L160.8,64.5 L161.5,64.1 L162.2,63.6 L162.9,63.1 L163.7,62.6 L164.4,62.2 L165.1,61.7 L165.8,61.2 L166.5,60.7 L167.2,60.2 L168,59.8 L168.7,59.3 L169.4,58.8 L170.1,58.3 L170.8,57.9 L171.5,57.4 L172.3,56.9 L173,56.4 L173.7,56 L174.4,55.5 L175.1,55 L175.8,54.5 L176.6,54.1 L177.3,53.6 L178,53.1 L178.7,52.6 L179.4,52.2 L180.1,51.7 L180.9,51.2 L181.6,50.7 L182.3,50.3 L183,49.8 L183.7,49.3 L184.4,48.8 L185.2,48.4 L185.9,47.9 L186.6,47.4 L187.3,46.9 L188,46.4 L188.7,46 L189.5,45.5 L190.2,45 L190.9,44.5 L191.6,44.1 L192.3,43.6 L193,43.1 L193.8,42.6 L194.5,42.2 L195.2,41.7 L195.9,41.2 L196.6,40.7 L197.3,40.3 L198.1,39.8" stroke="#1f6f8b" fill="none" stroke-width="2.4"/><line x1="85.3" y1="154" x2="85.3" y2="114.6" stroke="#5a6375" stroke-width="1" stroke-dasharray="3 3"/><line x1="26" y1="114.6" x2="85.3" y2="114.6" stroke="#5a6375" stroke-width="1" stroke-dasharray="3 3"/><line x1="85.3" y1="114.6" x2="144.7" y2="114.6" stroke="#2e7d4f" stroke-width="1.6"/><line x1="144.7" y1="114.6" x2="144.7" y2="75.2" stroke="#b5542a" stroke-width="1.6"/><text x="115" y="126.6" fill="#2e7d4f" text-anchor="middle" font-size="8.5" font-weight="bold">Δt = 2 s</text><text x="148.7" y="94.9" fill="#b5542a" text-anchor="start" font-size="8.5" font-weight="bold">Δd = 4 m</text></svg><svg x="240" y="20" width="230" height="180" viewBox="0 0 230 180" xmlns="http://www.w3.org/2000/svg" font-family="DejaVu Sans" font-size="10"><path d="M26,154 L26,134.3 L174.3,35.8 L174.3,154 Z" stroke="none" fill="#e9f5ee" stroke-width="0"/><defs><marker id="fdm2" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#5a6375"/></marker><marker id="fim2" markerWidth="8" markerHeight="8" refX="2" refY="4" orient="auto"><path d="M8,0 L0,4 L8,8 z" fill="#5a6375"/></marker></defs><line x1="26" y1="154" x2="204" y2="154" stroke="#5a6375" stroke-width="1.2" marker-end="url(#fdm2)"/><line x1="26" y1="154" x2="26" y2="26" stroke="#5a6375" stroke-width="1.2" marker-end="url(#fdm2)"/><text x="202" y="148" fill="#5a6375" text-anchor="end" font-style="italic">t (s)</text><text x="32" y="34" fill="#5a6375" text-anchor="start" font-style="italic">v (m/s)</text><line x1="55.7" y1="151" x2="55.7" y2="157" stroke="#5a6375" stroke-width="1"/><text x="55.7" y="168" fill="#5a6375" text-anchor="middle" font-size="9">1</text><line x1="85.3" y1="151" x2="85.3" y2="157" stroke="#5a6375" stroke-width="1"/><text x="85.3" y="168" fill="#5a6375" text-anchor="middle" font-size="9">2</text><line x1="115" y1="151" x2="115" y2="157" stroke="#5a6375" stroke-width="1"/><text x="115" y="168" fill="#5a6375" text-anchor="middle" font-size="9">3</text><line x1="144.7" y1="151" x2="144.7" y2="157" stroke="#5a6375" stroke-width="1"/><text x="144.7" y="168" fill="#5a6375" text-anchor="middle" font-size="9">4</text><line x1="174.3" y1="151" x2="174.3" y2="157" stroke="#5a6375" stroke-width="1"/><text x="174.3" y="168" fill="#5a6375" text-anchor="middle" font-size="9">5</text><line x1="23" y1="134.3" x2="29" y2="134.3" stroke="#5a6375" stroke-width="1"/><text x="20" y="137.3" fill="#5a6375" text-anchor="end" font-size="9">2</text><line x1="23" y1="114.6" x2="29" y2="114.6" stroke="#5a6375" stroke-width="1"/><text x="20" y="117.6" fill="#5a6375" text-anchor="end" font-size="9">4</text><line x1="23" y1="75.2" x2="29" y2="75.2" stroke="#5a6375" stroke-width="1"/><text x="20" y="78.2" fill="#5a6375" text-anchor="end" font-size="9">8</text><line x1="23" y1="35.8" x2="29" y2="35.8" stroke="#5a6375" stroke-width="1"/><text x="20" y="38.8" fill="#5a6375" text-anchor="end" font-size="9">12</text><path d="M26,134.3 L26.7,133.9 L27.3,133.4 L28,133 L28.7,132.5 L29.3,132.1 L30,131.6 L30.7,131.2 L31.3,130.8 L32,130.3 L32.7,129.9 L33.3,129.4 L34,129 L34.7,128.5 L35.3,128.1 L36,127.7 L36.7,127.2 L37.3,126.8 L38,126.3 L38.7,125.9 L39.4,125.4 L40,125 L40.7,124.6 L41.4,124.1 L42,123.7 L42.7,123.2 L43.4,122.8 L44,122.3 L44.7,121.9 L45.4,121.5 L46,121 L46.7,120.6 L47.4,120.1 L48,119.7 L48.7,119.2 L49.4,118.8 L50,118.4 L50.7,117.9 L51.4,117.5 L52,117 L52.7,116.6 L53.4,116.1 L54,115.7 L54.7,115.3 L55.4,114.8 L56,114.4 L56.7,113.9 L57.4,113.5 L58,113 L58.7,112.6 L59.4,112.2 L60,111.7 L60.7,111.3 L61.4,110.8 L62,110.4 L62.7,109.9 L63.4,109.5 L64,109.1 L64.7,108.6 L65.4,108.2 L66.1,107.7 L66.7,107.3 L67.4,106.8 L68.1,106.4 L68.7,106 L69.4,105.5 L70.1,105.1 L70.7,104.6 L71.4,104.2 L72.1,103.7 L72.7,103.3 L73.4,102.8 L74.1,102.4 L74.7,102 L75.4,101.5 L76.1,101.1 L76.7,100.6 L77.4,100.2 L78.1,99.7 L78.7,99.3 L79.4,98.9 L80.1,98.4 L80.7,98 L81.4,97.5 L82.1,97.1 L82.7,96.6 L83.4,96.2 L84.1,95.8 L84.7,95.3 L85.4,94.9 L86.1,94.4 L86.7,94 L87.4,93.5 L88.1,93.1 L88.7,92.7 L89.4,92.2 L90.1,91.8 L90.7,91.3 L91.4,90.9 L92.1,90.4 L92.8,90 L93.4,89.6 L94.1,89.1 L94.8,88.7 L95.4,88.2 L96.1,87.8 L96.8,87.3 L97.4,86.9 L98.1,86.5 L98.8,86 L99.4,85.6 L100.1,85.1 L100.8,84.7 L101.4,84.2 L102.1,83.8 L102.8,83.4 L103.4,82.9 L104.1,82.5 L104.8,82 L105.4,81.6 L106.1,81.1 L106.8,80.7 L107.4,80.3 L108.1,79.8 L108.8,79.4 L109.4,78.9 L110.1,78.5 L110.8,78 L111.4,77.6 L112.1,77.2 L112.8,76.7 L113.4,76.3 L114.1,75.8 L114.8,75.4 L115.4,74.9 L116.1,74.5 L116.8,74 L117.4,73.6 L118.1,73.2 L118.8,72.7 L119.5,72.3 L120.1,71.8 L120.8,71.4 L121.5,70.9 L122.1,70.5 L122.8,70.1 L123.5,69.6 L124.1,69.2 L124.8,68.7 L125.5,68.3 L126.1,67.8 L126.8,67.4 L127.5,67 L128.1,66.5 L128.8,66.1 L129.5,65.6 L130.1,65.2 L130.8,64.7 L131.5,64.3 L132.1,63.9 L132.8,63.4 L133.5,63 L134.1,62.5 L134.8,62.1 L135.5,61.6 L136.1,61.2 L136.8,60.8 L137.5,60.3 L138.1,59.9 L138.8,59.4 L139.5,59 L140.1,58.5 L140.8,58.1 L141.5,57.7 L142.1,57.2 L142.8,56.8 L143.5,56.3 L144.1,55.9 L144.8,55.4 L145.5,55 L146.2,54.6 L146.8,54.1 L147.5,53.7 L148.2,53.2 L148.8,52.8 L149.5,52.3 L150.2,51.9 L150.8,51.5 L151.5,51 L152.2,50.6 L152.8,50.1 L153.5,49.7 L154.2,49.2 L154.8,48.8 L155.5,48.4 L156.2,47.9 L156.8,47.5 L157.5,47 L158.2,46.6 L158.8,46.1 L159.5,45.7 L160.2,45.2 L160.8,44.8 L161.5,44.4 L162.2,43.9 L162.8,43.5 L163.5,43 L164.2,42.6 L164.8,42.1 L165.5,41.7 L166.2,41.3 L166.8,40.8 L167.5,40.4 L168.2,39.9 L168.8,39.5 L169.5,39 L170.2,38.6 L170.8,38.2 L171.5,37.7 L172.2,37.3 L172.9,36.8 L173.5,36.4 L174.2,35.9 L174.9,35.5 L175.5,35.1 L176.2,34.6 L176.9,34.2 L177.5,33.7 L178.2,33.3 L178.9,32.8 L179.5,32.4 L180.2,32 L180.9,31.5 L181.5,31.1 L182.2,30.6 L182.9,30.2 L183.5,29.7 L184.2,29.3 L184.9,28.9 L185.5,28.4 L186.2,28" stroke="#b5542a" fill="none" stroke-width="2.4"/><circle cx="26" cy="134.3" r="3.5" fill="#b5542a"/><text x="100.2" y="129.4" fill="#2e7d4f" text-anchor="middle" font-size="8.5" font-weight="bold">área = distancia</text></svg><text x="115" y="14" fill="#1f6f8b" text-anchor="middle" font-size="9.5" font-weight="bold">MRU: pendiente = v = 2 m/s</text><text x="355" y="14" fill="#b5542a" text-anchor="middle" font-size="9.5" font-weight="bold">MUA: pendiente = a = 2 m/s²</text></svg></div>
+
+  <div class="caja ejemplo"><b class="t">Ejemplo explicado: un auto que arranca</b>
+    <div class="preg">Un auto parte del reposo y alcanza 24 m/s en 8 s. ¿Cuál es su aceleración y qué distancia recorrió?</div>
+    <ol class="pasos">
+      <li><b>Datos:</b> v<sub>i</sub> = 0 (“parte del reposo”), v<sub>f</sub> = 24 m/s, t = 8 s.</li>
+      <li><b>Aceleración:</b> a = (24 − 0)/8 = 3 m/s². Cada segundo gana 3 m/s.</li>
+      <li><b>Distancia:</b> con la velocidad promedio, d = (0 + 24)/2 × 8 = 96 m. Con la otra fórmula: d = ½·3·8² = 96 m ✔.</li>
+    </ol>
+  </div>
+  <div class="caja ejemplo"><b class="t">Ejemplo explicado: frenar</b>
+    <div class="preg">Un auto a 20 m/s frena con una aceleración de −4 m/s². ¿Cuánto tarda en detenerse y qué distancia recorre?</div>
+    <ol class="pasos">
+      <li><b>“Se detiene”</b> significa v<sub>f</sub> = 0.</li>
+      <li><b>Tiempo:</b> t = (0 − 20)/(−4) = 5 s.</li>
+      <li><b>Distancia:</b> d = (20 + 0)/2 × 5 = 50 m.</li>
+    </ol>
+  </div>
+
+  <div class="caja examen">
+    <div class="enc">Reactivo 43 del examen</div>
+    <div class="preg">¿Cuál es la velocidad de una pelota si después de ser lanzada en 5.0 s está a 35.0 m de distancia? &nbsp; A) 2.5 m/s &nbsp; B) 5.0 m/s &nbsp; C) 7.0 m/s &nbsp; D) 10.5 m/s</div>
+    <ol class="pasos">
+      <li><b>Datos:</b> d = 35.0 m, t = 5.0 s. <b>Incógnita:</b> v.</li>
+      <li><b>Fórmula del MRU:</b> v = d/t = 35.0/5.0 = 7.0 m/s.</li>
+    </ol>
+    <p class="chico">Revisión de unidades: m entre s da m/s ✔. Si divides al revés (t/d) o multiplicas, no sale nada que tenga sentido.</p>
+    <span class="resp">Respuesta: C) 7.0 m/s</span>
+  </div>
+  <div class="caja examen">
+    <div class="enc">Reactivo 44 del examen</div>
+    <div class="preg">¿Cuál es la aceleración para una motocicleta que pasa de 25 m/s a 35 m/s en 10 s? &nbsp; A) 1 m/s² &nbsp; B) 2 m/s² &nbsp; C) 4 m/s² &nbsp; D) 5 m/s²</div>
+    <ol class="pasos">
+      <li><b>Datos:</b> v<sub>i</sub> = 25 m/s, v<sub>f</sub> = 35 m/s, t = 10 s.</li>
+      <li><b>La aceleración usa el cambio de velocidad:</b> a = (35 − 25)/10 = 10/10 = 1 m/s².</li>
+    </ol>
+    <p class="chico"><b>Error común:</b> dividir solo la velocidad final entre el tiempo (35/10 = 3.5) o sumar las velocidades. La aceleración mide cuánto <b>cambió</b> la velocidad: siempre final menos inicial.</p>
+    <span class="resp">Respuesta: A) 1 m/s²</span>
+  </div>
+
+  <div class="caja practica"><b class="t">Ahora tú</b>
+    <ol>
+      <li>Un corredor recorre 400 m en 50 s. ¿Cuál es su rapidez?</li>
+      <li>Un tren va a 72 km/h constantes. ¿Cuántos metros recorre en 1 minuto?</li>
+      <li>Un auto pasa de 10 m/s a 30 m/s en 4 s. ¿Cuál es su aceleración? ¿Qué distancia recorre en ese tiempo?</li>
+      <li>Una moto parte del reposo con a = 2.5 m/s². ¿Qué velocidad tiene a los 6 s?</li>
+      <li>Un ciclista frena de 12 m/s a 0 en 3 s. ¿Cuál es su aceleración?</li>
+    </ol>
+    <div class="sol">
+      <p><b>1)</b> 400/50 = 8 m/s. <b>2)</b> 72/3.6 = 20 m/s; d = 20 × 60 = 1 200 m.</p>
+      <p><b>3)</b> a = (30 − 10)/4 = 5 m/s²; d = (10 + 30)/2 × 4 = 80 m.</p>
+      <p><b>4)</b> v<sub>f</sub> = 0 + 2.5 × 6 = 15 m/s. <b>5)</b> a = (0 − 12)/3 = −4 m/s² (negativa porque frena).</p>
+    </div>
+  </div>
+</section>
+<section class="tema">
+  <h2>6.2 Mecánica clásica</h2>
+  <div class="reactivos">Reactivos 45, 46 y 47 de la versión de práctica</div>
+
+  <p class="intro"><b>¿De qué trata esta lección?</b> Si la lección anterior describía <i>cómo</i> se mueven las cosas, esta explica <i>por qué</i>: por las <b>fuerzas</b>. Las tres leyes de Newton (1687) explican desde por qué te vas hacia adelante cuando el camión frena hasta cómo despega un cohete. También verás la gravedad y los movimientos verticales: la caída libre y el tiro vertical.</p>
+
+  <h3>Fuerza y fuerza neta</h3>
+  <div class="dos">
+    <div>
+      <p>Una <b>fuerza</b> es un empujón o un jalón. Se mide en <b>newtons (N)</b> y es un vector: importa hacia dónde actúa.</p>
+      <p>Casi siempre sobre un cuerpo actúan varias fuerzas a la vez. La <b>fuerza neta</b> (o resultante, ΣF) es su suma <b>tomando en cuenta la dirección</b>: las que van hacia el mismo lado se suman y las contrarias se restan.</p>
+      <p>En la figura: empujas una caja con 40 N y la fricción la frena con 10 N, así que la fuerza neta es 30 N hacia la derecha. El peso (hacia abajo) y la fuerza normal del piso (hacia arriba) se cancelan.</p>
+    </div>
+    <div class="fig"><svg width="320" height="236" viewBox="0 0 320 236" xmlns="http://www.w3.org/2000/svg" font-family="DejaVu Sans" font-size="10"><rect x="10" y="150" width="300" height="6" rx="0" stroke="#5a6375" fill="#d9dee6" stroke-width="1"/><rect x="115" y="90" width="90" height="60" rx="4" stroke="#1f6f8b" fill="#e6f2f6" stroke-width="2"/><text x="160" y="125" fill="#1f6f8b" text-anchor="middle" font-size="12" font-weight="bold">5 kg</text><defs><marker id="flfa" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#b5542a"/></marker></defs><line x1="205" y1="112" x2="290" y2="112" stroke="#b5542a" stroke-width="2.2" marker-end="url(#flfa)"/><text x="250" y="104" fill="#b5542a" text-anchor="middle" font-size="10" font-weight="bold">F = 40 N</text><defs><marker id="flff" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#6b4fa3"/></marker></defs><line x1="115" y1="132" x2="45" y2="132" stroke="#6b4fa3" stroke-width="2.2" marker-end="url(#flff)"/><text x="72" y="124" fill="#6b4fa3" text-anchor="middle" font-size="9" font-weight="bold">fricción 10 N</text><defs><marker id="flfp" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#2e7d4f"/></marker></defs><line x1="160" y1="150" x2="160" y2="205" stroke="#2e7d4f" stroke-width="2.2" marker-end="url(#flfp)"/><text x="168" y="200" fill="#2e7d4f" text-anchor="start" font-size="9" font-weight="bold">peso W = mg</text><defs><marker id="flfn" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#1d2330"/></marker></defs><line x1="140" y1="90" x2="140" y2="40" stroke="#1d2330" stroke-width="2.2" marker-end="url(#flfn)"/><text x="146" y="50" fill="#1d2330" text-anchor="start" font-size="9" font-weight="bold">normal N</text><text x="160" y="228" fill="#1d2330" text-anchor="middle" font-size="10" font-weight="bold">fuerza neta = 40 N − 10 N = 30 N →</text></svg></div>
+  </div>
+
+  <h3>La gravedad de la Tierra</h3>
+  <p>Cerca de la superficie, todos los cuerpos que caen libremente aceleran con <span class="m nw">g = 9.81 m/s²</span>, la <b>aceleración de la gravedad</b>. Su valor viene de la atracción de la masa de la Tierra (y un poquito del efecto de su rotación). Significa que un objeto en caída libre gana 9.81 m/s, ¡unos 35 km/h!, cada segundo.</p>
+  <p>Recuerda (lección “Antes de empezar”): el <b>peso</b> es la fuerza de gravedad sobre un cuerpo, <span class="m nw">W = m·g</span>, en newtons; la <b>masa</b> va en kilogramos.</p>
+
+  <h3>Primera ley de Newton: la inercia</h3>
+  <div class="caja formula"><b class="t">Enunciado</b> Un cuerpo permanece en reposo o en movimiento rectilíneo uniforme (velocidad constante) a menos que una fuerza neta externa actúe sobre él: si <span class="m nw">ΣF = 0</span>, la velocidad no cambia.</div>
+  <p><b>¿Qué significa?</b> Los objetos “quieren” seguir haciendo lo que hacen: si está quieto, sigue quieto; si se mueve, sigue moviéndose en línea recta a la misma velocidad. A esa tendencia se le llama <b>inercia</b>, y es mayor mientras más masa tenga el cuerpo.</p>
+  <div class="caja idea"><b class="t">Piénsalo así</b> Cuando el camión frena de golpe, tu cuerpo sigue hacia adelante: nadie lo frenó (por eso existen los cinturones de seguridad). Una pelota en el piso no se mueve hasta que alguien la patea. En el espacio, una sonda sigue viajando años sin motor encendido, porque no hay fricción que la frene.</div>
+
+  <h3>Segunda ley de Newton: F = m·a</h3>
+  <div class="caja formula"><b class="t">Enunciado y fórmula</b> Una fuerza neta distinta de cero produce una aceleración en su misma dirección; la aceleración es directamente proporcional a la fuerza e inversamente proporcional a la masa.
+    <p class="m" style="text-align:center;font-size:13pt">F = m · a &nbsp;&nbsp;&nbsp;&nbsp; a = F/m &nbsp;&nbsp;&nbsp;&nbsp; m = F/a</p>
+    <p>F en newtons (N = kg·m/s²), m en kilogramos y a en m/s². Un newton es la fuerza que hace que 1 kg acelere 1 m/s².</p>
+  </div>
+  <p><b>¿Qué significa?</b> Con el doble de fuerza, el doble de aceleración; con el doble de masa, la mitad de aceleración (es la proporcionalidad directa e inversa de Matemáticas 1.5). Empujar un carrito vacío cuesta menos que empujar uno lleno.</p>
+  <div class="caja ejemplo"><b class="t">Ejemplo explicado: combinar Newton con el MUA</b>
+    <div class="preg">Un auto de 1 200 kg pasa de 0 a 20 m/s en 8 s. ¿Qué fuerza neta actuó sobre él?</div>
+    <ol class="pasos">
+      <li><b>No me dan la aceleración</b>, pero la saco con el MUA: a = (20 − 0)/8 = 2.5 m/s².</li>
+      <li><b>Segunda ley:</b> F = m·a = 1 200 × 2.5 = 3 000 N.</li>
+    </ol>
+    <p>Este es justo el tipo de pregunta del reactivo 45.</p>
+  </div>
+
+  <h3>Tercera ley de Newton: acción y reacción</h3>
+  <div class="caja formula"><b class="t">Enunciado</b> A toda acción corresponde una reacción de la misma magnitud, en la misma dirección pero en sentido contrario: <span class="m nw">F<sub>AB</sub> = −F<sub>BA</sub></span>.</div>
+  <p><b>¿Qué significa?</b> Las fuerzas siempre vienen en pares: si tú empujas algo, eso te empuja a ti con la misma fuerza. Al saltar, tus pies empujan el piso hacia abajo y el piso te empuja hacia arriba. Al caminar empujas el piso hacia atrás y él te empuja hacia adelante. Un cohete expulsa gases hacia abajo y los gases lo empujan hacia arriba. Un rifle “patea” hacia atrás al disparar.</p>
+  <div class="caja ojo"><b class="t">Error común</b> Pensar que la acción y la reacción se cancelan. No se cancelan porque actúan sobre <b>cuerpos distintos</b>: una sobre el piso y otra sobre ti.</div>
+
+  <h3>Caída libre</h3>
+  <p>Es el movimiento de un cuerpo que cae en línea recta, de arriba hacia abajo, con la aceleración constante g. <b>Parte del reposo</b> (v<sub>i</sub> = 0): simplemente se suelta.</p>
+  <div class="caja formula"><b class="t">Fórmulas de la caída libre</b>
+    <table>
+      <tr><th>Para calcular</th><th>Fórmula</th><th>Unidades</th></tr>
+      <tr><td>Altura que ha caído</td><td class="m">h = g·t<sup>2</sup>/2</td><td>m</td></tr>
+      <tr><td>Velocidad</td><td class="m">v = g·t</td><td>m/s</td></tr>
+      <tr><td>Tiempo</td><td class="m">t = v/g &nbsp;(o t = √(2h/g))</td><td>s</td></tr>
+    </table>
+  </div>
+  <table style="width:75%">
+    <tr><th>Tiempo de caída</th><td>1 s</td><td>2 s</td><td>3 s</td></tr>
+    <tr><th>Velocidad</th><td>9.81 m/s</td><td>19.62 m/s</td><td>29.43 m/s</td></tr>
+    <tr><th>Altura que ha caído</th><td>4.9 m</td><td>19.6 m</td><td>44.1 m</td></tr>
+  </table>
+  <p>Fíjate: la velocidad crece en proporción al tiempo, pero la altura con el <b>cuadrado</b> del tiempo: en 2 s cae 4 veces lo que cae en 1 s.</p>
+  <div class="caja idea"><b class="t">¿Caen más rápido los objetos pesados?</b> Sin aire, no: todos caen igual. Galileo lo propuso hace 400 años, y en 1971 un astronauta del Apolo 15 soltó un martillo y una pluma en la Luna (donde no hay aire): llegaron juntos al suelo. En la Tierra la pluma tarda más solo por la resistencia del aire.</div>
+  <div class="caja ejemplo"><b class="t">Ejemplo explicado: la altura de un puente</b>
+    <div class="preg">Se deja caer una piedra desde un puente y tarda 3 s en llegar al agua. ¿Qué altura tiene el puente y con qué velocidad llega la piedra?</div>
+    <ol class="pasos">
+      <li><b>“Se deja caer”:</b> parte del reposo, es caída libre.</li>
+      <li><b>Altura:</b> h = 9.81 × 3²/2 = 9.81 × 9/2 = 44.1 m.</li>
+      <li><b>Velocidad:</b> v = 9.81 × 3 = 29.4 m/s.</li>
+    </ol>
+  </div>
+
+  <h3>Tiro vertical</h3>
+  <div class="dos">
+    <div>
+      <p>Es el movimiento de un objeto <b>lanzado hacia arriba</b>. Mientras sube, la gravedad lo frena 9.81 m/s cada segundo, hasta que se detiene un instante en la <b>altura máxima</b> (ahí v = 0). Luego cae como en caída libre.</p>
+      <p>El movimiento es <b>simétrico</b>: tarda lo mismo en subir que en bajar y regresa a tu mano con la misma rapidez con que lo lanzaste.</p>
+    </div>
+    <div class="fig"><svg width="320" height="248" viewBox="0 0 320 248" xmlns="http://www.w3.org/2000/svg" font-family="DejaVu Sans" font-size="10"><line x1="20" y1="222" x2="310" y2="222" stroke="#5a6375" stroke-width="1.6"/><line x1="30" y1="46" x2="300" y2="46" stroke="#5a6375" stroke-width="1" stroke-dasharray="4 3"/><text x="34" y="40" fill="#b5542a" text-anchor="start" font-size="9" font-weight="bold">altura máxima: v = 0</text><circle cx="100" cy="205" r="7" stroke="#1f6f8b" fill="#e6f2f6" stroke-width="1.6"/><defs><marker id="fltv0" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#1f6f8b"/></marker></defs><line x1="116" y1="228" x2="116" y2="182" stroke="#1f6f8b" stroke-width="1.8" marker-end="url(#fltv0)"/><circle cx="200" cy="205" r="7" stroke="#6b4fa3" fill="#f3effa" stroke-width="1.6"/><defs><marker id="fltb0" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#6b4fa3"/></marker></defs><line x1="216" y1="182" x2="216" y2="228" stroke="#6b4fa3" stroke-width="1.8" marker-end="url(#fltb0)"/><circle cx="100" cy="160" r="7" stroke="#1f6f8b" fill="#e6f2f6" stroke-width="1.6"/><defs><marker id="fltv1" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#1f6f8b"/></marker></defs><line x1="116" y1="178" x2="116" y2="142" stroke="#1f6f8b" stroke-width="1.8" marker-end="url(#fltv1)"/><circle cx="200" cy="160" r="7" stroke="#6b4fa3" fill="#f3effa" stroke-width="1.6"/><defs><marker id="fltb1" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#6b4fa3"/></marker></defs><line x1="216" y1="142" x2="216" y2="178" stroke="#6b4fa3" stroke-width="1.8" marker-end="url(#fltb1)"/><circle cx="100" cy="120" r="7" stroke="#1f6f8b" fill="#e6f2f6" stroke-width="1.6"/><defs><marker id="fltv2" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#1f6f8b"/></marker></defs><line x1="116" y1="133" x2="116" y2="107" stroke="#1f6f8b" stroke-width="1.8" marker-end="url(#fltv2)"/><circle cx="200" cy="120" r="7" stroke="#6b4fa3" fill="#f3effa" stroke-width="1.6"/><defs><marker id="fltb2" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#6b4fa3"/></marker></defs><line x1="216" y1="107" x2="216" y2="133" stroke="#6b4fa3" stroke-width="1.8" marker-end="url(#fltb2)"/><circle cx="100" cy="86" r="7" stroke="#1f6f8b" fill="#e6f2f6" stroke-width="1.6"/><defs><marker id="fltv3" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#1f6f8b"/></marker></defs><line x1="116" y1="93.5" x2="116" y2="78.5" stroke="#1f6f8b" stroke-width="1.8" marker-end="url(#fltv3)"/><circle cx="200" cy="86" r="7" stroke="#6b4fa3" fill="#f3effa" stroke-width="1.6"/><defs><marker id="fltb3" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#6b4fa3"/></marker></defs><line x1="216" y1="78.5" x2="216" y2="93.5" stroke="#6b4fa3" stroke-width="1.8" marker-end="url(#fltb3)"/><circle cx="150" cy="56" r="7" stroke="#b5542a" fill="#fbefe8" stroke-width="1.6"/><text x="100" y="240" fill="#1f6f8b" text-anchor="middle" font-size="9" font-weight="bold">sube: v disminuye</text><text x="200" y="240" fill="#6b4fa3" text-anchor="middle" font-size="9" font-weight="bold">baja: v aumenta</text><defs><marker id="fltg" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#2e7d4f"/></marker></defs><line x1="270" y1="120" x2="270" y2="170" stroke="#2e7d4f" stroke-width="2.2" marker-end="url(#fltg)"/><text x="278" y="150" fill="#2e7d4f" text-anchor="start" font-size="12" font-weight="bold" font-style="italic" font-family="DejaVu Serif">g</text></svg></div>
+  </div>
+  <div class="caja formula"><b class="t">Fórmulas del tiro vertical</b>
+    <table>
+      <tr><th>Para calcular</th><th>Fórmula</th></tr>
+      <tr><td>Altura en el tiempo t</td><td class="m">h = v<sub>i</sub>·t − g·t<sup>2</sup>/2</td></tr>
+      <tr><td>Altura máxima</td><td class="m">h<sub>máx</sub> = v<sub>i</sub><sup>2</sup>/(2g)</td></tr>
+      <tr><td>Velocidad en el tiempo t</td><td class="m">v<sub>f</sub> = v<sub>i</sub> − g·t</td></tr>
+      <tr><td>Tiempo para llegar arriba</td><td class="m">t<sub>subida</sub> = v<sub>i</sub>/g</td></tr>
+      <tr><td>Tiempo total en el aire (sube y baja)</td><td class="m">t = 2·v<sub>i</sub>/g</td></tr>
+    </table>
+  </div>
+  <div class="caja ejemplo"><b class="t">Ejemplo explicado: una pelota hacia arriba</b>
+    <div class="preg">Se lanza una pelota verticalmente hacia arriba a 19.62 m/s. ¿Cuánto tarda en llegar arriba, qué altura máxima alcanza y cuánto tiempo está en el aire?</div>
+    <ol class="pasos">
+      <li><b>Subida:</b> se detiene cuando v<sub>f</sub> = 0: t = 19.62/9.81 = 2 s.</li>
+      <li><b>Altura máxima:</b> h = 19.62²/(2 × 9.81) = 384.9/19.62 = 19.62 m.</li>
+      <li><b>Tiempo total:</b> 2 × 2 = 4 s (2 de subida y 2 de bajada), y regresa a 19.62 m/s.</li>
+    </ol>
+  </div>
+
+  <div class="caja examen">
+    <div class="enc">Reactivo 45 del examen</div>
+    <div class="preg">Un cuerpo de 50 kg pasa de 15 m/s a 35 m/s en 5 s, ¿cuál es su fuerza neta? &nbsp; A) 50 N &nbsp; B) 100 N &nbsp; C) 200 N &nbsp; D) 250 N</div>
+    <ol class="pasos">
+      <li><b>Primero la aceleración</b> (no me la dan): a = (35 − 15)/5 = 20/5 = 4 m/s².</li>
+      <li><b>Segunda ley:</b> F = m·a = 50 × 4 = 200 N.</li>
+    </ol>
+    <p class="chico"><b>Error común:</b> olvidar restar la velocidad inicial. La fuerza depende del <b>cambio</b> de velocidad, no de la velocidad final.</p>
+    <span class="resp">Respuesta: C) 200 N</span>
+  </div>
+  <div class="caja examen">
+    <div class="enc">Reactivo 46 del examen</div>
+    <div class="preg">¿Qué aceleración tendrá una persona de 90.0 kg si recibe un empuje de 18.0 N? &nbsp; A) 0.2 m/s² &nbsp; B) 1.8 m/s² &nbsp; C) 5.9 m/s² &nbsp; D) 7.2 m/s²</div>
+    <ol class="pasos">
+      <li><b>Despejo la segunda ley:</b> a = F/m.</li>
+      <li><b>Sustituyo:</b> a = 18.0/90.0 = 0.2 m/s².</li>
+    </ol>
+    <p class="chico"><b>¿Tiene sentido?</b> 18 N es un empujoncito para una persona de 90 kg: la aceleración debe ser pequeña ✔. Si divides al revés (90/18 = 5) obtienes un valor demasiado grande.</p>
+    <span class="resp">Respuesta: A) 0.2 m/s²</span>
+  </div>
+  <div class="caja examen">
+    <div class="enc">Reactivo 47 del examen</div>
+    <div class="preg">¿Cuál es la masa de un cuerpo cuyo peso es de 1 800.00 N? Considere g = 9.81 m/s². &nbsp; A) 54.00 kg &nbsp; B) 83.67 N &nbsp; C) 183.48 kg &nbsp; D) 200.00 N</div>
+    <ol class="pasos">
+      <li><b>Peso = masa × gravedad:</b> W = m·g, así que m = W/g.</li>
+      <li><b>Sustituyo:</b> m = 1 800/9.81 = 183.48 kg.</li>
+    </ol>
+    <p class="chico"><b>Truco de opción múltiple:</b> una masa se mide en kilogramos, nunca en newtons: B y D quedan descartadas solo por la unidad.</p>
+    <span class="resp">Respuesta: C) 183.48 kg</span>
+  </div>
+
+  <div class="caja practica"><b class="t">Ahora tú</b>
+    <ol>
+      <li>¿Qué fuerza se necesita para acelerar una caja de 25 kg a 2 m/s²?</li>
+      <li>Una fuerza neta de 600 N actúa sobre un auto de 1 500 kg. ¿Qué aceleración tiene?</li>
+      <li>Sobre una caja de 15 kg actúan 70 N a la derecha y 25 N a la izquierda. ¿Qué aceleración tiene y hacia dónde?</li>
+      <li>¿Cuánto pesa en la Tierra una persona de 70 kg?</li>
+      <li>Una piedra cae desde el reposo durante 2 s. ¿Qué velocidad lleva y cuánto ha caído?</li>
+      <li>Se lanza un balón hacia arriba a 29.43 m/s. ¿Cuánto tarda en llegar arriba, qué altura alcanza y cuánto tiempo está en el aire?</li>
+      <li>¿Qué ley de Newton explica que un rifle “patee” hacia atrás al disparar? ¿Y que te vayas hacia adelante cuando el camión frena?</li>
+    </ol>
+    <div class="sol">
+      <p><b>1)</b> F = 25 × 2 = 50 N. <b>2)</b> a = 600/1 500 = 0.4 m/s².</p>
+      <p><b>3)</b> Fuerza neta 70 − 25 = 45 N a la derecha; a = 45/15 = 3 m/s² a la derecha.</p>
+      <p><b>4)</b> W = 70 × 9.81 = 686.7 N. <b>5)</b> v = 9.81 × 2 = 19.62 m/s; h = 9.81 × 4/2 = 19.62 m.</p>
+      <p><b>6)</b> t<sub>subida</sub> = 29.43/9.81 = 3 s; h<sub>máx</sub> = 29.43²/19.62 ≈ 44.1 m; en el aire 6 s.</p>
+      <p><b>7)</b> La tercera (acción y reacción). La primera (inercia).</p>
+    </div>
+  </div>
+</section>
+<section class="tema">
+  <h2>6.3 Órbitas: las leyes de Kepler</h2>
+  <div class="reactivos">Reactivo 48 de la versión de práctica</div>
+
+  <p class="intro"><b>¿De qué trata esta lección?</b> De cómo se mueven los planetas alrededor del Sol. Durante siglos se creyó que la Tierra era el centro del universo y que los planetas giraban en círculos perfectos. Johannes Kepler (1571–1630), con las mediciones muy precisas de su maestro Tycho Brahe, descubrió tres leyes que describen el movimiento real de los planetas. Años después, Isaac Newton explicó su causa: la gravedad.</p>
+
+  <p>Las leyes de Kepler son <b>cinemáticas</b>: describen <i>cómo</i> se mueven los planetas (su forma, su rapidez, su tiempo), deducidas de cálculos matemáticos con las observaciones. Su gran aporte fue mostrar que las órbitas son <b>elípticas</b> y no circulares.</p>
+
+  <div class="dos">
+    <div>
+      <h3>1.ª ley: ley de las órbitas</h3>
+      <div class="caja formula">“Los planetas se mueven en órbitas elípticas alrededor del Sol, el cual se sitúa en uno de los focos de la elipse.”</div>
+      <p>Es la elipse de Matemáticas (1.22), con el Sol en uno de sus focos (no en el centro). Las órbitas de los planetas son elipses <b>casi</b> circulares: la de la Tierra tiene una excentricidad de apenas 0.017.</p>
+      <h3>2.ª ley: ley de las áreas</h3>
+      <div class="caja formula">“El radio vector que une a un planeta con el Sol barre áreas iguales en tiempos iguales.”</div>
+      <p>El <b>radio vector</b> es una línea imaginaria del Sol al planeta. Como barre áreas iguales en tiempos iguales, cuando el planeta está <b>cerca</b> del Sol (perihelio) tiene que ir <b>más rápido</b>, y cuando está <b>lejos</b> (afelio) va <b>más lento</b>. La Tierra pasa por su perihelio a principios de enero.</p>
+    </div>
+    <div class="fig"><svg width="400" height="222" viewBox="0 0 400 222" xmlns="http://www.w3.org/2000/svg" font-family="DejaVu Sans" font-size="10"><path d="M268.3,100 L300.3,145.5 L302.2,142.7 L303.9,139.9 L305.5,137 L307,134.1 L308.4,131.1 L309.6,128.1 L310.8,125 L311.7,122 L312.6,118.9 L313.3,115.8 L313.9,112.6 L314.4,109.5 L314.7,106.3 L314.9,103.2 L315,100 L314.9,96.8 L314.7,93.7 L314.4,90.5 L313.9,87.4 L313.3,84.2 L312.6,81.1 L311.7,78 L310.8,75 L309.6,71.9 L308.4,68.9 L307,65.9 L305.5,63 L303.9,60.1 L302.2,57.3 L300.3,54.5 Z" stroke="#2e7d4f" fill="#2e7d4f55" stroke-width="1.2"/><path d="M268.3,100 L76,87.8 L75.9,88.6 L75.7,89.4 L75.6,90.2 L75.5,91 L75.4,91.9 L75.4,92.7 L75.3,93.5 L75.2,94.3 L75.2,95.1 L75.1,95.9 L75.1,96.7 L75,97.6 L75,98.4 L75,99.2 L75,100 L75,100.8 L75,101.6 L75,102.4 L75.1,103.3 L75.1,104.1 L75.2,104.9 L75.2,105.7 L75.3,106.5 L75.4,107.3 L75.4,108.1 L75.5,109 L75.6,109.8 L75.7,110.6 L75.9,111.4 L76,112.2 Z" stroke="#6b4fa3" fill="#6b4fa355" stroke-width="1.2"/><path d="M315,100 L314.8,95 L314.3,90.1 L313.5,85.1 L312.4,80.2 L310.9,75.4 L309.1,70.6 L307,66 L304.6,61.4 L301.9,56.9 L298.9,52.5 L295.6,48.3 L292.1,44.2 L288.3,40.2 L284.2,36.4 L279.9,32.8 L275.3,29.4 L270.5,26.2 L265.5,23.1 L260.4,20.3 L255,17.7 L249.5,15.4 L243.8,13.2 L238,11.3 L232.1,9.6 L226.1,8.2 L219.9,7.1 L213.8,6.2 L207.5,5.5 L201.3,5.1 L195,5 L188.7,5.1 L182.5,5.5 L176.2,6.2 L170.1,7.1 L163.9,8.2 L157.9,9.6 L152,11.3 L146.2,13.2 L140.5,15.4 L135,17.7 L129.6,20.3 L124.5,23.1 L119.5,26.2 L114.7,29.4 L110.1,32.8 L105.8,36.4 L101.7,40.2 L97.9,44.2 L94.4,48.3 L91.1,52.5 L88.1,56.9 L85.4,61.4 L83,66 L80.9,70.6 L79.1,75.4 L77.6,80.2 L76.5,85.1 L75.7,90.1 L75.2,95 L75,100 L75.2,105 L75.7,109.9 L76.5,114.9 L77.6,119.8 L79.1,124.6 L80.9,129.4 L83,134 L85.4,138.6 L88.1,143.1 L91.1,147.5 L94.4,151.7 L97.9,155.8 L101.7,159.8 L105.8,163.6 L110.1,167.2 L114.7,170.6 L119.5,173.8 L124.5,176.9 L129.6,179.7 L135,182.3 L140.5,184.6 L146.2,186.8 L152,188.7 L157.9,190.4 L163.9,191.8 L170.1,192.9 L176.2,193.8 L182.5,194.5 L188.7,194.9 L195,195 L201.3,194.9 L207.5,194.5 L213.8,193.8 L219.9,192.9 L226.1,191.8 L232.1,190.4 L238,188.7 L243.8,186.8 L249.5,184.6 L255,182.3 L260.4,179.7 L265.5,176.9 L270.5,173.8 L275.3,170.6 L279.9,167.2 L284.2,163.6 L288.3,159.8 L292.1,155.8 L295.6,151.7 L298.9,147.5 L301.9,143.1 L304.6,138.6 L307,134 L309.1,129.4 L310.9,124.6 L312.4,119.8 L313.5,114.9 L314.3,109.9 L314.8,105 L315,100 Z" stroke="#1f6f8b" fill="none" stroke-width="2"/><circle cx="268.3" cy="100" r="11" stroke="#d4a017" fill="#ffd34d" stroke-width="1.5"/><text x="264.3" y="128" fill="#8a6400" text-anchor="middle" font-size="9" font-weight="bold">Sol (en un foco)</text><circle cx="121.7" cy="100" r="2.5" fill="#5a6375"/><text x="321" y="70" fill="#2e7d4f" text-anchor="start" font-size="9" font-weight="bold">perihelio:</text><text x="321" y="82" fill="#2e7d4f" text-anchor="start" font-size="9">va más rápido</text><text x="69" y="70" fill="#6b4fa3" text-anchor="end" font-size="9" font-weight="bold">afelio:</text><text x="69" y="82" fill="#6b4fa3" text-anchor="end" font-size="9">va más lento</text><text x="195" y="214" fill="#1d2330" text-anchor="middle" font-size="9" font-weight="bold">Las dos áreas sombreadas son iguales: se recorren en el mismo tiempo</text></svg></div>
+  </div>
+
+  <h3>3.ª ley: ley de los periodos</h3>
+  <div class="caja formula">“El cuadrado del periodo orbital de cualquier planeta es proporcional al cubo del radio de su órbita.”
+    <p class="m" style="text-align:center;font-size:12pt"><span class="fr"><span>T<sup>2</sup></span><span>r<sup>3</sup></span></span> = constante de Kepler</p>
+    <p>El <b>periodo</b> T es el tiempo que tarda en dar una vuelta al Sol; el radio r es el semieje mayor de la elipse. La constante es la misma para todos los cuerpos que giran alrededor del Sol, porque depende de la masa del Sol, no de ellos.</p>
+  </div>
+  <p>Si mides T en años y r en <b>unidades astronómicas</b> (1 UA = distancia Tierra–Sol, unos 150 millones de km), la ley queda simplemente <span class="m nw">T<sup>2</sup> = r<sup>3</sup></span>. Mientras más lejos está un planeta, muchísimo más tarda: Marte (1.52 UA) tarda 1.88 años y Júpiter (5.2 UA), casi 12 años.</p>
+  <div class="caja ejemplo"><b class="t">Ejemplo explicado: el año de un planeta lejano</b>
+    <div class="preg">Un planeta está a 4 UA del Sol. ¿Cuánto dura su año?</div>
+    <ol class="pasos">
+      <li><b>Tercera ley en UA y años:</b> T² = r³ = 4³ = 64.</li>
+      <li><b>Raíz cuadrada:</b> T = √64 = 8 años terrestres.</li>
+    </ol>
+  </div>
+  <div class="caja idea"><b class="t">Para recordarlas: O-A-P</b> 1.ª <b>Órbitas</b> (la forma: elipses), 2.ª <b>Áreas</b> (la rapidez: más rápido cerca del Sol), 3.ª <b>Periodos</b> (el tiempo: T² ∝ r³).</div>
+
+  <div class="caja examen">
+    <div class="enc">Reactivo 48 del examen</div>
+    <div class="preg">Cuando decimos que los planetas siguen trayectorias elípticas en las que el Sol se encuentra en uno de sus focos, nos referimos a la ley de: &nbsp; A) las áreas &nbsp; B) las órbitas &nbsp; C) los periodos &nbsp; D) los sistemas</div>
+    <p>Habla de la <b>forma</b> de la trayectoria (elipse con el Sol en un foco): es la primera ley, la de las órbitas. La de las áreas habla de la rapidez, la de los periodos del tiempo de una vuelta, y “de los sistemas” no es una ley de Kepler.</p>
+    <span class="resp">Respuesta: B) las órbitas</span>
+  </div>
+
+  <div class="caja practica"><b class="t">Ahora tú</b>
+    <ol>
+      <li>¿En qué punto de su órbita un planeta va más rápido? ¿Qué ley lo dice?</li>
+      <li>Un asteroide tarda 27 años en dar la vuelta al Sol. ¿A qué distancia promedio está, en UA?</li>
+      <li>¿Dónde se encuentra el Sol en la órbita elíptica de un planeta?</li>
+      <li>¿Qué ley dice que el cuadrado del periodo es proporcional al cubo del radio?</li>
+    </ol>
+    <div class="sol">
+      <p><b>1)</b> En el perihelio (lo más cerca del Sol); la segunda ley, de las áreas.</p>
+      <p><b>2)</b> r³ = T² = 27² = 729 → r = ∛729 = 9 UA. <b>3)</b> En uno de los focos. <b>4)</b> La tercera, de los periodos.</p>
+    </div>
+  </div>
+</section>
+
+<section class="tema">
+  <h2>6.4 Energía: tipos de transferencia de energía</h2>
+  <div class="reactivos">Reactivo 49 de la versión de práctica</div>
+
+  <p class="intro"><b>¿De qué trata esta lección?</b> El calor siempre viaja de lo caliente a lo frío, y lo puede hacer de tres maneras: <b>conducción</b>, <b>convección</b> y <b>radiación</b>. Entenderlas explica por qué las ollas tienen mango de plástico, por qué el aire acondicionado se pone arriba y la calefacción abajo, y cómo nos llega el calor del Sol a través del espacio vacío.</p>
+
+  <div class="fig"><svg width="470" height="150" viewBox="0 0 470 150" xmlns="http://www.w3.org/2000/svg" font-family="DejaVu Sans" font-size="10"><rect x="20" y="60" width="120" height="14" rx="3" stroke="#5a6375" fill="#c9ced6" stroke-width="1.2"/><polygon points="14,96 26,72 38,96" stroke="#b5542a" fill="#f6b38a" stroke-width="1.2"/><defs><marker id="flcc0" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#b5542a"/></marker></defs><line x1="50" y1="54" x2="70" y2="54" stroke="#b5542a" stroke-width="1.6" marker-end="url(#flcc0)"/><defs><marker id="flcc1" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#b5542a"/></marker></defs><line x1="80" y1="54" x2="100" y2="54" stroke="#b5542a" stroke-width="1.6" marker-end="url(#flcc1)"/><defs><marker id="flcc2" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#b5542a"/></marker></defs><line x1="110" y1="54" x2="130" y2="54" stroke="#b5542a" stroke-width="1.6" marker-end="url(#flcc2)"/><text x="80" y="116" fill="#1f6f8b" text-anchor="middle" font-size="10" font-weight="bold">Conducción</text><text x="80" y="130" fill="#5a6375" text-anchor="middle" font-size="8.5">por contacto, en sólidos</text><rect x="185" y="40" width="90" height="60" rx="4" stroke="#1f6f8b" fill="#dbeefa" stroke-width="1.6"/><polygon points="218,120 230,102 242,120" stroke="#b5542a" fill="#f6b38a" stroke-width="1.2"/><path d="M205,90 C200,60 215,50 225,55 C240,62 235,85 230,90" stroke="#b5542a" fill="none" stroke-width="1.8"/><path d="M255,90 C260,60 245,50 237,55" stroke="#2e7d4f" fill="none" stroke-width="1.8"/><text x="230" y="130" fill="#1f6f8b" text-anchor="middle" font-size="10" font-weight="bold">Convección</text><text x="230" y="144" fill="#5a6375" text-anchor="middle" font-size="8.5">el fluido caliente sube</text><circle cx="345" cy="60" r="16" stroke="#d4a017" fill="#ffd34d" stroke-width="1.5"/><line x1="365" y1="60" x2="371" y2="60" stroke="#d4a017" stroke-width="1.4"/><line x1="359.1" y1="45.9" x2="363.4" y2="41.6" stroke="#d4a017" stroke-width="1.4"/><line x1="345" y1="40" x2="345" y2="34" stroke="#d4a017" stroke-width="1.4"/><line x1="330.9" y1="45.9" x2="326.6" y2="41.6" stroke="#d4a017" stroke-width="1.4"/><line x1="325" y1="60" x2="319" y2="60" stroke="#d4a017" stroke-width="1.4"/><line x1="330.9" y1="74.1" x2="326.6" y2="78.4" stroke="#d4a017" stroke-width="1.4"/><line x1="345" y1="80" x2="345" y2="86" stroke="#d4a017" stroke-width="1.4"/><line x1="359.1" y1="74.1" x2="363.4" y2="78.4" stroke="#d4a017" stroke-width="1.4"/><path d="M372,60 L373.5,62.4 L375,63.8 L376.5,63.8 L378,62.4 L379.5,60 L381,57.6 L382.5,56.2 L384,56.2 L385.5,57.6 L387,60 L388.5,62.4 L390,63.8 L391.5,63.8 L393,62.4 L394.5,60 L396,57.6 L397.5,56.2 L399,56.2 L400.5,57.6 L402,60 L403.5,62.4 L405,63.8 L406.5,63.8 L408,62.4 L409.5,60 L411,57.6 L412.5,56.2 L414,56.2 L415.5,57.6 L417,60 L418.5,62.4 L420,63.8 L421.5,63.8 L423,62.4 L424.5,60 L426,57.6 L427.5,56.2 L429,56.2 L430.5,57.6 L432,60" stroke="#b5542a" fill="none" stroke-width="1.8"/><circle cx="446" cy="60" r="12" stroke="#1f6f8b" fill="#e6f2f6" stroke-width="1.5"/><text x="395" y="116" fill="#1f6f8b" text-anchor="middle" font-size="10" font-weight="bold">Radiación</text><text x="395" y="130" fill="#5a6375" text-anchor="middle" font-size="8.5">ondas, aun en el vacío</text></svg></div>
+
+  <h3>Conducción: de partícula en partícula</h3>
+  <p>Es la forma de propagación del calor a través de un <b>cuerpo sólido</b> (o entre cuerpos que se tocan), por el <b>choque entre sus partículas</b>: las partículas de la parte caliente vibran más y le pasan esa energía a sus vecinas, como una fila de personas pasándose cubetas. Las partículas no viajan; lo que viaja es la energía.</p>
+  <ul>
+    <li><b>Buenos conductores:</b> los metales (plata, cobre, aluminio, hierro). Por eso una cuchara metálica en la sopa caliente se calienta hasta el mango.</li>
+    <li><b>Malos conductores (aislantes):</b> corcho, madera, plástico, lana, aire, porcelana, vidrio y papel. Por eso los mangos de las ollas son de plástico o madera, y las hieleras de unicel (que atrapa aire) conservan el frío.</li>
+    <li>En el <b>vacío</b> no hay conducción: no hay partículas que choquen.</li>
+  </ul>
+
+  <h3>Convección: el fluido caliente se mueve</h3>
+  <p>Ocurre en los <b>fluidos</b> (líquidos y gases). La parte que se calienta se expande, se vuelve menos densa y <b>sube</b>; la parte fría, más densa, <b>baja</b> a ocupar su lugar. Se forman <b>corrientes de convección</b> que reparten el calor.</p>
+  <ul>
+    <li>El agua de una olla en la estufa se calienta toda gracias a estas corrientes.</li>
+    <li>Los vientos son corrientes de convección del aire, causadas por diferencias de temperatura y densidad en la atmósfera (por ejemplo, la brisa del mar).</li>
+    <li>Los calentadores se ponen abajo y el aire acondicionado arriba: el aire caliente sube y el frío baja. Un globo aerostático sube porque su aire caliente es menos denso que el de afuera.</li>
+  </ul>
+
+  <h3>Radiación: ondas que viajan aun en el vacío</h3>
+  <p>Es la propagación del calor por medio de <b>ondas electromagnéticas</b> (sobre todo infrarrojas), que viajan incluso en el <b>vacío</b>, a unos <b>300 000 km/s</b>. Todos los cuerpos calientes emiten radiación, más mientras más calientes están.</p>
+  <ul>
+    <li>Así nos llega el calor del Sol a través del espacio vacío.</li>
+    <li>Sientes el calor de una fogata aunque no la toques y aunque el aire no se mueva hacia ti.</li>
+    <li>La ropa oscura absorbe más radiación que la clara: por eso se calienta más al sol.</li>
+  </ul>
+
+  <div class="caja idea"><b class="t">¿Cómo funciona un termo?</b> Bloquea las tres formas a la vez: tiene doble pared con <b>vacío</b> en medio (sin partículas no hay conducción ni convección) y paredes <b>plateadas</b> que reflejan la radiación.</div>
+  <div class="caja ojo"><b class="t">Error común</b> Decir que en un sólido hay convección. Dentro de un sólido las partículas no pueden desplazarse para formar corrientes: ahí el calor solo viaja por <b>conducción</b>.</div>
+
+  <div class="caja examen">
+    <div class="enc">Reactivo 49 del examen</div>
+    <div class="preg">Al interior de un cuerpo sólido, la única forma de transferencia de calor es por: &nbsp; A) conducción &nbsp; B) convección &nbsp; C) propagación &nbsp; D) radiación</div>
+    <p>En un sólido las partículas solo vibran en su lugar y se pasan la energía chocando entre sí: eso es <b>conducción</b>. La convección necesita un fluido que se mueva; la radiación viaja como ondas (de hecho, no necesita materia); y “propagación” no es un mecanismo, es la palabra general para decir que el calor se transmite.</p>
+    <span class="resp">Respuesta: A) conducción</span>
+  </div>
+
+  <div class="caja practica"><b class="t">Ahora tú: ¿conducción, convección o radiación?</b>
+    <ol>
+      <li>Te quemas la mano al tocar el mango metálico de un sartén caliente.</li>
+      <li>El aire caliente de una habitación se acumula cerca del techo.</li>
+      <li>Sientes calor en la cara frente a una fogata.</li>
+      <li>La luz y el calor del Sol llegan a la Tierra.</li>
+      <li>Al calentar agua en una olla, se calienta toda y no solo el fondo.</li>
+      <li>¿Por qué se usa unicel o espuma para las hieleras?</li>
+    </ol>
+    <div class="sol">
+      <p><b>1)</b> Conducción. <b>2)</b> Convección. <b>3)</b> Radiación. <b>4)</b> Radiación (cruza el vacío del espacio). <b>5)</b> Convección.</p>
+      <p><b>6)</b> Porque son malos conductores del calor: tienen aire atrapado, y el aire es aislante.</p>
+    </div>
+  </div>
+</section>
+
+<section class="tema">
+  <h2>6.5 Leyes de la termodinámica</h2>
+  <div class="reactivos">Reactivos 50, 51 y 52 de la versión de práctica</div>
+
+  <p class="intro"><b>¿De qué trata esta lección?</b> La termodinámica (del griego <i>thermos</i>, calor, y <i>dynamos</i>, fuerza) estudia el calor, la energía y cómo se transforman: motores, refrigeradores, incluso tu cuerpo. Sus cuatro leyes describen tres cantidades fundamentales (la temperatura, la energía y la entropía) y explican por qué es imposible construir una máquina de movimiento perpetuo.</p>
+
+  <h3>Temperatura y calor: no son lo mismo</h3>
+  <ul>
+    <li><b>Temperatura:</b> mide el grado de agitación de las partículas de un cuerpo; indica qué tan caliente o frío está respecto a una escala de referencia (Celsius, Kelvin o Fahrenheit).</li>
+    <li><b>Calor:</b> es <b>energía en tránsito</b> (energía térmica) que pasa de un cuerpo a otro por una diferencia de temperatura. Siempre fluye del más caliente al más frío, hasta que se igualan.</li>
+  </ul>
+  <div class="caja idea"><b class="t">Piénsalo así: dos tinacos</b> La temperatura es como el <b>nivel</b> del agua en un tinaco; el calor es el <b>agua que fluye</b> cuando conectas dos tinacos: va del de nivel alto al de nivel bajo hasta que quedan parejos. Una alberca a 25 °C tiene muchísima más energía térmica que una taza de café a 80 °C, pero el café tiene más temperatura: si los juntas, el calor fluye del café al agua.</div>
+  <div class="caja formula"><b class="t">Escalas de temperatura</b>
+    <p><span class="m nw">K = °C + 273.15</span> &nbsp;·&nbsp; <span class="m nw">°F = 1.8·°C + 32</span>. El <b>cero absoluto</b> (0 K = −273.15 °C) es la temperatura más baja posible. El agua se congela a 0 °C (273.15 K, 32 °F) y hierve a 100 °C (373.15 K, 212 °F) a nivel del mar.</p>
+  </div>
+
+  <h3>Las cuatro leyes</h3>
+  <h4>Ley cero: equilibrio térmico</h4>
+  <p>“Si dos sistemas están en equilibrio térmico con un tercero, también están en equilibrio entre sí.” Si A tiene la misma temperatura que C, y B también, entonces A y B tienen la misma temperatura. Se llama “cero” porque se formuló al último, pero es la base de las demás. Gracias a ella funcionan los termómetros: el termómetro llega al equilibrio con tu cuerpo y marca tu temperatura.</p>
+  <h4>Primera ley: conservación de la energía</h4>
+  <div class="caja formula">La energía no se crea ni se destruye, solo se transforma. Si a un sistema le das calor Q, una parte la usa para hacer trabajo W sobre sus alrededores y el resto cambia su energía interna:
+    <p class="m" style="text-align:center;font-size:12.5pt">ΔU = Q − W &nbsp;&nbsp;&nbsp; o, lo que es lo mismo, &nbsp;&nbsp;&nbsp; Q = ΔU + W</p>
+    <p>En palabras: <b>el calor absorbido es igual al trabajo realizado más el cambio de energía interna</b>.</p>
+  </div>
+  <div class="caja ejemplo"><b class="t">Ejemplo explicado</b>
+    <div class="preg">Un gas recibe 500 J de calor y, al expandirse, hace 200 J de trabajo empujando un pistón. ¿Cuánto cambia su energía interna?</div>
+    <ol class="pasos">
+      <li><b>Datos:</b> Q = +500 J (entra al sistema), W = +200 J (lo hace el sistema).</li>
+      <li><b>Primera ley:</b> ΔU = 500 − 200 = 300 J. La energía interna aumenta 300 J (el gas se calienta).</li>
+    </ol>
+  </div>
+  <h4>Segunda ley: la entropía</h4>
+  <p>La <b>entropía</b> (S) mide el <b>desorden</b> de un sistema. La segunda ley dice que la entropía del universo tiende a aumentar con el tiempo: los sistemas evolucionan hacia el mayor desorden. Consecuencias que puedes observar:</p>
+  <ul>
+    <li>El calor fluye solo de lo caliente a lo frío, nunca al revés (un refrigerador necesita energía para lograrlo).</li>
+    <li>En toda transformación de energía, una parte se “pierde” como calor que ya no puede hacer trabajo: ninguna máquina aprovecha el 100% de la energía.</li>
+    <li>Un hielo en un vaso de agua se derrite; un perfume se esparce por todo el cuarto; un cuarto se desordena solo, pero nunca se ordena solo.</li>
+  </ul>
+  <p>Matemáticamente: <span class="m nw">ΔS ≥ ΔQ/T</span> (el cambio de entropía es mayor o igual que el calor transferido entre la temperatura).</p>
+  <h4>Tercera ley: el cero absoluto</h4>
+  <p>Al acercarse al cero absoluto (0 K), los procesos de los sistemas físicos se detienen y la entropía llega a un valor mínimo constante. En la práctica es imposible llegar exactamente a 0 K. Algo parecido, a pequeña escala, pasa en un congelador: el frío hace más lentos los procesos de los alimentos y por eso duran más.</p>
+
+  <h3>Tipos de sistemas</h3>
+  <p>Un <b>sistema</b> es la parte del universo que estudias; todo lo demás son sus <b>alrededores</b>. Según lo que puede intercambiar con ellos:</p>
+  <div class="fig"><svg width="480" height="146" viewBox="0 0 480 146" xmlns="http://www.w3.org/2000/svg" font-family="DejaVu Sans" font-size="10"><path d="M20,30 L20,100 L110,100 L110,30" stroke="#1f6f8b" fill="none" stroke-width="2"/><rect x="22" y="62" width="86" height="36" rx="0" stroke="none" fill="#cfe6f5" stroke-width="0"/><defs><marker id="flsa1" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#b5542a"/></marker></defs><line x1="50" y1="50" x2="50" y2="8" stroke="#b5542a" stroke-width="1.8" marker-end="url(#flsa1)"/><text x="56" y="14" fill="#b5542a" text-anchor="start" font-size="8.5">vapor</text><path d="M140,70 L139.4,67.6 L138.8,66.2 L138.2,66.2 L137.6,67.6 L137,70 L136.4,72.4 L135.8,73.8 L135.2,73.8 L134.6,72.4 L134,70 L133.4,67.6 L132.8,66.2 L132.2,66.2 L131.6,67.6 L131,70 L130.4,72.4 L129.8,73.8 L129.2,73.8 L128.6,72.4 L128,70 L127.4,67.6 L126.8,66.2 L126.2,66.2 L125.6,67.6 L125,70 L124.4,72.4 L123.8,73.8 L123.2,73.8 L122.6,72.4 L122,70 L121.4,67.6 L120.8,66.2 L120.2,66.2 L119.6,67.6 L119,70 L118.4,72.4 L117.8,73.8 L117.2,73.8 L116.6,72.4 L116,70" stroke="#d4a017" fill="none" stroke-width="1.5"/><text x="65" y="124" fill="#1f6f8b" text-anchor="middle" font-size="10" font-weight="bold">Abierto</text><text x="65" y="138" fill="#5a6375" text-anchor="middle" font-size="8.5">materia y energía</text><rect x="175" y="30" width="90" height="70" rx="4" stroke="#1f6f8b" fill="none" stroke-width="2"/><rect x="177" y="62" width="86" height="36" rx="0" stroke="none" fill="#cfe6f5" stroke-width="0"/><path d="M297,66 L296.4,63.6 L295.7,62.2 L295.1,62.2 L294.4,63.6 L293.8,66 L293.1,68.4 L292.4,69.8 L291.8,69.8 L291.1,68.4 L290.5,66 L289.9,63.6 L289.2,62.2 L288.6,62.2 L287.9,63.6 L287.2,66 L286.6,68.4 L285.9,69.8 L285.3,69.8 L284.6,68.4 L284,66 L283.4,63.6 L282.7,62.2 L282.1,62.2 L281.4,63.6 L280.8,66 L280.1,68.4 L279.4,69.8 L278.8,69.8 L278.1,68.4 L277.5,66 L276.9,63.6 L276.2,62.2 L275.6,62.2 L274.9,63.6 L274.2,66 L273.6,68.4 L272.9,69.8 L272.3,69.8 L271.6,68.4 L271,66" stroke="#d4a017" fill="none" stroke-width="1.5"/><text x="275" y="52" fill="#8a6400" text-anchor="start" font-size="8.5">calor</text><text x="220" y="124" fill="#1f6f8b" text-anchor="middle" font-size="10" font-weight="bold">Cerrado</text><text x="220" y="138" fill="#5a6375" text-anchor="middle" font-size="8.5">solo energía</text><rect x="326" y="26" width="98" height="78" rx="6" stroke="#1d2330" fill="none" stroke-width="3"/><rect x="330" y="30" width="90" height="70" rx="4" stroke="#1d2330" fill="none" stroke-width="1.4"/><rect x="332" y="62" width="86" height="36" rx="0" stroke="none" fill="#cfe6f5" stroke-width="0"/><line x1="434" y1="50" x2="454" y2="80" stroke="#b5542a" stroke-width="2"/><line x1="454" y1="50" x2="434" y2="80" stroke="#b5542a" stroke-width="2"/><text x="375" y="124" fill="#1f6f8b" text-anchor="middle" font-size="10" font-weight="bold">Aislado</text><text x="375" y="138" fill="#5a6375" text-anchor="middle" font-size="8.5">nada</text></svg></div>
+  <table>
+    <tr><th>Sistema</th><th>Intercambia</th><th>Ejemplo</th></tr>
+    <tr><td><b>Abierto</b></td><td>materia <b>y</b> energía</td><td>una olla destapada donde el agua se evapora; tu cuerpo</td></tr>
+    <tr><td><b>Cerrado</b></td><td>solo energía</td><td>una botella sellada que se calienta o se enfría; una olla con tapa</td></tr>
+    <tr><td><b>Aislado</b></td><td>nada (ni materia ni energía)</td><td>un termo perfectamente aislado</td></tr>
+  </table>
+
+  <h3>Procesos termodinámicos</h3>
+  <p>“Iso” significa <b>igual</b>: el nombre te dice qué se mantiene constante.</p>
+  <ul>
+    <li><b>Isobárico:</b> presión constante (<i>baros</i> = peso, presión, como en barómetro).</li>
+    <li><b>Isocórico</b> (o isométrico): volumen constante (por ejemplo, un gas en un recipiente rígido).</li>
+    <li><b>Isotérmico:</b> temperatura constante.</li>
+    <li>También existe el <b>adiabático</b>: sin intercambio de calor (Q = 0). No viene en el temario, pero es común en los libros.</li>
+  </ul>
+
+  <div class="caja examen">
+    <div class="enc">Reactivo 50 del examen</div>
+    <div class="preg">La ____ indica qué tan caliente o fría es una sustancia con respecto a un cuerpo que se toma como patrón. El ____ es energía en tránsito y siempre fluye de cuerpos de mayor temperatura a los de menor temperatura. &nbsp; A) entropía – calor específico &nbsp; B) dilatación térmica – calor &nbsp; C) entalpía – calor específico &nbsp; D) temperatura – calor</div>
+    <p>Son las dos definiciones de esta lección, casi palabra por palabra: “qué tan caliente o fría” es la <b>temperatura</b> y “energía en tránsito” es el <b>calor</b>.</p>
+    <span class="resp">Respuesta: D) temperatura – calor</span>
+  </div>
+  <div class="caja examen">
+    <div class="enc">Reactivo 51 del examen</div>
+    <div class="preg">En un sistema ____ no existe intercambio de materia ni ____ con otro sistema. &nbsp; A) abierto – energía &nbsp; B) abierto – temperatura &nbsp; C) aislado – energía &nbsp; D) aislado – temperatura</div>
+    <p>Sin intercambio de nada es el sistema <b>aislado</b>. Lo que se intercambia es <b>energía</b> (por ejemplo, calor); la temperatura no se “intercambia”, es una propiedad de cada cuerpo.</p>
+    <span class="resp">Respuesta: C) aislado – energía</span>
+  </div>
+  <div class="caja examen">
+    <div class="enc">Reactivo 52 del examen</div>
+    <div class="preg">¿A qué ley de la termodinámica se refiere el enunciado? “En un proceso termodinámico el calor absorbido o cedido por un sistema siempre será igual a la suma del trabajo realizado y el cambio de energía interna.” &nbsp; A) Cero &nbsp; B) Primera &nbsp; C) Segunda &nbsp; D) Tercera</div>
+    <p>Es Q = W + ΔU: la conservación de la energía, la <b>primera</b> ley. La cero habla de equilibrio térmico, la segunda de entropía y la tercera del cero absoluto.</p>
+    <span class="resp">Respuesta: B) Primera</span>
+  </div>
+
+  <div class="caja practica"><b class="t">Ahora tú</b>
+    <ol>
+      <li>¿Qué tiene más temperatura y qué tiene más energía térmica: una alberca a 25 °C o una taza de chocolate a 70 °C?</li>
+      <li>Convierte 37 °C a kelvin y a grados Fahrenheit.</li>
+      <li>Un gas recibe 800 J de calor y hace 300 J de trabajo. ¿Cuánto cambia su energía interna?</li>
+      <li>Clasifica como abierto, cerrado o aislado: una olla con tapa en la estufa; el cuerpo humano; un termo ideal.</li>
+      <li>¿Qué proceso ocurre en una olla exprés cerrada (volumen fijo) mientras se calienta?</li>
+      <li>¿Qué ley explica que un café caliente se enfríe solo hasta la temperatura del cuarto y nunca se caliente solo?</li>
+    </ol>
+    <div class="sol">
+      <p><b>1)</b> El chocolate tiene más temperatura; la alberca, mucha más energía térmica (tiene muchísima más agua).</p>
+      <p><b>2)</b> 37 + 273.15 = 310.15 K; 1.8 × 37 + 32 = 98.6 °F. <b>3)</b> ΔU = 800 − 300 = 500 J.</p>
+      <p><b>4)</b> Cerrado; abierto (comes, respiras, sudas e intercambias calor); aislado. <b>5)</b> Isocórico. <b>6)</b> La segunda ley.</p>
+    </div>
+  </div>
+</section>
+<section class="tema">
+  <h2>6.6 Gases y elasticidad</h2>
+  <div class="reactivos">Reactivos 53, 54 y 55 de la versión de práctica</div>
+
+  <p class="intro"><b>¿De qué trata esta lección?</b> De dos temas que el temario pone juntos. Primero, los <b>gases</b>: cómo se relacionan su presión, su volumen y su temperatura. Explican por qué las llantas tienen más presión después de un viaje, por qué un globo se encoge en el congelador o por qué una jeringa tapada cuesta trabajo apretarla. Después, la <b>elasticidad</b>: la ley de Hooke de los resortes.</p>
+
+  <h3>¿Cómo es un gas por dentro?</h3>
+  <p>Las moléculas de un gas están <b>muy separadas</b> unas de otras; por eso no tienen forma fija y ocupan todo el volumen del recipiente. El temario resume el modelo así:</p>
+  <ul>
+    <li>Un mismo gas está formado por moléculas iguales (mismo tamaño y masa); gases distintos tienen moléculas distintas.</li>
+    <li>Las moléculas están en <b>movimiento constante</b> y chocan entre sí y contra las paredes del recipiente.</li>
+    <li>Las fuerzas de atracción entre ellas son tan débiles que se desprecian, porque están muy lejos unas de otras.</li>
+    <li>El volumen de las moléculas mismas es despreciable comparado con el volumen total del gas.</li>
+  </ul>
+  <div class="caja idea"><b class="t">Piénsalo así</b> La <b>presión</b> de un gas son los golpes de millones de moléculas contra las paredes. Si las encierras en menos espacio, chocan más seguido: sube la presión. Si las calientas, se mueven más rápido y golpean más fuerte: también sube la presión (o el gas se expande).</div>
+
+  <h3>Tres variables y una regla de oro</h3>
+  <p>Un gas se describe con su <b>presión P</b> (atm, Pa, mmHg), su <b>volumen V</b> (L, mL, cm³, m³) y su <b>temperatura T</b>. Si la cantidad de gas no cambia y una de las tres se mantiene fija, las otras dos se relacionan de forma muy sencilla.</p>
+  <div class="caja ojo"><b class="t">La regla de oro</b> En las leyes de los gases la temperatura va <b>siempre en kelvin</b> (K = °C + 273.15). Con grados Celsius los resultados salen mal: un gas a 20 °C no tiene “el doble de temperatura” que uno a 10 °C.</div>
+
+  <h3>Ley de Boyle: temperatura constante</h3>
+  <div class="dos">
+    <div>
+      <p>A temperatura constante, el volumen de un gas es <b>inversamente proporcional</b> a su presión: si aprietas al doble, el volumen se reduce a la mitad.</p>
+      <p class="m" style="text-align:center;font-size:13pt">P<sub>1</sub>·V<sub>1</sub> = P<sub>2</sub>·V<sub>2</sub></p>
+      <p>Ejemplos: tapas la punta de una jeringa y empujas el émbolo: cuesta cada vez más trabajo. Las burbujas de un buzo crecen al subir, porque abajo hay más presión.</p>
+    </div>
+    <div class="fig"><svg width="250" height="200" viewBox="0 0 250 200" xmlns="http://www.w3.org/2000/svg" font-family="DejaVu Sans" font-size="10"><defs><marker id="fdby" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#5a6375"/></marker><marker id="fiby" markerWidth="8" markerHeight="8" refX="2" refY="4" orient="auto"><path d="M8,0 L0,4 L8,8 z" fill="#5a6375"/></marker></defs><line x1="26" y1="174" x2="224" y2="174" stroke="#5a6375" stroke-width="1.2" marker-end="url(#fdby)"/><line x1="26" y1="174" x2="26" y2="26" stroke="#5a6375" stroke-width="1.2" marker-end="url(#fdby)"/><text x="222" y="168" fill="#5a6375" text-anchor="end" font-style="italic">V</text><text x="32" y="34" fill="#5a6375" text-anchor="start" font-style="italic">P</text><line x1="56.5" y1="171" x2="56.5" y2="177" stroke="#5a6375" stroke-width="1"/><text x="56.5" y="188" fill="#5a6375" text-anchor="middle" font-size="9">1</text><line x1="86.9" y1="171" x2="86.9" y2="177" stroke="#5a6375" stroke-width="1"/><text x="86.9" y="188" fill="#5a6375" text-anchor="middle" font-size="9">2</text><line x1="117.4" y1="171" x2="117.4" y2="177" stroke="#5a6375" stroke-width="1"/><text x="117.4" y="188" fill="#5a6375" text-anchor="middle" font-size="9">3</text><line x1="147.8" y1="171" x2="147.8" y2="177" stroke="#5a6375" stroke-width="1"/><text x="147.8" y="188" fill="#5a6375" text-anchor="middle" font-size="9">4</text><line x1="178.3" y1="171" x2="178.3" y2="177" stroke="#5a6375" stroke-width="1"/><text x="178.3" y="188" fill="#5a6375" text-anchor="middle" font-size="9">5</text><line x1="208.8" y1="171" x2="208.8" y2="177" stroke="#5a6375" stroke-width="1"/><text x="208.8" y="188" fill="#5a6375" text-anchor="middle" font-size="9">6</text><line x1="23" y1="151.2" x2="29" y2="151.2" stroke="#5a6375" stroke-width="1"/><text x="20" y="154.2" fill="#5a6375" text-anchor="end" font-size="9">1</text><line x1="23" y1="128.5" x2="29" y2="128.5" stroke="#5a6375" stroke-width="1"/><text x="20" y="131.5" fill="#5a6375" text-anchor="end" font-size="9">2</text><line x1="23" y1="105.7" x2="29" y2="105.7" stroke="#5a6375" stroke-width="1"/><text x="20" y="108.7" fill="#5a6375" text-anchor="end" font-size="9">3</text><line x1="23" y1="82.9" x2="29" y2="82.9" stroke="#5a6375" stroke-width="1"/><text x="20" y="85.9" fill="#5a6375" text-anchor="end" font-size="9">4</text><line x1="23" y1="60.2" x2="29" y2="60.2" stroke="#5a6375" stroke-width="1"/><text x="20" y="63.2" fill="#5a6375" text-anchor="end" font-size="9">5</text><line x1="23" y1="37.4" x2="29" y2="37.4" stroke="#5a6375" stroke-width="1"/><text x="20" y="40.4" fill="#5a6375" text-anchor="end" font-size="9">6</text><path d="M54.9,30.2 L55.6,33.5 L56.3,36.6 L57,39.7 L57.7,42.5 L58.3,45.3 L59,47.9 L59.7,50.5 L60.4,52.9 L61,55.3 L61.7,57.5 L62.4,59.7 L63.1,61.8 L63.8,63.8 L64.4,65.8 L65.1,67.6 L65.8,69.4 L66.5,71.2 L67.2,72.9 L67.8,74.5 L68.5,76.1 L69.2,77.7 L69.9,79.2 L70.6,80.6 L71.2,82 L71.9,83.4 L72.6,84.7 L73.3,86 L74,87.2 L74.6,88.4 L75.3,89.6 L76,90.8 L76.7,91.9 L77.3,93 L78,94 L78.7,95 L79.4,96 L80.1,97 L80.7,98 L81.4,98.9 L82.1,99.8 L82.8,100.7 L83.5,101.6 L84.1,102.4 L84.8,103.2 L85.5,104.1 L86.2,104.8 L86.9,105.6 L87.5,106.4 L88.2,107.1 L88.9,107.8 L89.6,108.5 L90.2,109.2 L90.9,109.9 L91.6,110.6 L92.3,111.2 L93,111.9 L93.6,112.5 L94.3,113.1 L95,113.7 L95.7,114.3 L96.4,114.9 L97,115.4 L97.7,116 L98.4,116.5 L99.1,117.1 L99.8,117.6 L100.4,118.1 L101.1,118.6 L101.8,119.1 L102.5,119.6 L103.2,120.1 L103.8,120.5 L104.5,121 L105.2,121.4 L105.9,121.9 L106.5,122.3 L107.2,122.8 L107.9,123.2 L108.6,123.6 L109.3,124 L109.9,124.4 L110.6,124.8 L111.3,125.2 L112,125.6 L112.7,126 L113.3,126.4 L114,126.7 L114.7,127.1 L115.4,127.4 L116.1,127.8 L116.7,128.1 L117.4,128.5 L118.1,128.8 L118.8,129.1 L119.4,129.5 L120.1,129.8 L120.8,130.1 L121.5,130.4 L122.2,130.7 L122.8,131 L123.5,131.3 L124.2,131.6 L124.9,131.9 L125.6,132.2 L126.2,132.5 L126.9,132.8 L127.6,133 L128.3,133.3 L129,133.6 L129.6,133.8 L130.3,134.1 L131,134.4 L131.7,134.6 L132.3,134.9 L133,135.1 L133.7,135.4 L134.4,135.6 L135.1,135.8 L135.7,136.1 L136.4,136.3 L137.1,136.5 L137.8,136.8 L138.5,137 L139.1,137.2 L139.8,137.4 L140.5,137.7 L141.2,137.9 L141.9,138.1 L142.5,138.3 L143.2,138.5 L143.9,138.7 L144.6,138.9 L145.3,139.1 L145.9,139.3 L146.6,139.5 L147.3,139.7 L148,139.9 L148.6,140.1 L149.3,140.3 L150,140.4 L150.7,140.6 L151.4,140.8 L152,141 L152.7,141.2 L153.4,141.3 L154.1,141.5 L154.8,141.7 L155.4,141.8 L156.1,142 L156.8,142.2 L157.5,142.3 L158.2,142.5 L158.8,142.7 L159.5,142.8 L160.2,143 L160.9,143.1 L161.5,143.3 L162.2,143.5 L162.9,143.6 L163.6,143.8 L164.3,143.9 L164.9,144 L165.6,144.2 L166.3,144.3 L167,144.5 L167.7,144.6 L168.3,144.8 L169,144.9 L169.7,145 L170.4,145.2 L171.1,145.3 L171.7,145.4 L172.4,145.6 L173.1,145.7 L173.8,145.8 L174.4,146 L175.1,146.1 L175.8,146.2 L176.5,146.3 L177.2,146.5 L177.8,146.6 L178.5,146.7 L179.2,146.8 L179.9,147 L180.6,147.1 L181.2,147.2 L181.9,147.3 L182.6,147.4 L183.3,147.5 L184,147.7 L184.6,147.8 L185.3,147.9 L186,148 L186.7,148.1 L187.4,148.2 L188,148.3 L188.7,148.4 L189.4,148.5 L190.1,148.6 L190.7,148.7 L191.4,148.8 L192.1,148.9 L192.8,149 L193.5,149.1 L194.1,149.2 L194.8,149.3 L195.5,149.4 L196.2,149.5 L196.9,149.6 L197.5,149.7 L198.2,149.8 L198.9,149.9 L199.6,150 L200.3,150.1 L200.9,150.2 L201.6,150.3 L202.3,150.4 L203,150.5 L203.6,150.6 L204.3,150.7 L205,150.8 L205.7,150.8 L206.4,150.9 L207,151 L207.7,151.1 L208.4,151.2 L209.1,151.3 L209.8,151.4 L210.4,151.4 L211.1,151.5 L211.8,151.6 L212.5,151.7 L213.2,151.8 L213.8,151.8 L214.5,151.9 L215.2,152 L215.9,152.1 L216.5,152.2 L217.2,152.2 L217.9,152.3" stroke="#1f6f8b" fill="none" stroke-width="2.4"/><line x1="86.9" y1="174" x2="86.9" y2="105.7" stroke="#5a6375" stroke-width="1" stroke-dasharray="3 3"/><line x1="26" y1="105.7" x2="86.9" y2="105.7" stroke="#5a6375" stroke-width="1" stroke-dasharray="3 3"/><circle cx="86.9" cy="105.7" r="4" fill="#b5542a"/><line x1="117.4" y1="174" x2="117.4" y2="128.5" stroke="#5a6375" stroke-width="1" stroke-dasharray="3 3"/><line x1="26" y1="128.5" x2="117.4" y2="128.5" stroke="#5a6375" stroke-width="1" stroke-dasharray="3 3"/><circle cx="117.4" cy="128.5" r="4" fill="#b5542a"/><text x="92.9" y="99.7" fill="#b5542a" text-anchor="start" font-size="9" font-weight="bold">2 × 3 = 6</text><text x="123.4" y="122.5" fill="#b5542a" text-anchor="start" font-size="9" font-weight="bold">3 × 2 = 6</text><text x="217.9" y="41.9" fill="#1f6f8b" text-anchor="end" font-size="9.5" font-weight="bold">P · V = constante</text></svg></div>
+  </div>
+  <div class="caja ejemplo"><b class="t">Ejemplo explicado</b>
+    <div class="preg">Una jeringa tapada tiene 60 mL de aire a 1 atm. Si la comprimes hasta 20 mL sin cambiar la temperatura, ¿qué presión alcanza?</div>
+    <ol class="pasos">
+      <li><b>Temperatura constante:</b> Boyle. P₁ = 1 atm, V₁ = 60 mL, V₂ = 20 mL.</li>
+      <li><b>Despejo:</b> P₂ = P₁V₁/V₂ = 1 × 60/20 = 3 atm. <span class="por">Los mL se cancelan: no hace falta convertirlos.</span></li>
+      <li><b>¿Tiene sentido?</b> El volumen bajó a la tercera parte y la presión se triplicó ✔.</li>
+    </ol>
+  </div>
+
+  <h3>Ley de Charles: presión constante</h3>
+  <p>A presión constante, el volumen de un gas es <b>directamente proporcional</b> a su temperatura absoluta: si la temperatura en kelvin se duplica, el volumen se duplica.</p>
+  <p class="m" style="text-align:center;font-size:13pt"><span class="fr"><span>V<sub>1</sub></span><span>T<sub>1</sub></span></span> = <span class="fr"><span>V<sub>2</sub></span><span>T<sub>2</sub></span></span></p>
+  <p>Ejemplos: un globo inflado se encoge en el congelador; un globo aerostático se infla al calentar su aire.</p>
+  <div class="caja ejemplo"><b class="t">Ejemplo explicado</b>
+    <div class="preg">Un globo de 2.0 L está a 27 °C. Se mete a un congelador a −23 °C. ¿Qué volumen tendrá (a la misma presión)?</div>
+    <ol class="pasos">
+      <li><b>Paso las temperaturas a kelvin:</b> T₁ = 27 + 273 = 300 K; T₂ = −23 + 273 = 250 K.</li>
+      <li><b>Charles:</b> V₂ = V₁·T₂/T₁ = 2.0 × 250/300 = 1.67 L.</li>
+      <li><b>¿Tiene sentido?</b> Se enfrió, así que se encoge ✔.</li>
+    </ol>
+  </div>
+
+  <h3>Ley de Gay-Lussac: volumen constante</h3>
+  <p>A volumen constante, la presión de un gas es <b>directamente proporcional</b> a su temperatura absoluta.</p>
+  <p class="m" style="text-align:center;font-size:13pt"><span class="fr"><span>P<sub>1</sub></span><span>T<sub>1</sub></span></span> = <span class="fr"><span>P<sub>2</sub></span><span>T<sub>2</sub></span></span></p>
+  <p>Ejemplos: después de un viaje largo las llantas tienen más presión (se calentaron); por eso los aerosoles dicen “no exponer al fuego”: el gas calentado en una lata rígida puede hacerla explotar.</p>
+  <div class="caja ejemplo"><b class="t">Ejemplo explicado</b>
+    <div class="preg">Una llanta tiene 2.0 atm a 27 °C. Después de rodar, el aire llega a 57 °C. ¿Qué presión tiene ahora (sin cambiar su volumen)?</div>
+    <ol class="pasos">
+      <li><b>Kelvin:</b> T₁ = 300 K, T₂ = 330 K.</li>
+      <li><b>Gay-Lussac:</b> P₂ = P₁·T₂/T₁ = 2.0 × 330/300 = 2.2 atm.</li>
+    </ol>
+  </div>
+  <table>
+    <tr><th>Ley</th><th>Se mantiene constante</th><th>Relación</th><th>Fórmula</th></tr>
+    <tr><td>Boyle</td><td>temperatura</td><td>P y V inversas</td><td class="m">P<sub>1</sub>V<sub>1</sub> = P<sub>2</sub>V<sub>2</sub></td></tr>
+    <tr><td>Charles</td><td>presión</td><td>V y T directas</td><td class="m">V<sub>1</sub>/T<sub>1</sub> = V<sub>2</sub>/T<sub>2</sub></td></tr>
+    <tr><td>Gay-Lussac</td><td>volumen</td><td>P y T directas</td><td class="m">P<sub>1</sub>/T<sub>1</sub> = P<sub>2</sub>/T<sub>2</sub></td></tr>
+  </table>
+  <p class="chico">Las tres caben en la <b>ley combinada</b> <span class="m nw">P<sub>1</sub>V<sub>1</sub>/T<sub>1</sub> = P<sub>2</sub>V<sub>2</sub>/T<sub>2</sub></span>: si tapas la variable que no cambia, te queda la ley que necesitas. En Química verás la ecuación del gas ideal, PV = nRT.</p>
+
+  <h3>Elasticidad: la ley de Hooke</h3>
+  <div class="dos">
+    <div>
+      <p>Robert Hooke (siglo XVII) estudió resortes y descubrió que la fuerza que se necesita para estirarlos o comprimirlos es <b>proporcional</b> a cuánto cambia su longitud:</p>
+      <p class="m" style="text-align:center;font-size:13pt">F = k · x</p>
+      <ul>
+        <li><span class="m nw">F</span>: la fuerza, en N. Si cuelgas una masa, la fuerza es su peso: <span class="m nw">F = m·g</span>.</li>
+        <li><span class="m nw">x</span>: lo que se estira o se comprime (no la longitud total), en metros.</li>
+        <li><span class="m nw">k</span>: la <b>constante del resorte</b>, en N/m: qué tan duro es. Un resorte duro tiene k grande.</li>
+      </ul>
+      <p>Con el doble de fuerza, el resorte se estira el doble... mientras no lo jales demasiado: si pasas su <b>límite elástico</b>, se deforma para siempre. Así funcionan los dinamómetros (balanzas de resorte) y la suspensión de los autos.</p>
+    </div>
+    <div class="fig"><svg width="420" height="210" viewBox="0 0 420 210" xmlns="http://www.w3.org/2000/svg" font-family="DejaVu Sans" font-size="10"><svg x="0" y="0" width="210" height="210" viewBox="0 0 210 210" xmlns="http://www.w3.org/2000/svg" font-family="DejaVu Sans" font-size="10"><rect x="20" y="14" width="160" height="8" rx="0" stroke="#5a6375" fill="#c9ced6" stroke-width="1"/><path d="M60,22 L60,28 L72,29.8 L48,33.2 L72,36.8 L48,40.2 L72,43.8 L48,47.2 L72,50.8 L48,54.2 L72,57.8 L48,61.2 L72,64.8 L48,68.2 L72,71.8 L48,75.2 L72,78.8 L48,82.2 L60,84 L60,90" stroke="#5a6375" fill="none" stroke-width="1.6"/><text x="60" y="108" fill="#5a6375" text-anchor="middle" font-size="8.5">sin peso</text><path d="M135,22 L135,28 L147,31.3 L123,37.9 L147,44.6 L123,51.2 L147,57.8 L123,64.4 L147,71.1 L123,77.7 L147,84.3 L123,90.9 L147,97.6 L123,104.2 L147,110.8 L123,117.4 L147,124.1 L123,130.7 L135,134 L135,140" stroke="#5a6375" fill="none" stroke-width="1.6"/><rect x="115" y="140" width="40" height="30" rx="3" stroke="#1f6f8b" fill="#e6f2f6" stroke-width="1.8"/><text x="135" y="160" fill="#1f6f8b" text-anchor="middle" font-size="12" font-weight="bold" font-style="italic" font-family="DejaVu Serif">m</text><line x1="160" y1="90" x2="178" y2="90" stroke="#b5542a" stroke-width="1" stroke-dasharray="3 2"/><line x1="160" y1="140" x2="178" y2="140" stroke="#b5542a" stroke-width="1" stroke-dasharray="3 2"/><defs><marker id="flhx" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#b5542a"/></marker></defs><line x1="172" y1="100" x2="172" y2="136" stroke="#b5542a" stroke-width="1.6" marker-end="url(#flhx)"/><text x="182" y="120" fill="#b5542a" text-anchor="start" font-size="12" font-weight="bold" font-style="italic" font-family="DejaVu Serif">x</text><defs><marker id="flhw" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#2e7d4f"/></marker></defs><line x1="135" y1="172" x2="135" y2="200" stroke="#2e7d4f" stroke-width="2" marker-end="url(#flhw)"/><text x="142" y="198" fill="#2e7d4f" text-anchor="start" font-size="9" font-weight="bold">F = mg</text></svg><svg x="215" y="5" width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" font-family="DejaVu Sans" font-size="10"><defs><marker id="fdhk" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#5a6375"/></marker><marker id="fihk" markerWidth="8" markerHeight="8" refX="2" refY="4" orient="auto"><path d="M8,0 L0,4 L8,8 z" fill="#5a6375"/></marker></defs><line x1="26" y1="174" x2="174" y2="174" stroke="#5a6375" stroke-width="1.2" marker-end="url(#fdhk)"/><line x1="26" y1="174" x2="26" y2="26" stroke="#5a6375" stroke-width="1.2" marker-end="url(#fdhk)"/><text x="172" y="168" fill="#5a6375" text-anchor="end" font-style="italic">x</text><text x="32" y="34" fill="#5a6375" text-anchor="start" font-style="italic">F</text><line x1="55.6" y1="171" x2="55.6" y2="177" stroke="#5a6375" stroke-width="1"/><text x="55.6" y="188" fill="#5a6375" text-anchor="middle" font-size="9">1</text><line x1="85.2" y1="171" x2="85.2" y2="177" stroke="#5a6375" stroke-width="1"/><text x="85.2" y="188" fill="#5a6375" text-anchor="middle" font-size="9">2</text><line x1="114.8" y1="171" x2="114.8" y2="177" stroke="#5a6375" stroke-width="1"/><text x="114.8" y="188" fill="#5a6375" text-anchor="middle" font-size="9">3</text><line x1="144.4" y1="171" x2="144.4" y2="177" stroke="#5a6375" stroke-width="1"/><text x="144.4" y="188" fill="#5a6375" text-anchor="middle" font-size="9">4</text><line x1="23" y1="144.4" x2="29" y2="144.4" stroke="#5a6375" stroke-width="1"/><text x="20" y="147.4" fill="#5a6375" text-anchor="end" font-size="9">1</text><line x1="23" y1="114.8" x2="29" y2="114.8" stroke="#5a6375" stroke-width="1"/><text x="20" y="117.8" fill="#5a6375" text-anchor="end" font-size="9">2</text><line x1="23" y1="85.2" x2="29" y2="85.2" stroke="#5a6375" stroke-width="1"/><text x="20" y="88.2" fill="#5a6375" text-anchor="end" font-size="9">3</text><line x1="23" y1="55.6" x2="29" y2="55.6" stroke="#5a6375" stroke-width="1"/><text x="20" y="58.6" fill="#5a6375" text-anchor="end" font-size="9">4</text><path d="M26,174 L26.6,173.4 L27.1,172.9 L27.7,172.3 L28.3,171.7 L28.8,171.2 L29.4,170.6 L30,170 L30.5,169.5 L31.1,168.9 L31.7,168.3 L32.2,167.8 L32.8,167.2 L33.4,166.6 L33.9,166.1 L34.5,165.5 L35.1,164.9 L35.6,164.4 L36.2,163.8 L36.8,163.2 L37.3,162.7 L37.9,162.1 L38.5,161.5 L39,161 L39.6,160.4 L40.2,159.8 L40.8,159.2 L41.3,158.7 L41.9,158.1 L42.5,157.5 L43,157 L43.6,156.4 L44.2,155.8 L44.7,155.3 L45.3,154.7 L45.9,154.1 L46.4,153.6 L47,153 L47.6,152.4 L48.1,151.9 L48.7,151.3 L49.3,150.7 L49.8,150.2 L50.4,149.6 L51,149 L51.5,148.5 L52.1,147.9 L52.7,147.3 L53.2,146.8 L53.8,146.2 L54.4,145.6 L54.9,145.1 L55.5,144.5 L56.1,143.9 L56.6,143.4 L57.2,142.8 L57.8,142.2 L58.3,141.7 L58.9,141.1 L59.5,140.5 L60,140 L60.6,139.4 L61.2,138.8 L61.7,138.3 L62.3,137.7 L62.9,137.1 L63.4,136.6 L64,136 L64.6,135.4 L65.1,134.9 L65.7,134.3 L66.3,133.7 L66.8,133.2 L67.4,132.6 L68,132 L68.5,131.4 L69.1,130.9 L69.7,130.3 L70.3,129.7 L70.8,129.2 L71.4,128.6 L72,128 L72.5,127.5 L73.1,126.9 L73.7,126.3 L74.2,125.8 L74.8,125.2 L75.4,124.6 L75.9,124.1 L76.5,123.5 L77.1,122.9 L77.6,122.4 L78.2,121.8 L78.8,121.2 L79.3,120.7 L79.9,120.1 L80.5,119.5 L81,119 L81.6,118.4 L82.2,117.8 L82.7,117.3 L83.3,116.7 L83.9,116.1 L84.4,115.6 L85,115 L85.6,114.4 L86.1,113.9 L86.7,113.3 L87.3,112.7 L87.8,112.2 L88.4,111.6 L89,111 L89.5,110.5 L90.1,109.9 L90.7,109.3 L91.2,108.8 L91.8,108.2 L92.4,107.6 L92.9,107.1 L93.5,106.5 L94.1,105.9 L94.6,105.4 L95.2,104.8 L95.8,104.2 L96.3,103.7 L96.9,103.1 L97.5,102.5 L98.1,101.9 L98.6,101.4 L99.2,100.8 L99.8,100.2 L100.3,99.7 L100.9,99.1 L101.5,98.5 L102,98 L102.6,97.4 L103.2,96.8 L103.7,96.3 L104.3,95.7 L104.9,95.1 L105.4,94.6 L106,94 L106.6,93.4 L107.1,92.9 L107.7,92.3 L108.3,91.7 L108.8,91.2 L109.4,90.6 L110,90 L110.5,89.5 L111.1,88.9 L111.7,88.3 L112.2,87.8 L112.8,87.2 L113.4,86.6 L113.9,86.1 L114.5,85.5 L115.1,84.9 L115.6,84.4 L116.2,83.8 L116.8,83.2 L117.3,82.7 L117.9,82.1 L118.5,81.5 L119,81 L119.6,80.4 L120.2,79.8 L120.7,79.3 L121.3,78.7 L121.9,78.1 L122.4,77.6 L123,77 L123.6,76.4 L124.1,75.9 L124.7,75.3 L125.3,74.7 L125.9,74.1 L126.4,73.6 L127,73 L127.6,72.4 L128.1,71.9 L128.7,71.3 L129.3,70.7 L129.8,70.2 L130.4,69.6 L131,69 L131.5,68.5 L132.1,67.9 L132.7,67.3 L133.2,66.8 L133.8,66.2 L134.4,65.6 L134.9,65.1 L135.5,64.5 L136.1,63.9 L136.6,63.4 L137.2,62.8 L137.8,62.2 L138.3,61.7 L138.9,61.1 L139.5,60.5 L140,60 L140.6,59.4 L141.2,58.8 L141.7,58.3 L142.3,57.7 L142.9,57.1 L143.4,56.6 L144,56 L144.6,55.4 L145.1,54.9 L145.7,54.3 L146.3,53.7 L146.8,53.2 L147.4,52.6 L148,52 L148.5,51.5 L149.1,50.9 L149.7,50.3 L150.2,49.8 L150.8,49.2 L151.4,48.6 L151.9,48.1 L152.5,47.5 L153.1,46.9 L153.7,46.3 L154.2,45.8 L154.8,45.2 L155.4,44.6 L155.9,44.1 L156.5,43.5 L157.1,42.9 L157.6,42.4 L158.2,41.8 L158.8,41.2 L159.3,40.7 L159.9,40.1 L160.5,39.5 L161,39 L161.6,38.4 L162.2,37.8" stroke="#1f6f8b" fill="none" stroke-width="2.4"/><text x="91.1" y="73.4" fill="#1f6f8b" text-anchor="end" font-size="9" font-weight="bold">pendiente = k</text></svg></svg></div>
+  </div>
+  <div class="caja ejemplo"><b class="t">Ejemplo explicado</b>
+    <div class="preg">Un resorte tiene k = 200 N/m. ¿Cuánto se estira si le cuelgas una masa de 2 kg?</div>
+    <ol class="pasos">
+      <li><b>La fuerza es el peso:</b> F = m·g = 2 × 9.81 = 19.62 N.</li>
+      <li><b>Despejo x:</b> x = F/k = 19.62/200 = 0.098 m, unos 9.8 cm.</li>
+    </ol>
+  </div>
+
+  <div class="caja examen">
+    <div class="enc">Reactivo 53 del examen</div>
+    <div class="preg">Una muestra de helio ocupa 500 mL a 300 K. ¿A qué temperatura ocupará 700 mL si la presión no cambia? &nbsp; A) 180 K &nbsp; B) 350 K &nbsp; C) 420 K &nbsp; D) 580 K</div>
+    <ol class="pasos">
+      <li><b>Presión constante:</b> Charles, V₁/T₁ = V₂/T₂.</li>
+      <li><b>Despejo T₂:</b> T₂ = V₂·T₁/V₁ = 700 × 300/500 = 420 K.</li>
+      <li><b>¿Tiene sentido?</b> El volumen creció, así que la temperatura también debe crecer: se descarta A (180 K).</li>
+    </ol>
+    <span class="resp">Respuesta: C) 420 K</span>
+  </div>
+  <div class="caja examen">
+    <div class="enc">Reactivo 54 del examen</div>
+    <div class="preg">Un gas ocupa un volumen de 175.0 cm³ a una presión de 7.0 atm. ¿Cuál será el volumen si se aumenta la presión 2.0 atm más a la presión inicial? &nbsp; A) 15.9 cm³ &nbsp; B) 56.8 cm³ &nbsp; C) 80.5 cm³ &nbsp; D) 136.1 cm³</div>
+    <ol class="pasos">
+      <li><b>Leo con cuidado:</b> “2.0 atm <b>más</b>” significa P₂ = 7.0 + 2.0 = 9.0 atm (no 2.0 atm).</li>
+      <li><b>Sin cambio de temperatura:</b> Boyle, P₁V₁ = P₂V₂ → V₂ = 7.0 × 175.0/9.0 = 1 225/9 = 136.1 cm³.</li>
+      <li><b>¿Tiene sentido?</b> Más presión, menos volumen, pero no mucho menos (la presión subió poco) ✔.</li>
+    </ol>
+    <span class="resp">Respuesta: D) 136.1 cm³</span>
+  </div>
+  <div class="caja examen">
+    <div class="enc">Reactivo 55 del examen</div>
+    <div class="preg">Si a un resorte se le coloca una masa de 5.00 kg, este se deformará 0.70 m. Determine la constante k del resorte en N/m. Considere g = 9.81 m/s². &nbsp; A) 12.04 &nbsp; B) 28.35 &nbsp; C) 70.07 &nbsp; D) 98.87</div>
+    <ol class="pasos">
+      <li><b>La fuerza es el peso de la masa:</b> F = 5.00 × 9.81 = 49.05 N. <span class="por">Por eso te dan g: la masa no es una fuerza.</span></li>
+      <li><b>Hooke:</b> k = F/x = 49.05/0.70 = 70.07 N/m.</li>
+    </ol>
+    <span class="resp">Respuesta: C) 70.07</span>
+  </div>
+
+  <div class="caja practica"><b class="t">Ahora tú</b>
+    <ol>
+      <li>Un gas ocupa 4 L a 2 atm. Si la presión sube a 8 atm a temperatura constante, ¿qué volumen ocupa?</li>
+      <li>Un globo de 3 L a 300 K se calienta hasta 400 K a presión constante. ¿Qué volumen tiene ahora?</li>
+      <li>Un tanque rígido tiene gas a 3 atm y 27 °C. Si se calienta a 127 °C, ¿qué presión alcanza?</li>
+      <li>Un resorte se estira 0.04 m con 10 N. ¿Cuánto vale k? ¿Cuánto se estira con 25 N?</li>
+      <li>¿Qué ley de los gases explica que una llanta tenga más presión después de un viaje largo?</li>
+    </ol>
+    <div class="sol">
+      <p><b>1)</b> V₂ = 2 × 4/8 = 1 L. <b>2)</b> V₂ = 3 × 400/300 = 4 L.</p>
+      <p><b>3)</b> 300 K → 400 K: P₂ = 3 × 400/300 = 4 atm. <b>4)</b> k = 10/0.04 = 250 N/m; x = 25/250 = 0.1 m.</p>
+      <p><b>5)</b> Gay-Lussac (volumen constante, sube la temperatura y sube la presión).</p>
+    </div>
+  </div>
+</section>
+<section class="tema">
+  <h2>6.8 Hidrodinámica: principios de Pascal y de Arquímedes</h2>
+  <div class="reactivos">Reactivos 56 y 57 de la versión de práctica</div>
+
+  <p class="intro"><b>¿De qué trata esta lección?</b> Los fluidos (líquidos y gases) transmiten las fuerzas de maneras muy útiles. El principio de Pascal explica cómo un gato hidráulico levanta un auto con la fuerza de un brazo; el de Arquímedes, por qué un barco de acero flota y una piedra se hunde. (En rigor son temas de fluidos en reposo, la hidrostática, pero el temario los incluye en este apartado.)</p>
+
+  <h3>Primero: ¿qué es la presión?</h3>
+  <p>La <b>presión</b> es la fuerza repartida sobre un área:</p>
+  <p class="m" style="text-align:center;font-size:13pt">P = F / A &nbsp;&nbsp; (pascales: 1 Pa = 1 N/m²)</p>
+  <p>La misma fuerza en un área pequeña produce mucha presión, y en un área grande, poca. Por eso un cuchillo afilado corta (filo de área diminuta), un clavo entra por la punta, y unas raquetas de nieve evitan que te hundas (reparten tu peso). Dentro de un líquido, la presión aumenta con la profundidad: por eso te duelen los oídos en el fondo de una alberca.</p>
+
+  <h3>Principio de Pascal</h3>
+  <div class="caja formula"><b class="t">Enunciado</b> Toda presión que se ejerce sobre un líquido encerrado en un recipiente se transmite con la misma intensidad a todos los puntos del líquido y a las paredes del recipiente.</div>
+  <div class="dos">
+    <div>
+      <p><b>La prensa hidráulica.</b> Tiene dos émbolos de distinto tamaño conectados por un líquido. Si empujas el émbolo chico con una fuerza F₁, creas una presión P = F₁/A₁, y esa misma presión llega al émbolo grande, donde produce una fuerza F₂ = P·A₂. Como las presiones son iguales:</p>
+      <p class="m" style="text-align:center;font-size:13pt"><span class="fr"><span>F<sub>1</sub></span><span>A<sub>1</sub></span></span> = <span class="fr"><span>F<sub>2</sub></span><span>A<sub>2</sub></span></span> &nbsp;&nbsp; ⟹ &nbsp;&nbsp; F<sub>2</sub> = F<sub>1</sub>·<span class="fr"><span>A<sub>2</sub></span><span>A<sub>1</sub></span></span></p>
+      <p>La fuerza se <b>multiplica</b> tantas veces como el área grande es mayor que la chica. Así funcionan los gatos hidráulicos, los frenos de los autos, las sillas de dentista y las retroexcavadoras.</p>
+    </div>
+    <div class="fig"><svg width="300" height="182" viewBox="0 0 300 182" xmlns="http://www.w3.org/2000/svg" font-family="DejaVu Sans" font-size="10"><path d="M30,60 L30,170 L250,170 L250,40 L170,40 L170,140 L80,140 L80,60" stroke="#5a6375" fill="none" stroke-width="2"/><path d="M32,92 L32,168 L248,168 L248,72 L172,72 L172,142 L78,142 L78,92 Z" stroke="none" fill="#cfe6f5" stroke-width="0"/><rect x="30" y="82" width="50" height="10" rx="1" stroke="#1d2330" fill="#9aa3b2" stroke-width="1.2"/><rect x="170" y="62" width="80" height="10" rx="1" stroke="#1d2330" fill="#9aa3b2" stroke-width="1.2"/><defs><marker id="flpr1" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#b5542a"/></marker></defs><line x1="55" y1="30" x2="55" y2="78" stroke="#b5542a" stroke-width="2.2" marker-end="url(#flpr1)"/><text x="62" y="40" fill="#b5542a" text-anchor="start" font-size="9.5" font-weight="bold">F₁ (chica)</text><defs><marker id="flpr2" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#2e7d4f"/></marker></defs><line x1="210" y1="58" x2="210" y2="14" stroke="#2e7d4f" stroke-width="3" marker-end="url(#flpr2)"/><text x="224" y="30" fill="#2e7d4f" text-anchor="start" font-size="9.5" font-weight="bold">F₂ (grande)</text><text x="55" y="110" fill="#1d2330" text-anchor="middle" font-size="11" font-weight="bold">A₁</text><text x="210" y="100" fill="#1d2330" text-anchor="middle" font-size="11" font-weight="bold">A₂</text><text x="140" y="160" fill="#1f6f8b" text-anchor="middle" font-size="9" font-weight="bold">la presión se transmite igual</text></svg></div>
+  </div>
+  <div class="caja idea"><b class="t">Nada es gratis</b> Si la fuerza se multiplica por 100, el émbolo chico tiene que recorrer 100 veces más distancia que lo que sube el grande. Por eso con el gato hidráulico das muchos “bombazos” para subir el auto unos centímetros.</div>
+  <div class="caja ejemplo"><b class="t">Ejemplo explicado: un gato hidráulico</b>
+    <div class="preg">El émbolo chico mide 5 cm² y el grande 500 cm². ¿Qué fuerza debes aplicar para levantar un auto de 10 000 N?</div>
+    <ol class="pasos">
+      <li><b>Pascal:</b> F₁/A₁ = F₂/A₂ → F₁ = F₂·A₁/A₂.</li>
+      <li><b>Sustituyo:</b> F₁ = 10 000 × 5/500 = 100 N. <span class="por">Las áreas están las dos en cm²: se cancelan, no hace falta convertir.</span></li>
+    </ol>
+  </div>
+
+  <h3>Principio de Arquímedes</h3>
+  <div class="caja formula"><b class="t">Enunciado</b> Todo cuerpo sumergido en un fluido recibe un empuje vertical hacia arriba igual al peso del fluido que desaloja.
+    <p class="m" style="text-align:center;font-size:13pt">E = ρ · g · V</p>
+    <p><span class="m nw">E</span>: empuje (N) · <span class="m nw">ρ</span>: densidad <b>del fluido</b> (kg/m³), no la del objeto · <span class="m nw">g</span> = 9.81 m/s² · <span class="m nw">V</span>: volumen de fluido desalojado, es decir, el volumen de la parte sumergida del cuerpo (m³).</p>
+  </div>
+  <div class="dos">
+    <div>
+      <div class="caja idea"><b class="t">La historia del “¡Eureka!”</b> Cuentan que el rey Hierón le pidió a Arquímedes averiguar si su corona era de oro puro sin dañarla. Al meterse a la bañera vio que el agua subía: un cuerpo sumergido desaloja su propio volumen de agua. Con eso pudo medir el volumen de la corona y comparar su densidad con la del oro. Salió corriendo gritando “¡Eureka!” (“¡lo encontré!”).</div>
+      <p><b>¿Flota o se hunde?</b> Compara el peso del objeto con el empuje, o lo que es lo mismo, las densidades: si el objeto es <b>menos denso</b> que el fluido, flota; si es <b>más denso</b>, se hunde. La madera (unos 600 kg/m³) flota en el agua (1 000 kg/m³) y el hierro (7 870 kg/m³) se hunde. Pero un barco de acero flota: por su forma lleva mucho aire adentro y su densidad promedio es menor que la del agua. El hielo (917 kg/m³) flota con 90% sumergido: “la punta del iceberg”.</p>
+    </div>
+    <div class="fig"><svg width="280" height="218" viewBox="0 0 280 218" xmlns="http://www.w3.org/2000/svg" font-family="DejaVu Sans" font-size="10"><rect x="40" y="50" width="200" height="140" rx="2" stroke="#5a6375" fill="none" stroke-width="2"/><rect x="42" y="80" width="196" height="108" rx="0" stroke="none" fill="#cfe6f5" stroke-width="0"/><line x1="42" y1="80" x2="238" y2="80" stroke="#1f6f8b" stroke-width="1.4"/><text x="234" y="74" fill="#1f6f8b" text-anchor="end" font-size="9">agua</text><rect x="110" y="105" width="60" height="50" rx="2" stroke="#1d2330" fill="#d8c3a5" stroke-width="1.6"/><defs><marker id="flaw" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#b5542a"/></marker></defs><line x1="140" y1="130" x2="140" y2="182" stroke="#b5542a" stroke-width="2.4" marker-end="url(#flaw)"/><text x="146" y="178" fill="#b5542a" text-anchor="start" font-size="9.5" font-weight="bold">peso W</text><defs><marker id="flae" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#2e7d4f"/></marker></defs><line x1="126" y1="130" x2="126" y2="66" stroke="#2e7d4f" stroke-width="2.4" marker-end="url(#flae)"/><text x="114" y="70" fill="#2e7d4f" text-anchor="end" font-size="9.5" font-weight="bold">empuje E</text><text x="140" y="210" fill="#1d2330" text-anchor="middle" font-size="9.5" font-weight="bold">E = peso del agua desalojada = ρ·g·V</text></svg></div>
+  </div>
+  <table style="width:85%">
+    <tr><th>Sustancia</th><td>aire</td><td>madera</td><td>hielo</td><td>aceite</td><td>agua</td><td>agua de mar</td><td>hierro</td></tr>
+    <tr><th>Densidad (kg/m³)</th><td>1.2</td><td>≈ 600</td><td>917</td><td>≈ 920</td><td>1 000</td><td>≈ 1 025</td><td>7 870</td></tr>
+  </table>
+  <div class="caja ejemplo"><b class="t">Ejemplo explicado: peso aparente</b>
+    <div class="preg">Una piedra de 0.002 m³ que pesa 50 N se sumerge completa en agua. ¿Qué empuje recibe y cuánto “pesa” dentro del agua?</div>
+    <ol class="pasos">
+      <li><b>Empuje:</b> E = 1 000 × 9.81 × 0.002 = 19.62 N (la densidad es la del <b>agua</b>).</li>
+      <li><b>Peso aparente:</b> 50 − 19.62 = 30.38 N. Por eso las cosas se sienten más ligeras dentro de una alberca.</li>
+    </ol>
+  </div>
+
+  <div class="caja examen">
+    <div class="enc">Reactivo 56 del examen</div>
+    <div class="preg">En una prensa hidráulica, el émbolo pequeño tiene un área de 10 cm² y el grande de 200 cm². Si sobre el pequeño se aplica una fuerza de 50 N, ¿qué fuerza se ejerce en el émbolo grande? &nbsp; A) 200 N &nbsp; B) 500 N &nbsp; C) 1 000 N &nbsp; D) 1 500 N</div>
+    <ol class="pasos">
+      <li><b>Pascal:</b> F₂ = F₁·A₂/A₁ = 50 × 200/10.</li>
+      <li><b>Calculo:</b> el área grande es 20 veces la chica, así que la fuerza se multiplica por 20: 50 × 20 = 1 000 N.</li>
+    </ol>
+    <span class="resp">Respuesta: C) 1 000 N</span>
+  </div>
+  <div class="caja examen">
+    <div class="enc">Reactivo 57 del examen</div>
+    <div class="preg">Un cuerpo desplaza 3.00 m³ de agua al sumergirse, ¿cuál es el empuje del agua sobre el cuerpo sumergido? Considere g = 9.81 m/s² y ρ<sub>agua</sub> = 1 000.00 kg/m³. &nbsp; A) 1 268.00 N &nbsp; B) 3 270.00 N &nbsp; C) 12 832.00 N &nbsp; D) 29 430.00 N</div>
+    <ol class="pasos">
+      <li><b>Arquímedes:</b> E = ρ·g·V.</li>
+      <li><b>Sustituyo:</b> E = 1 000 × 9.81 × 3.00 = 29 430 N.</li>
+    </ol>
+    <p class="chico"><b>Revisión de unidades:</b> (kg/m³)·(m/s²)·(m³) = kg·m/s² = N ✔.</p>
+    <span class="resp">Respuesta: D) 29 430.00 N</span>
+  </div>
+
+  <div class="caja practica"><b class="t">Ahora tú</b>
+    <ol>
+      <li>¿Por qué un cuchillo afilado corta mejor que uno sin filo, si empujas con la misma fuerza?</li>
+      <li>En una prensa, A₁ = 4 cm², A₂ = 240 cm² y F₁ = 30 N. ¿Cuánto vale F₂?</li>
+      <li>Un cuerpo desaloja 0.5 m³ de agua de mar (ρ = 1 025 kg/m³). ¿Qué empuje recibe?</li>
+      <li>Un bloque de 2 kg con volumen de 0.003 m³ se suelta en agua. ¿Flota o se hunde?</li>
+      <li>¿Qué principio explica los frenos hidráulicos de un auto? ¿Y que los barcos floten?</li>
+    </ol>
+    <div class="sol">
+      <p><b>1)</b> Con menor área, la misma fuerza produce mayor presión. <b>2)</b> F₂ = 30 × 240/4 = 1 800 N.</p>
+      <p><b>3)</b> E = 1 025 × 9.81 × 0.5 ≈ 5 027.6 N.</p>
+      <p><b>4)</b> Su densidad es 2/0.003 ≈ 667 kg/m³, menor que la del agua: flota. (Su peso, 19.62 N, es menor que el empuje máximo, 1 000 × 9.81 × 0.003 = 29.43 N.)</p>
+      <p><b>5)</b> Pascal; Arquímedes.</p>
+    </div>
+  </div>
+</section>
+<section class="tema">
+  <h2>6.9 Electromagnetismo: la ley de Ohm</h2>
+  <div class="reactivos">Reactivos 58 y 59 de la versión de práctica</div>
+
+  <p class="intro"><b>¿De qué trata esta lección?</b> De los circuitos eléctricos: desde el cargador de tu celular hasta los focos de tu casa. La ley de Ohm relaciona las tres cantidades más importantes de un circuito (voltaje, corriente y resistencia) y con ella se resuelven los reactivos de electricidad del examen.</p>
+
+  <h3>Las tres cantidades, con una comparación con agua</h3>
+  <div class="dos">
+    <div>
+      <ul>
+        <li><b>Voltaje (V)</b>, en <b>volts</b>: el “empuje” que mueve las cargas eléctricas. Es como la presión del agua en una tubería (o la altura del tinaco). Una pila AA da 1.5 V; la batería de un auto, 12 V; los contactos de una casa en México, unos 120 V (127 V nominales).</li>
+        <li><b>Corriente (I)</b>, en <b>amperes (A)</b>: cuánta carga eléctrica pasa cada segundo. Es como los litros por segundo que salen por la manguera.</li>
+        <li><b>Resistencia (R)</b>, en <b>ohms (Ω)</b>: qué tanto se opone el material al paso de la corriente. Es como una tubería angosta. Los cables de cobre tienen poca resistencia; el filamento de un foco o la resistencia de una plancha, mucha (por eso se calientan).</li>
+      </ul>
+    </div>
+    <div class="fig"><svg width="290" height="176" viewBox="0 0 290 176" xmlns="http://www.w3.org/2000/svg" font-family="DejaVu Sans" font-size="10"><rect x="40" y="30" width="220" height="120" rx="2" stroke="#1d2330" fill="none" stroke-width="2"/><rect x="30" y="70" width="20" height="40" rx="0" stroke="#fff" fill="#fff" stroke-width="0"/><line x1="26" y1="80" x2="54" y2="80" stroke="#1d2330" stroke-width="2.4"/><line x1="32" y1="92" x2="48" y2="92" stroke="#1d2330" stroke-width="4"/><line x1="26" y1="102" x2="54" y2="102" stroke="#1d2330" stroke-width="2.4"/><line x1="32" y1="114" x2="48" y2="114" stroke="#1d2330" stroke-width="4"/><text x="22" y="98" fill="#b5542a" text-anchor="end" font-size="13" font-weight="bold" font-style="italic" font-family="DejaVu Serif">V</text><text x="22" y="112" fill="#5a6375" text-anchor="end" font-size="8.5">pila</text><rect x="108" y="18" width="84" height="24" rx="0" stroke="#fff" fill="#fff" stroke-width="0"/><path d="M110,30 L118,20 L130,40 L142,20 L154,40 L166,20 L178,40 L190,30" stroke="#6b4fa3" fill="none" stroke-width="2"/><text x="150" y="14" fill="#6b4fa3" text-anchor="middle" font-size="9.5" font-weight="bold">resistencia R</text><defs><marker id="flci" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#1f6f8b"/></marker></defs><line x1="190" y1="150" x2="120" y2="150" stroke="#1f6f8b" stroke-width="2.2" marker-end="url(#flci)"/><text x="155" y="168" fill="#1f6f8b" text-anchor="middle" font-size="9.5" font-weight="bold">corriente I</text></svg></div>
+  </div>
+
+  <h3>La ley de Ohm</h3>
+  <div class="caja formula">
+    <p class="m" style="text-align:center;font-size:13pt">V = I · R &nbsp;&nbsp;&nbsp;&nbsp; I = V / R &nbsp;&nbsp;&nbsp;&nbsp; R = V / I</p>
+    <p>Es el triángulo de la lección “Antes de empezar”, con V arriba e I y R abajo. En palabras: <b>más voltaje, más corriente</b>; <b>más resistencia, menos corriente</b>.</p>
+  </div>
+  <div class="caja ejemplo"><b class="t">Ejemplo explicado: un foco</b>
+    <div class="preg">Un foco tiene una resistencia de 240 Ω y se conecta a 120 V. ¿Qué corriente circula? ¿Y si lo conectaras a una batería de 12 V?</div>
+    <ol class="pasos">
+      <li><b>Busco I:</b> I = V/R = 120/240 = 0.5 A.</li>
+      <li><b>Con 12 V:</b> I = 12/240 = 0.05 A: diez veces menos corriente, el foco apenas brillaría.</li>
+    </ol>
+    <p class="chico">Dato útil (no viene en el temario): la potencia eléctrica es P = V·I. Este foco consume 120 × 0.5 = 60 W: es un “foco de 60 watts”.</p>
+  </div>
+  <div class="caja ojo"><b class="t">Error común</b> Voltear la fórmula (dividir R entre V en vez de V entre R) o confundir prefijos: 1 kΩ = 1 000 Ω y 1 mA = 0.001 A. Revisa siempre la unidad: si buscas corriente, el resultado debe salir en amperes.</div>
+
+  <div class="caja examen">
+    <div class="enc">Reactivo 58 del examen</div>
+    <div class="preg">Un aparato eléctrico tiene una resistencia de 60.0 Ω cuando está en funcionamiento. ¿Cuál será la intensidad de corriente al conectarlo a una línea de 120.0 V? &nbsp; A) 0.5 A &nbsp; B) 2.0 A &nbsp; C) 60.0 A &nbsp; D) 180.0 A</div>
+    <ol class="pasos">
+      <li><b>Busco la corriente:</b> I = V/R.</li>
+      <li><b>Sustituyo:</b> I = 120.0/60.0 = 2.0 A.</li>
+    </ol>
+    <p class="chico"><b>Las trampas:</b> 0.5 A sale si divides al revés (60/120); 180 A si sumas 120 + 60. Ninguna operación tiene sentido salvo V entre R.</p>
+    <span class="resp">Respuesta: B) 2.0 A</span>
+  </div>
+  <div class="caja examen">
+    <div class="enc">Reactivo 59 del examen</div>
+    <div class="preg">Determine el voltaje para una resistencia de 2 000.00 Ω si a través de ella circula una corriente de 1.50 A. &nbsp; A) 1.33 V &nbsp; B) 3.00 V &nbsp; C) 3 000.00 V &nbsp; D) 4 500.00 V</div>
+    <ol class="pasos">
+      <li><b>Busco el voltaje:</b> V = I·R.</li>
+      <li><b>Sustituyo:</b> V = 1.50 × 2 000 = 3 000 V.</li>
+    </ol>
+    <span class="resp">Respuesta: C) 3 000.00 V</span>
+  </div>
+
+  <div class="caja practica"><b class="t">Ahora tú</b>
+    <ol>
+      <li>Una plancha de 20 Ω se conecta a 120 V. ¿Qué corriente circula?</li>
+      <li>Por una resistencia de 50 Ω circulan 0.2 A. ¿Cuál es el voltaje?</li>
+      <li>Un aparato toma 3 A de una línea de 120 V. ¿Cuál es su resistencia?</li>
+      <li>Si duplicas el voltaje sin cambiar la resistencia, ¿qué le pasa a la corriente?</li>
+      <li>¿Cuántos amperes son 250 mA? ¿Cuántos ohms son 4.7 kΩ?</li>
+    </ol>
+    <div class="sol">
+      <p><b>1)</b> I = 120/20 = 6 A. <b>2)</b> V = 0.2 × 50 = 10 V. <b>3)</b> R = 120/3 = 40 Ω.</p>
+      <p><b>4)</b> Se duplica (V e I son directamente proporcionales). <b>5)</b> 0.25 A; 4 700 Ω.</p>
+    </div>
+  </div>
+</section>
+
+<section class="tema">
+  <h2>6.10 Óptica: la ley de Snell</h2>
+  <div class="reactivos">Reactivo 60 de la versión de práctica</div>
+
+  <p class="intro"><b>¿De qué trata esta lección?</b> Cuando la luz pasa de un material a otro (del aire al agua, del aire al vidrio) cambia de dirección: a eso se le llama <b>refracción</b>. Por eso un popote se ve “quebrado” en un vaso con agua y las albercas parecen menos profundas de lo que son. Gracias a la refracción funcionan los lentes, las cámaras y el ojo humano. La ley de Snell dice exactamente cuánto se desvía la luz.</p>
+
+  <h3>El índice de refracción</h3>
+  <p>La luz viaja a 300 000 km/s en el vacío, pero más lento dentro de los materiales. El <b>índice de refracción</b> <span class="m nw">n</span> dice cuántas veces más lento: <span class="m nw">n = c/v</span>. Mientras mayor es n, más lenta va la luz y más se desvía al entrar.</p>
+  <table style="width:85%">
+    <tr><th>Medio</th><td>vacío</td><td>aire</td><td>agua</td><td>vidrio común</td><td>diamante</td></tr>
+    <tr><th>n</th><td>1</td><td>≈ 1.0003 (se toma 1)</td><td>1.33</td><td>≈ 1.5</td><td>2.42</td></tr>
+  </table>
+
+  <h3>La ley de Snell</h3>
+  <div class="dos">
+    <div>
+      <div class="caja formula">
+        <p class="m" style="text-align:center;font-size:13pt">n<sub>1</sub>·sen θ<sub>1</sub> = n<sub>2</sub>·sen θ<sub>2</sub></p>
+        <p><span class="m nw">n₁</span>: índice del primer medio (de donde viene la luz) · <span class="m nw">θ₁</span>: ángulo de incidencia · <span class="m nw">n₂</span>: índice del segundo medio · <span class="m nw">θ₂</span>: ángulo de refracción.</p>
+      </div>
+      <p><b>Muy importante:</b> los ángulos se miden desde la <b>normal</b>, la línea perpendicular a la superficie (la punteada de la figura), no desde la superficie.</p>
+      <p>Si la luz pasa a un medio con <b>mayor</b> n, se <b>acerca</b> a la normal (θ₂ &lt; θ₁). Si pasa a uno con menor n, se aleja.</p>
+    </div>
+    <div class="fig"><svg width="300" height="216" viewBox="0 0 300 216" xmlns="http://www.w3.org/2000/svg" font-family="DejaVu Sans" font-size="10"><rect x="10" y="10" width="280" height="100" rx="0" stroke="none" fill="#f4f8fb" stroke-width="0"/><rect x="10" y="110" width="280" height="100" rx="0" stroke="none" fill="#dbeefa" stroke-width="0"/><line x1="10" y1="110" x2="290" y2="110" stroke="#1f6f8b" stroke-width="1.6"/><line x1="150" y1="15" x2="150" y2="205" stroke="#5a6375" stroke-width="1.2" stroke-dasharray="5 4"/><text x="154" y="24" fill="#5a6375" text-anchor="start" font-size="8.5">normal</text><defs><marker id="flsn1" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#b5542a"/></marker></defs><line x1="77.2" y1="48.9" x2="147" y2="107" stroke="#b5542a" stroke-width="2.2" marker-end="url(#flsn1)"/><line x1="150" y1="110" x2="197.5" y2="192.3" stroke="#b5542a" stroke-width="2.2"/><path d="M150,80 A30,30 0 0 0 127,90.7" stroke="#6b4fa3" fill="none" stroke-width="1.6"/><text x="132" y="76" fill="#6b4fa3" text-anchor="middle" font-size="11" font-weight="bold">θ₁</text><path d="M150,140 A30,30 0 0 0 165,136" stroke="#2e7d4f" fill="none" stroke-width="1.6"/><text x="160" y="158" fill="#2e7d4f" text-anchor="middle" font-size="11" font-weight="bold">θ₂</text><text x="20" y="28" fill="#1d2330" text-anchor="start" font-size="9.5" font-weight="bold">medio 1: aire (n₁)</text><text x="20" y="200" fill="#1d2330" text-anchor="start" font-size="9.5" font-weight="bold">medio 2: vidrio o agua (n₂)</text><text x="286" y="100" fill="#b5542a" text-anchor="end" font-size="8.5">la luz se acerca a la normal</text></svg></div>
+  </div>
+  <div class="caja idea"><b class="t">Piénsalo así</b> Imagina un carrito que rueda en diagonal del pavimento hacia el lodo. La llanta que entra primero al lodo se frena antes, y el carrito gira. Con la luz pasa lo mismo: el lado del haz que entra primero al medio “lento” se frena y la luz cambia de dirección.</div>
+  <div class="caja ejemplo"><b class="t">Ejemplo explicado: del aire al agua</b>
+    <div class="preg">Un rayo de luz pasa del aire (n = 1) al agua (n = 1.33) con un ángulo de incidencia de 45°. ¿Cuál es el ángulo de refracción? (sen 45° = 0.707)</div>
+    <ol class="pasos">
+      <li><b>Snell:</b> 1 × sen 45° = 1.33 × sen θ₂.</li>
+      <li><b>Despejo:</b> sen θ₂ = 0.707/1.33 = 0.532.</li>
+      <li><b>Ángulo:</b> θ₂ = arcsen 0.532 ≈ 32°. Es menor que 45°: se acercó a la normal, como debía ✔.</li>
+    </ol>
+  </div>
+  <div class="caja ejemplo"><b class="t">Ejemplo explicado: encontrar el índice</b>
+    <div class="preg">Un rayo pasa del aire a un material con 60° (sen = 0.866) y se refracta con 35° (sen = 0.574). ¿Cuál es el índice del material?</div>
+    <ol class="pasos">
+      <li><b>Despejo n₂:</b> n₂ = n₁·sen θ₁/sen θ₂ = 1 × 0.866/0.574 ≈ 1.51. Es un vidrio común.</li>
+    </ol>
+  </div>
+
+  <div class="caja examen">
+    <div class="enc">Reactivo 60 del examen</div>
+    <div class="preg">A un vidrio se le hace pasar un rayo de luz con un ángulo incidente de 53° y se refracta con un ángulo de 17.5°, ¿cuál es el índice de refracción? Considere n<sub>vidrio</sub> = 1, sen(53°) = 0.79 y sen(17.5°) = 0.30. &nbsp; A) 0.49 &nbsp; B) 1.09 &nbsp; C) 1.54 &nbsp; D) 2.63</div>
+    <ol class="pasos">
+      <li><b>Leo bien el “Considere”:</b> dice n<sub>vidrio</sub> = 1, pero lo que se busca es justamente el índice del vidrio. Es una errata: el índice igual a 1 es el del <b>aire</b>, de donde viene la luz (n₁ = 1).</li>
+      <li><b>Snell:</b> 1 × sen 53° = n₂ × sen 17.5° → n₂ = 0.79/0.30 ≈ 2.63.</li>
+    </ol>
+    <p class="chico"><b>Por qué no las otras:</b> 0.49 = 0.79 − 0.30 y 1.09 = 0.79 + 0.30 salen de restar o sumar los senos en lugar de dividirlos; 1.54 es el índice típico de un vidrio real, pero no es lo que dan estos datos. (Un vidrio real con n ≈ 1.5 desviaría menos la luz; los ángulos del reactivo son inventados para el ejercicio: confía en la fórmula.)</p>
+    <span class="resp">Respuesta: D) 2.63</span>
+  </div>
+
+  <div class="caja practica"><b class="t">Ahora tú</b>
+    <ol>
+      <li>La luz pasa del aire al agua (n = 1.33) con un ángulo de incidencia de 30°. ¿Cuál es el ángulo de refracción? (sen 30° = 0.5)</li>
+      <li>Un rayo pasa del aire a un material con 50° (sen = 0.766) y se refracta con 30° (sen = 0.5). ¿Cuánto vale n?</li>
+      <li>Al pasar del agua al aire, ¿la luz se acerca o se aleja de la normal?</li>
+      <li>¿En qué medio viaja más lenta la luz: en el agua o en el diamante?</li>
+    </ol>
+    <div class="sol">
+      <p><b>1)</b> sen θ₂ = 0.5/1.33 = 0.376 → θ₂ ≈ 22°. <b>2)</b> n = 0.766/0.5 ≈ 1.53.</p>
+      <p><b>3)</b> Se aleja (pasa a un medio con menor n). <b>4)</b> En el diamante (n = 2.42 es mayor).</p>
+    </div>
+  </div>
+</section>
+<section class="tema">
+  <h2>Formulario de repaso rápido</h2>
+  <p class="intro">Todas las fórmulas del temario con sus unidades. Para cada una, asegúrate de saber qué significa cada letra; si alguna no te dice nada, regresa a su lección.</p>
+  <table class="compacta" style="font-size:9pt">
+    <tr><th style="width:17%">Tema</th><th>Fórmulas</th><th style="width:24%">Unidades</th></tr>
+    <tr><td>6.1 MRU</td><td class="m">d = v·t &nbsp;·&nbsp; v = d/t &nbsp;·&nbsp; t = d/v</td><td>m, s, m/s (km/h ÷ 3.6 = m/s)</td></tr>
+    <tr><td>6.1 MUA</td><td class="m">a = (v<sub>f</sub> − v<sub>i</sub>)/t &nbsp;·&nbsp; v<sub>f</sub> = v<sub>i</sub> + a·t &nbsp;·&nbsp; d = v<sub>i</sub>t + ½at<sup>2</sup> = ½(v<sub>i</sub> + v<sub>f</sub>)t</td><td>a en m/s²</td></tr>
+    <tr><td>6.2 Newton</td><td>1.ª: ΣF = 0 → velocidad constante &nbsp;·&nbsp; 2.ª: <span class="m nw">F = m·a</span> &nbsp;·&nbsp; 3.ª: <span class="m nw">F<sub>AB</sub> = −F<sub>BA</sub></span> &nbsp;·&nbsp; peso <span class="m nw">W = m·g</span></td><td>N = kg·m/s²; g = 9.81 m/s²</td></tr>
+    <tr><td>6.2 Caída libre</td><td class="m">h = gt<sup>2</sup>/2 &nbsp;·&nbsp; v = g·t &nbsp;·&nbsp; t = v/g</td><td>parte del reposo</td></tr>
+    <tr><td>6.2 Tiro vertical</td><td class="m">h = v<sub>i</sub>t − gt<sup>2</sup>/2 &nbsp;·&nbsp; h<sub>máx</sub> = v<sub>i</sub><sup>2</sup>/(2g) &nbsp;·&nbsp; v<sub>f</sub> = v<sub>i</sub> − g·t &nbsp;·&nbsp; t<sub>total</sub> = 2v<sub>i</sub>/g</td><td>arriba v = 0</td></tr>
+    <tr><td>6.3 Kepler</td><td>1.ª órbitas elípticas, Sol en un foco &nbsp;·&nbsp; 2.ª áreas iguales en tiempos iguales &nbsp;·&nbsp; 3.ª <span class="m nw">T<sup>2</sup>/r<sup>3</sup> = constante</span></td><td>T² = r³ con años y UA</td></tr>
+    <tr><td>6.4 Calor</td><td>conducción (sólidos, contacto) · convección (fluidos, corrientes) · radiación (ondas, aun en el vacío)</td><td></td></tr>
+    <tr><td>6.5 Termodinámica</td><td>ley 0: equilibrio térmico · 1.ª: <span class="m nw">ΔU = Q − W</span> · 2.ª: entropía, <span class="m nw">ΔS ≥ ΔQ/T</span> · 3.ª: cero absoluto · <span class="m nw">K = °C + 273.15</span> · <span class="m nw">°F = 1.8°C + 32</span></td><td>J; K</td></tr>
+    <tr><td>6.5 Sistemas y procesos</td><td>abierto (materia y energía) · cerrado (solo energía) · aislado (nada) · isobárico (P cte) · isocórico (V cte) · isotérmico (T cte)</td><td></td></tr>
+    <tr><td>6.6 Gases</td><td>Boyle <span class="m nw">P<sub>1</sub>V<sub>1</sub> = P<sub>2</sub>V<sub>2</sub></span> · Charles <span class="m nw">V<sub>1</sub>/T<sub>1</sub> = V<sub>2</sub>/T<sub>2</sub></span> · Gay-Lussac <span class="m nw">P<sub>1</sub>/T<sub>1</sub> = P<sub>2</sub>/T<sub>2</sub></span></td><td>T siempre en K</td></tr>
+    <tr><td>6.6 Hooke</td><td class="m">F = k·x</td><td>k en N/m; x en m</td></tr>
+    <tr><td>6.8 Fluidos</td><td>presión <span class="m nw">P = F/A</span> · Pascal <span class="m nw">F<sub>1</sub>/A<sub>1</sub> = F<sub>2</sub>/A<sub>2</sub></span> · Arquímedes <span class="m nw">E = ρ·g·V</span></td><td>Pa = N/m²; ρ<sub>agua</sub> = 1 000 kg/m³</td></tr>
+    <tr><td>6.9 Ohm</td><td class="m">V = I·R &nbsp;·&nbsp; I = V/R &nbsp;·&nbsp; R = V/I</td><td>V, A, Ω</td></tr>
+    <tr><td>6.10 Snell</td><td class="m">n<sub>1</sub> sen θ<sub>1</sub> = n<sub>2</sub> sen θ<sub>2</sub></td><td>ángulos desde la normal</td></tr>
+  </table>
+</section>
+
+<section class="tema">
+  <h2>Clave de la versión de práctica (Física, reactivos 43 a 60)</h2>
+  <table class="clave">
+    <tr><td>43 C</td><td>44 A</td><td>45 C</td><td>46 A</td><td>47 C</td><td>48 B</td><td>49 A</td><td>50 D</td><td>51 C</td></tr>
+    <tr><td>52 B</td><td>53 C</td><td>54 D</td><td>55 C</td><td>56 C</td><td>57 D</td><td>58 B</td><td>59 C</td><td>60 D*</td></tr>
+  </table>
+  <p class="chico">* Reactivo 60: en el “Considere” dice n<sub>vidrio</sub> = 1, pero debe ser n<sub>aire</sub> = 1 (ver lección 6.10).</p>
+
+  <h3>Estrategia para el día del examen</h3>
+  <ul>
+    <li><b>Un minuto por pregunta:</b> Ciencias Experimentales tiene 60 reactivos en 60 minutos. Las de Física suelen ser rápidas si reconoces la fórmula; no te atores: marca la más probable, anota el número y regresa al final.</li>
+    <li><b>Anota los datos con unidades</b> antes de calcular. Muchas opciones incorrectas salen de olvidar convertir o de voltear una fórmula.</li>
+    <li><b>Descarta por unidades:</b> una masa nunca está en newtons, una corriente en volts ni una aceleración en m/s.</li>
+    <li><b>Revisa que tenga sentido:</b> si un gas se comprime, su volumen baja; si se calienta, sube su presión o su volumen; una persona empujada suavemente acelera poco.</li>
+    <li><b>Lee “de más” y “de menos”:</b> “aumenta 2 atm más” no es lo mismo que “a 2 atm”.</li>
+    <li><b>En las preguntas de concepto</b> busca la palabra clave: “forma elíptica” (Kepler 1.ª), “sólido” (conducción), “energía en tránsito” (calor), “calor = trabajo + energía interna” (1.ª ley).</li>
+  </ul>
+
+  <h3>Bibliografía sugerida en el temario</h3>
+  <ul class="chico">
+    <li>Bueche, F. J., Hecht, E. y Castellanos, J. H. P. (1991). <i>Física general</i>. McGraw-Hill.</li>
+    <li>Montiel, H. P. (2020). <i>Física General</i> (3.ª ed.). Grupo Editorial Patria.</li>
+    <li>Pérez, H. (2018). <i>Física General</i>, serie Bachiller (5.ª ed.). Grupo Editorial Patria.</li>
+    <li>Tippens, P. (2000). <i>Física</i> (6.ª ed.). McGraw-Hill Interamericana.</li>
+    <li>Wilson, J. (1996). <i>Física</i> (2.ª ed.). Prentice Hall Hispanoamericana.</li>
+  </ul>
+</section>
+
+</body>
+</html>

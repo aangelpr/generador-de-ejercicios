@@ -1,0 +1,97 @@
+<section class="tema">
+  <h2>Antes de empezar: las herramientas de la física</h2>
+  <div class="reactivos">Sirve para todos los reactivos de Física</div>
+
+  <p class="intro"><b>¿De qué trata esta lección?</b> La física estudia cómo y por qué se mueven las cosas, las fuerzas, la energía, el calor, la electricidad y la luz. Casi todas sus preguntas funcionan igual: te dan datos con unidades, eliges la fórmula, despejas y calculas. Aquí preparamos las herramientas que vas a usar en <b>todos</b> los temas: unidades, conversiones, despejes y un método para no equivocarte. Vale la pena dominarlas antes de seguir.</p>
+
+  <h3>Magnitudes y unidades</h3>
+  <p>Una <b>magnitud</b> es algo que se puede medir. Toda medida tiene un <b>número</b> y una <b>unidad</b>: “35” no dice nada; “35 m” y “35 km” son cosas muy distintas. En ciencia se usa el <b>Sistema Internacional (SI)</b>:</p>
+  <table>
+    <tr><th>Magnitud</th><th>Unidad (SI)</th><th>Símbolo</th><th>Equivalencias útiles</th></tr>
+    <tr><td>Longitud, distancia</td><td>metro</td><td>m</td><td>1 km = 1 000 m; 1 m = 100 cm</td></tr>
+    <tr><td>Masa</td><td>kilogramo</td><td>kg</td><td>1 kg = 1 000 g</td></tr>
+    <tr><td>Tiempo</td><td>segundo</td><td>s</td><td>1 min = 60 s; 1 h = 3 600 s</td></tr>
+    <tr><td>Temperatura</td><td>kelvin</td><td>K</td><td>K = °C + 273.15</td></tr>
+    <tr><td>Velocidad</td><td>metro por segundo</td><td>m/s</td><td>1 m/s = 3.6 km/h</td></tr>
+    <tr><td>Aceleración</td><td>metro por segundo al cuadrado</td><td>m/s²</td><td>g = 9.81 m/s²</td></tr>
+    <tr><td>Fuerza (y peso)</td><td>newton</td><td>N</td><td>1 N = 1 kg·m/s²</td></tr>
+    <tr><td>Presión</td><td>pascal</td><td>Pa</td><td>1 Pa = 1 N/m²; también se usa la atmósfera (atm)</td></tr>
+    <tr><td>Energía, trabajo, calor</td><td>joule</td><td>J</td><td>1 J = 1 N·m</td></tr>
+    <tr><td>Volumen</td><td>metro cúbico</td><td>m³</td><td>1 m³ = 1 000 L; 1 L = 1 000 mL = 1 000 cm³</td></tr>
+    <tr><td>Corriente, voltaje, resistencia</td><td>ampere, volt, ohm</td><td>A, V, Ω</td><td>1 mA = 0.001 A; 1 kΩ = 1 000 Ω</td></tr>
+  </table>
+  <p><b>Prefijos:</b> kilo (k) = 1 000 · centi (c) = 1/100 · mili (m) = 1/1 000 · micro (μ) = 1/1 000 000 · mega (M) = 1 000 000.</p>
+
+  <h3>Convertir unidades sin equivocarte</h3>
+  <p>El truco es multiplicar por una fracción que vale 1 (arriba y abajo lo mismo, en unidades distintas), acomodada para que se cancele la unidad que no quieres:</p>
+  <div class="caja ejemplo"><b class="t">Ejemplo explicado: 72 km/h a m/s</b>
+    <ol class="pasos">
+      <li><b>Cambio km por m:</b> como 1 km = 1 000 m, multiplico por (1 000 m / 1 km). Los km se cancelan.</li>
+      <li><b>Cambio h por s:</b> como 1 h = 3 600 s, multiplico por (1 h / 3 600 s). Las h se cancelan.</li>
+      <li><b>Opero:</b> 72 × 1 000 / 3 600 = 20 m/s.</li>
+    </ol>
+    <p><b>Atajo:</b> de km/h a m/s divide entre 3.6; de m/s a km/h multiplica por 3.6.</p>
+  </div>
+  <ul>
+    <li><b>Áreas:</b> como 1 m = 100 cm, 1 m² = 100 × 100 = 10 000 cm². Entonces 500 cm² = 0.05 m². ¡El factor también se eleva al cuadrado!</li>
+    <li><b>Volúmenes:</b> 1 m³ = 1 000 000 cm³ = 1 000 L. Así, 3 L = 0.003 m³.</li>
+    <li><b>Temperatura:</b> 25 °C = 25 + 273.15 = 298.15 K.</li>
+  </ul>
+  <div class="caja idea"><b class="t">¿Cuándo no hace falta convertir?</b> Cuando la fórmula compara la misma magnitud en los dos lados, como en la prensa hidráulica (F₁/A₁ = F₂/A₂) o en la ley de Boyle (P₁V₁ = P₂V₂): si las dos áreas están en cm² o los dos volúmenes en mL, las unidades se cancelan solas. La excepción: <b>en las leyes de los gases la temperatura siempre va en kelvin</b>.</div>
+
+  <h3>Escalares y vectores</h3>
+  <p>Una magnitud <b>escalar</b> solo tiene tamaño: la masa (5 kg), el tiempo (3 s), la temperatura (20 °C). Una <b>vectorial</b> tiene tamaño, dirección y sentido: la velocidad (20 m/s hacia el norte), la fuerza (40 N hacia la derecha), la aceleración. Por eso las fuerzas no siempre se suman como números: 40 N a la derecha y 10 N a la izquierda dan <b>30 N a la derecha</b>, no 50 N. También por eso se distingue la <b>rapidez</b> (cuánto avanzas, escalar) de la <b>velocidad</b> (cuánto y hacia dónde, vector).</p>
+
+  <h3>Despejar fórmulas: el triángulo</h3>
+  <div class="dos">
+    <div>
+      <p>Muchas fórmulas de física tienen la forma <span class="m">A = B·C</span>: <span class="m">d = v·t</span>, <span class="m">F = m·a</span>, <span class="m">V = I·R</span>, <span class="m">W = m·g</span>, <span class="m">F = k·x</span>, <span class="m">m = ρ·V</span>. Para todas sirve el triángulo: escribe arriba la que está sola y abajo las que se multiplican. Luego <b>tapa la que buscas</b>:</p>
+      <ul>
+        <li>Si tapas la de arriba, multiplica las de abajo: <span class="m">d = v·t</span>.</li>
+        <li>Si tapas una de abajo, divide la de arriba entre la otra: <span class="m">v = d/t</span>, <span class="m">t = d/v</span>.</li>
+      </ul>
+    </div>
+    <div class="fig"><!--FIG:triangulo_formula--></div>
+  </div>
+  <p>Para fórmulas más largas usa las reglas del álgebra: lo que <b>suma</b> pasa al otro lado <b>restando</b>, y lo que <b>multiplica</b> pasa <b>dividiendo</b>. Por ejemplo, de <span class="m">v<sub>f</sub> = v<sub>i</sub> + a·t</span>: primero pasa v<sub>i</sub> restando (<span class="m">v<sub>f</sub> − v<sub>i</sub> = a·t</span>) y luego t dividiendo: <span class="m">a = (v<sub>f</sub> − v<sub>i</sub>)/t</span>.</p>
+
+  <h3>Masa y peso no son lo mismo</h3>
+  <p>La <b>masa</b> es la cantidad de materia de un cuerpo; se mide en <b>kilogramos</b> y es la misma en la Tierra que en la Luna. El <b>peso</b> es la <b>fuerza</b> con la que la Tierra te jala; se mide en <b>newtons</b> y se calcula con <span class="m">W = m·g</span>. Una persona de 60 kg pesa 60 × 9.81 = 588.6 N en la Tierra; en la Luna (g = 1.62 m/s²) pesa solo 97.2 N, pero su masa sigue siendo 60 kg. En la vida diaria decimos “peso 60 kilos”, pero en física eso es la masa.</p>
+
+  <h3>El método para resolver cualquier problema</h3>
+  <ol class="pasos">
+    <li><b>Anota los datos con sus unidades</b> (m = 50 kg, v<sub>i</sub> = 15 m/s…).</li>
+    <li><b>Identifica qué te piden</b> y en qué unidad debe salir.</li>
+    <li><b>Elige la fórmula</b> que une los datos con la incógnita (el “Considere” es una gran pista).</li>
+    <li><b>Convierte unidades</b> si hace falta, para que todo esté en el mismo sistema.</li>
+    <li><b>Despeja</b> la incógnita.</li>
+    <li><b>Sustituye y calcula</b>, escribiendo las unidades.</li>
+    <li><b>Revisa:</b> ¿la unidad es la correcta? ¿el número tiene sentido? Una persona no corre a 300 m/s ni pesa 3 N.</li>
+  </ol>
+  <div class="caja ejemplo"><b class="t">Ejemplo explicado: aplicando el método</b>
+    <div class="preg">Un ciclista recorre 9 km en 30 minutos a velocidad constante. ¿Cuál es su velocidad en m/s?</div>
+    <ol class="pasos">
+      <li><b>Datos:</b> d = 9 km, t = 30 min. <b>Incógnita:</b> v en m/s.</li>
+      <li><b>Fórmula:</b> v = d/t.</li>
+      <li><b>Convierto:</b> d = 9 000 m; t = 30 × 60 = 1 800 s.</li>
+      <li><b>Calculo:</b> v = 9 000/1 800 = 5 m/s.</li>
+      <li><b>Reviso:</b> 5 m/s × 3.6 = 18 km/h, una velocidad razonable para un ciclista ✔.</li>
+    </ol>
+  </div>
+  <div class="caja ojo"><b class="t">Errores comunes</b> Olvidar convertir km/h a m/s o minutos a segundos; usar °C en vez de K en los gases; dar la masa en newtons o el peso en kilogramos; escribir el resultado sin unidades. En el examen, varias opciones incorrectas están puestas justo para atrapar estos errores.</div>
+
+  <div class="caja practica"><b class="t">Ahora tú</b>
+    <ol>
+      <li>Convierte 108 km/h a m/s y 15 m/s a km/h.</li>
+      <li>¿Cuántos segundos hay en 2.5 h? ¿Cuántos m² son 200 cm²?</li>
+      <li>Despeja t de d = v·t, y m de F = m·a.</li>
+      <li>¿Cuánto pesa, en newtons, una mochila de 8 kg? ¿Cuál es la masa de un objeto que pesa 49.05 N?</li>
+      <li>Convierte 27 °C a kelvin y 350 K a °C.</li>
+    </ol>
+    <div class="sol">
+      <p><b>1)</b> 108/3.6 = 30 m/s; 15 × 3.6 = 54 km/h. <b>2)</b> 2.5 × 3 600 = 9 000 s; 200/10 000 = 0.02 m².</p>
+      <p><b>3)</b> t = d/v; m = F/a. <b>4)</b> W = 8 × 9.81 = 78.48 N; m = 49.05/9.81 = 5 kg.</p>
+      <p><b>5)</b> 27 + 273.15 = 300.15 K (≈ 300 K); 350 − 273.15 = 76.85 °C.</p>
+    </div>
+  </div>
+</section>
