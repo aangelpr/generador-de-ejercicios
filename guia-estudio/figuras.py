@@ -26,9 +26,9 @@ def menos(s):
     return str(s).replace('-', '−')
 
 
-def svg(w, h, cuerpo, ident=''):
+def svg(w, h, cuerpo, ident='', escala=1):
     return ('<svg width="%s" height="%s" viewBox="0 0 %s %s" xmlns="http://www.w3.org/2000/svg" '
-            'font-family="DejaVu Sans" font-size="10">%s</svg>' % (w, h, w, h, cuerpo))
+            'font-family="DejaVu Sans" font-size="10">%s</svg>' % (n(w * escala), n(h * escala), w, h, cuerpo))
 
 
 def flechas(ident, color=G):
@@ -647,9 +647,6 @@ def fig_arbol():
     return svg(300, 192, b)
 
 
-FIGURAS = {k[4:]: v for k, v in globals().items() if k.startswith('fig_')}
-
-
 # ================================================================ FISICA
 def anidar(ancho, alto, *partes, extra=''):
     """Pone varios <svg> lado a lado dentro de uno solo. partes = (x, y, svg)."""
@@ -1123,7 +1120,7 @@ def fig_mezclas():
     b += texto(290, 184, 'aire, vinagre, latón', T, 'middle', 8.5)
     b += texto(410, 172, 'suspensiones, arena y', T, 'middle', 8.5)
     b += texto(410, 184, 'agua (los coloides, en medio)', T, 'middle', 8.5)
-    return svg(476, 192, b)
+    return svg(476, 192, b, escala=1.2)
 
 
 def fig_ph():
@@ -1147,7 +1144,7 @@ def fig_ph():
     b += texto(15, 12, '← ÁCIDO (más H⁺)', '#d7263d', tam=10, neg=True)
     b += texto(15 + 7.5 * w, 12, 'NEUTRO', '#2e7d4f', 'middle', 10, True)
     b += texto(15 + 15 * w, 12, 'BÁSICO (alcalino) →', '#5a4bb0', 'end', 10, True)
-    return svg(15 + 15 * w + 15, 146, b)
+    return svg(15 + 15 * w + 15, 146, b, escala=1.2)
 
 
 def lewis(x, y, simbolo, ne, color=T):
@@ -1177,7 +1174,7 @@ def fig_lewis():
         b += texto(x, 72, '%d e⁻' % ne, G, 'middle', 9)
         b += texto(x, 86, 'grupo %d' % (i + 1 if i < 2 else i + 11), G, 'middle', 8)
     b += texto(240, 106, 'electrones de valencia: los del último nivel', A, 'middle', 9.5, True)
-    return svg(480, 114, b)
+    return svg(480, 114, b, escala=1.15)
 
 
 def fig_redox():
@@ -1192,7 +1189,304 @@ def fig_redox():
     b += texto(px(0.5), 36, 'OXIDACIÓN: el número aumenta (pierde e⁻)', O, 'middle', 9.5, True)
     b += flecha(px(4), 112, px(1), 112, A, 'rd', 2.4)
     b += texto(px(2.5), 130, 'REDUCCIÓN: el número disminuye (gana e⁻)', A, 'middle', 9.5, True)
-    return svg(450, 140, b)
+    return svg(450, 140, b, escala=1.15)
+
+
+def par(x, y, vertical=False, color=O):
+    """Par de electrones solitario."""
+    if vertical:
+        return punto(x, y - 4, color, 2.2) + punto(x, y + 4, color, 2.2)
+    return punto(x - 4, y, color, 2.2) + punto(x + 4, y, color, 2.2)
+
+
+def fig_lewis_moleculas():
+    b = ''
+    # agua
+    b += texto(30, 60, 'H', T, 'middle', 18, True) + linea(42, 54, 66, 54, T, 2)
+    b += texto(80, 60, 'O', T, 'middle', 18, True) + linea(94, 54, 118, 54, T, 2)
+    b += texto(130, 60, 'H', T, 'middle', 18, True)
+    b += par(80, 34) + par(80, 74)
+    b += texto(80, 100, 'H₂O: covalente polar', A, 'middle', 9.5, True)
+    b += texto(80, 114, '2 pares compartidos y 2 solitarios', G, 'middle', 8.5)
+    # nitrogeno
+    x0 = 205
+    b += par(x0 - 2, 54, True)
+    b += texto(x0 + 14, 60, 'N', T, 'middle', 18, True)
+    for dy in (-6, 0, 6):
+        b += linea(x0 + 28, 54 + dy, x0 + 56, 54 + dy, T, 1.8)
+    b += texto(x0 + 70, 60, 'N', T, 'middle', 18, True)
+    b += par(x0 + 86, 54, True)
+    b += texto(x0 + 42, 100, 'N₂: covalente no polar', A, 'middle', 9.5, True)
+    b += texto(x0 + 42, 114, 'enlace triple (3 pares)', G, 'middle', 8.5)
+    # NaCl
+    x1 = 350
+    b += texto(x1, 60, 'Na⁺', T, 'middle', 18, True)
+    b += texto(x1 + 38, 62, '[', T, 'middle', 26)
+    b += texto(x1 + 66, 60, 'Cl', T, 'middle', 18, True)
+    b += par(x1 + 66, 34) + par(x1 + 66, 74) + par(x1 + 46, 54, True) + par(x1 + 88, 54, True)
+    b += texto(x1 + 96, 62, ']', T, 'middle', 26) + texto(x1 + 106, 46, '−', T, 'middle', 14, True)
+    b += texto(x1 + 50, 100, 'NaCl: iónico', A, 'middle', 9.5, True)
+    b += texto(x1 + 50, 114, 'el Na le cede 1 e⁻ al Cl', G, 'middle', 8.5)
+    return svg(480, 122, b, escala=1.15)
+
+
+def fig_modelos_atomicos():
+    import random
+    b = ''
+    cy = 50
+    datos = [('Dalton (1808)', 'esfera sólida', 'indivisible'),
+             ('Thomson (1897)', 'esfera positiva con', 'electrones incrustados'),
+             ('Rutherford (1911)', 'núcleo diminuto;', 'casi todo es vacío'),
+             ('Bohr (1913)', 'electrones en niveles', 'de energía fijos'),
+             ('Cuántico (1926)', 'orbitales: nubes', 'de probabilidad')]
+    for i, (t1, t2, t3) in enumerate(datos):
+        cx = 56 + i * 108
+        if i == 0:
+            b += circulo(cx, cy, 30, A, FA, 1.8)
+            b += circulo(cx - 9, cy - 10, 7, 'none', '#ffffff', 0)
+        elif i == 1:
+            b += circulo(cx, cy, 32, O, FO, 1.8)
+            for dx, dy in ((-16, -12), (4, -12), (20, -4), (-8, 4), (6, 20), (-22, 12)):
+                b += texto(cx + dx, cy + dy + 3.5, '+', O, 'middle', 9, True)
+            for dx, dy in ((-6, -18), (14, -20), (-20, -4), (4, 2), (18, 14), (-10, 18)):
+                b += circulo(cx + dx, cy + dy, 3.6, A, A, 1)
+        elif i == 2:
+            for ang in (0, 60, 120):
+                b += ('<ellipse cx="%s" cy="%s" rx="32" ry="11" stroke="%s" fill="none" stroke-width="1" '
+                      'transform="rotate(%s %s %s)"/>' % (cx, cy, G, ang, cx, cy))
+            b += punto(cx, cy, O, 3.5)
+            for ang, fase in ((0, 30), (60, 200), (120, 300)):
+                x = 32 * math.cos(math.radians(fase))
+                y = 11 * math.sin(math.radians(fase))
+                c, s = math.cos(math.radians(ang)), math.sin(math.radians(ang))
+                b += circulo(cx + x * c - y * s, cy + x * s + y * c, 3.2, A, A, 1)
+        elif i == 3:
+            for r in (13, 23, 33):
+                b += circulo(cx, cy, r, G, 'none', 1)
+            b += punto(cx, cy, O, 5)
+            for r, angs in ((13, (40, 220)), (23, (100, 190, 280, 10)), (33, (60, 240))):
+                for ang in angs:
+                    b += circulo(cx + r * math.cos(math.radians(ang)), cy - r * math.sin(math.radians(ang)), 3.2, A, A, 1)
+        else:
+            rnd = random.Random(7)
+            for k in range(260):
+                r = 34 * rnd.random() ** 1.15
+                ang = rnd.random() * 2 * math.pi
+                b += '<circle cx="%s" cy="%s" r="1.2" fill="%s" fill-opacity="0.55"/>' % (
+                    n(cx + r * math.cos(ang)), n(cy + r * math.sin(ang)), A)
+            b += punto(cx, cy, O, 3.5)
+        b += texto(cx, 102, t1, T, 'middle', 9, True)
+        b += texto(cx, 115, t2, G, 'middle', 8)
+        b += texto(cx, 126, t3, G, 'middle', 8)
+    return svg(544, 132, b, escala=1.2)
+
+
+def fig_tyndall():
+    b = ''
+    datos = [('Disolución', 'el haz no se ve', 'partículas < 1 nm', '#e6f2f6'),
+             ('Coloide', 'el haz se ve: efecto Tyndall', 'partículas medianas', '#f1eee6'),
+             ('Suspensión', 'partículas visibles', 'que se asientan', '#f3ebdc')]
+    for i, (t1, t2, t3, color) in enumerate(datos):
+        x, y, w, h = 52 + i * 160, 26, 86, 90
+        b += rect(x + 2, y + 16, w - 4, h - 18, 'none', color, 0, 0)
+        if i < 2:
+            b += rect(x - 40, 66, 22, 10, T, T, 2, 1)
+            b += linea(x - 18, 71, x, 71, '#d7263d', 2)
+            b += linea(x + w, 71, x + w + 18, 71, '#d7263d', 2)
+        if i == 1:
+            b += '<line x1="%s" y1="71" x2="%s" y2="71" stroke="#ff8a8a" stroke-width="7" stroke-opacity="0.55"/>' % (x, x + w)
+            b += linea(x, 71, x + w, 71, '#d7263d', 2)
+        if i == 2:
+            import random
+            rnd = random.Random(3)
+            for k in range(70):
+                px = x + 6 + rnd.random() * (w - 12)
+                py = y + h - 5 - (rnd.random() ** 3) * 26
+                b += punto(px, py, '#8a6a3a', 2.1)
+            for k in range(7):
+                b += punto(x + 10 + rnd.random() * (w - 20), y + 24 + rnd.random() * 30, '#8a6a3a', 1.8)
+        b += camino('M%s,%s L%s,%s L%s,%s L%s,%s' % (x, y, x, y + h, x + w, y + h, x + w, y), G, 2)
+        b += texto(x + w / 2, y + h + 18, t1, A, 'middle', 10, True)
+        b += texto(x + w / 2, y + h + 31, t2, T, 'middle', 8.5)
+        b += texto(x + w / 2, y + h + 43, t3, G, 'middle', 8.5)
+    return svg(480, 164, b, escala=1.15)
+
+
+def fig_conjugados():
+    b = ''
+    y = 64
+    piezas = [(62, 'HCOOH'), (122, '+'), (178, 'H₂O'), (240, '⇌'), (304, 'H₃O⁺'), (362, '+'), (420, 'HCOO⁻')]
+    for x, s in piezas:
+        b += texto(x, y, s, T, 'middle', 15, True)
+    for x, s, c in ((62, 'ácido', O), (178, 'base', A), (304, 'ácido conjugado', A), (420, 'base conjugada', O)):
+        b += texto(x, y + 20, s, c, 'middle', 9, True)
+    b += flechas('cj1', O) + flechas('cj2', A)
+    b += camino('M62,44 C62,8 420,8 420,44', O, 1.6).replace('/>', ' marker-end="url(#fdcj1)"/>')
+    b += texto(241, 35, 'pierde un H⁺', O, 'middle', 9)
+    b += camino('M178,92 C178,130 304,130 304,92', A, 1.6).replace('/>', ' marker-end="url(#fdcj2)"/>')
+    b += texto(241, 134, 'gana un H⁺', A, 'middle', 9)
+    return svg(484, 142, b, escala=1.2)
+
+
+def fig_tres_enlaces():
+    b = ''
+    # ionico: cristal de Na+ y Cl-
+    for fila in range(3):
+        for col in range(4):
+            x, y = 34 + col * 30, 26 + fila * 30
+            if (fila + col) % 2 == 0:
+                b += circulo(x, y, 13, V, FV, 1.4) + texto(x, y + 4, '−', V, 'middle', 11, True)
+            else:
+                b += circulo(x, y, 8.5, A, FA, 1.4) + texto(x, y + 4, '+', A, 'middle', 10, True)
+    b += texto(79, 118, 'Iónico', T, 'middle', 10, True)
+    b += texto(79, 131, 'iones + y − que se atraen', G, 'middle', 8.5)
+    b += texto(79, 143, 'y forman un cristal', G, 'middle', 8.5)
+    # covalente: dos atomos que comparten un par
+    cx = 250
+    b += circulo(cx - 20, 56, 30, V, FV, 1.4) + circulo(cx + 20, 56, 30, V, FV, 1.4)
+    b += texto(cx - 32, 61, 'Cl', T, 'middle', 13, True) + texto(cx + 32, 61, 'Cl', T, 'middle', 13, True)
+    b += punto(cx, 50, O, 2.8) + punto(cx, 62, O, 2.8)
+    b += texto(250, 118, 'Covalente', T, 'middle', 10, True)
+    b += texto(250, 131, 'los átomos comparten', G, 'middle', 8.5)
+    b += texto(250, 143, 'pares de electrones', G, 'middle', 8.5)
+    # metalico: cationes en un mar de electrones
+    b += rect(352, 8, 142, 96, '#9cc3d3', '#eef6f9', 10, 1.2)
+    import random
+    rnd = random.Random(5)
+    for fila in range(3):
+        for col in range(4):
+            x, y = 372 + col * 34, 26 + fila * 30
+            b += circulo(x, y, 10, G, '#f4f4f8', 1.3) + texto(x, y + 4, '+', G, 'middle', 10, True)
+    cationes = [(372 + col * 34, 26 + fila * 30) for fila in range(3) for col in range(4)]
+    for gx in range(355, 495, 17):
+        for gy in range(13, 104, 15):
+            x, y = gx + rnd.uniform(-2, 2), gy + rnd.uniform(-2, 2)
+            if 357 <= x <= 489 and 12 <= y <= 100 and min(math.hypot(x - a, y - c) for a, c in cationes) > 13.5 and rnd.random() < 0.62:
+                b += punto(x, y, O, 1.8)
+    b += texto(423, 118, 'Metálico', T, 'middle', 10, True)
+    b += texto(423, 131, 'cationes en un “mar”', G, 'middle', 8.5)
+    b += texto(423, 143, 'de electrones libres', G, 'middle', 8.5)
+    return svg(500, 150, b, escala=1.2)
+
+
+def fig_electronegatividad():
+    valores = {1: [('H', 2.1)],
+               2: [('Li', 1.0), ('Be', 1.5), ('B', 2.0), ('C', 2.5), ('N', 3.0), ('O', 3.5), ('F', 4.0)],
+               3: [('Na', 0.9), ('Mg', 1.2), ('Al', 1.5), ('Si', 1.8), ('P', 2.1), ('S', 2.5), ('Cl', 3.0)],
+               4: [('K', 0.8), ('Ca', 1.0), ('Ga', 1.6), ('Ge', 1.8), ('As', 2.0), ('Se', 2.4), ('Br', 2.8)]}
+    x0, y0, w, h = 40, 34, 48, 32
+    def color(v):
+        t = (v - 0.7) / 3.3
+        c1, c2 = (238, 246, 249), (31, 111, 139)
+        return '#%02x%02x%02x' % tuple(int(a + (b_ - a) * t) for a, b_ in zip(c1, c2))
+    b = flechas('en', O)
+    for k, g in enumerate(('IA', 'IIA', 'IIIA', 'IVA', 'VA', 'VIA', 'VIIA')):
+        b += texto(x0 + k * w + w / 2, y0 - 6, g, G, 'middle', 8)
+    for per, fila in valores.items():
+        y = y0 + (per - 1) * h
+        b += texto(x0 - 8, y + 20, str(per), G, 'end', 8.5)
+        for k, (s, v) in enumerate(fila):
+            x = x0 + k * w
+            claro = v >= 2.9
+            b += rect(x, y, w - 2, h - 2, '#ffffff', color(v), 3, 1)
+            b += texto(x + w / 2 - 1, y + 13, s, '#ffffff' if claro else T, 'middle', 10, True)
+            b += texto(x + w / 2 - 1, y + 25, ('%.1f' % v), '#ffffff' if claro else T, 'middle', 8.5)
+    b += linea(x0, 12, x0 + 7 * w - 2, 12, O, 1.6, fin='en')
+    b += texto(x0 + 3.5 * w, 9, 'aumenta hacia la derecha', O, 'middle', 8.5, True)
+    xa = x0 + 7 * w + 14
+    b += linea(xa, y0 + 4 * h - 4, xa, y0 + 4, O, 1.6, fin='en')
+    b += '<text x="%s" y="%s" fill="%s" text-anchor="middle" font-size="8.5" font-weight="bold" transform="rotate(-90 %s %s)">aumenta hacia arriba</text>' % (
+        xa + 13, y0 + 2 * h, O, xa + 13, y0 + 2 * h)
+    b += texto(x0 + 3.5 * w, y0 + 4 * h + 16, 'el flúor (F) es el que más jala electrones; los metales alcalinos, los que menos', G, 'middle', 8.5)
+    return svg(x0 + 7 * w + 44, y0 + 4 * h + 24, b, escala=1.25)
+
+
+def hexagono(cx, cy, r, color=T, aromatico=False):
+    pts = [(cx + r * math.cos(math.radians(90 + 60 * k)), cy - r * math.sin(math.radians(90 + 60 * k))) for k in range(6)]
+    s = poligono(pts, color, 'none', 1.6)
+    if aromatico:
+        s += circulo(cx, cy, r * 0.55, color, 'none', 1.2)
+    return s
+
+
+def cadena(xs, y, etiquetas, color=T, tam=10.5):
+    s = ''
+    for x, e in zip(xs, etiquetas):
+        s += texto(x, y + 4, e, color, 'middle', tam, True)
+    for x1, x2 in zip(xs, xs[1:]):
+        s += linea(x1 + 13, y, x2 - 13, y, color, 1.4)
+    return s
+
+
+def fig_hidrocarburos():
+    b = ''
+    b += texto(132, 14, 'ACÍCLICOS (cadena abierta)', A, 'middle', 9.5, True)
+    b += linea(20, 20, 244, 20, A, 1)
+    b += texto(400, 14, 'CÍCLICOS (anillos)', A, 'middle', 9.5, True)
+    b += linea(300, 20, 500, 20, A, 1)
+    b += cadena([30, 62, 94, 126], 66, ['CH₃', 'CH₂', 'CH₂', 'CH₃'])
+    b += texto(78, 108, 'Lineal', T, 'middle', 9.5, True)
+    b += texto(78, 121, 'butano, C₄H₁₀', G, 'middle', 8.5)
+    b += cadena([174, 206, 238], 74, ['CH₃', 'CH', 'CH₃'])
+    b += linea(206, 64, 206, 50, T, 1.4) + texto(206, 46, 'CH₃', T, 'middle', 10.5, True)
+    b += texto(206, 108, 'Ramificado', T, 'middle', 9.5, True)
+    b += texto(206, 121, 'metilpropano, C₄H₁₀', G, 'middle', 8.5)
+    b += hexagono(340, 62, 25, T, True)
+    b += texto(340, 108, 'Monocíclico', T, 'middle', 9.5, True)
+    b += texto(340, 121, 'benceno, C₆H₆', G, 'middle', 8.5)
+    r = 23
+    b += hexagono(436, 62, r, T, True) + hexagono(436 + r * math.sqrt(3), 62, r, T, True)
+    b += texto(456, 108, 'Policíclico', T, 'middle', 9.5, True)
+    b += texto(456, 121, 'naftaleno, C₁₀H₈', G, 'middle', 8.5)
+    return svg(510, 128, b, escala=1.2)
+
+
+def fig_grupos_funcionales():
+    b = ''
+    def at(x, y, s, c):
+        return texto(x, y + 5, s, c, 'middle', 12, True)
+    def enl(x1, x2, y, c=T):
+        return linea(x1 + 9, y, x2 - 9, y, c, 1.4)
+    def doble(x, y, c):
+        return linea(x - 2.5, y - 9, x - 2.5, y - 21, c, 1.4) + linea(x + 2.5, y - 9, x + 2.5, y - 21, c, 1.4) + at(x, y - 30, 'O', c)
+    celdas = []
+    # (dibujo, nombre del grupo, familia)
+    def alcohol(x, y):
+        return at(x + 22, y, 'R', G) + enl(x + 22, x + 52, y) + at(x + 52, y, 'O', O) + enl(x + 52, x + 82, y, O) + at(x + 82, y, 'H', O)
+    def eter(x, y):
+        return at(x + 22, y, 'R', G) + enl(x + 22, x + 52, y) + at(x + 52, y, 'O', O) + enl(x + 52, x + 82, y) + at(x + 84, y, "R'", G)
+    def aldehido(x, y):
+        return at(x + 22, y, 'R', G) + enl(x + 22, x + 52, y) + at(x + 52, y, 'C', O) + doble(x + 52, y, O) + enl(x + 52, x + 82, y, O) + at(x + 82, y, 'H', O)
+    def cetona(x, y):
+        return at(x + 22, y, 'R', G) + enl(x + 22, x + 52, y) + at(x + 52, y, 'C', O) + doble(x + 52, y, O) + enl(x + 52, x + 82, y) + at(x + 84, y, "R'", G)
+    def acido(x, y):
+        return at(x + 18, y, 'R', G) + enl(x + 18, x + 46, y) + at(x + 46, y, 'C', O) + doble(x + 46, y, O) + enl(x + 46, x + 74, y, O) + at(x + 74, y, 'O', O) + enl(x + 74, x + 100, y, O) + at(x + 100, y, 'H', O)
+    def ester(x, y):
+        return at(x + 18, y, 'R', G) + enl(x + 18, x + 46, y) + at(x + 46, y, 'C', O) + doble(x + 46, y, O) + enl(x + 46, x + 74, y, O) + at(x + 74, y, 'O', O) + enl(x + 74, x + 100, y) + at(x + 102, y, "R'", G)
+    def amina(x, y):
+        return at(x + 30, y, 'R', G) + enl(x + 30, x + 60, y) + at(x + 66, y, 'NH₂', O)
+    datos = [(alcohol, 'Alcohol', 'grupo hidroxilo', '-ol'),
+             (eter, 'Éter', 'grupo alcoxi', '… éter'),
+             (aldehido, 'Aldehído', 'carbonilo al final', '-al'),
+             (cetona, 'Cetona', 'carbonilo en medio', '-ona'),
+             (acido, 'Ácido carboxílico', 'grupo carboxilo', 'ácido …-oico'),
+             (ester, 'Éster', 'grupo –COO–', '…-ato de …-ilo'),
+             (amina, 'Amina', 'grupo amino', '-amina')]
+    for k, (f, t1, t2, t3) in enumerate(datos):
+        fila, col = divmod(k, 4)
+        x, y = 6 + col * 124, 6 + fila * 104
+        b += rect(x, y, 118, 98, '#d6dbe3', '#fbfcfd', 6, 1)
+        b += f(x + 4, y + 46)
+        b += texto(x + 59, y + 70, t1, A, 'middle', 9.5, True)
+        b += texto(x + 59, y + 82, t2, G, 'middle', 8)
+        b += texto(x + 59, y + 93, 'nombre: ' + t3, T, 'middle', 8)
+    x, y = 6 + 3 * 124, 6 + 104
+    b += texto(x + 59, y + 36, 'R y R’ = cadenas', G, 'middle', 8.5, True)
+    b += texto(x + 59, y + 49, 'de carbonos', G, 'middle', 8.5, True)
+    b += texto(x + 59, y + 62, '(el “resto” de', G, 'middle', 8.5)
+    b += texto(x + 59, y + 75, 'la molécula)', G, 'middle', 8.5)
+    b += texto(x + 59, y + 92, 'en naranja: el grupo', O, 'middle', 8.5, True)
+    return svg(504, 216, b, escala=1.2)
 
 
 FIGURAS = {k[4:]: v for k, v in globals().items() if k.startswith('fig_')}
