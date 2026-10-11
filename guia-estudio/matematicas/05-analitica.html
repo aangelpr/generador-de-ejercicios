@@ -1,0 +1,365 @@
+<!-- ======================= 1.19 ======================= -->
+<section class="tema">
+  <h2>1.19 Ecuaciones de primer grado y su interpretación en geometría analítica</h2>
+  <div class="reactivos">Reactivo 21 de la versión de práctica</div>
+
+  <p class="intro"><b>¿De qué trata esta lección?</b> Toda ecuación de primer grado con dos variables (como <span class="m">2x − y = 20</span>) es una <b>recta</b> en el plano. Aprenderás a leer en su ecuación qué tan inclinada está (la <b>pendiente</b>) y dónde corta al eje y (el <b>desplazamiento</b> u ordenada al origen), y a saber si dos rectas son paralelas o perpendiculares solo mirando sus ecuaciones.</p>
+
+  <h3>La pendiente: qué tan empinada está la recta</h3>
+  <div class="dos">
+    <div>
+      <p>La pendiente <span class="m">m</span> dice <b>cuánto sube (o baja) la recta por cada paso que avanzas a la derecha</b>. Es lo mismo que la inclinación de una rampa o de una carretera: un letrero de “pendiente 10%” significa que subes 10 m por cada 100 m que avanzas.</p>
+      <p class="m" style="text-align:center;font-size:12pt">m = <span class="fr"><span>Δy</span><span>Δx</span></span> = <span class="fr"><span>y<sub>2</sub> − y<sub>1</sub></span><span>x<sub>2</sub> − x<sub>1</sub></span></span> = <span class="fr"><span>lo que sube</span><span>lo que avanza</span></span></p>
+      <ul>
+        <li><span class="m">m &gt; 0</span>: la recta sube (de izquierda a derecha).</li>
+        <li><span class="m">m &lt; 0</span>: la recta baja.</li>
+        <li><span class="m">m = 0</span>: horizontal (<span class="m">y = b</span>).</li>
+        <li>Recta vertical (<span class="m">x = k</span>): la pendiente no existe (no avanza nada a la derecha).</li>
+      </ul>
+    </div>
+    <div class="fig"><!--FIG:recta--></div>
+  </div>
+
+  <h3>La ecuación y = mx + b</h3>
+  <p>En la forma <b>pendiente-ordenada</b> <span class="m">y = mx + b</span> se lee todo de inmediato: <span class="m">m</span> es la pendiente y <span class="m">b</span> es el <b>desplazamiento</b>, la altura a la que la recta cruza el eje y (cuando x = 0, y = b). Si b &gt; 0 cruza arriba del origen, si b &lt; 0 abajo, y si b = 0 pasa por el origen. La recta corta al eje x en <span class="m">x = −b/m</span>.</p>
+  <p><b>Para dibujar</b> <span class="m">y = 2x − 3</span> (la figura): empieza en (0, −3), que es b; luego avanza 1 a la derecha y sube 2 (la pendiente). Repite y une los puntos.</p>
+  <div class="caja formula"><b class="t">Otras formas de la ecuación de una recta</b>
+    <p><b>Punto-pendiente:</b> si conoces un punto (x₁, y₁) y la pendiente: <span class="m">y − y<sub>1</sub> = m(x − x<sub>1</sub>)</span>.</p>
+    <p><b>General:</b> <span class="m">Ax + By + C = 0</span>. Para leer la pendiente, despeja y, o usa <span class="m">m = −A/B</span> y <span class="m">b = −C/B</span>.</p>
+  </div>
+
+  <h3>Dos rectas: paralelas, perpendiculares o que se cruzan</h3>
+  <table>
+    <tr><th>Si…</th><th>Las rectas son…</th></tr>
+    <tr><td><span class="m">m<sub>1</sub> = m<sub>2</sub></span> y <span class="m">b<sub>1</sub> ≠ b<sub>2</sub></span></td><td><b>Paralelas</b>: misma inclinación, nunca se tocan.</td></tr>
+    <tr><td><span class="m">m<sub>1</sub> = m<sub>2</sub></span> y <span class="m">b<sub>1</sub> = b<sub>2</sub></span></td><td><b>Coincidentes</b>: son la misma recta.</td></tr>
+    <tr><td><span class="m">m<sub>1</sub>·m<sub>2</sub> = −1</span></td><td><b>Perpendiculares</b>: cada pendiente es la otra “volteada y con el signo cambiado” (2 y −½).</td></tr>
+    <tr><td><span class="m">m<sub>1</sub> ≠ m<sub>2</sub></span></td><td>Se cruzan en un solo punto (en el origen si además b₁ = b₂ = 0).</td></tr>
+  </table>
+
+  <div class="caja ejemplo"><b class="t">Ejemplo explicado: la recta que pasa por dos puntos</b>
+    <div class="preg">Encuentra la ecuación de la recta que pasa por (1, 3) y (3, 7).</div>
+    <ol class="pasos">
+      <li><b>Pendiente:</b> m = (7 − 3)/(3 − 1) = 4/2 = 2. <span class="por">Resta en el mismo orden arriba y abajo: “segundo menos primero” en los dos.</span></li>
+      <li><b>Punto-pendiente con (1, 3):</b> y − 3 = 2(x − 1).</li>
+      <li><b>Despejo y:</b> y = 2x − 2 + 3 = 2x + 1.</li>
+      <li><b>Compruebo con el otro punto:</b> 2(3) + 1 = 7 ✔.</li>
+    </ol>
+  </div>
+
+  <div class="caja examen">
+    <div class="enc">Reactivo 21 del examen</div>
+    <div class="preg">Juan vende bisutería y la ecuación 2x − y = 20 representa la relación entre su ganancia (y) y la cantidad de artículos que vende (x). Encuentre la medida de inclinación de la gráfica. &nbsp; A) −2 &nbsp; B) −1 &nbsp; C) 1 &nbsp; D) 2</div>
+    <ol class="pasos">
+      <li><b>“Inclinación” = pendiente.</b> Para leerla despejo y: 2x − y = 20 → −y = −2x + 20 → y = 2x − 20.</li>
+      <li><b>Leo m:</b> el número que multiplica a x es 2.</li>
+      <li><b>¿Qué significa?</b> Por cada artículo más que vende, su ganancia sube $2. La pendiente es una <b>razón de cambio</b>; esta idea vuelve en las derivadas (1.25).</li>
+    </ol>
+    <p class="chico"><b>Por qué no la A:</b> −2 sale si lees el coeficiente de x antes de despejar y y olvidas que y tenía signo menos. Con la fórmula m = −A/B: A = 2, B = −1 → m = −2/(−1) = 2.</p>
+    <span class="resp">Respuesta: D) 2</span>
+  </div>
+
+  <div class="caja practica"><b class="t">Ahora tú</b>
+    <ol>
+      <li>Pendiente y ordenada al origen de 3x + 6y = 12.</li>
+      <li>Ecuación de la recta que pasa por (−1, 4) y (2, −2).</li>
+      <li>¿Cómo son entre sí y = 3x + 2 y y = 3x − 5? ¿Y y = 2x + 1 y y = −½x + 4?</li>
+      <li>Ecuación de la recta perpendicular a y = 4x − 1 que pasa por (4, 2).</li>
+    </ol>
+    <div class="sol">
+      <p><b>1)</b> 6y = −3x + 12 → y = −½x + 2: m = −½ y b = 2.</p>
+      <p><b>2)</b> m = (−2 − 4)/(2 − (−1)) = −6/3 = −2; y − 4 = −2(x + 1) → y = −2x + 2.</p>
+      <p><b>3)</b> Paralelas (misma m, distinta b). Perpendiculares: 2·(−½) = −1.</p>
+      <p><b>4)</b> m = −¼; y − 2 = −¼(x − 4) → y = −¼x + 3.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 1.20 ======================= -->
+<section class="tema">
+  <h2>1.20 Sistemas de ecuaciones lineales con dos variables</h2>
+  <div class="reactivos">Reactivo 22 de la versión de práctica</div>
+
+  <p class="intro"><b>¿De qué trata esta lección?</b> Cuando tienes <b>dos incógnitas</b> necesitas <b>dos pistas</b> (dos ecuaciones). Por ejemplo: “5 paletas y 3 helados cuestan $120; 2 paletas y 6 helados cuestan $132”. Con una sola pista hay infinitas combinaciones de precios posibles; con las dos, solo una. Aquí aprenderás cuatro métodos para encontrarla.</p>
+
+  <h3>Lo que significa resolver un sistema</h3>
+  <div class="dos">
+    <div>
+      <p>Cada ecuación <span class="m">ax + by = c</span> es una recta. Resolver el sistema es encontrar el punto <b>(x, y) que está en las dos rectas a la vez</b>, es decir, donde se cruzan. Pueden pasar tres cosas:</p>
+      <ul>
+        <li><b>Se cruzan en un punto:</b> una solución única.</li>
+        <li><b>Son paralelas:</b> nunca se cruzan, no hay solución.</li>
+        <li><b>Son la misma recta:</b> infinitas soluciones (una ecuación es múltiplo de la otra).</li>
+      </ul>
+      <p><b>Teorema:</b> el sistema <span class="m">ax + by = r</span>, <span class="m">cx + dy = s</span> tiene solución única si y solo si <span class="m">ad − cb ≠ 0</span>.</p>
+    </div>
+    <div class="fig"><!--FIG:sistema--></div>
+  </div>
+
+  <h3>Los cuatro métodos con el mismo ejemplo (del temario)</h3>
+  <p>Una familia alimenta a 1 perro y 7 gatos con 15 kg de croquetas a la semana; otra, a 3 perros y 4 gatos con 11 kg. ¿Cuánto come cada perro (P) y cada gato (G)?</p>
+  <p class="m" style="text-align:center;font-size:12pt">P + 7G = 15 &nbsp;&nbsp;&nbsp;&nbsp; 3P + 4G = 11</p>
+
+  <div class="caja ejemplo"><b class="t">Sustitución: despeja una letra y métela en la otra ecuación</b>
+    <p class="chico">Conviene cuando una letra tiene coeficiente 1 (es fácil de despejar).</p>
+    <ol class="pasos">
+      <li>De la primera: P = 15 − 7G.</li>
+      <li>Sustituyo en la segunda: 3(15 − 7G) + 4G = 11 → 45 − 21G + 4G = 11 → −17G = −34 → <b>G = 2</b>.</li>
+      <li>Regreso al despeje: P = 15 − 7(2) = <b>1</b>.</li>
+    </ol>
+  </div>
+  <div class="caja ejemplo"><b class="t">Reducción (suma y resta): elimina una letra</b>
+    <p class="chico">Conviene cuando los coeficientes de una letra son múltiplos.</p>
+    <ol class="pasos">
+      <li>Multiplico la primera por −3 para que P tenga coeficientes opuestos: −3P − 21G = −45.</li>
+      <li>Sumo con la segunda: (−3P + 3P) + (−21G + 4G) = −45 + 11 → −17G = −34 → <b>G = 2</b>.</li>
+      <li>Sustituyo en cualquiera: P + 14 = 15 → <b>P = 1</b>.</li>
+    </ol>
+  </div>
+  <div class="caja ejemplo"><b class="t">Igualación: despeja la misma letra en las dos e iguala</b>
+    <ol class="pasos">
+      <li>P = 15 − 7G y P = (11 − 4G)/3.</li>
+      <li>Igualo: 15 − 7G = (11 − 4G)/3 → 45 − 21G = 11 − 4G → 34 = 17G → <b>G = 2</b>, y P = 1.</li>
+    </ol>
+  </div>
+  <div class="caja ejemplo"><b class="t">Determinantes (regla de Cramer): fórmula directa</b>
+    <p>Para <span class="m">ax + by = r</span>, <span class="m">cx + dy = s</span>: &nbsp;<span class="m">Δp = ad − bc</span>, &nbsp;<span class="m">Δx = rd − bs</span>, &nbsp;<span class="m">Δy = as − rc</span>, &nbsp;y entonces <span class="m">x = Δx/Δp</span>, <span class="m">y = Δy/Δp</span>.</p>
+    <ol class="pasos">
+      <li>a = 1, b = 7, r = 15, c = 3, d = 4, s = 11.</li>
+      <li>Δp = 1·4 − 7·3 = −17; ΔP = 15·4 − 7·11 = −17; ΔG = 1·11 − 15·3 = −34.</li>
+      <li>P = −17/−17 = <b>1</b> y G = −34/−17 = <b>2</b>.</li>
+    </ol>
+    <p>Cada perro come 1 kg y cada gato 2 kg por semana. Los cuatro métodos llegan a lo mismo; usa el que te resulte más rápido.</p>
+  </div>
+  <p class="chico">Nota: en el documento del temario, en el método de igualación aparece P = 10 − 7G; debe decir P = 15 − 7G (sale de la primera ecuación).</p>
+
+  <div class="caja examen">
+    <div class="enc">Reactivo 22 del examen</div>
+    <div class="preg">Daniela compró en la heladería cinco paletas y tres helados, pagando $120. Patricia pagó $132 por dos paletas y seis helados. ¿Cuál es el precio de cada paleta y de cada helado? &nbsp; A) Paleta $13.5; helado $17.5 &nbsp; B) Paleta $17.5; helado $13.5 &nbsp; C) Paleta $39.0; helado $51.0 &nbsp; D) Paleta $51.0; helado $39.0</div>
+    <ol class="pasos">
+      <li><b>Planteo:</b> 5p + 3h = 120 y 2p + 6h = 132.</li>
+      <li><b>Reducción:</b> multiplico la primera por 2 para tener 6h en las dos: 10p + 6h = 240. Le resto la segunda: 8p = 108 → p = 13.5.</li>
+      <li><b>Sustituyo:</b> 5(13.5) + 3h = 120 → 67.5 + 3h = 120 → h = 17.5.</li>
+    </ol>
+    <p class="chico"><b>Atajo para opción múltiple:</b> sustituye las opciones en las dos ecuaciones. La A: 5(13.5) + 3(17.5) = 67.5 + 52.5 = 120 ✔ y 2(13.5) + 6(17.5) = 27 + 105 = 132 ✔. La B es la misma pareja al revés: 5(17.5) + 3(13.5) = 128 ✗. Comprobar evita caer en esa trampa.</p>
+    <span class="resp">Respuesta: A) Paleta $13.5; helado $17.5</span>
+  </div>
+
+  <div class="caja practica"><b class="t">Ahora tú</b>
+    <ol>
+      <li>Resuelve x + y = 10, x − y = 4.</li>
+      <li>Resuelve 2x + 3y = 12, x − y = 1, y comprueba con determinantes.</li>
+      <li>¿El sistema 2x + 4y = 6, x + 2y = 5 tiene solución? ¿Por qué?</li>
+      <li>3 cuadernos y 2 plumas cuestan $90; 1 cuaderno y 4 plumas cuestan $80. ¿Cuánto cuesta cada cosa?</li>
+    </ol>
+    <div class="sol">
+      <p><b>1)</b> Sumando: 2x = 14 → x = 7, y = 3.</p>
+      <p><b>2)</b> x = 1 + y → 2 + 2y + 3y = 12 → y = 2, x = 3. Determinantes: Δp = 2(−1) − 3(1) = −5, Δx = 12(−1) − 3(1) = −15, Δy = 2(1) − 12(1) = −10 → x = 3, y = 2 ✔.</p>
+      <p><b>3)</b> No: ad − cb = 2·2 − 1·4 = 0. Si divides la primera entre 2 queda x + 2y = 3, y la segunda dice x + 2y = 5: rectas paralelas.</p>
+      <p><b>4)</b> c = 80 − 4p → 3(80 − 4p) + 2p = 90 → 240 − 10p = 90 → p = $15 y c = $20.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 1.21 ======================= -->
+<section class="tema">
+  <h2>1.21 Ecuaciones de segundo grado</h2>
+  <div class="reactivos">Reactivo 23 de la versión de práctica</div>
+
+  <p class="intro"><b>¿De qué trata esta lección?</b> Las ecuaciones con <span class="m">x<sup>2</sup></span> describen <b>parábolas</b>: la trayectoria de un balón, el chorro de una fuente, la forma de una antena. Aprenderás a resolver <span class="m">ax<sup>2</sup> + bx + c = 0</span>, a saber cuántas soluciones tiene antes de calcularlas y a encontrar el punto más alto o más bajo de la parábola (el vértice).</p>
+
+  <h3>La parábola y sus partes</h3>
+  <div class="dos">
+    <div>
+      <ul>
+        <li>Si <b>a &gt; 0</b>, la parábola abre hacia arriba (cóncava hacia arriba) y tiene un <b>mínimo</b>. Si <b>a &lt; 0</b>, abre hacia abajo y tiene un <b>máximo</b>. Truco: a positiva es una carita feliz ∪, a negativa una carita triste ∩.</li>
+        <li>El punto más alto o más bajo es el <b>vértice</b>.</li>
+        <li>Las soluciones de <span class="m">ax<sup>2</sup> + bx + c = 0</span> se llaman <b>raíces</b> o <b>ceros</b>: son los puntos donde la parábola cruza el eje x (donde y = 0).</li>
+        <li>La parábola es simétrica: el eje de simetría pasa por el vértice.</li>
+      </ul>
+    </div>
+    <div class="fig"><!--FIG:parabola--></div>
+  </div>
+
+  <h3>Tres maneras de resolver ax² + bx + c = 0</h3>
+  <p><b>1. Si le falta un término (ecuación incompleta):</b></p>
+  <ul>
+    <li>Sin término en x, <span class="m">ax<sup>2</sup> + c = 0</span>: despeja. <span class="m">3x<sup>2</sup> − 12 = 0 → x<sup>2</sup> = 4 → x = ±2</span>. ¡No olvides el ±!</li>
+    <li>Sin término independiente, <span class="m">ax<sup>2</sup> + bx = 0</span>: saca factor común. <span class="m">x<sup>2</sup> − 4x = 0 → x(x − 4) = 0 → x = 0 o x = 4</span>.</li>
+  </ul>
+  <p><b>2. Factorizando</b> (cuando se ve fácil): si un producto da cero, alguno de los factores es cero.</p>
+  <div class="caja ejemplo"><b class="t">Ejemplo explicado: x² − 5x + 6 = 0</b>
+    <ol class="pasos">
+      <li><b>Factorizo:</b> dos números que multiplicados den 6 y sumados −5: −2 y −3. Queda (x − 2)(x − 3) = 0.</li>
+      <li><b>Cada factor puede ser cero:</b> x − 2 = 0 → x = 2, o x − 3 = 0 → x = 3.</li>
+      <li><b>Compruebo:</b> 2² − 5(2) + 6 = 0 ✔ y 3² − 5(3) + 6 = 0 ✔.</li>
+    </ol>
+  </div>
+  <p><b>3. Con la fórmula general</b> (funciona siempre):</p>
+  <div class="caja formula">
+    <p class="m" style="text-align:center;font-size:13pt">x<sub>1,2</sub> = <span class="fr"><span>−b ± √(b<sup>2</sup> − 4ac)</span><span>2a</span></span></p>
+    <p>A lo de adentro de la raíz, <span class="m">Δ = b<sup>2</sup> − 4ac</span>, se le llama <b>discriminante</b>, y te dice cuántas soluciones hay <b>antes</b> de calcularlas:</p>
+    <ul>
+      <li><b>Δ &gt; 0:</b> dos raíces reales distintas (la parábola cruza el eje x dos veces).</li>
+      <li><b>Δ = 0:</b> una raíz doble (la parábola solo toca el eje x, en su vértice).</li>
+      <li><b>Δ &lt; 0</b> (o sea b² &lt; 4ac): no hay raíces reales; son números complejos (la parábola no toca el eje x).</li>
+    </ul>
+  </div>
+  <div class="caja ejemplo"><b class="t">Ejemplo explicado: 2x² + 3x − 2 = 0</b>
+    <ol class="pasos">
+      <li><b>Identifico a, b y c con su signo:</b> a = 2, b = 3, c = −2.</li>
+      <li><b>Discriminante primero:</b> Δ = 3² − 4(2)(−2) = 9 + 16 = 25 &gt; 0: habrá dos raíces. Como √25 = 5 es exacta, salen números “bonitos”.</li>
+      <li><b>Fórmula:</b> x = (−3 ± 5)/(2·2) = (−3 ± 5)/4. Con +: 2/4 = ½. Con −: −8/4 = −2.</li>
+    </ol>
+  </div>
+
+  <h3>El vértice</h3>
+  <div class="caja formula">
+    <p class="m" style="text-align:center;font-size:12pt">V = ( −<span class="fr"><span>b</span><span>2a</span></span> , p(−<span class="fr"><span>b</span><span>2a</span></span>) )</p>
+    <p><b>¿Por qué −b/2a?</b> Por la simetría, el vértice está justo a la mitad entre las dos raíces. Las raíces son (−b + √Δ)/2a y (−b − √Δ)/2a; su promedio es −b/2a, porque los ± se cancelan. Para la altura del vértice, sustituye esa x en la ecuación.</p>
+  </div>
+  <div class="caja ejemplo"><b class="t">Ejemplo explicado (del temario): x² − 6x − 8y = 7</b>
+    <ol class="pasos">
+      <li><b>Despejo y para tenerla como función:</b> 8y = x² − 6x − 7 → y = (x² − 6x − 7)/8.</li>
+      <li><b>Raíces (y = 0):</b> basta con x² − 6x − 7 = 0 → (x − 7)(x + 1) = 0 → x = 7 y x = −1. <span class="por">El temario las saca con la fórmula general y fracciones; factorizar el numerador es más corto.</span></li>
+      <li><b>Vértice:</b> x = (7 + (−1))/2 = 3 (a la mitad de las raíces); y = (9 − 18 − 7)/8 = −16/8 = −2. V = (3, −2).</li>
+    </ol>
+  </div>
+
+  <div class="caja examen">
+    <div class="enc">Reactivo 23 del examen</div>
+    <div class="preg">Una pelota es lanzada verticalmente hacia arriba siguiendo una trayectoria dada por la ecuación −2x² + 8x = −4. ¿Cuál es el punto más alto que alcanza la pelota? &nbsp; A) (−12, 2) &nbsp; B) (−2, 12) &nbsp; C) (2, −12) &nbsp; D) (2, 12)</div>
+    <ol class="pasos">
+      <li><b>Interpreto:</b> la trayectoria es la función y = −2x² + 8x + 4 (pasando el −4 al otro lado). Como a = −2 &lt; 0, abre hacia abajo y el vértice es el punto más alto.</li>
+      <li><b>x del vértice:</b> x = −b/2a = −8/(2·(−2)) = −8/−4 = 2.</li>
+      <li><b>Altura:</b> y = −2(2)² + 8(2) + 4 = −8 + 16 + 4 = 12.</li>
+    </ol>
+    <p class="chico"><b>Por qué no las otras:</b> el vértice está en x = 2, y la A y la B tienen la x negativa (−12 y −2: coordenadas invertidas o con el signo cambiado). La C tiene altura −12, imposible para el punto más alto de una pelota lanzada hacia arriba.</p>
+    <span class="resp">Respuesta: D) (2, 12)</span>
+  </div>
+
+  <div class="caja practica"><b class="t">Ahora tú</b>
+    <ol>
+      <li>Para y = x² − 6x + 5: raíces, discriminante y vértice. ¿Tiene máximo o mínimo?</li>
+      <li>¿Cuál es la altura máxima de y = −x² + 4x + 1 y en qué x se alcanza?</li>
+      <li>¿Cuántas raíces reales tiene x² + 2x + 5 = 0? ¿Y x² − 6x + 9 = 0?</li>
+      <li>Resuelve 3x² − 12 = 0 y x² − 4x = 0.</li>
+    </ol>
+    <div class="sol">
+      <p><b>1)</b> (x − 1)(x − 5) = 0 → x = 1 y 5; Δ = 36 − 20 = 16; vértice en x = 3 (a la mitad), y = 9 − 18 + 5 = −4 → V(3, −4). Como a &gt; 0, es un mínimo.</p>
+      <p><b>2)</b> x = −4/(2·(−1)) = 2; y = −4 + 8 + 1 = 5.</p>
+      <p><b>3)</b> Δ = 4 − 20 = −16 &lt; 0: ninguna. Δ = 36 − 36 = 0: una doble, x = 3 (es (x − 3)²).</p>
+      <p><b>4)</b> x² = 4 → x = ±2. x(x − 4) = 0 → x = 0 o 4.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 1.22 ======================= -->
+<section class="tema">
+  <h2>1.22 Secciones cónicas</h2>
+  <div class="reactivos">Reactivos 24 y 25 de la versión de práctica</div>
+
+  <p class="intro"><b>¿De qué trata esta lección?</b> Si cortas un cono (como uno de helado, pero doble) con un plano, según la inclinación del corte obtienes cuatro curvas: <b>circunferencia</b>, <b>elipse</b>, <b>parábola</b> e <b>hipérbola</b>. Están en todos lados: los planetas giran en elipses, las antenas y los faros tienen forma de parábola y las torres de enfriamiento de las plantas de energía son hiperbólicas. Aprenderás a reconocerlas por su ecuación y a sacar sus elementos.</p>
+
+  <div class="sub-tema">1.22.1 Las cónicas como lugares geométricos</div>
+  <ul>
+    <li><b>Corte horizontal</b> → circunferencia. <b>Corte un poco inclinado</b> → elipse. <b>Corte paralelo a la orilla del cono</b> → parábola. <b>Corte muy inclinado, que atraviesa los dos conos</b> → hipérbola (dos ramas).</li>
+    <li>Definición general: una cónica es el lugar geométrico de los puntos cuya distancia a un punto fijo (el <b>foco</b>) es proporcional a su distancia a una recta fija (la <b>directriz</b>). La constante es la <b>excentricidad e</b>: si e = 1 es parábola; si 0 &lt; e &lt; 1, elipse; si e &gt; 1, hipérbola. La circunferencia es el caso e = 0.</li>
+  </ul>
+
+  <div class="sub-tema">1.22.2 Elementos de cada cónica</div>
+  <h4>Circunferencia</h4>
+  <p>Puntos a la misma distancia r de un centro (h, k): <span class="m">(x − h)<sup>2</sup> + (y − k)<sup>2</sup> = r<sup>2</sup></span>. Con centro en el origen: <span class="m">x<sup>2</sup> + y<sup>2</sup> = r<sup>2</sup></span>.</p>
+
+  <h4>Elipse</h4>
+  <div class="dos">
+    <div>
+      <p>Puntos cuya <b>suma</b> de distancias a dos focos es constante. <i>Piénsalo así:</i> clava dos tachuelas (los focos), amarra una cuerda floja a ellas y recorre la cuerda tensa con un lápiz: dibujas una elipse. Así trazan los jardineros los prados elípticos.</p>
+      <p>Con eje mayor horizontal y centro (h, k):</p>
+      <p class="m" style="text-align:center"><span class="fr"><span>(x − h)<sup>2</sup></span><span>a<sup>2</sup></span></span> + <span class="fr"><span>(y − k)<sup>2</sup></span><span>b<sup>2</sup></span></span> = 1, &nbsp;&nbsp; a<sup>2</sup> = b<sup>2</sup> + c<sup>2</sup> &nbsp;(a &gt; b)</p>
+      <ul>
+        <li><span class="m">a</span>: semieje mayor (del centro a un vértice). Eje mayor = 2a.</li>
+        <li><span class="m">b</span>: semieje menor. Eje menor = 2b.</li>
+        <li><span class="m">c</span>: del centro a un foco (<b>semidistancia focal</b>). Distancia focal = 2c.</li>
+        <li>Focos (h ± c, k), vértices (h ± a, k), extremos del eje menor (h, k ± b). Si el <span class="m">a<sup>2</sup></span> está debajo de la y, el eje mayor es vertical.</li>
+      </ul>
+      <p><b>¿Por qué a² = b² + c²?</b> Desde B₂ (arriba) hasta un foco hay exactamente a unidades (en la figura, la línea punteada), y se forma un triángulo rectángulo de catetos b y c.</p>
+    </div>
+    <div class="fig"><!--FIG:elipse--></div>
+  </div>
+
+  <h4>Parábola</h4>
+  <p>Puntos que están a la misma distancia de un punto fijo (foco) y de una recta fija (directriz). Con vértice (h, k):</p>
+  <ul>
+    <li>Eje vertical: <span class="m">(x − h)<sup>2</sup> = 4p(y − k)</span>, foco (h, k + p), directriz y = k − p. Si p &gt; 0 abre hacia arriba; si p &lt; 0, hacia abajo.</li>
+    <li>Eje horizontal: <span class="m">(y − k)<sup>2</sup> = 4p(x − h)</span>, foco (h + p, k), directriz x = h − p. Si p &gt; 0 abre a la derecha; si p &lt; 0, a la izquierda.</li>
+  </ul>
+
+  <h4>Hipérbola</h4>
+  <p>Puntos cuya <b>diferencia</b> de distancias a dos focos es constante (en valor absoluto). Con eje horizontal: <span class="m">(x − h)<sup>2</sup>/a<sup>2</sup> − (y − k)<sup>2</sup>/b<sup>2</sup> = 1</span>, con <span class="m">c<sup>2</sup> = a<sup>2</sup> + b<sup>2</sup></span> (¡al revés que en la elipse!), focos (h ± c, k), vértices (h ± a, k) y asíntotas <span class="m">y − k = ±(b/a)(x − h)</span>. Si el término negativo es el de x, el eje es vertical.</p>
+
+  <div class="caja formula"><b class="t">Excentricidad: ¿qué tan “aplastada” está?</b>
+    <p>Para elipse e hipérbola, <span class="m">e = c/a</span>. En la elipse, si e está cerca de 0 es casi una circunferencia; si está cerca de 1, muy alargada. La órbita de la Tierra tiene e ≈ 0.017: es casi un círculo.</p>
+  </div>
+
+  <h3>Reconocer la cónica en su ecuación general</h3>
+  <p>La ecuación general es <span class="m">Ax<sup>2</sup> + Bxy + Cy<sup>2</sup> + Dx + Ey + F = 0</span>. Cuando no hay término xy (B = 0), basta con mirar los números que acompañan a x² y a y²:</p>
+  <table>
+    <tr><th>A y C</th><th>Cónica</th><th>Ejemplo</th></tr>
+    <tr><td>Iguales</td><td>Circunferencia</td><td class="m">4x<sup>2</sup> + 4y<sup>2</sup> + 8x − 21y − 96 = 0</td></tr>
+    <tr><td>Mismo signo, distintos</td><td>Elipse</td><td class="m">2x<sup>2</sup> + 3y<sup>2</sup> − 4x − y + 4 = 0</td></tr>
+    <tr><td>Signos contrarios</td><td>Hipérbola</td><td class="m">−9x<sup>2</sup> + 12y<sup>2</sup> + 9x − 21 = 0</td></tr>
+    <tr><td>Solo hay uno de los dos cuadrados</td><td>Parábola</td><td class="m">3x<sup>2</sup> − 2x + 5y + 3 = 0</td></tr>
+  </table>
+  <p>Con término xy se usa el discriminante <span class="m">B<sup>2</sup> − 4AC</span>: negativo → elipse; cero → parábola; positivo → hipérbola.</p>
+
+  <div class="caja ejemplo"><b class="t">Ejemplo explicado: completar cuadrados para sacar los elementos</b>
+    <div class="preg">Encuentra el centro y el radio de x² + y² − 4x + 6y − 12 = 0.</div>
+    <ol class="pasos">
+      <li><b>Agrupo las x y las y:</b> (x² − 4x) + (y² + 6y) = 12.</li>
+      <li><b>Completo el cuadrado de cada paréntesis:</b> tomo la mitad del número que acompaña a la letra y lo elevo al cuadrado. Para −4x: mitad −2, cuadrado 4, y x² − 4x = (x − 2)² − 4. Para 6y: mitad 3, cuadrado 9, y y² + 6y = (y + 3)² − 9.</li>
+      <li><b>Sustituyo:</b> (x − 2)² − 4 + (y + 3)² − 9 = 12 → (x − 2)² + (y + 3)² = 25.</li>
+      <li><b>Leo:</b> centro (2, −3) (¡con los signos cambiados!) y radio √25 = 5.</li>
+    </ol>
+  </div>
+  <p class="chico">Ejemplo del temario con el mismo método: 20x² − 20y² − 80x + 240y + 320 = 0 se convierte en −(x − 2)²/48 + (y − 6)²/48 = 1: una hipérbola de eje vertical con centro (2, 6), a = b = 4√3, c = 4√6 y asíntotas y = x + 4 y y = −x + 8.</p>
+
+  <div class="caja examen">
+    <div class="enc">Reactivo 24 del examen</div>
+    <div class="preg">Relacione las secciones cónicas con su ejemplo: 1. Elipse · 2. Parábola · 3. Circunferencia · 4. Hipérbola con a. 2x² + 3y² − 4x − 1y + 4 = 0 · b. 4x² + 4y² + 8x − 21y − 96 = 0 · c. 3x² − 2x + 5y + 3 = 0 · d. −9x² + 12y² + 9x + 9 − 30 = 0. &nbsp; A) 1a, 2b, 3c, 4d &nbsp; B) 1a, 2c, 3b, 4d &nbsp; C) 1c, 2b, 3d, 4a &nbsp; D) 1d, 2a, 3b, 4c</div>
+    <ol class="pasos">
+      <li><b>a:</b> 2 y 3, mismo signo y distintos → elipse (1a).</li>
+      <li><b>b:</b> 4 y 4, iguales → circunferencia (3b).</li>
+      <li><b>c:</b> solo hay x² → parábola (2c).</li>
+      <li><b>d:</b> −9 y 12, signos contrarios → hipérbola (4d).</li>
+    </ol>
+    <span class="resp">Respuesta: B) 1a, 2c, 3b, 4d</span>
+  </div>
+
+  <div class="caja examen">
+    <div class="enc">Reactivo 25 del examen</div>
+    <div class="preg">Un arquitecto diseña áreas verdes en forma de elipse con excentricidad 4/5 y eje mayor de 10 metros. ¿Cuánto mide la semidistancia focal? &nbsp; A) 3 m &nbsp; B) 4 m &nbsp; C) 6 m &nbsp; D) 9 m</div>
+    <ol class="pasos">
+      <li><b>Del eje mayor saco a:</b> 2a = 10 → a = 5.</li>
+      <li><b>“Semidistancia focal” es c</b> (la mitad de la distancia entre los focos).</li>
+      <li><b>Excentricidad:</b> e = c/a → 4/5 = c/5 → c = 4 m.</li>
+    </ol>
+    <p class="chico"><b>Ojo:</b> 3 m sería b (b² = 25 − 16 = 9) y 6 m sería el eje menor (2b). Lee bien qué elemento te piden.</p>
+    <span class="resp">Respuesta: B) 4 m</span>
+  </div>
+
+  <div class="caja practica"><b class="t">Ahora tú</b>
+    <ol>
+      <li>Para x²/25 + y²/9 = 1: a, b, c, focos, vértices y excentricidad.</li>
+      <li>Para x² = 8y: vértice, p, foco y directriz. ¿Hacia dónde abre?</li>
+      <li>¿Qué cónica es 5x² − 2y² + 3x = 0? ¿Y x² + 4xy + 4y² + 3x − y = 0?</li>
+      <li>Centro y radio de x² + y² + 10x − 2y + 1 = 0.</li>
+    </ol>
+    <div class="sol">
+      <p><b>1)</b> a = 5, b = 3, c = √(25 − 9) = 4; focos (±4, 0); vértices (±5, 0); e = 4/5 = 0.8.</p>
+      <p><b>2)</b> V(0, 0); 4p = 8 → p = 2; foco (0, 2); directriz y = −2. Abre hacia arriba (p &gt; 0).</p>
+      <p><b>3)</b> Signos contrarios → hipérbola. Con xy: B² − 4AC = 16 − 16 = 0 → parábola.</p>
+      <p><b>4)</b> (x + 5)² − 25 + (y − 1)² − 1 + 1 = 0 → (x + 5)² + (y − 1)² = 25: centro (−5, 1), radio 5.</p>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,344 @@
+<!-- ======================= 1.4 ======================= -->
+<section class="tema">
+  <h2>1.4 Patrones numéricos</h2>
+  <div class="reactivos">Reactivos 4 y 5 de la versión de práctica</div>
+
+  <p class="intro"><b>¿De qué trata esta lección?</b> Muchas cosas siguen un patrón: el ahorro que crece cada semana, una deuda que baja cada mes, un virus que se contagia. Si descubres la <b>regla</b> del patrón, puedes saber qué pasará en cualquier momento sin escribir toda la lista; por ejemplo, cuánto habrás ahorrado el día 100 sin contar día por día.</p>
+
+  <div class="sub-tema">1.4.1 Sucesiones: listas que siguen una regla</div>
+  <p>Una <b>sucesión</b> es una lista ordenada de números que sigue una regla. A cada lugar <span class="m">n</span> le toca un término <span class="m">a<sub>n</sub></span> (se lee “a sub ene”): <span class="m">a<sub>0</sub></span> o <span class="m">a<sub>1</sub></span> es el primero, <span class="m">a<sub>2</sub></span> el siguiente, y así. Muchas veces la regla viene como fórmula:</p>
+  <ul>
+    <li><b>Pares:</b> <span class="m">p<sub>n</sub> = 2n</span> → 0, 2, 4, 6, …</li>
+    <li><b>Impares:</b> <span class="m">i<sub>n</sub> = 2n + 1</span> → 1, 3, 5, 7, … ¿Cuánto vale el término 1012? <span class="m">i<sub>1012</sub> = 2(1012) + 1 = 2025</span>. ¡Sin escribir mil números!</li>
+    <li><b>Cuadrados:</b> <span class="m">a<sub>n</sub> = n<sup>2</sup></span> → 0, 1, 4, 9, 16, …</li>
+    <li><b>Fibonacci:</b> empieza con 0 y 1, y cada término es la suma de los dos anteriores (<span class="m">F<sub>n+1</sub> = F<sub>n</sub> + F<sub>n−1</sub></span>): 0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, … Nació de un problema para contar conejos y aparece en la naturaleza, en las espirales de los girasoles y de las piñas.</li>
+  </ul>
+  <p>Una sucesión es <b>creciente</b> si cada término es mayor o igual que el anterior (<span class="m">a<sub>n</sub> ≤ a<sub>n+1</sub></span>) y <b>decreciente</b> si cada término es menor o igual que el anterior.</p>
+  <div class="caja idea"><b class="t">Piénsalo así: cómo encontrar la regla</b> Fíjate cómo pasas de un término al siguiente. ¿Le sumas siempre lo mismo? ¿Lo multiplicas siempre por lo mismo? ¿Sumas los dos anteriores? ¿Son cuadrados o cubos de 1, 2, 3…? Casi todas las sucesiones del examen caen en uno de esos casos.</div>
+
+  <div class="sub-tema">1.4.2 Progresión aritmética: sumar siempre lo mismo</div>
+  <p>Cada término se obtiene <b>sumando</b> la misma cantidad <span class="m">d</span>, la <b>diferencia</b>. Es como subir una escalera de escalones iguales. Ejemplos: 5, 10, 15, 20, … (d = 5); 10 000, 9 800, 9 600, … (d = −200: la diferencia también puede ser negativa).</p>
+  <div class="caja formula"><b class="t">Término n de una progresión aritmética</b>
+    <p class="m" style="text-align:center;font-size:12pt">a<sub>n</sub> = a<sub>1</sub> + (n − 1)·d</p>
+    <p><b>¿Por qué n − 1 y no n?</b> Para ir del término 1 al término 5 das 4 pasos (1→2, 2→3, 3→4, 4→5). Para llegar al término n das n − 1 pasos, y en cada paso sumas d.</p>
+  </div>
+  <div class="caja idea"><b class="t">La historia de la suma: el truco de Gauss</b>
+    Cuentan que a Carl Friedrich Gauss, de niño, su maestro le pidió sumar los números del 1 al 100 para tenerlo ocupado un buen rato. Gauss contestó en segundos: se dio cuenta de que 1 + 100 = 101, 2 + 99 = 101, 3 + 98 = 101… Hay 50 parejas y cada una suma 101, así que el total es 50 × 101 = <b>5050</b>. La fórmula de la suma hace exactamente lo mismo:
+    <p class="m" style="text-align:center;font-size:12pt">S<sub>n</sub> = <span class="fr"><span>n(a<sub>1</sub> + a<sub>n</sub>)</span><span>2</span></span> = (número de parejas) × (lo que suma cada pareja)</p>
+  </div>
+
+  <div class="sub-tema">Progresión geométrica: multiplicar siempre por lo mismo</div>
+  <p>Cada término se obtiene <b>multiplicando</b> el anterior por la misma cantidad <span class="m">r</span>, la <b>razón</b>. Crecen muchísimo más rápido que las aritméticas: así se comportan los contagios, los rumores, la división de células y el interés compuesto. Una célula que se divide en dos: 1, 2, 4, 8, 16, … Después de 10 divisiones hay 1024 células, y después de 20, ¡más de un millón (1 048 576)!</p>
+  <div class="caja formula"><b class="t">Fórmulas de la progresión geométrica</b>
+    <p class="m" style="text-align:center;font-size:12pt">α<sub>n</sub> = α<sub>1</sub>·r<sup>n−1</sup> &nbsp;&nbsp;&nbsp;&nbsp; S<sub>n</sub> = α<sub>1</sub>·<span class="fr"><span>r<sup>n</sup> − 1</span><span>r − 1</span></span> = <span class="fr"><span>r·α<sub>n</sub> − α<sub>1</sub></span><span>r − 1</span></span></p>
+    <p>Misma lógica de los n − 1 pasos, pero en cada paso multiplicas por r. Las dos formas de la suma dan lo mismo; usa la que te den en el “Considere”.</p>
+  </div>
+
+  <h3>¿Aritmética o geométrica? La prueba rápida</h3>
+  <p><b>Resta</b> dos términos seguidos: si siempre da lo mismo, es aritmética y ese número es <span class="m">d</span>. <b>Divide</b> dos términos seguidos: si siempre da lo mismo, es geométrica y ese número es <span class="m">r</span>.</p>
+  <ul>
+    <li>3, 7, 11, 15: las restas dan 4, 4, 4 → aritmética con d = 4.</li>
+    <li>3, 6, 12, 24: las restas dan 3, 6, 12 (no se repiten), pero las divisiones dan 2, 2, 2 → geométrica con r = 2.</li>
+  </ul>
+
+  <div class="caja ejemplo"><b class="t">Ejemplo explicado (del temario): ¿cuándo se termina de pagar una deuda?</b>
+    <div class="preg">Debes $10,000 y cada mes abonas $200. ¿En qué término de la progresión la deuda llega a cero?</div>
+    <ol class="pasos">
+      <li><b>Identifico la progresión:</b> la deuda baja siempre lo mismo, así que es aritmética con a₁ = 10 000 y d = −200 (negativa porque baja).</li>
+      <li><b>Pido que el término valga cero:</b> 0 = 10 000 + (n − 1)(−200).</li>
+      <li><b>Despejo:</b> (n − 1)·200 = 10 000 → n − 1 = 50 → n = 51.</li>
+      <li><b>Interpreto:</b> el término 51 de la lista vale 0. Después de 50 abonos de $200 (50 × 200 = 10 000) la deuda queda en cero.</li>
+    </ol>
+  </div>
+
+  <div class="caja examen">
+    <div class="enc">Reactivo 4 del examen</div>
+    <div class="preg">Hace 20 días, un niño decidió ahorrar $5; si cada día posterior ahorra $5 más que el anterior, ¿cuánto lleva ahorrado? Considere a<sub>n</sub> = a<sub>1</sub> + (n − 1)r y S<sub>n</sub> = n(a<sub>1</sub> + a<sub>n</sub>)/2. &nbsp; A) $855 &nbsp; B) $950 &nbsp; C) $1,000 &nbsp; D) $1,050</div>
+    <ol class="pasos">
+      <li><b>¿Qué tipo de progresión es?</b> Cada día ahorra $5 más: le sumas siempre lo mismo, así que es aritmética. a₁ = 5, d = 5 (el temario la llama r en el “Considere”) y n = 20 días.</li>
+      <li><b>La fórmula de la suma pide a<sub>n</sub>, así que primero lo calculo:</b> a₂₀ = 5 + 19·5 = 100. El día 20 ahorró $100.</li>
+      <li><b>Sumo todo:</b> S₂₀ = 20·(5 + 100)/2 = 10·105 = 1050.</li>
+    </ol>
+    <p class="chico"><b>Ojo con la B:</b> $950 es lo que sale si cuentas solo 19 días (S₁₉ = 19·(5 + 95)/2 = 950). Revisa siempre cuántos términos son.</p>
+    <span class="resp">Respuesta: D) $1,050</span>
+  </div>
+
+  <div class="caja examen">
+    <div class="enc">Reactivo 5 del examen</div>
+    <div class="preg">Una persona infectada de COVID-19 infectó a tres personas; al día siguiente cada una infectó a otras tres, y así sucesivamente. ¿Cuántas personas se infectaron después de 10 días? Considere a<sub>n</sub> = r<sup>n−1</sup> y S<sub>n</sub> = (r·a<sub>n</sub> − a<sub>1</sub>)/(r − 1). &nbsp; A) 19 683 &nbsp; B) 19 684 &nbsp; C) 29 524 &nbsp; D) 59 048</div>
+    <ol class="pasos">
+      <li><b>¿Qué tipo es?</b> Cada persona contagia a 3: se multiplica por 3 → geométrica con r = 3.</li>
+      <li><b>Leo bien el “Considere”:</b> a<sub>n</sub> = 3<sup>n−1</sup> da a₁ = 3⁰ = 1. Es decir, el primer término es la persona original: 1, 3, 9, 27, … <span class="por">La fórmula que te dan te dice cómo quieren contar; síguela.</span></li>
+      <li><b>Término 10:</b> a₁₀ = 3⁹ = 19 683.</li>
+      <li><b>Suma:</b> S₁₀ = (3·19 683 − 1)/(3 − 1) = (59 049 − 1)/2 = 59 048/2 = 29 524.</li>
+    </ol>
+    <p class="chico"><b>Por qué no las otras:</b> 19 683 es solo el último término (a₁₀), no el total; 59 048 es lo que queda si olvidas dividir entre r − 1 = 2.</p>
+    <span class="resp">Respuesta: C) 29 524</span>
+  </div>
+
+  <div class="caja ojo"><b class="t">Error común</b> Confundir <b>un término</b> con <b>el acumulado</b>. “¿Cuánto ahorra el día 20?” pide a<sub>n</sub>; “¿cuánto lleva ahorrado?” pide S<sub>n</sub>. Los distractores del examen suelen ser justo el otro valor.</div>
+
+  <div class="caja practica"><b class="t">Ahora tú</b>
+    <ol>
+      <li>Escribe los tres términos de Fibonacci que siguen a 21, 34.</li>
+      <li>¿La sucesión a<sub>n</sub> = 10 − 3n es creciente o decreciente? Escribe sus primeros términos.</li>
+      <li>En 7, 11, 15, 19, … encuentra a₁₅ y S₁₅.</li>
+      <li>En 2, 6, 18, … encuentra a₆ y la suma de los primeros 6 términos.</li>
+      <li>Un teatro tiene 20 asientos en la primera fila y cada fila tiene 2 más que la anterior. ¿Cuántos asientos hay en total en 12 filas?</li>
+    </ol>
+    <div class="sol">
+      <p><b>1)</b> 21 + 34 = 55, 34 + 55 = 89, 55 + 89 = 144.</p>
+      <p><b>2)</b> Decreciente: 10, 7, 4, 1, −2, … (para n = 0, 1, 2, 3, 4). Cada término es 3 menos que el anterior.</p>
+      <p><b>3)</b> d = 4: a₁₅ = 7 + 14·4 = 63; S₁₅ = 15·(7 + 63)/2 = 525.</p>
+      <p><b>4)</b> r = 3: a₆ = 2·3⁵ = 486; S₆ = 2·(3⁶ − 1)/(3 − 1) = 2·728/2 = 728.</p>
+      <p><b>5)</b> Aritmética: a₁₂ = 20 + 11·2 = 42 asientos en la última fila; S₁₂ = 12·(20 + 42)/2 = 372 asientos.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 1.5 ======================= -->
+<section class="tema">
+  <h2>1.5 Variaciones proporcionales y lineales</h2>
+  <div class="reactivos">Reactivos 6 y 7 de la versión de práctica</div>
+
+  <p class="intro"><b>¿De qué trata esta lección?</b> Todo el tiempo vemos cómo cambia una cantidad cuando cambia otra: si compras más kilos, pagas más; si van más trabajadores, terminan en menos días. Aquí aprenderás a reconocer el tipo de relación y a resolver estos problemas con la <b>regla de tres</b>, una de las herramientas más útiles de todo el examen (también la usarás en Física y Química).</p>
+
+  <div class="sub-tema">1.5.1 Propiedades y uso en la resolución de problemas</div>
+  <h3>Razones y proporciones</h3>
+  <ul>
+    <li>Una <b>magnitud</b> es algo que se puede medir: gramos (masa), metros (longitud), segundos (tiempo), °C (temperatura), amperes, watts, hertz, calorías…</li>
+    <li>Una <b>razón</b> compara dos cantidades dividiéndolas. “3 de cada 5 alumnos usan camión” es la razón 3/5 (se lee “3 es a 5”). Al de arriba se le llama <b>antecedente</b> y al de abajo <b>consecuente</b>. La velocidad (<span class="m">v = d/t</span>, metros por segundo) y la densidad (<span class="m">ρ = m/V</span>, gramos por cm³) son razones.</li>
+    <li>Una <b>proporción</b> es la igualdad de dos razones: 3/5 = 6/10 (“3 es a 5 como 6 es a 10”).</li>
+  </ul>
+  <div class="caja formula"><b class="t">¿Por qué funciona “multiplicar en cruz”?</b>
+    En toda proporción los productos cruzados son iguales: en 3/5 = 6/10 tenemos 3·10 = 5·6 = 30. Por eso, si una de las cuatro cantidades es desconocida, puedes despejarla multiplicando en cruz. Esa es toda la magia de la regla de tres.
+  </div>
+
+  <h3>Proporcionalidad directa: “más → más”, en la misma proporción</h3>
+  <p>Dos cantidades son <b>directamente proporcionales</b> si al duplicar una, la otra también se duplica; al triplicar una, la otra se triplica. Su <b>cociente</b> no cambia: <span class="m">y/x = k</span>, o sea <span class="m">y = k·x</span>. A <span class="m">k</span> se le llama <b>constante de proporcionalidad</b> y se escribe <span class="m">y ∝ x</span>.</p>
+  <table style="width:70%">
+    <tr><th>Kilos de tortilla</th><td>1</td><td>2</td><td>3</td><td>5</td></tr>
+    <tr><th>Precio ($22 el kilo)</th><td>22</td><td>44</td><td>66</td><td>110</td></tr>
+  </table>
+  <p class="chico">Precio ÷ kilos = 22 siempre: esa es k.</p>
+
+  <h3>Proporcionalidad inversa: “más → menos”, en la misma proporción</h3>
+  <p>Al duplicar una cantidad, la otra se reduce a la mitad. Lo que no cambia es su <b>producto</b>: <span class="m">x·y = k</span>, o sea <span class="m">y = k/x</span>.</p>
+  <table style="width:70%">
+    <tr><th>Velocidad (km/h) en un viaje de 120 km</th><td>30</td><td>60</td><td>120</td></tr>
+    <tr><th>Tiempo (h)</th><td>4</td><td>2</td><td>1</td></tr>
+  </table>
+  <p class="chico">Velocidad × tiempo = 120 siempre.</p>
+  <div class="caja idea"><b class="t">Piénsalo así</b> Pregúntate: “si aumento esta cantidad, ¿la otra aumenta o disminuye?”. Si aumenta en la misma proporción es directa; si disminuye en la misma proporción es inversa. Cuidado: no todo lo que “aumenta junto” es proporcional. Tu edad y tu estatura aumentan juntas, pero a los 20 años no mides el doble que a los 10.</div>
+
+  <h3>La regla de tres, paso a paso</h3>
+  <div class="caja ejemplo"><b class="t">Ejemplo explicado (del temario): regla de tres directa</b>
+    <div class="preg">Una receta dice que 450 g de pasta para mole rinden con 1 500 mL de agua. ¿Cuánta agua se necesita para 100 g de pasta?</div>
+    <ol class="pasos">
+      <li><b>Acomodo los datos en dos columnas</b>, cada magnitud en su columna: 450 g → 1 500 mL; 100 g → x.</li>
+      <li><b>¿Directa o inversa?</b> Menos pasta, menos agua: directa.</li>
+      <li><b>Directa: multiplico en cruz y divido entre el que sobra:</b> x = (100 × 1 500)/450 = 150 000/450 ≈ 333.3 mL.</li>
+      <li><b>¿Tiene sentido?</b> 100 g es menos de un cuarto de 450 g, y 333 mL es menos de un cuarto de 1 500 mL ✔.</li>
+    </ol>
+  </div>
+  <div class="caja ejemplo"><b class="t">Ejemplo explicado (del temario): regla de tres inversa</b>
+    <div class="preg">20 mapaches se acaban un costal de alimento en 10 días. ¿En cuánto tiempo se lo acabarán 40 mapaches?</div>
+    <ol class="pasos">
+      <li><b>¿Directa o inversa?</b> Más mapaches se acaban el costal más rápido: inversa.</li>
+      <li><b>En la inversa el producto se mantiene:</b> (20 mapaches)(10 días) = (40 mapaches)(x días).</li>
+      <li><b>Despejo:</b> x = 200/40 = 5 días.</li>
+      <li><b>¿Tiene sentido?</b> El doble de mapaches tarda la mitad del tiempo ✔.</li>
+    </ol>
+  </div>
+  <div class="caja ojo"><b class="t">Error común</b> Usar la regla directa en un problema inverso. En la directa se multiplica en cruz; en la inversa se multiplica en línea (de lado a lado). Si te equivocas de tipo, el resultado sale al revés: con los mapaches te daría 20 días, ¡más tiempo con más mapaches! Por eso conviene revisar siempre si el resultado tiene sentido.</div>
+
+  <div class="sub-tema">1.5.2 Representación geométrica: proporcional vs. lineal</div>
+  <div class="dos">
+    <div>
+      <p>Si graficas estas relaciones obtienes rectas de la forma <span class="m">y = mx + b</span> (las estudiarás a fondo en 1.19). La cantidad que tú eliges (kilos, horas, kilómetros) es la <b>variable independiente</b> y va en el eje x; la que resulta (precio, distancia, costo) es la <b>dependiente</b> y va en el eje y.</p>
+      <ul>
+        <li><b>Variación proporcional:</b> la recta pasa por el origen (<span class="m">b = 0</span>). Si no compras nada, no pagas nada. Ejemplo del temario: un atleta come 1.5 g de proteína por cada kg de peso, <span class="m">y = 1.5x</span>; con 60 kg necesita 90 g.</li>
+        <li><b>Variación lineal:</b> la recta <b>no</b> pasa por el origen (<span class="m">b ≠ 0</span>): hay una parte fija. Un taxi cobra $30 de banderazo más $8 por km: <span class="m">y = 8x + 30</span>. Otro ejemplo del temario: <span class="m">K = C + 273.15</span> (grados Celsius a Kelvin).</li>
+      </ul>
+    </div>
+    <div class="fig"><!--FIG:proporcional_lineal--></div>
+  </div>
+
+  <div class="caja examen">
+    <div class="enc">Reactivo 6 del examen</div>
+    <div class="preg">Un albergue tiene a su cuidado 20 gatos y cuenta con alimento para 10 días. Si adopta cinco gatos más, ¿para cuántos días habrá alimento suficiente? &nbsp; A) 7 &nbsp; B) 8 &nbsp; C) 10 &nbsp; D) 12</div>
+    <ol class="pasos">
+      <li><b>¿Qué tipo es?</b> Más gatos, menos días: inversa.</li>
+      <li><b>El producto se mantiene:</b> 20 gatos × 10 días = 200 “raciones” de un gato por día.</li>
+      <li><b>Con 25 gatos:</b> 200 ÷ 25 = 8 días.</li>
+    </ol>
+    <p class="chico"><b>Revisa que tenga sentido:</b> con más gatos debe alcanzar para menos de 10 días; eso descarta C y D. Si usaras la directa saldría 12.5, que no es opción.</p>
+    <span class="resp">Respuesta: B) 8</span>
+  </div>
+
+  <div class="caja examen">
+    <div class="enc">Reactivo 7 del examen</div>
+    <div class="preg">Si a un campesino le pagan $200 por día más $50 por cada caja de producto recolectado, se habla de una variación ____ entre las cajas recolectadas y el dinero que recibe. Otro campesino recibe dinero solo por las cajas recolectadas: variación ____. &nbsp; A) lineal – lineal &nbsp; B) lineal – proporcional &nbsp; C) proporcional – lineal &nbsp; D) proporcional – proporcional</div>
+    <ol class="pasos">
+      <li><b>Primer campesino:</b> y = 50x + 200. Aunque no junte cajas recibe $200 (b ≠ 0): <b>lineal</b>.</li>
+      <li><b>Segundo campesino:</b> y = 50x. Sin cajas, $0: la recta pasa por el origen, así que es <b>proporcional</b>.</li>
+    </ol>
+    <span class="resp">Respuesta: B) lineal – proporcional</span>
+  </div>
+
+  <div class="caja practica"><b class="t">Ahora tú</b>
+    <ol>
+      <li>Si 450 g de pasta rinden 1 500 mL de agua, ¿cuánta agua llevan 300 g?</li>
+      <li>6 obreros construyen una barda en 15 días. ¿Cuánto tardan 9 obreros?</li>
+      <li>¿F = 1.8C + 32 es variación proporcional o lineal? ¿Y d = 60t?</li>
+      <li>Un auto a 80 km/h tarda 3 h en un viaje. ¿Cuánto tardaría a 120 km/h?</li>
+    </ol>
+    <div class="sol">
+      <p><b>1)</b> Directa: 300 × 1 500/450 = 1 000 mL.</p>
+      <p><b>2)</b> Inversa: 6 × 15 = 90 → 90/9 = 10 días.</p>
+      <p><b>3)</b> F = 1.8C + 32 es lineal (b = 32); d = 60t es proporcional (b = 0).</p>
+      <p><b>4)</b> Inversa: 80 × 3 = 240 → 240/120 = 2 h.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 1.6 ======================= -->
+<section class="tema">
+  <h2>1.6 Procedimientos algebraicos</h2>
+  <div class="reactivos">Reactivo 8 de la versión de práctica</div>
+
+  <p class="intro"><b>¿De qué trata esta lección?</b> De dos movimientos opuestos: <b>desarrollar</b> (quitar paréntesis multiplicando) y <b>factorizar</b> (escribir una expresión como multiplicación, o sea, “volver a poner paréntesis”). Es como armar y desarmar un mueble: si entiendes cómo se arma, sabrás desarmarlo. Factorizar es probablemente la habilidad algebraica que más vas a usar: sirve para simplificar fracciones, resolver ecuaciones de segundo grado y calcular límites.</p>
+
+  <h3>Multiplicar polinomios: todos contra todos</h3>
+  <p>Cada término del primer paréntesis multiplica a cada término del segundo: <span class="m">(a + b)(c + d) = ac + ad + bc + bd</span>.</p>
+  <p class="m" style="text-align:center">(x + 3)(x + 5) = x·x + x·5 + 3·x + 3·5 = x<sup>2</sup> + 8x + 15</p>
+
+  <h3>Productos notables: atajos que vale la pena saber</h3>
+  <p>Hay multiplicaciones que aparecen tanto que conviene saberse el resultado de memoria (y entender de dónde sale):</p>
+  <div class="dos">
+    <div>
+      <p><b>Cuadrado de una suma:</b> <span class="m">(a + b)<sup>2</sup> = a<sup>2</sup> + 2ab + b<sup>2</sup></span>. En palabras: “el cuadrado del primero, más el doble del primero por el segundo, más el cuadrado del segundo”. Sale de hacer todos contra todos: <span class="m">(a + b)(a + b) = a<sup>2</sup> + ab + ab + b<sup>2</sup></span>. La figura lo muestra: un cuadrado de lado <span class="m">a + b</span> se parte en un cuadrado <span class="m">a<sup>2</sup></span>, otro <span class="m">b<sup>2</sup></span> y dos rectángulos <span class="m">ab</span>.</p>
+      <p>Ejemplos: <span class="m">(2x + 3)<sup>2</sup> = 4x<sup>2</sup> + 12x + 9</span> &nbsp;·&nbsp; <span class="m">(x − 5)<sup>2</sup> = x<sup>2</sup> − 10x + 25</span> (con resta, el término de en medio queda negativo).</p>
+    </div>
+    <div class="fig"><!--FIG:binomio_cuadrado--></div>
+  </div>
+  <div class="caja ojo"><b class="t">Error común</b> Escribir <span class="m">(a + b)<sup>2</sup> = a<sup>2</sup> + b<sup>2</sup></span>. ¡Falta el <span class="m">2ab</span>! Compruébalo con números: (3 + 2)² = 25, pero 3² + 2² = 13.</div>
+  <ul>
+    <li><b>Binomios conjugados:</b> <span class="m">(a + b)(a − b) = a<sup>2</sup> − b<sup>2</sup></span>. Los términos de en medio se cancelan (+ab − ab). Ejemplo: <span class="m">(x + 7)(x − 7) = x<sup>2</sup> − 49</span>. Truco de cálculo mental: 21 × 19 = (20 + 1)(20 − 1) = 400 − 1 = 399.</li>
+    <li><b>Binomios con un término común:</b> <span class="m">(x + a)(x + b) = x<sup>2</sup> + (a + b)x + ab</span>. Ejemplo: <span class="m">(x + 3)(x − 5) = x<sup>2</sup> − 2x − 15</span>.</li>
+    <li><b>Binomios con término semejante:</b> <span class="m">(ax + b)(cx + d) = acx<sup>2</sup> + (ad + bc)x + bd</span>.</li>
+    <li><b>Cubo de un binomio:</b> <span class="m">(a ± b)<sup>3</sup> = a<sup>3</sup> ± 3a<sup>2</sup>b + 3ab<sup>2</sup> ± b<sup>3</sup></span>. Geométricamente: un cubo de arista a + b se parte en 8 piezas (dos cubos y seis prismas).</li>
+    <li><b>Suma y diferencia de cubos:</b> <span class="m">(a ± b)(a<sup>2</sup> ∓ ab + b<sup>2</sup>) = a<sup>3</sup> ± b<sup>3</sup></span>.</li>
+  </ul>
+
+  <h3>El binomio de Newton y el triángulo de Pascal</h3>
+  <div class="dos">
+    <div>
+      <p>Para <span class="m">(a + b)<sup>n</sup></span> con n grande no conviene multiplicar n veces. El <b>teorema del binomio</b> dice:</p>
+      <p class="m" style="text-align:center">(a + b)<sup>n</sup> = Σ C(n, j)·a<sup>n−j</sup>·b<sup>j</sup>, &nbsp;&nbsp; C(n, j) = <span class="fr"><span>n!</span><span>j!·(n − j)!</span></span></p>
+      <p>donde <span class="m">n! = 1·2·3·…·n</span> (por ejemplo 5! = 120). En la práctica: los exponentes de <span class="m">a</span> bajan de uno en uno, los de <span class="m">b</span> suben, y los coeficientes salen del <b>triángulo de Pascal</b>, donde cada número es la suma de los dos de arriba:</p>
+      <p class="m" style="text-align:center">(a + b)<sup>4</sup> = a<sup>4</sup> + 4a<sup>3</sup>b + 6a<sup>2</sup>b<sup>2</sup> + 4ab<sup>3</sup> + b<sup>4</sup></p>
+    </div>
+    <div class="pascal">1<br>1 &nbsp;1<br>1 &nbsp;2 &nbsp;1<br>1 &nbsp;3 &nbsp;3 &nbsp;1<br>1 &nbsp;4 &nbsp;6 &nbsp;4 &nbsp;1<br>1 &nbsp;5 &nbsp;10 &nbsp;10 &nbsp;5 &nbsp;1</div>
+  </div>
+
+  <h3>Factorizar: la lista de revisión</h3>
+  <p>Factorizar es escribir una expresión como producto de factores más sencillos (la suma de los grados de los factores da el grado original). Sigue siempre este orden:</p>
+
+  <h4>Paso 1. ¿Hay factor común? (siempre lo primero)</h4>
+  <p>El factor común se arma con el <b>máximo común divisor (mcd)</b> de los coeficientes y las letras que aparecen <b>en todos</b> los términos, cada una con su <b>menor</b> exponente.</p>
+  <div class="caja ejemplo"><b class="t">Ejemplo explicado (del temario): 2x²y + 6zx − 12z³yx</b>
+    <ol class="pasos">
+      <li><b>Números:</b> mcd(2, 6, 12) = 2.</li>
+      <li><b>Letras:</b> la x está en los tres términos (su menor exponente es 1); la y no está en 6zx y la z no está en 2x²y. Factor común: 2x.</li>
+      <li><b>Divido cada término entre 2x:</b> 2x²y/2x = xy; 6zx/2x = 3z; −12z³yx/2x = −6z³y.</li>
+      <li><b>Resultado:</b> 2x(xy + 3z − 6z³y). <span class="por">Compruébalo multiplicando: debes regresar a la expresión original.</span></li>
+    </ol>
+  </div>
+
+  <h4>Paso 2. Cuenta los términos</h4>
+  <p><b>Si tiene dos términos:</b></p>
+  <ul>
+    <li><b>Diferencia de cuadrados:</b> <span class="m">a<sup>2</sup> − b<sup>2</sup> = (a + b)(a − b)</span>: “raíz del primero más raíz del segundo, por raíz del primero menos raíz del segundo”. <span class="m">4x<sup>2</sup> − 9 = (2x + 3)(2x − 3)</span>. Del temario: <span class="m">4x<sup>2</sup> − 2z<sup>2</sup> = (2x + √2 z)(2x − √2 z)</span>.</li>
+    <li><b>Suma o diferencia de cubos:</b> <span class="m">a<sup>3</sup> ± b<sup>3</sup> = (a ± b)(a<sup>2</sup> ∓ ab + b<sup>2</sup>)</span>. Para los signos recuerda “<b>mismo, opuesto, siempre positivo</b>”: el binomio lleva el mismo signo, el término de en medio el opuesto y el último siempre +. Ejemplo: <span class="m">x<sup>3</sup> − 27 = (x − 3)(x<sup>2</sup> + 3x + 9)</span>.</li>
+    <li><b>Binomios xⁿ ± yⁿ en general:</b> si n es impar y el signo es −, sale el factor (x − y); si n es impar y el signo es +, sale (x + y); si n es par y el signo es −, salen (x + y)(x − y); si n es par y el signo es +, <b>no se factoriza</b> con números reales. Ejemplo: <span class="m">81x<sup>4</sup> − 16y<sup>4</sup> = (9x<sup>2</sup> − 4y<sup>2</sup>)(9x<sup>2</sup> + 4y<sup>2</sup>) = (3x − 2y)(3x + 2y)(9x<sup>2</sup> + 4y<sup>2</sup>)</span>.</li>
+  </ul>
+  <div class="caja ojo"><b class="t">Ojo con el documento del temario</b> En <i>Temas fundamentales</i> el ejemplo de x³ − 27 aparece factorizado como (x + 3)(x² + 3x + 9), y en el de 81x⁴ − 16y⁴ aparece (3x − 4y)(3x + 4y). Son erratas: lo correcto es <b>(x − 3)</b>(x² + 3x + 9) y <b>(3x − 2y)(3x + 2y)</b>. Compruébalo multiplicando, que es la mejor costumbre que puedes tener.</div>
+
+  <p><b>Si tiene tres términos:</b></p>
+  <ul>
+    <li><b>Trinomio cuadrado perfecto (TCP):</b> el primero y el último son cuadrados y el de en medio es el doble del producto de sus raíces. En <span class="m">9a<sup>2</sup> + 12ab + 4b<sup>2</sup></span>: √(9a²) = 3a, √(4b²) = 2b y 2·3a·2b = 12ab ✔ → <span class="m">(3a + 2b)<sup>2</sup></span>. El signo del binomio es el del término de en medio.</li>
+    <li><b>Trinomio x² + bx + c:</b> busca <b>dos números que multiplicados den c y sumados den b</b>. Pista de signos: si c es positivo, los dos números tienen el signo de b; si c es negativo, tienen signos distintos y el más grande lleva el signo de b.
+      <br>· <span class="m">x<sup>2</sup> + 7x + 12</span>: producto 12, suma 7 → 3 y 4 → <span class="m">(x + 3)(x + 4)</span>.
+      <br>· <span class="m">m<sup>2</sup> + 2m − 15</span>: producto −15, suma 2 → 5 y −3 → <span class="m">(m + 5)(m − 3)</span>.
+      <br>· <span class="m">x<sup>2</sup> − x − 12</span>: producto −12, suma −1 → −4 y 3 → <span class="m">(x − 4)(x + 3)</span>.</li>
+    <li><b>Trinomio ax² + bx + c con a ≠ 1 (método ac):</b> busca dos números que multiplicados den <b>a·c</b> y sumados den <b>b</b>; con ellos parte el término de en medio y factoriza por agrupación.</li>
+  </ul>
+  <div class="caja ejemplo"><b class="t">Ejemplo explicado (del temario): 10x² − 19x + 6</b>
+    <ol class="pasos">
+      <li><b>Multiplico a·c:</b> 10·6 = 60. Necesito dos números con producto 60 y suma −19. <span class="por">Producto positivo y suma negativa: los dos son negativos. −4 y −15 funcionan.</span></li>
+      <li><b>Parto el término de en medio:</b> 10x² − 15x − 4x + 6.</li>
+      <li><b>Agrupo de dos en dos y saco factor común:</b> 5x(2x − 3) − 2(2x − 3).</li>
+      <li><b>El paréntesis repetido es factor común:</b> (5x − 2)(2x − 3). <span class="por">Comprueba: 10x² − 15x − 4x + 6 = 10x² − 19x + 6 ✔.</span></li>
+    </ol>
+  </div>
+
+  <p><b>Si tiene cuatro términos:</b></p>
+  <ul>
+    <li><b>Agrupación:</b> <span class="m">ac + ad + bc + bd = a(c + d) + b(c + d) = (a + b)(c + d)</span>. Del temario: <span class="m">12xy + 9cy + 3cx + 4x<sup>2</sup> = (12xy + 4x<sup>2</sup>) + (9cy + 3cx) = 4x(3y + x) + 3c(3y + x) = (4x + 3c)(3y + x)</span>. Si una agrupación no deja un paréntesis repetido, prueba otra.</li>
+    <li><b>Cubo perfecto:</b> <span class="m">a<sup>3</sup> + 3a<sup>2</sup>b + 3ab<sup>2</sup> + b<sup>3</sup> = (a + b)<sup>3</sup></span>. Del temario: <span class="m">343z<sup>3</sup> + 735z<sup>2</sup> + 525z + 125 = (7z + 5)<sup>3</sup></span>, porque ∛343z³ = 7z, ∛125 = 5, 3·(7z)²·5 = 735z² y 3·7z·25 = 525z.</li>
+  </ul>
+
+  <h4>Paso 3. Grado 3 o más: teorema del factor y división sintética</h4>
+  <p>Si al sustituir <span class="m">x = r</span> el polinomio da <b>0</b>, entonces <span class="m">(x − r)</span> es un factor. ¿Qué números probar? Los divisores del término independiente, con signo + y −. Cuando encuentras uno, divides con <b>división sintética</b> para obtener el otro factor:</p>
+  <div class="dos">
+    <div>
+      <table class="sint">
+        <tr><td class="raiz"></td><td>1</td><td>−3</td><td>−9</td><td>23</td><td>−12</td></tr>
+        <tr><td class="raiz">1</td><td></td><td>1</td><td>−2</td><td>−11</td><td>12</td></tr>
+        <tr><td class="raiz"></td><td>1</td><td>−2</td><td>−11</td><td>12</td><td class="res">0</td></tr>
+      </table>
+      <p class="pie">x⁴ − 3x³ − 9x² + 23x − 12 entre (x − 1)</p>
+    </div>
+    <div>
+      <ol class="pasos">
+        <li>Escribe los coeficientes en orden (si falta una potencia, pon 0) y a la izquierda la raíz que pruebas.</li>
+        <li><b>Baja</b> el primer coeficiente: 1.</li>
+        <li><b>Multiplica</b> por la raíz y escribe el resultado bajo el siguiente: 1·1 = 1. <b>Suma</b>: −3 + 1 = −2.</li>
+        <li>Repite: −2·1 = −2 → −9 − 2 = −11; −11·1 = −11 → 23 − 11 = 12; 12·1 = 12 → −12 + 12 = 0.</li>
+        <li>El último número es el <b>residuo</b>: si es 0, sí era factor. Los demás son el cociente, un grado menor: <span class="m">x<sup>3</sup> − 2x<sup>2</sup> − 11x + 12</span>.</li>
+      </ol>
+    </div>
+  </div>
+  <div class="caja idea"><b class="t">Al terminar, pregúntate (lo recomienda el temario)</b> ¿Algún factor se puede factorizar todavía más? ¿Usé bien las leyes de los signos? ¿Al multiplicar los factores regreso a la expresión original? ¿Si sustituyo un número cualquiera (x = 2, por ejemplo) en la expresión original y en la factorizada, me da lo mismo?</div>
+
+  <div class="caja examen">
+    <div class="enc">Reactivo 8 del examen</div>
+    <div class="preg">Para factorizar x⁴ − 3x³ − 9x² + 23x − 12 se reescriben el segundo, tercer y cuarto términos como −x³ − 2x³, −11x² + 2x² y 11x + 12x. Así se extrae el factor ____, obteniendo x³ − 2x² − 11x + 12. Para éste se reescriben −x² − x² y −12x + x, y se extrae un nuevo factor ____. El polinomio resultante x² − x − 12 se factoriza con ____ y ____. &nbsp; A) (x + 1) – (x − 3) – (x − 2) – (x + 6) &nbsp; B) (x − 1) – (x − 1) – (x − 4) – (x + 3) &nbsp; C) (x − 2) – (x − 3) – (x − 1) – (x + 2) &nbsp; D) (x − 1) – (x + 2) – (x + 3) – (x − 4)</div>
+    <p><b>Cómo lo pienso:</b> el texto está usando <b>agrupación</b>. Sigámoslo:</p>
+    <ol class="pasos">
+      <li><b>Reescribo y agrupo de dos en dos:</b> (x⁴ − x³) + (−2x³ + 2x²) + (−11x² + 11x) + (12x − 12) = x³(x − 1) − 2x²(x − 1) − 11x(x − 1) + 12(x − 1). El paréntesis repetido es <b>(x − 1)</b>, y queda (x − 1)(x³ − 2x² − 11x + 12).</li>
+      <li><b>Hago lo mismo con el cúbico:</b> (x³ − x²) + (−x² + x) + (−12x + 12) = x²(x − 1) − x(x − 1) − 12(x − 1) → otra vez <b>(x − 1)</b>, y queda x² − x − 12.</li>
+      <li><b>Trinomio final:</b> producto −12 y suma −1 → −4 y 3 → <b>(x − 4)(x + 3)</b>.</li>
+    </ol>
+    <p class="chico"><b>Atajo para opción múltiple:</b> prueba el primer factor de cada opción con el teorema del factor. Para (x + 1), P(−1) = 1 + 3 − 9 − 23 − 12 = −40 ≠ 0 ✗. Para (x − 2), P(2) = 16 − 24 − 36 + 46 − 12 = −10 ≠ 0 ✗. La D empieza bien, pero su segundo factor (x + 2) no anula al cúbico: (−8) − 8 + 22 + 12 = 18 ≠ 0 ✗. Solo queda la B. La división sintética de arriba confirma el mismo resultado.</p>
+    <span class="resp">Respuesta: B) (x − 1) – (x − 1) – (x − 4) – (x + 3)</span>
+  </div>
+
+  <div class="caja practica"><b class="t">Ahora tú</b>
+    <ol>
+      <li>6x² + x − 2 &nbsp;&nbsp; 2) x³ + 27 &nbsp;&nbsp; 3) x⁴ − 16 &nbsp;&nbsp; 4) 2xy + 6x + y + 3 &nbsp;&nbsp; 5) 8a³ + 12a²b + 6ab² + b³</li>
+      <li value="6">¿Cuál es el coeficiente de x²y³ al desarrollar (x + y)⁵?</li>
+      <li>Calcula mentalmente 31 × 29.</li>
+    </ol>
+    <div class="sol">
+      <p><b>1)</b> a·c = −12; números con producto −12 y suma 1: 4 y −3. 6x² + 4x − 3x − 2 = 2x(3x + 2) − 1(3x + 2) = (3x + 2)(2x − 1).</p>
+      <p><b>2)</b> Suma de cubos (a = x, b = 3): (x + 3)(x² − 3x + 9).</p>
+      <p><b>3)</b> Diferencia de cuadrados dos veces: (x² − 4)(x² + 4) = (x − 2)(x + 2)(x² + 4). El x² + 4 ya no se factoriza (es suma).</p>
+      <p><b>4)</b> 2x(y + 3) + 1(y + 3) = (2x + 1)(y + 3).</p>
+      <p><b>5)</b> ∛8a³ = 2a y ∛b³ = b; 3(2a)²b = 12a²b ✔: (2a + b)³.</p>
+      <p><b>6)</b> Es C(5, 3) = 10 (renglón 1, 5, 10, 10, 5, 1 de Pascal).</p>
+      <p><b>7)</b> (30 + 1)(30 − 1) = 900 − 1 = 899.</p>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,291 @@
+<!-- ======================= 1.1 ======================= -->
+<section class="tema">
+  <h2>1.1 Concepto y uso de los números</h2>
+  <div class="reactivos">Reactivo 1 de la versión de práctica</div>
+
+  <p class="intro"><b>¿De qué trata esta lección?</b> Antes de operar necesitas saber con qué tipo de números trabajas y qué reglas obedecen. Es como aprender las reglas de un juego antes de jugarlo: todo lo que viene después (ecuaciones, funciones, cálculo) está construido sobre estas reglas. Si algo de álgebra “no te sale”, muchas veces el problema está aquí: un signo, una fracción o un exponente.</p>
+
+  <h3>Un poco de historia</h3>
+  <p>Los números nacieron de necesidades muy concretas: contar animales, repartir cosechas, medir terrenos. Cada civilización inventó su propio sistema. Los egipcios contaban de 10 en 10, como nosotros, pero con un símbolo distinto para cada potencia de diez. Los babilonios contaban de 60 en 60, y de ahí viene que una hora tenga 60 minutos y una vuelta completa mida 360°. Los mayas contaban de 20 en 20 con puntos y barras, y fueron de los primeros pueblos en usar el <b>cero</b>.</p>
+
+  <h3>Los conjuntos de números: cajas dentro de cajas</h3>
+  <p>Imagina los números guardados en cajas, una dentro de otra. Cada caja nueva apareció porque la anterior “no alcanzaba” para resolver algún problema:</p>
+  <div class="dos">
+    <div>
+      <ul>
+        <li><b>Naturales ℕ = {0, 1, 2, 3, …}</b>: los de contar. Ojo: en este temario el 0 sí cuenta como natural.</li>
+        <li><b>Enteros ℤ = {…, −2, −1, 0, 1, 2, …}</b>: agregan los negativos. ¿Cuánto es 3 − 5? Con naturales no se puede; con enteros sí: −2. Los usas en temperaturas bajo cero, deudas o pisos de sótano.</li>
+        <li><b>Racionales ℚ</b>: todo lo que se puede escribir como fracción <span class="m">p/q</span> (con <span class="m">q ≠ 0</span>). ¿Cómo repartes 3 pizzas entre 4 personas? 3/4 para cada uno. Todo entero también es racional: 5 = 5/1.</li>
+        <li><b>Irracionales 𝕀</b>: los que <i>no</i> se pueden escribir como fracción: √2 = 1.41421…, π = 3.14159…, e = 2.71828…</li>
+        <li><b>Reales ℝ</b>: racionales e irracionales juntos. Son todos los puntos de la recta numérica.</li>
+        <li><b>Complejos ℂ</b>: números como <span class="m">a + bi</span>, con <span class="m">i = √−1</span>. Aparecen cuando una ecuación pide la raíz cuadrada de un negativo (lo verás en 1.21).</li>
+      </ul>
+    </div>
+    <div class="fig"><!--FIG:conjuntos--></div>
+  </div>
+
+  <div class="caja idea"><b class="t">Piénsalo así: ¿racional o irracional?</b>
+    Fíjate en su decimal. Si <b>se termina</b> (0.75 = 3/4) o <b>se repite</b> (0.333… = 1/3, 0.2727… = 3/11), es racional. Si sigue para siempre <b>sin repetirse</b> (π, √2, √3), es irracional. Con las raíces: √9 = 3 es racional porque 9 es un cuadrado perfecto (3 × 3); √7 no lo es, así que √7 es irracional.
+  </div>
+
+  <h3>La recta numérica: el que está más a la derecha es mayor</h3>
+  <p>Los reales se acomodan en una recta: el 0 en medio, los positivos a la derecha (<span class="m">x &gt; 0</span>) y los negativos a la izquierda (<span class="m">x &lt; 0</span>). Para comparar dos números hay una sola regla: <b>el que está más a la derecha es el mayor</b>. Por eso −2 &gt; −5, aunque 5 “se vea” más grande: −2 está más a la derecha. Si te confunde, piensa en temperaturas: −2 °C es menos frío que −5 °C.</p>
+  <div class="fig"><!--FIG:recta_numerica--></div>
+
+  <h3>Las reglas del juego: propiedades de los números reales</h3>
+  <p>Los reales cumplen unas reglas (por eso el temario dice que forman un <b>campo</b>). No necesitas recitar los nombres; lo importante es entender qué permite hacer cada una:</p>
+  <table>
+    <tr><th style="width:17%">Propiedad</th><th>Qué significa</th><th style="width:36%">Ejemplo</th></tr>
+    <tr><td><b>Conmutativa</b></td><td>El orden no cambia el resultado al sumar o al multiplicar.</td><td class="m">500 + (−49) = (−49) + 500 &nbsp; √2·4 = 4·√2</td></tr>
+    <tr><td><b>Asociativa</b></td><td>Puedes agrupar como quieras al sumar o al multiplicar.</td><td class="m">8 + (1 + 3) = (8 + 1) + 3 = 12</td></tr>
+    <tr><td><b>Elemento neutro</b></td><td>El número que “no hace nada”: el 0 al sumar y el 1 al multiplicar.</td><td class="m">π/2 + 0 = π/2 &nbsp; 200·1 = 200</td></tr>
+    <tr><td><b>Inverso</b></td><td>El que te regresa al neutro: el opuesto (−a) al sumar; el recíproco (1/a) al multiplicar.</td><td class="m">2/3 + (−2/3) = 0 &nbsp; 8.55·(1/8.55) = 1</td></tr>
+    <tr><td><b>Distributiva</b></td><td>Multiplicar por una suma es multiplicar por cada sumando.</td><td class="m">2·(1 + ½) = 2·1 + 2·½ = 3</td></tr>
+  </table>
+  <div class="caja ojo"><b class="t">Error común</b>
+    La resta y la división <b>no</b> son conmutativas: 5 − 3 = 2, pero 3 − 5 = −2; 8 ÷ 2 = 4, pero 2 ÷ 8 = 0.25. Y el 0 no tiene recíproco: <b>nunca se divide entre cero</b>.
+  </div>
+
+  <h3>Leyes de los signos</h3>
+  <p>Al <b>multiplicar o dividir</b>: signos iguales dan positivo y signos diferentes dan negativo. (8)(−2) = −16; (−1)(−3) = 3; (−12) ÷ (−4) = 3; 15 ÷ (−3) = −5.</p>
+  <div class="caja idea"><b class="t">Para recordarlo</b>
+    El amigo de mi amigo es mi amigo (+ · + = +). El enemigo de mi enemigo es mi amigo (− · − = +). El amigo de mi enemigo es mi enemigo (+ · − = −).
+  </div>
+  <p>Ojo, eso es para multiplicar. Al <b>sumar</b> números de signo distinto, los restas y te quedas con el signo del que tenga más “tamaño”: −8 + 3 = −5 (debías 8, pagaste 3, aún debes 5).</p>
+
+  <h3>Leyes de los exponentes (y por qué funcionan)</h3>
+  <p>Un exponente dice cuántas veces se multiplica la base por sí misma: <span class="m">2<sup>4</sup> = 2·2·2·2 = 16</span>. Casi todas las leyes salen simplemente de <b>contar factores</b>, así que si un día olvidas una, puedes reconstruirla:</p>
+  <table>
+    <tr><th style="width:24%">Ley</th><th>¿Por qué?</th><th style="width:22%">Ejemplo</th></tr>
+    <tr><td class="m">x<sup>a</sup> · x<sup>b</sup> = x<sup>a+b</sup></td><td>Juntas los factores: (2·2·2)(2·2) son cinco doses.</td><td class="m">2<sup>3</sup>·2<sup>2</sup> = 2<sup>5</sup> = 32</td></tr>
+    <tr><td class="m">x<sup>a</sup> / x<sup>b</sup> = x<sup>a−b</sup></td><td>Los factores de abajo cancelan a los de arriba.</td><td class="m">2<sup>5</sup>/2<sup>2</sup> = 2<sup>3</sup> = 8</td></tr>
+    <tr><td class="m">x<sup>0</sup> = 1</td><td>2³/2³ = 1, y con la ley anterior eso es 2<sup>3−3</sup> = 2⁰.</td><td class="m">7<sup>0</sup> = 1</td></tr>
+    <tr><td class="m">x<sup>−b</sup> = 1/x<sup>b</sup></td><td>2²/2⁵ deja tres doses abajo: 1/2³. Y por la ley de la división es 2<sup>−3</sup>.</td><td class="m">2<sup>−3</sup> = 1/8</td></tr>
+    <tr><td class="m">(x<sup>a</sup>)<sup>b</sup> = x<sup>a·b</sup></td><td>(2²)³ = 2²·2²·2²: seis doses.</td><td class="m">(2<sup>2</sup>)<sup>3</sup> = 2<sup>6</sup> = 64</td></tr>
+    <tr><td class="m">(x·y)<sup>a</sup> = x<sup>a</sup>·y<sup>a</sup></td><td>Cada factor se repite a veces.</td><td class="m">(2·5)<sup>2</sup> = 4·25 = 100</td></tr>
+    <tr><td class="m">x<sup>a/b</sup> = <sup>b</sup>√x<sup>a</sup></td><td>El denominador del exponente es el índice de la raíz.</td><td class="m">8<sup>2/3</sup> = (∛8)<sup>2</sup> = 4</td></tr>
+  </table>
+  <div class="caja idea"><b class="t">Piénsalo así</b> Un exponente negativo es un boleto para cambiarte de piso en la fracción: <span class="m">x<sup>−3</sup> = 1/x<sup>3</sup></span> y <span class="m">1/x<sup>−3</sup> = x<sup>3</sup></span>. El número <b>no</b> se vuelve negativo: 2<sup>−3</sup> = 0.125, que es positivo.</div>
+
+  <div class="caja ejemplo"><b class="t">Ejemplo explicado: simplifica 5² · 25³</b>
+    <ol class="pasos">
+      <li><b>Iguala las bases.</b> No puedes juntar exponentes con bases distintas (5 y 25), pero 25 = 5², así que escribe 5²·(5²)³. <span class="por">Buscar una base común es el primer paso en casi todos los ejercicios de exponentes.</span></li>
+      <li><b>Potencia de potencia.</b> (5²)³ = 5<sup>2·3</sup> = 5⁶.</li>
+      <li><b>Misma base que se multiplica: suma exponentes.</b> 5²·5⁶ = 5<sup>2+6</sup> = <b>5⁸</b>.</li>
+    </ol>
+  </div>
+
+  <h3>Fracciones sin miedo</h3>
+  <ul>
+    <li><b>Mismo denominador:</b> sumas los de arriba y el de abajo se queda: 2/7 + 3/7 = 5/7. (Si tienes 2 rebanadas de 7 y te dan 3 más, tienes 5 de 7.)</li>
+    <li><b>Distinto denominador:</b> primero hay que llevarlas al mismo denominador. El atajo es <span class="m">x/y + a/b = (x·b + y·a)/(y·b)</span>. Ejemplo: 3/8 + 9/4 = (3·4 + 9·8)/(8·4) = 84/32 = 21/8. También puedes notar que 9/4 = 18/8, y entonces 3/8 + 18/8 = 21/8: llegas a lo mismo con números más chicos.</li>
+    <li><b>Multiplicar:</b> arriba por arriba y abajo por abajo: 2/3 · 5/7 = 10/21.</li>
+    <li><b>Dividir:</b> multiplica por la segunda fracción volteada (su recíproco): 1/2 ÷ 4/3 = 1/2 · 3/4 = 3/8.</li>
+    <li><b>Simplificar:</b> divide arriba y abajo entre el mismo número: 84/32 → ÷4 → 21/8. La fracción vale lo mismo, solo se escribe más corta.</li>
+  </ul>
+
+  <h3>Comparar y ordenar fracciones (lo que pide el examen)</h3>
+  <p>Hay tres caminos; usa el que te resulte más cómodo:</p>
+  <ol>
+    <li><b>Pasar a decimal:</b> divide el de arriba entre el de abajo. 7/12 = 0.583…</li>
+    <li><b>Común denominador:</b> escribe todas con el mismo denominador y compara solo los numeradores. Es el más seguro si no tienes calculadora.</li>
+    <li><b>Multiplicar en cruz</b> (para comparar dos): <span class="m">a/b</span> es mayor que <span class="m">c/d</span> si <span class="m">a·d &gt; c·b</span>. ¿2/3 o 7/12? 2·12 = 24 y 7·3 = 21; como 24 &gt; 21, 2/3 es mayor.</li>
+  </ol>
+
+  <h3>Notación científica</h3>
+  <p>Sirve para escribir números muy grandes o muy pequeños sin tantos ceros: un número entre 1 y 10 multiplicado por una potencia de 10. Cuenta cuántos lugares mueves el punto decimal: si el número es grande, el exponente es positivo; si es pequeño (0.000…), es negativo.</p>
+  <p>3 450 000 = 3.45 × 10⁶ (el punto se movió 6 lugares a la izquierda) · 0.00045 = 4.5 × 10⁻⁴ (se movió 4 lugares a la derecha) · el gúgol es 10¹⁰⁰, un 1 seguido de cien ceros.</p>
+
+  <div class="caja examen">
+    <div class="enc">Reactivo 1 del examen</div>
+    <div class="preg">Del siguiente listado de números racionales, ordene de menor a mayor: 1. 1/5 &nbsp; 2. 2/3 &nbsp; 3. 7/12. &nbsp; A) 1, 3, 2 &nbsp; B) 2, 1, 3 &nbsp; C) 2, 3, 1 &nbsp; D) 3, 1, 2</div>
+    <p><b>Cómo lo pienso:</b> lo resuelvo con común denominador, que no necesita calculadora.</p>
+    <ol class="pasos">
+      <li><b>Busco un denominador que sirva para los tres:</b> un múltiplo de 5, de 3 y de 12. El 60 sirve. <span class="por">60 ÷ 5 = 12, 60 ÷ 3 = 20 y 60 ÷ 12 = 5: los tres caben exacto.</span></li>
+      <li><b>Convierto:</b> 1/5 = 12/60 · 2/3 = 40/60 · 7/12 = 35/60. <span class="por">Multiplico arriba y abajo por el mismo número, así cada fracción conserva su valor.</span></li>
+      <li><b>Comparo numeradores:</b> 12 &lt; 35 &lt; 40, o sea 1/5 &lt; 7/12 &lt; 2/3. El orden es 1, 3, 2.</li>
+    </ol>
+    <p class="chico">Comprobación con decimales: 0.20 &lt; 0.583 &lt; 0.667 ✔. La B y la C empiezan con 2/3, que es el más grande; la D pone 7/12 antes que 1/5, y 7/12 es más de la mitad.</p>
+    <span class="resp">Respuesta: A) 1, 3, 2</span>
+  </div>
+
+  <div class="caja ojo"><b class="t">Error común</b> Creer que la fracción con el denominador más grande es la más chica. 7/12 tiene el denominador más grande y aun así es mayor que 1/5: importa la relación entre arriba y abajo, no un solo número. Y con negativos el orden se invierte: −1/5 es mayor que −2/3.</div>
+
+  <div class="caja practica"><b class="t">Ahora tú</b>
+    <ol>
+      <li>¿Qué propiedad se usa en 3·(4 + 5) = 3·4 + 3·5? ¿Y en 500 + (−49) = (−49) + 500?</li>
+      <li>Calcula 3/8 + 9/4 y 2/5 ÷ 4/3.</li>
+      <li>Simplifica (x³ · x⁵) / x².</li>
+      <li>Ordena de menor a mayor: −1/2, 1/3, −3/4, 0.</li>
+      <li>¿A qué conjuntos pertenece −7? ¿Y π? ¿Y 0.121212…?</li>
+    </ol>
+    <div class="sol">
+      <p><b>1)</b> Distributiva; conmutativa de la suma.</p>
+      <p><b>2)</b> 3/8 + 18/8 = 21/8. Para dividir volteo la segunda: 2/5 · 3/4 = 6/20 = 3/10.</p>
+      <p><b>3)</b> Arriba se suman exponentes: x⁸; luego se restan: x<sup>8−2</sup> = x⁶.</p>
+      <p><b>4)</b> −3/4 &lt; −1/2 &lt; 0 &lt; 1/3 (−0.75 está más a la izquierda que −0.5).</p>
+      <p><b>5)</b> −7 está en ℤ, ℚ y ℝ (y ℂ). π está en 𝕀 y ℝ. 0.1212… se repite, así que es racional (es 4/33).</p>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 1.2 ======================= -->
+<section class="tema">
+  <h2>1.2 Álgebra básica</h2>
+  <div class="reactivos">Reactivo 2 de la versión de práctica</div>
+
+  <p class="intro"><b>¿De qué trata esta lección?</b> El álgebra es aritmética con letras. Las letras guardan el lugar de números que no conoces o que pueden cambiar. Si un kilo de tortillas cuesta <span class="m">x</span> pesos, 3 kilos cuestan <span class="m">3x</span>: la expresión funciona cueste lo que cueste. Esa es la gran ventaja del álgebra: resuelves un problema una sola vez y sirve para todos los casos.</p>
+
+  <h3>Las piezas de una expresión algebraica</h3>
+  <p>Una <b>variable</b> es una letra que representa un valor desconocido o que cambia. Normalmente se usa <span class="m">x</span>, pero si la cantidad tiene nombre se usa su inicial: <span class="m">t</span> para tiempo, <span class="m">T</span> para temperatura, <span class="m">A</span> para área, <span class="m">V</span> para volumen.</p>
+  <p>Un <b>término</b> es un número multiplicado por una o más variables. Tiene un <b>coeficiente</b> (el número, con su signo) y una <b>parte literal</b> (las letras con sus exponentes):</p>
+  <table>
+    <tr><th>Término</th><th>Coeficiente</th><th>Parte literal</th><th>Grado</th></tr>
+    <tr><td class="m">−5x<sup>2</sup>y</td><td>−5</td><td class="m">x<sup>2</sup>y</td><td>2 + 1 = 3</td></tr>
+    <tr><td class="m">6by<sup>3</sup></td><td>6</td><td class="m">by<sup>3</sup></td><td>1 + 3 = 4</td></tr>
+    <tr><td class="m">x<sup>2</sup></td><td>1 (el 1 no se escribe)</td><td class="m">x<sup>2</sup></td><td>2</td></tr>
+    <tr><td class="m">−8</td><td>−8</td><td>(ninguna)</td><td>0</td></tr>
+  </table>
+
+  <h3>Monomio, binomio, trinomio, polinomio</h3>
+  <p>El prefijo te dice cuántos términos hay: <b>mono</b> = uno, <b>bi</b> = dos, <b>tri</b> = tres, <b>poli</b> = muchos (como monociclo, bicicleta, triciclo). Los términos se separan con <b>+</b> o <b>−</b>; una multiplicación no separa términos, así que <span class="m">6by<sup>3</sup></span> es un solo término.</p>
+  <table>
+    <tr><th>Nombre</th><th>Términos</th><th>Ejemplos</th></tr>
+    <tr><td>Monomio</td><td>uno</td><td class="m">2θ, &nbsp;x<sup>2</sup>, &nbsp;6by<sup>3</sup>, &nbsp;−cz<sup>2</sup>y</td></tr>
+    <tr><td>Binomio</td><td>dos</td><td class="m">4a − bz, &nbsp;8x<sup>2</sup> + yz</td></tr>
+    <tr><td>Trinomio</td><td>tres</td><td class="m">ct<sup>2</sup> − at + 6b</td></tr>
+    <tr><td>Polinomio</td><td>n (cualquier cantidad)</td><td class="m">3 + 2x<sup>2</sup> + z<sup>3</sup> + xy − y<sup>4</sup></td></tr>
+  </table>
+
+  <h3>El grado</h3>
+  <ul>
+    <li><b>De un término con una variable:</b> su exponente. <span class="m">5x<sup>2</sup></span> es de grado 2; <span class="m">2t</span> es de grado 1 (si no ves exponente, es 1).</li>
+    <li><b>De un término con varias variables:</b> la suma de los exponentes. <span class="m">x<sup>2</sup>y<sup>3</sup></span> es de grado 5.</li>
+    <li><b>De un número solo:</b> grado 0, porque 12 = 12x⁰.</li>
+    <li><b>De la expresión completa:</b> el del término de mayor grado. En <span class="m">t<sup>2</sup> + 10t − 8</span> los grados son 2, 1 y 0, así que el polinomio es de grado 2.</li>
+  </ul>
+
+  <h3>Términos semejantes: solo se suman manzanas con manzanas</h3>
+  <p>3 manzanas + 2 manzanas = 5 manzanas, pero 3 manzanas + 2 naranjas no se pueden juntar en un solo número. En álgebra, “la fruta” es la parte literal: dos términos son <b>semejantes</b> si tienen exactamente las mismas letras con los mismos exponentes. Para sumarlos, sumas los coeficientes y la parte literal se queda igual:</p>
+  <p class="m" style="text-align:center">3x<sup>2</sup> + 5x<sup>2</sup> = 8x<sup>2</sup> &nbsp;&nbsp;·&nbsp;&nbsp; 7ab − 2ab = 5ab &nbsp;&nbsp;·&nbsp;&nbsp; 3x<sup>2</sup> + 5x &nbsp;(no se pueden juntar)</p>
+  <div class="caja ojo"><b class="t">Error común</b> Escribir <span class="m">x<sup>2</sup> + x<sup>2</sup> = x<sup>4</sup></span>. Al <b>sumar</b> el exponente no cambia: <span class="m">x<sup>2</sup> + x<sup>2</sup> = 2x<sup>2</sup></span> (dos veces x²). El exponente solo cambia al <b>multiplicar</b>: <span class="m">x<sup>2</sup> · x<sup>2</sup> = x<sup>4</sup></span>.</div>
+
+  <h3>Sumar y restar polinomios</h3>
+  <div class="caja ejemplo"><b class="t">Ejemplo explicado (del temario): suma y resta de (x² − 8y³) y (y² − x² − 3y³)</b>
+    <p><b>Suma:</b> (x² − 8y³) + (y² − x² − 3y³)</p>
+    <ol class="pasos">
+      <li><b>Quita los paréntesis.</b> Con un “+” delante, los signos no cambian: x² − 8y³ + y² − x² − 3y³.</li>
+      <li><b>Junta los semejantes.</b> (x² − x²) + (−8y³ − 3y³) + y².</li>
+      <li><b>Opera.</b> 0 − 11y³ + y² = <b>−11y³ + y²</b>.</li>
+    </ol>
+    <p><b>Resta:</b> (x² − 8y³) − (y² − x² − 3y³)</p>
+    <ol class="pasos">
+      <li><b>El “−” antes del paréntesis cambia el signo de todo lo de adentro:</b> x² − 8y³ − y² + x² + 3y³. <span class="por">Es como multiplicar cada término por −1.</span></li>
+      <li><b>Junta semejantes:</b> (x² + x²) + (−8y³ + 3y³) − y².</li>
+      <li><b>Opera:</b> <b>2x² − 5y³ − y²</b>.</li>
+    </ol>
+    <p>Si restas en el otro orden obtienes lo mismo con todos los signos cambiados: <span class="m">a − b = −(b − a)</span>.</p>
+  </div>
+
+  <div class="caja examen">
+    <div class="enc">Reactivo 2 del examen</div>
+    <div class="preg">¿Cuál es el grado de la expresión 4x³ + 8x² + y² − x + 2y + 12? &nbsp; A) 2 &nbsp; B) 3 &nbsp; C) 8 &nbsp; D) 12</div>
+    <ol class="pasos">
+      <li><b>Saco el grado de cada término:</b> 4x³ → 3 · 8x² → 2 · y² → 2 · −x → 1 · 2y → 1 · 12 → 0.</li>
+      <li><b>Me quedo con el mayor:</b> 3.</li>
+    </ol>
+    <p class="chico"><b>Por qué no las otras:</b> 2 es el grado de y², una trampa si solo te fijas en la otra variable; 8 es un coeficiente; 12 es el término independiente. Ninguno es “el grado”.</p>
+    <span class="resp">Respuesta: B) 3</span>
+  </div>
+
+  <div class="caja practica"><b class="t">Ahora tú</b>
+    <ol>
+      <li>¿Grado de 5x²y³ − 3x⁴ + 7? ¿Es monomio, binomio o trinomio?</li>
+      <li>(3x² − 2x + 5) + (−x² + 6x − 8)</li>
+      <li>(4a² − 3ab) − (a² + 5ab − 2)</li>
+      <li>¿Cuánto es 2x³ + 3x³? ¿Y 2x³ · 3x³?</li>
+    </ol>
+    <div class="sol">
+      <p><b>1)</b> Grados 5 (2 + 3), 4 y 0: el polinomio es de grado 5. Tiene tres términos: trinomio.</p>
+      <p><b>2)</b> (3x² − x²) + (−2x + 6x) + (5 − 8) = 2x² + 4x − 3.</p>
+      <p><b>3)</b> El menos cambia los signos: 4a² − 3ab − a² − 5ab + 2 = 3a² − 8ab + 2.</p>
+      <p><b>4)</b> Sumar semejantes: 5x³. Multiplicar: 2·3 = 6 y x<sup>3+3</sup>, o sea 6x⁶.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 1.3 ======================= -->
+<section class="tema">
+  <h2>1.3 Lenguaje algebraico</h2>
+  <div class="reactivos">Reactivo 3 de la versión de práctica</div>
+
+  <p class="intro"><b>¿De qué trata esta lección?</b> Los problemas del examen casi nunca vienen como ecuaciones: vienen en palabras. Tu primer trabajo es <b>traducir del español al idioma de las matemáticas</b>. Si traduces bien, ya hiciste la mitad del problema; si traduces mal, aunque hagas perfectas las cuentas, el resultado sale mal.</p>
+
+  <h3>El método en tres pasos</h3>
+  <ol class="pasos">
+    <li><b>Ponle letra a cada cantidad desconocida</b> y escribe qué significa: “x = edad del hermano”. Si una cantidad depende de otra (“el triple de…”), usa la misma letra: así tendrás menos incógnitas.</li>
+    <li><b>Traduce frase por frase</b> con el diccionario de abajo.</li>
+    <li><b>Busca la palabra que hace de “=”:</b> es, son, equivale, da, resulta, corresponde, se obtiene.</li>
+  </ol>
+
+  <table>
+    <tr><th>Operación</th><th>Frase</th><th style="width:22%">Expresión</th></tr>
+    <tr><td rowspan="2">Suma</td><td>la suma de dos números · nueve unidades más un número</td><td class="m">x + y · 9 + x</td></tr>
+    <tr><td>un número aumentado en tres unidades</td><td class="m">a + 3</td></tr>
+    <tr><td rowspan="2">Resta</td><td>la diferencia entre dos números · cinco unidades reducidas por un número</td><td class="m">x − y · 5 − x</td></tr>
+    <tr><td>un número reducido (disminuido) en seis unidades</td><td class="m">y − 6</td></tr>
+    <tr><td>Multiplicación</td><td>el doble de un número · el triple · el producto de dos números</td><td class="m">2a · 3a · a·b</td></tr>
+    <tr><td>División</td><td>el cociente de dos números · la tercera parte de un número · ocho entre un número</td><td class="m">a/b · x/3 · 8/b</td></tr>
+    <tr><td>Potencias</td><td>el cuadrado de un número · un número al cubo · 20 elevado a la x</td><td class="m">x<sup>2</sup> · a<sup>3</sup> · 20<sup>x</sup></td></tr>
+    <tr><td>Igualdad</td><td>es igual a, equivale a, corresponde a, da como resultado</td><td class="m">=</td></tr>
+    <tr><td>Desigualdad</td><td>siete es mayor o igual que un número · cuatro es menor que un número</td><td class="m">7 ≥ a · 4 &lt; y</td></tr>
+  </table>
+  <p>Otras que conviene tener: números <b>consecutivos</b> <span class="m">x, x + 1, x + 2</span>; un número <b>par</b> <span class="m">2n</span> y uno <b>impar</b> <span class="m">2n + 1</span>.</p>
+
+  <h3>Las trampas de la traducción</h3>
+  <ul>
+    <li><b>El orden en la resta:</b> “5 menos un número” es <span class="m">5 − x</span>, pero “un número disminuido en 5” y “5 menos que un número” son <span class="m">x − 5</span>.</li>
+    <li><b>Qué abarca cada palabra:</b> “el doble de un número más 3” es <span class="m">2x + 3</span>; “el doble de la suma de un número y 3” es <span class="m">2(x + 3)</span>.</li>
+    <li><b>Cuadrado de la suma vs. suma de cuadrados:</b> <span class="m">(x + y)<sup>2</sup></span> no es lo mismo que <span class="m">x<sup>2</sup> + y<sup>2</sup></span>.</li>
+    <li><b>Producto</b> es multiplicar; <b>cociente</b> y <b>razón</b> son dividir.</li>
+    <li><b>“El mismo número”</b> lleva la misma letra; <b>“otro número”</b> lleva una letra diferente.</li>
+  </ul>
+
+  <div class="caja ejemplo"><b class="t">Ejemplo explicado: plantear y resolver</b>
+    <div class="preg">“La edad de Ana es el triple de la de su hermano y entre los dos suman 48 años. ¿Qué edad tiene cada uno?”</div>
+    <ol class="pasos">
+      <li><b>Letras:</b> h = edad del hermano. Ana tiene el triple: 3h. <span class="por">Con una sola letra el problema es más sencillo que con dos.</span></li>
+      <li><b>Traduzco “entre los dos suman 48”:</b> h + 3h = 48.</li>
+      <li><b>Resuelvo:</b> 4h = 48 → h = 12. Ana tiene 3·12 = 36.</li>
+      <li><b>Compruebo con el enunciado:</b> 12 + 36 = 48 ✔ y 36 es el triple de 12 ✔.</li>
+    </ol>
+  </div>
+
+  <div class="caja examen">
+    <div class="enc">Reactivo 3 del examen</div>
+    <div class="preg">Seleccione la opción que represente algebraicamente: “El triple producto de un número es igual al doble producto del mismo número más un medio de otro número.” &nbsp; A) 3a = 2a + ½b &nbsp; B) 3a = 2b + ½a &nbsp; C) 3b = 2a + ½a &nbsp; D) 3b = 2a + ½b</div>
+    <ol class="pasos">
+      <li><b>“El triple producto de un número”:</b> llamo a al número → 3a.</li>
+      <li><b>“el doble producto del mismo número”:</b> es el mismo, así que repito la letra → 2a.</li>
+      <li><b>“más un medio de otro número”:</b> otro número, otra letra → ½b.</li>
+      <li><b>“es igual”</b> va en medio: 3a = 2a + ½b.</li>
+    </ol>
+    <p class="chico"><b>Por qué no las otras:</b> en la B el doble lleva otra letra (2b), y eso dice que es otro número. En la C y en la D el triple usa b y el doble usa a: ya no serían “el mismo número”.</p>
+    <span class="resp">Respuesta: A) 3a = 2a + ½b</span>
+  </div>
+
+  <div class="caja practica"><b class="t">Ahora tú</b>
+    <ol>
+      <li>Traduce: “El cuadrado de un número menos el doble de otro es 10.”</li>
+      <li>“La suma de tres números consecutivos es 48.” Escríbelo y encuentra los números.</li>
+      <li>Traduce: “La tercera parte de un número, aumentada en 4, es menor que 9.”</li>
+      <li>Escribe en palabras: 2(x − 3) = x + 1, y encuentra x.</li>
+    </ol>
+    <div class="sol">
+      <p><b>1)</b> x² − 2y = 10.</p>
+      <p><b>2)</b> x + (x + 1) + (x + 2) = 48 → 3x + 3 = 48 → x = 15. Los números son 15, 16 y 17.</p>
+      <p><b>3)</b> x/3 + 4 &lt; 9.</p>
+      <p><b>4)</b> “El doble de la diferencia entre un número y 3 es igual a ese número aumentado en 1.” 2x − 6 = x + 1 → x = 7. Compruebo: 2(4) = 8 = 7 + 1 ✔.</p>
+    </div>
+  </div>
+</section>

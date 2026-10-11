@@ -1,0 +1,114 @@
+@page { size: Letter; margin: 15mm 15mm 16mm 15mm; }
+:root {
+  --tinta: #1d2330;
+  --suave: #5a6375;
+  --acento: #1f6f8b;
+  --acento-claro: #e6f2f6;
+  --ojo: #b5542a;
+  --ojo-claro: #fbefe8;
+  --verde: #2e7d4f;
+  --verde-claro: #e9f5ee;
+  --idea: #8a6400;
+  --idea-borde: #d4a017;
+  --idea-claro: #fff6dc;
+  --morado: #6b4fa3;
+  --morado-claro: #f3effa;
+  --linea: #d6dbe3;
+}
+* { box-sizing: border-box; }
+body {
+  font-family: "DejaVu Sans", "Liberation Sans", Arial, sans-serif;
+  color: var(--tinta);
+  background: #fff;
+  font-size: 10pt;
+  line-height: 1.5;
+  margin: 0;
+}
+h1, h2, h3, h4 { line-height: 1.25; }
+h2 {
+  font-size: 16pt;
+  color: var(--acento);
+  border-bottom: 2px solid var(--acento);
+  padding-bottom: 4px;
+  margin: 0 0 8px;
+}
+h3 { font-size: 11.6pt; margin: 18px 0 6px; color: var(--acento); page-break-after: avoid; }
+h4 { font-size: 10.8pt; margin: 12px 0 4px; page-break-after: avoid; }
+p { margin: 6px 0; }
+ul, ol { margin: 6px 0; padding-left: 22px; }
+li { margin: 3px 0; }
+.tema { page-break-before: always; }
+.reactivos { color: var(--suave); font-size: 9.5pt; margin: -2px 0 8px; }
+.intro {
+  background: #f4f8fb;
+  border-left: 4px solid var(--acento);
+  border-radius: 6px;
+  padding: 8px 12px;
+  margin: 6px 0 12px;
+  font-size: 10.2pt;
+}
+.caja { border-radius: 6px; padding: 8px 12px; margin: 10px 0; page-break-inside: avoid; }
+.caja.larga { page-break-inside: auto; }
+.caja b.t { display: block; margin-bottom: 3px; }
+.formula { background: var(--acento-claro); border-left: 4px solid var(--acento); }
+.formula b.t { color: var(--acento); }
+.idea { background: var(--idea-claro); border-left: 4px solid var(--idea-borde); }
+.idea b.t { color: var(--idea); }
+.ejemplo { background: var(--morado-claro); border-left: 4px solid var(--morado); }
+.ejemplo b.t { color: var(--morado); }
+.ojo { background: var(--ojo-claro); border-left: 4px solid var(--ojo); }
+.ojo b.t { color: var(--ojo); }
+.examen { border: 1.5px solid var(--linea); background: #fafbfc; }
+.examen .enc { font-weight: bold; color: var(--acento); margin-bottom: 4px; }
+.preg { font-style: italic; margin-bottom: 6px; }
+.resp { color: var(--verde); font-weight: bold; }
+.practica { background: var(--verde-claro); border-left: 4px solid var(--verde); }
+.practica b.t { color: var(--verde); }
+.check { border: 1.5px dashed var(--acento); background: #fff; }
+.check b.t { color: var(--acento); }
+.sol { color: var(--suave); font-size: 9.2pt; margin-top: 6px; }
+.sol p { margin: 3px 0; }
+.por { display: block; color: var(--suave); font-size: 9.2pt; margin-top: 1px; }
+.pasos { counter-reset: paso; list-style: none; padding-left: 0; }
+.pasos li { counter-increment: paso; padding-left: 26px; position: relative; margin: 5px 0; }
+.pasos li::before {
+  content: counter(paso);
+  position: absolute; left: 0; top: 1px;
+  width: 18px; height: 18px; border-radius: 50%;
+  background: var(--acento); color: #fff;
+  font-size: 8.5pt; text-align: center; line-height: 18px;
+}
+.ejemplo .pasos li::before { background: var(--morado); }
+.m { font-family: "DejaVu Serif", "Liberation Serif", serif; font-style: italic; }
+.nw { white-space: nowrap; }
+.fr { display: inline-block; vertical-align: middle; text-align: center; font-style: normal; margin: 0 2px; }
+.fr > span { display: block; padding: 0 2px; line-height: 1.15; font-size: 92%; }
+.fr > span:first-child { border-bottom: 1px solid currentColor; }
+table { border-collapse: collapse; width: 100%; margin: 8px 0; font-size: 9.3pt; page-break-inside: avoid; }
+th, td { border: 1px solid var(--linea); padding: 4px 6px; text-align: left; vertical-align: top; }
+th { background: var(--acento-claro); }
+.caja table { background: #fff; }
+table.sint { width: auto; margin: 6px 0; }
+table.sint td { text-align: center; min-width: 38px; border: none; padding: 2px 6px; font-family: "DejaVu Serif", serif; }
+table.sint tr:nth-child(2) td { border-bottom: 1.5px solid var(--tinta); }
+table.sint td.raiz { border-right: 1.5px solid var(--tinta); color: var(--ojo); font-weight: bold; }
+table.sint td.res { color: var(--verde); font-weight: bold; }
+.pascal { text-align: center; font-family: "DejaVu Sans Mono", monospace; line-height: 1.5; margin: 6px 0; }
+.dos { display: flex; gap: 14px; align-items: flex-start; page-break-inside: avoid; }
+.dos > * { flex: 1; }
+.dos > .fig { flex: 0 0 auto; max-width: 52%; }
+.dos > .fig svg { max-width: none; }
+.fig { text-align: center; margin: 6px 0; page-break-inside: avoid; }
+.fig svg { max-width: 100%; height: auto; }
+.pie { font-size: 8.8pt; color: var(--suave); text-align: center; margin-top: 2px; }
+.portada { height: 232mm; display: flex; flex-direction: column; justify-content: center; text-align: center; }
+.portada h1 { font-size: 30pt; color: var(--acento); margin: 0 0 6px; }
+.portada .sub { font-size: 14pt; color: var(--suave); }
+.portada .chip { display: inline-block; margin-top: 24px; padding: 6px 14px; border: 1.5px solid var(--acento); border-radius: 20px; color: var(--acento); font-weight: bold; }
+.chico { font-size: 9pt; color: var(--suave); }
+.sub-tema { font-size: 11.5pt; color: var(--acento); margin: 16px 0 4px; border-bottom: 1px dashed var(--linea); page-break-after: avoid; }
+.leyenda .caja { margin: 6px 0; padding: 5px 10px; }
+.clave td { text-align: center; }
+table.compacta { font-size: 9.4pt; page-break-inside: auto; }
+table.compacta tr { page-break-inside: avoid; }
+table.compacta td, table.compacta th { padding: 2px 6px; line-height: 1.3; }

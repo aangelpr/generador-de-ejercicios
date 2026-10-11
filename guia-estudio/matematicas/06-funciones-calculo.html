@@ -1,0 +1,328 @@
+<!-- ======================= 1.23 ======================= -->
+<section class="tema">
+  <h2>1.23 Funciones reales de variable real</h2>
+  <div class="reactivos">Reactivos 26, 27, 28 y 29 de la versión de práctica</div>
+
+  <p class="intro"><b>¿De qué trata esta lección?</b> Una función es una regla que a cada número le asigna <b>un solo</b> resultado: la temperatura según la hora, el costo según los kilos, la población según los años. Aprenderás a describirlas (dominio, rango, simetría, si crecen o decrecen), a reconocer sus tipos y a trabajar con exponenciales y logaritmos, que modelan muchos procesos naturales.</p>
+
+  <div class="sub-tema">1.23.1 Elementos de una función</div>
+  <div class="caja idea"><b class="t">Piénsalo así: una máquina</b> Una función es como una máquina expendedora: metes un valor de x (aprietas un botón) y sale <b>un solo</b> producto, f(x). Si un mismo botón pudiera darte dos productos distintos, la máquina no sería una función. En una gráfica, eso se revisa con la <b>prueba de la recta vertical</b>: si alguna recta vertical corta la gráfica en dos puntos, no es función.</div>
+  <ul>
+    <li><b>Dominio (Dom f):</b> todos los valores de x que puedes meter a la máquina. Hay tres cosas prohibidas: <b>dividir entre cero</b>, sacar <b>raíz par de un negativo</b> y sacar <b>logaritmo de un número que no sea positivo</b>. Por ejemplo, <span class="m">f(x) = 1/(x − 3)</span> no acepta x = 3, y <span class="m">g(x) = √(x − 2)</span> solo acepta x ≥ 2.</li>
+    <li><b>Codominio (Cod f):</b> el conjunto donde “caen” los resultados (para nosotros, casi siempre los reales).</li>
+    <li><b>Imagen o rango (Im f, Ran f):</b> los valores que la función <b>realmente</b> da. Por ejemplo, <span class="m">x<sup>2</sup></span> nunca da negativos: su rango es [0, ∞).</li>
+    <li><b>Gráfica:</b> todos los puntos (x, f(x)).</li>
+  </ul>
+  <p>Un caso muy preguntado: como el seno y el coseno solo dan valores entre −1 y 1, <span class="m">A·cos(Bx)</span> da valores entre −|A| y |A|. El número A (la <b>amplitud</b>) estira la onda hacia arriba y abajo; el número B solo la aprieta a lo largo del eje x (cambia el periodo, que es 2π/B), pero no la hace más alta.</p>
+
+  <div class="sub-tema">1.23.2 Simetría, funciones crecientes y decrecientes</div>
+  <div class="dos">
+    <div>
+      <p><b>Función par:</b> <span class="m">f(−x) = f(x)</span>. Si cambias x por −x da lo mismo. Su gráfica es simétrica respecto al <b>eje y</b>: si pones un espejo en el eje y, se ve igual. Ejemplos: x², x⁴, cos x, |x|.</p>
+      <p><b>Función impar:</b> <span class="m">f(−x) = −f(x)</span>. Su gráfica es simétrica respecto al <b>origen</b>: si la giras media vuelta (180°), se ve igual. Ejemplos: x, x³, x⁵, sin x.</p>
+    </div>
+    <div class="fig"><!--FIG:paridad--></div>
+  </div>
+  <div class="caja ejemplo"><b class="t">Ejemplo explicado: ¿par, impar o ninguna?</b>
+    <ol class="pasos">
+      <li><b>f(x) = x⁴ − x²:</b> f(−x) = (−x)⁴ − (−x)² = x⁴ − x² = f(x) → <b>par</b>. <span class="por">Un número negativo elevado a potencia par queda positivo.</span></li>
+      <li><b>g(x) = x³ + x:</b> g(−x) = −x³ − x = −(x³ + x) = −g(x) → <b>impar</b>.</li>
+      <li><b>h(x) = x² + x:</b> h(−x) = x² − x, que no es ni h(x) ni −h(x) → <b>ninguna</b>.</li>
+    </ol>
+    <p class="chico">Truco para polinomios: si todos los exponentes son pares (un número solo cuenta como x⁰, par), es par; si todos son impares, es impar; si hay mezcla, ninguna.</p>
+  </div>
+  <p><b>Creciente y decreciente:</b> lee la gráfica de izquierda a derecha, como si caminaras. Si vas de subida, la función es <b>creciente</b> en ese intervalo (si p &lt; q, entonces f(p) &lt; f(q)); si vas de bajada, es <b>decreciente</b>. Ejemplos del temario: x⁵ es creciente en todos los reales; 1/(2x) es decreciente en (−∞, 0) y en (0, ∞); x² − 1 baja en (−∞, 0) y sube en (0, ∞).</p>
+
+  <div class="sub-tema">1.23.3 Tipos de funciones</div>
+  <table>
+    <tr><th colspan="2">Algebraicas: la x solo se suma, multiplica, divide o está en una raíz</th></tr>
+    <tr><td>Polinomiales</td><td>constante (grado 0), lineal <span class="m">a<sub>0</sub> + a<sub>1</sub>x</span> (incluye la identidad x y la proporcional a₁x), cuadrática, cúbica…</td></tr>
+    <tr><td>Racionales</td><td>un polinomio entre otro: <span class="m">(x + 1)/(x − 2)</span></td></tr>
+    <tr><td>Irracionales</td><td>con raíces de la variable: <span class="m">√(x + 5)</span></td></tr>
+    <tr><th colspan="2">Trascendentes: la x está dentro de una exponencial, un logaritmo o una función trigonométrica</th></tr>
+    <tr><td>Trigonométricas</td><td>sin, cos, tan, csc, sec, cot, y sus inversas (arcsin, arccos, arctan…)</td></tr>
+    <tr><td>Exponenciales</td><td>la variable <b>en el exponente</b>: <span class="m">2<sup>x</sup></span>, <span class="m">4<sup>2r</sup></span>, <span class="m">e<sup>x</sup></span> (con e ≈ 2.718)</td></tr>
+    <tr><td>Logarítmicas</td><td>aparece un logaritmo: <span class="m">log<sub>3</sub>(5x)</span>, <span class="m">ln x</span></td></tr>
+  </table>
+  <div class="caja ojo"><b class="t">Error común</b> Confundir <span class="m">x<sup>2</sup></span> (algebraica: la variable en la base) con <span class="m">2<sup>x</sup></span> (exponencial: la variable en el exponente). Fíjate siempre <b>dónde está la letra</b>.</div>
+
+  <div class="sub-tema">1.23.4 Logaritmos como funciones de procesos naturales</div>
+  <div class="dos">
+    <div>
+      <p>El <b>logaritmo</b> responde a la pregunta: <b>“¿a qué exponente debo elevar la base para obtener este número?”</b></p>
+      <p class="m" style="text-align:center">log<sub>a</sub> x = y &nbsp;&nbsp;significa&nbsp;&nbsp; a<sup>y</sup> = x</p>
+      <p>log₂ 8 = 3 porque 2³ = 8; log₁₀ 1000 = 3 porque 10³ = 1000. Cuando no se escribe la base es 10 (<span class="m">log x</span>), y <span class="m">ln x</span> es el logaritmo con base e (logaritmo natural).</p>
+      <p>Logaritmo y exponencial son funciones <b>inversas</b>: una deshace a la otra (<span class="m">log<sub>a</sub>(a<sup>x</sup>) = x</span> y <span class="m">a<sup>log<sub>a</sub> x</sup> = x</span>). Por eso sus gráficas son reflejo una de la otra en la recta y = x.</p>
+    </div>
+    <div class="fig"><!--FIG:exp_log--></div>
+  </div>
+  <div class="caja formula"><b class="t">Propiedades de los logaritmos (y de dónde salen)</b>
+    <p><span class="m">log<sub>a</sub>(b·c) = log<sub>a</sub> b + log<sub>a</sub> c</span> &nbsp;·&nbsp; <span class="m">log<sub>a</sub>(b/c) = log<sub>a</sub> b − log<sub>a</sub> c</span> &nbsp;·&nbsp; <span class="m">log<sub>a</sub>(b<sup>c</sup>) = c·log<sub>a</sub> b</span> &nbsp;·&nbsp; <span class="m">log<sub>a</sub> a = 1</span> &nbsp;·&nbsp; <span class="m">log<sub>a</sub> 1 = 0</span></p>
+    <p>Son las leyes de los exponentes “al revés”: multiplicar potencias suma exponentes, y por eso el logaritmo de un producto es una suma.</p>
+  </div>
+  <p><b>Para despejar una incógnita que está en el exponente</b> hay dos caminos:</p>
+  <ol>
+    <li><b>Igualar bases</b> (cuando se puede). Del temario: una población de 36 capibaras creció como 6<sup>t</sup>. Como 36 = 6², queda 6<sup>t</sup> = 6², así que t = 2 años.</li>
+    <li><b>Sacar logaritmo a los dos lados</b> y usar la propiedad de la potencia para “bajar” el exponente: si <span class="m">a<sup>t</sup> = k</span>, entonces <span class="m">t·log a = log k</span> y <span class="m">t = log k / log a</span>.</li>
+  </ol>
+  <p class="chico">El temario muestra otro uso: el brillo de las estrellas se mide en escala logarítmica, y el “módulo de distancia” <span class="m">m − M = 5·log<sub>10</sub>(d/10 pc)</span> permite calcular a qué distancia está una estrella. Con los datos del Sol sale ≈ 1.5 × 10⁸ km.</p>
+
+  <div class="caja examen">
+    <div class="enc">Reactivo 26 del examen</div>
+    <div class="preg">Identifique el rango de la función f(x) = 3·cos(2x). &nbsp; A) (−2, 2) &nbsp; B) (−∞, ∞) &nbsp; C) [−1, 1] &nbsp; D) [−3, 3]</div>
+    <p>cos(2x) solo da valores entre −1 y 1 (el 2 aprieta la onda pero no cambia su altura). Al multiplicar por 3, los valores quedan entre −3 y 3, incluidos los extremos. La C sería el rango de cos(2x) sin el 3, y la A confunde el 2 de adentro con la amplitud.</p>
+    <span class="resp">Respuesta: D) [−3, 3]</span>
+  </div>
+  <div class="caja examen">
+    <div class="enc">Reactivo 27 del examen</div>
+    <div class="preg">Relacione cada condición de paridad (1. Par, 2. Impar) con su representación gráfica (a, b, c, d). &nbsp; A) 1ac, 2bd &nbsp; B) 1ad, 2bc &nbsp; C) 1bc, 2ad &nbsp; D) 1bd, 2ac</div>
+    <p>En la versión de práctica, las gráficas a y d son simétricas respecto al eje y (si doblas la hoja sobre el eje y, coinciden) y las gráficas b y c son simétricas respecto al origen (si las giras media vuelta, quedan igual).</p>
+    <span class="resp">Respuesta: B) 1ad, 2bc</span>
+  </div>
+  <div class="caja examen">
+    <div class="enc">Reactivo 28 del examen</div>
+    <div class="preg">Relacione: 1. Algebraica · 2. Exponencial · 3. Trigonométrica · 4. Logarítmica con a. p(r) = 4<sup>2r</sup> · b. f(x) = log₃(5x) · c. v(t) = sin(3t) · d. T(M) = 3M² + 6. &nbsp; A) 1a, 2b, 3d, 4c &nbsp; B) 1b, 2c, 3a, 4d &nbsp; C) 1c, 2d, 3b, 4a &nbsp; D) 1d, 2a, 3c, 4b</div>
+    <p>Busco dónde está la variable: en d está en la base de un polinomio (algebraica, 1d); en a está en el exponente (exponencial, 2a); en c dentro del seno (3c); en b dentro de un logaritmo (4b).</p>
+    <span class="resp">Respuesta: D) 1d, 2a, 3c, 4b</span>
+  </div>
+  <div class="caja examen">
+    <div class="enc">Reactivo 29 del examen</div>
+    <div class="preg">El capital en un fondo de ahorro es C(t) = C₀·(1 + i%/100)<sup>t</sup>. Si se invierten $10,000 con una tasa del 5%, ¿en cuánto tiempo se obtendrán $11,576.25? Considere log₁₀(1.05) = 0.021 y log₁₀(1.157625) = 0.063. &nbsp; A) 1 año &nbsp; B) 2 años &nbsp; C) 3 años &nbsp; D) 4 años</div>
+    <ol class="pasos">
+      <li><b>Sustituyo:</b> 11 576.25 = 10 000·(1.05)<sup>t</sup>.</li>
+      <li><b>Aíslo la potencia</b> dividiendo entre 10 000: (1.05)<sup>t</sup> = 1.157625.</li>
+      <li><b>Saco logaritmo de los dos lados</b> y bajo el exponente: t·log(1.05) = log(1.157625).</li>
+      <li><b>Despejo con los valores dados:</b> t = 0.063/0.021 = 3 años.</li>
+    </ol>
+    <p class="chico"><b>Comprobación sin logaritmos:</b> 1.05 × 1.05 = 1.1025 y × 1.05 = 1.157625 ✔: son tres años de 5%.</p>
+    <span class="resp">Respuesta: C) 3 años</span>
+  </div>
+
+  <div class="caja practica"><b class="t">Ahora tú</b>
+    <ol>
+      <li>Dominio de √(x − 2) y de 1/(x − 3). Rango de −5·sin(3x).</li>
+      <li>¿Par, impar o ninguna? x⁴ − x², x³ + x, x² + x, cos x + x².</li>
+      <li>¿En qué intervalos crece y en cuáles decrece f(x) = (x − 1)²?</li>
+      <li>Resuelve 2<sup>x</sup> = 32 y calcula log₃ 81 y log 0.01.</li>
+      <li>Se invierten $5,000 al 10% anual. ¿En cuántos años habrá $6,655?</li>
+    </ol>
+    <div class="sol">
+      <p><b>1)</b> x ≥ 2; todos los reales menos el 3; [−5, 5] (el signo menos voltea la onda, pero la altura sigue siendo 5).</p>
+      <p><b>2)</b> Par, impar, ninguna, par (las dos partes son pares).</p>
+      <p><b>3)</b> Es una parábola con vértice en x = 1: decrece en (−∞, 1) y crece en (1, ∞).</p>
+      <p><b>4)</b> 32 = 2⁵ → x = 5; log₃ 81 = 4 (3⁴ = 81); log 0.01 = −2 (10⁻² = 0.01).</p>
+      <p><b>5)</b> 5000·1.1<sup>t</sup> = 6655 → 1.1<sup>t</sup> = 1.331 = 1.1³ → 3 años.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 1.24 ======================= -->
+<section class="tema">
+  <h2>1.24 Límites de funciones</h2>
+  <div class="reactivos">Reactivo 30 de la versión de práctica</div>
+
+  <p class="intro"><b>¿De qué trata esta lección?</b> El límite responde: <b>“¿a qué valor se acerca la función cuando x se acerca a cierto número?”</b>, aunque en ese número la función no se pueda calcular. Es la idea con la que arranca todo el cálculo: con límites se definen la derivada y la integral.</p>
+
+  <h3>La idea con un ejemplo</h3>
+  <div class="dos">
+    <div>
+      <p>Toma <span class="m">f(x) = (x<sup>2</sup> − 9)/(x − 3)</span>. En x = 3 no se puede calcular (da 0/0). Pero mira qué pasa cerca de 3:</p>
+      <table>
+        <tr><th>x</th><td>2.9</td><td>2.99</td><td>2.999</td><td>3</td><td>3.001</td><td>3.01</td><td>3.1</td></tr>
+        <tr><th>f(x)</th><td>5.9</td><td>5.99</td><td>5.999</td><td>¿?</td><td>6.001</td><td>6.01</td><td>6.1</td></tr>
+      </table>
+      <p>Por los dos lados, f(x) se acerca a 6. Decimos que <span class="m">lim<sub>x→3</sub> f(x) = 6</span>, aunque f(3) no existe. En la gráfica hay un “hueco” justo en (3, 6).</p>
+    </div>
+    <div class="fig"><!--FIG:limite--></div>
+  </div>
+  <p><b>¿Cuándo no existe un límite?</b> Si por la izquierda se acerca a un valor y por la derecha a otro; si la función se dispara a +∞ o −∞; o si oscila sin acercarse a nada (como sin(1/x) cerca de 0).</p>
+
+  <h3>Cómo calcular un límite: la receta</h3>
+  <ol class="pasos">
+    <li><b>Sustituye directo.</b> Si sale un número, ese es el límite (pasa con polinomios, senos, cosenos y exponenciales: son continuas).</li>
+    <li><b>Si sale 0/0 (indeterminado), factoriza</b> arriba y/o abajo, cancela el factor que causa el cero y vuelve a sustituir.</li>
+    <li><b>Si sale un número entre 0</b> (por ejemplo 5/0), el límite no existe: la función se va a ±∞.</li>
+    <li><b>Límites al infinito</b> de un polinomio entre otro: si tienen el mismo grado, el límite es el cociente de los números que acompañan a las potencias más altas; si el de abajo tiene mayor grado, el límite es 0.</li>
+  </ol>
+  <div class="caja formula"><b class="t">Reglas que justifican la receta</b>
+    <p>El límite de una suma es la suma de los límites; igual con el producto, el cociente (si el de abajo no es 0), las potencias y las raíces. El límite de una constante es la constante, y <span class="m">lim<sub>x→c</sub> x = c</span>. Dos límites que conviene recordar: <span class="m">lim<sub>x→∞</sub> k/x<sup>n</sup> = 0</span> y <span class="m">lim<sub>x→∞</sub> e<sup>−x</sup> = 0</span>.</p>
+  </div>
+  <div class="caja ejemplo"><b class="t">Ejemplo explicado: lim<sub>x→2</sub> (x² + x − 6)/(x − 2)</b>
+    <ol class="pasos">
+      <li><b>Sustituyo:</b> (4 + 2 − 6)/(2 − 2) = 0/0. Indeterminado: hay que trabajar.</li>
+      <li><b>Factorizo el numerador:</b> x² + x − 6 = (x + 3)(x − 2). <span class="por">Si x = 2 anula el de abajo y el de arriba, entonces (x − 2) es factor de los dos: búscalo.</span></li>
+      <li><b>Cancelo:</b> (x + 3)(x − 2)/(x − 2) = x + 3.</li>
+      <li><b>Sustituyo de nuevo:</b> 2 + 3 = 5.</li>
+    </ol>
+  </div>
+
+  <div class="caja examen">
+    <div class="enc">Reactivo 30 del examen</div>
+    <div class="preg">Una población de monos capuchinos en peligro se modela con M(t) = 75 − (t² − 16)/(t − 4), donde t es el tiempo en años. ¿Cuántos monos capuchinos habrá en cuatro años? &nbsp; A) 61 &nbsp; B) 64 &nbsp; C) 67 &nbsp; D) 69</div>
+    <ol class="pasos">
+      <li><b>Sustituyo t = 4:</b> (16 − 16)/(4 − 4) = 0/0. La fórmula tiene un “hueco” en t = 4, así que lo que se pide es el límite.</li>
+      <li><b>Factorizo:</b> t² − 16 = (t − 4)(t + 4), diferencia de cuadrados. Entonces (t² − 16)/(t − 4) = t + 4.</li>
+      <li><b>Calculo:</b> M = 75 − (4 + 4) = 75 − 8 = 67.</li>
+    </ol>
+    <span class="resp">Respuesta: C) 67</span>
+  </div>
+
+  <div class="caja practica"><b class="t">Ahora tú</b>
+    <ol>
+      <li>lim<sub>x→3</sub> (x² − 9)/(x − 3) &nbsp;&nbsp; 2) lim<sub>x→2</sub> (x³ − 8)/(x − 2) &nbsp;&nbsp; 3) lim<sub>x→1</sub> (2x + 3) &nbsp;&nbsp; 4) lim<sub>x→∞</sub> 5/x² &nbsp;&nbsp; 5) lim<sub>x→∞</sub> (3x² + 1)/(x² − 5)</li>
+    </ol>
+    <div class="sol">
+      <p><b>1)</b> (x − 3)(x + 3)/(x − 3) = x + 3 → 6. <b>2)</b> Diferencia de cubos: x² + 2x + 4 → 4 + 4 + 4 = 12. <b>3)</b> Sustitución directa: 5.</p>
+      <p><b>4)</b> 0 (un número fijo entre algo cada vez más grande). <b>5)</b> Mismo grado: 3/1 = 3.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 1.25 ======================= -->
+<section class="tema">
+  <h2>1.25 Razón de cambio y derivada de una función</h2>
+  <div class="reactivos">Reactivo 31 de la versión de práctica</div>
+
+  <p class="intro"><b>¿De qué trata esta lección?</b> La derivada mide <b>qué tan rápido cambia algo</b>. El velocímetro de un coche es una derivada: te dice cuántos kilómetros por hora avanzas <b>en este instante</b>, no en promedio. Es la herramienta para estudiar velocidades, ritmos de crecimiento, máximos y mínimos.</p>
+
+  <h3>De la razón de cambio promedio a la instantánea</h3>
+  <p>La <b>razón de cambio promedio</b> de una función entre x₁ y x₂ es cuánto cambió y entre cuánto cambió x:</p>
+  <p class="m" style="text-align:center;font-size:12pt"><span class="fr"><span>Δy</span><span>Δx</span></span> = <span class="fr"><span>f(x<sub>2</sub>) − f(x<sub>1</sub>)</span><span>x<sub>2</sub> − x<sub>1</sub></span></span></p>
+  <p>Ejemplos: la velocidad media <span class="m">v = Δd/Δt</span> (si recorres 120 km en 2 h, vas en promedio a 60 km/h) y la aceleración <span class="m">a = Δv/Δt</span>. Geométricamente es la pendiente de la recta <b>secante</b> que une dos puntos de la gráfica.</p>
+  <div class="dos">
+    <div>
+      <p>Ahora acerca el segundo punto al primero: el intervalo <span class="m">h</span> se hace cada vez más chico, la secante gira y termina convertida en la recta <b>tangente</b>. La pendiente de esa tangente es la <b>derivada</b>:</p>
+      <p class="m" style="text-align:center;font-size:12pt">f′(x) = <span class="fr"><span>df</span><span>dx</span></span> = lim<sub>h→0</sub> <span class="fr"><span>f(x + h) − f(x)</span><span>h</span></span></p>
+      <p>Se escribe <span class="m">f′(x)</span>, <span class="m">df/dx</span> o, en física, con un punto encima.</p>
+    </div>
+    <div class="fig"><!--FIG:secante--></div>
+  </div>
+  <div class="caja ejemplo"><b class="t">¿De dónde sale la regla de la potencia? Derivemos f(x) = x² con la definición</b>
+    <ol class="pasos">
+      <li><b>Calculo f(x + h) − f(x):</b> (x + h)² − x² = x² + 2xh + h² − x² = 2xh + h².</li>
+      <li><b>Divido entre h:</b> (2xh + h²)/h = 2x + h.</li>
+      <li><b>Hago h → 0:</b> queda <b>2x</b>. Así que la derivada de x² es 2x: “bajas el exponente y le restas uno”. Para no hacer este proceso cada vez se usan las reglas de abajo.</li>
+    </ol>
+  </div>
+
+  <h3>Las reglas de derivación</h3>
+  <div class="caja formula">
+    <table>
+      <tr><th>Regla</th><th>Fórmula</th><th>Ejemplo</th></tr>
+      <tr><td>Constante</td><td class="m">(c)′ = 0</td><td class="m">(7)′ = 0</td></tr>
+      <tr><td>Potencia</td><td class="m">(x<sup>n</sup>)′ = n·x<sup>n−1</sup></td><td class="m">(x<sup>5</sup>)′ = 5x<sup>4</sup>; &nbsp;(x<sup>−2</sup>)′ = −2x<sup>−3</sup></td></tr>
+      <tr><td>Constante por función, suma y resta</td><td class="m">(c·f ± g)′ = c·f′ ± g′</td><td class="m">(2x<sup>5</sup> − 5x<sup>−2</sup> + 10)′ = 10x<sup>4</sup> + 10x<sup>−3</sup></td></tr>
+      <tr><td>Producto</td><td class="m">(f·g)′ = f′·g + f·g′</td><td class="m">(x<sup>2</sup> sin x)′ = 2x sin x + x<sup>2</sup> cos x</td></tr>
+      <tr><td>Cociente</td><td class="m">(f/g)′ = (f′·g − f·g′)/g<sup>2</sup></td><td class="m">(x/(x + 1))′ = 1/(x + 1)<sup>2</sup></td></tr>
+      <tr><td>Cadena</td><td class="m">[f(g(x))]′ = f′(g(x))·g′(x)</td><td class="m">((2x + 1)<sup>3</sup>)′ = 3(2x + 1)<sup>2</sup>·2</td></tr>
+    </table>
+    <table>
+      <tr><td class="m">(sin x)′ = cos x</td><td class="m">(cos x)′ = −sin x</td><td class="m">(tan x)′ = sec<sup>2</sup>x</td></tr>
+      <tr><td class="m">(e<sup>ax</sup>)′ = a·e<sup>ax</sup></td><td class="m">(b<sup>ax</sup>)′ = a·ln b·b<sup>ax</sup></td><td class="m">(ln x)′ = 1/x &nbsp;·&nbsp; (log<sub>a</sub>x)′ = 1/(x·ln a)</td></tr>
+      <tr><td class="m">(arcsin x)′ = 1/√(1 − x<sup>2</sup>)</td><td class="m">(arccos x)′ = −1/√(1 − x<sup>2</sup>)</td><td class="m">(arctan x)′ = 1/(1 + x<sup>2</sup>)</td></tr>
+    </table>
+    <p class="chico">Ojo: en la tabla 13 del temario la derivada de b<sup>ax</sup> aparece como a·b<sup>ax</sup>, sin el factor ln b. Eso solo es cierto cuando b = e (porque ln e = 1); en general es a·ln b·b<sup>ax</sup>.</p>
+  </div>
+  <div class="caja idea"><b class="t">Piénsalo así: la regla de la cadena son capas de cebolla</b> Cuando una función está “dentro” de otra, derivas de afuera hacia adentro: derivas la capa de afuera dejando intacto lo de adentro, y multiplicas por la derivada de lo de adentro. En <span class="m">e<sup>sin x</sup></span> la capa de afuera es e<sup>□</sup> (su derivada es ella misma) y adentro está sin x (su derivada es cos x): <span class="m">(e<sup>sin x</sup>)′ = e<sup>sin x</sup>·cos x</span>. Otros: <span class="m">(sin 5x)′ = 5 cos 5x</span>; <span class="m">(ln(x<sup>2</sup> + 1))′ = 2x/(x<sup>2</sup> + 1)</span>; <span class="m">(e<sup>2x²+1</sup>)′ = 4x·e<sup>2x²+1</sup></span>.</div>
+
+  <h3>¿Cuándo te piden derivar?</h3>
+  <p>Cuando aparecen palabras como “el <b>cambio</b> de … respecto al tiempo”, “el <b>ritmo</b>”, “la <b>velocidad</b>”, “la <b>rapidez</b> con que crece” o “la pendiente de la tangente”. Ejemplo del temario: en la desintegración radiactiva, el número de núcleos es <span class="m">N(t) = N<sub>0</sub>e<sup>−λt</sup></span> y su ritmo de cambio es <span class="m">dN/dt = −λN</span> (negativo, porque los núcleos disminuyen). Con el carbono 14, <span class="m">C(t) = c<sub>0</sub>e<sup>−0.000121t</sup></span>, se fecha un fósil: si conserva el 66.82% de su carbono 14, tiene unos 3 332 años.</p>
+
+  <div class="caja examen">
+    <div class="enc">Reactivo 31 del examen</div>
+    <div class="preg">La energía de una partícula en función del tiempo es E(t) = 6t³ − 3t² − 4t. ¿Cuál es la función que describe el cambio de energía respecto al tiempo? &nbsp; A) 18t² + 6t − 4 &nbsp; B) 18t² − 6t + 4 &nbsp; C) 18t² + 6t + 4 &nbsp; D) 18t² − 6t − 4</div>
+    <ol class="pasos">
+      <li><b>“Cambio respecto al tiempo” = derivada.</b> Derivo término por término con la regla de la potencia.</li>
+      <li><b>6t³</b> → 6·3t² = 18t². <b>−3t²</b> → −3·2t = −6t. <b>−4t</b> → −4·1 = −4.</li>
+      <li><b>Junto:</b> E′(t) = 18t² − 6t − 4.</li>
+    </ol>
+    <p class="chico">Las cuatro opciones solo difieren en los signos: la derivada <b>conserva el signo</b> de cada término.</p>
+    <span class="resp">Respuesta: D) 18t² − 6t − 4</span>
+  </div>
+
+  <div class="caja practica"><b class="t">Ahora tú</b>
+    <ol>
+      <li>Razón de cambio promedio de f(x) = x² entre x = 1 y x = 3.</li>
+      <li>Deriva: a) 4x³ − 5x² + 7x − 2 &nbsp; b) (2x + 1)³ &nbsp; c) x²·sin x &nbsp; d) e<sup>3x</sup> &nbsp; e) ln(x² + 1) &nbsp; f) sin(5x)</li>
+      <li>La posición de un auto es s(t) = 2t² + 3t (metros, segundos). ¿Cuál es su velocidad en t = 4 s?</li>
+    </ol>
+    <div class="sol">
+      <p><b>1)</b> (9 − 1)/(3 − 1) = 4.</p>
+      <p><b>2)</b> a) 12x² − 10x + 7 · b) 6(2x + 1)² · c) 2x·sin x + x²·cos x · d) 3e<sup>3x</sup> · e) 2x/(x² + 1) · f) 5cos(5x).</p>
+      <p><b>3)</b> La velocidad es la derivada de la posición: v(t) = 4t + 3 → v(4) = 19 m/s.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 1.26 ======================= -->
+<section class="tema">
+  <h2>1.26 Puntos críticos de una función</h2>
+  <div class="reactivos">Reactivo 32 de la versión de práctica</div>
+
+  <p class="intro"><b>¿De qué trata esta lección?</b> De encontrar el punto más alto o más bajo de una función: la ganancia máxima, el costo mínimo, la presión máxima. Es una de las aplicaciones más útiles de la derivada, y la idea es muy intuitiva.</p>
+
+  <div class="dos">
+    <div>
+      <div class="caja idea"><b class="t">Piénsalo así: la cima de una montaña</b> Cuando caminas por una montaña, justo en la cima (o en el fondo de un valle) el suelo está “plano”: no subes ni bajas. Plano significa pendiente cero. Y la pendiente es la derivada. Por eso, en un máximo o un mínimo, <b>f′(x) = 0</b>.</div>
+      <p>Un <b>punto crítico</b> es un valor de x donde <span class="m">f′(x) = 0</span>. Puede ser un máximo, un mínimo o ninguno de los dos (un <b>punto de inflexión</b>, como x = 0 en x⁵, donde la curva se aplana un momento y sigue subiendo).</p>
+    </div>
+    <div class="fig"><!--FIG:maxmin--></div>
+  </div>
+
+  <h3>¿Máximo o mínimo? La segunda derivada</h3>
+  <p>La segunda derivada <span class="m">f″</span> (la derivada de la derivada) dice hacia dónde se dobla la curva: si <span class="m">f″ &gt; 0</span> la curva es cóncava hacia arriba, como una carita feliz ∪, y el punto crítico es un <b>mínimo</b>; si <span class="m">f″ &lt; 0</span> es cóncava hacia abajo, como una carita triste ∩, y el punto es un <b>máximo</b>. (Es lo mismo que el signo de a en una parábola.)</p>
+  <div class="caja formula"><b class="t">El criterio de la segunda derivada, paso a paso</b>
+    <ol>
+      <li>Calcula <span class="m">f′(x)</span> y <span class="m">f″(x)</span>.</li>
+      <li>Resuelve <span class="m">f′(x) = 0</span>: esos son los puntos críticos.</li>
+      <li>Evalúa <span class="m">f″</span> en cada uno: si <span class="m">f″(a) &gt; 0</span> hay un mínimo; si <span class="m">f″(a) &lt; 0</span>, un máximo; si <span class="m">f″(a) = 0</span>, el criterio no decide.</li>
+      <li>Las coordenadas del punto son <span class="m">(a, f(a))</span>: sustituye en la función original.</li>
+      <li>Si el problema está limitado a un intervalo (por ejemplo, “durante 3 segundos”), compara también con los valores en los extremos.</li>
+    </ol>
+  </div>
+  <div class="caja ejemplo"><b class="t">Ejemplo explicado (del temario, el de la figura): g(x) = x³ − 6x² + 9x + 1</b>
+    <ol class="pasos">
+      <li><b>Derivadas:</b> g′(x) = 3x² − 12x + 9 y g″(x) = 6x − 12.</li>
+      <li><b>Puntos críticos:</b> 3x² − 12x + 9 = 0 → 3(x² − 4x + 3) = 0 → 3(x − 1)(x − 3) = 0 → x = 1 y x = 3.</li>
+      <li><b>Clasifico:</b> g″(1) = −6 &lt; 0 → máximo; g″(3) = 6 &gt; 0 → mínimo.</li>
+      <li><b>Coordenadas:</b> g(1) = 1 − 6 + 9 + 1 = 5 y g(3) = 27 − 54 + 27 + 1 = 1. Máximo (1, 5) y mínimo (3, 1).</li>
+    </ol>
+  </div>
+  <div class="caja ejemplo"><b class="t">Ejemplo explicado: un problema de optimización</b>
+    <div class="preg">Con 20 m de malla quieres cercar un corral rectangular. ¿Qué medidas dan la mayor área?</div>
+    <ol class="pasos">
+      <li><b>Planteo:</b> si un lado mide x, el otro mide 10 − x (porque 2x + 2(10 − x) = 20). Área: A(x) = x(10 − x) = 10x − x².</li>
+      <li><b>Derivo e igualo a cero:</b> A′(x) = 10 − 2x = 0 → x = 5.</li>
+      <li><b>Compruebo que es máximo:</b> A″(x) = −2 &lt; 0 ✔.</li>
+      <li><b>Respuesta:</b> un cuadrado de 5 × 5 m, con área de 25 m².</li>
+    </ol>
+  </div>
+
+  <div class="caja examen">
+    <div class="enc">Reactivo 32 del examen</div>
+    <div class="preg">En un experimento se midió, durante 3 segundos, la presión de un plasma. El modelo es p(t) = (t − 2)³ − 3(t − 2) + 2, con t en segundos y p en kilopascales. ¿Cuál es la presión máxima y a qué tiempo se alcanzó? &nbsp; A) 1 kPa en 3 s &nbsp; B) 2 kPa en 1 s &nbsp; C) 2 kPa en 3 s &nbsp; D) 4 kPa en 1 s</div>
+    <ol class="pasos">
+      <li><b>Derivo</b> (regla de la cadena; lo de adentro, t − 2, tiene derivada 1): p′(t) = 3(t − 2)² − 3.</li>
+      <li><b>Igualo a cero:</b> 3(t − 2)² = 3 → (t − 2)² = 1 → t − 2 = ±1 → t = 1 o t = 3.</li>
+      <li><b>Clasifico:</b> p″(t) = 6(t − 2). p″(1) = −6 &lt; 0 → máximo en t = 1. (En t = 3, p″ = 6: mínimo.)</li>
+      <li><b>Valor:</b> p(1) = (−1)³ − 3(−1) + 2 = −1 + 3 + 2 = 4 kPa.</li>
+      <li><b>Reviso los extremos del intervalo [0, 3]:</b> p(0) = −8 + 6 + 2 = 0 y p(3) = 1 − 3 + 2 = 0. Ninguno supera 4 ✔.</li>
+    </ol>
+    <span class="resp">Respuesta: D) 4 kPa en 1 s</span>
+  </div>
+
+  <div class="caja practica"><b class="t">Ahora tú</b>
+    <ol>
+      <li>Encuentra los máximos y mínimos de f(x) = x³ − 3x.</li>
+      <li>Encuentra los máximos y mínimos de f(x) = 2x³ − 3x² − 12x.</li>
+      <li>La ganancia de un taller es G(x) = −x² + 40x − 100 (x = piezas). ¿Cuántas piezas maximizan la ganancia y cuál es?</li>
+      <li>¿Qué tipo de punto crítico tiene f(x) = x³ en x = 0?</li>
+    </ol>
+    <div class="sol">
+      <p><b>1)</b> f′ = 3x² − 3 = 0 → x = ±1; f″ = 6x. x = −1: f″ &lt; 0, máximo (−1, 2). x = 1: f″ &gt; 0, mínimo (1, −2).</p>
+      <p><b>2)</b> f′ = 6x² − 6x − 12 = 6(x − 2)(x + 1); f″ = 12x − 6. Máximo en (−1, 7) y mínimo en (2, −20).</p>
+      <p><b>3)</b> G′ = −2x + 40 = 0 → x = 20; G(20) = −400 + 800 − 100 = 300.</p>
+      <p><b>4)</b> f′ = 3x² = 0 en x = 0 y f″(0) = 0: es un punto de inflexión (la función sigue creciendo).</p>
+    </div>
+  </div>
+</section>

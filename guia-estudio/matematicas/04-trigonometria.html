@@ -1,0 +1,323 @@
+<!-- ======================= 1.14 ======================= -->
+<section class="tema">
+  <h2>1.14 Trigonometría</h2>
+  <div class="reactivos">Reactivos 16 y 18 de la versión de práctica</div>
+
+  <p class="intro"><b>¿De qué trata esta lección?</b> La trigonometría relaciona los <b>ángulos</b> de un triángulo rectángulo con sus <b>lados</b>. Con ella puedes medir lo que no alcanzas: la altura de un edificio, el ancho de un río o la distancia a una estrella. La idea clave es que en todos los triángulos rectángulos con el mismo ángulo, las <b>razones</b> entre sus lados son las mismas (son semejantes, ¿recuerdas 1.12?).</p>
+
+  <h3>Los lados se nombran desde el ángulo que miras</h3>
+  <div class="dos">
+    <div>
+      <p>En un triángulo rectángulo, la <b>hipotenusa</b> (HIP) siempre es la misma: el lado más largo, enfrente del ángulo recto. Pero los catetos cambian de nombre según el ángulo desde el que mires:</p>
+      <ul>
+        <li><b>Cateto opuesto (CO):</b> el que está enfrente del ángulo α.</li>
+        <li><b>Cateto adyacente (CA):</b> el que toca al ángulo α y no es la hipotenusa.</li>
+      </ul>
+      <p>Si miras desde el otro ángulo agudo, el opuesto y el adyacente se intercambian. ¡Este es el error más común de toda la trigonometría!</p>
+    </div>
+    <div class="fig"><!--FIG:triangulo_rect--></div>
+  </div>
+
+  <h3>Las seis funciones trigonométricas</h3>
+  <div class="caja formula">
+    <p class="m" style="text-align:center;font-size:11.5pt">sin α = <span class="fr"><span>CO</span><span>HIP</span></span> &nbsp;&nbsp; cos α = <span class="fr"><span>CA</span><span>HIP</span></span> &nbsp;&nbsp; tan α = <span class="fr"><span>CO</span><span>CA</span></span> &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; csc α = <span class="fr"><span>HIP</span><span>CO</span></span> &nbsp;&nbsp; sec α = <span class="fr"><span>HIP</span><span>CA</span></span> &nbsp;&nbsp; cot α = <span class="fr"><span>CA</span><span>CO</span></span></p>
+    <p>Para recordar las tres principales: <b>SOH – CAH – TOA</b> (Seno = Opuesto/Hipotenusa, Coseno = Adyacente/Hipotenusa, Tangente = Opuesto/Adyacente). Las otras tres son sus recíprocas: csc = 1/sin, sec = 1/cos y cot = 1/tan.</p>
+  </div>
+  <p>Como la hipotenusa es el lado más largo, en un triángulo rectángulo el seno y el coseno siempre quedan entre 0 y 1. La tangente puede ser mayor que 1.</p>
+
+  <div class="caja ejemplo"><b class="t">Ejemplo explicado: la altura de un árbol</b>
+    <div class="preg">Desde el extremo de la sombra de un árbol, a 10 m de su base, se ve la punta del árbol con un ángulo de elevación de 30°. ¿Cuánto mide el árbol? (tan 30° ≈ 0.577)</div>
+    <ol class="pasos">
+      <li><b>Dibujo el triángulo:</b> el suelo (10 m) es el cateto adyacente al ángulo de 30°; la altura h es el cateto opuesto.</li>
+      <li><b>Elijo la función que une lo que sé con lo que busco:</b> CO y CA → tangente. <span class="por">Si fueran CO e HIP usaría seno; si fueran CA e HIP, coseno.</span></li>
+      <li><b>Planteo y despejo:</b> tan 30° = h/10 → h = 10·tan 30° ≈ 10·0.577 ≈ 5.77 m.</li>
+    </ol>
+  </div>
+
+  <h3>La circunferencia unitaria y los radianes</h3>
+  <div class="dos">
+    <div>
+      <p>Los ángulos se miden desde el lado derecho de la horizontal: son <b>positivos</b> en sentido contrario a las manecillas del reloj y <b>negativos</b> en el sentido de las manecillas.</p>
+      <p>La <b>circunferencia unitaria</b> (S¹) tiene radio 1. Si un punto de ella está a un ángulo α, la hipotenusa mide 1, así que <b>su coordenada x es cos α y su coordenada y es sin α</b>: el punto es <span class="m">(cos α, sin α)</span>. Así se definen el seno y el coseno de cualquier ángulo, aunque pase de 90°.</p>
+      <p>Como toda la circunferencia unitaria mide <span class="m">2π</span>, una vuelta (360°) son 2π radianes. Para un ángulo α en grados: <span class="m">s = (2π/360)·α</span>, y al revés, <span class="m">α = (360/2π)·s</span>.</p>
+    </div>
+    <div class="fig"><!--FIG:circulo_unitario--></div>
+  </div>
+
+  <h3>Identidades: igualdades que siempre se cumplen</h3>
+  <div class="caja formula">
+    <p class="m" style="text-align:center;font-size:12pt">sin<sup>2</sup>α + cos<sup>2</sup>α = 1 &nbsp;&nbsp;&nbsp; tan α = <span class="fr"><span>sin α</span><span>cos α</span></span> &nbsp;&nbsp;&nbsp; sec<sup>2</sup>α − tan<sup>2</sup>α = 1</p>
+    <p><b>¿Por qué?</b> En la circunferencia unitaria los catetos miden cos α y sin α, y la hipotenusa 1. Pitágoras dice cos²α + sin²α = 1². La tercera sale de dividir la primera entre cos²α.</p>
+  </div>
+  <p>Uso típico: si α es agudo y sin α = 3/5, entonces cos²α = 1 − 9/25 = 16/25, así que cos α = 4/5 y tan α = (3/5)/(4/5) = 3/4.</p>
+
+  <h3>Los ángulos notables (y un truco para no memorizarlos)</h3>
+  <div class="caja idea"><b class="t">El truco de las raíces</b> El seno de 0°, 30°, 45°, 60° y 90° es <span class="m">√0/2, √1/2, √2/2, √3/2, √4/2</span>, o sea 0, ½, 0.707, 0.866 y 1. El coseno es la misma lista al revés. Y la tangente es seno entre coseno.</div>
+  <table>
+    <tr><th>α</th><th>0°</th><th>30°</th><th>45°</th><th>60°</th><th>90°</th></tr>
+    <tr><td>sin</td><td>0</td><td>1/2</td><td>√2/2 ≈ 0.707</td><td>√3/2 ≈ 0.866</td><td>1</td></tr>
+    <tr><td>cos</td><td>1</td><td>√3/2 ≈ 0.866</td><td>√2/2 ≈ 0.707</td><td>1/2</td><td>0</td></tr>
+    <tr><td>tan</td><td>0</td><td>√3/3 ≈ 0.577</td><td>1</td><td>√3 ≈ 1.732</td><td>no existe</td></tr>
+  </table>
+
+  <div class="caja examen">
+    <div class="enc">Reactivo 16 del examen</div>
+    <div class="preg">Considere ΔABC con ∢BAC recto, la hipotenusa CB = 10 cm, el cateto AB = 8 cm y el cateto AC = 6 cm. ¿Cuál es el valor de la expresión cos(∢ACB)·sin(∢ACB)? &nbsp; A) 0.60 &nbsp; B) 0.75 &nbsp; C) 0.80 &nbsp; D) 1.33</div>
+    <ol class="pasos">
+      <li><b>Me paro en el ángulo C</b> (∢ACB): el cateto que lo toca es AC = 6 (adyacente) y el de enfrente es AB = 8 (opuesto). La hipotenusa es 10.</li>
+      <li><b>Calculo:</b> cos C = CA/HIP = 6/10 = 0.60 y sin C = CO/HIP = 8/10 = 0.80.</li>
+      <li><b>El producto:</b> 0.60·0.80 = 0.48.</li>
+    </ol>
+    <span class="resp">Clave oficial: A) 0.60</span>
+    <p class="chico"><b>Nota importante:</b> el producto que pide la pregunta da 0.48, que no está entre las opciones. La clave marca 0.60, que es el valor de <b>cos(∢ACB)</b> solo; el reactivo parece tener un error de redacción. Las demás opciones también son razones de este triángulo (0.80 = sin C, 0.75 = tan B = 6/8, 1.33 = tan C = 8/6): lo que te evalúa es que sepas sacarlas. Si en tu examen aparece algo así, calcula cada razón por separado y elige la que coincida con lo que más se parezca a la pregunta.</p>
+  </div>
+
+  <div class="caja examen">
+    <div class="enc">Reactivo 18 del examen</div>
+    <div class="preg">Calcule el área del triángulo rectángulo de la figura: ángulo recto en B, ∢A = 30°, ∢C = 60°, BC = 6 y AB = h. Considere sin(30°) = 1/2 y sin(60°) = √3/2. &nbsp; A) 18/√3 &nbsp; B) 36/√3 &nbsp; C) 18√3 &nbsp; D) 36√3</div>
+    <ol class="pasos">
+      <li><b>¿Qué necesito?</b> El área de un triángulo rectángulo es cateto × cateto / 2. Conozco BC = 6, me falta h = AB.</li>
+      <li><b>Saco la hipotenusa AC con el ángulo A:</b> BC está enfrente de A, así que sin 30° = 6/AC → AC = 6/(1/2) = 12.</li>
+      <li><b>Saco h con el ángulo C:</b> AB está enfrente de C, así que sin 60° = h/12 → h = 12·√3/2 = 6√3.</li>
+      <li><b>Área:</b> 6·6√3/2 = 18√3.</li>
+    </ol>
+    <p class="chico">Atajo: tan 60° = h/6 → h = 6√3 directo. Comprobación: 18√3 ≈ 31.2, y un triángulo con catetos 6 y 10.4 tiene área (6·10.4)/2 ≈ 31.2 ✔.</p>
+    <span class="resp">Respuesta: C) 18√3</span>
+  </div>
+
+  <div class="caja practica"><b class="t">Ahora tú</b>
+    <ol>
+      <li>Si α es agudo y sin α = 3/5, encuentra cos α, tan α y csc α.</li>
+      <li>Convierte π/3 rad a grados y 225° a radianes.</li>
+      <li>Un triángulo rectángulo tiene catetos 5 y 12. ¿Cuánto mide la hipotenusa? ¿Cuánto vale el seno del ángulo opuesto al cateto 5?</li>
+      <li>Una rampa de 4 m de largo sube con un ángulo de 30°. ¿Qué altura alcanza?</li>
+    </ol>
+    <div class="sol">
+      <p><b>1)</b> cos α = 4/5, tan α = 3/4, csc α = 5/3.</p>
+      <p><b>2)</b> (π/3)·(180/π) = 60°; 225·π/180 = 5π/4.</p>
+      <p><b>3)</b> √(25 + 144) = 13; sin = 5/13 ≈ 0.385.</p>
+      <p><b>4)</b> La rampa es la hipotenusa y la altura el opuesto: h = 4·sin 30° = 2 m.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 1.15 ======================= -->
+<section class="tema">
+  <h2>1.15 Funciones trigonométricas</h2>
+  <div class="reactivos">Reactivo 17 de la versión de práctica</div>
+
+  <p class="intro"><b>¿De qué trata esta lección?</b> El seno y el coseno no solo sirven en triángulos: son <b>funciones</b> que se repiten cada vuelta, como las olas, el sonido o la corriente de tu casa. Aquí verás cómo se comportan con ángulos negativos o mayores de 90° y las fórmulas para sumar ángulos.</p>
+
+  <h3>Seno y coseno como ondas</h3>
+  <div class="dos">
+    <div>
+      <p>Si recorres la circunferencia unitaria y vas anotando la altura del punto (el seno), obtienes una onda: sube de 0 a 1 (en 90°), baja a 0 (180°), a −1 (270°) y regresa a 0 (360°). Luego se repite: es <b>periódica</b>, con periodo 360° (2π). El coseno es la misma onda, pero empieza en 1.</p>
+      <p>Por eso los valores del seno y del coseno siempre están entre <b>−1 y 1</b>: ese es su rango (lo vuelves a ver en 1.23).</p>
+    </div>
+    <div class="fig"><!--FIG:ondas--></div>
+  </div>
+
+  <h3>Signos por cuadrante</h3>
+  <p>En la circunferencia unitaria cos = x y sin = y, así que sus signos dependen del cuadrante: en el <b>I</b> (0° a 90°) todas son positivas; en el <b>II</b> (90° a 180°) solo el seno es positivo; en el <b>III</b> (180° a 270°) solo la tangente; en el <b>IV</b> (270° a 360°) solo el coseno.</p>
+
+  <h3>Ángulos negativos y suplementarios</h3>
+  <ul>
+    <li><b>Ángulo negativo</b> (reflejo hacia abajo): la x no cambia y la y cambia de signo. <span class="m">cos(−α) = cos α</span>, <span class="m">sin(−α) = −sin α</span>, <span class="m">tan(−α) = −tan α</span>.</li>
+    <li><b>Ángulo suplementario</b> (reflejo hacia la izquierda): la altura se queda igual y la x cambia de signo. <span class="m">sin(180° − α) = sin α</span>, <span class="m">cos(180° − α) = −cos α</span>. Por ejemplo, sin 150° = sin 30° = 0.5 y cos 120° = −cos 60° = −0.5.</li>
+  </ul>
+
+  <h3>Fórmulas de suma de ángulos</h3>
+  <div class="caja formula"><b class="t">Teorema (suma de ángulos)</b>
+    <p class="m" style="text-align:center;font-size:11.5pt">cos(α + β) = cos α·cos β − sin α·sin β</p>
+    <p class="m" style="text-align:center;font-size:11.5pt">sin(α + β) = sin α·cos β + cos α·sin β</p>
+    <p>Para restar, cambia el signo del segundo ángulo: <span class="m">cos(α − β) = cos α·cos β + sin α·sin β</span> y <span class="m">sin(α − β) = sin α·cos β − cos α·sin β</span>.</p>
+    <p class="chico">Truco para los signos: en el coseno el signo de en medio es el <b>contrario</b> (suma → menos); en el seno es el <b>mismo</b>.</p>
+  </div>
+  <div class="caja ejemplo"><b class="t">Ejemplo explicado: sin 75° sin calculadora</b>
+    <ol class="pasos">
+      <li><b>Escribo 75° como suma de ángulos notables:</b> 75° = 45° + 30°.</li>
+      <li><b>Aplico la fórmula del seno:</b> sin 75° = sin 45°·cos 30° + cos 45°·sin 30°.</li>
+      <li><b>Sustituyo:</b> (0.707)(0.866) + (0.707)(0.5) = 0.612 + 0.354 ≈ 0.966.</li>
+    </ol>
+  </div>
+
+  <div class="caja examen">
+    <div class="enc">Reactivo 17 del examen</div>
+    <div class="preg">Considere dos puntos en la circunferencia unitaria: A = (0.87, 0.50), separado 30° de la horizontal, y B = (0.64, 0.77), separado 50° de la horizontal. ¿Cuál es el valor de cos(80°)? &nbsp; A) −0.9417 &nbsp; B) −0.1718 &nbsp; C) 0.1718 &nbsp; D) 0.9417</div>
+    <ol class="pasos">
+      <li><b>Leo los puntos:</b> en la circunferencia unitaria cada punto es (cos, sin). Entonces cos 30° = 0.87, sin 30° = 0.50, cos 50° = 0.64 y sin 50° = 0.77.</li>
+      <li><b>80° = 30° + 50°</b>, así que uso la fórmula del coseno de una suma.</li>
+      <li><b>Calculo:</b> cos 80° = (0.87)(0.64) − (0.50)(0.77) = 0.5568 − 0.385 = 0.1718.</li>
+    </ol>
+    <p class="chico"><b>Revisión rápida:</b> 80° está en el primer cuadrante, así que el coseno debe ser positivo (descarta A y B), y como 80° está cerca de 90°, debe ser pequeño (descarta D). 0.9417 sale si en la fórmula se suma en lugar de restar.</p>
+    <span class="resp">Respuesta: C) 0.1718</span>
+  </div>
+
+  <div class="caja practica"><b class="t">Ahora tú</b>
+    <ol>
+      <li>Calcula cos(−60°), sin(150°) y cos(120°).</li>
+      <li>Comprueba con la fórmula que sin(30° + 60°) = 1.</li>
+      <li>¿En qué cuadrante el seno es positivo y el coseno negativo?</li>
+      <li>Calcula cos 15° usando 45° − 30°.</li>
+    </ol>
+    <div class="sol">
+      <p><b>1)</b> 0.5; sin 30° = 0.5; −cos 60° = −0.5.</p>
+      <p><b>2)</b> sin 30 cos 60 + cos 30 sin 60 = (0.5)(0.5) + (0.866)(0.866) = 0.25 + 0.75 = 1 ✔.</p>
+      <p><b>3)</b> En el II (entre 90° y 180°).</p>
+      <p><b>4)</b> cos 45 cos 30 + sin 45 sin 30 = (0.707)(0.866) + (0.707)(0.5) ≈ 0.966.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 1.16 ======================= -->
+<section class="tema">
+  <h2>1.16 Teoremas trigonométricos</h2>
+  <div class="reactivos">Este tema no viene en la versión de práctica, pero sí está en el temario</div>
+
+  <p class="intro"><b>¿De qué trata esta lección?</b> Pitágoras y SOH-CAH-TOA solo sirven en triángulos <b>rectángulos</b>. Para cualquier otro triángulo existen dos herramientas: la <b>ley de los senos</b> y la <b>ley de los cosenos</b>. Con ellas puedes resolver cualquier triángulo si conoces tres de sus datos (al menos uno de ellos un lado).</p>
+
+  <p>Usaremos esta notación: en el triángulo ABC, el lado <span class="m">a</span> está enfrente del ángulo A (o α), el lado <span class="m">b</span> enfrente de B (β) y el lado <span class="m">c</span> enfrente de C (γ).</p>
+
+  <div class="caja formula"><b class="t">Ley de los senos</b>
+    <p class="m" style="text-align:center;font-size:12pt"><span class="fr"><span>a</span><span>sin A</span></span> = <span class="fr"><span>b</span><span>sin B</span></span> = <span class="fr"><span>c</span><span>sin C</span></span> = 2r</p>
+    <p>Cada lado dividido entre el seno de su ángulo opuesto da lo mismo: el diámetro (2r) de la circunferencia que pasa por los tres vértices (la circunscrita, cuyo centro es el <b>circuncentro</b>, donde se cruzan las mediatrices).</p>
+  </div>
+  <div class="caja formula"><b class="t">Ley de los cosenos</b>
+    <p class="m" style="text-align:center;font-size:12pt">a<sup>2</sup> = b<sup>2</sup> + c<sup>2</sup> − 2bc·cos A &nbsp;&nbsp; b<sup>2</sup> = a<sup>2</sup> + c<sup>2</sup> − 2ac·cos B &nbsp;&nbsp; c<sup>2</sup> = a<sup>2</sup> + b<sup>2</sup> − 2ab·cos C</p>
+    <p>Es Pitágoras “con corrección”: si el ángulo es de 90°, cos 90° = 0 y queda c² = a² + b².</p>
+  </div>
+
+  <h3>¿Cuál uso? La tabla de decisión</h3>
+  <table>
+    <tr><th>Lo que conoces</th><th>Usa</th></tr>
+    <tr><td>Dos ángulos y un lado</td><td>Ley de los senos (el tercer ángulo sale de 180°)</td></tr>
+    <tr><td>Dos lados y el ángulo opuesto a uno de ellos</td><td>Ley de los senos</td></tr>
+    <tr><td>Dos lados y el ángulo <b>entre</b> ellos</td><td>Ley de los cosenos, para el tercer lado</td></tr>
+    <tr><td>Los tres lados</td><td>Ley de los cosenos, para un ángulo</td></tr>
+  </table>
+  <p>Y si conoces dos lados y el ángulo entre ellos, el <b>área</b> es <span class="m">A = ½·a·b·sin C</span>.</p>
+
+  <div class="caja ejemplo"><b class="t">Ejemplo explicado 1: ley de los cosenos</b>
+    <div class="preg">Dos lados de un terreno triangular miden 5 m y 7 m, y forman un ángulo de 60°. ¿Cuánto mide el tercer lado?</div>
+    <ol class="pasos">
+      <li><b>¿Qué tengo?</b> Dos lados y el ángulo entre ellos → ley de los cosenos.</li>
+      <li><b>Sustituyo:</b> c² = 5² + 7² − 2·5·7·cos 60° = 25 + 49 − 70·0.5 = 39.</li>
+      <li><b>Raíz:</b> c = √39 ≈ 6.24 m.</li>
+    </ol>
+  </div>
+  <div class="caja ejemplo"><b class="t">Ejemplo explicado 2: ley de los senos</b>
+    <div class="preg">En un triángulo, A = 30°, B = 45° y a = 5. Encuentra b.</div>
+    <ol class="pasos">
+      <li><b>¿Qué tengo?</b> Dos ángulos y un lado → ley de los senos.</li>
+      <li><b>Planteo:</b> a/sin A = b/sin B → 5/sin 30° = b/sin 45°.</li>
+      <li><b>Despejo:</b> b = 5·sin 45°/sin 30° = 5·0.707/0.5 ≈ 7.07.</li>
+    </ol>
+  </div>
+
+  <div class="caja practica"><b class="t">Ahora tú</b>
+    <ol>
+      <li>En el ejemplo 2, ¿cuánto mide el radio de la circunferencia circunscrita?</li>
+      <li>Un triángulo tiene lados 3, 5 y 7. ¿Cuánto mide el ángulo opuesto al lado 7?</li>
+      <li>Calcula el área del terreno del ejemplo 1.</li>
+      <li>Comprueba que con un ángulo de 90° la ley de los cosenos se vuelve Pitágoras.</li>
+    </ol>
+    <div class="sol">
+      <p><b>1)</b> 2r = a/sin A = 5/0.5 = 10 → r = 5.</p>
+      <p><b>2)</b> 49 = 9 + 25 − 2·3·5·cos C → 49 = 34 − 30 cos C → cos C = −0.5 → C = 120° (coseno negativo: ángulo obtuso).</p>
+      <p><b>3)</b> ½·5·7·sin 60° = 17.5·0.866 ≈ 15.16 m².</p>
+      <p><b>4)</b> c² = a² + b² − 2ab·cos 90° = a² + b² − 0 ✔.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 1.17 ======================= -->
+<section class="tema">
+  <h2>1.17 Coordenadas del plano</h2>
+  <div class="reactivos">Reactivo 19 de la versión de práctica</div>
+
+  <p class="intro"><b>¿De qué trata esta lección?</b> La <b>geometría analítica</b> estudia la geometría con álgebra: cada punto se vuelve una pareja de números y cada figura, una ecuación. Hay dos maneras de dar la ubicación de un punto: con coordenadas <b>rectangulares</b> (cuánto a la derecha y cuánto arriba) o con coordenadas <b>polares</b> (qué tan lejos y en qué dirección).</p>
+
+  <h3>El plano cartesiano</h3>
+  <div class="dos">
+    <div>
+      <p>Tiene dos ejes perpendiculares: el de las <b>abscisas</b> (x, positivo hacia la derecha) y el de las <b>ordenadas</b> (y, positivo hacia arriba). Cada punto es una <b>pareja ordenada</b> (x, y): primero cuánto avanzas a la derecha (o izquierda si es negativo) y luego cuánto subes (o bajas).</p>
+      <div class="caja idea"><b class="t">Piénsalo así</b> Es como un boleto de cine: fila y asiento. El orden importa: (2, 5) y (5, 2) son lugares distintos.</div>
+      <p>Los ejes dividen el plano en cuatro <b>cuadrantes</b>, numerados en contra de las manecillas del reloj, cada uno con sus signos: I (+, +), II (−, +), III (−, −), IV (+, −).</p>
+    </div>
+    <div class="fig"><!--FIG:cuadrantes--></div>
+  </div>
+
+  <h3>Coordenadas polares</h3>
+  <p>Un punto también se puede ubicar con <span class="m">(r, θ)</span>: <span class="m">r</span> es la distancia al origen (nunca es negativa, está en [0, ∞)) y <span class="m">θ</span> es el ángulo medido desde el eje x positivo, en contra de las manecillas (entre 0° y 360°). Es como dar indicaciones con radar: “a 5 km, en dirección 30°”.</p>
+  <div class="caja formula"><b class="t">Conversiones</b>
+    <p><b>De polares a rectangulares:</b> <span class="m">x = r·cos θ</span>, &nbsp;<span class="m">y = r·sin θ</span> (es el triángulo de la circunferencia unitaria, pero con hipotenusa r).</p>
+    <p><b>De rectangulares a polares:</b> <span class="m">r = √(x<sup>2</sup> + y<sup>2</sup>)</span> (Pitágoras), &nbsp;<span class="m">θ = arctan(y/x)</span>.</p>
+  </div>
+  <div class="caja ojo"><b class="t">Error común: el cuadrante del ángulo</b> La calculadora siempre da arctan entre −90° y 90°, así que no distingue si el punto está a la izquierda. Si <b>x es negativa</b>, súmale 180° (por eso el examen escribe “arctan(y/x) + π”). Ejemplo: para (−1, 1), arctan(1/−1) = −45°, pero el punto está en el cuadrante II: θ = −45° + 180° = 135°. Dibuja siempre el punto antes de dar el ángulo.</div>
+
+  <div class="caja examen">
+    <div class="enc">Reactivo 19 del examen</div>
+    <div class="preg">Encuentre las coordenadas polares del punto (−3, 0). Considere r² = x² + y² y θ = arctan(y/x) + π. &nbsp; A) (−3, 180°) &nbsp; B) (3, 180°) &nbsp; C) (−3, 270°) &nbsp; D) (3, 270°)</div>
+    <ol class="pasos">
+      <li><b>Distancia:</b> r = √((−3)² + 0²) = √9 = 3. <span class="por">r es una distancia: nunca es negativa. Eso ya descarta A y C.</span></li>
+      <li><b>Ángulo:</b> θ = arctan(0/−3) + π = 0 + π = 180°.</li>
+      <li><b>¿Tiene sentido?</b> (−3, 0) está sobre el eje x, del lado negativo: media vuelta desde el eje positivo, o sea 180° ✔. (270° apuntaría hacia abajo.)</li>
+    </ol>
+    <span class="resp">Respuesta: B) (3, 180°)</span>
+  </div>
+</section>
+
+<!-- ======================= 1.18 ======================= -->
+<section class="tema">
+  <h2>1.18 Relaciones analíticas</h2>
+  <div class="reactivos">Reactivo 20 de la versión de práctica</div>
+
+  <p class="intro"><b>¿De qué trata esta lección?</b> De dos fórmulas muy usadas en geometría analítica: la <b>distancia</b> entre dos puntos y el <b>punto medio</b> del segmento que los une. Las dos son fáciles si entiendes de dónde salen.</p>
+
+  <div class="dos">
+    <div>
+      <h3>La distancia es Pitágoras</h3>
+      <p>Para ir de P(x₁, y₁) a Q(x₂, y₂) avanzas horizontalmente <span class="m">Δx = x<sub>2</sub> − x<sub>1</sub></span> y verticalmente <span class="m">Δy = y<sub>2</sub> − y<sub>1</sub></span>. Esos dos movimientos son los catetos de un triángulo rectángulo y la distancia es la hipotenusa:</p>
+      <p class="m" style="text-align:center;font-size:12pt">d(P, Q) = √((x<sub>2</sub> − x<sub>1</sub>)<sup>2</sup> + (y<sub>2</sub> − y<sub>1</sub>)<sup>2</sup>)</p>
+      <h3>El punto medio es un promedio</h3>
+      <p>El punto que está justo a la mitad tiene como coordenadas el <b>promedio</b> de las x y el promedio de las y:</p>
+      <p class="m" style="text-align:center;font-size:12pt">M = ( <span class="fr"><span>x<sub>1</sub> + x<sub>2</sub></span><span>2</span></span> , <span class="fr"><span>y<sub>1</sub> + y<sub>2</sub></span><span>2</span></span> )</p>
+    </div>
+    <div class="fig"><!--FIG:distancia--></div>
+  </div>
+
+  <div class="caja ejemplo"><b class="t">Ejemplo explicado (el de la figura): P(1, 1) y Q(5, 4)</b>
+    <ol class="pasos">
+      <li><b>Diferencias:</b> Δx = 5 − 1 = 4 y Δy = 4 − 1 = 3.</li>
+      <li><b>Distancia:</b> d = √(4² + 3²) = √25 = 5. <span class="por">Es el famoso triángulo 3-4-5.</span></li>
+      <li><b>Punto medio:</b> M = ((1 + 5)/2, (1 + 4)/2) = (3, 2.5).</li>
+    </ol>
+  </div>
+  <div class="caja ojo"><b class="t">Error común</b> Al restar coordenadas negativas: de x₁ = −2 a x₂ = 4, la diferencia es 4 − (−2) = 6, no 2. Al elevar al cuadrado el signo ya no importa, pero la resta debe estar bien hecha.</div>
+
+  <div class="caja examen">
+    <div class="enc">Reactivo 20 del examen</div>
+    <div class="preg">¿Cuál es el punto medio del segmento de recta comprendido entre los puntos (−3, 6) y (1, 2)? &nbsp; A) (−1, −4) &nbsp; B) (−1, 4) &nbsp; C) (1, −4) &nbsp; D) (1, 4)</div>
+    <ol class="pasos">
+      <li><b>Promedio de las x:</b> (−3 + 1)/2 = −2/2 = −1.</li>
+      <li><b>Promedio de las y:</b> (6 + 2)/2 = 8/2 = 4.</li>
+    </ol>
+    <p class="chico"><b>Revisión:</b> el punto medio debe quedar “entre” los dos puntos: su x entre −3 y 1, y su y entre 2 y 6. Solo (−1, 4) cumple. Las otras opciones salen de restar en vez de sumar o de equivocarse con los signos.</p>
+    <span class="resp">Respuesta: B) (−1, 4)</span>
+  </div>
+
+  <div class="caja practica"><b class="t">Ahora tú</b>
+    <ol>
+      <li>Coordenadas polares de (0, 4) y de (1, 1).</li>
+      <li>Coordenadas rectangulares del punto polar (2, 60°).</li>
+      <li>Distancia y punto medio entre (−2, 1) y (4, 9).</li>
+      <li>M(3, 5) es el punto medio entre A(1, 2) y B. ¿Cuáles son las coordenadas de B?</li>
+    </ol>
+    <div class="sol">
+      <p><b>1)</b> (4, 90°): está sobre el eje y positivo. (√2, 45°): r = √(1 + 1).</p>
+      <p><b>2)</b> x = 2·cos 60° = 1, y = 2·sin 60° ≈ 1.73 → (1, 1.73).</p>
+      <p><b>3)</b> Δx = 6, Δy = 8 → d = √(36 + 64) = 10. M = ((−2 + 4)/2, (1 + 9)/2) = (1, 5).</p>
+      <p><b>4)</b> (1 + x)/2 = 3 → x = 5; (2 + y)/2 = 5 → y = 8. B = (5, 8).</p>
+    </div>
+  </div>
+</section>

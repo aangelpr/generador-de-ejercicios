@@ -1,0 +1,318 @@
+<!-- ======================= 1.27 ======================= -->
+<section class="tema">
+  <h2>1.27 Cálculo integral</h2>
+  <div class="reactivos">Reactivo 33 de la versión de práctica</div>
+
+  <p class="intro"><b>¿De qué trata esta lección?</b> La integral sirve para <b>acumular</b>: si conoces a qué ritmo cambia algo en cada instante, la integral te dice cuánto cambió en total. Si sabes la velocidad de un coche en cada momento, la integral te da la distancia recorrida; si sabes a qué ritmo crece una planta, te da cuánto creció. Es la operación inversa de la derivada.</p>
+
+  <h3>La idea: área bajo la curva</h3>
+  <div class="dos">
+    <div>
+      <p>Si manejas a 60 km/h constantes durante 2 horas, recorres 60 × 2 = 120 km. En una gráfica de velocidad contra tiempo, eso es el área de un rectángulo de 60 de alto por 2 de ancho. Pero si la velocidad cambia, la gráfica es una curva. La solución: partir el área en rectángulos delgaditos y sumarlos.</p>
+      <p>Con rectángulos que quedan por debajo de la curva obtienes la <b>suma inferior</b> L; con rectángulos que la rebasan, la <b>suma superior</b> U. Mientras más delgados los rectángulos, más se acercan L y U a un mismo número: la <b>integral definida</b>.</p>
+      <p class="m" style="text-align:center;font-size:12pt">∫<sub>a</sub><sup>b</sup> f(x) dx</p>
+      <p>El símbolo ∫ es una “S” alargada (de <b>suma</b>); a y b son los <b>límites de integración</b>. Si f(x) &gt; 0, la integral es el área bajo la curva entre a y b.</p>
+    </div>
+    <div class="fig"><!--FIG:area--></div>
+  </div>
+
+  <h3>La antiderivada: deshacer una derivada</h3>
+  <p>¿Qué función tiene como derivada <span class="m">2x</span>? La respuesta es <span class="m">x<sup>2</sup></span>. Pero también <span class="m">x<sup>2</sup> + 5</span> o <span class="m">x<sup>2</sup> − 3</span>, porque la derivada de una constante es 0. Por eso, al integrar sin límites (integral <b>indefinida</b>) se agrega <b>+ c</b>, la constante de integración:</p>
+  <p class="m" style="text-align:center;font-size:12pt">∫ 2x dx = x<sup>2</sup> + c &nbsp;&nbsp;&nbsp; porque &nbsp;&nbsp;&nbsp; (x<sup>2</sup> + c)′ = 2x</p>
+  <div class="caja idea"><b class="t">Siempre puedes comprobar</b> Una integral está bien si al derivar tu resultado regresas a la función que integraste. Es como comprobar una división multiplicando.</div>
+
+  <h3>Los teoremas fundamentales del cálculo</h3>
+  <div class="caja formula">
+    <p><b>Primero:</b> si <span class="m">F(x) = ∫<sub>a</sub><sup>x</sup> f(t) dt</span> (el área acumulada desde a hasta x), entonces <span class="m">F′(x) = f(x)</span>. En palabras: el ritmo al que crece el área es la altura de la curva. Esto conecta las derivadas con las integrales.</p>
+    <p><b>Segundo</b> (el que se usa para calcular): si F es una antiderivada de f,</p>
+    <p class="m" style="text-align:center;font-size:13pt">∫<sub>a</sub><sup>b</sup> f(x) dx = F(b) − F(a)</p>
+    <p>Encuentra la antiderivada, evalúala en el límite de arriba, luego en el de abajo, y resta.</p>
+  </div>
+
+  <h3>Las reglas de integración</h3>
+  <div class="caja formula">
+    <table>
+      <tr><th>Regla</th><th>Fórmula</th><th>Ejemplo</th></tr>
+      <tr><td>Constante</td><td class="m">∫ a dx = ax + c</td><td class="m">∫ 5 dx = 5x + c</td></tr>
+      <tr><td>Potencia (n ≠ −1)</td><td class="m">∫ x<sup>n</sup> dx = x<sup>n+1</sup>/(n + 1) + c</td><td class="m">∫ x<sup>3</sup> dx = x<sup>4</sup>/4 + c</td></tr>
+      <tr><td>Radical (exponente fraccionario)</td><td class="m">∫ x<sup>1/n</sup> dx = x<sup>1/n + 1</sup>/(1/n + 1) + c</td><td class="m">∫ √x dx = (2/3)x<sup>3/2</sup> + c</td></tr>
+      <tr><td>Linealidad</td><td class="m">∫ (a·f ± g) dx = a∫f dx ± ∫g dx</td><td class="m">∫ (6x<sup>2</sup> + 4x) dx = 2x<sup>3</sup> + 2x<sup>2</sup> + c</td></tr>
+      <tr><td>Cambiar el orden de los límites</td><td class="m">∫<sub>a</sub><sup>b</sup> f = −∫<sub>b</sub><sup>a</sup> f</td><td></td></tr>
+      <tr><td>Separar el intervalo</td><td class="m">∫<sub>a</sub><sup>b</sup> f = ∫<sub>a</sub><sup>c</sup> f + ∫<sub>c</sub><sup>b</sup> f</td><td></td></tr>
+    </table>
+    <p><span class="m">∫ cos x dx = sin x + c</span> · <span class="m">∫ sin x dx = −cos x + c</span> · <span class="m">∫ tan x dx = −ln|cos x| + c</span> · <span class="m">∫ e<sup>ax</sup> dx = e<sup>ax</sup>/a + c</span> · <span class="m">∫ b<sup>ax</sup> dx = b<sup>ax</sup>/(a·ln b) + c</span> · <span class="m">∫ (1/x) dx = ln|x| + c</span> · <span class="m">∫ ln x dx = x(ln x − 1) + c</span></p>
+    <p>Receta de la potencia: <b>súmale 1 al exponente y divide entre el nuevo exponente</b> (lo contrario de derivar).</p>
+  </div>
+
+  <div class="caja ejemplo"><b class="t">Ejemplo explicado: una integral definida</b>
+    <div class="preg">Calcula ∫₀² 3t² dt.</div>
+    <ol class="pasos">
+      <li><b>Antiderivada:</b> 3t² → 3·t³/3 = t³. <span class="por">Compruebo: (t³)′ = 3t² ✔. En las definidas no hace falta el + c, porque se cancela al restar.</span></li>
+      <li><b>Evalúo arriba y abajo:</b> F(2) = 8 y F(0) = 0.</li>
+      <li><b>Resto:</b> 8 − 0 = 8.</li>
+    </ol>
+  </div>
+
+  <h3>Dos métodos para integrales más difíciles</h3>
+  <p><b>Sustitución (cambio de variable).</b> Sirve cuando dentro de la integral aparece una función <b>y también su derivada</b>. Llamas <span class="m">u</span> a la función de adentro y cambias todo a u.</p>
+  <div class="caja ejemplo"><b class="t">Ejemplo explicado: ∫ 2x(x² + 1)³ dx</b>
+    <ol class="pasos">
+      <li><b>Busco la función “de adentro”:</b> u = x² + 1. Su derivada, 2x, ¡también aparece! Entonces du = 2x dx.</li>
+      <li><b>Cambio todo a u:</b> ∫ (x² + 1)³·2x dx = ∫ u³ du.</li>
+      <li><b>Integro:</b> u⁴/4 + c.</li>
+      <li><b>Regreso a x:</b> (x² + 1)⁴/4 + c. <span class="por">Compruébalo derivando con la regla de la cadena.</span></li>
+    </ol>
+    <p class="chico">Ejemplo del temario con la misma idea: ∫ x/√(x² + 1) dx = √(x² + 1) + c (con u = x² + 1).</p>
+  </div>
+  <p><b>Por partes.</b> Sirve para integrar un <b>producto</b> de funciones: <span class="m">∫ f·g′ dx = f·g − ∫ f′·g dx</span>. Elige como f la que se simplifica al derivar (como x) y como g′ la que sabes integrar (como eˣ o cos x).</p>
+  <div class="caja ejemplo"><b class="t">Ejemplo explicado: ∫ x·eˣ dx</b>
+    <ol class="pasos">
+      <li><b>Elijo:</b> f = x (al derivar se vuelve 1) y g′ = eˣ (su integral es eˣ). Entonces f′ = 1 y g = eˣ.</li>
+      <li><b>Aplico la fórmula:</b> x·eˣ − ∫ 1·eˣ dx = x·eˣ − eˣ + c.</li>
+      <li><b>Compruebo:</b> (x·eˣ − eˣ)′ = eˣ + x·eˣ − eˣ = x·eˣ ✔.</li>
+    </ol>
+  </div>
+  <p class="chico">Una aplicación del temario: la masa de una estrella de radio R con densidad constante c es <span class="m">M = 4π∫<sub>0</sub><sup>R</sup> r<sup>2</sup>c dr = 4πc·R<sup>3</sup>/3</span>, que es la densidad por el volumen de la esfera.</p>
+
+  <div class="caja examen">
+    <div class="enc">Reactivo 33 del examen</div>
+    <div class="preg">El crecimiento de una planta se mide con la cantidad de centímetros por cada unidad de tiempo y está dado por c′(t) = 3t² + 2t + 1. ¿Cuántos centímetros creció en un segundo? &nbsp; A) 0 cm &nbsp; B) 1 cm &nbsp; C) 2 cm &nbsp; D) 3 cm</div>
+    <ol class="pasos">
+      <li><b>Leo con cuidado:</b> me dan c′(t), el <b>ritmo</b> de crecimiento (cm por unidad de tiempo), y me preguntan <b>cuánto creció en total</b> durante el primer segundo: hay que acumular, o sea, integrar de 0 a 1.</li>
+      <li><b>Antiderivada:</b> c(t) = t³ + t² + t.</li>
+      <li><b>Evalúo:</b> c(1) − c(0) = (1 + 1 + 1) − 0 = 3 cm.</li>
+    </ol>
+    <p class="chico"><b>Trampa:</b> si sustituyes t = 1 en c′(t) obtienes 6, que es la <b>rapidez</b> en ese instante, no lo que creció. Cuando el dato trae una prima (′) y te preguntan un total, casi seguro hay que integrar.</p>
+    <span class="resp">Respuesta: D) 3 cm</span>
+  </div>
+
+  <div class="caja practica"><b class="t">Ahora tú</b>
+    <ol>
+      <li>∫ (6x² + 4x − 5) dx &nbsp;&nbsp; 2) ∫₁³ 2x dx &nbsp;&nbsp; 3) ∫₀^π sin x dx &nbsp;&nbsp; 4) ∫ 3x²(x³ + 2)⁴ dx &nbsp;&nbsp; 5) ∫ x·cos x dx</li>
+      <li value="6">Un auto parte del reposo con velocidad v(t) = 4t m/s. ¿Qué distancia recorre de t = 0 a t = 5 s?</li>
+    </ol>
+    <div class="sol">
+      <p><b>1)</b> 2x³ + 2x² − 5x + c. <b>2)</b> [x²]₁³ = 9 − 1 = 8. <b>3)</b> [−cos x]₀^π = −cos π + cos 0 = 1 + 1 = 2.</p>
+      <p><b>4)</b> u = x³ + 2, du = 3x² dx → ∫u⁴ du = u⁵/5 + c = (x³ + 2)⁵/5 + c.</p>
+      <p><b>5)</b> f = x, g′ = cos x → x·sin x − ∫ sin x dx = x·sin x + cos x + c.</p>
+      <p><b>6)</b> ∫₀⁵ 4t dt = [2t²]₀⁵ = 50 m.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 1.28 ======================= -->
+<section class="tema">
+  <h2>1.28 Estadística</h2>
+  <div class="reactivos">Reactivos 34, 35, 36 y 37 de la versión de práctica (multirreactivo)</div>
+
+  <p class="intro"><b>¿De qué trata esta lección?</b> La estadística sirve para entender muchos datos a la vez y sacar conclusiones de ellos: encuestas, calificaciones, resultados médicos. Aprenderás su vocabulario (población, muestra, variables), a organizar datos en una tabla de frecuencias, a resumirlos con medidas como la media o la varianza y a leer sus gráficas.</p>
+
+  <div class="sub-tema">1.28.1 Elementos de la estadística</div>
+  <p>Un experimento es <b>aleatorio</b> si al repetirlo en las mismas condiciones no puedes predecir el resultado (lanzar una moneda, sacar una carta). Es <b>determinista</b> si siempre da lo mismo (el agua hierve a unos 100 °C a nivel del mar). La estadística estudia los fenómenos aleatorios; sacar conclusiones generales a partir de los datos se llama <b>inferencia estadística</b>.</p>
+  <ul>
+    <li><b>Población:</b> todo el grupo que te interesa estudiar.</li>
+    <li><b>Muestra:</b> la parte de la población que realmente estudias (a quienes les preguntas o mides).</li>
+    <li><b>Variable:</b> la característica que mides; los resultados son los <b>datos</b>.</li>
+  </ul>
+  <div class="caja idea"><b class="t">Piénsalo así: probar la sopa</b> Para saber si a una olla de sopa le falta sal no te la tomas toda: pruebas una cucharada. La olla es la <b>población</b> y la cucharada la <b>muestra</b>. Para que la cucharada represente bien a toda la olla hay que menear antes la sopa: la muestra debe ser <b>representativa</b>.</div>
+  <h3>Tipos de variables</h3>
+  <table>
+    <tr><th>Pregunta</th><th>Tipo</th><th>Ejemplos</th></tr>
+    <tr><td>¿Se responde con palabras? ¿Las respuestas tienen un orden?</td><td><b>Cualitativa ordinal</b></td><td>satisfacción (malo, regular, bueno, excelente), nivel de estudios</td></tr>
+    <tr><td>¿Se responde con palabras, sin orden?</td><td><b>Cualitativa no ordinal</b></td><td>sabor favorito, sexo, color</td></tr>
+    <tr><td>¿Se responde con un número que se <b>cuenta</b>?</td><td><b>Cuantitativa discreta</b></td><td>número de mascotas, de hermanos, de transportes</td></tr>
+    <tr><td>¿Se responde con un número que se <b>mide</b> (puede llevar decimales)?</td><td><b>Cuantitativa continua</b></td><td>estatura, peso, temperatura, colesterol</td></tr>
+  </table>
+  <p class="chico">En el documento del temario aparece “la cantidad de mascotas es una variable cualitativa discreta”: es una errata, debe decir <b>cuantitativa</b> discreta (se responde con un número).</p>
+
+  <h3>La tabla de frecuencias</h3>
+  <p>Organiza los datos contando cuántas veces aparece cada valor (o cuántos caen en cada intervalo). Con los datos del examen (cuántos transportes usan 15 alumnos):</p>
+  <table>
+    <tr><th>Transportes</th><th>Frecuencia absoluta n<sub>i</sub></th><th>Relativa f<sub>i</sub> = n<sub>i</sub>/n</th><th>Absoluta acumulada N<sub>i</sub></th><th>Relativa acumulada F<sub>i</sub> = N<sub>i</sub>/n</th></tr>
+    <tr><td>0</td><td>2</td><td>2/15 ≈ 0.133</td><td>2</td><td>0.133</td></tr>
+    <tr><td>1</td><td>8</td><td>8/15 ≈ 0.533</td><td>10</td><td>0.667</td></tr>
+    <tr><td>2</td><td>3</td><td>3/15 = 0.200</td><td>13</td><td>0.867</td></tr>
+    <tr><td>3</td><td>2</td><td>2/15 ≈ 0.133</td><td>15</td><td>1.000</td></tr>
+  </table>
+  <p>Cómo se lee: 8 alumnos (53%) usan 1 transporte; 13 alumnos (86.7%) usan 2 o menos. La acumulada siempre termina en n, y la relativa acumulada en 1 (el 100%). Del temario: en una tabla de colesterol, F₄ = 0.942 significa que el 94% de los deportistas tiene menos de 270 mg/100 mL.</p>
+
+  <div class="sub-tema">1.28.2 Medidas de tendencia central y de dispersión</div>
+  <ul>
+    <li><b>Media</b> <span class="m">x̄ = (Σx<sub>i</sub>)/n</span>: el promedio. Es lo que le tocaría a cada uno si se repartiera todo parejo.</li>
+    <li><b>Mediana:</b> el dato de en medio cuando los datos están <b>ordenados</b>. Si n es par, el promedio de los dos centrales.</li>
+    <li><b>Moda:</b> el valor que más se repite (puede haber más de una).</li>
+  </ul>
+  <div class="caja idea"><b class="t">¿Media o mediana?</b> Cinco empleados ganan 8, 9, 10, 11 y 12 mil pesos y el dueño gana 100 mil. La media es 150/6 = 25 mil, pero nadie gana algo parecido. La mediana, (10 + 11)/2 = 10.5 mil, describe mejor al grupo. La mediana no se deja engañar por los valores extremos.</div>
+  <p>Las <b>medidas de dispersión</b> dicen qué tan separados están los datos de la media:</p>
+  <div class="caja formula">
+    <p class="m" style="text-align:center;font-size:12pt">Varianza S = <span class="fr"><span>Σ(x<sub>i</sub> − x̄)<sup>2</sup></span><span>n − 1</span></span> &nbsp;&nbsp;&nbsp; Desviación estándar σ = √S</p>
+    <p>Así está escrita para una <b>muestra</b> (se divide entre n − 1, porque una muestra tiende a quedarse corta en la dispersión). Para toda la <b>población</b> se divide entre n. Si un dato se repite, multiplica su cuadrado por su frecuencia.</p>
+  </div>
+  <div class="caja ejemplo"><b class="t">Ejemplo explicado (del temario): pesos de ranas de árbol: 8, 12, 9, 13, 7, 11 g</b>
+    <ol class="pasos">
+      <li><b>Media:</b> (8 + 12 + 9 + 13 + 7 + 11)/6 = 60/6 = 10 g.</li>
+      <li><b>Distancia de cada dato a la media:</b> −2, 2, −1, 3, −3, 1. <span class="por">Si las sumas da 0 siempre; por eso se elevan al cuadrado.</span></li>
+      <li><b>Cuadrados:</b> 4, 4, 1, 9, 9, 1. Suma: 28.</li>
+      <li><b>Varianza muestral:</b> 28/(6 − 1) = 5.6. <b>Desviación estándar:</b> √5.6 ≈ 2.37 g.</li>
+    </ol>
+    <p>Las ranas dardo venenosas (4, 5, 3, 6, 4, 2, 4 g) tienen media 4, varianza 10/6 ≈ 1.67 y σ ≈ 1.29: sus pesos son mucho más parecidos entre sí.</p>
+  </div>
+
+  <div class="sub-tema">1.28.3 Gráficos estadísticos</div>
+  <table>
+    <tr><th style="width:24%">Gráfico</th><th>Para qué sirve</th></tr>
+    <tr><td>Sectores (pastel)</td><td>Mostrar qué parte del total es cada categoría (el Sol es 71% hidrógeno, 27% helio, 2% otros).</td></tr>
+    <tr><td>Barras</td><td>Comparar frecuencias de categorías (ventas por sabor de helado).</td></tr>
+    <tr><td>Dispersión</td><td>Ver si dos variables numéricas están relacionadas: cada punto es un dato con dos valores (la ley de Hubble: velocidad contra distancia de las galaxias).</td></tr>
+    <tr><td>Histograma</td><td>Frecuencias de una variable cuantitativa por valores o intervalos; las barras van pegadas.</td></tr>
+    <tr><td>Cajas y bigotes</td><td>Resumir la distribución: la caja va del primer cuartil (Q1) al tercero (Q3) y contiene el 50% central de los datos; la raya de adentro es la mediana; los bigotes cubren el 25% de abajo y el 25% de arriba; los puntos sueltos son datos atípicos.</td></tr>
+  </table>
+
+  <div class="caja examen larga">
+    <div class="enc">Multirreactivo 34 a 37 del examen</div>
+    <div class="preg">En un grupo de bachillerato se preguntó a 15 alumnos cuántos transportes usan para llegar a la escuela: X = {3, 2, 1, 1, 1, 0, 3, 1, 1, 1, 2, 1, 0, 2, 1}; la media de los datos es x̄ = 1.3.</div>
+    <p><b>Primer paso, antes de leer las preguntas:</b> hago la tabla de frecuencias (la de arriba): 0 → 2, 1 → 8, 2 → 3, 3 → 2. Me sirve para las cuatro preguntas.</p>
+    <p><b>34. “La muestra corresponde a ____ y ____ es la variable.”</b> A quienes se les preguntó fueron los 15 alumnos (muestra) y lo que se midió es la cantidad de transportes (variable). El grupo de bachillerato completo sería la población. <span class="resp">A) los 15 alumnos – la cantidad de transportes</span></p>
+    <p><b>35. ¿Cuál es la mediana?</b> Ordenados: 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 3, 3. Con 15 datos, el de en medio es el 8.º, que es 1. (Con la tabla: los datos 3.º a 10.º valen 1.) <span class="resp">B) 1</span></p>
+    <p><b>36. Varianza con S = Σ(xᵢ − x̄)²/(n − 1):</b></p>
+    <table style="width:80%">
+      <tr><th>x</th><th>x − 1.3</th><th>(x − 1.3)²</th><th>frecuencia</th><th>producto</th></tr>
+      <tr><td>0</td><td>−1.3</td><td>1.69</td><td>2</td><td>3.38</td></tr>
+      <tr><td>1</td><td>−0.3</td><td>0.09</td><td>8</td><td>0.72</td></tr>
+      <tr><td>2</td><td>0.7</td><td>0.49</td><td>3</td><td>1.47</td></tr>
+      <tr><td>3</td><td>1.7</td><td>2.89</td><td>2</td><td>5.78</td></tr>
+      <tr><th colspan="4">Suma</th><th>11.35</th></tr>
+    </table>
+    <p>S = 11.35/14 = 0.81071. Usa la media que te dan (1.3); con la media exacta (20/15 = 1.33…) saldría 0.8095, que no está en las opciones. Y si divides entre 15 en lugar de 14 sale 0.757: lee bien la fórmula. <span class="resp">B) 0.81071</span></p>
+    <p><b>37. ¿Qué gráfica corresponde a la distribución?</b> La que tiene barras de alturas 2, 8, 3 y 2 en 0, 1, 2 y 3 (la más alta en 1). <span class="resp">A</span></p>
+  </div>
+
+  <div class="caja practica"><b class="t">Ahora tú</b>
+    <ol>
+      <li>Clasifica: color favorito, nivel de satisfacción, número de hermanos, estatura.</li>
+      <li>Calificaciones de 20 alumnos: 6 (4 alumnos), 7 (6), 8 (7), 9 (3). Calcula la frecuencia relativa del 8, la absoluta acumulada hasta el 8 y la relativa acumulada hasta el 8.</li>
+      <li>Datos 4, 8, 6, 5, 7: media, mediana, varianza muestral y desviación estándar.</li>
+      <li>Datos 2, 3, 3, 5, 9, 10: mediana y moda.</li>
+      <li>Se encuesta a 200 de los 1 500 trabajadores de una fábrica sobre su salario. ¿Cuál es la población, la muestra y la variable? ¿De qué tipo es la variable?</li>
+    </ol>
+    <div class="sol">
+      <p><b>1)</b> Cualitativa no ordinal; cualitativa ordinal; cuantitativa discreta; cuantitativa continua.</p>
+      <p><b>2)</b> 7/20 = 0.35; 4 + 6 + 7 = 17; 17/20 = 0.85.</p>
+      <p><b>3)</b> Media 30/5 = 6; ordenados 4, 5, 6, 7, 8 → mediana 6; cuadrados 4, 4, 0, 1, 1 → 10/4 = 2.5; σ = √2.5 ≈ 1.58.</p>
+      <p><b>4)</b> Par de datos: (3 + 5)/2 = 4; moda 3.</p>
+      <p><b>5)</b> Población: los 1 500 trabajadores; muestra: los 200 encuestados; variable: el salario, cuantitativa continua.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 1.29 ======================= -->
+<section class="tema">
+  <h2>1.29 Probabilidad</h2>
+  <div class="reactivos">Reactivos 38, 39 y 40 de la versión de práctica (multirreactivo)</div>
+
+  <p class="intro"><b>¿De qué trata esta lección?</b> La probabilidad mide qué tan posible es que algo pase, con un número de 0 (imposible) a 1 (seguro). Cuando el pronóstico dice “70% de probabilidad de lluvia”, está diciendo 0.7. Aprenderás a calcular probabilidades contando casos, a combinarlas con la teoría de conjuntos y a resolver problemas de “cuántos éxitos en varios intentos”.</p>
+
+  <div class="sub-tema">1.29.1 Conceptos de probabilidad</div>
+  <p>Solo tiene sentido hablar de probabilidad en experimentos <b>aleatorios</b>: no puedes predecir el resultado, pero sí saber qué tan probable es cada uno. Cuando todos los resultados son igual de posibles:</p>
+  <p class="m" style="text-align:center;font-size:12pt">P = <span class="fr"><span>número de casos favorables</span><span>número de casos posibles</span></span> &nbsp;&nbsp; (siempre entre 0 y 1)</p>
+  <p>Ejemplo: al lanzar un dado, P(número impar) = 3/6 = 1/2, porque 3 de las 6 caras son impares.</p>
+
+  <div class="sub-tema">1.29.2 La teoría de conjuntos aplicada a la probabilidad</div>
+  <p>Un <b>conjunto</b> es una colección de objetos (sus <b>elementos</b>); un <b>subconjunto</b> es un conjunto contenido en otro; el <b>conjunto vacío</b> ∅ no tiene elementos. El temario lo ilustra con la clasificación de los seres vivos: especie ⊂ género ⊂ familia ⊂ orden ⊂ clase ⊂ phylum ⊂ reino (el jaguar ∈ Panthera ⊂ Felidae ⊂ Carnivora).</p>
+  <div class="dos">
+    <div>
+      <ul>
+        <li><b>Espacio muestral (E):</b> el conjunto de <b>todos</b> los resultados posibles. Cada resultado es un <b>punto muestral</b>. Moneda: {C, X}. Dado: {1, 2, 3, 4, 5, 6}. Dos monedas: {CC, CX, XC, XX}; el diagrama de árbol ayuda a no olvidar ninguno.</li>
+        <li><b>Suceso (o evento):</b> un subconjunto de E. “Sacar par” = {2, 4, 6}. Se <b>verifica</b> si el resultado cae en él.</li>
+        <li><b>Espacio de sucesos:</b> todos los subconjuntos posibles de E. Si E tiene n elementos, hay <b>2ⁿ</b> sucesos (dos monedas: 2⁴ = 16).</li>
+        <li><b>Suceso imposible:</b> ∅. En un experimento determinista, E tiene un solo elemento.</li>
+      </ul>
+    </div>
+    <div class="fig"><!--FIG:arbol--></div>
+  </div>
+
+  <h3>Operaciones con sucesos</h3>
+  <div class="dos">
+    <div>
+      <p>Con un dado, sea A = {2, 4, 6} (sacar par) y B = {4, 5, 6} (sacar más de 3):</p>
+      <ul>
+        <li><b>Unión A ∪ B</b> (“A <b>o</b> B”, al menos uno): {2, 4, 5, 6}.</li>
+        <li><b>Intersección A ∩ B</b> (“A <b>y</b> B”, los dos a la vez): {4, 6}.</li>
+        <li><b>Complemento A<sup>C</sup></b> (“no A”): {1, 3, 5}.</li>
+        <li><b>Diferencia A \ B</b> (“A pero no B”): {2}.</li>
+        <li><b>Incompatibles:</b> no pueden pasar juntos (A ∩ B = ∅), como “par” e “impar”. <b>Complementarios:</b> incompatibles y que juntos forman todo E.</li>
+      </ul>
+    </div>
+    <div class="fig"><!--FIG:venn--></div>
+  </div>
+  <div class="caja formula"><b class="t">Reglas para calcular probabilidades</b>
+    <p><span class="m">P(∅) = 0</span> y <span class="m">P(A) ≤ 1</span>; si A ⊆ B, entonces <span class="m">P(A) ≤ P(B)</span>.</p>
+    <p><b>Unión:</b> <span class="m">P(A ∪ B) = P(A) + P(B) − P(A ∩ B)</span>. Si son incompatibles, <span class="m">P(A ∪ B) = P(A) + P(B)</span>.</p>
+    <p><b>Complemento:</b> <span class="m">P(A<sup>C</sup>) = 1 − P(A)</span>. &nbsp; <b>Diferencia:</b> <span class="m">P(A \ B) = P(A) − P(A ∩ B)</span>.</p>
+    <p><b>Condicional</b> (probabilidad de B sabiendo que pasó A): <span class="m">P(B|A) = P(A ∩ B)/P(A)</span>, de donde <span class="m">P(A ∩ B) = P(A)·P(B|A)</span>; para tres: <span class="m">P(A ∩ B ∩ C) = P(A)·P(B|A)·P(C|A ∩ B)</span>.</p>
+    <p><b>Independientes</b> (que pase uno no cambia la probabilidad del otro): <span class="m">P(A ∩ B) = P(A)·P(B)</span>.</p>
+  </div>
+  <div class="caja idea"><b class="t">¿Por qué se resta la intersección?</b> En una baraja inglesa (52 naipes, 26 rojos, 4 reyes), ¿probabilidad de sacar un naipe rojo o un rey? Si sumas 26 + 4 cuentas dos veces el rey de corazones y el de diamantes, que son rojos <b>y</b> reyes. Por eso: (26 + 4 − 2)/52 = 28/52.</div>
+  <div class="caja idea"><b class="t">El truco del “al menos uno”</b> Muchas veces es más fácil calcular lo contrario. ¿Probabilidad de sacar al menos un 6 al lanzar dos dados? Lo contrario es “ningún 6”: (5/6)(5/6) = 25/36. Entonces P = 1 − 25/36 = 11/36.</div>
+  <div class="caja ejemplo"><b class="t">Ejemplos explicados (del temario, con la baraja inglesa)</b>
+    <ol class="pasos">
+      <li><b>Numeral o negro:</b> hay 36 numerales (del 2 al 10 en cada palo), 26 negros y 18 que son las dos cosas. P = 36/52 + 26/52 − 18/52 = 44/52.</li>
+      <li><b>Literal (A, J, Q, K):</b> es el complemento de “numeral”: P = 1 − 36/52 = 16/52.</li>
+      <li><b>Condicional, par sabiendo que es rojo:</b> me “paro” solo en los 26 rojos; de ellos, 10 tienen número par (2, 4, 6, 8, 10 de corazones y de diamantes). P(par | rojo) = 10/26. <span class="por">La condición reduce el espacio muestral.</span></li>
+      <li><b>Tres rojos seguidos sin regresar las cartas:</b> cada vez queda una roja menos y una carta menos: (26/52)(25/51)(24/50) ≈ 0.12. Son <b>dependientes</b>. Si regresaras cada carta serían independientes: (1/2)³ = 0.125.</li>
+    </ol>
+  </div>
+
+  <div class="sub-tema">1.29.3 La combinatoria aplicada a la probabilidad</div>
+  <p>A veces hay que <b>contar</b> de cuántas maneras puede pasar algo. Las <b>combinaciones</b> cuentan cuántos grupos de k elementos puedes formar con n, <b>sin importar el orden</b>:</p>
+  <p class="m" style="text-align:center;font-size:12pt">C(n, k) = <span class="fr"><span>n!</span><span>k!·(n − k)!</span></span></p>
+  <p>¿Cuántas parejas puedes formar con 5 amigos (A, B, C, D, E)? C(5, 2) = 120/(2·6) = 10: AB, AC, AD, AE, BC, BD, BE, CD, CE, DE. (Si el orden importara, por ejemplo presidente y secretario, serían permutaciones: 5·4 = 20.)</p>
+  <h3>La distribución binomial</h3>
+  <p>Repites un experimento n veces; cada vez hay “éxito” con probabilidad p o “fracaso” con probabilidad 1 − p, de forma independiente. ¿Probabilidad de obtener exactamente k éxitos?</p>
+  <div class="caja ejemplo"><b class="t">Ejemplo explicado: exactamente 2 águilas en 3 volados</b>
+    <ol class="pasos">
+      <li><b>¿De cuántas formas?</b> AAX, AXA, XAA: son 3 = C(3, 2) maneras de acomodar las 2 águilas.</li>
+      <li><b>Probabilidad de cada forma:</b> (½)(½)(½) = 1/8; en general, p<sup>k</sup>·(1 − p)<sup>n−k</sup>.</li>
+      <li><b>Total:</b> 3·(1/8) = 3/8.</li>
+    </ol>
+    <p>Eso es justamente la fórmula binomial:</p>
+    <p class="m" style="text-align:center;font-size:12pt">P(X = k; n, p) = C(n, k)·p<sup>k</sup>·(1 − p)<sup>n−k</sup></p>
+    <p class="chico">Ejemplo del temario: una caja con 11 bolas blancas y 9 negras; se saca una bola y se regresa, 15 veces. ¿Probabilidad de 10 blancas? n = 15, k = 10, p = 11/20 = 0.55: C(15, 10)·0.55¹⁰·0.45⁵ = 3003·0.55¹⁰·0.45⁵ ≈ 0.14.</p>
+  </div>
+
+  <div class="caja examen larga">
+    <div class="enc">Multirreactivo 38 a 40 del examen</div>
+    <div class="preg">Para celebrar su aniversario, una preparatoria organizó un torneo de futbol en formato de liga (todos contra todos) con cuatro equipos, así que cada uno juega tres partidos. Gana el que haga más puntos.</div>
+    <p><b>38. ¿El evento deportivo se considera determinístico?</b> No: no se puede saber de antemano quién ganará cada partido ni el torneo. Es un experimento aleatorio. (La A y la C dicen cosas falsas y la B se contradice: dice “sí” pero da la razón del “no”.) <span class="resp">D) No, porque no se puede predecir el resultado de los partidos y del torneo</span></p>
+    <p><b>39. ¿Probabilidad de que dos equipos ganen su primer partido, si juegan en partidos diferentes? Considere P(A ∩ B) = P(A)·P(B).</b></p>
+    <ol class="pasos">
+      <li><b>Probabilidad de que un equipo gane un partido:</b> en futbol hay <b>tres</b> resultados posibles: ganar, empatar o perder. Entonces P(ganar) = 1/3.</li>
+      <li><b>Son independientes</b> (juegan partidos distintos), así que se multiplica: (1/3)(1/3) = 1/9.</li>
+    </ol>
+    <p><span class="resp">A) 1/9</span></p>
+    <p><b>40. ¿Probabilidad de que un equipo gane dos de sus partidos?</b> Binomial con n = 3 partidos, k = 2 victorias y p = 1/3:</p>
+    <ol class="pasos">
+      <li>C(3, 2) = 3!/(2!·1!) = 3 formas (gana el 1.º y el 2.º, el 1.º y el 3.º, o el 2.º y el 3.º).</li>
+      <li>P = 3·(1/3)²·(2/3)¹ = 3·(1/9)·(2/3) = 6/27 ≈ 0.222.</li>
+    </ol>
+    <p><span class="resp">C) 0.222</span></p>
+  </div>
+  <div class="caja ojo"><b class="t">Error común</b> Usar p = 1/2 en el futbol: hay tres resultados, no dos. Con p = 1/2, el reactivo 39 daría 1/4 y el 40 daría 0.375, y ninguno está en las opciones. Antes de calcular, pregúntate siempre cuántos resultados posibles tiene cada intento y si son igual de probables.</div>
+
+  <div class="caja practica"><b class="t">Ahora tú</b>
+    <ol>
+      <li>Con el dado: A = {2, 4, 6}, B = {4, 5, 6}. Calcula P(A ∪ B) con la fórmula y comprueba contando.</li>
+      <li>¿Cuántos sucesos tiene el espacio de sucesos al lanzar un dado una vez?</li>
+      <li>Probabilidad de sacar un as de la baraja inglesa. ¿Y de sacar dos ases seguidos sin regresar el primero?</li>
+      <li>Una urna tiene 3 bolas rojas y 5 azules. ¿Probabilidad de sacar una roja? ¿Y de no sacar roja?</li>
+      <li>Una moneda se lanza 4 veces. ¿Probabilidad de exactamente 3 águilas?</li>
+    </ol>
+    <div class="sol">
+      <p><b>1)</b> 3/6 + 3/6 − 2/6 = 4/6 = 2/3. Contando: A ∪ B = {2, 4, 5, 6}, 4 de 6 ✔.</p>
+      <p><b>2)</b> E tiene 6 elementos → 2⁶ = 64 sucesos.</p>
+      <p><b>3)</b> 4/52 = 1/13; (4/52)(3/51) = 12/2652 = 1/221 ≈ 0.0045.</p>
+      <p><b>4)</b> 3/8; complemento: 1 − 3/8 = 5/8.</p>
+      <p><b>5)</b> C(4, 3)·(½)³·(½) = 4/16 = 0.25.</p>
+    </div>
+  </div>
+</section>
