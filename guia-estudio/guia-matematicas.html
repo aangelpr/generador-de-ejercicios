@@ -83,6 +83,8 @@
   .indice { columns: 2; column-gap: 24px; font-size: 10pt; }
   .indice li { break-inside: avoid; }
   .chico { font-size: 9pt; color: var(--suave); }
+  .sub-tema { font-size: 11pt; color: var(--acento); margin: 14px 0 4px; border-bottom: 1px dashed var(--linea); }
+  .fuente { font-size: 8.5pt; color: var(--suave); border-top: 1px solid var(--linea); margin-top: 12px; padding-top: 4px; }
 </style>
 </head>
 <body>
@@ -91,202 +93,252 @@
 <section class="portada">
   <h1>Guía de estudio<br>de Matemáticas</h1>
   <div class="sub">Certificación por Evaluaciones Parciales “EXACER”<br>Área de formación básica</div>
-  <div><span class="chip">23 temas · los 40 reactivos de la versión de práctica resueltos</span></div>
-  <p class="chico" style="margin-top:40px">Hecha a partir de la <i>Versión de práctica</i> (Guía para la Certificación por Evaluaciones Parciales 2025)<br>que está en este mismo repositorio. Complementa la app <b>Generador de ejercicios</b> → modo Prepa.</p>
+  <div><span class="chip">Temario oficial 1.1 a 1.29 · los 40 reactivos de práctica resueltos</span></div>
+  <p class="chico" style="margin-top:40px">Sigue el orden y el contenido de <i>Temas fundamentales y bibliografía</i> (sección 1. Matemáticas)<br>y resuelve paso a paso la <i>Versión de práctica</i> de la Guía para la Certificación por Evaluaciones Parciales 2025.<br>Ambos documentos están en este repositorio. Complementa la app <b>Generador de ejercicios</b> → modo Prepa.</p>
 </section>
 
 <!-- ======================= CÓMO USARLA ======================= -->
 <section class="tema">
   <h2>Cómo usar esta guía</h2>
-  <p>El examen de Matemáticas del EXACER tiene <b>40 reactivos de opción múltiple</b> (A, B, C o D) y <b>60 minutos</b>: te tocan <b>1.5 minutos por pregunta</b>. No necesitas saber todo de memoria: muchas preguntas traen un renglón que dice <b>“Considere…”</b> con la fórmula que vas a usar. Lo que sí necesitas es saber <i>qué hacer</i> con esa fórmula.</p>
-
-  <p>Cada tema de esta guía trae lo mismo, en este orden:</p>
+  <p>El examen de Matemáticas del EXACER tiene <b>40 reactivos de opción múltiple</b> (A, B, C o D) y <b>60 minutos</b>: te tocan <b>1.5 minutos por pregunta</b>. Muchas preguntas traen un renglón <b>“Considere…”</b> con la fórmula que vas a usar; lo que necesitas es saber <i>qué hacer</i> con ella.</p>
+  <p>La guía sigue <b>exactamente los temas 1.1 a 1.29</b> del documento oficial <i>Temas fundamentales y bibliografía</i>, que es de donde salen las preguntas. Cada tema trae:</p>
   <ol>
-    <li><b>Lo que necesitas saber</b>: la idea explicada con palabras simples.</li>
+    <li><b>Lo que necesitas saber</b>: lo que dice el temario, explicado con palabras simples.</li>
     <li><span style="color:var(--acento)"><b>Fórmulas</b></span>: lo que conviene tener a la mano.</li>
-    <li><b>Reactivo del examen resuelto</b>: la pregunta de la versión de práctica, paso a paso y con la respuesta de la clave oficial.</li>
-    <li><span style="color:var(--ojo)"><b>Ojo</b></span>: los errores que más se cometen y trucos para ganar tiempo.</li>
+    <li><b>Reactivo del examen resuelto</b>: la pregunta de la versión de práctica que corresponde a ese tema, paso a paso, con la respuesta de la clave oficial.</li>
+    <li><span style="color:var(--ojo)"><b>Ojo</b></span>: errores comunes y trucos.</li>
     <li><span style="color:var(--verde)"><b>Practica</b></span>: ejercicios nuevos con su respuesta al final del recuadro (tápala antes de resolver).</li>
   </ol>
-
   <h3>Plan sugerido</h3>
   <ol>
-    <li>Resuelve primero la versión de práctica completa <i>sin ver la guía</i>, en 60 minutos.</li>
-    <li>Califícate con la clave. Anota los reactivos que fallaste.</li>
-    <li>Busca en la tabla de abajo a qué tema pertenece cada uno y estudia esos temas primero.</li>
-    <li>Practica cada tema en la app (modo Prepa → Matemáticas): genera ejercicios del mismo tipo con otros números.</li>
-    <li>Repasa el <b>formulario</b> del final un día antes del examen.</li>
+    <li>Resuelve la versión de práctica completa <i>sin ver la guía</i>, en 60 minutos, y califícate con la clave (al final de esta guía).</li>
+    <li>Con la tabla de abajo, ubica el tema de cada reactivo que fallaste y estudia esos primero.</li>
+    <li>Luego recorre los 29 temas en orden: hay temas del temario que la versión de práctica no pregunta, pero pueden salir en tu examen.</li>
+    <li>Practica en la app (modo Prepa → Matemáticas) para ver los mismos tipos de pregunta con otros números.</li>
+    <li>Un día antes, repasa el <b>formulario</b> del final.</li>
   </ol>
-
-  <h3>Mapa: tema ↔ reactivos de la versión de práctica</h3>
-  <table>
-    <tr><th style="width:8%">#</th><th>Tema</th><th style="width:22%">Reactivos</th></tr>
-    <tr><td>1</td><td>Números reales, fracciones, exponentes y notación científica</td><td>1</td></tr>
-    <tr><td>2</td><td>Polinomios, grado y lenguaje algebraico</td><td>2, 3</td></tr>
-    <tr><td>3</td><td>Progresiones aritméticas y geométricas</td><td>4, 5</td></tr>
-    <tr><td>4</td><td>Proporcionalidad y variación</td><td>6, 7</td></tr>
-    <tr><td>5</td><td>Productos notables y factorización</td><td>8</td></tr>
-    <tr><td>6</td><td>Elementos de geometría: rectas, segmentos y circunferencia</td><td>9, 10, 12</td></tr>
-    <tr><td>7</td><td>Ángulos: clasificación, grados y radianes</td><td>11</td></tr>
-    <tr><td>8</td><td>Triángulos: clasificación, semejanza y Tales</td><td>13, 14</td></tr>
-    <tr><td>9</td><td>Perímetros, áreas y volúmenes</td><td>15</td></tr>
-    <tr><td>10</td><td>Trigonometría</td><td>16, 17, 18</td></tr>
-    <tr><td>11</td><td>Plano cartesiano: polares, punto medio y distancia</td><td>19, 20</td></tr>
-    <tr><td>12</td><td>La recta y su pendiente</td><td>21</td></tr>
-    <tr><td>13</td><td>Sistemas de ecuaciones 2×2</td><td>22</td></tr>
-    <tr><td>14</td><td>Función cuadrática y parábola</td><td>23</td></tr>
-    <tr><td>15</td><td>Cónicas y excentricidad</td><td>24, 25</td></tr>
-    <tr><td>16</td><td>Funciones: dominio, rango, paridad y tipos</td><td>26, 27, 28</td></tr>
-    <tr><td>17</td><td>Exponenciales y logaritmos</td><td>29</td></tr>
-    <tr><td>18</td><td>Límites</td><td>30</td></tr>
-    <tr><td>19</td><td>Derivadas</td><td>31</td></tr>
-    <tr><td>20</td><td>Máximos y mínimos</td><td>32</td></tr>
-    <tr><td>21</td><td>Integrales</td><td>33</td></tr>
-    <tr><td>22</td><td>Estadística descriptiva</td><td>34, 35, 36, 37</td></tr>
-    <tr><td>23</td><td>Probabilidad</td><td>38, 39, 40</td></tr>
+  <h3>Mapa: temario oficial ↔ reactivos de la versión de práctica</h3>
+  <table style="font-size:9.3pt">
+    <tr><th style="width:9%">Tema</th><th>Nombre en el temario</th><th style="width:17%">Reactivos</th></tr>
+    <tr><td>1.1</td><td>Concepto y uso de los números</td><td>1</td></tr>
+    <tr><td>1.2</td><td>Álgebra básica</td><td>2</td></tr>
+    <tr><td>1.3</td><td>Lenguaje algebraico</td><td>3</td></tr>
+    <tr><td>1.4</td><td>Patrones numéricos (sucesiones y progresiones)</td><td>4, 5</td></tr>
+    <tr><td>1.5</td><td>Variaciones proporcionales y lineales</td><td>6, 7</td></tr>
+    <tr><td>1.6</td><td>Procedimientos algebraicos (productos notables y factorización)</td><td>8</td></tr>
+    <tr><td>1.7</td><td>Elementos básicos de geometría</td><td>9</td></tr>
+    <tr><td>1.8</td><td>Líneas</td><td>10</td></tr>
+    <tr><td>1.9</td><td>Ángulos</td><td>11</td></tr>
+    <tr><td>1.10</td><td>Rectas</td><td>12</td></tr>
+    <tr><td>1.11</td><td>Triángulos</td><td>13</td></tr>
+    <tr><td>1.12</td><td>Congruencia y semejanza de triángulos</td><td>14</td></tr>
+    <tr><td>1.13</td><td>Figuras geométricas</td><td>15</td></tr>
+    <tr><td>1.14</td><td>Trigonometría</td><td>16, 18</td></tr>
+    <tr><td>1.15</td><td>Funciones trigonométricas</td><td>17</td></tr>
+    <tr><td>1.16</td><td>Teoremas trigonométricos (leyes de senos y cosenos)</td><td>—</td></tr>
+    <tr><td>1.17</td><td>Coordenadas del plano</td><td>19</td></tr>
+    <tr><td>1.18</td><td>Relaciones analíticas (distancia y punto medio)</td><td>20</td></tr>
+    <tr><td>1.19</td><td>Ecuaciones de primer grado (la recta)</td><td>21</td></tr>
+    <tr><td>1.20</td><td>Sistemas de ecuaciones lineales con dos variables</td><td>22</td></tr>
+    <tr><td>1.21</td><td>Ecuaciones de segundo grado</td><td>23</td></tr>
+    <tr><td>1.22</td><td>Secciones cónicas</td><td>24, 25</td></tr>
+    <tr><td>1.23</td><td>Funciones reales de variable real</td><td>26, 27, 28, 29</td></tr>
+    <tr><td>1.24</td><td>Límites de funciones</td><td>30</td></tr>
+    <tr><td>1.25</td><td>Razón de cambio y derivada</td><td>31</td></tr>
+    <tr><td>1.26</td><td>Puntos críticos de una función</td><td>32</td></tr>
+    <tr><td>1.27</td><td>Cálculo integral</td><td>33</td></tr>
+    <tr><td>1.28</td><td>Estadística</td><td>34, 35, 36, 37</td></tr>
+    <tr><td>1.29</td><td>Probabilidad</td><td>38, 39, 40</td></tr>
   </table>
 </section>
 
-<!-- ======================= 1 ======================= -->
+<!-- ======================= 1.1 ======================= -->
 <section class="tema">
-  <h2>1. Números reales, fracciones, exponentes y notación científica</h2>
+  <h2>1.1 Concepto y uso de los números</h2>
   <div class="reactivos">Reactivo 1</div>
 
   <h3>Lo que necesitas saber</h3>
-  <p><b>Conjuntos de números</b> (cada uno contiene al anterior):</p>
+  <p>Los números nacieron para contar y medir. Cada civilización tuvo su sistema: los egipcios usaban base 10 con símbolos distintos para cada potencia de diez, los babilonios base 60 y los mayas base 20 (puntos y barras); los mayas fueron de los primeros en usar el <b>cero</b>.</p>
+  <p><b>Conjuntos de números</b> (en el temario, los naturales incluyen al 0):</p>
   <ul>
-    <li><b>Naturales (ℕ)</b>: 1, 2, 3, … — sirven para contar.</li>
-    <li><b>Enteros (ℤ)</b>: …, −2, −1, 0, 1, 2, … — agregan el cero y los negativos.</li>
-    <li><b>Racionales (ℚ)</b>: todo lo que se escribe como fracción <span class="m">a/b</span> con <span class="m">b ≠ 0</span>. Su decimal termina (0.25) o se repite (0.333…).</li>
-    <li><b>Irracionales</b>: decimales infinitos que <i>no</i> se repiten: √2, π, e.</li>
-    <li><b>Reales (ℝ)</b>: racionales + irracionales.</li>
+    <li><b>Naturales ℕ</b> = {0, 1, 2, 3, …}</li>
+    <li><b>Enteros ℤ</b> = {…, −2, −1, 0, 1, 2, …}</li>
+    <li><b>Racionales ℚ</b>: los que se escriben como <span class="m">p/q</span> con <span class="m">p, q</span> enteros y <span class="m">q ≠ 0</span>. Su decimal termina (0.25) o se repite (0.333…).</li>
+    <li><b>Irracionales 𝕀</b>: los que <i>no</i> se pueden escribir como fracción: √2, π, e.</li>
+    <li><b>Reales ℝ</b> = ℚ ∪ 𝕀 (todos los anteriores). Se ubican en la <b>recta numérica</b>: positivos a la derecha del 0 (<span class="m">x &gt; 0</span>), negativos a la izquierda (<span class="m">x &lt; 0</span>).</li>
+    <li><b>Complejos ℂ</b> = {a + bi}, con <span class="m">i = √−1</span>.</li>
   </ul>
 
-  <p><b>Comparar y ordenar fracciones.</b> El camino más rápido en el examen es <b>convertir a decimal</b> (divide numerador entre denominador). Otra forma: <b>común denominador</b>, o <b>multiplicar en cruz</b>: para comparar <span class="m">a/b</span> y <span class="m">c/d</span>, compara <span class="m">a·d</span> con <span class="m">c·b</span>.</p>
-
-  <p><b>Propiedades de los reales</b> (te pueden pedir nombrarlas): conmutativa (<span class="m">a + b = b + a</span>), asociativa (<span class="m">(a + b) + c = a + (b + c)</span>), distributiva (<span class="m">a(b + c) = ab + ac</span>), neutro (<span class="m">a + 0 = a</span>, <span class="m">a·1 = a</span>), inverso (<span class="m">a + (−a) = 0</span>, <span class="m">a·(1/a) = 1</span>).</p>
-
-  <div class="caja formula"><b class="t">Leyes de los exponentes</b>
+  <div class="caja formula"><b class="t">Propiedades de los números reales (son un “campo”)</b>
     <table>
-      <tr><td class="m">a<sup>m</sup> · a<sup>n</sup> = a<sup>m+n</sup></td><td class="m"><span class="fr"><span>a<sup>m</sup></span><span>a<sup>n</sup></span></span> = a<sup>m−n</sup></td><td class="m">(a<sup>m</sup>)<sup>n</sup> = a<sup>m·n</sup></td></tr>
-      <tr><td class="m">a<sup>0</sup> = 1</td><td class="m">a<sup>−n</sup> = <span class="fr"><span>1</span><span>a<sup>n</sup></span></span></td><td class="m">a<sup>1/n</sup> = <sup>n</sup>√a</td></tr>
-      <tr><td class="m">(ab)<sup>n</sup> = a<sup>n</sup>b<sup>n</sup></td><td class="m">(a/b)<sup>n</sup> = a<sup>n</sup>/b<sup>n</sup></td><td class="m">a<sup>m/n</sup> = <sup>n</sup>√a<sup>m</sup></td></tr>
+      <tr><th>Propiedad</th><th>Suma</th><th>Multiplicación</th></tr>
+      <tr><td>Asociativa</td><td class="m">a + (b + c) = (a + b) + c</td><td class="m">a·(b·c) = (a·b)·c</td></tr>
+      <tr><td>Conmutativa</td><td class="m">a + b = b + a</td><td class="m">a·b = b·a</td></tr>
+      <tr><td>Elemento neutro</td><td class="m">a + 0 = a</td><td class="m">a·1 = a</td></tr>
+      <tr><td>Inverso</td><td class="m">a + (−a) = 0</td><td class="m">a·a<sup>−1</sup> = 1 (a ≠ 0)</td></tr>
+      <tr><td>Distributiva</td><td colspan="2" class="m">a·(b + c) = a·b + a·c</td></tr>
     </table>
-    <b class="t">Notación científica</b> <span class="m">a × 10<sup>n</sup></span> con <span class="m">1 ≤ a &lt; 10</span>. Si el número es grande, <span class="m">n</span> es positivo (cuántos lugares moviste el punto a la izquierda); si es pequeño (0.00…), <span class="m">n</span> es negativo.
+    <b class="t">Leyes de los signos</b> (+)(+) = (−)(−) = (+) &nbsp;·&nbsp; (+)(−) = (−)(+) = (−)
+    <b class="t" style="margin-top:6px">Leyes de los exponentes</b>
+    <span class="m">x<sup>0</sup> = 1</span> · <span class="m">x<sup>1</sup> = x</span> · <span class="m">x<sup>a</sup>·x<sup>b</sup> = x<sup>a+b</sup></span> · <span class="m">x<sup>a</sup>/x<sup>b</sup> = x<sup>a−b</sup></span> · <span class="m">(x<sup>a</sup>)<sup>b</sup> = x<sup>a·b</sup></span> · <span class="m">(x·y)<sup>a</sup> = x<sup>a</sup>y<sup>a</sup></span> · <span class="m">x<sup>−b</sup> = 1/x<sup>b</sup></span> · <span class="m"><sup>b</sup>√x<sup>a</sup> = x<sup>a/b</sup></span>
+    <b class="t" style="margin-top:6px">Reglas para fracciones</b>
+    <span class="m"><span class="fr"><span>x</span><span>y</span></span> ± <span class="fr"><span>a</span><span>b</span></span> = <span class="fr"><span>x·b ± y·a</span><span>y·b</span></span></span> &nbsp;·&nbsp;
+    <span class="m"><span class="fr"><span>x</span><span>y</span></span> · <span class="fr"><span>a</span><span>b</span></span> = <span class="fr"><span>x·a</span><span>y·b</span></span></span> &nbsp;·&nbsp;
+    <span class="m"><span class="fr"><span>x</span><span>y</span></span> ÷ <span class="fr"><span>a</span><span>b</span></span> = <span class="fr"><span>x·b</span><span>y·a</span></span></span> &nbsp;·&nbsp;
+    misma base: <span class="m"><span class="fr"><span>x</span><span>y</span></span> ± <span class="fr"><span>a</span><span>y</span></span> = <span class="fr"><span>x ± a</span><span>y</span></span></span>
   </div>
+  <p class="chico">Notación científica: <span class="m">a × 10<sup>n</sup></span> con <span class="m">1 ≤ a &lt; 10</span>. El gúgol es 10<sup>100</sup>, un 1 seguido de cien ceros.</p>
 
   <div class="caja examen">
     <div class="enc">Reactivo 1 del examen</div>
-    <div class="preg">Del siguiente listado de números racionales, ordene de menor a mayor: 1. 1/5 &nbsp; 2. 2/3 &nbsp; 3. 7/12</div>
+    <div class="preg">Ordene de menor a mayor: 1. 1/5 &nbsp; 2. 2/3 &nbsp; 3. 7/12</div>
     <ol class="pasos">
-      <li>Pasa cada uno a decimal: 1/5 = 0.20 &nbsp;·&nbsp; 2/3 = 0.667 &nbsp;·&nbsp; 7/12 = 0.583.</li>
-      <li>Ordena: 0.20 &lt; 0.583 &lt; 0.667, o sea 1, 3, 2.</li>
+      <li>Pasa cada una a decimal: 1/5 = 0.20 &nbsp;·&nbsp; 2/3 = 0.667 &nbsp;·&nbsp; 7/12 = 0.583.</li>
+      <li>Ordena: 0.20 &lt; 0.583 &lt; 0.667 ⇒ 1, 3, 2.</li>
     </ol>
     <span class="resp">Respuesta: A) 1, 3, 2</span>
   </div>
 
-  <div class="caja ojo"><b class="t">Ojo</b>
-    Una fracción con denominador más grande <i>no</i> es necesariamente más pequeña: 7/12 es mayor que 1/5. Fíjate en el valor completo, no solo en un número. Con negativos se invierte: −0.2 es <i>mayor</i> que −0.6.
-  </div>
+  <div class="caja ojo"><b class="t">Ojo</b> Un denominador más grande no significa fracción más chica (7/12 &gt; 1/5). Otra forma rápida de comparar <span class="m">a/b</span> con <span class="m">c/d</span>: compara <span class="m">a·d</span> con <span class="m">c·b</span>. Con negativos se invierte: −0.2 es <i>mayor</i> que −0.6.</div>
 
   <div class="caja practica"><b class="t">Practica</b>
     <ol>
-      <li>Ordena de menor a mayor: 3/4, 5/8, 2/3.</li>
-      <li>Escribe 0.00045 en notación científica.</li>
-      <li>Simplifica (2<sup>3</sup>)<sup>2</sup> · 2<sup>−4</sup>.</li>
-      <li>¿√9 es racional o irracional? ¿Y √7?</li>
+      <li>¿Qué propiedad se usa en 3·(4 + 5) = 3·4 + 3·5? ¿Y en 500 + (−49) = (−49) + 500?</li>
+      <li>Calcula 3/8 + 9/4 y 2/5 ÷ 4/3.</li>
+      <li>Simplifica 5<sup>2</sup> · 25<sup>3</sup> como una sola potencia de 5.</li>
+      <li>¿A qué conjuntos pertenece −7? ¿Y √9? ¿Y π?</li>
     </ol>
-    <div class="sol">Respuestas: 1) 5/8 (0.625), 2/3 (0.667), 3/4 (0.75) · 2) 4.5 × 10<sup>−4</sup> · 3) 2<sup>6−4</sup> = 2<sup>2</sup> = 4 · 4) √9 = 3 es racional; √7 es irracional.</div>
+    <div class="sol">Respuestas: 1) distributiva; conmutativa de la suma · 2) 3/8 + 18/8 = 21/8; 6/20 = 3/10 · 3) 5<sup>2</sup>·(5<sup>2</sup>)<sup>3</sup> = 5<sup>8</sup> · 4) −7 ∈ ℤ, ℚ, ℝ; √9 = 3 ∈ ℕ, ℤ, ℚ, ℝ; π ∈ 𝕀, ℝ</div>
   </div>
 </section>
 
-<!-- ======================= 2 ======================= -->
+<!-- ======================= 1.2 ======================= -->
 <section class="tema">
-  <h2>2. Polinomios, grado y lenguaje algebraico</h2>
-  <div class="reactivos">Reactivos 2 y 3</div>
+  <h2>1.2 Álgebra básica</h2>
+  <div class="reactivos">Reactivo 2</div>
 
   <h3>Lo que necesitas saber</h3>
-  <p>Un <b>término</b> es un número multiplicado por letras con exponentes: en <span class="m">−5x<sup>2</sup>y</span> el coeficiente es −5 y la parte literal es <span class="m">x<sup>2</sup>y</span>. Un <b>polinomio</b> es una suma de términos: monomio (1 término), binomio (2), trinomio (3).</p>
+  <p>El álgebra usa números y <b>variables</b> (letras que representan valores desconocidos o que cambian: <span class="m">x</span>, <span class="m">t</span> para tiempo, <span class="m">T</span> para temperatura, <span class="m">A</span> para área…). Una <b>expresión algebraica</b> combina números, variables y operaciones.</p>
+  <p>Un <b>término algebraico</b> es un número multiplicado por una o más variables: en <span class="m">−5x<sup>2</sup>y</span> el coeficiente es −5. Según cuántos términos tenga, la expresión se llama:</p>
+  <table>
+    <tr><th>Nombre</th><th>Términos</th><th>Ejemplos</th></tr>
+    <tr><td>Monomio</td><td>uno</td><td class="m">2θ, &nbsp;x<sup>2</sup>, &nbsp;6by<sup>3</sup></td></tr>
+    <tr><td>Binomio</td><td>dos</td><td class="m">4a − bz, &nbsp;8x<sup>2</sup> + yz</td></tr>
+    <tr><td>Trinomio</td><td>tres</td><td class="m">ct<sup>2</sup> − at + 6b</td></tr>
+    <tr><td>Polinomio</td><td>n</td><td class="m">3 + 2x<sup>2</sup> + z<sup>3</sup> + xy − y<sup>4</sup></td></tr>
+  </table>
   <ul>
-    <li><b>Grado de un término</b>: la <i>suma</i> de los exponentes de sus letras. <span class="m">x<sup>2</sup>y<sup>3</sup></span> es de grado 5.</li>
-    <li><b>Grado del polinomio</b>: el grado del término <i>más alto</i>.</li>
-    <li><b>Términos semejantes</b>: tienen exactamente la misma parte literal (<span class="m">3x<sup>2</sup></span> y <span class="m">−7x<sup>2</sup></span>). Solo esos se suman o restan: se suman los coeficientes.</li>
+    <li><b>Grado de un término</b>: el exponente de la variable (si hay varias variables, la suma de sus exponentes: <span class="m">x<sup>2</sup>y<sup>3</sup></span> es de grado 5).</li>
+    <li><b>Grado de la expresión</b>: el del término con el exponente mayor. <span class="m">t<sup>2</sup> + 10t − 8</span> es de grado 2.</li>
+    <li><b>Términos semejantes</b>: misma variable con el mismo exponente. Solo esos se suman o restan (se suman los coeficientes).</li>
+    <li><span class="m">a − b = −(b − a)</span>: restar en el otro orden cambia todos los signos.</li>
   </ul>
 
-  <p><b>Lenguaje algebraico</b>: traducir palabras a símbolos.</p>
-  <table>
-    <tr><th>En palabras</th><th>En álgebra</th><th>En palabras</th><th>En álgebra</th></tr>
-    <tr><td>un número</td><td class="m">x</td><td>el doble / triple</td><td class="m">2x / 3x</td></tr>
-    <tr><td>la mitad / un medio de</td><td class="m">x/2</td><td>el cuadrado de un número</td><td class="m">x<sup>2</sup></td></tr>
-    <tr><td>un número aumentado en 5</td><td class="m">x + 5</td><td>la diferencia de dos números</td><td class="m">x − y</td></tr>
-    <tr><td>números consecutivos</td><td class="m">x, x + 1</td><td>el cuadrado de la suma</td><td class="m">(x + y)<sup>2</sup></td></tr>
-    <tr><td>“es igual a”, “da”, “resulta”</td><td class="m">=</td><td>la suma de los cuadrados</td><td class="m">x<sup>2</sup> + y<sup>2</sup></td></tr>
-  </table>
+  <div class="caja formula"><b class="t">Ejemplo del temario</b>
+    <span class="m">(x<sup>2</sup> − 8y<sup>3</sup>) + (y<sup>2</sup> − x<sup>2</sup> − 3y<sup>3</sup>) = −11y<sup>3</sup> + y<sup>2</sup></span><br>
+    <span class="m">(x<sup>2</sup> − 8y<sup>3</sup>) − (y<sup>2</sup> − x<sup>2</sup> − 3y<sup>3</sup>) = −5y<sup>3</sup> + 2x<sup>2</sup> − y<sup>2</sup></span> &nbsp;(al restar, el segundo paréntesis cambia todos sus signos)
+  </div>
 
   <div class="caja examen">
     <div class="enc">Reactivo 2 del examen</div>
     <div class="preg">¿Cuál es el grado de 4x<sup>3</sup> + 8x<sup>2</sup> + y<sup>2</sup> − x + 2y + 12?</div>
     <ol class="pasos">
-      <li>Grados de cada término: 4x<sup>3</sup> → 3; 8x<sup>2</sup> → 2; y<sup>2</sup> → 2; −x → 1; 2y → 1; 12 → 0.</li>
-      <li>El mayor es 3. (El 12 es el término independiente, no el grado.)</li>
+      <li>Grados: 4x<sup>3</sup> → 3; 8x<sup>2</sup> → 2; y<sup>2</sup> → 2; −x → 1; 2y → 1; 12 → 0.</li>
+      <li>El mayor es 3.</li>
     </ol>
     <span class="resp">Respuesta: B) 3</span>
   </div>
+
+  <div class="caja ojo"><b class="t">Ojo</b> No confundas el grado con el coeficiente más grande (8), con el término independiente (12) ni con el número de términos (6).</div>
+
+  <div class="caja practica"><b class="t">Practica</b>
+    <ol>
+      <li>¿Grado de 5x<sup>2</sup>y<sup>3</sup> − 3x<sup>4</sup> + 7? ¿Es monomio, binomio o trinomio?</li>
+      <li>(3x<sup>2</sup> − 2x + 5) + (−x<sup>2</sup> + 6x − 8)</li>
+      <li>(4a<sup>2</sup> − 3ab) − (a<sup>2</sup> + 5ab − 2)</li>
+    </ol>
+    <div class="sol">Respuestas: 1) grado 5; trinomio · 2) 2x<sup>2</sup> + 4x − 3 · 3) 3a<sup>2</sup> − 8ab + 2</div>
+  </div>
+</section>
+
+<!-- ======================= 1.3 ======================= -->
+<section class="tema">
+  <h2>1.3 Lenguaje algebraico</h2>
+  <div class="reactivos">Reactivo 3</div>
+
+  <h3>Lo que necesitas saber</h3>
+  <p>Es traducir frases de la vida diaria a expresiones matemáticas (y al revés). No te aprendas las frases de memoria: entiende qué operación indica cada palabra.</p>
+  <table>
+    <tr><th>Operación</th><th>Frase</th><th>Expresión</th></tr>
+    <tr><td rowspan="2">Suma</td><td>la suma de dos números · nueve unidades más un número</td><td class="m">x + y · 9 + x</td></tr>
+    <tr><td>un número aumentado en tres unidades</td><td class="m">a + 3</td></tr>
+    <tr><td>Resta</td><td>la diferencia entre dos números · un número reducido seis unidades</td><td class="m">x − y · y − 6</td></tr>
+    <tr><td>Multiplicación</td><td>el doble de un número · el triple · el producto de dos números</td><td class="m">2a · 3a · a·b</td></tr>
+    <tr><td>División</td><td>el cociente de dos números · la tercera parte de un número</td><td class="m">a/b · x/3</td></tr>
+    <tr><td>Potencias</td><td>el cuadrado de un número · un número al cubo · 20 elevado a la x</td><td class="m">x<sup>2</sup> · a<sup>3</sup> · 20<sup>x</sup></td></tr>
+    <tr><td>Igualdad</td><td>es igual a, equivale a, corresponde a, da, resulta</td><td class="m">=</td></tr>
+    <tr><td>Desigualdad</td><td>siete es mayor o igual que un número · cuatro es menor que un número</td><td class="m">7 ≥ a · 4 &lt; y</td></tr>
+  </table>
+  <p>Otros útiles: números consecutivos <span class="m">x, x + 1</span>; un número par <span class="m">2n</span>, impar <span class="m">2n + 1</span>; el cuadrado de la suma <span class="m">(x + y)<sup>2</sup></span> vs. la suma de los cuadrados <span class="m">x<sup>2</sup> + y<sup>2</sup></span>.</p>
 
   <div class="caja examen">
     <div class="enc">Reactivo 3 del examen</div>
     <div class="preg">“El triple producto de un número es igual al doble producto del mismo número más un medio de otro número.”</div>
     <ol class="pasos">
       <li>“Un número” = <span class="m">a</span> → su triple: <span class="m">3a</span>.</li>
-      <li>“el doble del mismo número” = <span class="m">2a</span> (sigue siendo <span class="m">a</span>).</li>
-      <li>“un medio de otro número” = <span class="m">½ b</span> (otra letra, porque es <i>otro</i> número).</li>
+      <li>“el doble del mismo número” = <span class="m">2a</span>.</li>
+      <li>“un medio de otro número” = <span class="m">½b</span> (otra letra, porque es <i>otro</i> número).</li>
       <li>Juntando: <span class="m">3a = 2a + ½b</span>.</li>
     </ol>
     <span class="resp">Respuesta: A) 3a = 2a + ½b</span>
   </div>
 
-  <div class="caja ojo"><b class="t">Ojo</b>
-    “El mismo número” = la misma letra; “otro número” = letra diferente. Y no confundas el grado con el coeficiente más grande ni con el número de términos.
-  </div>
+  <div class="caja ojo"><b class="t">Ojo</b> “El mismo número” = la misma letra; “otro número” = letra diferente. Y fíjate a qué afecta cada palabra: “el doble de un número más 5” es <span class="m">2x + 5</span>, pero “el doble de un número aumentado en 5” suele ser <span class="m">2(x + 5)</span>.</div>
 
   <div class="caja practica"><b class="t">Practica</b>
     <ol>
-      <li>¿Grado de 5x<sup>2</sup>y<sup>3</sup> − 3x<sup>4</sup> + 7?</li>
-      <li>Suma (3x<sup>2</sup> − 2x + 5) + (−x<sup>2</sup> + 6x − 8).</li>
-      <li>Traduce: “el cuadrado de un número menos el doble de otro es 10”.</li>
+      <li>“El cuadrado de un número menos el doble de otro es 10.”</li>
+      <li>“La suma de tres números consecutivos es 48.” Escríbelo y encuentra los números.</li>
+      <li>“La tercera parte de un número, aumentada en 4, es menor que 9.”</li>
     </ol>
-    <div class="sol">Respuestas: 1) 5 (el término x<sup>2</sup>y<sup>3</sup>: 2 + 3) · 2) 2x<sup>2</sup> + 4x − 3 · 3) x<sup>2</sup> − 2y = 10</div>
+    <div class="sol">Respuestas: 1) x<sup>2</sup> − 2y = 10 · 2) x + (x + 1) + (x + 2) = 48 ⇒ 3x + 3 = 48 ⇒ 15, 16, 17 · 3) x/3 + 4 &lt; 9</div>
   </div>
 </section>
 
-<!-- ======================= 3 ======================= -->
+<!-- ======================= 1.4 ======================= -->
 <section class="tema">
-  <h2>3. Progresiones aritméticas y geométricas</h2>
+  <h2>1.4 Patrones numéricos</h2>
   <div class="reactivos">Reactivos 4 y 5</div>
 
-  <h3>Lo que necesitas saber</h3>
-  <p>Una <b>progresión</b> (o sucesión) es una lista de números que sigue una regla.</p>
+  <div class="sub-tema">1.4.1 Series y sucesiones de números reales</div>
+  <p>Una <b>sucesión</b> es una lista de números que sigue una <b>regla de correspondencia</b>: a cada natural <span class="m">n</span> le toca el término <span class="m">a<sub>n</sub></span>. Se escribe <span class="m">{a<sub>n</sub>} = {a<sub>0</sub>, a<sub>1</sub>, a<sub>2</sub>, …}</span>.</p>
   <ul>
-    <li><b>Aritmética</b>: cada término se obtiene <b>sumando</b> la misma cantidad <span class="m">d</span> (diferencia). Ej. 5, 10, 15, 20, … (d = 5).</li>
-    <li><b>Geométrica</b>: cada término se obtiene <b>multiplicando</b> por la misma cantidad <span class="m">r</span> (razón). Ej. 1, 3, 9, 27, … (r = 3).</li>
+    <li><b>Creciente</b>: cada término es mayor o igual que el anterior (<span class="m">a<sub>n</sub> ≤ a<sub>n+1</sub></span>). <b>Decreciente</b>: cada término es menor o igual (<span class="m">b<sub>n</sub> ≥ b<sub>n+1</sub></span>).</li>
+    <li>Pares: <span class="m">p<sub>n</sub> = 2n</span> → 0, 2, 4, 6, … &nbsp;·&nbsp; Impares: <span class="m">i<sub>n</sub> = 2n + 1</span> → 1, 3, 5, …; por ejemplo, <span class="m">i<sub>1012</sub> = 2(1012) + 1 = 2025</span>.</li>
+    <li><b>Fibonacci</b>: <span class="m">F<sub>0</sub> = 0, F<sub>1</sub> = 1, F<sub>n+1</sub> = F<sub>n</sub> + F<sub>n−1</sub></span>: cada término es la suma de los dos anteriores → 0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, …</li>
   </ul>
-  <p>Para saber cuál es: resta dos términos seguidos; si siempre da lo mismo es aritmética. Divide; si siempre da lo mismo es geométrica.</p>
 
+  <div class="sub-tema">1.4.2 Progresiones numéricas</div>
+  <ul>
+    <li><b>Aritmética</b>: la diferencia entre dos términos seguidos es constante, <span class="m">d</span> (se va <b>sumando</b> d). Ej. 5, 10, 15, … (d = 5).</li>
+    <li><b>Geométrica</b>: cada término se obtiene <b>multiplicando</b> el anterior por la razón <span class="m">r</span>. Ej. 1, 3, 9, 27, … (r = 3).</li>
+  </ul>
   <div class="caja formula"><b class="t">Fórmulas</b>
     <table>
       <tr><th></th><th>Término n</th><th>Suma de los primeros n</th></tr>
-      <tr><td>Aritmética</td><td class="m">a<sub>n</sub> = a<sub>1</sub> + (n − 1)d</td><td class="m">S<sub>n</sub> = <span class="fr"><span>n(a<sub>1</sub> + a<sub>n</sub>)</span><span>2</span></span></td></tr>
-      <tr><td>Geométrica</td><td class="m">a<sub>n</sub> = a<sub>1</sub> · r<sup>n−1</sup></td><td class="m">S<sub>n</sub> = <span class="fr"><span>a<sub>1</sub>(r<sup>n</sup> − 1)</span><span>r − 1</span></span> = <span class="fr"><span>r·a<sub>n</sub> − a<sub>1</sub></span><span>r − 1</span></span></td></tr>
+      <tr><td>Aritmética</td><td class="m">a<sub>n</sub> = a<sub>1</sub> + (n − 1)·d</td><td class="m">S<sub>n</sub> = ½(a<sub>1</sub> + a<sub>n</sub>)·n</td></tr>
+      <tr><td>Geométrica</td><td class="m">α<sub>n</sub> = α<sub>1</sub>·r<sup>n−1</sup></td><td class="m">S<sub>n</sub> = α<sub>1</sub>·<span class="fr"><span>r<sup>n</sup> − 1</span><span>r − 1</span></span> = <span class="fr"><span>r·a<sub>n</sub> − a<sub>1</sub></span><span>r − 1</span></span></td></tr>
     </table>
+    <p class="chico">Ejemplos del temario: la división celular es geométrica con r = 2 (tras n divisiones hay 2<sup>n</sup> células); una deuda de $10,000 que baja $200 al mes es aritmética con d = −200: se liquida cuando a<sub>n</sub> = 0 ⇒ n = 1 − a<sub>1</sub>/d = 1 + 50 = 51.</p>
   </div>
 
   <div class="caja examen">
     <div class="enc">Reactivo 4 del examen</div>
     <div class="preg">Hace 20 días un niño decidió ahorrar $5; cada día posterior ahorra $5 más que el anterior. ¿Cuánto lleva ahorrado?</div>
     <ol class="pasos">
-      <li>Es aritmética: a<sub>1</sub> = 5, d = 5, n = 20.</li>
-      <li>Último día: a<sub>20</sub> = 5 + (20 − 1)·5 = 5 + 95 = 100.</li>
-      <li>Suma: S<sub>20</sub> = 20(5 + 100)/2 = 20·105/2 = 1050.</li>
+      <li>Aritmética: a<sub>1</sub> = 5, d = 5, n = 20.</li>
+      <li>a<sub>20</sub> = 5 + 19·5 = 100.</li>
+      <li>S<sub>20</sub> = 20(5 + 100)/2 = 1050.</li>
     </ol>
     <span class="resp">Respuesta: D) $1,050</span>
   </div>
@@ -295,571 +347,681 @@
     <div class="enc">Reactivo 5 del examen</div>
     <div class="preg">Una persona con COVID-19 infectó a tres; al día siguiente cada una infectó a otras tres, y así sucesivamente. ¿Cuántas personas se infectaron después de 10 días? Considere a<sub>n</sub> = r<sup>n−1</sup> y S<sub>n</sub> = (r·a<sub>n</sub> − a<sub>1</sub>)/(r − 1).</div>
     <ol class="pasos">
-      <li>Es geométrica con r = 3. La fórmula que dan, a<sub>n</sub> = r<sup>n−1</sup>, empieza en a<sub>1</sub> = 1 (la persona original): 1, 3, 9, 27, …</li>
-      <li>Término 10: a<sub>10</sub> = 3<sup>9</sup> = 19 683.</li>
-      <li>Suma: S<sub>10</sub> = (3·19 683 − 1)/(3 − 1) = (59 049 − 1)/2 = 29 524.</li>
+      <li>Geométrica con r = 3; la fórmula dada empieza en a<sub>1</sub> = 1 (la persona original): 1, 3, 9, 27, …</li>
+      <li>a<sub>10</sub> = 3<sup>9</sup> = 19 683.</li>
+      <li>S<sub>10</sub> = (3·19 683 − 1)/2 = 59 048/2 = 29 524.</li>
     </ol>
     <span class="resp">Respuesta: C) 29 524</span>
   </div>
 
-  <div class="caja ojo"><b class="t">Ojo</b>
-    Fíjate si te preguntan <b>un término</b> (“¿cuánto ahorra el día 20?” → a<sub>n</sub>) o <b>el total acumulado</b> (“¿cuánto lleva ahorrado?” → S<sub>n</sub>). Los distractores suelen ser justo el otro valor: 19 683 es a<sub>10</sub>, no la suma.
-  </div>
+  <div class="caja ojo"><b class="t">Ojo</b> ¿Te piden <b>un término</b> (a<sub>n</sub>) o <b>el acumulado</b> (S<sub>n</sub>)? Los distractores suelen ser el otro valor: 19 683 es a<sub>10</sub>, no la suma.</div>
 
   <div class="caja practica"><b class="t">Practica</b>
     <ol>
+      <li>Escribe los 3 términos de Fibonacci que siguen a 21, 34.</li>
+      <li>¿La sucesión a<sub>n</sub> = 10 − 3n es creciente o decreciente? Da sus primeros términos.</li>
       <li>En 7, 11, 15, 19, … encuentra a<sub>15</sub> y S<sub>15</sub>.</li>
-      <li>En 2, 6, 18, … encuentra a<sub>6</sub> y la suma de los primeros 6 términos.</li>
-      <li>Un teatro tiene 20 asientos en la primera fila y cada fila tiene 2 más que la anterior. ¿Cuántos asientos hay en 12 filas?</li>
+      <li>En 2, 6, 18, … encuentra a<sub>6</sub> y S<sub>6</sub>.</li>
     </ol>
-    <div class="sol">Respuestas: 1) a<sub>15</sub> = 7 + 14·4 = 63; S<sub>15</sub> = 15(7 + 63)/2 = 525 · 2) a<sub>6</sub> = 2·3<sup>5</sup> = 486; S<sub>6</sub> = 2(729 − 1)/2 = 728 · 3) a<sub>12</sub> = 42; S<sub>12</sub> = 12(20 + 42)/2 = 372</div>
+    <div class="sol">Respuestas: 1) 55, 89, 144 · 2) decreciente: 10, 7, 4, 1, … · 3) a<sub>15</sub> = 63; S<sub>15</sub> = 525 · 4) a<sub>6</sub> = 486; S<sub>6</sub> = 728</div>
   </div>
 </section>
 
-<!-- ======================= 4 ======================= -->
+<!-- ======================= 1.5 ======================= -->
 <section class="tema">
-  <h2>4. Proporcionalidad y variación</h2>
+  <h2>1.5 Variaciones proporcionales y lineales</h2>
   <div class="reactivos">Reactivos 6 y 7</div>
 
-  <h3>Lo que necesitas saber</h3>
+  <div class="sub-tema">1.5.1 Propiedades y uso en la resolución de problemas</div>
+  <p>Una <b>magnitud</b> es algo que se mide (gramos, metros, segundos, °C, amperes, watts…). La <b>razón</b> entre dos cantidades es su cociente <span class="m">p/q</span> (se lee “p es a q”; p es el <b>antecedente</b> y q el <b>consecuente</b>). Ejemplos: velocidad <span class="m">v = d/t</span>, densidad <span class="m">ρ = m/V</span>. Una <b>proporción</b> es la igualdad de dos razones: <span class="m">p/q = r/s</span> (“p es a q como r es a s”).</p>
   <table>
-    <tr><th>Tipo</th><th>Cómo se reconoce</th><th>Ecuación</th><th>Gráfica</th></tr>
-    <tr><td><b>Directa (proporcional)</b></td><td>Si una crece al doble, la otra también. El cociente <span class="m">y/x</span> es constante. Si <span class="m">x = 0</span>, <span class="m">y = 0</span>.</td><td class="m">y = kx</td><td>Recta que pasa por el origen</td></tr>
-    <tr><td><b>Lineal</b></td><td>Hay una cantidad fija más una que cambia con <span class="m">x</span>. Si <span class="m">x = 0</span>, <span class="m">y = b ≠ 0</span>.</td><td class="m">y = mx + b</td><td>Recta que <i>no</i> pasa por el origen</td></tr>
-    <tr><td><b>Inversa</b></td><td>Si una crece al doble, la otra baja a la mitad. El producto <span class="m">x·y</span> es constante.</td><td class="m">x·y = k</td><td>Hipérbola</td></tr>
+    <tr><th>Tipo</th><th>Cómo se reconoce</th><th>Ecuación</th></tr>
+    <tr><td><b>Directamente proporcional</b> (<span class="m">x ∝ y</span>)</td><td>si una aumenta, la otra aumenta en la misma proporción</td><td class="m">x = k·y, &nbsp;k = x/y</td></tr>
+    <tr><td><b>Inversamente proporcional</b></td><td>si una aumenta, la otra disminuye en la misma proporción</td><td class="m">y = k/x, &nbsp;k = x·y</td></tr>
   </table>
-  <p><b>Regla de tres directa</b>: <span class="m">a → b, c → x</span> ⇒ <span class="m">x = b·c / a</span>. &nbsp; <b>Regla de tres inversa</b>: <span class="m">x = a·b / c</span> (multiplicas en línea, no en cruz).</p>
+  <div class="caja formula"><b class="t">Regla de tres</b>
+    <b>Directa</b>: <span class="m"><span class="fr"><span>1500 mL</span><span>450 g</span></span> = <span class="fr"><span>x mL</span><span>100 g</span></span> ⇒ x = <span class="fr"><span>1500 · 100</span><span>450</span></span> = 333.3 mL</span> (ejemplo del mole en el temario).<br>
+    <b>Inversa</b>: <span class="m">x·y = a·b</span> ⇒ <span class="m">x = a·b / y</span>. Ej.: 20 mapaches acaban un costal en 10 días; 40 mapaches: <span class="m">x = 20·10/40 = 5 días</span>.
+  </div>
+
+  <div class="sub-tema">1.5.2 Representación geométrica</div>
+  <p>Se grafican como rectas <span class="m">y = mx + b</span>; <span class="m">x</span> es la <b>variable independiente</b> y <span class="m">y</span> la <b>dependiente</b>.</p>
+  <ul>
+    <li><b>Variación proporcional</b>: la recta pasa por el origen (<span class="m">b = 0</span>) y la constante de proporcionalidad es <span class="m">m</span>. Ej.: 1.5 g de proteína por kg de peso ⇒ <span class="m">y = 1.5x</span> (60 kg → 90 g).</li>
+    <li><b>Variación lineal</b>: la recta <i>no</i> pasa por el origen (<span class="m">b ≠ 0</span>). Ej.: <span class="m">K = C + 273.15</span> (m = 1, b = 273.15).</li>
+  </ul>
 
   <div class="caja examen">
     <div class="enc">Reactivo 6 del examen</div>
     <div class="preg">Un albergue tiene 20 gatos y alimento para 10 días. Si adopta cinco gatos más, ¿para cuántos días alcanza?</div>
     <ol class="pasos">
-      <li>Más gatos ⇒ menos días: proporcionalidad <b>inversa</b>. Lo constante es el total de comida: 20 gatos × 10 días = 200 “raciones”.</li>
-      <li>Ahora hay 25 gatos: 200 ÷ 25 = 8 días.</li>
+      <li>Más gatos ⇒ menos días: <b>inversa</b>. k = 20·10 = 200.</li>
+      <li>Con 25 gatos: x = 200/25 = 8 días.</li>
     </ol>
     <span class="resp">Respuesta: B) 8</span>
   </div>
-
   <div class="caja examen">
     <div class="enc">Reactivo 7 del examen</div>
     <div class="preg">A un campesino le pagan $200 por día más $50 por caja: variación ____. A otro le pagan solo por caja: variación ____.</div>
-    <ol class="pasos">
-      <li>Primero: y = 50x + 200. Hay una parte fija (200) ⇒ <b>lineal</b>.</li>
-      <li>Segundo: y = 50x. Si no junta cajas, gana 0 ⇒ <b>proporcional</b>.</li>
-    </ol>
+    <p>Primero: <span class="m">y = 50x + 200</span>, b ≠ 0 ⇒ <b>lineal</b>. Segundo: <span class="m">y = 50x</span>, pasa por el origen ⇒ <b>proporcional</b>.</p>
     <span class="resp">Respuesta: B) lineal – proporcional</span>
   </div>
 
   <div class="caja practica"><b class="t">Practica</b>
     <ol>
-      <li>6 obreros construyen una barda en 15 días. ¿Cuánto tardan 9 obreros?</li>
-      <li>3 kg de manzana cuestan $75. ¿Cuánto cuestan 7 kg?</li>
-      <li>Un taxi cobra $30 de banderazo más $8 por km. ¿Qué tipo de variación es? Escribe la ecuación.</li>
+      <li>Si 450 g de pasta rinden 1500 mL, ¿cuánta agua llevan 300 g?</li>
+      <li>6 obreros construyen una barda en 15 días. ¿Cuánto tardan 9?</li>
+      <li>¿F = 1.8C + 32 es variación proporcional o lineal? ¿Y d = 60t?</li>
     </ol>
-    <div class="sol">Respuestas: 1) inversa: 6·15/9 = 10 días · 2) directa: 75·7/3 = $175 · 3) lineal: y = 8x + 30</div>
+    <div class="sol">Respuestas: 1) 1500·300/450 = 1000 mL · 2) 6·15/9 = 10 días · 3) lineal (b = 32); proporcional</div>
   </div>
 </section>
 
-<!-- ======================= 5 ======================= -->
+<!-- ======================= 1.6 ======================= -->
 <section class="tema">
-  <h2>5. Productos notables y factorización</h2>
+  <h2>1.6 Procedimientos algebraicos</h2>
   <div class="reactivos">Reactivo 8</div>
 
-  <h3>Lo que necesitas saber</h3>
-  <p><b>Factorizar</b> es lo contrario de multiplicar: escribir un polinomio como producto. Siempre revisa en este orden:</p>
-  <ol>
-    <li><b>Factor común</b>: <span class="m">6x<sup>3</sup> − 9x<sup>2</sup> = 3x<sup>2</sup>(2x − 3)</span>.</li>
-    <li><b>Diferencia de cuadrados</b> (2 términos con resta): <span class="m">a<sup>2</sup> − b<sup>2</sup> = (a − b)(a + b)</span>.</li>
-    <li><b>Trinomio cuadrado perfecto</b>: <span class="m">a<sup>2</sup> ± 2ab + b<sup>2</sup> = (a ± b)<sup>2</sup></span>.</li>
-    <li><b>Trinomio x<sup>2</sup> + bx + c</b>: busca dos números que <b>multiplicados den c</b> y <b>sumados den b</b>. <span class="m">x<sup>2</sup> − x − 12</span>: −4 y 3 (−4·3 = −12, −4 + 3 = −1) ⇒ <span class="m">(x − 4)(x + 3)</span>.</li>
-    <li><b>Agrupación</b> (4 términos): <span class="m">ax + ay + bx + by = a(x + y) + b(x + y) = (x + y)(a + b)</span>.</li>
-    <li><b>Grado 3 o más</b>: prueba raíces (divisores del término independiente: ±1, ±2, ±3, …). Si <span class="m">P(r) = 0</span>, entonces <span class="m">(x − r)</span> es factor; divide con <b>división sintética</b>.</li>
-  </ol>
-
-  <div class="caja formula"><b class="t">Productos notables</b>
-    <span class="m">(a + b)<sup>2</sup> = a<sup>2</sup> + 2ab + b<sup>2</sup></span> &nbsp;·&nbsp;
-    <span class="m">(a − b)<sup>2</sup> = a<sup>2</sup> − 2ab + b<sup>2</sup></span> &nbsp;·&nbsp;
-    <span class="m">(a + b)(a − b) = a<sup>2</sup> − b<sup>2</sup></span><br>
-    <span class="m">(x + a)(x + b) = x<sup>2</sup> + (a + b)x + ab</span> &nbsp;·&nbsp;
-    <span class="m">(a ± b)<sup>3</sup> = a<sup>3</sup> ± 3a<sup>2</sup>b + 3ab<sup>2</sup> ± b<sup>3</sup></span><br>
-    <span class="m">a<sup>3</sup> + b<sup>3</sup> = (a + b)(a<sup>2</sup> − ab + b<sup>2</sup>)</span> &nbsp;·&nbsp;
-    <span class="m">a<sup>3</sup> − b<sup>3</sup> = (a − b)(a<sup>2</sup> + ab + b<sup>2</sup>)</span><br>
-    <b>Binomio de Newton:</b> los coeficientes de <span class="m">(x + y)<sup>n</sup></span> salen del triángulo de Pascal (1 · 1 1 · 1 2 1 · 1 3 3 1 · 1 4 6 4 1 …) o de <span class="m">C(n, k) = n! / (k!(n − k)!)</span>.
+  <h3>Productos notables</h3>
+  <div class="caja formula">
+    <table>
+      <tr><td>Cuadrado de una suma o diferencia</td><td class="m">(a ± b)<sup>2</sup> = a<sup>2</sup> ± 2ab + b<sup>2</sup></td></tr>
+      <tr><td>Binomios conjugados</td><td class="m">(a + b)(a − b) = a<sup>2</sup> − b<sup>2</sup></td></tr>
+      <tr><td>Binomios con un término común</td><td class="m">(x + a)(x + b) = x<sup>2</sup> + (a + b)x + ab</td></tr>
+      <tr><td>Binomios con término semejante</td><td class="m">(ax + b)(cx + d) = acx<sup>2</sup> + (ad + bc)x + bd</td></tr>
+      <tr><td>Cubo de un binomio</td><td class="m">(a ± b)<sup>3</sup> = a<sup>3</sup> ± 3a<sup>2</sup>b + 3ab<sup>2</sup> ± b<sup>3</sup></td></tr>
+      <tr><td>Suma o diferencia de cubos</td><td class="m">(a ± b)(a<sup>2</sup> ∓ ab + b<sup>2</sup>) = a<sup>3</sup> ± b<sup>3</sup></td></tr>
+      <tr><td>Binomios sin término común</td><td class="m">(a + b)(c + d) = ac + ad + bc + bd</td></tr>
+    </table>
+    <b class="t">Teorema del binomio</b>
+    <span class="m">(a + b)<sup>n</sup> = Σ C(n, j)·a<sup>n−j</sup>·b<sup>j</sup></span>, con <span class="m">C(n, j) = <span class="fr"><span>n!</span><span>j!(n − j)!</span></span></span> y <span class="m">n! = 1·2·3·…·n</span>. Los coeficientes forman el triángulo de Pascal: 1 · 1 1 · 1 2 1 · 1 3 3 1 · 1 4 6 4 1.
   </div>
+
+  <h3>Factorización</h3>
+  <p>Factorizar es escribir una expresión como producto de <b>factores</b> de menor grado (la suma de sus grados es el grado original). Métodos del temario:</p>
+  <ol>
+    <li><b>Factor común (monomio)</b>: el mcd de los coeficientes y las variables comunes con su menor exponente. <span class="m">2x<sup>2</sup>y + 6zx − 12z<sup>3</sup>yx = 2x(xy + 3z − 6z<sup>3</sup>y)</span>.</li>
+    <li><b>Agrupación de términos</b>: <span class="m">ac + ad + bc + bd = a(c + d) + b(c + d) = (a + b)(c + d)</span>. Ej.: <span class="m">12xy + 9cy + 3cx + 4x<sup>2</sup> = (4x + 3c)(3y + x)</span>.</li>
+    <li><b>Diferencia de cuadrados</b>: <span class="m">x<sup>2</sup> − y<sup>2</sup> = (x + y)(x − y)</span>.</li>
+    <li><b>Suma y diferencia de cubos</b>: <span class="m">x<sup>3</sup> − 27 = (x − 3)(x<sup>2</sup> + 3x + 9)</span>.</li>
+    <li><b>Binomios xⁿ ± yⁿ</b>: si n es impar y signo −, sale <span class="m">(x − y)</span>; n impar y signo +, sale <span class="m">(x + y)</span>; n par y signo −, salen <span class="m">(x + y)(x − y)</span>; n par y signo +, <b>no se factoriza</b> en los reales. Ej.: <span class="m">81x<sup>4</sup> − 16y<sup>4</sup> = (3x − 2y)(3x + 2y)(9x<sup>2</sup> + 4y<sup>2</sup>)</span>.</li>
+    <li><b>Trinomio cuadrado perfecto</b>: <span class="m">9a<sup>2</sup> + 12ab + 4b<sup>2</sup> = (3a + 2b)<sup>2</sup></span> (el signo es el del doble producto).</li>
+    <li><b>Trinomio x² + bx + c</b>: dos números que multiplicados den c y sumados den b. <span class="m">m<sup>2</sup> + 2m − 15 = (m − 3)(m + 5)</span>.</li>
+    <li><b>Trinomio ax² + bx + c</b>: busca dos números que multiplicados den <span class="m">a·c</span> y sumados den <span class="m">b</span>, parte el término de en medio y agrupa. <span class="m">10x<sup>2</sup> − 19x + 6</span>: a·c = 60 → −4 y −15 → <span class="m">(10x<sup>2</sup> − 15x) + (−4x + 6) = 5x(2x − 3) − 2(2x − 3) = (5x − 2)(2x − 3)</span>.</li>
+    <li><b>Cubo perfecto</b>: <span class="m">343z<sup>3</sup> + 735z<sup>2</sup> + 525z + 125 = (7z + 5)<sup>3</sup></span> (b<sup>3</sup> = 125 ⇒ b = 5; 3a<sup>2</sup>b = 735z<sup>2</sup> ⇒ a = 7z).</li>
+    <li><b>Grado 3 o más</b>: prueba raíces (divisores del término independiente). Si P(r) = 0, entonces <span class="m">(x − r)</span> es factor; divide con <b>división sintética</b>.</li>
+  </ol>
+  <p class="chico">Preguntas que recomienda el temario: ¿hay factor común? ¿es un producto notable? ¿se puede agrupar? ¿se aplicaron bien los signos? ¿al multiplicar regreso a la expresión original? ¿al sustituir un número en ambas se obtiene lo mismo?</p>
 
   <div class="caja examen">
     <div class="enc">Reactivo 8 del examen</div>
     <div class="preg">Factorizar x<sup>4</sup> − 3x<sup>3</sup> − 9x<sup>2</sup> + 23x − 12 (el texto va rompiendo términos para extraer factores).</div>
     <ol class="pasos">
-      <li>Prueba x = 1: 1 − 3 − 9 + 23 − 12 = 0 ✔. Entonces (x − 1) es factor.</li>
-      <li>División sintética con 1: coeficientes 1, −3, −9, 23, −12 → 1, −2, −11, 12 | 0. Queda x<sup>3</sup> − 2x<sup>2</sup> − 11x + 12.</li>
-      <li>Prueba otra vez x = 1: 1 − 2 − 11 + 12 = 0 ✔. Nuevo factor (x − 1). Sintética: 1, −1, −12 | 0 → x<sup>2</sup> − x − 12.</li>
-      <li>x<sup>2</sup> − x − 12 = (x − 4)(x + 3).</li>
+      <li>x = 1: 1 − 3 − 9 + 23 − 12 = 0 ✔ ⇒ factor (x − 1). Sintética: 1, −3, −9, 23, −12 → 1, −2, −11, 12 | 0 ⇒ x<sup>3</sup> − 2x<sup>2</sup> − 11x + 12.</li>
+      <li>x = 1 otra vez: 1 − 2 − 11 + 12 = 0 ✔ ⇒ otro (x − 1). Queda x<sup>2</sup> − x − 12.</li>
+      <li>x<sup>2</sup> − x − 12 = (x − 4)(x + 3) (−4·3 = −12, −4 + 3 = −1).</li>
     </ol>
     <span class="resp">Respuesta: B) (x − 1) – (x − 1) – (x − 4) – (x + 3)</span>
   </div>
 
-  <div class="caja ojo"><b class="t">Truco para opción múltiple</b>
-    Si dudas, <b>comprueba multiplicando</b> o sustituyendo un número (x = 2, por ejemplo) en el polinomio original y en la factorización: deben dar lo mismo.
-  </div>
-
   <div class="caja practica"><b class="t">Practica</b>
     <ol>
-      <li>x<sup>2</sup> + 5x + 6 &nbsp; 2) x<sup>2</sup> − 49 &nbsp; 3) 4x<sup>2</sup> + 12x + 9 &nbsp; 4) x<sup>3</sup> − 8 &nbsp; 5) x<sup>3</sup> − 6x<sup>2</sup> + 11x − 6</li>
+      <li>6x<sup>2</sup> + x − 2 &nbsp; 2) x<sup>3</sup> + 27 &nbsp; 3) x<sup>4</sup> − 16 &nbsp; 4) 2xy + 6x + y + 3 &nbsp; 5) 8a<sup>3</sup> + 12a<sup>2</sup>b + 6ab<sup>2</sup> + b<sup>3</sup> &nbsp; 6) coeficiente de x<sup>2</sup>y<sup>3</sup> en (x + y)<sup>5</sup></li>
     </ol>
-    <div class="sol">Respuestas: 1) (x + 2)(x + 3) · 2) (x − 7)(x + 7) · 3) (2x + 3)<sup>2</sup> · 4) (x − 2)(x<sup>2</sup> + 2x + 4) · 5) (x − 1)(x − 2)(x − 3)</div>
+    <div class="sol">Respuestas: 1) (3x + 2)(2x − 1) · 2) (x + 3)(x<sup>2</sup> − 3x + 9) · 3) (x − 2)(x + 2)(x<sup>2</sup> + 4) · 4) (2x + 1)(y + 3) · 5) (2a + b)<sup>3</sup> · 6) C(5, 3) = 10</div>
   </div>
 </section>
 
-<!-- ======================= 6 ======================= -->
+<!-- ======================= 1.7 y 1.8 ======================= -->
 <section class="tema">
-  <h2>6. Elementos de geometría: rectas, segmentos y circunferencia</h2>
-  <div class="reactivos">Reactivos 9, 10 y 12</div>
-
-  <h3>Lo que necesitas saber</h3>
-  <table>
-    <tr><th>Objeto</th><th>Qué es</th><th>Cómo se escribe</th></tr>
-    <tr><td>Recta</td><td>Línea sin principio ni fin.</td><td><span class="m">ℓ</span> o <span class="m">AB</span> con flechas ↔</td></tr>
-    <tr><td>Semirrecta (rayo)</td><td>Tiene origen pero no fin.</td><td><span class="m">Ol</span>, flecha → sobre las letras</td></tr>
-    <tr><td>Segmento</td><td>Parte de recta entre dos puntos; se puede medir.</td><td><span class="m">AB</span> con una raya encima</td></tr>
-    <tr><td>Línea curva</td><td>Cambia de dirección todo el tiempo.</td><td><span class="m">𝒞</span></td></tr>
-  </table>
-
-  <p><b>Relaciones entre rectas</b></p>
+  <h2>1.7 Elementos básicos de geometría</h2>
+  <div class="reactivos">Reactivo 9</div>
   <ul>
-    <li><b>Paralelas</b>: nunca se cortan (misma pendiente).</li>
-    <li><b>Perpendiculares</b>: se cortan formando 90° (pendientes con producto −1).</li>
-    <li><b>Oblicuas</b>: se cortan, pero sin formar 90°.</li>
+    <li><b>Punto</b>: indica una posición; no tiene dimensión (0 D).</li>
+    <li><b>Línea</b>: conjunto infinito de puntos; la <b>recta</b> tiene sus puntos alineados en una dirección (1 D).</li>
+    <li><b>Plano</b>: conjunto infinito de puntos que se extiende en dos direcciones (2 D).</li>
+    <li><b>Espacio</b>: se extiende en tres direcciones (3 D).</li>
   </ul>
-
-  <p><b>La circunferencia</b> es el <b>lugar geométrico</b> de los puntos que están a la misma distancia (el <b>radio</b> r) de un punto fijo (el <b>centro</b> O). Sus elementos:</p>
-  <div class="dos">
-    <ul>
-      <li><b>Radio</b>: del centro a la circunferencia.</li>
-      <li><b>Diámetro</b>: cuerda que pasa por el centro (= 2r).</li>
-      <li><b>Cuerda</b>: segmento que une dos puntos de la circunferencia.</li>
-      <li><b>Secante</b>: recta que la corta en 2 puntos.</li>
-      <li><b>Tangente</b>: recta que la toca en <b>un solo punto</b>; es perpendicular al radio en ese punto.</li>
-      <li><b>Arco</b>: pedazo de circunferencia.</li>
-    </ul>
-    <div class="fig">
-      <svg width="210" height="170" viewBox="0 0 210 170" font-family="DejaVu Sans" font-size="10">
-        <circle cx="95" cy="85" r="60" fill="none" stroke="#1f6f8b" stroke-width="2"/>
-        <circle cx="95" cy="85" r="2.5" fill="#1d2330"/><text x="85" y="98">O</text>
-        <line x1="95" y1="85" x2="155" y2="85" stroke="#b5542a" stroke-width="1.6"/><text x="118" y="80" fill="#b5542a">radio</text>
-        <line x1="45" y1="52" x2="140" y2="45" stroke="#2e7d4f" stroke-width="1.6"/><text x="60" y="42" fill="#2e7d4f">cuerda</text>
-        <line x1="10" y1="25" x2="200" y2="25" stroke="#5a6375" stroke-width="1.4"/><text x="150" y="18" fill="#5a6375">tangente</text>
-        <line x1="10" y1="160" x2="200" y2="105" stroke="#5a6375" stroke-width="1.4" stroke-dasharray="4 3"/><text x="150" y="132" fill="#5a6375">secante</text>
-      </svg>
-    </div>
-  </div>
+  <p><b>Los cinco postulados de Euclides</b> (<i>Los elementos</i>):</p>
+  <ol type="i">
+    <li>Por dos puntos pasa una y solo una recta.</li>
+    <li>Cualquier segmento se puede prolongar indefinidamente.</li>
+    <li>Hay exactamente un círculo para cualquier centro y radio dados.</li>
+    <li>Todos los ángulos rectos son congruentes (iguales).</li>
+    <li>Si una recta corta a otras dos y los ángulos interiores de un mismo lado suman menos de dos rectos (180°), esas dos rectas se cortan de ese lado (postulado de las paralelas).</li>
+  </ol>
+  <p>La <b>circunferencia</b> es el <b>lugar geométrico</b> de los puntos que están a la misma distancia <span class="m">r</span> (radio) de un punto fijo <span class="m">O</span> (centro).</p>
 
   <div class="caja examen">
-    <div class="enc">Reactivo 9</div>
+    <div class="enc">Reactivo 9 del examen</div>
     <div class="preg">La ____, con ____ O y ____ r es el lugar geométrico de los puntos que equidistan una distancia fija r a un punto fijo O.</div>
     <span class="resp">Respuesta: B) circunferencia – centro – radio</span>
   </div>
+
+  <h2 style="margin-top:22px">1.8 Líneas</h2>
+  <div class="reactivos">Reactivo 10</div>
+  <div class="dos">
+    <div>
+      <table>
+        <tr><th>Objeto</th><th>Qué es</th><th>Notación</th></tr>
+        <tr><td>Recta</td><td>puntos alineados en una dirección, sin principio ni fin; divide al plano en dos semiplanos</td><td class="m">ℓ</td></tr>
+        <tr><td>Línea curva</td><td>cualquier otra línea</td><td class="m">𝒞</td></tr>
+        <tr><td>Semirrecta (rayo)</td><td>cada mitad de una recta a partir de un punto O</td><td class="m">Oℓ</td></tr>
+        <tr><td>Segmento</td><td>el pedazo de recta entre dos puntos A y B</td><td class="m">AB</td> </tr>
+      </table>
+      <p class="chico">El segmento AB es el mismo que BA, salvo que tenga dirección: entonces AB = −BA.</p>
+    </div>
+    <div class="fig">
+      <svg width="200" height="120" viewBox="0 0 200 120" font-family="DejaVu Sans" font-size="10">
+        <line x1="20" y1="20" x2="170" y2="20" stroke="#1f6f8b" stroke-width="2"/>
+        <circle cx="20" cy="20" r="3" fill="#1d2330"/><circle cx="170" cy="20" r="3" fill="#1d2330"/>
+        <text x="14" y="36">A</text><text x="166" y="36">B</text><text x="80" y="14" fill="#1f6f8b">segmento</text>
+        <line x1="10" y1="60" x2="190" y2="60" stroke="#b5542a" stroke-width="2" marker-start="url(#fl)" marker-end="url(#fr)"/>
+        <text x="90" y="54" fill="#b5542a">recta ℓ</text>
+        <line x1="30" y1="100" x2="190" y2="100" stroke="#2e7d4f" stroke-width="2" marker-end="url(#fr)"/>
+        <circle cx="30" cy="100" r="3" fill="#1d2330"/><text x="24" y="116">O</text><text x="80" y="94" fill="#2e7d4f">semirrecta</text>
+        <defs>
+          <marker id="fr" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#5a6375"/></marker>
+          <marker id="fl" markerWidth="8" markerHeight="8" refX="2" refY="4" orient="auto"><path d="M8,0 L0,4 L8,8 z" fill="#5a6375"/></marker>
+        </defs>
+      </svg>
+    </div>
+  </div>
   <div class="caja examen">
-    <div class="enc">Reactivo 10</div>
-    <div class="preg">Relaciona: 1. AB (con raya) · 2. Ol · 3. ℓ · 4. 𝒞 &nbsp;con&nbsp; a. recta · b. curva · c. segmento · d. semirrecta.</div>
-    <p>AB con raya es <b>segmento</b> (1c); Ol empieza en O y sigue: <b>semirrecta</b> (2d); ℓ es <b>recta</b> (3a); 𝒞 es la <b>curva</b> (4b).</p>
+    <div class="enc">Reactivo 10 del examen</div>
+    <div class="preg">Relaciona: 1. AB (con raya) · 2. Oℓ · 3. ℓ · 4. 𝒞 con a. recta · b. curva · c. segmento · d. semirrecta.</div>
+    <p>1c (segmento), 2d (semirrecta), 3a (recta), 4b (curva).</p>
     <span class="resp">Respuesta: B) 1c, 2d, 3a, 4b</span>
   </div>
-  <div class="caja examen">
-    <div class="enc">Reactivo 12</div>
-    <div class="preg">En la figura (circunferencia con rectas ℓ1 a ℓ4): ℓ4 y ℓ3 · ℓ1 y AD · ℓ3 y OB · ℓ2 → paralelas, oblicuas, tangente, perpendiculares.</div>
-    <p>Busca en la figura los cuadritos (marcan 90°): ℓ3 y OB tienen el cuadrito ⇒ <b>perpendiculares</b>; ℓ2 toca la circunferencia en un solo punto ⇒ <b>tangente</b>; ℓ1 y AD van en la misma dirección ⇒ <b>paralelas</b>; ℓ4 y ℓ3 se cruzan sin cuadrito ⇒ <b>oblicuas</b>.</p>
-    <span class="resp">Respuesta: B) 1b, 2a, 3d, 4c</span>
-  </div>
-
   <div class="caja practica"><b class="t">Practica</b>
     <ol>
-      <li>¿Cómo se llama la cuerda más larga de una circunferencia?</li>
-      <li>Si una recta tangente toca la circunferencia en P, ¿qué ángulo forma con el radio OP?</li>
-      <li>Dos rectas tienen pendientes 2 y −½. ¿Son paralelas, perpendiculares u oblicuas?</li>
+      <li>¿Cuántas dimensiones tiene un plano? ¿Y un punto?</li>
+      <li>¿Cuántas rectas pasan por dos puntos distintos? ¿Qué postulado lo dice?</li>
     </ol>
-    <div class="sol">Respuestas: 1) diámetro · 2) 90° · 3) perpendiculares (2 · (−½) = −1)</div>
+    <div class="sol">Respuestas: 1) dos; cero · 2) una sola; el primer postulado de Euclides</div>
   </div>
 </section>
 
-<!-- ======================= 7 ======================= -->
+<!-- ======================= 1.9 ======================= -->
 <section class="tema">
-  <h2>7. Ángulos: clasificación, grados y radianes</h2>
+  <h2>1.9 Ángulos</h2>
   <div class="reactivos">Reactivo 11</div>
-
-  <h3>Lo que necesitas saber</h3>
+  <p>Un <b>ángulo</b> se forma con dos rayos (sus <b>lados</b>) que salen de un mismo punto, el <b>vértice</b>. Se escribe <span class="m">∢AOB</span> (la letra de en medio es el vértice).</p>
+  <ul>
+    <li><b>Adyacentes</b>: comparten un lado; <span class="m">∢AOB = ∢AOC + ∢COB</span>. Si los dos son iguales, el rayo de en medio es la <b>bisectriz</b>.</li>
+    <li>Cuando dos rectas se cortan forman cuatro ángulos: los <b>adyacentes suman 180°</b> y los <b>opuestos por el vértice son iguales</b>.</li>
+    <li>Si las rectas forman cuatro ángulos de 90° son <b>perpendiculares</b>; si no, el temario las llama <b>convexas</b> (en el examen también se les dice <b>oblicuas</b>): dos ángulos mayores y dos menores de 90°.</li>
+  </ul>
   <table>
     <tr><th>Nombre</th><th>Medida</th><th>Nombre</th><th>Medida</th></tr>
-    <tr><td>Agudo</td><td>menos de 90°</td><td>Llano</td><td>180° (π rad)</td></tr>
-    <tr><td>Recto</td><td>90° (π/2 rad)</td><td>Cóncavo (entrante)</td><td>entre 180° y 360°</td></tr>
-    <tr><td>Obtuso</td><td>entre 90° y 180°</td><td>Completo (perigonal)</td><td>360° (2π rad)</td></tr>
+    <tr><td>Agudo</td><td>menor que 90°</td><td>Convexo</td><td>menor que 180°</td></tr>
+    <tr><td>Recto</td><td>90° (se dibuja con un cuadrito)</td><td>Llano</td><td>180°</td></tr>
+    <tr><td>Obtuso</td><td>entre 90° y 180°</td><td>Cóncavo</td><td>entre 180° y 360°</td></tr>
+    <tr><td colspan="2"></td><td>Completo</td><td>360°</td></tr>
   </table>
-  <p><b>Convexo</b> = menor de 180°. <b>Complementarios</b>: suman 90°. <b>Suplementarios</b>: suman 180°. <b>Opuestos por el vértice</b>: son iguales.</p>
-  <p><b>Ángulos entre paralelas cortadas por una transversal</b>: los alternos internos, alternos externos y correspondientes son iguales; los colaterales (conjugados) suman 180°.</p>
-
-  <div class="caja formula"><b class="t">Conversión</b>
-    <span class="m">180° = π rad</span> &nbsp;⇒&nbsp; de grados a radianes multiplica por <span class="m">π/180</span>; de radianes a grados multiplica por <span class="m">180/π</span>.<br>
-    Ej.: 270° · π/180 = 3π/2 rad. &nbsp; 5π/6 rad · 180/π = 150°.
+  <p><b>Complementarios</b>: suman 90° (25° + 65°). <b>Suplementarios</b>: suman 180° (50° + 130°).</p>
+  <div class="caja formula"><b class="t">Grados ↔ radianes</b> (se ve a detalle en 1.14)
+    <span class="m">180° = π rad</span>: de grados a radianes multiplica por <span class="m">π/180</span>; de radianes a grados por <span class="m">180/π</span>. &nbsp; 90° = π/2 · 270° = 3π/2 · 360° = 2π.
   </div>
-
   <div class="caja examen">
-    <div class="enc">Reactivo 11</div>
-    <div class="preg">Seleccione las características de un ángulo de 270°.</div>
+    <div class="enc">Reactivo 11 del examen</div>
+    <div class="preg">Características de un ángulo de 270°.</div>
     <ol class="pasos">
-      <li>270 · π/180 = 3π/2 radianes.</li>
+      <li>270·π/180 = 3π/2 radianes.</li>
       <li>Está entre 180° y 360° ⇒ cóncavo.</li>
     </ol>
     <span class="resp">Respuesta: C) Es igual a 3π/2 radianes y además es un ángulo cóncavo</span>
   </div>
-
   <div class="caja practica"><b class="t">Practica</b>
     <ol>
-      <li>Convierte 135° a radianes y clasifícalo.</li>
-      <li>Convierte 5π/3 rad a grados y clasifícalo.</li>
-      <li>¿Cuál es el complemento de 35°? ¿Y su suplemento?</li>
+      <li>Clasifica: 178°, 197°, 65°, 359°.</li>
+      <li>Complemento y suplemento de 35°.</li>
+      <li>Dos rectas se cortan y uno de los ángulos mide 72°. ¿Cuánto miden los otros tres?</li>
+      <li>Convierte 135° a radianes y 5π/3 rad a grados.</li>
     </ol>
-    <div class="sol">Respuestas: 1) 3π/4, obtuso · 2) 300°, cóncavo · 3) 55° y 145°</div>
+    <div class="sol">Respuestas: 1) obtuso; cóncavo; agudo; cóncavo · 2) 55° y 145° · 3) 108°, 72° (opuesto por el vértice) y 108° · 4) 3π/4; 300°</div>
   </div>
 </section>
 
-<!-- ======================= 8 ======================= -->
+<!-- ======================= 1.10 ======================= -->
 <section class="tema">
-  <h2>8. Triángulos: clasificación, semejanza y Tales</h2>
-  <div class="reactivos">Reactivos 13 y 14</div>
+  <h2>1.10 Rectas</h2>
+  <div class="reactivos">Reactivo 12</div>
+  <ul>
+    <li><b>Tangente</b> a una curva: la toca en <b>un solo punto</b>. En una circunferencia es perpendicular al radio en ese punto.</li>
+    <li><b>Secante</b>: corta a la curva en dos o más puntos.</li>
+    <li>Dos rectas en el plano: o se cortan en un punto (perpendiculares u oblicuas/convexas) o son <b>paralelas</b> (nunca se cortan). Dos rectas que forman 90° con una misma tercera recta son paralelas entre sí.</li>
+  </ul>
+  <div class="dos">
+    <div>
+      <p><b>Dos rectas cortadas por una transversal</b> forman 8 ángulos:</p>
+      <ul>
+        <li><b>Interiores</b>: entre las dos rectas. <b>Exteriores</b>: afuera.</li>
+        <li><b>Alternos</b>: en lados opuestos de la transversal (alternos internos, alternos externos).</li>
+        <li><b>Correspondientes</b>: en la misma posición en cada cruce.</li>
+      </ul>
+      <p>Si las rectas son <b>paralelas</b>: correspondientes, alternos internos y alternos externos son <b>iguales</b>; los conjugados (del mismo lado) suman 180°. Y al revés: si esos ángulos son iguales, las rectas son paralelas.</p>
+    </div>
+    <div class="fig">
+      <svg width="200" height="160" viewBox="0 0 200 160" font-family="DejaVu Sans" font-size="10">
+        <line x1="10" y1="50" x2="190" y2="50" stroke="#1f6f8b" stroke-width="2"/><text x="170" y="44" fill="#1f6f8b">ℓ1</text>
+        <line x1="10" y1="115" x2="190" y2="115" stroke="#1f6f8b" stroke-width="2"/><text x="170" y="109" fill="#1f6f8b">ℓ2</text>
+        <line x1="60" y1="150" x2="140" y2="10" stroke="#b5542a" stroke-width="2"/><text x="140" y="24" fill="#b5542a">ℓ</text>
+        <text x="118" y="64" fill="#2e7d4f">α</text><text x="80" y="111" fill="#2e7d4f">α</text>
+        <text x="40" y="150" fill="#5a6375" font-size="9">alternos internos: iguales</text>
+      </svg>
+    </div>
+  </div>
+  <div class="caja examen">
+    <div class="enc">Reactivo 12 del examen</div>
+    <div class="preg">En la figura (circunferencia con rectas ℓ1 a ℓ4): ℓ4 y ℓ3 · ℓ1 y AD · ℓ3 y OB · ℓ2 → paralelas, oblicuas, tangente a 𝒞, perpendiculares.</div>
+    <p>Busca los cuadritos (90°): ℓ3 y OB → <b>perpendiculares</b>; ℓ2 toca a la circunferencia en un punto → <b>tangente</b>; ℓ1 y AD van en la misma dirección → <b>paralelas</b>; ℓ4 y ℓ3 se cruzan sin cuadrito → <b>oblicuas</b>.</p>
+    <span class="resp">Respuesta: B) 1b, 2a, 3d, 4c</span>
+  </div>
+  <div class="caja practica"><b class="t">Practica</b>
+    <ol>
+      <li>Dos paralelas son cortadas por una transversal y un ángulo interior mide 65°. ¿Cuánto mide su alterno interno? ¿Y el conjugado interno (del mismo lado)?</li>
+      <li>Una recta corta a una circunferencia en dos puntos. ¿Cómo se llama?</li>
+    </ol>
+    <div class="sol">Respuestas: 1) 65°; 115° · 2) secante</div>
+  </div>
+</section>
 
-  <h3>Lo que necesitas saber</h3>
-  <p>Los ángulos interiores de cualquier triángulo <b>suman 180°</b>.</p>
+<!-- ======================= 1.11 ======================= -->
+<section class="tema">
+  <h2>1.11 Triángulos</h2>
+  <div class="reactivos">Reactivo 13</div>
+  <p>Polígono de tres lados, tres vértices y tres ángulos internos, que <b>suman 180°</b>.</p>
   <div class="dos">
     <table>
-      <tr><th colspan="2">Por sus lados</th></tr>
-      <tr><td>Equilátero</td><td>3 lados iguales (3 ángulos de 60°)</td></tr>
-      <tr><td>Isósceles</td><td>2 lados iguales</td></tr>
-      <tr><td>Escaleno</td><td>todos diferentes</td></tr>
+      <tr><th colspan="2">Por sus ángulos</th></tr>
+      <tr><td>Rectángulo</td><td>un ángulo recto (90°)</td></tr>
+      <tr><td>Acutángulo</td><td>todos agudos (&lt; 90°)</td></tr>
+      <tr><td>Obtusángulo</td><td>un ángulo obtuso (&gt; 90°)</td></tr>
     </table>
     <table>
-      <tr><th colspan="2">Por sus ángulos</th></tr>
-      <tr><td>Acutángulo</td><td>3 ángulos agudos</td></tr>
-      <tr><td>Rectángulo</td><td>un ángulo de 90°</td></tr>
-      <tr><td>Obtusángulo</td><td>un ángulo mayor de 90°</td></tr>
+      <tr><th colspan="2">Por sus lados</th></tr>
+      <tr><td>Equilátero</td><td>3 lados iguales (ángulos de 60°)</td></tr>
+      <tr><td>Isósceles</td><td>2 lados iguales</td></tr>
+      <tr><td>Escaleno</td><td>ningún par de lados igual</td></tr>
     </table>
   </div>
-
-  <p><b>Congruentes</b>: misma forma y mismo tamaño (criterios LLL, LAL, ALA). <b>Semejantes</b>: misma forma, distinto tamaño: ángulos iguales y lados <b>proporcionales</b>.</p>
-
-  <div class="caja formula"><b class="t">Semejanza y teorema de Tales</b>
-    Si ΔABC ~ ΔDEF: &nbsp;<span class="m"><span class="fr"><span>AB</span><span>DE</span></span> = <span class="fr"><span>BC</span><span>EF</span></span> = <span class="fr"><span>AC</span><span>DF</span></span> = k</span> (razón de semejanza).<br>
-    <b>Tales</b>: si rectas paralelas cortan a dos transversales, los segmentos que se forman son proporcionales. Aplicación típica: alturas y sombras, <span class="m">altura<sub>1</sub>/sombra<sub>1</sub> = altura<sub>2</sub>/sombra<sub>2</sub></span>.
+  <p>Un triángulo puede estar en dos categorías a la vez (ej. rectángulo isósceles). En el triángulo rectángulo, el lado opuesto al ángulo recto es la <b>hipotenusa</b> y los otros dos son los <b>catetos</b>.</p>
+  <div class="caja formula"><b class="t">Teorema de Pitágoras</b>
+    En un triángulo rectángulo: <span class="m">hipotenusa<sup>2</sup> = cateto<sup>2</sup> + cateto<sup>2</sup></span> &nbsp;(<span class="m">c<sup>2</sup> = a<sup>2</sup> + b<sup>2</sup></span>).<br>
+    <b>Recíproco:</b> si en un triángulo el cuadrado de un lado es igual a la suma de los cuadrados de los otros dos, el triángulo es rectángulo.
   </div>
-
   <div class="caja examen">
-    <div class="enc">Reactivo 13</div>
+    <div class="enc">Reactivo 13 del examen</div>
     <div class="preg">∢EOD y ∢CO′D son rectos; ∢DEB y ∢BDE miden 60°; ∢ABD = 140°. ΔEDB es ____, ΔEOD y ΔDO′C son ____, y ΔABD es ____.</div>
     <ol class="pasos">
-      <li>ΔEDB: dos ángulos de 60° ⇒ el tercero es 180 − 120 = 60° ⇒ <b>equilátero</b>.</li>
+      <li>ΔEDB: 60° + 60° ⇒ el tercero es 60° ⇒ <b>equilátero</b>.</li>
       <li>ΔEOD y ΔDO′C tienen un ángulo recto ⇒ <b>rectángulos</b>.</li>
-      <li>ΔABD tiene un ángulo de 140° ⇒ <b>obtusángulo</b>.</li>
+      <li>ΔABD tiene 140° ⇒ <b>obtusángulo</b>.</li>
     </ol>
     <span class="resp">Respuesta: C) equilátero – rectángulos – obtusángulo</span>
   </div>
-
-  <div class="caja examen">
-    <div class="enc">Reactivo 14</div>
-    <div class="preg">ΔABC ~ ΔEDC con AC/EC = BC/DC. Si AC = 100, EC = 2 y DE = 5, determine AB.</div>
-    <ol class="pasos">
-      <li>Razón de semejanza: k = AC/EC = 100/2 = 50.</li>
-      <li>AB corresponde a DE: AB = 50 · 5 = 250.</li>
-    </ol>
-    <span class="resp">Respuesta: A) 250</span>
-  </div>
-
   <div class="caja practica"><b class="t">Practica</b>
     <ol>
-      <li>Un poste de 3 m da una sombra de 2 m. A la misma hora un edificio da una sombra de 18 m. ¿Cuánto mide el edificio?</li>
-      <li>Un triángulo tiene ángulos de 40° y 70°. ¿Cuánto mide el tercero y cómo se clasifica?</li>
-      <li>ΔPQR ~ ΔXYZ con PQ = 4, XY = 10 y QR = 6. ¿Cuánto mide YZ?</li>
+      <li>Los catetos miden 9 y 12. ¿Cuánto mide la hipotenusa?</li>
+      <li>¿Un triángulo de lados 7, 24 y 25 es rectángulo?</li>
+      <li>Un triángulo tiene ángulos de 40° y 70°. Clasifícalo por ángulos y por lados.</li>
     </ol>
-    <div class="sol">Respuestas: 1) 3/2 = h/18 ⇒ h = 27 m · 2) 70°; isósceles (dos ángulos iguales) y acutángulo · 3) k = 10/4 = 2.5 ⇒ YZ = 15</div>
+    <div class="sol">Respuestas: 1) √(81 + 144) = 15 · 2) sí: 49 + 576 = 625 = 25² · 3) tercer ángulo 70°: acutángulo e isósceles</div>
   </div>
 </section>
 
-<!-- ======================= 9 ======================= -->
+<!-- ======================= 1.12 ======================= -->
 <section class="tema">
-  <h2>9. Perímetros, áreas y volúmenes</h2>
+  <h2>1.12 Congruencia y semejanza de triángulos</h2>
+  <div class="reactivos">Reactivo 14</div>
+  <div class="dos">
+    <div>
+      <p><b>Congruentes</b>: misma forma y mismo tamaño. Criterios:</p>
+      <ul>
+        <li><b>LAL</b>: dos lados y el ángulo entre ellos iguales.</li>
+        <li><b>ALA</b>: un lado y sus dos ángulos adyacentes iguales.</li>
+        <li><b>LLL</b>: los tres lados iguales.</li>
+      </ul>
+    </div>
+    <div>
+      <p><b>Semejantes</b>: misma forma; ángulos iguales y lados <b>proporcionales</b>. Criterios:</p>
+      <ul>
+        <li><b>AAA</b>: ángulos correspondientes iguales.</li>
+        <li><b>LLL</b>: los tres lados proporcionales.</li>
+        <li><b>LAL</b>: dos lados proporcionales y el ángulo entre ellos igual.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="caja formula"><b class="t">Teoremas de Tales</b>
+    <b>Primero:</b> en ΔABC, si D está en AB, E en AC y <span class="m">DE ∥ BC</span>, entonces <span class="m"><span class="fr"><span>AB</span><span>AD</span></span> = <span class="fr"><span>AC</span><span>AE</span></span></span>.<br>
+    <b>Segundo:</b> si tres rectas paralelas cortan a dos transversales, los segmentos son proporcionales: <span class="m"><span class="fr"><span>AB</span><span>BC</span></span> = <span class="fr"><span>DE</span><span>EF</span></span></span>.<br>
+    Semejanza: <span class="m">ΔABC ~ ΔDEF ⇒ AB/DE = BC/EF = AC/DF = k</span>. Aplicación clásica: alturas y sombras a la misma hora.
+  </div>
+  <div class="caja examen">
+    <div class="enc">Reactivo 14 del examen</div>
+    <div class="preg">ΔABC ~ ΔEDC con AC/EC = BC/DC. Si AC = 100, EC = 2 y DE = 5, determine AB.</div>
+    <ol class="pasos">
+      <li>k = AC/EC = 100/2 = 50.</li>
+      <li>AB corresponde a DE: AB = 50·5 = 250.</li>
+    </ol>
+    <span class="resp">Respuesta: A) 250</span>
+  </div>
+  <div class="caja practica"><b class="t">Practica</b>
+    <ol>
+      <li>Dos triángulos tienen dos lados iguales y el ángulo entre ellos igual. ¿Qué criterio de congruencia es?</li>
+      <li>En ΔABC, DE ∥ BC, AD = 4, AB = 10 y AE = 6. ¿Cuánto mide AC?</li>
+      <li>Un poste de 3 m da una sombra de 2 m; un edificio da 18 m de sombra. ¿Cuánto mide?</li>
+    </ol>
+    <div class="sol">Respuestas: 1) LAL · 2) 10/4 = AC/6 ⇒ AC = 15 · 3) 27 m</div>
+  </div>
+</section>
+
+<!-- ======================= 1.13 ======================= -->
+<section class="tema">
+  <h2>1.13 Figuras geométricas</h2>
   <div class="reactivos">Reactivo 15</div>
-
-  <h3>Lo que necesitas saber</h3>
-  <p><b>Perímetro</b> = lo que mide el contorno (unidades: cm). <b>Área</b> = lo que ocupa la superficie (cm²). <b>Volumen</b> = lo que cabe dentro (cm³).</p>
-
+  <p>Un <b>polígono</b> es una línea quebrada cerrada: tiene vértices y el mismo número de lados (aristas). La longitud total es el <b>perímetro</b>. Es <b>regular</b> si todos sus lados (y ángulos) son iguales: el cuadrado es el único cuadrilátero regular y el equilátero el único triángulo regular.</p>
+  <p class="chico">Nombres: 3 triángulo · 4 cuadrilátero · 5 pentágono · 6 hexágono · 7 heptágono · 8 octágono · 9 eneágono · 10 decágono · en general, n-ágono. Suma de ángulos interiores: 180°(n − 2).</p>
+  <p>Las figuras de 3 dimensiones con caras planas son <b>poliedros</b>. Los <b>sólidos platónicos</b> (tetraedro, cubo, octaedro, dodecaedro, icosaedro) tienen caras que son polígonos regulares iguales y cumplen la <b>fórmula de Euler</b>: <span class="m">V + C − A = 2</span> (el icosaedro: 12 + 20 − 30 = 2).</p>
   <div class="caja formula"><b class="t">Figuras planas</b>
     <table>
       <tr><th>Figura</th><th>Perímetro</th><th>Área</th></tr>
-      <tr><td>Cuadrado (lado l)</td><td class="m">4l</td><td class="m">l<sup>2</sup></td></tr>
-      <tr><td>Rectángulo</td><td class="m">2b + 2h</td><td class="m">b · h</td></tr>
-      <tr><td>Triángulo</td><td>suma de lados</td><td class="m">b · h / 2</td></tr>
-      <tr><td>Rombo</td><td class="m">4l</td><td class="m">D · d / 2</td></tr>
-      <tr><td>Trapecio</td><td>suma de lados</td><td class="m">(B + b) · h / 2</td></tr>
-      <tr><td>Polígono regular (n lados)</td><td class="m">n · l</td><td class="m">P · a / 2</td> </tr>
+      <tr><td>Triángulo</td><td class="m">ℓ<sub>1</sub> + ℓ<sub>2</sub> + ℓ<sub>3</sub></td><td class="m">½ ℓ h</td></tr>
+      <tr><td>Cuadrado</td><td class="m">4ℓ</td><td class="m">ℓ<sup>2</sup></td></tr>
+      <tr><td>Rectángulo</td><td class="m">2(a + b)</td><td class="m">ab</td></tr>
+      <tr><td>Rombo</td><td class="m">4ℓ</td><td class="m">½ d<sub>1</sub>d<sub>2</sub></td></tr>
+      <tr><td>Trapecio</td><td class="m">ℓ<sub>1</sub> + ℓ<sub>2</sub> + b<sub>1</sub> + b<sub>2</sub></td><td class="m">½ (b<sub>1</sub> + b<sub>2</sub>) h</td></tr>
+      <tr><td>Paralelogramo</td><td class="m">2(b + ℓ)</td><td class="m">bh</td></tr>
+      <tr><td>n-ágono regular (apotema a)</td><td class="m">nℓ</td><td class="m">½ nℓa</td></tr>
       <tr><td>Círculo</td><td class="m">2πr</td><td class="m">πr<sup>2</sup></td></tr>
     </table>
     <b class="t">Cuerpos</b>
     <table>
-      <tr><th>Cuerpo</th><th>Volumen</th><th>Cuerpo</th><th>Volumen</th></tr>
-      <tr><td>Cubo</td><td class="m">l<sup>3</sup></td><td>Cilindro</td><td class="m">πr<sup>2</sup>h</td></tr>
-      <tr><td>Prisma</td><td class="m">A<sub>base</sub> · h</td><td>Cono</td><td class="m">πr<sup>2</sup>h / 3</td></tr>
-      <tr><td>Pirámide</td><td class="m">A<sub>base</sub> · h / 3</td><td>Esfera</td><td class="m">4πr<sup>3</sup> / 3</td></tr>
+      <tr><th>Cuerpo</th><th>Superficie</th><th>Volumen</th></tr>
+      <tr><td>Cubo (arista a)</td><td class="m">6a<sup>2</sup></td><td class="m">a<sup>3</sup></td></tr>
+      <tr><td>Prisma (base A<sub>b</sub>, perímetro P<sub>b</sub>)</td><td class="m">2A<sub>b</sub> + hP<sub>b</sub></td><td class="m">hA<sub>b</sub></td></tr>
+      <tr><td>Cilindro</td><td class="m">2πr(r + h)</td><td class="m">πr<sup>2</sup>h</td></tr>
+      <tr><td>Cono (generatriz s)</td><td class="m">πr(r + s)</td><td class="m">⅓ πr<sup>2</sup>h</td></tr>
+      <tr><td>Esfera</td><td class="m">4πr<sup>2</sup></td><td class="m">⁴⁄₃ πr<sup>3</sup></td></tr>
+      <tr><td>Tetraedro (arista a)</td><td class="m">√3 a<sup>2</sup></td><td class="m">(√2/12) a<sup>3</sup></td></tr>
+      <tr><td>Octaedro</td><td class="m">2√3 a<sup>2</sup></td><td class="m">(√2/3) a<sup>3</sup></td></tr>
     </table>
-    <p class="chico">Polígonos: suma de ángulos interiores = 180°(n − 2); diagonales = n(n − 3)/2; a = apotema.</p>
   </div>
-
   <div class="caja examen">
-    <div class="enc">Reactivo 15</div>
-    <div class="preg">Volumen de un cilindro de 8.00 cm de altura y base de radio 4.00 cm (π = 3.14).</div>
-    <ol class="pasos">
-      <li>V = π r<sup>2</sup> h = 3.14 · 4<sup>2</sup> · 8.</li>
-      <li>= 3.14 · 16 · 8 = 3.14 · 128 = 401.92 cm<sup>3</sup>.</li>
-    </ol>
+    <div class="enc">Reactivo 15 del examen</div>
+    <div class="preg">Volumen de un cilindro de 8.00 cm de altura y radio 4.00 cm (π = 3.14).</div>
+    <p>V = πr<sup>2</sup>h = 3.14·16·8 = 401.92 cm<sup>3</sup>.</p>
     <span class="resp">Respuesta: D) 401.92 cm³</span>
   </div>
-
-  <div class="caja ojo"><b class="t">Ojo</b>
-    Si te dan el <b>diámetro</b>, divídelo entre 2 antes de usar r. Y fíjate que el radio va <b>al cuadrado</b>: el distractor 100.48 sale de olvidar elevar (3.14 · 4 · 8).
-  </div>
-
+  <div class="caja ojo"><b class="t">Ojo</b> Si te dan el diámetro, divídelo entre 2. El radio va <b>al cuadrado</b> (el distractor 100.48 sale de olvidarlo).</div>
   <div class="caja practica"><b class="t">Practica</b>
     <ol>
-      <li>Volumen de un cono de radio 3 cm y altura 4 cm (π = 3.14).</li>
-      <li>Área de un círculo de diámetro 10 m.</li>
-      <li>Área de un trapecio de bases 8 y 4 cm y altura 5 cm.</li>
-      <li>¿Cuánto suman los ángulos interiores de un hexágono?</li>
+      <li>Un cubo tiene 8 vértices y 6 caras. Con la fórmula de Euler, ¿cuántas aristas tiene?</li>
+      <li>Área de un hexágono regular de lado 4 cm y apotema 3.46 cm.</li>
+      <li>Superficie total de un cilindro de r = 2 cm y h = 5 cm (π = 3.14).</li>
+      <li>Volumen de una esfera de radio 3 cm (π = 3.14).</li>
     </ol>
-    <div class="sol">Respuestas: 1) 3.14·9·4/3 = 37.68 cm³ · 2) 3.14·25 = 78.5 m² · 3) (8 + 4)·5/2 = 30 cm² · 4) 180·4 = 720°</div>
+    <div class="sol">Respuestas: 1) 8 + 6 − A = 2 ⇒ A = 12 · 2) ½·6·4·3.46 = 41.52 cm² · 3) 2·3.14·2·7 = 87.92 cm² · 4) 113.04 cm³</div>
   </div>
 </section>
 
-<!-- ======================= 10 ======================= -->
+<!-- ======================= 1.14 ======================= -->
 <section class="tema">
-  <h2>10. Trigonometría</h2>
-  <div class="reactivos">Reactivos 16, 17 y 18</div>
-
-  <h3>Lo que necesitas saber</h3>
+  <h2>1.14 Trigonometría</h2>
+  <div class="reactivos">Reactivos 16 y 18</div>
   <div class="dos">
     <div>
-      <p>En un triángulo <b>rectángulo</b>, desde el ángulo θ:</p>
-      <ul>
-        <li><b>Hipotenusa</b>: el lado más largo, frente al ángulo de 90°.</li>
-        <li><b>Cateto opuesto</b>: el que está enfrente de θ.</li>
-        <li><b>Cateto adyacente</b>: el que toca a θ (y no es la hipotenusa).</li>
-      </ul>
-      <p>Regla para recordar: <b>SOH – CAH – TOA</b>.</p>
+      <p>Los ángulos se miden desde el lado derecho de la horizontal: son <b>positivos en sentido antihorario</b> y negativos en sentido horario; una vuelta completa son 360°.</p>
+      <p>En el triángulo rectángulo AOB, desde el ángulo α: <b>CO</b> = cateto opuesto, <b>CA</b> = cateto adyacente, <b>HIP</b> = hipotenusa.</p>
     </div>
     <div class="fig">
       <svg width="250" height="140" viewBox="0 0 250 140" font-family="DejaVu Sans" font-size="10">
         <polygon points="20,120 190,120 190,25" fill="#e6f2f6" stroke="#1f6f8b" stroke-width="2"/>
         <rect x="178" y="108" width="12" height="12" fill="none" stroke="#1f6f8b"/>
         <path d="M50,120 A30,30 0 0,0 46,106" fill="none" stroke="#b5542a" stroke-width="1.6"/>
-        <text x="55" y="114" fill="#b5542a">θ</text>
-        <text x="80" y="135">cateto adyacente</text>
-        <text x="194" y="76">cateto</text><text x="194" y="88">opuesto</text>
-        <text x="80" y="64" transform="rotate(-29 100 70)">hipotenusa</text>
+        <text x="55" y="114" fill="#b5542a">α</text>
+        <text x="80" y="135">cateto adyacente (CA)</text>
+        <text x="194" y="76">cateto</text><text x="194" y="88">opuesto (CO)</text>
+        <text x="80" y="64" transform="rotate(-29 100 70)">hipotenusa (HIP)</text>
+        <text x="8" y="132">O</text><text x="194" y="132">B</text><text x="194" y="22">A</text>
       </svg>
     </div>
   </div>
-
-  <div class="caja formula"><b class="t">Fórmulas</b>
-    <span class="m">sen θ = <span class="fr"><span>opuesto</span><span>hipotenusa</span></span></span> &nbsp;
-    <span class="m">cos θ = <span class="fr"><span>adyacente</span><span>hipotenusa</span></span></span> &nbsp;
-    <span class="m">tan θ = <span class="fr"><span>opuesto</span><span>adyacente</span></span></span> &nbsp;·&nbsp; Pitágoras: <span class="m">c<sup>2</sup> = a<sup>2</sup> + b<sup>2</sup></span><br>
-    <b>Identidad fundamental:</b> <span class="m">sen<sup>2</sup>θ + cos<sup>2</sup>θ = 1</span><br>
-    <b>Suma y resta de ángulos:</b> <span class="m">cos(A ± B) = cos A cos B ∓ sen A sen B</span> &nbsp;·&nbsp; <span class="m">sen(A ± B) = sen A cos B ± cos A sen B</span><br>
-    <b>Cualquier triángulo:</b> Ley de senos <span class="m">a/sen A = b/sen B = c/sen C</span> &nbsp;·&nbsp; Ley de cosenos <span class="m">c<sup>2</sup> = a<sup>2</sup> + b<sup>2</sup> − 2ab cos C</span><br>
-    <b>Área con dos lados y el ángulo entre ellos:</b> <span class="m">A = ½ ab sen C</span>
+  <div class="caja formula"><b class="t">Funciones trigonométricas</b>
+    <span class="m">sin α = <span class="fr"><span>CO</span><span>HIP</span></span></span> &nbsp;
+    <span class="m">cos α = <span class="fr"><span>CA</span><span>HIP</span></span></span> &nbsp;
+    <span class="m">tan α = <span class="fr"><span>CO</span><span>CA</span></span></span> &nbsp;·&nbsp;
+    <span class="m">csc α = <span class="fr"><span>HIP</span><span>CO</span></span></span> &nbsp;
+    <span class="m">sec α = <span class="fr"><span>HIP</span><span>CA</span></span></span> &nbsp;
+    <span class="m">cot α = <span class="fr"><span>CA</span><span>CO</span></span></span><br>
+    <b>Circunferencia unitaria S¹</b> (radio 1, perímetro 2π): el punto a un ángulo α es <span class="m">(cos α, sin α)</span>.<br>
+    <b>Radianes:</b> <span class="m">s = (2π/360)·α</span> &nbsp;y&nbsp; <span class="m">α = (360/2π)·s</span>.<br>
+    <b>Identidades:</b> <span class="m">cos<sup>2</sup>α + sin<sup>2</sup>α = 1</span> (Pitágoras con hipotenusa 1) &nbsp;·&nbsp; <span class="m">tan α = sin α / cos α</span> &nbsp;·&nbsp; <span class="m">sec<sup>2</sup>α − tan<sup>2</sup>α = 1</span>
     <table>
-      <tr><th>θ</th><th>0°</th><th>30°</th><th>45°</th><th>60°</th><th>90°</th></tr>
-      <tr><td>sen</td><td>0</td><td>1/2</td><td>√2/2 ≈ 0.707</td><td>√3/2 ≈ 0.866</td><td>1</td></tr>
+      <tr><th>α</th><th>0°</th><th>30°</th><th>45°</th><th>60°</th><th>90°</th></tr>
+      <tr><td>sin</td><td>0</td><td>1/2</td><td>√2/2 ≈ 0.707</td><td>√3/2 ≈ 0.866</td><td>1</td></tr>
       <tr><td>cos</td><td>1</td><td>√3/2</td><td>√2/2</td><td>1/2</td><td>0</td></tr>
       <tr><td>tan</td><td>0</td><td>√3/3</td><td>1</td><td>√3</td><td>no existe</td></tr>
     </table>
-    <p class="chico">En la circunferencia unitaria, el punto a un ángulo θ de la horizontal es (cos θ, sen θ).</p>
   </div>
-
   <div class="caja examen">
-    <div class="enc">Reactivo 16</div>
-    <div class="preg">ΔABC con ∢BAC recto, hipotenusa CB = 10, cateto AB = 8, cateto AC = 6. ¿Cuál es el valor de cos(∢ACB)·sen(∢ACB)?</div>
+    <div class="enc">Reactivo 16 del examen</div>
+    <div class="preg">ΔABC con ∢BAC recto, CB = 10, AB = 8, AC = 6. ¿Cuál es el valor de cos(∢ACB)·sin(∢ACB)?</div>
     <ol class="pasos">
-      <li>Desde el ángulo C: adyacente AC = 6, opuesto AB = 8, hipotenusa 10.</li>
-      <li>cos C = 6/10 = 0.60; sen C = 8/10 = 0.80.</li>
-      <li>El producto da 0.60 · 0.80 = 0.48.</li>
+      <li>Desde C: CA = AC = 6, CO = AB = 8, HIP = 10.</li>
+      <li>cos C = 0.60; sin C = 0.80; su producto es 0.48.</li>
     </ol>
     <span class="resp">Clave oficial: A) 0.60</span>
-    <p class="chico"><b>Nota:</b> el producto correcto es 0.48, que no aparece en las opciones; la clave marca 0.60, que es el valor de <b>cos(∢ACB)</b> solo. Lo importante es que sepas sacar cos C = 0.6, sen C = 0.8 y tan C = 8/6 ≈ 1.33 (las otras opciones también son razones de este triángulo).</p>
+    <p class="chico"><b>Nota:</b> 0.48 no aparece en las opciones; la clave marca 0.60, que es solo cos(∢ACB). Las demás opciones también son razones de este triángulo (sin C = 0.80, tan B = 0.75, tan C ≈ 1.33): lo que te evalúan es saber sacarlas.</p>
   </div>
-
   <div class="caja examen">
-    <div class="enc">Reactivo 17</div>
-    <div class="preg">A = (0.87, 0.50) a 30° y B = (0.64, 0.77) a 50° en la circunferencia unitaria. ¿Cuál es cos(80°)?</div>
+    <div class="enc">Reactivo 18 del examen</div>
+    <div class="preg">Triángulo rectángulo en B, ∢A = 30°, ∢C = 60°, BC = 6 y AB = h. Calcule el área (sin 30° = 1/2, sin 60° = √3/2).</div>
     <ol class="pasos">
-      <li>80° = 30° + 50°, y cos(A + B) = cos A cos B − sen A sen B.</li>
-      <li>Las coordenadas son (cos, sen): cos 30° = 0.87, sen 30° = 0.50, cos 50° = 0.64, sen 50° = 0.77.</li>
-      <li>cos 80° = 0.87·0.64 − 0.50·0.77 = 0.5568 − 0.385 = 0.1718.</li>
-    </ol>
-    <span class="resp">Respuesta: C) 0.1718</span>
-  </div>
-
-  <div class="caja examen">
-    <div class="enc">Reactivo 18</div>
-    <div class="preg">Triángulo rectángulo en B, con ∢A = 30°, ∢C = 60°, BC = 6 y AB = h. Calcule el área.</div>
-    <ol class="pasos">
-      <li>BC = 6 es opuesto a A: sen 30° = 6 / AC ⇒ AC = 6 / (1/2) = 12 (hipotenusa).</li>
-      <li>h = AB es opuesto a C: h = 12 · sen 60° = 12 · √3/2 = 6√3.</li>
-      <li>Área = (cateto · cateto)/2 = 6 · 6√3 / 2 = 18√3.</li>
+      <li>BC es opuesto a A: sin 30° = 6/AC ⇒ AC = 12.</li>
+      <li>h = AB = 12·sin 60° = 6√3.</li>
+      <li>Área = 6·6√3/2 = 18√3.</li>
     </ol>
     <span class="resp">Respuesta: C) 18√3</span>
   </div>
-
   <div class="caja practica"><b class="t">Practica</b>
     <ol>
-      <li>Un triángulo rectángulo tiene catetos 5 y 12. ¿Cuánto mide la hipotenusa? ¿Cuánto vale el seno del ángulo opuesto al 5?</li>
-      <li>Calcula sen 75° usando sen(45° + 30°).</li>
-      <li>En un triángulo, a = 5, b = 7 y el ángulo entre ellos C = 60°. Encuentra c y el área.</li>
+      <li>Si α es agudo y sin α = 3/5, encuentra cos α, tan α y csc α.</li>
+      <li>Convierte π/3 rad a grados y 225° a radianes.</li>
+      <li>Un triángulo rectángulo tiene catetos 5 y 12. ¿Seno del ángulo opuesto al 5?</li>
     </ol>
-    <div class="sol">Respuestas: 1) 13; 5/13 ≈ 0.385 · 2) 0.707·0.866 + 0.707·0.5 ≈ 0.966 · 3) c² = 25 + 49 − 70·0.5 = 39 ⇒ c ≈ 6.24; área = ½·5·7·0.866 ≈ 15.16</div>
+    <div class="sol">Respuestas: 1) cos = 4/5, tan = 3/4, csc = 5/3 · 2) 60°; 5π/4 · 3) hipotenusa 13 ⇒ 5/13 ≈ 0.385</div>
   </div>
 </section>
 
-<!-- ======================= 11 ======================= -->
+<!-- ======================= 1.15 ======================= -->
 <section class="tema">
-  <h2>11. Plano cartesiano: coordenadas polares, punto medio y distancia</h2>
-  <div class="reactivos">Reactivos 19 y 20</div>
-
-  <h3>Lo que necesitas saber</h3>
-  <p>Un punto se puede dar en <b>rectangulares</b> (x, y) o en <b>polares</b> (r, θ): r es la distancia al origen y θ el ángulo medido desde el eje x positivo, en sentido contrario a las manecillas.</p>
-  <p><b>Cuadrantes:</b> I (+, +), II (−, +), III (−, −), IV (+, −). Sobre los ejes: (+, 0) → 0°, (0, +) → 90°, (−, 0) → 180°, (0, −) → 270°.</p>
-
-  <div class="caja formula"><b class="t">Fórmulas</b>
-    Rectangular → polar: <span class="m">r = √(x<sup>2</sup> + y<sup>2</sup>)</span>, &nbsp;<span class="m">θ = arctan(y/x)</span> (súmale 180° si x &lt; 0).<br>
-    Polar → rectangular: <span class="m">x = r cos θ</span>, &nbsp;<span class="m">y = r sen θ</span>.<br>
-    Punto medio: <span class="m">M = ( <span class="fr"><span>x<sub>1</sub> + x<sub>2</sub></span><span>2</span></span> , <span class="fr"><span>y<sub>1</sub> + y<sub>2</sub></span><span>2</span></span> )</span> &nbsp;·&nbsp;
-    Distancia: <span class="m">d = √((x<sub>2</sub> − x<sub>1</sub>)<sup>2</sup> + (y<sub>2</sub> − y<sub>1</sub>)<sup>2</sup>)</span>
+  <h2>1.15 Funciones trigonométricas</h2>
+  <div class="reactivos">Reactivo 17</div>
+  <p>Para ángulos negativos o mayores de 90°, piensa en la circunferencia unitaria (x = cos, y = sin):</p>
+  <div class="caja formula"><b class="t">Relaciones</b>
+    Ángulo negativo (reflejo sobre la horizontal): <span class="m">cos(−α) = cos α</span> &nbsp;·&nbsp; <span class="m">sin(−α) = −sin α</span> &nbsp;·&nbsp; <span class="m">tan(−α) = −tan α</span><br>
+    Suplemento (reflejo sobre la vertical): <span class="m">sin(180° − α) = sin α</span> &nbsp;·&nbsp; <span class="m">cos(180° − α) = −cos α</span><br>
+    <b>Suma de ángulos:</b><br>
+    <span class="m">cos(α + β) = cos α · cos β − sin α · sin β</span><br>
+    <span class="m">sin(α + β) = cos α · sin β + cos β · sin α</span><br>
+    <span class="chico">(Para restar, cambia el signo del segundo ángulo: cos(α − β) = cos α cos β + sin α sin β.)</span>
   </div>
-
+  <p><b>Signos por cuadrante</b>: I (0°–90°) todas positivas · II (90°–180°) solo sin positiva · III (180°–270°) solo tan positiva · IV (270°–360°) solo cos positiva.</p>
   <div class="caja examen">
-    <div class="enc">Reactivo 19</div>
-    <div class="preg">Coordenadas polares del punto (−3, 0).</div>
+    <div class="enc">Reactivo 17 del examen</div>
+    <div class="preg">A = (0.87, 0.50) a 30° y B = (0.64, 0.77) a 50° en la circunferencia unitaria. ¿Cuál es cos(80°)?</div>
     <ol class="pasos">
-      <li>r = √((−3)<sup>2</sup> + 0<sup>2</sup>) = 3. (r nunca es negativo: descarta A y C.)</li>
-      <li>θ = arctan(0/−3) + π = 0 + π = 180°. Tiene sentido: el punto está sobre el eje x negativo.</li>
+      <li>80° = 30° + 50°; las coordenadas son (cos, sin).</li>
+      <li>cos 80° = cos 30° cos 50° − sin 30° sin 50° = 0.87·0.64 − 0.50·0.77 = 0.5568 − 0.385 = 0.1718.</li>
+    </ol>
+    <span class="resp">Respuesta: C) 0.1718</span>
+  </div>
+  <div class="caja practica"><b class="t">Practica</b>
+    <ol>
+      <li>cos(−60°), sin(150°) y cos(120°).</li>
+      <li>Calcula sin 75° como sin(45° + 30°).</li>
+      <li>Comprueba con la fórmula que sin(30° + 60°) = 1.</li>
+    </ol>
+    <div class="sol">Respuestas: 1) 0.5; sin 30° = 0.5; −cos 60° = −0.5 · 2) 0.707·0.866 + 0.707·0.5 ≈ 0.966 · 3) cos30 sin60 + cos60 sin30 = 0.75 + 0.25 = 1</div>
+  </div>
+</section>
+
+<!-- ======================= 1.16 ======================= -->
+<section class="tema">
+  <h2>1.16 Teoremas trigonométricos</h2>
+  <div class="reactivos">No viene en la versión de práctica, pero está en el temario</div>
+  <p>Pitágoras solo sirve en triángulos rectángulos. Para <b>cualquier</b> triángulo ABC, con lados a, b, c opuestos a los ángulos α, β, γ (o A, B, C):</p>
+  <div class="caja formula"><b class="t">Ley de los cosenos</b>
+    <span class="m">a<sup>2</sup> = b<sup>2</sup> + c<sup>2</sup> − 2bc·cos α</span> &nbsp;·&nbsp; <span class="m">b<sup>2</sup> = a<sup>2</sup> + c<sup>2</sup> − 2ac·cos β</span> &nbsp;·&nbsp; <span class="m">c<sup>2</sup> = a<sup>2</sup> + b<sup>2</sup> − 2ab·cos γ</span><br>
+    Es la generalización de Pitágoras: si β = 90°, cos 90° = 0 y queda <span class="m">b<sup>2</sup> = a<sup>2</sup> + c<sup>2</sup></span>.<br>
+    Úsala cuando conoces <b>dos lados y el ángulo entre ellos</b>, o los <b>tres lados</b>.
+    <b class="t" style="margin-top:6px">Ley de los senos</b>
+    <span class="m"><span class="fr"><span>a</span><span>sin A</span></span> = <span class="fr"><span>b</span><span>sin B</span></span> = <span class="fr"><span>c</span><span>sin C</span></span> = 2r</span>, &nbsp;donde r es el radio de la circunferencia circunscrita (su centro, el circuncentro, es donde se cruzan las mediatrices).<br>
+    Úsala cuando conoces <b>dos ángulos y un lado</b>, o dos lados y un ángulo opuesto a uno de ellos.<br>
+    <b>Área</b> con dos lados y el ángulo entre ellos: <span class="m">A = ½ ab sin C</span>.
+  </div>
+  <div class="caja examen">
+    <div class="enc">Ejemplo resuelto</div>
+    <div class="preg">En un triángulo, a = 5, b = 7 y el ángulo entre ellos C = 60°. Encuentra c.</div>
+    <ol class="pasos">
+      <li>c<sup>2</sup> = 25 + 49 − 2·5·7·cos 60° = 74 − 70·0.5 = 39.</li>
+      <li>c = √39 ≈ 6.24.</li>
+    </ol>
+  </div>
+  <div class="caja practica"><b class="t">Practica</b>
+    <ol>
+      <li>A = 30°, B = 45° y a = 5. Encuentra b.</li>
+      <li>En el triángulo anterior, ¿cuánto mide el radio de la circunferencia circunscrita?</li>
+      <li>Un triángulo tiene lados 3, 5 y 7. ¿Cuánto mide el ángulo opuesto al lado 7?</li>
+      <li>Área del triángulo con a = 5, b = 7, C = 60°.</li>
+    </ol>
+    <div class="sol">Respuestas: 1) b = 5·sin 45°/sin 30° = 5·0.707/0.5 ≈ 7.07 · 2) 2r = 5/0.5 = 10 ⇒ r = 5 · 3) 49 = 9 + 25 − 30 cos C ⇒ cos C = −0.5 ⇒ C = 120° · 4) ½·5·7·0.866 ≈ 15.16</div>
+  </div>
+</section>
+
+<!-- ======================= 1.17 y 1.18 ======================= -->
+<section class="tema">
+  <h2>1.17 Coordenadas del plano</h2>
+  <div class="reactivos">Reactivo 19</div>
+  <p>El <b>plano cartesiano</b> ℝ² tiene dos ejes perpendiculares: el de las <b>abscisas</b> (x, positivo hacia la derecha) y el de las <b>ordenadas</b> (y, positivo hacia arriba). Cada punto es una pareja ordenada <span class="m">(x, y)</span>: sus <b>coordenadas rectangulares</b>.</p>
+  <p>En el <b>plano polar</b> un punto es <span class="m">(r, θ)</span>: la coordenada radial <span class="m">r ∈ [0, ∞)</span> (distancia al origen, nunca negativa) y la angular <span class="m">θ ∈ [0°, 360°)</span>.</p>
+  <div class="caja formula"><b class="t">Conversiones</b>
+    Polar → rectangular: <span class="m">x = r·cos θ</span>, &nbsp;<span class="m">y = r·sin θ</span><br>
+    Rectangular → polar: <span class="m">r = √(x<sup>2</sup> + y<sup>2</sup>)</span>, &nbsp;<span class="m">θ = arctan(y/x)</span> — revisa el cuadrante: si x &lt; 0, súmale 180°.<br>
+    Sobre los ejes: (+, 0) → 0° · (0, +) → 90° · (−, 0) → 180° · (0, −) → 270°.
+  </div>
+  <div class="caja examen">
+    <div class="enc">Reactivo 19 del examen</div>
+    <div class="preg">Coordenadas polares de (−3, 0). Considere r² = x² + y² y θ = arctan(y/x) + π.</div>
+    <ol class="pasos">
+      <li>r = √9 = 3 (r no puede ser negativo: descarta A y C).</li>
+      <li>θ = arctan(0) + π = 180°: el punto está sobre el eje x negativo.</li>
     </ol>
     <span class="resp">Respuesta: B) (3, 180°)</span>
   </div>
 
+  <h2 style="margin-top:22px">1.18 Relaciones analíticas</h2>
+  <div class="reactivos">Reactivo 20</div>
+  <div class="caja formula"><b class="t">Para P = (x₁, y₁) y Q = (x₂, y₂)</b>
+    Distancia: <span class="m">d(P, Q) = √((x<sub>2</sub> − x<sub>1</sub>)<sup>2</sup> + (y<sub>2</sub> − y<sub>1</sub>)<sup>2</sup>)</span> &nbsp;(es Pitágoras: los catetos son Δx y Δy)<br>
+    Punto medio: <span class="m">R = ( <span class="fr"><span>x<sub>1</sub> + x<sub>2</sub></span><span>2</span></span> , <span class="fr"><span>y<sub>1</sub> + y<sub>2</sub></span><span>2</span></span> )</span>
+  </div>
   <div class="caja examen">
-    <div class="enc">Reactivo 20</div>
+    <div class="enc">Reactivo 20 del examen</div>
     <div class="preg">Punto medio entre (−3, 6) y (1, 2).</div>
-    <ol class="pasos">
-      <li>x = (−3 + 1)/2 = −1; &nbsp; y = (6 + 2)/2 = 4.</li>
-    </ol>
+    <p>x = (−3 + 1)/2 = −1; &nbsp; y = (6 + 2)/2 = 4.</p>
     <span class="resp">Respuesta: B) (−1, 4)</span>
   </div>
-
   <div class="caja practica"><b class="t">Practica</b>
     <ol>
       <li>Polares de (0, 4) y de (1, 1).</li>
       <li>Rectangulares de (2, 60°).</li>
-      <li>Punto medio y distancia entre (1, 2) y (4, 6).</li>
+      <li>Distancia y punto medio entre (−2, 1) y (4, 9).</li>
     </ol>
-    <div class="sol">Respuestas: 1) (4, 90°); (√2, 45°) · 2) (2·0.5, 2·0.866) = (1, 1.73) · 3) M = (2.5, 4); d = √(9 + 16) = 5</div>
+    <div class="sol">Respuestas: 1) (4, 90°); (√2, 45°) · 2) (1, 1.73) · 3) d = √(36 + 64) = 10; M = (1, 5)</div>
   </div>
 </section>
 
-<!-- ======================= 12 ======================= -->
+<!-- ======================= 1.19 ======================= -->
 <section class="tema">
-  <h2>12. La recta y su pendiente</h2>
+  <h2>1.19 Ecuaciones de primer grado y su interpretación en geometría analítica</h2>
   <div class="reactivos">Reactivo 21</div>
-
-  <h3>Lo que necesitas saber</h3>
-  <p>La <b>pendiente</b> m mide la inclinación de la recta: cuánto sube (o baja) y por cada unidad que avanzas en x. Si m &gt; 0 la recta sube; si m &lt; 0, baja; si m = 0, es horizontal.</p>
-
+  <p>Una ecuación de primer grado con dos variables es una <b>recta</b>. Su <b>pendiente</b> m mide la inclinación (cuánto sube y por cada unidad que avanza x) y el <b>desplazamiento</b> b es la altura donde corta al eje y.</p>
   <div class="caja formula"><b class="t">Fórmulas</b>
-    Pendiente entre dos puntos: <span class="m">m = <span class="fr"><span>y<sub>2</sub> − y<sub>1</sub></span><span>x<sub>2</sub> − x<sub>1</sub></span></span></span> &nbsp;·&nbsp; Ángulo de inclinación: <span class="m">tan α = m</span><br>
-    Pendiente-ordenada: <span class="m">y = mx + b</span> (b = donde corta al eje y) &nbsp;·&nbsp; Punto-pendiente: <span class="m">y − y<sub>1</sub> = m(x − x<sub>1</sub>)</span><br>
-    General: <span class="m">Ax + By + C = 0</span> ⇒ <span class="m">m = −A/B</span>, <span class="m">b = −C/B</span><br>
-    Paralelas: <span class="m">m<sub>1</sub> = m<sub>2</sub></span> &nbsp;·&nbsp; Perpendiculares: <span class="m">m<sub>1</sub> · m<sub>2</sub> = −1</span>
+    <span class="m">m = <span class="fr"><span>Δy</span><span>Δx</span></span> = <span class="fr"><span>y<sub>2</sub> − y<sub>1</sub></span><span>x<sub>2</sub> − x<sub>1</sub></span></span></span> &nbsp;·&nbsp; Ecuación: <span class="m">y = mx + b</span> (corta al eje x en <span class="m">x = −b/m</span>)<br>
+    Punto-pendiente: <span class="m">y − y<sub>1</sub> = m(x − x<sub>1</sub>)</span> &nbsp;·&nbsp; General <span class="m">Ax + By + C = 0</span> ⇒ <span class="m">m = −A/B</span><br>
+    b &gt; 0: corta arriba del origen · b &lt; 0: abajo · b = 0: pasa por el origen.
   </div>
-
+  <table>
+    <tr><th>Dos rectas</th><th>Condición</th></tr>
+    <tr><td>Paralelas</td><td><span class="m">m<sub>1</sub> = m<sub>2</sub></span> y <span class="m">b<sub>1</sub> ≠ b<sub>2</sub></span></td></tr>
+    <tr><td>Coincidentes (la misma recta)</td><td><span class="m">m<sub>1</sub> = m<sub>2</sub></span> y <span class="m">b<sub>1</sub> = b<sub>2</sub></span></td></tr>
+    <tr><td>Perpendiculares</td><td><span class="m">m<sub>1</sub>·m<sub>2</sub> = −1</span></td></tr>
+    <tr><td>Se cortan</td><td><span class="m">m<sub>1</sub> ≠ m<sub>2</sub></span> (en el origen si además b<sub>1</sub> = b<sub>2</sub> = 0)</td></tr>
+  </table>
   <div class="caja examen">
-    <div class="enc">Reactivo 21</div>
-    <div class="preg">La ecuación 2x − y = 20 relaciona la ganancia (y) con los artículos vendidos (x). ¿Cuál es la inclinación (pendiente) de la gráfica?</div>
+    <div class="enc">Reactivo 21 del examen</div>
+    <div class="preg">La ecuación 2x − y = 20 relaciona la ganancia (y) con los artículos vendidos (x). ¿Inclinación de la gráfica?</div>
     <ol class="pasos">
-      <li>Despeja y: −y = −2x + 20 ⇒ y = 2x − 20.</li>
-      <li>El número que acompaña a x es la pendiente: m = 2.</li>
+      <li>Despeja y: y = 2x − 20.</li>
+      <li>La pendiente es el número que multiplica a x: m = 2.</li>
     </ol>
     <span class="resp">Respuesta: D) 2</span>
   </div>
-
-  <div class="caja ojo"><b class="t">Ojo</b> Siempre despeja <b>y</b> primero. Con la fórmula m = −A/B: A = 2, B = −1 ⇒ m = −2/(−1) = 2. Cuidado con los signos.</div>
-
+  <div class="caja ojo"><b class="t">Ojo</b> Despeja siempre <b>y</b> antes de leer la pendiente; con <span class="m">m = −A/B</span>: −2/(−1) = 2.</div>
   <div class="caja practica"><b class="t">Practica</b>
     <ol>
       <li>Pendiente y ordenada al origen de 3x + 6y = 12.</li>
       <li>Ecuación de la recta que pasa por (1, 3) y (3, 7).</li>
-      <li>Pendiente de una recta perpendicular a y = 4x − 1.</li>
+      <li>¿Cómo son y = 3x + 2 y y = 3x − 5? ¿Y y = 2x + 1 y y = −½x + 4?</li>
     </ol>
-    <div class="sol">Respuestas: 1) y = −½x + 2: m = −½, b = 2 · 2) m = 4/2 = 2; y = 2x + 1 · 3) −¼</div>
+    <div class="sol">Respuestas: 1) m = −½, b = 2 · 2) y = 2x + 1 · 3) paralelas; perpendiculares (2·(−½) = −1)</div>
   </div>
 </section>
 
-<!-- ======================= 13 ======================= -->
+<!-- ======================= 1.20 ======================= -->
 <section class="tema">
-  <h2>13. Sistemas de ecuaciones 2×2</h2>
+  <h2>1.20 Sistemas de ecuaciones lineales con dos variables</h2>
   <div class="reactivos">Reactivo 22</div>
-
-  <h3>Lo que necesitas saber</h3>
-  <p>Dos ecuaciones con dos incógnitas. La solución es el par (x, y) que cumple <b>las dos</b> (es el punto donde se cruzan las dos rectas). Métodos:</p>
-  <ul>
-    <li><b>Suma y resta (reducción)</b>: multiplica una o ambas ecuaciones para que una letra tenga el mismo coeficiente con signo contrario, y suma.</li>
-    <li><b>Sustitución</b>: despeja una letra en una ecuación y sustitúyela en la otra.</li>
-    <li><b>Igualación</b>: despeja la misma letra en ambas e iguala.</li>
-    <li><b>Determinantes (Cramer)</b>: <span class="m">x = (c<sub>1</sub>b<sub>2</sub> − c<sub>2</sub>b<sub>1</sub>)/(a<sub>1</sub>b<sub>2</sub> − a<sub>2</sub>b<sub>1</sub>)</span>.</li>
-  </ul>
-
+  <p>Cada ecuación <span class="m">ax + by = c</span> es una recta. La <b>solución</b> del sistema es el punto donde se cortan (cumple las dos ecuaciones). Si las rectas son paralelas, <b>no hay solución</b>; si son la misma recta, hay infinitas.</p>
+  <p><b>Teorema:</b> el sistema <span class="m">ax + by = r</span>, <span class="m">cx + dy = s</span> tiene solución <b>única</b> si y solo si <span class="m">ad − cb ≠ 0</span>.</p>
+  <div class="caja formula"><b class="t">Métodos (ejemplo del temario: P + 7G = 15, 3P + 4G = 11)</b>
+    <b>Sustitución:</b> despeja P = 15 − 7G, sustituye: 3(15 − 7G) + 4G = 11 ⇒ G = 2, P = 1.<br>
+    <b>Reducción:</b> multiplica la primera por −3: −3P − 21G = −45; súmala a la segunda: −17G = −34 ⇒ G = 2.<br>
+    <b>Igualación:</b> despeja P en las dos y las igualas: 15 − 7G = 11/3 − 4G/3 ⇒ G = 2.<br>
+    <b>Determinantes (Cramer):</b> <span class="m">Δp = ad − bc</span>, <span class="m">Δx = rd − bs</span>, <span class="m">Δy = as − rc</span>; <span class="m">x = Δx/Δp</span>, <span class="m">y = Δy/Δp</span>. Aquí Δp = 4 − 21 = −17, ΔP = 60 − 77 = −17, ΔG = 11 − 45 = −34 ⇒ P = 1, G = 2.
+  </div>
   <div class="caja examen">
-    <div class="enc">Reactivo 22</div>
-    <div class="preg">Daniela compró 5 paletas y 3 helados por $120. Patricia pagó $132 por 2 paletas y 6 helados. ¿Precio de cada uno?</div>
+    <div class="enc">Reactivo 22 del examen</div>
+    <div class="preg">5 paletas y 3 helados: $120. 2 paletas y 6 helados: $132. ¿Precio de cada uno?</div>
     <ol class="pasos">
-      <li>Plantea: 5p + 3h = 120 &nbsp; y &nbsp; 2p + 6h = 132.</li>
-      <li>Multiplica la primera por 2: 10p + 6h = 240.</li>
-      <li>Resta la segunda: (10p + 6h) − (2p + 6h) = 240 − 132 ⇒ 8p = 108 ⇒ p = 13.5.</li>
-      <li>Sustituye: 5(13.5) + 3h = 120 ⇒ 67.5 + 3h = 120 ⇒ h = 17.5.</li>
+      <li>5p + 3h = 120; 2p + 6h = 132.</li>
+      <li>Primera × 2: 10p + 6h = 240. Resta la segunda: 8p = 108 ⇒ p = 13.5.</li>
+      <li>5(13.5) + 3h = 120 ⇒ h = 17.5.</li>
     </ol>
     <span class="resp">Respuesta: A) Paleta $13.5; helado $17.5</span>
   </div>
-
-  <div class="caja ojo"><b class="t">Truco para opción múltiple</b> Sustituye cada opción en las dos ecuaciones: la correcta cumple ambas. La B (paleta 17.5, helado 13.5) es la misma pareja al revés: comprobar evita caer en ella.</div>
-
+  <div class="caja ojo"><b class="t">Truco</b> Sustituye cada opción en ambas ecuaciones. La B es la misma pareja al revés; comprobar evita caer en ella.</div>
   <div class="caja practica"><b class="t">Practica</b>
     <ol>
-      <li>x + y = 10, &nbsp; x − y = 4.</li>
-      <li>3 cuadernos y 2 plumas cuestan $90; 1 cuaderno y 4 plumas cuestan $80. ¿Cuánto cuesta cada uno?</li>
+      <li>2x + 3y = 12, x − y = 1. Resuelve y verifica con determinantes.</li>
+      <li>¿El sistema 2x + 4y = 6, x + 2y = 5 tiene solución única?</li>
+      <li>3 cuadernos y 2 plumas cuestan $90; 1 cuaderno y 4 plumas, $80.</li>
     </ol>
-    <div class="sol">Respuestas: 1) x = 7, y = 3 · 2) c = 80 − 4p ⇒ 3(80 − 4p) + 2p = 90 ⇒ p = $15, c = $20</div>
+    <div class="sol">Respuestas: 1) x = 3, y = 2 (Δp = −2 − 3 = −5, Δx = −12 − 3 = −15, Δy = 2 − 12 = −10) · 2) no: ad − cb = 4 − 4 = 0, son paralelas (sin solución) · 3) cuaderno $20, pluma $15</div>
   </div>
 </section>
 
-<!-- ======================= 14 ======================= -->
+<!-- ======================= 1.21 ======================= -->
 <section class="tema">
-  <h2>14. Función cuadrática y parábola</h2>
+  <h2>1.21 Ecuaciones de segundo grado</h2>
   <div class="reactivos">Reactivo 23</div>
-
-  <h3>Lo que necesitas saber</h3>
   <div class="dos">
     <div>
-      <p><span class="m">y = ax<sup>2</sup> + bx + c</span> se grafica como una <b>parábola</b>.</p>
-      <ul>
-        <li>Si <b>a &gt; 0</b> abre hacia arriba (tiene un <b>mínimo</b>).</li>
-        <li>Si <b>a &lt; 0</b> abre hacia abajo (tiene un <b>máximo</b>): así son los lanzamientos de pelotas.</li>
-        <li>El punto más alto o más bajo es el <b>vértice</b>.</li>
-        <li>Las <b>raíces</b> son donde corta al eje x (y = 0).</li>
-      </ul>
+      <p>Igualar a cero un polinomio de grado 2 da <span class="m">ax<sup>2</sup> + bx + c = 0</span>, con dos soluciones (no necesariamente distintas) llamadas <b>ceros</b> o raíces: los puntos donde la <b>parábola</b> corta el eje x.</p>
+      <p>La parábola es <b>cóncava hacia arriba</b> si a &gt; 0 (tiene mínimo) y <b>hacia abajo</b> si a &lt; 0 (tiene máximo). El punto extremo es el <b>vértice</b>.</p>
     </div>
     <div class="fig">
       <svg width="200" height="140" viewBox="0 0 200 140" font-family="DejaVu Sans" font-size="10">
@@ -867,108 +1029,106 @@
         <path d="M30,135 Q100,-35 170,135" fill="none" stroke="#1f6f8b" stroke-width="2"/>
         <circle cx="100" cy="50" r="3.5" fill="#b5542a"/><text x="106" y="46" fill="#b5542a">vértice (máximo)</text>
         <circle cx="36" cy="120" r="3" fill="#2e7d4f"/><circle cx="164" cy="120" r="3" fill="#2e7d4f"/>
-        <text x="20" y="112" fill="#2e7d4f">raíz</text><text x="160" y="112" fill="#2e7d4f">raíz</text>
+        <text x="20" y="112" fill="#2e7d4f">cero</text><text x="158" y="112" fill="#2e7d4f">cero</text>
         <text x="60" y="134" fill="#5a6375">a &lt; 0</text>
       </svg>
     </div>
   </div>
-
   <div class="caja formula"><b class="t">Fórmulas</b>
-    Vértice: <span class="m">x<sub>v</sub> = −<span class="fr"><span>b</span><span>2a</span></span></span>, y luego <span class="m">y<sub>v</sub> = f(x<sub>v</sub>)</span><br>
-    Fórmula general: <span class="m">x = <span class="fr"><span>−b ± √(b<sup>2</sup> − 4ac)</span><span>2a</span></span></span><br>
-    Discriminante <span class="m">Δ = b<sup>2</sup> − 4ac</span>: &nbsp;Δ &gt; 0 → dos raíces reales; &nbsp;Δ = 0 → una raíz (doble); &nbsp;Δ &lt; 0 → no hay raíces reales.
+    Fórmula general: <span class="m">x<sub>1,2</sub> = <span class="fr"><span>−b ± √(b<sup>2</sup> − 4ac)</span><span>2a</span></span></span><br>
+    Discriminante <span class="m">b<sup>2</sup> − 4ac</span>: &gt; 0 → dos raíces reales · = 0 → una (doble) · &lt; 0 (b² &lt; 4ac) → raíces complejas, la parábola no toca el eje x.<br>
+    Vértice: <span class="m">V = ( −b/2a , p(−b/2a) )</span>
   </div>
-
   <div class="caja examen">
-    <div class="enc">Reactivo 23</div>
-    <div class="preg">Una pelota sigue la trayectoria −2x<sup>2</sup> + 8x = −4. ¿Cuál es el punto más alto?</div>
+    <div class="enc">Ejemplo del temario</div>
+    <div class="preg">x<sup>2</sup> − 6x − 8y = 7. Despeja y: y = ⅛x<sup>2</sup> − ¾x − ⅞.</div>
+    <p>Raíces: x = 4(¾ ± √(9/16 + 7/16)) = 3 ± 4 ⇒ x<sub>1</sub> = 7, x<sub>2</sub> = −1. &nbsp;Vértice: x = −(−¾)/(2·⅛) = 3; y(3) = 9/8 − 9/4 − 7/8 = −2 ⇒ V = (3, −2).</p>
+  </div>
+  <div class="caja examen">
+    <div class="enc">Reactivo 23 del examen</div>
+    <div class="preg">Una pelota sigue −2x<sup>2</sup> + 8x = −4. ¿Cuál es el punto más alto?</div>
     <ol class="pasos">
-      <li>Pásalo a forma de función: y = −2x<sup>2</sup> + 8x + 4 (a = −2, b = 8, c = 4). Como a &lt; 0 tiene máximo.</li>
-      <li>x<sub>v</sub> = −8 / (2·(−2)) = −8 / −4 = 2.</li>
-      <li>y<sub>v</sub> = −2(2)<sup>2</sup> + 8(2) + 4 = −8 + 16 + 4 = 12.</li>
+      <li>Como función: y = −2x<sup>2</sup> + 8x + 4 (a = −2 &lt; 0 ⇒ máximo).</li>
+      <li>x<sub>v</sub> = −8/(2·(−2)) = 2.</li>
+      <li>y<sub>v</sub> = −8 + 16 + 4 = 12.</li>
     </ol>
     <span class="resp">Respuesta: D) (2, 12)</span>
   </div>
-
   <div class="caja practica"><b class="t">Practica</b>
     <ol>
-      <li>Para y = x<sup>2</sup> − 6x + 5: vértice, raíces y discriminante.</li>
-      <li>¿Cuál es la altura máxima de y = −x<sup>2</sup> + 4x + 1 y en qué x se alcanza?</li>
+      <li>y = x<sup>2</sup> − 6x + 5: vértice, raíces y discriminante.</li>
+      <li>Altura máxima de y = −x<sup>2</sup> + 4x + 1.</li>
       <li>¿Cuántas raíces reales tiene x<sup>2</sup> + 2x + 5 = 0?</li>
     </ol>
-    <div class="sol">Respuestas: 1) V(3, −4); raíces 1 y 5; Δ = 16 · 2) x = 2, y = 5 · 3) Δ = 4 − 20 = −16 &lt; 0 ⇒ ninguna</div>
+    <div class="sol">Respuestas: 1) V(3, −4); 1 y 5; 16 · 2) 5, en x = 2 · 3) ninguna (4 − 20 = −16 &lt; 0)</div>
   </div>
 </section>
 
-<!-- ======================= 15 ======================= -->
+<!-- ======================= 1.22 ======================= -->
 <section class="tema">
-  <h2>15. Cónicas y excentricidad</h2>
+  <h2>1.22 Secciones cónicas</h2>
   <div class="reactivos">Reactivos 24 y 25</div>
+  <div class="sub-tema">1.22.1 Secciones cónicas como lugares geométricos</div>
+  <p>Son las curvas que salen al cortar un cono con un plano. Una <b>cónica</b> es el lugar geométrico de los puntos cuya distancia a un punto fijo F (foco) es proporcional a su distancia a una recta fija (directriz); la constante es la <b>excentricidad e</b>: <b>parábola</b> e = 1 · <b>elipse</b> 0 &lt; e &lt; 1 · <b>hipérbola</b> e &gt; 1 · (circunferencia e = 0).</p>
 
-  <h3>Lo que necesitas saber</h3>
-  <p>Las cónicas salen de cortar un cono con un plano: circunferencia, elipse, parábola e hipérbola. En la <b>ecuación general</b> <span class="m">Ax<sup>2</sup> + Cy<sup>2</sup> + Dx + Ey + F = 0</span> se reconocen viendo solo <b>A</b> y <b>C</b> (los números de x² y y²):</p>
-  <table>
-    <tr><th>Cónica</th><th>Cómo es A y C</th><th>Ejemplo</th></tr>
-    <tr><td><b>Circunferencia</b></td><td>A = C (iguales)</td><td>4x² + 4y² + …</td></tr>
-    <tr><td><b>Elipse</b></td><td>mismo signo, distintos</td><td>2x² + 3y² + …</td></tr>
-    <tr><td><b>Hipérbola</b></td><td>signos contrarios</td><td>−9x² + 12y² + …</td></tr>
-    <tr><td><b>Parábola</b></td><td>solo hay x² o solo y²</td><td>3x² − 2x + 5y + 3 = 0</td></tr>
+  <div class="sub-tema">1.22.2 Elementos de las secciones cónicas</div>
+  <table style="font-size:9.2pt">
+    <tr><th style="width:15%">Cónica</th><th style="width:30%">Definición</th><th>Ecuación y elementos</th></tr>
+    <tr><td><b>Parábola</b></td><td>puntos a igual distancia de una recta fija (directriz) y un punto fijo (foco)</td><td>Eje horizontal: <span class="m">(y − k)<sup>2</sup> = 4p(x − h)</span>, foco (h + p, k), directriz x = h − p.<br>Eje vertical: <span class="m">(x − h)<sup>2</sup> = 4p(y − k)</span>, foco (h, k + p), directriz y = k − p. Vértice (h, k). p &gt; 0 abre a la derecha / arriba.</td></tr>
+    <tr><td><b>Elipse</b></td><td>la <b>suma</b> de distancias a dos focos es constante</td><td><span class="m">(x − h)<sup>2</sup>/a<sup>2</sup> + (y − k)<sup>2</sup>/b<sup>2</sup> = 1</span> (eje mayor horizontal; si el a² está bajo la y, es vertical). Centro (h, k), focos (h ± c, k), vértices (h ± a, k), extremos del eje menor (h, k ± b). <span class="m">a<sup>2</sup> = b<sup>2</sup> + c<sup>2</sup></span>, a &gt; b. Eje mayor 2a, eje menor 2b, distancia focal 2c.</td></tr>
+    <tr><td><b>Hipérbola</b></td><td>la <b>diferencia</b> (en valor absoluto) de distancias a dos focos es constante</td><td><span class="m">(x − h)<sup>2</sup>/a<sup>2</sup> − (y − k)<sup>2</sup>/b<sup>2</sup> = 1</span> (eje horizontal; si el término de x es el negativo, es vertical). Focos (h ± c, k), vértices (h ± a, k), asíntotas <span class="m">y − k = ±(b/a)(x − h)</span>. <span class="m">c<sup>2</sup> = a<sup>2</sup> + b<sup>2</sup></span>.</td></tr>
+    <tr><td><b>Circunferencia</b></td><td>puntos a distancia r de un centro</td><td><span class="m">(x − h)<sup>2</sup> + (y − k)<sup>2</sup> = r<sup>2</sup></span>; si el centro es el origen, <span class="m">x<sup>2</sup> + y<sup>2</sup> = r<sup>2</sup></span>.</td></tr>
   </table>
-
-  <div class="caja formula"><b class="t">Fórmulas</b>
-    Circunferencia: <span class="m">(x − h)<sup>2</sup> + (y − k)<sup>2</sup> = r<sup>2</sup></span>, centro (h, k).<br>
-    Elipse: <span class="m"><span class="fr"><span>(x − h)<sup>2</sup></span><span>a<sup>2</sup></span></span> + <span class="fr"><span>(y − k)<sup>2</sup></span><span>b<sup>2</sup></span></span> = 1</span>, &nbsp; <span class="m">a<sup>2</sup> = b<sup>2</sup> + c<sup>2</sup></span>. Eje mayor = 2a, eje menor = 2b, distancia focal = 2c.<br>
-    Hipérbola: <span class="m"><span class="fr"><span>(x − h)<sup>2</sup></span><span>a<sup>2</sup></span></span> − <span class="fr"><span>(y − k)<sup>2</sup></span><span>b<sup>2</sup></span></span> = 1</span>, &nbsp; <span class="m">c<sup>2</sup> = a<sup>2</sup> + b<sup>2</sup></span>.<br>
-    Parábola: <span class="m">(x − h)<sup>2</sup> = 4p(y − k)</span>, p = distancia del vértice al foco.<br>
-    <b>Excentricidad</b> <span class="m">e = c/a</span>: circunferencia e = 0 · elipse 0 &lt; e &lt; 1 · parábola e = 1 · hipérbola e &gt; 1.
+  <div class="caja formula"><b class="t">Reconocerlas en la ecuación general Ax² + Bxy + Cy² + Dx + Ey + F = 0</b>
+    Discriminante <span class="m">I = B<sup>2</sup> − 4AC</span>: &lt; 0 elipse · = 0 parábola · &gt; 0 hipérbola · si A = C y B = 0, circunferencia.<br>
+    Sin término xy (B = 0), basta ver A y C: <b>iguales</b> → circunferencia · <b>mismo signo</b> distintos → elipse · <b>signos contrarios</b> → hipérbola · <b>solo un cuadrado</b> → parábola.<br>
+    Para sacar los elementos, <b>completa cuadrados</b>: <span class="m">x<sup>2</sup> − 4x = (x − 2)<sup>2</sup> − 4</span> (la mitad del coeficiente de x, al cuadrado).<br>
+    <b>Excentricidad</b> de elipse e hipérbola: <span class="m">e = c/a</span>.
   </div>
-
+  <p class="chico">Ejemplo del temario: 20x² − 20y² − 80x + 240y + 320 = 0 ⇒ 20(x − 2)² − 20(y − 6)² = −960 ⇒ −(x − 2)²/48 + (y − 6)²/48 = 1: hipérbola vertical con centro (2, 6), a = b = 4√3, c = 4√6, asíntotas y = x + 4 y y = −x + 8.</p>
   <div class="caja examen">
-    <div class="enc">Reactivo 24</div>
-    <div class="preg">Relaciona 1. Elipse, 2. Parábola, 3. Circunferencia, 4. Hipérbola con: a. 2x² + 3y² − 4x − y + 4 = 0 · b. 4x² + 4y² + 8x − 21y − 96 = 0 · c. 3x² − 2x + 5y + 3 = 0 · d. −9x² + 12y² + 9x + 9 − 30 = 0</div>
-    <p>a: 2 y 3, mismo signo ⇒ elipse. b: 4 y 4 iguales ⇒ circunferencia. c: no hay y² ⇒ parábola. d: −9 y 12, signos contrarios ⇒ hipérbola.</p>
+    <div class="enc">Reactivo 24 del examen</div>
+    <div class="preg">1. Elipse, 2. Parábola, 3. Circunferencia, 4. Hipérbola con a. 2x² + 3y² − 4x − y + 4 = 0 · b. 4x² + 4y² + 8x − 21y − 96 = 0 · c. 3x² − 2x + 5y + 3 = 0 · d. −9x² + 12y² + 9x + 9 − 30 = 0</div>
+    <p>a: 2 y 3 mismo signo → elipse · b: 4 = 4 → circunferencia · c: solo x² → parábola · d: −9 y 12 → hipérbola.</p>
     <span class="resp">Respuesta: B) 1a, 2c, 3b, 4d</span>
   </div>
-
   <div class="caja examen">
-    <div class="enc">Reactivo 25</div>
-    <div class="preg">Elipse con excentricidad 4/5 y eje mayor de 10 m. ¿Cuánto mide la semidistancia focal?</div>
-    <ol class="pasos">
-      <li>Eje mayor = 2a = 10 ⇒ a = 5.</li>
-      <li>e = c/a ⇒ 4/5 = c/5 ⇒ c = 4 m (la semidistancia focal es c).</li>
-    </ol>
+    <div class="enc">Reactivo 25 del examen</div>
+    <div class="preg">Elipse con excentricidad 4/5 y eje mayor de 10 m. ¿Semidistancia focal?</div>
+    <p>2a = 10 ⇒ a = 5; e = c/a ⇒ c = (4/5)·5 = 4 m.</p>
     <span class="resp">Respuesta: B) 4 m</span>
   </div>
-
   <div class="caja practica"><b class="t">Practica</b>
     <ol>
-      <li>Encuentra centro y radio de x² + y² − 4x + 6y − 12 = 0 (completa cuadrados).</li>
-      <li>Una elipse tiene a = 13 y c = 12. ¿Cuánto vale b y su excentricidad?</li>
-      <li>¿Qué cónica es 5x² − 2y² + 3x = 0?</li>
+      <li>Centro y radio de x² + y² − 4x + 6y − 12 = 0.</li>
+      <li>Para x²/25 + y²/9 = 1: a, b, c, focos, vértices y excentricidad.</li>
+      <li>Para x² = 8y: vértice, p, foco y directriz.</li>
+      <li>¿Qué cónica es x² + 4xy + 4y² + 3x − y = 0?</li>
     </ol>
-    <div class="sol">Respuestas: 1) (x − 2)² + (y + 3)² = 12 + 4 + 9 = 25 ⇒ centro (2, −3), r = 5 · 2) b = √(169 − 144) = 5; e = 12/13 · 3) hipérbola</div>
+    <div class="sol">Respuestas: 1) (x − 2)² + (y + 3)² = 25 ⇒ (2, −3), r = 5 · 2) a = 5, b = 3, c = 4; focos (±4, 0); vértices (±5, 0); e = 0.8 · 3) V(0, 0), p = 2, foco (0, 2), directriz y = −2 · 4) B² − 4AC = 16 − 16 = 0 ⇒ parábola</div>
   </div>
 </section>
 
-<!-- ======================= 16 ======================= -->
+<!-- ======================= 1.23 ======================= -->
 <section class="tema">
-  <h2>16. Funciones: dominio, rango, paridad y tipos</h2>
-  <div class="reactivos">Reactivos 26, 27 y 28</div>
+  <h2>1.23 Funciones reales de variable real</h2>
+  <div class="reactivos">Reactivos 26, 27, 28 y 29</div>
 
-  <h3>Lo que necesitas saber</h3>
-  <p>Una <b>función</b> asigna a cada x <b>un solo</b> valor de y. (Prueba de la recta vertical: si una línea vertical corta la gráfica dos veces, no es función.)</p>
+  <div class="sub-tema">1.23.1 Elementos de una función</div>
+  <p>Una <b>función</b> f asigna a cada elemento del primer conjunto <b>un único</b> elemento del segundo.</p>
   <ul>
-    <li><b>Dominio</b>: los valores de x que sí se pueden usar. Cuidado con: dividir entre cero (<span class="m">1/(x − 3)</span> ⇒ x ≠ 3) y raíces de negativos (<span class="m">√(x − 2)</span> ⇒ x ≥ 2).</li>
-    <li><b>Rango (imagen)</b>: los valores que puede tomar y.</li>
+    <li><b>Dominio</b> (Dom f): los valores de x que sí se pueden usar. Cuidado con dividir entre cero y con raíces pares de negativos: √x solo existe para x ≥ 0.</li>
+    <li><b>Codominio</b> (Cod f): el conjunto donde caen los valores. <b>Imagen o rango</b> (Im f, Ran f): los valores que realmente toma f(x).</li>
+    <li><b>Gráfica</b>: los puntos (x, f(x)).</li>
   </ul>
-  <p><b>Seno y coseno</b>: <span class="m">sen x</span> y <span class="m">cos x</span> solo dan valores entre −1 y 1. Para <span class="m">f(x) = A·cos(Bx)</span>: el rango es <span class="m">[−|A|, |A|]</span> (A es la amplitud) y el periodo es <span class="m">2π/B</span>. B “aprieta” la gráfica pero no cambia la altura.</p>
+  <p class="chico">Seno y coseno solo toman valores entre −1 y 1; por eso el rango de <span class="m">A·cos(Bx)</span> es <span class="m">[−|A|, |A|]</span> (B solo cambia el periodo, <span class="m">2π/B</span>).</p>
 
-  <p><b>Paridad</b></p>
+  <div class="sub-tema">1.23.2 Simetría, funciones crecientes y decrecientes</div>
   <div class="dos">
     <div>
-      <p><b>Par</b>: <span class="m">f(−x) = f(x)</span>. Simétrica respecto al <b>eje y</b> (como un espejo). Ej.: x², x⁴, cos x, |x|.</p>
-      <p><b>Impar</b>: <span class="m">f(−x) = −f(x)</span>. Simétrica respecto al <b>origen</b> (si la giras 180° queda igual). Ej.: x, x³, sen x.</p>
-      <p>Muchas funciones no son ni par ni impar (x² + x).</p>
+      <p><b>Par</b>: <span class="m">f(−x) = f(x)</span>; simétrica respecto al <b>eje y</b>. Ej.: x², cos x, cos(2x).</p>
+      <p><b>Impar</b>: <span class="m">f(−x) = −f(x)</span>; simétrica respecto al <b>origen</b>. Ej.: x³, x⁵, sin x, 2 sin x.</p>
+      <p><b>Creciente</b> en un intervalo: si p &lt; q entonces f(p) &lt; f(q). <b>Decreciente</b>: si p &lt; q entonces f(p) &gt; f(q). Ej.: x⁵ es creciente en todos los reales; 1/(2x) es decreciente en (−∞, 0) ∪ (0, ∞); x² − 1 decrece en (−∞, 0) y crece en (0, ∞).</p>
     </div>
     <div class="fig">
       <svg width="220" height="110" viewBox="0 0 220 110" font-family="DejaVu Sans" font-size="10">
@@ -982,349 +1142,288 @@
     </div>
   </div>
 
-  <p><b>Tipos de funciones</b></p>
-  <table>
-    <tr><th>Tipo</th><th>Cómo reconocerla</th><th>Ejemplo</th></tr>
-    <tr><td>Algebraica</td><td>polinomios, fracciones de polinomios o raíces; la x nunca está en un exponente</td><td class="m">3M<sup>2</sup> + 6, &nbsp;(x+1)/(x−2)</td></tr>
-    <tr><td>Exponencial</td><td>la variable está <b>en el exponente</b></td><td class="m">4<sup>2r</sup>, &nbsp;e<sup>x</sup></td></tr>
-    <tr><td>Logarítmica</td><td>aparece log o ln</td><td class="m">log<sub>3</sub>(5x)</td></tr>
-    <tr><td>Trigonométrica</td><td>sen, cos, tan…</td><td class="m">sen(3t)</td></tr>
+  <div class="sub-tema">1.23.3 Tipos de funciones</div>
+  <table style="font-size:9.3pt">
+    <tr><th colspan="2">Algebraicas (sumas, productos, cocientes, raíces de la variable)</th><th colspan="2">Trascendentes</th></tr>
+    <tr><td>Polinomiales</td><td>constante (grado 0), lineal <span class="m">a<sub>0</sub> + a<sub>1</sub>x</span> (identidad, proporcional), cuadrática, …</td><td>Trigonométricas</td><td>sin, cos, tan, csc, sec, cot; y sus inversas (arcsin, arccos, arctan…)</td></tr>
+    <tr><td>Racionales</td><td class="m">f(x)/g(x)</td><td>Exponenciales</td><td><span class="m">a<sup>x</sup></span>: la variable en el exponente; la exponencial natural <span class="m">e<sup>x</sup></span> (e ≈ 2.718)</td></tr>
+    <tr><td>Irracionales</td><td>con raíces: <span class="m"><sup>n</sup>√f(x)</span></td><td>Logarítmicas</td><td><span class="m">log<sub>a</sub>(x)</span>; log = base 10, ln = base e</td></tr>
   </table>
 
-  <div class="caja examen">
-    <div class="enc">Reactivo 26</div>
-    <div class="preg">Rango de f(x) = 3·cos(2x).</div>
-    <p>cos(2x) va de −1 a 1; multiplicado por 3 va de −3 a 3. (El 2 solo cambia el periodo.)</p>
-    <span class="resp">Respuesta: D) [−3, 3]</span>
-  </div>
-  <div class="caja examen">
-    <div class="enc">Reactivo 27</div>
-    <div class="preg">Relaciona par e impar con cuatro gráficas.</div>
-    <p>En la versión de práctica, las gráficas a y d son simétricas respecto al eje y (pares), y b y c son simétricas respecto al origen (impares). Truco: dobla mentalmente la hoja sobre el eje y; si coincide, es par.</p>
-    <span class="resp">Respuesta: B) 1ad, 2bc</span>
-  </div>
-  <div class="caja examen">
-    <div class="enc">Reactivo 28</div>
-    <div class="preg">Relaciona 1. Algebraica, 2. Exponencial, 3. Trigonométrica, 4. Logarítmica con a. p(r) = 4<sup>2r</sup> · b. f(x) = log<sub>3</sub>(5x) · c. v(t) = sen(3t) · d. T(M) = 3M² + 6</div>
-    <p>Algebraica = d (polinomio). Exponencial = a (r está en el exponente). Trigonométrica = c. Logarítmica = b.</p>
-    <span class="resp">Respuesta: D) 1d, 2a, 3c, 4b</span>
-  </div>
-
-  <div class="caja practica"><b class="t">Practica</b>
-    <ol>
-      <li>Rango de f(x) = −5 sen(3x).</li>
-      <li>¿Par, impar o ninguna? a) x⁴ − x² &nbsp; b) x³ + x &nbsp; c) x² + x</li>
-      <li>Dominio de f(x) = √(x − 2) y de g(x) = 1/(x − 3).</li>
-    </ol>
-    <div class="sol">Respuestas: 1) [−5, 5] · 2) a) par, b) impar, c) ninguna · 3) x ≥ 2; todos los reales menos 3</div>
-  </div>
-</section>
-
-<!-- ======================= 17 ======================= -->
-<section class="tema">
-  <h2>17. Exponenciales y logaritmos</h2>
-  <div class="reactivos">Reactivo 29</div>
-
-  <h3>Lo que necesitas saber</h3>
-  <p>El <b>logaritmo</b> responde: “¿a qué exponente elevo la base para obtener este número?”. <span class="m">log<sub>b</sub> x = y</span> significa <span class="m">b<sup>y</sup> = x</span>. Ej.: log<sub>2</sub> 8 = 3 porque 2³ = 8. &nbsp; <span class="m">log</span> sin base es base 10; <span class="m">ln</span> es base e ≈ 2.718.</p>
-  <p>Para despejar una incógnita que está <b>en el exponente</b>, saca logaritmo en ambos lados.</p>
-
+  <div class="sub-tema">1.23.4 Logaritmos como funciones de procesos naturales</div>
+  <p>El logaritmo es la función <b>inversa</b> de la exponencial: <span class="m">log<sub>a</sub>(a<sup>x</sup>) = x</span> y <span class="m">a<sup>log<sub>a</sub> x</sup> = x</span>. Sirve para despejar una incógnita que está en el exponente.</p>
   <div class="caja formula"><b class="t">Propiedades</b>
-    <span class="m">log(ab) = log a + log b</span> &nbsp;·&nbsp; <span class="m">log(a/b) = log a − log b</span> &nbsp;·&nbsp; <span class="m">log(a<sup>n</sup>) = n·log a</span><br>
-    <span class="m">log<sub>b</sub> 1 = 0</span> &nbsp;·&nbsp; <span class="m">log<sub>b</sub> b = 1</span> &nbsp;·&nbsp; Cambio de base: <span class="m">log<sub>b</sub> x = log x / log b</span><br>
-    Si <span class="m">a<sup>t</sup> = k</span> ⇒ <span class="m">t = log k / log a</span><br>
-    Interés compuesto: <span class="m">C(t) = C<sub>0</sub>(1 + i/100)<sup>t</sup></span>
+    <span class="m">log<sub>a</sub>(b·c) = log<sub>a</sub> b + log<sub>a</sub> c</span> · <span class="m">log<sub>a</sub>(b/c) = log<sub>a</sub> b − log<sub>a</sub> c</span> · <span class="m">log<sub>a</sub>(b<sup>c</sup>) = c·log<sub>a</sub> b</span> · <span class="m">log<sub>a</sub> a = 1</span> · <span class="m">log<sub>a</sub> 1 = 0</span><br>
+    Ejemplo del temario: 36 capibaras con crecimiento 6<sup>t</sup>: 6<sup>t</sup> = 6<sup>2</sup> ⇒ t·log<sub>6</sub>6 = 2·log<sub>6</sub>6 ⇒ <b>t = 2 años</b>. (También el módulo de distancia de las estrellas, <span class="m">m − M = 5 log<sub>10</sub>(d/10 pc)</span>, se despeja así.)
   </div>
 
   <div class="caja examen">
-    <div class="enc">Reactivo 29</div>
-    <div class="preg">C(t) = C<sub>0</sub>(1 + i/100)<sup>t</sup>. Se invierten $10,000 al 5%. ¿En cuánto tiempo se obtienen $11,576.25? Considere log(1.05) = 0.021 y log(1.157625) = 0.063.</div>
-    <ol class="pasos">
-      <li>11 576.25 = 10 000 · (1.05)<sup>t</sup> ⇒ (1.05)<sup>t</sup> = 1.157625.</li>
-      <li>Logaritmo de los dos lados: t · log(1.05) = log(1.157625).</li>
-      <li>t = 0.063 / 0.021 = 3 años.</li>
-    </ol>
-    <span class="resp">Respuesta: C) 3 años</span>
+    <div class="enc">Reactivo 26 · Rango de f(x) = 3·cos(2x)</div>
+    <p>cos(2x) va de −1 a 1; por 3, de −3 a 3. <span class="resp">D) [−3, 3]</span></p>
+    <div class="enc">Reactivo 27 · Paridad en cuatro gráficas</div>
+    <p>Las gráficas a y d son simétricas respecto al eje y (pares); b y c, respecto al origen (impares). Truco: dobla la hoja sobre el eje y. <span class="resp">B) 1ad, 2bc</span></p>
+    <div class="enc">Reactivo 28 · 1. Algebraica, 2. Exponencial, 3. Trigonométrica, 4. Logarítmica con a. p(r) = 4<sup>2r</sup> · b. log<sub>3</sub>(5x) · c. sin(3t) · d. 3M² + 6</div>
+    <p>1d (polinomio), 2a (variable en el exponente), 3c, 4b. <span class="resp">D) 1d, 2a, 3c, 4b</span></p>
+    <div class="enc">Reactivo 29 · C(t) = C₀(1 + i/100)<sup>t</sup>; $10,000 al 5%, ¿cuándo hay $11,576.25? (log 1.05 = 0.021, log 1.157625 = 0.063)</div>
+    <p>1.05<sup>t</sup> = 1.157625 ⇒ t·log 1.05 = log 1.157625 ⇒ t = 0.063/0.021 = 3. <span class="resp">C) 3 años</span></p>
   </div>
-
-  <div class="caja ojo"><b class="t">Truco</b> Puedes comprobar multiplicando: 1.05 · 1.05 · 1.05 = 1.157625 ✔.</div>
-
   <div class="caja practica"><b class="t">Practica</b>
     <ol>
-      <li>Resuelve 2<sup>x</sup> = 32.</li>
-      <li>Calcula log<sub>3</sub> 81 y log 1000.</li>
-      <li>Se invierten $5,000 al 10% anual. ¿En cuántos años habrá $6,655?</li>
+      <li>Dominio de √(x − 2) y de 1/(x − 3). Rango de −5 sin(3x).</li>
+      <li>¿Par, impar o ninguna? x⁴ − x², x³ + x, x² + x.</li>
+      <li>¿En qué intervalos crece y decrece f(x) = (x − 1)²?</li>
+      <li>Resuelve 2<sup>x</sup> = 32 y calcula log<sub>3</sub> 81.</li>
+      <li>$5,000 al 10% anual, ¿en cuántos años hay $6,655?</li>
     </ol>
-    <div class="sol">Respuestas: 1) x = 5 · 2) 4 y 3 · 3) 1.1<sup>t</sup> = 1.331 = 1.1³ ⇒ 3 años</div>
+    <div class="sol">Respuestas: 1) x ≥ 2; x ≠ 3; [−5, 5] · 2) par, impar, ninguna · 3) decrece en (−∞, 1), crece en (1, ∞) · 4) 5; 4 · 5) 1.1<sup>t</sup> = 1.331 ⇒ 3 años</div>
   </div>
 </section>
 
-<!-- ======================= 18 ======================= -->
+<!-- ======================= 1.24 ======================= -->
 <section class="tema">
-  <h2>18. Límites</h2>
+  <h2>1.24 Límites de funciones</h2>
   <div class="reactivos">Reactivo 30</div>
-
-  <h3>Lo que necesitas saber</h3>
-  <p>El <b>límite</b> <span class="m">lim<sub>x→a</sub> f(x)</span> es el valor al que se acerca f(x) cuando x se acerca a <span class="m">a</span> (aunque en <span class="m">a</span> exactamente no se pueda calcular).</p>
+  <p><span class="m">lim<sub>x→c</sub> f(x) = l</span> significa que f(x) se acerca tanto como se quiera a <span class="m">l</span> cuando x se acerca a c (sin ser c). <b>f(c) no tiene que existir</b>: puede haber un “hueco” en la gráfica. El límite <b>no existe</b> si por la izquierda y por la derecha da distinto, si se va a ±∞ o si la función oscila (como sin(1/x) cerca de 0).</p>
+  <div class="caja formula"><b class="t">Reglas</b>
+    Función continua: <span class="m">lim f(x) = f(c)</span> (sustituye directo) · Constante: <span class="m">lim a = a</span> · Identidad: <span class="m">lim x = c</span><br>
+    Linealidad: <span class="m">lim[b·f ± g] = b·lim f ± lim g</span> · Producto: <span class="m">lim(f·g) = lim f · lim g</span> · Cociente: <span class="m">lim(f/g) = lim f / lim g</span> (si lim g ≠ 0)<br>
+    Potencia y raíz: <span class="m">lim f<sup>n</sup> = (lim f)<sup>n</sup></span>, <span class="m">lim <sup>n</sup>√f = <sup>n</sup>√(lim f)</span><br>
+    Casos comunes: <span class="m">lim<sub>x→∞</sub> k/x<sup>n</sup> = 0</span> · <span class="m">lim<sub>x→∞</sub> e<sup>−x</sup> = 0</span>
+  </div>
   <ol class="pasos">
-    <li><b>Sustituye</b> directo. Si sale un número, ese es el límite.</li>
-    <li>Si sale <b>0/0</b> (indeterminado), <b>factoriza</b> (diferencia de cuadrados, trinomio…), cancela el factor que da cero y vuelve a sustituir.</li>
-    <li>Si sale número/0 (con número ≠ 0), el límite no existe (tiende a ±∞).</li>
+    <li><b>Sustituye</b>. Si sale un número, ese es el límite.</li>
+    <li>Si sale <b>0/0</b>, <b>factoriza</b> y cancela el factor que da cero; vuelve a sustituir.</li>
+    <li>Si sale número/0 (número ≠ 0), el límite no existe (tiende a ±∞).</li>
+    <li>Al infinito con cocientes de polinomios: mismo grado → cociente de coeficientes principales; grado de abajo mayor → 0.</li>
   </ol>
-  <p class="chico">Límites al infinito de fracciones de polinomios: si el grado de arriba y abajo es igual, el límite es el cociente de los coeficientes principales; si abajo es mayor, da 0.</p>
-
   <div class="caja examen">
-    <div class="enc">Reactivo 30</div>
+    <div class="enc">Reactivo 30 del examen</div>
     <div class="preg">M(t) = 75 − (t² − 16)/(t − 4). ¿Cuántos monos habrá en cuatro años?</div>
     <ol class="pasos">
-      <li>Si sustituyes t = 4: (16 − 16)/(4 − 4) = 0/0. Hay que factorizar.</li>
-      <li>t² − 16 = (t − 4)(t + 4) ⇒ (t² − 16)/(t − 4) = t + 4.</li>
-      <li>M = 75 − (4 + 4) = 75 − 8 = 67.</li>
+      <li>t = 4 da 0/0 ⇒ factoriza: (t² − 16)/(t − 4) = (t − 4)(t + 4)/(t − 4) = t + 4.</li>
+      <li>M = 75 − 8 = 67.</li>
     </ol>
     <span class="resp">Respuesta: C) 67</span>
   </div>
-
   <div class="caja practica"><b class="t">Practica</b>
     <ol>
-      <li>lim<sub>x→3</sub> (x² − 9)/(x − 3)</li>
-      <li>lim<sub>x→2</sub> (x² + x − 6)/(x − 2)</li>
-      <li>lim<sub>x→1</sub> (2x + 3)</li>
-      <li>lim<sub>x→∞</sub> (3x² + 1)/(x² − 5)</li>
+      <li>lim<sub>x→3</sub> (x² − 9)/(x − 3) &nbsp; 2) lim<sub>x→2</sub> (x³ − 8)/(x − 2) &nbsp; 3) lim<sub>x→6</sub> 1/(2x) &nbsp; 4) lim<sub>x→∞</sub> 5/x² &nbsp; 5) lim<sub>x→∞</sub> (3x² + 1)/(x² − 5)</li>
     </ol>
-    <div class="sol">Respuestas: 1) x + 3 → 6 · 2) (x + 3)(x − 2)/(x − 2) → 5 · 3) 5 · 4) 3</div>
+    <div class="sol">Respuestas: 1) 6 · 2) x² + 2x + 4 → 12 · 3) 1/12 · 4) 0 · 5) 3</div>
   </div>
 </section>
 
-<!-- ======================= 19 ======================= -->
+<!-- ======================= 1.25 ======================= -->
 <section class="tema">
-  <h2>19. Derivadas</h2>
+  <h2>1.25 Razón de cambio y derivada de una función</h2>
   <div class="reactivos">Reactivo 31</div>
-
-  <h3>Lo que necesitas saber</h3>
-  <p>La <b>derivada</b> mide la <b>razón de cambio</b> instantánea: qué tan rápido cambia una cantidad respecto a otra. Gráficamente es la <b>pendiente de la recta tangente</b>. Cuando el examen diga “la función que describe el <b>cambio</b> de … respecto al tiempo”, “velocidad”, “rapidez con que crece”, te están pidiendo derivar.</p>
-
-  <div class="caja formula"><b class="t">Reglas de derivación</b>
+  <p>La <b>razón de cambio promedio</b> mide cuánto cambia y por cada unidad que cambia x en un intervalo: <span class="m">Δy/Δx = (f(x<sub>2</sub>) − f(x<sub>1</sub>))/(x<sub>2</sub> − x<sub>1</sub>)</span>. Ejemplos: velocidad <span class="m">v = Δd/Δt</span>, aceleración <span class="m">a = Δv/Δt</span>.</p>
+  <p>La <b>derivada</b> es la razón de cambio <b>instantánea</b>: la pendiente de la recta tangente. Se define con un límite:</p>
+  <div class="caja formula"><b class="t">Definición y reglas</b>
+    <span class="m">f′(x) = <span class="fr"><span>df</span><span>dx</span></span> = lim<sub>h→0</sub> <span class="fr"><span>f(x + h) − f(x)</span><span>h</span></span></span>
     <table>
-      <tr><td>Constante</td><td class="m">(c)′ = 0</td><td>Potencia</td><td class="m">(x<sup>n</sup>)′ = n·x<sup>n−1</sup></td></tr>
-      <tr><td>Constante por función</td><td class="m">(c·f)′ = c·f′</td><td>Suma/resta</td><td class="m">(f ± g)′ = f′ ± g′</td></tr>
-      <tr><td>Producto</td><td class="m">(fg)′ = f′g + fg′</td><td>Cociente</td><td class="m">(f/g)′ = (f′g − fg′)/g<sup>2</sup></td></tr>
-      <tr><td>Regla de la cadena</td><td class="m">[f(g(x))]′ = f′(g(x))·g′(x)</td><td></td><td></td></tr>
-      <tr><td class="m">(sen x)′ = cos x</td><td class="m">(cos x)′ = −sen x</td><td class="m">(e<sup>x</sup>)′ = e<sup>x</sup></td><td class="m">(ln x)′ = 1/x</td></tr>
+      <tr><td>Constante</td><td class="m">(c)′ = 0</td><td>Identidad</td><td class="m">(x)′ = 1</td></tr>
+      <tr><td>Potencia</td><td class="m">(x<sup>n</sup>)′ = n·x<sup>n−1</sup></td><td>Linealidad</td><td class="m">(c·f ± g)′ = c·f′ ± g′</td></tr>
+      <tr><td>Producto</td><td class="m">(f·g)′ = f′·g + g′·f</td><td>Cociente</td><td class="m">(f/g)′ = (f′·g − g′·f)/g<sup>2</sup></td></tr>
+      <tr><td>Cadena</td><td colspan="3" class="m">[f(g(x))]′ = f′(g(x))·g′(x) &nbsp;(deriva la de afuera, deja igual la de adentro, y multiplica por la derivada de la de adentro)</td></tr>
+      <tr><td class="m">(sin x)′ = cos x</td><td class="m">(cos x)′ = −sin x</td><td class="m">(tan x)′ = sec<sup>2</sup>x</td><td class="m">(sec x)′ = sec x tan x</td></tr>
+      <tr><td class="m">(e<sup>ax</sup>)′ = a·e<sup>ax</sup></td><td class="m">(b<sup>ax</sup>)′ = a·ln b·b<sup>ax</sup></td><td class="m">(ln x)′ = 1/x</td><td class="m">(log<sub>a</sub>x)′ = 1/(x ln a)</td></tr>
+      <tr><td class="m">(arcsin x)′ = 1/√(1 − x²)</td><td class="m">(arccos x)′ = −1/√(1 − x²)</td><td class="m">(arctan x)′ = 1/(1 + x²)</td><td class="m">(csc x)′ = −csc x cot x</td></tr>
     </table>
-    Receta de la potencia: <b>baja el exponente multiplicando y réstale 1</b>.
+    <p class="chico">Ejemplos del temario: <span class="m">q(x) = 2x<sup>5</sup> − 5x<sup>−2</sup> + 10 ⇒ q′ = 10x<sup>4</sup> + 10x<sup>−3</sup></span> · <span class="m">(e<sup>sin x</sup>)′ = cos x·e<sup>sin x</sup></span> · <span class="m">(e<sup>2x²+1</sup>)′ = 4x·e<sup>2x²+1</sup></span>. Desintegración radiactiva: <span class="m">dN/dt = −λN</span>, con <span class="m">N(t) = N<sub>0</sub>e<sup>−λt</sup></span> (carbono 14: <span class="m">C(t) = c<sub>0</sub>e<sup>−0.000121t</sup></span>).</p>
   </div>
-
+  <p>Palabras que piden derivar: “<b>cambio</b> de … respecto al tiempo”, “<b>ritmo</b>”, “<b>velocidad</b>”, “<b>rapidez</b> con que crece”, “pendiente de la tangente”.</p>
   <div class="caja examen">
-    <div class="enc">Reactivo 31</div>
-    <div class="preg">E(t) = 6t³ − 3t² − 4t. ¿Cuál es la función que describe el cambio de energía respecto al tiempo?</div>
-    <ol class="pasos">
-      <li>6t³ → 6·3t² = 18t².</li>
-      <li>−3t² → −3·2t = −6t.</li>
-      <li>−4t → −4.</li>
-      <li>E′(t) = 18t² − 6t − 4.</li>
-    </ol>
+    <div class="enc">Reactivo 31 del examen</div>
+    <div class="preg">E(t) = 6t³ − 3t² − 4t. ¿Función que describe el cambio de energía respecto al tiempo?</div>
+    <p>6t³ → 18t² · −3t² → −6t · −4t → −4 ⇒ E′(t) = 18t² − 6t − 4.</p>
     <span class="resp">Respuesta: D) 18t² − 6t − 4</span>
   </div>
-
-  <div class="caja ojo"><b class="t">Ojo</b> Los signos se conservan; las opciones solo cambian signos para ver si te equivocas. La derivada de una constante sola (como +12) es 0.</div>
-
   <div class="caja practica"><b class="t">Practica</b>
     <ol>
-      <li>f(x) = 4x³ − 5x² + 7x − 2</li>
-      <li>g(x) = (2x + 1)³ (regla de la cadena)</li>
-      <li>h(x) = x² · sen x</li>
-      <li>La posición de un auto es s(t) = 2t² + 3t. ¿Cuál es su velocidad en t = 4?</li>
+      <li>Razón de cambio promedio de f(x) = x² entre x = 1 y x = 3.</li>
+      <li>Deriva: a) 4x³ − 5x² + 7x − 2 &nbsp; b) (2x + 1)³ &nbsp; c) x² sin x &nbsp; d) e<sup>3x</sup> &nbsp; e) ln(x² + 1) &nbsp; f) sin(5x)</li>
+      <li>s(t) = 2t² + 3t es la posición de un auto. ¿Velocidad en t = 4?</li>
     </ol>
-    <div class="sol">Respuestas: 1) 12x² − 10x + 7 · 2) 3(2x + 1)²·2 = 6(2x + 1)² · 3) 2x sen x + x² cos x · 4) v = 4t + 3 = 19</div>
+    <div class="sol">Respuestas: 1) (9 − 1)/2 = 4 · 2) a) 12x² − 10x + 7 b) 6(2x + 1)² c) 2x sin x + x² cos x d) 3e<sup>3x</sup> e) 2x/(x² + 1) f) 5 cos(5x) · 3) v = 4t + 3 = 19</div>
   </div>
 </section>
 
-<!-- ======================= 20 ======================= -->
+<!-- ======================= 1.26 ======================= -->
 <section class="tema">
-  <h2>20. Máximos y mínimos</h2>
+  <h2>1.26 Puntos críticos de una función</h2>
   <div class="reactivos">Reactivo 32</div>
-
-  <h3>Lo que necesitas saber</h3>
-  <p>En un máximo o un mínimo la recta tangente es horizontal: <b>la derivada vale cero</b>. Esos puntos se llaman <b>puntos críticos</b>.</p>
-  <ol class="pasos">
-    <li>Deriva: f′(x).</li>
-    <li>Iguala a cero y despeja: f′(x) = 0 → puntos críticos.</li>
-    <li>Clasifica con la segunda derivada: si <b>f″ &lt; 0 es máximo</b>; si <b>f″ &gt; 0 es mínimo</b>. (O compara los valores de f.)</li>
-    <li>Calcula f en esos puntos. Si el problema tiene un intervalo, compara también con los extremos del intervalo.</li>
-  </ol>
-
+  <p>Un <b>punto crítico</b> es un x donde <span class="m">f′(x) = 0</span> (tangente horizontal). Puede ser máximo, mínimo o ninguno (<b>punto de inflexión</b>).</p>
+  <div class="caja formula"><b class="t">Criterio de la segunda derivada</b>
+    I. Calcula f′(x) y f″(x). &nbsp; II. Resuelve f′(x) = 0 → puntos críticos. &nbsp; III. Evalúa f″ en cada uno: <b>f″(a) &gt; 0 → mínimo</b> · <b>f″(a) &lt; 0 → máximo</b> · f″(a) = 0 → el criterio no decide (puede ser inflexión). &nbsp; IV. Las coordenadas son (a, f(a)).<br>
+    Si el problema tiene un intervalo, compara también con los valores en los extremos.
+  </div>
+  <p class="chico">Ejemplos del temario: f(x) = x² − 1 → mínimo en (0, −1) · k(x) = x⁵ → k′ = 5x⁴ = 0 en x = 0, k″(0) = 0: punto de inflexión (0, 0) · g(x) = x³ − 6x² + 9x + 1 → g′ = 3(x − 1)(x − 3); g″ = 6x − 12: máximo (1, 5), mínimo (3, 1).</p>
   <div class="caja examen">
-    <div class="enc">Reactivo 32</div>
-    <div class="preg">p(t) = (t − 2)³ − 3(t − 2) + 2, medido durante 3 segundos. ¿Cuál es la presión máxima y a qué tiempo?</div>
+    <div class="enc">Reactivo 32 del examen</div>
+    <div class="preg">p(t) = (t − 2)³ − 3(t − 2) + 2 durante 3 segundos. ¿Presión máxima y a qué tiempo?</div>
     <ol class="pasos">
-      <li>p′(t) = 3(t − 2)² − 3.</li>
-      <li>3(t − 2)² − 3 = 0 ⇒ (t − 2)² = 1 ⇒ t − 2 = ±1 ⇒ t = 1 o t = 3.</li>
-      <li>p″(t) = 6(t − 2): en t = 1, p″ = −6 &lt; 0 ⇒ máximo.</li>
-      <li>p(1) = (−1)³ − 3(−1) + 2 = −1 + 3 + 2 = 4 kPa. (Comprueba: p(0) = 0 y p(3) = 0, menores.)</li>
+      <li>p′(t) = 3(t − 2)² − 3 = 0 ⇒ (t − 2)² = 1 ⇒ t = 1 o t = 3.</li>
+      <li>p″(t) = 6(t − 2): p″(1) = −6 &lt; 0 ⇒ máximo.</li>
+      <li>p(1) = −1 + 3 + 2 = 4 kPa (y p(0) = p(3) = 0).</li>
     </ol>
     <span class="resp">Respuesta: D) 4 kPa en 1 s</span>
   </div>
-
   <div class="caja practica"><b class="t">Practica</b>
     <ol>
-      <li>Encuentra máximos y mínimos de f(x) = x³ − 3x.</li>
-      <li>La ganancia de un negocio es G(x) = −x² + 40x − 100. ¿Cuántas piezas maximizan la ganancia y cuál es esa ganancia?</li>
+      <li>Máximos y mínimos de f(x) = x³ − 3x.</li>
+      <li>Máximos y mínimos de f(x) = 2x³ − 3x² − 12x.</li>
+      <li>La ganancia es G(x) = −x² + 40x − 100. ¿Qué x la maximiza y cuánto vale?</li>
     </ol>
-    <div class="sol">Respuestas: 1) f′ = 3x² − 3 = 0 ⇒ x = ±1; máximo en (−1, 2), mínimo en (1, −2) · 2) G′ = −2x + 40 = 0 ⇒ x = 20; G(20) = 300</div>
+    <div class="sol">Respuestas: 1) máximo (−1, 2), mínimo (1, −2) · 2) f′ = 6(x − 2)(x + 1): máximo (−1, 7), mínimo (2, −20) · 3) x = 20, G = 300</div>
   </div>
 </section>
 
-<!-- ======================= 21 ======================= -->
+<!-- ======================= 1.27 ======================= -->
 <section class="tema">
-  <h2>21. Integrales</h2>
+  <h2>1.27 Cálculo integral</h2>
   <div class="reactivos">Reactivo 33</div>
-
-  <h3>Lo que necesitas saber</h3>
-  <p>Integrar es lo <b>contrario de derivar</b> (antiderivada). Si te dan la <b>razón de cambio</b> (velocidad, crecimiento por unidad de tiempo, c′(t)) y te piden la <b>cantidad total</b> que cambió, integras. La integral definida también es el <b>área bajo la curva</b>.</p>
-
-  <div class="caja formula"><b class="t">Fórmulas</b>
-    Potencia: <span class="m">∫ x<sup>n</sup> dx = <span class="fr"><span>x<sup>n+1</sup></span><span>n + 1</span></span> + C</span> (n ≠ −1) &nbsp;·&nbsp; <span class="m">∫ k dx = kx + C</span> &nbsp;·&nbsp; <span class="m">∫ (f ± g) = ∫ f ± ∫ g</span><br>
-    <span class="m">∫ 1/x dx = ln|x| + C</span> &nbsp;·&nbsp; <span class="m">∫ e<sup>x</sup> dx = e<sup>x</sup> + C</span> &nbsp;·&nbsp; <span class="m">∫ cos x dx = sen x + C</span> &nbsp;·&nbsp; <span class="m">∫ sen x dx = −cos x + C</span><br>
-    <b>Teorema fundamental del cálculo:</b> <span class="m">∫<sub>a</sub><sup>b</sup> f(x) dx = F(b) − F(a)</span>, donde F es la antiderivada.<br>
-    Receta de la potencia: <b>súmale 1 al exponente y divide entre el nuevo exponente</b>.
+  <p>La integral nace de calcular el <b>área bajo la curva</b> de f(x) ≥ 0 en [a, b]: se aproxima con rectángulos por debajo (suma inferior L) y por arriba (suma superior U); al usar más y más rectángulos ambas se acercan a un número, la <b>integral definida</b> <span class="m">∫<sub>a</sub><sup>b</sup> f(x) dx</span> (a y b son los límites de integración). Integrar es lo contrario de derivar: si <span class="m">F′ = f</span>, entonces <span class="m">∫ f(x) dx = F(x) + c</span> (antiderivada).</p>
+  <div class="caja formula"><b class="t">Teoremas fundamentales del cálculo</b>
+    1.º Si <span class="m">F(x) = ∫<sub>a</sub><sup>x</sup> f(t) dt</span>, entonces <span class="m">F′(x) = f(x)</span>. &nbsp; 2.º <span class="m">∫<sub>a</sub><sup>b</sup> f(x) dx = F(b) − F(a)</span>.
+    <b class="t" style="margin-top:6px">Reglas</b>
+    <span class="m">∫ a dx = ax + c</span> · <span class="m">∫ x<sup>n</sup> dx = x<sup>n+1</sup>/(n + 1) + c</span> (n ≠ −1; también con exponentes fraccionarios) · <span class="m">∫ (a·f ± g) = a∫f ± ∫g</span><br>
+    <span class="m">∫<sub>a</sub><sup>b</sup> f = −∫<sub>b</sub><sup>a</sup> f</span> · <span class="m">∫<sub>a</sub><sup>b</sup> f = ∫<sub>a</sub><sup>c</sup> f + ∫<sub>c</sub><sup>b</sup> f</span><br>
+    <span class="m">∫ cos x dx = sin x + c</span> · <span class="m">∫ sin x dx = −cos x + c</span> · <span class="m">∫ tan x dx = −ln|cos x| + c</span> · <span class="m">∫ e<sup>ax</sup> dx = e<sup>ax</sup>/a + c</span> · <span class="m">∫ (1/x) dx = ln|x| + c</span> · <span class="m">∫ ln x dx = x(ln x − 1) + c</span>
+    <b class="t" style="margin-top:6px">Métodos</b>
+    <b>Sustitución (cambio de variable):</b> para una función compuesta, haz <span class="m">u = g(x)</span>, <span class="m">du = g′(x) dx</span>. Ej. del temario: <span class="m">∫ x/√(x² + 1) dx</span> con u = x² + 1 da <span class="m">√(x² + 1) + c</span>.<br>
+    <b>Por partes:</b> <span class="m">∫ f·g′ = f·g − ∫ f′·g</span>, para productos de funciones.
   </div>
-
+  <p class="chico">Aplicación del temario: la masa de una estrella de radio R y densidad constante c es <span class="m">M = 4π∫<sub>0</sub><sup>R</sup> r<sup>2</sup>c dr = (4πc/3)R<sup>3</sup></span>.</p>
+  <p>Si te dan una <b>razón de cambio</b> (algo con ′, “por unidad de tiempo”, una velocidad) y preguntan <b>cuánto cambió en total</b>, integra.</p>
   <div class="caja examen">
-    <div class="enc">Reactivo 33</div>
-    <div class="preg">El crecimiento de una planta está dado por c′(t) = 3t² + 2t + 1 (cm por unidad de tiempo). ¿Cuántos centímetros creció en un segundo?</div>
+    <div class="enc">Reactivo 33 del examen</div>
+    <div class="preg">c′(t) = 3t² + 2t + 1 (cm por unidad de tiempo). ¿Cuánto creció en un segundo?</div>
     <ol class="pasos">
-      <li>Te dan la razón de cambio ⇒ integra: c(t) = t³ + t² + t.</li>
-      <li>De t = 0 a t = 1: c(1) − c(0) = (1 + 1 + 1) − 0 = 3 cm.</li>
+      <li>Integra: c(t) = t³ + t² + t.</li>
+      <li>De 0 a 1: c(1) − c(0) = 3 − 0 = 3 cm.</li>
     </ol>
     <span class="resp">Respuesta: D) 3 cm</span>
   </div>
-
-  <div class="caja ojo"><b class="t">Ojo</b> No sustituyas t = 1 en c′(t) directamente (eso da 6, la rapidez en ese instante, no lo que creció). Si el enunciado trae una <b>′</b> (prima), casi seguro hay que integrar.</div>
-
+  <div class="caja ojo"><b class="t">Ojo</b> No sustituyas t = 1 en c′(t): eso da 6, la rapidez en ese instante, no lo que creció.</div>
   <div class="caja practica"><b class="t">Practica</b>
     <ol>
-      <li>∫ (6x² + 4x) dx</li>
-      <li>∫<sub>0</sub><sup>2</sup> 3t² dt</li>
-      <li>∫<sub>1</sub><sup>3</sup> 2x dx</li>
-      <li>Un auto va a v(t) = 4t m/s. ¿Qué distancia recorre de t = 0 a t = 5 s?</li>
+      <li>∫ (6x² + 4x) dx &nbsp; 2) ∫<sub>0</sub><sup>2</sup> 3t² dt &nbsp; 3) ∫ 2x(x² + 1)³ dx (sustitución) &nbsp; 4) ∫ x·e<sup>x</sup> dx (por partes) &nbsp; 5) ∫<sub>0</sub><sup>π</sup> sin x dx</li>
     </ol>
-    <div class="sol">Respuestas: 1) 2x³ + 2x² + C · 2) 2³ − 0 = 8 · 3) 9 − 1 = 8 · 4) 2t² de 0 a 5 = 50 m</div>
+    <div class="sol">Respuestas: 1) 2x³ + 2x² + c · 2) 8 · 3) u = x² + 1 ⇒ (x² + 1)⁴/4 + c · 4) x·e<sup>x</sup> − e<sup>x</sup> + c · 5) −cos π + cos 0 = 2</div>
   </div>
 </section>
 
-<!-- ======================= 22 ======================= -->
+<!-- ======================= 1.28 ======================= -->
 <section class="tema">
-  <h2>22. Estadística descriptiva</h2>
+  <h2>1.28 Estadística</h2>
   <div class="reactivos">Reactivos 34, 35, 36 y 37 (multirreactivo)</div>
-
-  <h3>Lo que necesitas saber</h3>
+  <div class="sub-tema">1.28.1 Elementos de la estadística</div>
+  <p>Un experimento es <b>aleatorio</b> si al repetirlo igual no se puede predecir el resultado (lanzar una moneda); es <b>determinista</b> si siempre da lo mismo (el agua hierve a ~100 °C a nivel del mar). La estadística estudia fenómenos aleatorios y saca conclusiones de los datos (<b>inferencia estadística</b>).</p>
   <ul>
-    <li><b>Población</b>: todos los elementos que interesan. <b>Muestra</b>: la parte que realmente se estudia (a quienes se les preguntó).</li>
-    <li><b>Variable</b>: la característica que se mide. <i>Cualitativa</i> (color, opinión) o <i>cuantitativa</i>: discreta (se cuenta: número de transportes) o continua (se mide: estatura).</li>
+    <li><b>Población</b>: todo el grupo que interesa. <b>Muestra</b>: el subconjunto que se estudia. <b>Variable</b>: la característica que se mide; los resultados son los <b>datos</b>.</li>
+    <li><b>Cualitativas</b> (no numéricas): <i>ordinales</i> si tienen orden (Malo, Regular, Bueno) o <i>no ordinales</i> (sabor favorito, sexo).</li>
+    <li><b>Cuantitativas</b> (numéricas): <i>discretas</i> si se cuentan (número de mascotas) o <i>continuas</i> si se miden (estatura, peso).</li>
   </ul>
-
-  <div class="caja formula"><b class="t">Medidas</b>
-    <b>Media</b>: <span class="m">x̄ = (suma de datos)/n</span> &nbsp;·&nbsp; <b>Mediana</b>: el dato de en medio con los datos <b>ordenados</b> (si n es par, el promedio de los dos centrales) &nbsp;·&nbsp; <b>Moda</b>: el que más se repite.<br>
-    <b>Rango</b>: mayor − menor.<br>
-    <b>Varianza muestral</b>: <span class="m">S<sup>2</sup> = <span class="fr"><span>Σ(x<sub>i</sub> − x̄)<sup>2</sup></span><span>n − 1</span></span></span> (poblacional: divide entre n) &nbsp;·&nbsp; <b>Desviación estándar</b>: <span class="m">S = √(varianza)</span>.<br>
-    Con datos repetidos usa la frecuencia: <span class="m">Σ f·(x − x̄)<sup>2</sup></span>.
+  <div class="caja formula"><b class="t">Tabla de frecuencias</b>
+    Absoluta <span class="m">n<sub>i</sub></span> (cuántos hay en la categoría i) · Relativa <span class="m">f<sub>i</sub> = n<sub>i</sub>/n</span> · Absoluta acumulada <span class="m">N<sub>i</sub> = n<sub>1</sub> + … + n<sub>i</sub></span> · Relativa acumulada <span class="m">F<sub>i</sub> = N<sub>i</sub>/n</span>
   </div>
-  <p><b>Gráficas</b>: <i>histograma</i> (barras pegadas, la altura = frecuencia de cada valor o intervalo), <i>barras</i> (categorías), <i>circular/pastel</i> (porcentajes), <i>polígono de frecuencias</i>.</p>
-
+  <div class="sub-tema">1.28.2 Medidas de tendencia central y dispersión</div>
+  <div class="caja formula">
+    <b>Media</b> <span class="m">x̄ = (Σx<sub>i</sub>)/n</span> · <b>Mediana</b>: el dato central con los datos <b>ordenados</b> (si n es par, promedio de los dos centrales) · <b>Moda</b>: el valor más repetido (puede haber varias).<br>
+    <b>Varianza</b> (muestral) <span class="m">S = <span class="fr"><span>Σ(x<sub>i</sub> − x̄)<sup>2</sup></span><span>n − 1</span></span></span> (poblacional: entre n) · <b>Desviación estándar</b> <span class="m">σ = √S</span>. Varianza grande = datos dispersos.
+  </div>
+  <p class="chico">Ejemplos del temario: minutos jugados 54, 55, 64, 64, 69, 71, 73, 74, 75, 75, 76, 78, 80, 82, 90 → media 72, mediana 74, modas 64 y 75. Ranas de árbol 8, 12, 9, 13, 7, 11 → x̄ = 10, S = 28/5 = 5.6, σ ≈ 2.37.</p>
+  <div class="sub-tema">1.28.3 Gráficos estadísticos</div>
+  <ul>
+    <li><b>Sectores (pastel)</b>: proporciones de un total (composición del Sol: 71% H, 27% He, 2% otros).</li>
+    <li><b>Barras</b>: frecuencias por categoría (sabores de helado).</li>
+    <li><b>Dispersión</b>: puntos con dos variables para ver si están relacionadas (ley de Hubble: <span class="m">v = H<sub>0</sub>·D</span>).</li>
+    <li><b>Histograma</b>: frecuencias por intervalos de una variable cuantitativa (barras pegadas).</li>
+    <li><b>Cajas y bigotes</b>: la caja va del primer cuartil Q1 al tercero Q3 (el 50% central), la línea es la mediana, × la media; los bigotes cubren el 25% de abajo y el de arriba; los puntos fuera son atípicos.</li>
+  </ul>
   <div class="caja examen">
-    <div class="enc">Multirreactivo 34–37</div>
-    <div class="preg">Se preguntó a 15 alumnos cuántos transportes usan: X = {3, 2, 1, 1, 1, 0, 3, 1, 1, 1, 2, 1, 0, 2, 1}, x̄ = 1.3.</div>
-    <p>Primero haz la <b>tabla de frecuencias</b> (te sirve para las cuatro preguntas):</p>
-    <table style="width:60%">
-      <tr><th>Transportes x</th><th>0</th><th>1</th><th>2</th><th>3</th></tr>
-      <tr><td>Frecuencia f</td><td>2</td><td>8</td><td>3</td><td>2</td></tr>
-    </table>
-    <p><b>34.</b> La muestra son <b>los 15 alumnos</b> y la variable es <b>la cantidad de transportes</b>. <span class="resp">A</span></p>
-    <p><b>35.</b> Ordenados: 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 3, 3. Con n = 15 el central es el 8.º ⇒ <b>1</b>. <span class="resp">B</span></p>
-    <p><b>36.</b> Con x̄ = 1.3: 2(0 − 1.3)² + 8(1 − 1.3)² + 3(2 − 1.3)² + 2(3 − 1.3)² = 3.38 + 0.72 + 1.47 + 5.78 = 11.35. &nbsp;S = 11.35/14 = <b>0.81071</b>. <span class="resp">B</span></p>
-    <p><b>37.</b> La gráfica correcta tiene barras de alturas 2, 8, 3 y 2 en 0, 1, 2 y 3 (la más alta en 1). <span class="resp">A</span></p>
+    <div class="enc">Multirreactivo 34–37: X = {3, 2, 1, 1, 1, 0, 3, 1, 1, 1, 2, 1, 0, 2, 1}, 15 alumnos, x̄ = 1.3</div>
+    <table style="width:60%"><tr><th>x</th><th>0</th><th>1</th><th>2</th><th>3</th></tr><tr><td>n<sub>i</sub></td><td>2</td><td>8</td><td>3</td><td>2</td></tr></table>
+    <p><b>34.</b> Muestra: los 15 alumnos; variable: la cantidad de transportes. <span class="resp">A</span> &nbsp; <b>35.</b> Ordenados, el 8.º dato es 1. <span class="resp">B</span></p>
+    <p><b>36.</b> 2(1.69) + 8(0.09) + 3(0.49) + 2(2.89) = 11.35; S = 11.35/14 = 0.81071. <span class="resp">B</span> &nbsp; <b>37.</b> Histograma con barras 2, 8, 3, 2. <span class="resp">A</span></p>
   </div>
-
-  <div class="caja ojo"><b class="t">Ojo</b> Para la mediana <b>siempre ordena</b> primero. En la varianza divide entre <b>n − 1</b> si la fórmula lo dice (aquí 14, no 15): dividir entre 15 da 0.7567, que no es la respuesta.</div>
-
   <div class="caja practica"><b class="t">Practica</b>
     <ol>
-      <li>Datos: 4, 8, 6, 5, 7. Media, mediana y varianza muestral.</li>
-      <li>Datos: 2, 3, 3, 5, 9, 10. Mediana y moda.</li>
-      <li>Se encuesta a 200 de los 1500 trabajadores de una fábrica sobre su salario. ¿Cuál es la población, la muestra y la variable?</li>
+      <li>Clasifica: color favorito, nivel de satisfacción, número de hermanos, estatura.</li>
+      <li>Calificaciones: 6 (4 alumnos), 7 (6), 8 (7), 9 (3). Frecuencia relativa del 8, absoluta acumulada hasta el 8 y relativa acumulada.</li>
+      <li>Datos 4, 8, 6, 5, 7: media, mediana, varianza muestral y desviación estándar.</li>
     </ol>
-    <div class="sol">Respuestas: 1) media 6; mediana 6; S = (4 + 4 + 0 + 1 + 1)/4 = 2.5 · 2) mediana (3 + 5)/2 = 4; moda 3 · 3) población: los 1500 trabajadores; muestra: los 200 encuestados; variable: el salario</div>
+    <div class="sol">Respuestas: 1) cualitativa no ordinal; cualitativa ordinal; cuantitativa discreta; cuantitativa continua · 2) 7/20 = 0.35; 17; 0.85 · 3) 6; 6; 10/4 = 2.5; ≈ 1.58</div>
   </div>
 </section>
 
-<!-- ======================= 23 ======================= -->
+<!-- ======================= 1.29 ======================= -->
 <section class="tema">
-  <h2>23. Probabilidad</h2>
+  <h2>1.29 Probabilidad</h2>
   <div class="reactivos">Reactivos 38, 39 y 40 (multirreactivo)</div>
-
-  <h3>Lo que necesitas saber</h3>
+  <div class="sub-tema">1.29.1 Conceptos de probabilidad</div>
+  <p>La probabilidad cuantifica qué tan posible es un suceso de un experimento aleatorio, con un número de 0 a 1: <span class="m">P = casos favorables / casos posibles</span>.</p>
+  <div class="sub-tema">1.29.2 Teoría de conjuntos aplicada a probabilidades</div>
   <ul>
-    <li><b>Experimento determinista</b>: siempre da el mismo resultado (se puede predecir). <b>Aleatorio</b>: no se puede predecir el resultado (lanzar un dado, un partido de futbol).</li>
-    <li><b>Espacio muestral</b>: todos los resultados posibles. <b>Evento</b>: los resultados que te interesan.</li>
-    <li><b>Probabilidad clásica</b>: <span class="m">P = casos favorables / casos posibles</span>, siempre entre 0 y 1.</li>
+    <li><b>Espacio muestral E</b>: todos los resultados posibles (moneda: {C, X}; dado: {1, …, 6}; dos monedas: {CC, CX, XC, XX}). Un experimento determinista tiene un solo resultado.</li>
+    <li><b>Suceso</b>: subconjunto de E. <b>Espacio de sucesos</b>: todos los subconjuntos; si E tiene n elementos, hay <span class="m">2<sup>n</sup></span> sucesos. <b>Suceso imposible</b>: ∅.</li>
+    <li><b>Unión A ∪ B</b>: ocurre A o B (al menos uno). <b>Intersección A ∩ B</b>: ocurren los dos. <b>Incompatibles</b>: A ∩ B = ∅. <b>Complementarios</b>: incompatibles y juntos forman E (A<sup>C</sup>). <b>Diferencia A \ B</b>: ocurre A pero no B.</li>
   </ul>
-
   <div class="caja formula"><b class="t">Fórmulas</b>
-    Complemento: <span class="m">P(no A) = 1 − P(A)</span><br>
-    Unión: <span class="m">P(A ∪ B) = P(A) + P(B) − P(A ∩ B)</span> (si son excluyentes, sin la resta)<br>
-    Independientes (uno no afecta al otro): <span class="m">P(A ∩ B) = P(A)·P(B)</span><br>
-    Combinaciones (no importa el orden): <span class="m">C(n, k) = n! / (k!(n − k)!)</span> &nbsp;·&nbsp; Permutaciones (sí importa): <span class="m">n! / (n − k)!</span><br>
-    <b>Binomial</b> (k éxitos en n intentos, cada uno con probabilidad p): <span class="m">P(X = k) = C(n, k)·p<sup>k</sup>·(1 − p)<sup>n−k</sup></span>
+    <span class="m">P(∅) = 0</span>, <span class="m">P(A) ≤ 1</span> · si A ⊆ B, <span class="m">P(A) ≤ P(B)</span><br>
+    <span class="m">P(A ∪ B) = P(A) + P(B) − P(A ∩ B)</span> (si son incompatibles, sin la resta) · <span class="m">P(A<sup>C</sup>) = 1 − P(A)</span> · <span class="m">P(A \ B) = P(A) − P(A ∩ B)</span><br>
+    <b>Condicional:</b> <span class="m">P(B|A) = P(A ∩ B)/P(A)</span> ⇒ <span class="m">P(A ∩ B) = P(A)·P(B|A)</span>; para tres: <span class="m">P(A ∩ B ∩ C) = P(A)·P(B|A)·P(C|A ∩ B)</span><br>
+    <b>Independientes</b> (P(B|A) = P(B)): <span class="m">P(A ∩ B) = P(A)·P(B)</span>
   </div>
-
+  <p class="chico">Ejemplos del temario con la baraja inglesa (52 naipes, 4 palos de 13; 36 numerales y 16 literales): P(rojo) = 26/52 · P(numeral o negro) = 36/52 + 26/52 − 18/52 = 44/52 · P(literal) = 1 − 36/52 = 16/52 · P(rojo | par) = 10/20 · tres rojos seguidos sin regresar las cartas: (26/52)(25/51)(24/50) ≈ 0.12.</p>
+  <div class="sub-tema">1.29.3 Teoría combinatoria aplicada a probabilidades</div>
+  <div class="caja formula"><b class="t">Distribución binomial</b>
+    Combinaciones de n elementos tomados de k en k: <span class="m">C<sub>n</sub><sup>k</sup> = <span class="fr"><span>n!</span><span>k!(n − k)!</span></span></span><br>
+    Probabilidad de k éxitos en n intentos independientes, cada uno con probabilidad p: <span class="m">P(X = k; n, p) = C<sub>n</sub><sup>k</sup>·p<sup>k</sup>·(1 − p)<sup>n−k</sup></span><br>
+    <span class="chico">Ej. del temario: 11 bolas blancas y 9 negras, con reemplazo; 10 blancas en 15 extracciones: C(15, 10) = 3003, p = 0.55.</span>
+  </div>
   <div class="caja examen">
-    <div class="enc">Multirreactivo 38–40</div>
-    <div class="preg">Torneo de futbol en liga con 4 equipos: cada uno juega 3 partidos. Gana quien haga más puntos.</div>
-    <p><b>38.</b> ¿Es determinístico? <b>No</b>, porque no se puede predecir el resultado de los partidos ni del torneo. <span class="resp">D</span></p>
-    <p><b>39.</b> Cada partido tiene 3 resultados posibles para un equipo: ganar, empatar o perder ⇒ P(ganar) = 1/3. Dos equipos en partidos distintos son independientes: (1/3)·(1/3) = <b>1/9</b>. <span class="resp">A</span></p>
-    <p><b>40.</b> Un equipo gana 2 de sus 3 partidos: binomial con n = 3, k = 2, p = 1/3.<br>
-      C(3, 2) = 3!/(2!·1!) = 3 &nbsp;⇒&nbsp; P = 3 · (1/3)² · (2/3)¹ = 3 · 1/9 · 2/3 = 6/27 ≈ <b>0.222</b>. <span class="resp">C</span></p>
+    <div class="enc">Multirreactivo 38–40: torneo de liga con 4 equipos; cada uno juega 3 partidos</div>
+    <p><b>38.</b> No es determinístico: no se puede predecir el resultado. <span class="resp">D</span></p>
+    <p><b>39.</b> Cada partido: ganar, empatar o perder ⇒ P(ganar) = 1/3. Dos equipos en partidos distintos son independientes: (1/3)(1/3) = 1/9. <span class="resp">A</span></p>
+    <p><b>40.</b> Ganar 2 de 3: C(3, 2)·(1/3)²·(2/3) = 3·(1/9)·(2/3) = 6/27 ≈ 0.222. <span class="resp">C</span></p>
   </div>
-
-  <div class="caja ojo"><b class="t">Ojo</b> En futbol hay <b>tres</b> resultados (ganar, empatar, perder), no dos. Por eso p = 1/3 y no 1/2. Lee siempre cuántos resultados posibles tiene cada intento.</div>
-
+  <div class="caja ojo"><b class="t">Ojo</b> En futbol hay <b>tres</b> resultados, no dos. Y fíjate si se regresan los objetos (independientes, p constante) o no (condicional, p cambia).</div>
   <div class="caja practica"><b class="t">Practica</b>
     <ol>
-      <li>Se lanza un dado. ¿Probabilidad de sacar un número par? ¿Y de sacar mayor que 4?</li>
-      <li>Se lanzan dos monedas. ¿Probabilidad de dos águilas?</li>
-      <li>Una urna tiene 3 bolas rojas y 5 azules. ¿Probabilidad de sacar una roja?</li>
-      <li>Se lanza una moneda 4 veces. ¿Probabilidad de exactamente 3 águilas?</li>
-      <li>¿De cuántas formas se pueden elegir 2 alumnos de un grupo de 5?</li>
+      <li>Dado: A = {2, 4, 6}, B = {4, 5, 6}. Escribe A ∪ B, A ∩ B, A \ B y calcula P(A ∪ B).</li>
+      <li>¿Cuántos sucesos tiene el espacio de sucesos de lanzar una moneda dos veces?</li>
+      <li>Probabilidad de sacar un as de la baraja inglesa. ¿Y de sacar dos ases seguidos sin regresar el primero?</li>
+      <li>Una moneda se lanza 4 veces. ¿Probabilidad de exactamente 3 águilas?</li>
     </ol>
-    <div class="sol">Respuestas: 1) 3/6 = 1/2; 2/6 = 1/3 · 2) 1/4 · 3) 3/8 · 4) C(4, 3)·(1/2)⁴ = 4/16 = 0.25 · 5) C(5, 2) = 10</div>
+    <div class="sol">Respuestas: 1) {2, 4, 5, 6}; {4, 6}; {2}; 4/6 = 2/3 · 2) 2<sup>4</sup> = 16 · 3) 4/52 = 1/13; (4/52)(3/51) = 1/221 ≈ 0.0045 · 4) C(4, 3)(1/2)<sup>4</sup> = 0.25</div>
   </div>
 </section>
 
 <!-- ======================= FORMULARIO ======================= -->
 <section class="tema">
   <h2>Formulario de repaso rápido</h2>
-  <table>
-    <tr><th style="width:24%">Tema</th><th>Fórmulas clave</th></tr>
-    <tr><td>Exponentes</td><td class="m">a<sup>m</sup>a<sup>n</sup> = a<sup>m+n</sup> · a<sup>m</sup>/a<sup>n</sup> = a<sup>m−n</sup> · (a<sup>m</sup>)<sup>n</sup> = a<sup>mn</sup> · a<sup>0</sup> = 1 · a<sup>−n</sup> = 1/a<sup>n</sup></td></tr>
-    <tr><td>Progresión aritmética</td><td class="m">a<sub>n</sub> = a<sub>1</sub> + (n − 1)d · S<sub>n</sub> = n(a<sub>1</sub> + a<sub>n</sub>)/2</td></tr>
-    <tr><td>Progresión geométrica</td><td class="m">a<sub>n</sub> = a<sub>1</sub>r<sup>n−1</sup> · S<sub>n</sub> = a<sub>1</sub>(r<sup>n</sup> − 1)/(r − 1)</td></tr>
-    <tr><td>Variación</td><td>directa <span class="m">y = kx</span> · lineal <span class="m">y = mx + b</span> · inversa <span class="m">xy = k</span></td></tr>
-    <tr><td>Productos notables</td><td class="m">(a ± b)<sup>2</sup> = a<sup>2</sup> ± 2ab + b<sup>2</sup> · (a + b)(a − b) = a<sup>2</sup> − b<sup>2</sup> · a<sup>3</sup> ± b<sup>3</sup> = (a ± b)(a<sup>2</sup> ∓ ab + b<sup>2</sup>)</td></tr>
-    <tr><td>Ángulos</td><td><span class="m">180° = π rad</span> · triángulo: suman 180° · polígono: 180°(n − 2)</td></tr>
-    <tr><td>Áreas</td><td>rectángulo <span class="m">bh</span> · triángulo <span class="m">bh/2</span> · trapecio <span class="m">(B + b)h/2</span> · círculo <span class="m">πr<sup>2</sup></span> · circunferencia <span class="m">2πr</span></td></tr>
-    <tr><td>Volúmenes</td><td>prisma/cilindro <span class="m">A<sub>base</sub>·h</span> (cilindro <span class="m">πr<sup>2</sup>h</span>) · cono/pirámide <span class="m">A<sub>base</sub>·h/3</span> · esfera <span class="m">4πr<sup>3</sup>/3</span></td></tr>
-    <tr><td>Trigonometría</td><td><span class="m">sen = op/hip · cos = ady/hip · tan = op/ady · a<sup>2</sup> + b<sup>2</sup> = c<sup>2</sup> · sen<sup>2</sup> + cos<sup>2</sup> = 1</span><br><span class="m">cos(A ± B) = cosA cosB ∓ senA senB · sen(A ± B) = senA cosB ± cosA senB</span><br>Ley de senos <span class="m">a/senA = b/senB</span> · Ley de cosenos <span class="m">c<sup>2</sup> = a<sup>2</sup> + b<sup>2</sup> − 2ab cosC</span> · Área <span class="m">½ab senC</span></td></tr>
-    <tr><td>Plano cartesiano</td><td class="m">M = ((x<sub>1</sub>+x<sub>2</sub>)/2, (y<sub>1</sub>+y<sub>2</sub>)/2) · d = √(Δx<sup>2</sup> + Δy<sup>2</sup>) · r = √(x<sup>2</sup> + y<sup>2</sup>) · x = r cosθ, y = r senθ</td></tr>
-    <tr><td>Recta</td><td class="m">m = (y<sub>2</sub> − y<sub>1</sub>)/(x<sub>2</sub> − x<sub>1</sub>) · y = mx + b · Ax + By + C = 0 ⇒ m = −A/B · ⊥: m<sub>1</sub>m<sub>2</sub> = −1</td></tr>
-    <tr><td>Cuadrática</td><td class="m">x<sub>v</sub> = −b/2a · x = (−b ± √(b<sup>2</sup> − 4ac))/2a · Δ = b<sup>2</sup> − 4ac</td></tr>
-    <tr><td>Cónicas</td><td>A = C circunferencia · mismo signo elipse · signos contrarios hipérbola · solo un cuadrado parábola · <span class="m">e = c/a</span> · elipse <span class="m">a<sup>2</sup> = b<sup>2</sup> + c<sup>2</sup></span> · hipérbola <span class="m">c<sup>2</sup> = a<sup>2</sup> + b<sup>2</sup></span></td></tr>
-    <tr><td>Funciones</td><td>par <span class="m">f(−x) = f(x)</span> · impar <span class="m">f(−x) = −f(x)</span> · rango de <span class="m">A·sen(Bx)</span> = [−|A|, |A|], periodo <span class="m">2π/B</span></td></tr>
-    <tr><td>Logaritmos</td><td class="m">log(ab) = log a + log b · log(a<sup>n</sup>) = n log a · a<sup>t</sup> = k ⇒ t = log k / log a</td></tr>
-    <tr><td>Límites</td><td>sustituye; si da 0/0, factoriza y cancela</td></tr>
-    <tr><td>Derivadas</td><td class="m">(x<sup>n</sup>)′ = nx<sup>n−1</sup> · (fg)′ = f′g + fg′ · (sen x)′ = cos x · (cos x)′ = −sen x · máx/mín: f′ = 0</td></tr>
-    <tr><td>Integrales</td><td class="m">∫x<sup>n</sup>dx = x<sup>n+1</sup>/(n + 1) + C · ∫<sub>a</sub><sup>b</sup> f = F(b) − F(a)</td></tr>
-    <tr><td>Estadística</td><td><span class="m">x̄ = Σx/n</span> · mediana: el central, ordenados · moda: el que más se repite · <span class="m">S<sup>2</sup> = Σ(x − x̄)<sup>2</sup>/(n − 1)</span></td></tr>
-    <tr><td>Probabilidad</td><td class="m">P = fav/pos · P(A ∩ B) = P(A)P(B) · P(A ∪ B) = P(A) + P(B) − P(A ∩ B) · C(n,k) = n!/(k!(n−k)!) · P(X=k) = C(n,k)p<sup>k</sup>(1−p)<sup>n−k</sup></td></tr>
+  <table style="font-size:9.2pt">
+    <tr><th style="width:17%">Tema</th><th>Fórmulas clave</th></tr>
+    <tr><td>1.1 Exponentes</td><td class="m">x<sup>a</sup>x<sup>b</sup> = x<sup>a+b</sup> · x<sup>a</sup>/x<sup>b</sup> = x<sup>a−b</sup> · (x<sup>a</sup>)<sup>b</sup> = x<sup>ab</sup> · x<sup>0</sup> = 1 · x<sup>−b</sup> = 1/x<sup>b</sup> · <sup>b</sup>√x<sup>a</sup> = x<sup>a/b</sup></td></tr>
+    <tr><td>1.4 Progresiones</td><td>Aritm.: <span class="m">a<sub>n</sub> = a<sub>1</sub> + (n − 1)d, S<sub>n</sub> = n(a<sub>1</sub> + a<sub>n</sub>)/2</span> · Geom.: <span class="m">a<sub>n</sub> = a<sub>1</sub>r<sup>n−1</sup>, S<sub>n</sub> = a<sub>1</sub>(r<sup>n</sup> − 1)/(r − 1)</span></td></tr>
+    <tr><td>1.5 Variación</td><td>directa <span class="m">x = ky</span> · inversa <span class="m">xy = k</span> · proporcional <span class="m">y = mx</span> · lineal <span class="m">y = mx + b</span></td></tr>
+    <tr><td>1.6 Productos notables</td><td class="m">(a ± b)<sup>2</sup> = a<sup>2</sup> ± 2ab + b<sup>2</sup> · (a + b)(a − b) = a<sup>2</sup> − b<sup>2</sup> · (a ± b)<sup>3</sup> = a<sup>3</sup> ± 3a<sup>2</sup>b + 3ab<sup>2</sup> ± b<sup>3</sup> · a<sup>3</sup> ± b<sup>3</sup> = (a ± b)(a<sup>2</sup> ∓ ab + b<sup>2</sup>)</td></tr>
+    <tr><td>1.9 Ángulos</td><td><span class="m">180° = π rad</span> · complementarios 90° · suplementarios 180° · opuestos por el vértice iguales</td></tr>
+    <tr><td>1.11–1.12</td><td>suma de ángulos 180° · <span class="m">c<sup>2</sup> = a<sup>2</sup> + b<sup>2</sup></span> · congruencia LAL, ALA, LLL · semejanza AAA, LLL, LAL · Tales <span class="m">AB/AD = AC/AE</span></td></tr>
+    <tr><td>1.13 Figuras</td><td>círculo <span class="m">2πr, πr<sup>2</sup></span> · trapecio <span class="m">(b<sub>1</sub> + b<sub>2</sub>)h/2</span> · n-ágono <span class="m">nℓa/2</span> · cilindro <span class="m">πr<sup>2</sup>h</span> · cono <span class="m">πr<sup>2</sup>h/3</span> · esfera <span class="m">4πr<sup>2</sup>, 4πr<sup>3</sup>/3</span> · Euler <span class="m">V + C − A = 2</span></td></tr>
+    <tr><td>1.14–1.16 Trigonometría</td><td><span class="m">sin = CO/HIP · cos = CA/HIP · tan = CO/CA · sin<sup>2</sup> + cos<sup>2</sup> = 1 · sec<sup>2</sup> − tan<sup>2</sup> = 1</span><br><span class="m">cos(α + β) = cosα cosβ − sinα sinβ · sin(α + β) = sinα cosβ + cosα sinβ · cos(−α) = cos α · sin(−α) = −sin α</span><br>Senos <span class="m">a/sin A = b/sin B = 2r</span> · Cosenos <span class="m">c<sup>2</sup> = a<sup>2</sup> + b<sup>2</sup> − 2ab cos C</span></td></tr>
+    <tr><td>1.17–1.18 Plano</td><td class="m">x = r cosθ, y = r sinθ · r = √(x<sup>2</sup> + y<sup>2</sup>) · d = √(Δx<sup>2</sup> + Δy<sup>2</sup>) · M = ((x<sub>1</sub> + x<sub>2</sub>)/2, (y<sub>1</sub> + y<sub>2</sub>)/2)</td></tr>
+    <tr><td>1.19–1.20 Rectas</td><td><span class="m">m = Δy/Δx · y = mx + b</span> · paralelas <span class="m">m<sub>1</sub> = m<sub>2</sub></span> · perpendiculares <span class="m">m<sub>1</sub>m<sub>2</sub> = −1</span> · sistema con solución única si <span class="m">ad − bc ≠ 0</span>; <span class="m">x = Δx/Δp, y = Δy/Δp</span></td></tr>
+    <tr><td>1.21 Cuadráticas</td><td class="m">x = (−b ± √(b<sup>2</sup> − 4ac))/2a · V = (−b/2a, p(−b/2a))</td></tr>
+    <tr><td>1.22 Cónicas</td><td>elipse <span class="m">a<sup>2</sup> = b<sup>2</sup> + c<sup>2</sup></span> · hipérbola <span class="m">c<sup>2</sup> = a<sup>2</sup> + b<sup>2</sup></span> · parábola <span class="m">(x − h)<sup>2</sup> = 4p(y − k)</span> · <span class="m">e = c/a</span> · <span class="m">B<sup>2</sup> − 4AC</span>: &lt; 0 elipse, = 0 parábola, &gt; 0 hipérbola</td></tr>
+    <tr><td>1.23 Funciones</td><td>par <span class="m">f(−x) = f(x)</span> · impar <span class="m">f(−x) = −f(x)</span> · <span class="m">log(bc) = log b + log c · log(b/c) = log b − log c · log b<sup>c</sup> = c log b</span></td></tr>
+    <tr><td>1.24 Límites</td><td>sustituye; si da 0/0, factoriza · <span class="m">lim<sub>x→∞</sub> k/x<sup>n</sup> = 0</span></td></tr>
+    <tr><td>1.25–1.26 Derivadas</td><td class="m">(x<sup>n</sup>)′ = nx<sup>n−1</sup> · (fg)′ = f′g + fg′ · (f/g)′ = (f′g − fg′)/g<sup>2</sup> · [f(g)]′ = f′(g)·g′ · (sin x)′ = cos x · (e<sup>ax</sup>)′ = ae<sup>ax</sup> · (ln x)′ = 1/x · f′ = 0 y f″ &lt; 0 máx, f″ &gt; 0 mín</td></tr>
+    <tr><td>1.27 Integrales</td><td class="m">∫x<sup>n</sup>dx = x<sup>n+1</sup>/(n + 1) + c · ∫<sub>a</sub><sup>b</sup> f = F(b) − F(a) · ∫cos x = sin x · ∫sin x = −cos x · ∫e<sup>ax</sup> = e<sup>ax</sup>/a · ∫f g′ = fg − ∫f′g</td></tr>
+    <tr><td>1.28 Estadística</td><td><span class="m">x̄ = Σx/n</span> · mediana: dato central ordenado · moda: el más repetido · <span class="m">S = Σ(x − x̄)<sup>2</sup>/(n − 1) · σ = √S · f<sub>i</sub> = n<sub>i</sub>/n</span></td></tr>
+    <tr><td>1.29 Probabilidad</td><td class="m">P = fav/pos · P(A ∪ B) = P(A) + P(B) − P(A ∩ B) · P(A<sup>C</sup>) = 1 − P(A) · P(B|A) = P(A ∩ B)/P(A) · indep.: P(A)P(B) · C(n, k)p<sup>k</sup>(1 − p)<sup>n−k</sup></td></tr>
   </table>
 
   <h3>Clave de la versión de práctica (Matemáticas)</h3>
@@ -1337,12 +1436,23 @@
 
   <h3>Estrategia para el día del examen</h3>
   <ul>
-    <li>60 minutos para 40 preguntas: si una te toma más de 2 minutos, marca la que creas más probable, apúntala y sigue.</li>
-    <li>Lee el renglón <b>“Considere…”</b>: te dice qué fórmula usar y casi siempre qué tema es.</li>
-    <li>Descarta opciones imposibles: un radio o una distancia negativos, una probabilidad mayor que 1, una varianza negativa.</li>
+    <li>60 minutos para 40 preguntas: si una te toma más de 2 minutos, marca la más probable, apúntala y sigue.</li>
+    <li>Lee el renglón <b>“Considere…”</b>: te dice la fórmula y casi siempre el tema.</li>
+    <li>Descarta lo imposible: radios o distancias negativos, probabilidades mayores que 1, varianzas negativas.</li>
     <li>Comprueba sustituyendo (sistemas, factorizaciones, logaritmos): a veces es más rápido que resolver.</li>
-    <li>En los multirreactivos, haz primero la tabla o el dibujo una sola vez y úsalo para todas las preguntas.</li>
+    <li>En los multirreactivos, haz la tabla o el dibujo una sola vez y úsalo para todas las preguntas.</li>
     <li>No dejes preguntas en blanco.</li>
+  </ul>
+
+  <h3>Bibliografía sugerida en el temario (selección)</h3>
+  <ul class="chico">
+    <li>Baldor, A. (2019). <i>Álgebra</i> y <i>Geometría y trigonometría</i> (4.ª ed.). Patria.</li>
+    <li>Aguilar Márquez, A. et al. (2014). <i>Aritmética y Álgebra, Matemáticas Simplificadas</i>. Pearson.</li>
+    <li>Larson, R. y Hostetler, R. (2018). <i>Precálculo</i>. Reverté · Larson, R. y Edwards, B. (2016). <i>Cálculo</i>. Cengage.</li>
+    <li>Kindle, J. H. (2007). <i>Geometría Analítica</i>. McGraw-Hill.</li>
+    <li>Stewart, J. (2002). <i>Cálculo de una variable</i>. Thomson.</li>
+    <li>Gutiérrez González, E. (2014). <i>Probabilidad y estadística</i>. Patria · Ross, S. (2018). <i>Introducción a la estadística</i>. Reverté.</li>
+    <li>Portal Académico del CCH, UNAM: Matemáticas 1 y 2, Cálculo I y II (portalacademico.cch.unam.mx).</li>
   </ul>
 </section>
 
