@@ -23,6 +23,8 @@ GUIAS = {
     'matematicas': ('Guía de estudio de Matemáticas — EXACER', 'Guia_estudio_Matematicas_EXACER.pdf'),
     'fisica': ('Guía de estudio de Física — EXACER', 'Guia_estudio_Fisica_EXACER.pdf'),
     'quimica': ('Guía de estudio de Química — EXACER', 'Guia_estudio_Quimica_EXACER.pdf'),
+    'biologia': ('Guía de estudio de Biología — EXACER', 'Guia_estudio_Biologia_EXACER.pdf'),
+    'geografia': ('Guía de estudio de Geografía — EXACER', 'Guia_estudio_Geografia_EXACER.pdf'),
 }
 
 PLANTILLA = '''<!doctype html>

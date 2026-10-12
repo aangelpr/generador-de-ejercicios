@@ -1489,4 +1489,319 @@ def fig_grupos_funcionales():
     return svg(504, 216, b, escala=1.2)
 
 
+# ================================================================ BIOLOGIA
+def mosca(x, y):
+    return ('<ellipse cx="%s" cy="%s" rx="4" ry="2.4" fill="#ffffff" stroke="#9aa3b2" stroke-width="0.8" transform="rotate(-25 %s %s)"/>'
+            '<ellipse cx="%s" cy="%s" rx="4" ry="2.4" fill="#ffffff" stroke="#9aa3b2" stroke-width="0.8" transform="rotate(25 %s %s)"/>'
+            % (n(x - 3), n(y - 3), n(x - 3), n(y - 3), n(x + 3), n(y - 3), n(x + 3), n(y - 3))) + \
+        '<ellipse cx="%s" cy="%s" rx="3.2" ry="2.2" fill="%s"/>' % (n(x), n(y), T)
+
+
+def larva(x, y):
+    return camino('M%s,%s q3,-4 6,0 q3,4 6,0' % (n(x), n(y)), '#c9b27c', 2.6)
+
+
+def fig_redi_pasteur():
+    titulos = texto(130, 14, 'Redi (1668): carne en tres frascos', A, 'middle', 10, True)
+    titulos += texto(415, 14, 'Pasteur (1862): matraces de cuello de cisne', A, 'middle', 10, True)
+    b = ''
+    datos = [('abierto', 'moscas y larvas', 'en la carne'), ('tapado con gasa', 'larvas sobre la gasa,', 'no en la carne'),
+             ('sellado', 'no aparece', 'nada')]
+    for i, (t1, t2, t3) in enumerate(datos):
+        x = 18 + i * 82
+        b += rect(x + 3, 92, 58, 18, 'none', '#c97b63', 6, 0)
+        b += camino('M%s,%s L%s,%s Q%s,%s %s,%s L%s,%s Q%s,%s %s,%s L%s,%s' % (
+            x, 38, x, 108, x, 116, x + 8, 116, x + 56, 116, x + 64, 116, x + 64, 108, x + 64, 38), G, 1.8)
+        if i == 0:
+            b += larva(x + 12, 96) + larva(x + 34, 98)
+            b += mosca(x + 20, 30) + mosca(x + 46, 22) + mosca(x + 40, 70)
+        elif i == 1:
+            b += linea(x - 2, 38, x + 66, 38, '#9aa3b2', 2.4, '2 2')
+            b += larva(x + 14, 35) + larva(x + 38, 35)
+            b += mosca(x + 18, 20) + mosca(x + 48, 24)
+        else:
+            b += rect(x - 3, 32, 70, 7, T, '#6b7280', 2, 1)
+        b += texto(x + 32, 134, t1, T, 'middle', 8.8, True)
+        b += texto(x + 32, 146, t2, G, 'middle', 8.3)
+        b += texto(x + 32, 157, t3, G, 'middle', 8.3)
+    # Pasteur
+    x0 = 300
+    for j, (t1, t2, t3) in enumerate((('cuello intacto', 'el caldo sigue limpio:', 'el polvo se atora en la curva'),
+                                      ('cuello roto', 'entran microbios del aire', 'y el caldo se echa a perder'))):
+        cx = x0 + 55 + j * 125
+        b += circulo(cx, 92, 26, G, '#ffffff', 1.8)
+        b += camino('M%s,%s A26,26 0 0 0 %s,%s Z' % (n(cx - 24.5), 101, n(cx + 24.5), 101), 'none', 0,
+                    '#f3e3b0' if j == 0 else '#c9b27c')
+        b += circulo(cx, 92, 26, G, 'none', 1.8)
+        if j == 0:
+            b += camino('M%s,%s C%s,%s %s,%s %s,%s C%s,%s %s,%s %s,%s' % (
+                cx - 4, 67, cx - 6, 40, cx + 30, 52, cx + 30, 70, cx + 30, 86, cx + 52, 84, cx + 56, 60), G, 5)
+            b += camino('M%s,%s C%s,%s %s,%s %s,%s C%s,%s %s,%s %s,%s' % (
+                cx - 4, 67, cx - 6, 40, cx + 30, 52, cx + 30, 70, cx + 30, 86, cx + 52, 84, cx + 56, 60), '#ffffff', 2.4)
+            for px, py in ((cx + 54, 50), (cx + 60, 44), (cx + 47, 42)):
+                b += punto(px, py, '#8a6a3a', 1.6)
+            b += punto(cx + 30, 78, '#8a6a3a', 1.6) + punto(cx + 32, 74, '#8a6a3a', 1.6)
+        else:
+            b += rect(cx - 5, 50, 10, 18, G, '#ffffff', 1, 1.8)
+            for px, py in ((cx - 2, 40), (cx + 4, 33), (cx - 6, 28), (cx + 1, 46)):
+                b += punto(px, py, '#8a6a3a', 1.6)
+            for px, py in ((cx - 10, 106), (cx + 6, 108), (cx - 2, 112), (cx + 14, 104)):
+                b += punto(px, py, M, 1.8)
+        b += texto(cx, 134, t1, T, 'middle', 8.8, True)
+        b += texto(cx, 146, t2, G, 'middle', 8.3)
+        b += texto(cx, 157, t3, G, 'middle', 8.3)
+    return svg(560, 176, titulos + '<g transform="translate(0,14)">' + b + '</g>', escala=1.05)
+
+
+def fig_adn():
+    b = ''
+    # nucleotido
+    b += texto(100, 14, 'Un nucleótido', A, 'middle', 10, True)
+    b += circulo(30, 58, 14, O, FO, 1.6) + texto(30, 62, 'P', O, 'middle', 11, True)
+    b += linea(44, 58, 78, 58, T, 1.6)
+    pent = [(98 + 20 * math.cos(math.radians(90 + 72 * k)), 60 - 20 * math.sin(math.radians(90 + 72 * k))) for k in range(5)]
+    b += poligono(pent, V, FV, 1.6) + texto(98, 64, 'azúcar', V, 'middle', 7.5, True)
+    b += linea(118, 58, 146, 58, T, 1.6)
+    b += rect(146, 46, 40, 24, M, FM, 3, 1.6) + texto(166, 62, 'base', M, 'middle', 8.5, True)
+    b += texto(30, 92, 'fosfato', O, 'middle', 8.5)
+    b += texto(98, 92, 'azúcar de', V, 'middle', 8.5) + texto(98, 103, '5 carbonos', V, 'middle', 8.5)
+    b += texto(166, 92, 'base', M, 'middle', 8.5) + texto(166, 103, 'nitrogenada', M, 'middle', 8.5)
+    b += texto(100, 126, 'ADN: desoxirribosa · ARN: ribosa', G, 'middle', 8.5)
+    # escalera
+    b += texto(320, 14, 'El ADN: una escalera de pares de bases', A, 'middle', 10, True)
+    pares = [('A', 'T'), ('G', 'C'), ('T', 'A'), ('C', 'G'), ('A', 'T')]
+    colores = {'A': '#d9534f', 'T': '#f0ad4e', 'G': '#5cb85c', 'C': '#5bc0de'}
+    b += linea(240, 26, 240, 126, G, 4) + linea(400, 26, 400, 126, G, 4)
+    for k, (a, c) in enumerate(pares):
+        y = 34 + k * 20
+        b += rect(242, y - 6, 78, 12, 'none', colores[a], 2, 0) + rect(320, y - 6, 78, 12, 'none', colores[c], 2, 0)
+        b += texto(281, y + 4, a, '#ffffff', 'middle', 9.5, True) + texto(359, y + 4, c, '#ffffff', 'middle', 9.5, True)
+    b += texto(320, 140, 'A siempre con T y G siempre con C', G, 'middle', 8.5)
+    b += texto(320, 152, '(en el ARN, la U reemplaza a la T)', G, 'middle', 8.5)
+    return svg(430, 158, b, escala=1.15)
+
+
+def fig_taxonomia():
+    filas = [('Dominio', 'Eukarya'), ('Reino', 'Animalia'), ('Filo', 'Chordata'), ('Clase', 'Mammalia'),
+             ('Orden', 'Carnivora'), ('Familia', 'Canidae'), ('Género', '<tspan font-style="italic">Canis</tspan>'),
+             ('Especie', '<tspan font-style="italic">Canis familiaris</tspan>')]
+    b = ''
+    for k, (cat, ej) in enumerate(filas):
+        w = 300 - k * 20
+        x = 190 - w / 2
+        y = 8 + k * 26
+        t = k / 7
+        c1, c2 = (230, 242, 246), (31, 111, 139)
+        col = '#%02x%02x%02x' % tuple(int(a + (b_ - a) * t) for a, b_ in zip(c1, c2))
+        claro = k >= 4
+        b += rect(x, y, w, 22, '#ffffff', col, 4, 1)
+        b += texto(190, y + 15, '<tspan font-weight="bold">%s</tspan>: %s' % (cat, ej), '#ffffff' if claro else T, 'middle', 9.5)
+    b += flechas('tx', G) + linea(16, 12, 16, 210, G, 1.4, fin='tx')
+    b += '<text x="9" y="111" fill="%s" text-anchor="middle" font-size="8.5" transform="rotate(-90 9 111)">de lo general a lo específico</text>' % G
+    return svg(350, 220, b)
+
+
+def mitocondria(x, y, ang=0, rx=16, ry=8):
+    s = ('<g transform="rotate(%s %s %s)"><ellipse cx="%s" cy="%s" rx="%s" ry="%s" fill="#fbe3d6" stroke="%s" stroke-width="1.4"/>'
+         % (ang, n(x), n(y), n(x), n(y), rx, ry, O))
+    d = 'M%s,%s' % (n(x - rx + 4), n(y))
+    for k in range(5):
+        d += ' l%s,%s' % (n((2 * rx - 8) / 10), -4 if k % 2 == 0 else 4)
+        d += ' l%s,%s' % (n((2 * rx - 8) / 10), 4 if k % 2 == 0 else -4)
+    return s + camino(d, O, 1) + '</g>'
+
+
+def cloroplasto(x, y, ang=0):
+    s = ('<g transform="rotate(%s %s %s)"><ellipse cx="%s" cy="%s" rx="14" ry="7.5" fill="#9ed49f" stroke="%s" stroke-width="1.3"/>'
+         % (ang, n(x), n(y), n(x), n(y), V))
+    for dx in (-7, 0, 7):
+        s += rect(x + dx - 2, y - 4, 4, 8, V, '#4e9a52', 0.5, 0.6)
+    return s + '</g>'
+
+
+def etiqueta(x, y, s, x2, y2, anc='end'):
+    return linea(x + (3 if anc == 'start' else -3) * 0 , y - 3, x2, y2, '#8a93a3', 0.9) + \
+        texto(x + (-3 if anc == 'end' else 3), y, s, T, anc, 8.8)
+
+
+def fig_celula():
+    b = ''
+    # celula animal
+    cx, cy = 175, 122
+    b += '<ellipse cx="%s" cy="%s" rx="105" ry="82" fill="#fdf6ec" stroke="%s" stroke-width="2"/>' % (cx, cy, O)
+    b += circulo(165, 122, 30, M, FM, 1.6) + circulo(171, 116, 9, M, '#c9b6e6', 1)
+    for k in range(3):
+        r = 38 + k * 7
+        b += arco(165, 122, r, -50, 20, '#8a6db8', 1.4)
+    for ang in (-40, -25, -10, 5):
+        for k in range(3):
+            r = 38 + k * 7
+            b += punto(165 + r * math.cos(math.radians(ang)), 122 - r * math.sin(math.radians(ang)), T, 1.3)
+    for k in range(4):
+        b += camino('M%s,%s q12,-8 24,0' % (226 - k * 2, 70 + k * 6), '#2f8f6a', 2.2)
+    b += mitocondria(112, 72, -20) + mitocondria(208, 182, 15)
+    b += circulo(103, 165, 8, '#c2185b', '#f8d7e3', 1.3)
+    b += rect(146, 56, 5, 13, G, '#d6dbe3', 1, 1) + rect(154, 60, 13, 5, G, '#d6dbe3', 1, 1)
+    for px, py in ((95, 112), (122, 180), (140, 160), (250, 128), (232, 150), (90, 140), (200, 60)):
+        b += punto(px, py, T, 1.6)
+    b += etiqueta(62, 54, 'membrana', 95, 66)
+    b += etiqueta(62, 80, 'mitocondria', 98, 76)
+    b += etiqueta(62, 124, 'núcleo', 136, 124)
+    b += etiqueta(62, 168, 'lisosoma', 95, 166)
+    b += etiqueta(62, 196, 'ribosomas', 120, 181)
+    b += linea(150, 30, 152, 55, '#8a93a3', 0.9) + texto(150, 26, 'centriolos', T, 'middle', 8.8)
+    b += linea(250, 30, 238, 64, '#8a93a3', 0.9) + texto(250, 26, 'aparato de Golgi', T, 'middle', 8.8)
+    b += linea(262, 222, 214, 116, '#8a93a3', 0.9) + texto(262, 232, 'retículo endoplásmico', T, 'middle', 8.8)
+    b += texto(150, 248, 'Célula animal', A, 'middle', 10.5, True)
+    # celula vegetal
+    b += rect(330, 35, 220, 168, V, '#f1f8ec', 4, 6)
+    b += rect(337, 42, 206, 154, '#7fb77e', 'none', 3, 1.2)
+    b += rect(362, 66, 116, 104, A, '#dceef7', 14, 1.4)
+    b += circulo(512, 78, 19, M, FM, 1.6) + circulo(516, 74, 6, M, '#c9b6e6', 1)
+    for (x, y, a) in ((358, 54, 0), (430, 54, 0), (520, 138, 80), (500, 182, 0), (380, 184, 0), (348, 120, 90)):
+        b += cloroplasto(x, y, a)
+    b += mitocondria(450, 184, 0, 13, 7)
+    b += etiqueta(568, 40, 'pared celular', 551, 44, 'start')
+    b += etiqueta(568, 62, 'membrana', 543, 62, 'start')
+    b += etiqueta(568, 84, 'núcleo', 531, 82, 'start')
+    b += etiqueta(568, 112, 'vacuola', 478, 112, 'start')
+    b += etiqueta(568, 140, 'cloroplasto', 528, 140, 'start')
+    b += etiqueta(568, 190, 'mitocondria', 464, 186, 'start')
+    b += texto(440, 248, 'Célula vegetal', V, 'middle', 10.5, True)
+    return svg(650, 256, b)
+
+
+def cromosoma(x, y, color, ang=0):
+    return ('<g transform="rotate(%s %s %s)" stroke="%s" stroke-width="3" stroke-linecap="round">'
+            '<line x1="%s" y1="%s" x2="%s" y2="%s"/><line x1="%s" y1="%s" x2="%s" y2="%s"/></g>'
+            % (ang, n(x), n(y), color, n(x - 3), n(y - 7), n(x + 3), n(y + 7), n(x + 3), n(y - 7), n(x - 3), n(y + 7)))
+
+
+def fig_mitosis():
+    b = flechas('mi', G)
+    fases = [('Profase', 'se forman los cromosomas;', 'se deshace el núcleo'),
+             ('Metafase', 'los cromosomas se', 'alinean en el centro'),
+             ('Anafase', 'las cromátidas se separan', 'hacia los polos'),
+             ('Telofase', 'se forman dos núcleos y', 'la célula se divide')]
+    for i, (t1, t2, t3) in enumerate(fases):
+        cx, cy = 66 + i * 142, 66
+        if i < 3:
+            b += circulo(cx, cy, 48, O, '#fdf6ec', 1.8)
+        if i == 0:
+            b += circulo(cx, cy, 28, M, 'none', 1.2, '4 3')
+            for (dx, dy, c, a) in ((-10, -8, O, 20), (8, -12, M, -30), (12, 8, O, 60), (-8, 12, M, -10)):
+                b += cromosoma(cx + dx, cy + dy, c, a)
+            b += rect(cx - 40, cy - 30, 4, 9, G, '#d6dbe3', 1, 1) + rect(cx + 34, cy + 22, 4, 9, G, '#d6dbe3', 1, 1)
+        elif i == 1:
+            for dy in (-24, -8, 8, 24):
+                b += linea(cx - 40, cy, cx - 4, cy + dy, '#b9c0cc', 0.9) + linea(cx + 40, cy, cx + 4, cy + dy, '#b9c0cc', 0.9)
+            for k, dy in enumerate((-24, -8, 8, 24)):
+                b += cromosoma(cx, cy + dy, O if k % 2 == 0 else M, 90)
+            b += rect(cx - 44, cy - 4, 4, 9, G, '#d6dbe3', 1, 1) + rect(cx + 40, cy - 4, 4, 9, G, '#d6dbe3', 1, 1)
+        elif i == 2:
+            for dy in (-18, -6, 6, 18):
+                b += linea(cx - 40, cy, cx - 20, cy + dy, '#b9c0cc', 0.9) + linea(cx + 40, cy, cx + 20, cy + dy, '#b9c0cc', 0.9)
+            for k, dy in enumerate((-18, -6, 6, 18)):
+                c = O if k % 2 == 0 else M
+                for lado in (-1, 1):
+                    x = cx + lado * 20
+                    b += camino('M%s,%s l%s,-5 M%s,%s l%s,5' % (n(x), n(cy + dy), lado * 7, n(x), n(cy + dy), lado * 7), c, 2.6)
+        else:
+            b += '<path d="M%s,%s C%s,%s %s,%s %s,%s C%s,%s %s,%s %s,%s C%s,%s %s,%s %s,%s C%s,%s %s,%s %s,%s Z" fill="#fdf6ec" stroke="%s" stroke-width="1.8"/>' % (
+                cx, cy - 22, cx - 20, cy - 48, cx - 62, cy - 40, cx - 62, cy,
+                cx - 62, cy + 40, cx - 20, cy + 48, cx, cy + 22,
+                cx + 20, cy + 48, cx + 62, cy + 40, cx + 62, cy,
+                cx + 62, cy - 40, cx + 20, cy - 48, cx, cy - 22, O)
+            for lado in (-1, 1):
+                b += circulo(cx + lado * 34, cy, 15, M, FM, 1.3)
+                b += camino('M%s,%s q4,6 0,12 M%s,%s q-4,6 0,12' % (n(cx + lado * 34 - 4), cy - 6, n(cx + lado * 34 + 4), cy - 6), O, 2)
+        if i < 3:
+            b += linea(cx + 52, cy, cx + 86, cy, G, 1.4, fin='mi')
+        b += texto(cx, 136, t1, A, 'middle', 10, True)
+        b += texto(cx, 149, t2, G, 'middle', 8.3)
+        b += texto(cx, 160, t3, G, 'middle', 8.3)
+    return svg(560, 166, b, escala=1.15)
+
+
+def fig_foto_resp():
+    b = flechas('fr1', V) + flechas('fr2', O)
+    b += rect(14, 40, 210, 76, V, FV, 10, 1.6)
+    b += texto(119, 60, 'Cloroplasto: fotosíntesis', V, 'middle', 10, True)
+    b += texto(119, 82, '6CO₂ + 6H₂O + luz', T, 'middle', 9.5)
+    b += texto(119, 98, '→ C₆H₁₂O₆ + 6O₂', T, 'middle', 9.5)
+    b += rect(336, 40, 210, 76, O, FO, 10, 1.6)
+    b += texto(441, 60, 'Mitocondria: respiración', O, 'middle', 10, True)
+    b += texto(441, 82, 'C₆H₁₂O₆ + 6O₂', T, 'middle', 9.5)
+    b += texto(441, 98, '→ 6CO₂ + 6H₂O + ATP', T, 'middle', 9.5)
+    b += camino('M224,58 C270,30 290,30 334,58', V, 1.8).replace('/>', ' marker-end="url(#fdfr1)"/>')
+    b += texto(280, 28, 'glucosa y O₂', V, 'middle', 9, True)
+    b += camino('M336,100 C290,128 270,128 226,100', O, 1.8).replace('/>', ' marker-end="url(#fdfr2)"/>')
+    b += texto(280, 140, 'CO₂ y H₂O', O, 'middle', 9, True)
+    b += circulo(30, 20, 9, '#d4a017', '#ffe08a', 1.4)
+    for k in range(8):
+        a = math.radians(k * 45)
+        b += linea(30 + 12 * math.cos(a), 20 + 12 * math.sin(a), 30 + 16 * math.cos(a), 20 + 16 * math.sin(a), '#d4a017', 1.4)
+    b += texto(52, 24, 'energía de la luz', '#8a6400', tam=8.5)
+    b += texto(441, 134, 'energía para la célula (ATP)', O, 'middle', 8.5)
+    return svg(560, 146, b, escala=1.15)
+
+
+def fig_piramide_trofica():
+    niveles = [('Consumidores terciarios', '10 kcal', '#c2185b'), ('Consumidores secundarios', '100 kcal', O),
+               ('Consumidores primarios (herbívoros)', '1 000 kcal', '#b8860b'), ('Productores (plantas)', '10 000 kcal', V)]
+    b = flechas('pt', G) + flechas('ps', '#b8860b')
+    base_y = 186
+    for k, (t, e, c) in enumerate(reversed(niveles)):
+        y = base_y - (k + 1) * 38
+        w = 360 - k * 70
+        x = 250 - w / 2
+        b += rect(x, y, w, 34, '#ffffff', c, 3, 1)
+        b += texto(250, y + 15, t, '#ffffff', 'middle', 8.6, True)
+        b += texto(250, y + 28, e, '#ffffff', 'middle', 8.3)
+    for k in range(3):
+        y = base_y - (k + 1) * 38 + 4
+        b += camino('M%s,%s q16,-19 0,-38' % (446, y + 26), G, 1.2).replace('/>', ' marker-end="url(#fdpt)"/>')
+        b += texto(464, y + 10, 'solo pasa', G, tam=8.3) + texto(464, y + 21, 'el 10 %', G, tam=8.3, neg=True)
+    b += circulo(26, 120, 9, '#d4a017', '#ffe08a', 1.4)
+    for k in range(8):
+        a = math.radians(k * 45)
+        b += linea(26 + 12 * math.cos(a), 120 + 12 * math.sin(a), 26 + 16 * math.cos(a), 120 + 16 * math.sin(a), '#d4a017', 1.4)
+    b += texto(26, 98, 'Sol', '#8a6400', 'middle', 9.5, True)
+    b += camino('M30,140 Q40,166 64,168', '#b8860b', 1.4).replace('/>', ' marker-end="url(#fdps)"/>')
+    return svg(530, 194, b, escala=1.1)
+
+
+def fig_crecimiento():
+    p = Plano(300, 200, 0, 10, 0, 10, 28)
+    p.ejes('cr', xn='tiempo', yn='individuos')
+    p.curva(lambda x: 0.4 * math.exp(0.36 * x), 0, 8.8, O, 2.4)
+    p.curva(lambda x: 7 / (1 + 16 * math.exp(-0.9 * x)), 0, 10, A, 2.4)
+    p.segmento(0, 7, 10, 7, G, 1, '4 3')
+    p.texto(0.3, 7, 'capacidad de carga (K)', G, dy=-5, tam=8)
+    p.texto(6.2, 8.6, 'curva J', O, 'end', tam=9, neg=True)
+    p.texto(6.4, 5.3, 'curva S', A, tam=9, neg=True)
+    return p.svg()
+
+
+def fig_ciclo_carbono():
+    b = flechas('cc1', V) + flechas('cc2', O) + flechas('cc3', M) + flechas('cc4', G)
+    def caja(x, y, w, t, c, f):
+        return rect(x, y, w, 28, c, f, 8, 1.5) + texto(x + w / 2, y + 18, t, c, 'middle', 9.5, True)
+    b += caja(180, 8, 140, 'CO₂ en el aire', A, FA)
+    b += caja(20, 150, 110, 'Plantas', V, FV)
+    b += caja(190, 150, 120, 'Animales', O, FO)
+    b += caja(370, 150, 120, 'Descomponedores', M, FM)
+    b += caja(380, 60, 110, 'Combustibles', G, '#f1f2f4')
+    def fl(d, c, ident):
+        return camino(d, c, 1.6).replace('/>', ' marker-end="url(#fd%s)"/>' % ident)
+    b += fl('M190,36 C120,50 80,100 70,146', V, 'cc1') + texto(92, 80, 'fotosíntesis', V, 'end', 8.8, True)
+    b += fl('M98,148 C112,100 150,60 198,38', O, 'cc2') + texto(150, 112, 'respiración', O, tam=8.8, neg=True)
+    b += fl('M250,148 L250,40', O, 'cc2') + texto(244, 132, 'respiración', O, 'end', 8.8, True)
+    b += fl('M132,164 L186,164', V, 'cc1') + texto(159, 190, 'alimento', V, 'middle', 8.5)
+    b += fl('M312,164 L366,164', M, 'cc3') + texto(339, 190, 'restos', M, 'middle', 8.5)
+    b += fl('M392,148 C380,100 340,60 304,38', M, 'cc3') + texto(262, 104, 'descomposición', M, tam=8.8, neg=True)
+    b += fl('M404,58 C390,34 360,24 324,22', G, 'cc4') + texto(440, 50, 'combustión', G, 'middle', 8.8, True)
+    return svg(500, 198, b, escala=1.1)
+
+
 FIGURAS = {k[4:]: v for k, v in globals().items() if k.startswith('fig_')}
