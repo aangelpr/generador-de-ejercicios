@@ -8,10 +8,11 @@ Guías en PDF que explican, tema por tema y como en clase, el temario oficial
 - `Guia_estudio_Fisica_EXACER.pdf`
 - `Guia_estudio_Quimica_EXACER.pdf`
 - `Guia_estudio_Biologia_EXACER.pdf`
+- `Guia_estudio_Geografia_EXACER.pdf`
 
 ## Cómo están hechas
 
-- `matematicas/`, `fisica/`, `quimica/`, `biologia/`: el contenido de cada guía, en partes
+- `matematicas/`, `fisica/`, `quimica/`, `biologia/`, `geografia/`: el contenido de cada guía, en partes
   HTML que se juntan en orden alfabético.
 - `estilo.css`: el diseño compartido (recuadros de colores, tablas, etc.).
 - `figuras.py`: las gráficas y dibujos en SVG. En el HTML se insertan con

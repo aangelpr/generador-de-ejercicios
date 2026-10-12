@@ -1804,4 +1804,274 @@ def fig_ciclo_carbono():
     return svg(500, 198, b, escala=1.1)
 
 
+# ================================================================ GEOGRAFIA
+def fig_sistema_solar():
+    b = '<circle cx="-50" cy="86" r="96" fill="#ffd54f" stroke="#f0a500" stroke-width="2"/>'
+    b += texto(14, 90, 'Sol', '#8a6400', tam=10, neg=True)
+    planetas = [('Mercurio', 72, 3.5, '#9e9e9e'), ('Venus', 104, 6, '#e3c16f'), ('Tierra', 138, 6.5, '#3b7dc4'),
+                ('Marte', 170, 4.5, '#c1440e'), ('Júpiter', 252, 21, '#d8a35d'), ('Saturno', 326, 16, '#e8cf8a'),
+                ('Urano', 394, 11, '#8fd3e0'), ('Neptuno', 446, 10.5, '#3f6fd8')]
+    import random
+    rnd = random.Random(11)
+    for k in range(40):
+        b += punto(192 + rnd.random() * 24, 86 + (rnd.random() - 0.5) * 60, '#8a8f99', 1.1)
+    b += texto(204, 132, 'cinturón de', G, 'middle', 8) + texto(204, 142, 'asteroides', G, 'middle', 8)
+    for nom, x, r, c in planetas:
+        if nom == 'Saturno':
+            b += '<ellipse cx="%s" cy="86" rx="31" ry="7" fill="none" stroke="#c9a85a" stroke-width="2.4" transform="rotate(-18 %s 86)"/>' % (x, x)
+        b += circulo(x, 86, r, '#00000033', c, 0.8)
+        if nom == 'Júpiter':
+            b += linea(x - 19, 80, x + 19, 80, '#b5793a', 1.6) + linea(x - 20, 90, x + 20, 90, '#b5793a', 1.6)
+        if nom == 'Tierra':
+            b += circulo(x - 1.5, 84, 2.5, 'none', '#4caf50', 0)
+        y_et = {'Mercurio': 110, 'Venus': 122, 'Tierra': 110, 'Marte': 122}.get(nom, 124)
+        b += texto(x, y_et, nom, T, 'middle', 8.5, True)
+    b += linea(60, 46, 184, 46, A, 1.4) + texto(122, 40, 'Rocosos (interiores)', A, 'middle', 9, True)
+    b += linea(226, 46, 462, 46, O, 1.4) + texto(344, 40, 'Gaseosos (exteriores)', O, 'middle', 9, True)
+    b += rect(476, 30, 156, 112, '#d6dbe3', '#fbfcfd', 8, 1)
+    b += texto(554, 48, 'Planetas enanos', M, 'middle', 9, True)
+    b += texto(554, 62, 'Plutón, Ceres, Eris…', T, 'middle', 8.5)
+    b += texto(554, 84, 'Rocosos: pequeños, densos,', T, 'middle', 8)
+    b += texto(554, 96, 'superficie sólida, sin anillos', T, 'middle', 8)
+    b += texto(554, 116, 'Gaseosos: enormes, de H y He,', T, 'middle', 8)
+    b += texto(554, 128, 'con anillos y muchas lunas', T, 'middle', 8)
+    b += texto(240, 160, 'Representación sin escala: los tamaños y las distancias reales son muy distintos', G, 'middle', 8)
+    return svg(640, 166, b)
+
+
+def fig_coordenadas():
+    cx, cy, r, t = 98, 122, 86, math.radians(18)
+    def proy(lat, lon):
+        f, l = math.radians(lat), math.radians(lon)
+        x = cx + r * math.cos(f) * math.sin(l)
+        y = cy - r * (math.sin(f) * math.cos(t) - math.cos(f) * math.cos(l) * math.sin(t))
+        vis = math.cos(f) * math.cos(l) * math.cos(t) + math.sin(f) * math.sin(t)
+        return x, y, vis
+    def trazo(puntos, color, ancho, guion=None):
+        s, actual = '', []
+        for x, y, v in puntos:
+            if v > 0:
+                actual.append((x, y))
+            else:
+                if len(actual) > 1:
+                    s += camino('M' + ' L'.join('%s,%s' % (n(a), n(c)) for a, c in actual), color, ancho, guion=guion)
+                actual = []
+        if len(actual) > 1:
+            s += camino('M' + ' L'.join('%s,%s' % (n(a), n(c)) for a, c in actual), color, ancho, guion=guion)
+        return s
+    b = circulo(cx, cy, r, A, '#eef6f9', 1.6)
+    for lat in (-60, -30, 30, 60):
+        b += trazo([proy(lat, l) for l in range(-180, 181, 3)], '#9cc3d3', 1)
+    for lon in (-90, -60, -30, 30, 60, 90):
+        b += trazo([proy(f, lon) for f in range(-90, 91, 3)], '#9cc3d3', 1)
+    b += trazo([proy(0, l) for l in range(-180, 181, 2)], O, 2.2)
+    b += trazo([proy(f, 0) for f in range(-90, 91, 2)], V, 2.2)
+    px, py, _ = proy(20, -50)
+    b += punto(px, py, '#c2185b', 4)
+    b += texto(px - 6, py - 8, 'P', '#c2185b', 'end', 10, True)
+    nx, ny, _ = proy(90, 0)
+    b += punto(nx, ny, T, 2.5) + texto(nx, ny - 6, 'Polo Norte', T, 'middle', 8.5, True)
+    sx, sy, _ = proy(-90, 0)
+    b += texto(cx, cy + r + 14, 'Polo Sur', T, 'middle', 8.5, True)
+    ex, ey, _ = proy(0, 88)
+    b += texto(cx + r + 4, ey + 4, 'Ecuador (0°)', O, tam=9, neg=True)
+    gx, gy, _ = proy(48, 0)
+    b += linea(gx + 2, gy - 2, 196, 26, '#8a93a3', 0.9) + texto(198, 24, 'Meridiano de', V, tam=9, neg=True) + texto(198, 36, 'Greenwich (0°)', V, tam=9, neg=True)
+    lx, ly, _ = proy(30, 70)
+    b += linea(lx + 2, ly, 200, 70, '#8a93a3', 0.9) + texto(204, 74, 'paralelos (latitud)', '#4a7f95', tam=8.5)
+    mx, my, _ = proy(-40, 60)
+    b += linea(mx + 2, my, 200, 206, '#8a93a3', 0.9) + texto(204, 210, 'meridianos (longitud)', '#4a7f95', tam=8.5)
+    b += texto(204, 154, 'P: 20° N, 50° O', '#c2185b', tam=9, neg=True)
+    b += texto(204, 167, '20° al norte del ecuador', T, tam=8.5)
+    b += texto(204, 179, 'y 50° al oeste', T, tam=8.5)
+    return svg(345, 226, b)
+
+
+def fig_mapa_elementos():
+    b = flechas('ma', O)
+    b += rect(150, 8, 220, 22, A, FA, 11, 1.2) + texto(260, 23, 'Estado de Ejemplo: relieve y ciudades', A, 'middle', 9, True)
+    b += rect(70, 40, 300, 190, G, '#dceef7', 0, 1.4)
+    b += camino('M70,60 C120,50 160,90 210,70 C260,50 300,80 330,110 C350,130 340,170 370,190 L370,230 L70,230 Z', 'none', 0, '#e3f1df')
+    b += camino('M70,60 C120,50 160,90 210,70 C260,50 300,80 330,110 C350,130 340,170 370,190', '#7fb77e', 1.2)
+    b += camino('M120,225 C140,190 170,180 180,150 C190,120 220,110 250,96', '#3b7dc4', 2)
+    b += linea(100, 200, 300, 160, '#8a6a3a', 1.4, '5 3')
+    for (x, y) in ((160, 182), (292, 162)):
+        b += punto(x, y, T, 4)
+    b += poligono([(230, 142), (222, 156), (238, 156)], '#8a6a3a', '#c9a27c', 1)
+    for k, lat in enumerate(('21° N', '20° N', '19° N')):
+        y = 40 + 40 + k * 60
+        b += linea(64, y, 70, y, G, 1) + texto(60, y + 3, lat, G, 'end', 8)
+    for k, lon in enumerate(('100° O', '99° O', '98° O')):
+        x = 70 + 60 + k * 90
+        b += linea(x, 230, x, 236, G, 1) + texto(x, 246, lon, G, 'middle', 8)
+    b += poligono([(346, 52), (340, 74), (346, 68), (352, 74)], T, T, 1) + texto(346, 88, 'N', T, 'middle', 9, True)
+    b += rect(84, 208, 30, 6, T, T, 0, 1) + rect(114, 208, 30, 6, T, '#ffffff', 0, 1)
+    b += texto(84, 204, '0', T, 'middle', 7.5) + texto(114, 204, '10', T, 'middle', 7.5) + texto(146, 204, '20 km', T, tam=7.5)
+    b += texto(84, 224, '1 : 500 000', T, tam=7.5)
+    b += rect(384, 40, 128, 120, G, '#ffffff', 4, 1.2)
+    b += texto(448, 56, 'Simbología', T, 'middle', 9, True)
+    b += punto(398, 72, T, 4) + texto(410, 75, 'ciudad', T, tam=8.5)
+    b += linea(392, 90, 404, 90, '#3b7dc4', 2) + texto(410, 93, 'río', T, tam=8.5)
+    b += linea(392, 108, 404, 108, '#8a6a3a', 1.4, '5 3') + texto(410, 111, 'carretera', T, tam=8.5)
+    b += poligono([(398, 120), (392, 131), (404, 131)], '#8a6a3a', '#c9a27c', 1) + texto(410, 130, 'volcán', T, tam=8.5)
+    b += rect(392, 140, 12, 9, '#7fb77e', '#e3f1df', 0, 1) + texto(410, 148, 'tierra firme', T, tam=8.5)
+    def nota(x, y, s, x2, y2):
+        return linea(x, y, x2, y2, O, 1.1, fin='ma') + texto(x, y - 3, s, O, 'middle', 8.5, True)
+    b += nota(118, 20, 'título', 148, 20)
+    b += nota(36, 66, 'coordenadas', 46, 80)
+    b += nota(200, 256, 'escala', 136, 230)
+    b += nota(440, 24, 'orientación', 356, 50)
+    b += nota(448, 186, 'simbología', 448, 164)
+    return svg(520, 262, b, escala=1.1)
+
+
+def fig_capas_tierra():
+    cx, cy = 170, 238
+    capas = [(168, '#8d6e63', 'Corteza: de 5 a 70 km de grosor'), (160, '#e57348', 'Manto: roca caliente que fluye muy lento'),
+             (86, '#f4a236', 'Núcleo externo: hierro y níquel líquidos'), (40, '#ffd54f', 'Núcleo interno: sólido, unos 5 000 °C')]
+    b = ''
+    for r, c, _ in capas:
+        b += '<path d="M%s,%s A%s,%s 0 0 1 %s,%s Z" fill="%s" stroke="#ffffff" stroke-width="1"/>' % (cx - r, cy, r, r, cx + r, cy, c)
+    b += linea(cx - 170, cy, cx + 170, cy, G, 1)
+    destinos = [(cx - 40, cy - 164), (cx - 70, cy - 120), (cx + 30, cy - 62), (cx + 10, cy - 20)]
+    for k, ((r, c, t), (x2, y2)) in enumerate(zip(capas, destinos)):
+        y = 30 + k * 44
+        b += linea(352, y - 3, x2, y2, '#8a93a3', 0.9)
+        b += texto(356, y, t.split(':')[0], T, tam=9.5, neg=True)
+        b += texto(356, y + 13, t.split(': ')[1], G, tam=8.5)
+    return svg(560, 244, b)
+
+
+def fig_placas():
+    b = flechas('pl', T) + flechas('pm', '#d7263d')
+    # divergente
+    b += rect(14, 70, 78, 20, '#8d6e63', '#bca393', 2, 1) + rect(108, 70, 78, 20, '#8d6e63', '#bca393', 2, 1)
+    b += camino('M100,128 C96,110 104,96 100,72', '#d7263d', 3).replace('/>', ' marker-end="url(#fdpm)"/>')
+    b += linea(70, 58, 30, 58, T, 1.6, fin='pl') + linea(130, 58, 170, 58, T, 1.6, fin='pl')
+    b += rect(14, 90, 172, 44, 'none', '#f7d9c4', 0, 0)
+    b += texto(100, 156, 'Divergente', A, 'middle', 10, True)
+    b += texto(100, 169, 'se separan y sale magma', G, 'middle', 8.3)
+    b += texto(100, 180, '(dorsales oceánicas)', G, 'middle', 8.3)
+    # convergente (subduccion)
+    x0 = 214
+    b += rect(x0, 90, 186, 44, 'none', '#f7d9c4', 0, 0)
+    b += camino('M%s,72 L%s,72 L%s,128 L%s,128 L%s,92 L%s,92 Z' % (x0, x0 + 96, x0 + 150, x0 + 132, x0 + 90, x0), '#41545e', 1, '#7d97a8')
+    b += camino('M%s,62 L%s,62 L%s,46 L%s,46 L%s,62 L%s,62 L%s,100 L%s,96 L%s,74 Z' % (
+        x0 + 100, x0 + 128, x0 + 136, x0 + 148, x0 + 156, x0 + 186, x0 + 186, x0 + 150, x0 + 104), '#8d6e63', 1, '#bca393')
+    b += camino('M%s,104 C%s,84 %s,66 %s,48' % (x0 + 150, x0 + 146, x0 + 144, x0 + 142), '#d7263d', 2)
+    b += linea(x0 + 20, 58, x0 + 60, 58, T, 1.6, fin='pl') + linea(x0 + 186, 30, x0 + 166, 30, T, 1.6, fin='pl')
+    b += texto(x0 + 112, 108, '★', '#c2185b', 'middle', 13)
+    b += texto(x0 + 36, 84, 'oceánica', '#ffffff', 'middle', 8, True)
+    b += texto(x0 + 168, 76, 'continental', T, 'middle', 7.5, True)
+    b += texto(x0 + 93, 156, 'Convergente', A, 'middle', 10, True)
+    b += texto(x0 + 93, 169, 'chocan: una se hunde bajo la otra', G, 'middle', 8.3)
+    b += texto(x0 + 93, 180, '(subducción: sismos ★ y volcanes)', G, 'middle', 8.3)
+    # transformante (vista desde arriba)
+    x0 = 428
+    b += rect(x0, 40, 76, 96, '#8d6e63', '#bca393', 2, 1) + rect(x0 + 80, 40, 76, 96, '#8d6e63', '#cdb7a8', 2, 1)
+    b += linea(x0 + 78, 36, x0 + 78, 140, '#d7263d', 2, '5 3')
+    b += linea(x0 + 38, 120, x0 + 38, 60, T, 1.8, fin='pl') + linea(x0 + 118, 60, x0 + 118, 120, T, 1.8, fin='pl')
+    b += texto(x0 + 78, 156, 'Transformante', A, 'middle', 10, True)
+    b += texto(x0 + 78, 169, 'se deslizan una junto a otra', G, 'middle', 8.3)
+    b += texto(x0 + 78, 180, '(falla de San Andrés)', G, 'middle', 8.3)
+    return svg(590, 186, b, escala=1.1)
+
+
+def fig_volcan():
+    b = ''
+    b += rect(0, 200, 430, 50, 'none', '#d7ccc8', 0, 0)
+    b += '<ellipse cx="200" cy="236" rx="70" ry="12" fill="#e2504a" stroke="#a83232" stroke-width="1.4"/>'
+    b += poligono([(40, 200), (184, 72), (200, 84), (216, 72), (360, 200)], '#6d4c41', '#a1887f', 1.6)
+    b += camino('M200,226 L200,86', '#e2504a', 9) + camino('M200,226 L200,86', '#f28b50', 4)
+    b += camino('M214,78 C230,100 236,120 262,136 C280,148 290,170 300,198', '#f28b50', 6)
+    import random
+    rnd = random.Random(4)
+    for k in range(16):
+        x = 200 + (rnd.random() - 0.5) * 70 + k * 2
+        y = 52 - rnd.random() * 40
+        b += circulo(x, y, 9 + rnd.random() * 8, 'none', '#9e9e9e', 0).replace('fill="#9e9e9e"', 'fill="#9e9e9e" fill-opacity="0.55"')
+    def et(x, y, s, x2, y2, anc='start'):
+        return linea(x2, y2, x + (-4 if anc == 'end' else 4) * 0, y - 3, '#5a6375', 0.9) + texto(x + (2 if anc == 'start' else -2), y, s, T, anc, 9, True)
+    b += et(300, 22, 'nube de ceniza y gases', 236, 30)
+    b += et(300, 70, 'cráter', 212, 78)
+    b += et(330, 120, 'lava', 266, 140)
+    b += et(78, 120, 'cono', 120, 140, 'end')
+    b += et(78, 168, 'chimenea', 198, 168, 'end')
+    b += et(300, 246, 'cámara magmática', 262, 238)
+    return svg(430, 252, b)
+
+
+def fig_sismo():
+    b = rect(0, 46, 300, 140, 'none', '#efe6dd', 0, 0)
+    b += linea(0, 46, 300, 46, '#6d4c41', 2)
+    b += linea(110, 46, 190, 186, '#8d6e63', 1.6, '6 4')
+    for r in (14, 30, 48, 68):
+        b += circulo(150, 116, r, '#e2504a', 'none', 1.1).replace('/>', ' stroke-opacity="0.7"/>')
+    b += texto(150, 121, '★', '#c2185b', 'middle', 15)
+    b += punto(150, 46, '#c2185b', 4)
+    b += linea(150, 46, 150, 108, '#c2185b', 1, '3 3')
+    b += texto(158, 24, 'Epicentro: punto de la superficie', T, tam=8.5, neg=True)
+    b += texto(158, 36, 'justo arriba del foco', T, tam=8.5)
+    b += texto(204, 150, 'Hipocentro o foco:', T, tam=8.5, neg=True)
+    b += texto(204, 162, 'donde se rompe la roca', T, tam=8.5)
+    b += texto(16, 176, 'falla', '#6d4c41', tam=8.5, neg=True)
+    b += texto(16, 70, 'ondas sísmicas', '#e2504a', tam=8.5, neg=True)
+    return svg(330, 190, b)
+
+
+def fig_climogramas():
+    meses = 'EFMAMJJASOND'
+    datos = [('f: llueve todo el año', [110, 95, 100, 105, 120, 140, 150, 145, 160, 150, 120, 115], A),
+             ('w: lluvias en verano, invierno seco', [10, 6, 4, 6, 25, 150, 210, 200, 230, 110, 20, 12], O)]
+    b = ''
+    for k, (titulo, lluvias, c) in enumerate(datos):
+        x0 = 20 + k * 270
+        b += texto(x0 + 120, 16, titulo, c, 'middle', 9.5, True)
+        b += linea(x0, 140, x0 + 240, 140, G, 1.2) + linea(x0, 140, x0, 28, G, 1.2)
+        b += texto(x0 + 4, 34, 'lluvia', G, tam=8, ital=True)
+        for i, v in enumerate(lluvias):
+            h = v * 0.45
+            b += rect(x0 + 8 + i * 19, 140 - h, 14, h, 'none', c, 1, 0)
+            b += texto(x0 + 15 + i * 19, 152, meses[i], G, 'middle', 8)
+    b += texto(275, 172, 'Ejemplos ilustrativos (no son datos de una ciudad en particular)', G, 'middle', 8)
+    return svg(560, 178, b)
+
+
+def fig_piramides_poblacion():
+    formas = [('Progresiva (joven)', 'mucha natalidad: base ancha', [70, 62, 54, 46, 38, 30, 22, 14, 8]),
+              ('Estacionaria (madura)', 'natalidad y mortalidad parejas', [46, 46, 45, 44, 42, 38, 32, 24, 12]),
+              ('Regresiva (envejecida)', 'poca natalidad: base angosta', [30, 34, 38, 42, 44, 44, 40, 32, 20])]
+    b = ''
+    for k, (t1, t2, anchos) in enumerate(formas):
+        cx = 90 + k * 180
+        for i, w in enumerate(anchos):
+            y = 130 - (i + 1) * 12
+            b += rect(cx - w, y, w - 1, 11, 'none', '#3b7dc4', 0, 0) + rect(cx + 1, y, w - 1, 11, 'none', '#e8749a', 0, 0)
+        b += texto(cx, 148, t1, A, 'middle', 9.5, True)
+        b += texto(cx, 160, t2, G, 'middle', 8.3)
+    b += texto(20, 14, 'hombres', '#3b7dc4', tam=8.5, neg=True) + texto(160, 14, 'mujeres', '#e8749a', 'end', 8.5, True)
+    b += texto(530, 14, 'arriba: los más viejos · abajo: los niños', G, 'end', 8.3)
+    return svg(540, 166, b, escala=1.1)
+
+
+def fig_zonas_maritimas():
+    b = flechas('zm', G)
+    b += rect(0, 40, 60, 90, 'none', '#e3f1df', 0, 0) + texto(30, 90, 'tierra', V, 'middle', 9, True)
+    zonas = [(60, 170, '#7fb3d5', 'Mar territorial', '12 mn (22.2 km)'), (170, 290, '#a9cce3', 'Zona contigua', 'hasta 24 mn (44.4 km)'),
+             (290, 560, '#d4e6f1', 'Zona económica exclusiva', 'hasta 200 mn (370.4 km)')]
+    for x1, x2, c, t1, t2 in zonas:
+        b += rect(x1, 40, x2 - x1, 90, 'none', c, 0, 0)
+        b += texto((x1 + x2) / 2, 80, t1, T, 'middle', 9, True)
+        b += texto((x1 + x2) / 2, 94, t2, T, 'middle', 8.5)
+    b += rect(560, 40, 60, 90, 'none', '#ffffff', 0, 0) + texto(590, 90, 'alta mar', G, 'middle', 8.5, True)
+    b += camino('M318,40 L326,130', '#ffffff', 6) + camino('M318,40 L326,130', '#9cc3d3', 1)
+    b += texto(425, 108, '(ZEE)', T, 'middle', 8.5, True)
+    b += linea(60, 140, 170, 140, A, 1.2, ini='zm', fin='zm')
+    b += texto(115, 156, 'soberanía plena', A, 'middle', 8.5, True)
+    b += linea(290, 140, 560, 140, A, 1.2, ini='zm', fin='zm')
+    b += texto(425, 156, 'derechos sobre los recursos; otros barcos pasan libres', A, 'middle', 8.5, True)
+    b += texto(310, 26, 'distancias desde la costa · mn = millas náuticas (1 mn = 1.852 km) · sin escala', G, 'middle', 8.3)
+    return svg(620, 162, b, escala=1.1)
+
+
 FIGURAS = {k[4:]: v for k, v in globals().items() if k.startswith('fig_')}

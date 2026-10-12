@@ -1,0 +1,852 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Guía de estudio de Geografía — EXACER</title>
+<style>
+@page { size: Letter; margin: 15mm 15mm 16mm 15mm; }
+:root {
+  --tinta: #1d2330;
+  --suave: #5a6375;
+  --acento: #1f6f8b;
+  --acento-claro: #e6f2f6;
+  --ojo: #b5542a;
+  --ojo-claro: #fbefe8;
+  --verde: #2e7d4f;
+  --verde-claro: #e9f5ee;
+  --idea: #8a6400;
+  --idea-borde: #d4a017;
+  --idea-claro: #fff6dc;
+  --morado: #6b4fa3;
+  --morado-claro: #f3effa;
+  --linea: #d6dbe3;
+}
+* { box-sizing: border-box; }
+body {
+  font-family: "DejaVu Sans", "Liberation Sans", Arial, sans-serif;
+  color: var(--tinta);
+  background: #fff;
+  font-size: 10pt;
+  line-height: 1.5;
+  margin: 0;
+}
+h1, h2, h3, h4 { line-height: 1.25; }
+h2 {
+  font-size: 16pt;
+  color: var(--acento);
+  border-bottom: 2px solid var(--acento);
+  padding-bottom: 4px;
+  margin: 0 0 8px;
+}
+h3 { font-size: 11.6pt; margin: 18px 0 6px; color: var(--acento); page-break-after: avoid; }
+h4 { font-size: 10.8pt; margin: 12px 0 4px; page-break-after: avoid; }
+p { margin: 6px 0; }
+ul, ol { margin: 6px 0; padding-left: 22px; }
+li { margin: 3px 0; }
+.tema { page-break-before: always; }
+.reactivos { color: var(--suave); font-size: 9.5pt; margin: -2px 0 8px; }
+.intro {
+  background: #f4f8fb;
+  border-left: 4px solid var(--acento);
+  border-radius: 6px;
+  padding: 8px 12px;
+  margin: 6px 0 12px;
+  font-size: 10.2pt;
+}
+.caja { border-radius: 6px; padding: 8px 12px; margin: 10px 0; page-break-inside: avoid; }
+.caja.larga { page-break-inside: auto; }
+.caja b.t { display: block; margin-bottom: 3px; }
+.formula { background: var(--acento-claro); border-left: 4px solid var(--acento); }
+.formula b.t { color: var(--acento); }
+.idea { background: var(--idea-claro); border-left: 4px solid var(--idea-borde); }
+.idea b.t { color: var(--idea); }
+.ejemplo { background: var(--morado-claro); border-left: 4px solid var(--morado); }
+.ejemplo b.t { color: var(--morado); }
+.ojo { background: var(--ojo-claro); border-left: 4px solid var(--ojo); }
+.ojo b.t { color: var(--ojo); }
+.examen { border: 1.5px solid var(--linea); background: #fafbfc; }
+.examen .enc { font-weight: bold; color: var(--acento); margin-bottom: 4px; }
+.preg { font-style: italic; margin-bottom: 6px; }
+.resp { color: var(--verde); font-weight: bold; }
+.practica { background: var(--verde-claro); border-left: 4px solid var(--verde); }
+.practica b.t { color: var(--verde); }
+.check { border: 1.5px dashed var(--acento); background: #fff; }
+.check b.t { color: var(--acento); }
+.sol { color: var(--suave); font-size: 9.2pt; margin-top: 6px; }
+.sol p { margin: 3px 0; }
+.por { display: block; color: var(--suave); font-size: 9.2pt; margin-top: 1px; }
+.pasos { counter-reset: paso; list-style: none; padding-left: 0; }
+.pasos li { counter-increment: paso; padding-left: 26px; position: relative; margin: 5px 0; }
+.pasos li::before {
+  content: counter(paso);
+  position: absolute; left: 0; top: 1px;
+  width: 18px; height: 18px; border-radius: 50%;
+  background: var(--acento); color: #fff;
+  font-size: 8.5pt; text-align: center; line-height: 18px;
+}
+.ejemplo .pasos li::before { background: var(--morado); }
+.m { font-family: "DejaVu Serif", "Liberation Serif", serif; font-style: italic; }
+.nw { white-space: nowrap; }
+.fr { display: inline-block; vertical-align: middle; text-align: center; font-style: normal; margin: 0 2px; }
+.fr > span { display: block; padding: 0 2px; line-height: 1.15; font-size: 92%; }
+.fr > span:first-child { border-bottom: 1px solid currentColor; }
+table { border-collapse: collapse; width: 100%; margin: 8px 0; font-size: 9.3pt; page-break-inside: avoid; }
+th, td { border: 1px solid var(--linea); padding: 4px 6px; text-align: left; vertical-align: top; }
+th { background: var(--acento-claro); }
+.caja table { background: #fff; }
+table.sint { width: auto; margin: 6px 0; }
+table.sint td { text-align: center; min-width: 38px; border: none; padding: 2px 6px; font-family: "DejaVu Serif", serif; }
+table.sint tr:nth-child(2) td { border-bottom: 1.5px solid var(--tinta); }
+table.sint td.raiz { border-right: 1.5px solid var(--tinta); color: var(--ojo); font-weight: bold; }
+table.sint td.res { color: var(--verde); font-weight: bold; }
+.pascal { text-align: center; font-family: "DejaVu Sans Mono", monospace; line-height: 1.5; margin: 6px 0; }
+.dos { display: flex; gap: 14px; align-items: flex-start; page-break-inside: avoid; }
+.dos > * { flex: 1; }
+.dos > .fig { flex: 0 0 auto; max-width: 52%; }
+.dos > .fig svg { max-width: 100%; height: auto; }
+.fig { text-align: center; margin: 6px 0; page-break-inside: avoid; }
+.fig svg { max-width: 100%; height: auto; }
+.pie { font-size: 8.8pt; color: var(--suave); text-align: center; margin-top: 2px; }
+.portada { height: 232mm; display: flex; flex-direction: column; justify-content: center; text-align: center; }
+.portada h1 { font-size: 30pt; color: var(--acento); margin: 0 0 6px; }
+.portada .sub { font-size: 14pt; color: var(--suave); }
+.portada .chip { display: inline-block; margin-top: 24px; padding: 6px 14px; border: 1.5px solid var(--acento); border-radius: 20px; color: var(--acento); font-weight: bold; }
+.chico { font-size: 9pt; color: var(--suave); }
+.sub-tema { font-size: 11.5pt; color: var(--acento); margin: 16px 0 4px; border-bottom: 1px dashed var(--linea); page-break-after: avoid; }
+.leyenda .caja { margin: 6px 0; padding: 5px 10px; }
+.clave td { text-align: center; }
+table.compacta { font-size: 9.4pt; page-break-inside: auto; }
+table.compacta tr { page-break-inside: avoid; }
+table.compacta td, table.compacta th { padding: 2px 6px; line-height: 1.3; }
+.eq { text-align: center; font-size: 11.5pt; margin: 8px 0; }
+.orb { display: inline-block; min-width: 24px; height: 20px; line-height: 19px; border: 1.2px solid var(--tinta); text-align: center; font-size: 10pt; margin-right: -1px; vertical-align: middle; }
+.orbs { white-space: nowrap; }
+.nuc { display: inline-block; vertical-align: -0.4em; text-align: right; font-size: 68%; line-height: 1.05; margin-right: 1px; }
+.nuc > span { display: block; }
+table.punnett { width: auto; margin: 6px auto; page-break-inside: avoid; }
+table.punnett td, table.punnett th { text-align: center; min-width: 52px; padding: 5px 8px; font-size: 10.5pt; }
+table.punnett td { font-weight: bold; }
+</style>
+</head>
+<body>
+<section class="portada">
+  <h1>Guía de estudio<br>de Geografía</h1>
+  <div class="sub">Certificación por Evaluaciones Parciales “EXACER”<br>Área de formación básica · Ciencias Experimentales</div>
+  <div><span class="chip">Explicada como en clase · temario oficial 4.1 a 4.9 · reactivos 15 a 24 de la versión de práctica resueltos</span></div>
+  <p class="chico" style="margin-top:40px">Sigue el orden y el contenido de <i>Temas fundamentales y bibliografía</i> (sección 4. Geografía)<br>y resuelve paso a paso los reactivos de Geografía de la <i>Versión de práctica</i> (Ciencias Experimentales).<br>Ambos documentos están en este repositorio. Complementa la app <b>Generador de ejercicios</b>.</p>
+</section>
+
+<section class="tema">
+  <h2>Antes de empezar: cómo usar esta guía</h2>
+  <p class="intro">Esta guía está escrita como si un maestro te estuviera dando la clase. En cada lección primero te cuento <b>de qué se trata y para qué sirve</b>, luego te explico las ideas con ejemplos de México y de tu vida diaria, y al final atacamos las preguntas del examen. La geografía estudia el lugar donde vivimos: cómo es la Tierra, cómo se representa en mapas, por qué tiembla, qué climas hay, qué recursos tenemos y cómo se reparte la población. Muchas preguntas del examen hablan de casos reales de México, así que conviene conocerlos.</p>
+
+  <h3>El examen de Ciencias Experimentales</h3>
+  <ul>
+    <li>Son <b>60 reactivos en 60 minutos</b>: ¡un minuto por pregunta! Incluye cuatro materias: Biología (reactivos 1 a 14), <b>Geografía (15 a 24)</b>, Química (25 a 42) y Física (43 a 60).</li>
+    <li>Las preguntas de Geografía salen de los temas <b>4.1 a 4.9</b> del documento <i>Temas fundamentales y bibliografía</i>. Esta guía sigue ese orden.</li>
+    <li>Son preguntas de <b>concepto y de aplicación</b>: te describen un caso (el nacimiento del Paricutín, un derrame en el Mar de Cortés, el clima de Manzanillo) y tienes que reconocer de qué tipo de fenómeno, recurso o clima se trata.</li>
+    <li>También hay <b>listas para seleccionar</b> (“identifique los tipos de erosión…”): lee cada elemento y pregúntate si de verdad pertenece a la categoría.</li>
+  </ul>
+
+  <h3>Cómo está armada cada lección</h3>
+  <div class="leyenda">
+    <p class="intro" style="margin:6px 0"><b>¿De qué trata esta lección?</b> Para qué sirve el tema y qué vas a aprender.</p>
+    <div class="caja idea"><b class="t">Piénsalo así</b> Una comparación con la vida diaria o un truco para recordar.</div>
+    <div class="caja formula"><b class="t">Lo que tienes que saber</b> Definiciones y clasificaciones clave, bien resumidas.</div>
+    <div class="caja ejemplo"><b class="t">Ejemplo explicado</b> Un ejercicio resuelto paso a paso, diciendo qué se hace y por qué.</div>
+    <div class="caja ojo"><b class="t">Error común</b> Las trampas más frecuentes y cómo evitarlas.</div>
+    <div class="caja examen"><div class="enc">Reactivo del examen</div> La pregunta de la versión de práctica, resuelta y con la respuesta de la clave oficial.</div>
+    <div class="caja practica"><b class="t">Ahora tú</b> Ejercicios con sus respuestas al final del recuadro: tápalas antes de resolver.</div>
+  </div>
+</section>
+
+<section class="tema">
+  <h2>Mapa: temario oficial ↔ reactivos de la versión de práctica</h2>
+  <table class="compacta">
+    <tr><th style="width:10%">Tema</th><th>Nombre en el temario</th><th style="width:20%">Reactivos</th></tr>
+    <tr><td>4.1</td><td>Sistema Solar</td><td>— (no viene en la versión de práctica)</td></tr>
+    <tr><td>4.2</td><td>Espacio geográfico (representaciones espaciales: mapas y SIG)</td><td>15, 16</td></tr>
+    <tr><td>4.2</td><td>Estructura de la Tierra (placas tectónicas, sismicidad y vulcanismo)</td><td>17</td></tr>
+    <tr><td>4.3</td><td>Recursos naturales (tipos de recursos)</td><td>18</td></tr>
+    <tr><td>4.4</td><td>Deterioro ambiental (causas y afectaciones naturales)</td><td>19, 23</td></tr>
+    <tr><td>4.5</td><td>Desastres (causas y afectaciones antrópicas)</td><td>20</td></tr>
+    <tr><td>4.6</td><td>Climas terrestres (elementos y factores; clasificación de Köppen)</td><td>21</td></tr>
+    <tr><td>4.7</td><td>Geografía de la población (indicadores demográficos)</td><td>22</td></tr>
+    <tr><td>4.8</td><td>Migración a nivel mundial</td><td>—</td></tr>
+    <tr><td>4.9</td><td>Geografía política (fronteras y soberanía)</td><td>24</td></tr>
+  </table>
+  <p class="chico">El temario usa dos veces el número 4.2: para el espacio geográfico y para la estructura de la Tierra. Aquí respetamos esa numeración.</p>
+
+  <h3>Plan de estudio sugerido</h3>
+  <ol>
+    <li><b>Diagnóstico:</b> resuelve los reactivos 15 a 24 de la versión de práctica sin ver la guía (unos 10 minutos) y califícate con la clave del final.</li>
+    <li><b>Recorre los temas en orden</b>, de lo más grande a lo más cercano: el Sistema Solar, la Tierra y su relieve, los recursos y los riesgos, los climas y, al final, la población y el territorio de México.</li>
+    <li><b>Ubica en un mapa de México</b> los ejemplos que aparecen (volcanes, climas, fronteras): la geografía se entiende mucho mejor viendo dónde pasan las cosas.</li>
+    <li><b>Haz los ejercicios de “Ahora tú”</b> antes de ver las respuestas, y practica en la app (modo Prepa → Geografía).</li>
+    <li><b>Repaso final:</b> el resumen de la última sección, con lo indispensable de cada tema en una página.</li>
+  </ol>
+  <div class="caja idea"><b class="t">Truco para las preguntas de “casos”</b> Cuando te cuenten una historia (un volcán que nace, un derrame, una ciudad con cierto clima), subraya mentalmente las <b>palabras clave</b>: “lava” o “erupción” → fenómeno geológico; “mar” → sector pesquero; “lluvias en verano” → clima con “w”; “370 km” → zona económica exclusiva. Casi siempre una sola palabra decide la respuesta.</div>
+  <p class="chico">En el PDF puedes usar el panel de marcadores de tu lector para saltar directo a cada lección.</p>
+</section>
+<section class="tema">
+  <h2>4.1 Sistema Solar</h2>
+  <div class="reactivos">No viene en la versión de práctica, pero está en el temario</div>
+
+  <p class="intro"><b>¿De qué trata esta lección?</b> La Tierra es uno de los ocho planetas que giran alrededor del Sol. Aquí vas a conocer cómo está formado el Sistema Solar, en qué se diferencian los planetas rocosos de los gaseosos y cuáles son los movimientos de la Tierra que producen el día, la noche y las estaciones del año.</p>
+
+  <h3>¿Qué hay en el Sistema Solar?</h3>
+  <ul>
+    <li><b>El Sol:</b> una estrella que concentra el 99.8 % de toda la masa del sistema. Su gravedad mantiene a todo lo demás girando a su alrededor. Se formó hace unos 4 600 millones de años.</li>
+    <li><b>Ocho planetas</b>, que giran en órbitas alrededor del Sol, y sus <b>satélites</b> (como la Luna).</li>
+    <li><b>Planetas enanos</b> como Plutón (considerado planeta enano desde 2006), Ceres y Eris.</li>
+    <li><b>Asteroides</b> (muchos en el cinturón que está entre Marte y Júpiter) y <b>cometas</b>, bolas de hielo y polvo que forman una cola al acercarse al Sol.</li>
+  </ul>
+  <div class="fig"><svg width="640" height="166" viewBox="0 0 640 166" xmlns="http://www.w3.org/2000/svg" font-family="DejaVu Sans" font-size="10"><circle cx="-50" cy="86" r="96" fill="#ffd54f" stroke="#f0a500" stroke-width="2"/><text x="14" y="90" fill="#8a6400" text-anchor="start" font-size="10" font-weight="bold">Sol</text><circle cx="202.9" cy="89.6" r="1.1" fill="#8a8f99"/><circle cx="214.2" cy="83.9" r="1.1" fill="#8a8f99"/><circle cx="204.2" cy="91.2" r="1.1" fill="#8a8f99"/><circle cx="196.4" cy="86.7" r="1.1" fill="#8a8f99"/><circle cx="207.1" cy="103.6" r="1.1" fill="#8a8f99"/><circle cx="194.3" cy="74.2" r="1.1" fill="#8a8f99"/><circle cx="194.2" cy="104.6" r="1.1" fill="#8a8f99"/><circle cx="208.6" cy="58.5" r="1.1" fill="#8a8f99"/><circle cx="215.6" cy="113.9" r="1.1" fill="#8a8f99"/><circle cx="207.7" cy="92.9" r="1.1" fill="#8a8f99"/><circle cx="195.8" cy="56.9" r="1.1" fill="#8a8f99"/><circle cx="204.7" cy="59.6" r="1.1" fill="#8a8f99"/><circle cx="196.6" cy="70.5" r="1.1" fill="#8a8f99"/><circle cx="192.7" cy="83.8" r="1.1" fill="#8a8f99"/><circle cx="202.6" cy="106.5" r="1.1" fill="#8a8f99"/><circle cx="204.5" cy="94.4" r="1.1" fill="#8a8f99"/><circle cx="204" cy="95.7" r="1.1" fill="#8a8f99"/><circle cx="203" cy="72.7" r="1.1" fill="#8a8f99"/><circle cx="215.9" cy="115.7" r="1.1" fill="#8a8f99"/><circle cx="212.2" cy="98.5" r="1.1" fill="#8a8f99"/><circle cx="199.6" cy="69.8" r="1.1" fill="#8a8f99"/><circle cx="198.9" cy="60.2" r="1.1" fill="#8a8f99"/><circle cx="210.4" cy="80" r="1.1" fill="#8a8f99"/><circle cx="212.3" cy="79.2" r="1.1" fill="#8a8f99"/><circle cx="215" cy="106.8" r="1.1" fill="#8a8f99"/><circle cx="192" cy="68.6" r="1.1" fill="#8a8f99"/><circle cx="213.8" cy="84.2" r="1.1" fill="#8a8f99"/><circle cx="215.5" cy="79.8" r="1.1" fill="#8a8f99"/><circle cx="193.8" cy="93.8" r="1.1" fill="#8a8f99"/><circle cx="210.7" cy="72.2" r="1.1" fill="#8a8f99"/><circle cx="194.1" cy="76" r="1.1" fill="#8a8f99"/><circle cx="215.1" cy="101.5" r="1.1" fill="#8a8f99"/><circle cx="194.8" cy="70.8" r="1.1" fill="#8a8f99"/><circle cx="194.4" cy="59.6" r="1.1" fill="#8a8f99"/><circle cx="211.1" cy="66.7" r="1.1" fill="#8a8f99"/><circle cx="205.4" cy="82.8" r="1.1" fill="#8a8f99"/><circle cx="196.6" cy="99.9" r="1.1" fill="#8a8f99"/><circle cx="195.1" cy="94.6" r="1.1" fill="#8a8f99"/><circle cx="194.8" cy="81.2" r="1.1" fill="#8a8f99"/><circle cx="197.1" cy="72.2" r="1.1" fill="#8a8f99"/><text x="204" y="132" fill="#5a6375" text-anchor="middle" font-size="8">cinturón de</text><text x="204" y="142" fill="#5a6375" text-anchor="middle" font-size="8">asteroides</text><circle cx="72" cy="86" r="3.5" stroke="#00000033" fill="#9e9e9e" stroke-width="0.8"/><text x="72" y="110" fill="#1d2330" text-anchor="middle" font-size="8.5" font-weight="bold">Mercurio</text><circle cx="104" cy="86" r="6" stroke="#00000033" fill="#e3c16f" stroke-width="0.8"/><text x="104" y="122" fill="#1d2330" text-anchor="middle" font-size="8.5" font-weight="bold">Venus</text><circle cx="138" cy="86" r="6.5" stroke="#00000033" fill="#3b7dc4" stroke-width="0.8"/><circle cx="136.5" cy="84" r="2.5" stroke="none" fill="#4caf50" stroke-width="0"/><text x="138" y="110" fill="#1d2330" text-anchor="middle" font-size="8.5" font-weight="bold">Tierra</text><circle cx="170" cy="86" r="4.5" stroke="#00000033" fill="#c1440e" stroke-width="0.8"/><text x="170" y="122" fill="#1d2330" text-anchor="middle" font-size="8.5" font-weight="bold">Marte</text><circle cx="252" cy="86" r="21" stroke="#00000033" fill="#d8a35d" stroke-width="0.8"/><line x1="233" y1="80" x2="271" y2="80" stroke="#b5793a" stroke-width="1.6"/><line x1="232" y1="90" x2="272" y2="90" stroke="#b5793a" stroke-width="1.6"/><text x="252" y="124" fill="#1d2330" text-anchor="middle" font-size="8.5" font-weight="bold">Júpiter</text><ellipse cx="326" cy="86" rx="31" ry="7" fill="none" stroke="#c9a85a" stroke-width="2.4" transform="rotate(-18 326 86)"/><circle cx="326" cy="86" r="16" stroke="#00000033" fill="#e8cf8a" stroke-width="0.8"/><text x="326" y="124" fill="#1d2330" text-anchor="middle" font-size="8.5" font-weight="bold">Saturno</text><circle cx="394" cy="86" r="11" stroke="#00000033" fill="#8fd3e0" stroke-width="0.8"/><text x="394" y="124" fill="#1d2330" text-anchor="middle" font-size="8.5" font-weight="bold">Urano</text><circle cx="446" cy="86" r="10.5" stroke="#00000033" fill="#3f6fd8" stroke-width="0.8"/><text x="446" y="124" fill="#1d2330" text-anchor="middle" font-size="8.5" font-weight="bold">Neptuno</text><line x1="60" y1="46" x2="184" y2="46" stroke="#1f6f8b" stroke-width="1.4"/><text x="122" y="40" fill="#1f6f8b" text-anchor="middle" font-size="9" font-weight="bold">Rocosos (interiores)</text><line x1="226" y1="46" x2="462" y2="46" stroke="#b5542a" stroke-width="1.4"/><text x="344" y="40" fill="#b5542a" text-anchor="middle" font-size="9" font-weight="bold">Gaseosos (exteriores)</text><rect x="476" y="30" width="156" height="112" rx="8" stroke="#d6dbe3" fill="#fbfcfd" stroke-width="1"/><text x="554" y="48" fill="#6b4fa3" text-anchor="middle" font-size="9" font-weight="bold">Planetas enanos</text><text x="554" y="62" fill="#1d2330" text-anchor="middle" font-size="8.5">Plutón, Ceres, Eris…</text><text x="554" y="84" fill="#1d2330" text-anchor="middle" font-size="8">Rocosos: pequeños, densos,</text><text x="554" y="96" fill="#1d2330" text-anchor="middle" font-size="8">superficie sólida, sin anillos</text><text x="554" y="116" fill="#1d2330" text-anchor="middle" font-size="8">Gaseosos: enormes, de H y He,</text><text x="554" y="128" fill="#1d2330" text-anchor="middle" font-size="8">con anillos y muchas lunas</text><text x="240" y="160" fill="#5a6375" text-anchor="middle" font-size="8">Representación sin escala: los tamaños y las distancias reales son muy distintos</text></svg></div>
+
+  <h3>Planetas rocosos y planetas gaseosos</h3>
+  <table class="compacta">
+    <tr><th style="width:18%"></th><th>Rocosos o telúricos (interiores)</th><th>Gaseosos o gigantes (exteriores)</th></tr>
+    <tr><td>¿Cuáles?</td><td>Mercurio, Venus, Tierra y Marte</td><td>Júpiter, Saturno, Urano y Neptuno</td></tr>
+    <tr><td>Tamaño y densidad</td><td>pequeños y muy densos</td><td>enormes y poco densos (Saturno flotaría en el agua)</td></tr>
+    <tr><td>Composición</td><td>rocas y metales; superficie sólida</td><td>sobre todo hidrógeno y helio; sin superficie sólida</td></tr>
+    <tr><td>Lunas y anillos</td><td>pocas o ninguna luna; sin anillos</td><td>muchas lunas; tienen anillos (los de Saturno son los más vistosos)</td></tr>
+    <tr><td>Ubicación</td><td>cerca del Sol</td><td>lejos del Sol</td></tr>
+  </table>
+  <div class="caja idea"><b class="t">Truco para el orden de los planetas</b> “<b>M</b>i <b>V</b>ieja <b>T</b>ía <b>M</b>arta <b>J</b>amás <b>S</b>upo <b>U</b>sar <b>N</b>ada”: Mercurio, Venus, Tierra, Marte, Júpiter, Saturno, Urano, Neptuno. Los cuatro primeros son rocosos y los cuatro últimos, gaseosos.</div>
+  <p><b>Datos para recordar:</b> Mercurio es el más pequeño y el más cercano al Sol; Venus es el más caliente (unos 460 °C, por el efecto invernadero de su atmósfera); Marte se ve rojo por el óxido de hierro de su suelo; Júpiter es el más grande; Urano gira “acostado”; y Neptuno es el más lejano.</p>
+
+  <h3>La Tierra y sus movimientos</h3>
+  <p>La Tierra es el tercer planeta, a unos 150 millones de kilómetros del Sol, y el único donde se conoce agua líquida en la superficie y vida. Tiene dos movimientos principales:</p>
+  <ul>
+    <li><b>Rotación:</b> gira sobre su propio eje, de oeste a este, en unas <b>24 horas</b>. Produce el <b>día y la noche</b>; por eso el Sol “sale” por el este.</li>
+    <li><b>Traslación:</b> da la vuelta alrededor del Sol en <b>365 días y casi 6 horas</b>; esas horas sobrantes se juntan y cada cuatro años hay un año <b>bisiesto</b> de 366 días. Como el eje de la Tierra está <b>inclinado</b> unos 23.5°, durante el año los rayos del Sol llegan más directos a un hemisferio o al otro: eso produce las <b>estaciones</b>.</li>
+  </ul>
+  <div class="caja ojo"><b class="t">Error común</b> Creer que en verano hace calor porque la Tierra está más cerca del Sol. En realidad, las estaciones se deben a la <b>inclinación del eje</b>: cuando en México es verano, en Argentina es invierno, ¡y es el mismo planeta a la misma distancia del Sol!</div>
+
+  <div class="caja practica"><b class="t">Ahora tú</b>
+    <ol>
+      <li>Clasifica como rocoso o gaseoso: Marte, Saturno, Venus, Neptuno.</li>
+      <li>¿Qué hay entre Marte y Júpiter?</li>
+      <li>¿Qué movimiento de la Tierra produce el día y la noche? ¿Cuánto dura?</li>
+      <li>¿Por qué existen los años bisiestos?</li>
+    </ol>
+    <div class="sol">
+      <p><b>1)</b> Marte y Venus: rocosos; Saturno y Neptuno: gaseosos. <b>2)</b> El cinturón de asteroides. <b>3)</b> La rotación; unas 24 horas.</p>
+      <p><b>4)</b> Porque la traslación dura 365 días y casi 6 horas; cada cuatro años esas horas suman un día más.</p>
+    </div>
+  </div>
+</section>
+
+<section class="tema">
+  <h2>4.2 Espacio geográfico: las representaciones del territorio</h2>
+  <div class="reactivos">Reactivos 15 y 16 de la versión de práctica</div>
+
+  <p class="intro"><b>¿De qué trata esta lección?</b> Para estudiar un lugar, ubicarte en él o llegar a otro sitio necesitas representarlo: con un mapa, un croquis o una aplicación en tu celular. Aquí aprenderás qué es un mapa, cuáles son sus elementos, cómo se usan la escala y las coordenadas, y qué son los Sistemas de Información Geográfica (SIG).</p>
+
+  <h3>El mapa y otras representaciones</h3>
+  <p>Un <b>mapa</b> (o carta geográfica) es una representación <b>plana, reducida y simplificada</b> de la superficie terrestre o de una parte de ella. Las personas que hacen mapas se llaman <b>cartógrafos</b>. Otras representaciones son:</p>
+  <ul>
+    <li><b>Globo terráqueo:</b> una esfera; no deforma, pero no cabe en tu bolsillo ni muestra detalles.</li>
+    <li><b>Croquis:</b> un dibujo sencillo, a mano y sin escala exacta, como el que haces para explicar cómo llegar a tu casa.</li>
+    <li><b>Plano:</b> representa un área pequeña (una ciudad, una casa) con mucho detalle.</li>
+    <li><b>Carta topográfica:</b> muestra el relieve con <b>curvas de nivel</b> (líneas que unen puntos a la misma altura). En México las hace el INEGI.</li>
+    <li><b>Fotografía aérea</b> e <b>imagen de satélite:</b> “fotos” tomadas desde un avión o desde el espacio.</li>
+  </ul>
+  <p><b>Las proyecciones.</b> La Tierra no es una esfera perfecta: es un <b>geoide</b>, ligeramente achatado en los polos. Al “aplanarla” en un papel siempre se deforma algo, como al aplastar una cáscara de naranja. Las <b>proyecciones cartográficas</b> son las distintas formas de hacerlo: la cilíndrica (como la de Mercator, en la que Groenlandia parece casi del tamaño de África, aunque África es unas 14 veces más grande), la cónica y la acimutal o polar.</p>
+
+  <h3>Los elementos de un mapa</h3>
+  <div class="fig"><svg width="572" height="288.2" viewBox="0 0 520 262" xmlns="http://www.w3.org/2000/svg" font-family="DejaVu Sans" font-size="10"><defs><marker id="fdma" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#b5542a"/></marker><marker id="fima" markerWidth="8" markerHeight="8" refX="2" refY="4" orient="auto"><path d="M8,0 L0,4 L8,8 z" fill="#b5542a"/></marker></defs><rect x="150" y="8" width="220" height="22" rx="11" stroke="#1f6f8b" fill="#e6f2f6" stroke-width="1.2"/><text x="260" y="23" fill="#1f6f8b" text-anchor="middle" font-size="9" font-weight="bold">Estado de Ejemplo: relieve y ciudades</text><rect x="70" y="40" width="300" height="190" rx="0" stroke="#5a6375" fill="#dceef7" stroke-width="1.4"/><path d="M70,60 C120,50 160,90 210,70 C260,50 300,80 330,110 C350,130 340,170 370,190 L370,230 L70,230 Z" stroke="none" fill="#e3f1df" stroke-width="0"/><path d="M70,60 C120,50 160,90 210,70 C260,50 300,80 330,110 C350,130 340,170 370,190" stroke="#7fb77e" fill="none" stroke-width="1.2"/><path d="M120,225 C140,190 170,180 180,150 C190,120 220,110 250,96" stroke="#3b7dc4" fill="none" stroke-width="2"/><line x1="100" y1="200" x2="300" y2="160" stroke="#8a6a3a" stroke-width="1.4" stroke-dasharray="5 3"/><circle cx="160" cy="182" r="4" fill="#1d2330"/><circle cx="292" cy="162" r="4" fill="#1d2330"/><polygon points="230,142 222,156 238,156" stroke="#8a6a3a" fill="#c9a27c" stroke-width="1"/><line x1="64" y1="80" x2="70" y2="80" stroke="#5a6375" stroke-width="1"/><text x="60" y="83" fill="#5a6375" text-anchor="end" font-size="8">21° N</text><line x1="64" y1="140" x2="70" y2="140" stroke="#5a6375" stroke-width="1"/><text x="60" y="143" fill="#5a6375" text-anchor="end" font-size="8">20° N</text><line x1="64" y1="200" x2="70" y2="200" stroke="#5a6375" stroke-width="1"/><text x="60" y="203" fill="#5a6375" text-anchor="end" font-size="8">19° N</text><line x1="130" y1="230" x2="130" y2="236" stroke="#5a6375" stroke-width="1"/><text x="130" y="246" fill="#5a6375" text-anchor="middle" font-size="8">100° O</text><line x1="220" y1="230" x2="220" y2="236" stroke="#5a6375" stroke-width="1"/><text x="220" y="246" fill="#5a6375" text-anchor="middle" font-size="8">99° O</text><line x1="310" y1="230" x2="310" y2="236" stroke="#5a6375" stroke-width="1"/><text x="310" y="246" fill="#5a6375" text-anchor="middle" font-size="8">98° O</text><polygon points="346,52 340,74 346,68 352,74" stroke="#1d2330" fill="#1d2330" stroke-width="1"/><text x="346" y="88" fill="#1d2330" text-anchor="middle" font-size="9" font-weight="bold">N</text><rect x="84" y="208" width="30" height="6" rx="0" stroke="#1d2330" fill="#1d2330" stroke-width="1"/><rect x="114" y="208" width="30" height="6" rx="0" stroke="#1d2330" fill="#ffffff" stroke-width="1"/><text x="84" y="204" fill="#1d2330" text-anchor="middle" font-size="7.5">0</text><text x="114" y="204" fill="#1d2330" text-anchor="middle" font-size="7.5">10</text><text x="146" y="204" fill="#1d2330" text-anchor="start" font-size="7.5">20 km</text><text x="84" y="224" fill="#1d2330" text-anchor="start" font-size="7.5">1 : 500 000</text><rect x="384" y="40" width="128" height="120" rx="4" stroke="#5a6375" fill="#ffffff" stroke-width="1.2"/><text x="448" y="56" fill="#1d2330" text-anchor="middle" font-size="9" font-weight="bold">Simbología</text><circle cx="398" cy="72" r="4" fill="#1d2330"/><text x="410" y="75" fill="#1d2330" text-anchor="start" font-size="8.5">ciudad</text><line x1="392" y1="90" x2="404" y2="90" stroke="#3b7dc4" stroke-width="2"/><text x="410" y="93" fill="#1d2330" text-anchor="start" font-size="8.5">río</text><line x1="392" y1="108" x2="404" y2="108" stroke="#8a6a3a" stroke-width="1.4" stroke-dasharray="5 3"/><text x="410" y="111" fill="#1d2330" text-anchor="start" font-size="8.5">carretera</text><polygon points="398,120 392,131 404,131" stroke="#8a6a3a" fill="#c9a27c" stroke-width="1"/><text x="410" y="130" fill="#1d2330" text-anchor="start" font-size="8.5">volcán</text><rect x="392" y="140" width="12" height="9" rx="0" stroke="#7fb77e" fill="#e3f1df" stroke-width="1"/><text x="410" y="148" fill="#1d2330" text-anchor="start" font-size="8.5">tierra firme</text><line x1="118" y1="20" x2="148" y2="20" stroke="#b5542a" stroke-width="1.1" marker-end="url(#fdma)"/><text x="118" y="17" fill="#b5542a" text-anchor="middle" font-size="8.5" font-weight="bold">título</text><line x1="36" y1="66" x2="46" y2="80" stroke="#b5542a" stroke-width="1.1" marker-end="url(#fdma)"/><text x="36" y="63" fill="#b5542a" text-anchor="middle" font-size="8.5" font-weight="bold">coordenadas</text><line x1="200" y1="256" x2="136" y2="230" stroke="#b5542a" stroke-width="1.1" marker-end="url(#fdma)"/><text x="200" y="253" fill="#b5542a" text-anchor="middle" font-size="8.5" font-weight="bold">escala</text><line x1="440" y1="24" x2="356" y2="50" stroke="#b5542a" stroke-width="1.1" marker-end="url(#fdma)"/><text x="440" y="21" fill="#b5542a" text-anchor="middle" font-size="8.5" font-weight="bold">orientación</text><line x1="448" y1="186" x2="448" y2="164" stroke="#b5542a" stroke-width="1.1" marker-end="url(#fdma)"/><text x="448" y="183" fill="#b5542a" text-anchor="middle" font-size="8.5" font-weight="bold">simbología</text></svg></div>
+  <div class="caja formula"><b class="t">Lo que tienes que saber</b> Según el temario, todo mapa debe tener cuatro elementos fundamentales:
+    <ul style="margin:4px 0">
+      <li><b>Título:</b> dice qué representa el mapa y de qué lugar.</li>
+      <li><b>Simbología</b> (o leyenda): explica qué significa cada símbolo y color.</li>
+      <li><b>Escala:</b> dice cuántas veces se redujo la realidad.</li>
+      <li><b>Coordenadas:</b> la cuadrícula de latitud y longitud que permite ubicar cada punto.</li>
+    </ul>
+    También es muy útil la <b>orientación</b> (la flecha del norte o la rosa de los vientos), y conviene indicar la <b>fuente</b> y la fecha.
+  </div>
+
+  <h3>La escala</h3>
+  <p>La <b>escala numérica</b> se escribe como 1 : 50 000 y significa que <b>1 cm en el mapa equivale a 50 000 cm en la realidad</b>, es decir, 500 m. La <b>escala gráfica</b> es una barrita dividida que muestra directamente las distancias (como la de la figura). Una escala <b>grande</b> (1 : 10 000) muestra poco terreno con mucho detalle; una escala <b>pequeña</b> (1 : 1 000 000) muestra mucho terreno con poco detalle.</p>
+  <div class="caja ejemplo"><b class="t">Ejemplo explicado: medir en el mapa</b>
+    <div class="preg">En un mapa de escala 1 : 250 000, dos pueblos están separados 4 cm. ¿Qué distancia hay en la realidad?</div>
+    <ol class="pasos">
+      <li><b>Multiplico</b> la medida del mapa por el número de la escala: 4 × 250 000 = 1 000 000 cm.</li>
+      <li><b>Convierto:</b> 1 000 000 cm = 10 000 m = <b>10 km</b>. (Truco: para pasar de centímetros a kilómetros, quita cinco ceros).</li>
+    </ol>
+  </div>
+
+  <h3>Las coordenadas geográficas</h3>
+  <div class="dos">
+    <div>
+      <p>Para ubicar cualquier punto de la Tierra se usa una red de líneas imaginarias:</p>
+      <ul>
+        <li>Los <b>paralelos</b> son círculos paralelos al <b>ecuador</b> (0°). La <b>latitud</b> es la distancia, en grados, al <b>norte o al sur</b> del ecuador: de 0° a 90° N o S.</li>
+        <li>Los <b>meridianos</b> van de polo a polo. La <b>longitud</b> es la distancia, en grados, al <b>este o al oeste</b> del <b>meridiano de Greenwich</b> (0°, que pasa por Londres): de 0° a 180° E u O.</li>
+      </ul>
+      <p>México está aproximadamente entre los 14° y los 33° de latitud norte y entre los 86° y los 118° de longitud oeste: en el hemisferio norte y en el occidental. El <b>Trópico de Cáncer</b> (23° 27′ N) lo atraviesa.</p>
+    </div>
+    <div class="fig"><svg width="345" height="226" viewBox="0 0 345 226" xmlns="http://www.w3.org/2000/svg" font-family="DejaVu Sans" font-size="10"><circle cx="98" cy="122" r="86" stroke="#1f6f8b" fill="#eef6f9" stroke-width="1.6"/><path d="M63.2,200.6 L64.6,201.2 L66,201.7 L67.6,202.2 L69.2,202.7 L70.9,203.2 L72.7,203.6 L74.6,204 L76.5,204.3 L78.5,204.7 L80.5,205 L82.6,205.2 L84.7,205.5 L86.9,205.7 L89.1,205.8 L91.3,206 L93.5,206 L95.7,206.1 L98,206.1 L100.3,206.1 L102.5,206 L104.7,206 L106.9,205.8 L109.1,205.7 L111.3,205.5 L113.4,205.2 L115.5,205 L117.5,204.7 L119.5,204.3 L121.4,204 L123.3,203.6 L125.1,203.2 L126.8,202.7 L128.4,202.2 L130,201.7 L131.4,201.2 L132.8,200.6" stroke="#9cc3d3" fill="none" stroke-width="1"/><path d="M25.1,167.7 L26.1,168.9 L27.2,170 L28.5,171.1 L30,172.3 L31.6,173.3 L33.5,174.4 L35.5,175.4 L37.7,176.4 L40.1,177.4 L42.7,178.3 L45.3,179.2 L48.2,180 L51.1,180.8 L54.2,181.5 L57.4,182.2 L60.8,182.8 L64.2,183.4 L67.7,183.9 L71.3,184.4 L75,184.8 L78.7,185.1 L82.5,185.4 L86.3,185.6 L90.2,185.8 L94.1,185.9 L98,185.9 L101.9,185.9 L105.8,185.8 L109.7,185.6 L113.5,185.4 L117.3,185.1 L121,184.8 L124.7,184.4 L128.3,183.9 L131.8,183.4 L135.2,182.8 L138.6,182.2 L141.8,181.5 L144.9,180.8 L147.8,180 L150.7,179.2 L153.3,178.3 L155.9,177.4 L158.3,176.4 L160.5,175.4 L162.5,174.4 L164.4,173.3 L166,172.3 L167.5,171.1 L168.8,170 L169.9,168.9 L170.9,167.7" stroke="#9cc3d3" fill="none" stroke-width="1"/><path d="M24.4,77.5 L23.9,78.7 L23.6,79.9 L23.5,81.1 L23.6,82.3 L23.9,83.5 L24.4,84.7 L25.1,85.9 L26.1,87.1 L27.2,88.2 L28.5,89.4 L30,90.5 L31.6,91.6 L33.5,92.6 L35.5,93.6 L37.7,94.6 L40.1,95.6 L42.7,96.5 L45.3,97.4 L48.2,98.2 L51.1,99 L54.2,99.7 L57.4,100.4 L60.8,101 L64.2,101.6 L67.7,102.1 L71.3,102.6 L75,103 L78.7,103.3 L82.5,103.6 L86.3,103.8 L90.2,104 L94.1,104.1 L98,104.1 L101.9,104.1 L105.8,104 L109.7,103.8 L113.5,103.6 L117.3,103.3 L121,103 L124.7,102.6 L128.3,102.1 L131.8,101.6 L135.2,101 L138.6,100.4 L141.8,99.7 L144.9,99 L147.8,98.2 L150.7,97.4 L153.3,96.5 L155.9,95.6 L158.3,94.6 L160.5,93.6 L162.5,92.6 L164.4,91.6 L166,90.5 L167.5,89.4 L168.8,88.2 L169.9,87.1 L170.9,85.9 L171.6,84.7 L172.1,83.5 L172.4,82.3 L172.5,81.1 L172.4,79.9 L172.1,78.7 L171.6,77.5" stroke="#9cc3d3" fill="none" stroke-width="1"/><path d="M61.9,43.9 L60.8,44.5 L59.7,45.1 L58.7,45.8 L57.9,46.4 L57.1,47.1 L56.5,47.7 L55.9,48.4 L55.5,49.1 L55.2,49.8 L55.1,50.5 L55,51.2 L55.1,51.9 L55.2,52.6 L55.5,53.2 L55.9,53.9 L56.5,54.6 L57.1,55.3 L57.9,55.9 L58.7,56.6 L59.7,57.2 L60.8,57.8 L61.9,58.4 L63.2,59 L64.6,59.5 L66,60.1 L67.6,60.6 L69.2,61 L70.9,61.5 L72.7,61.9 L74.6,62.3 L76.5,62.7 L78.5,63 L80.5,63.3 L82.6,63.6 L84.7,63.8 L86.9,64 L89.1,64.2 L91.3,64.3 L93.5,64.4 L95.7,64.4 L98,64.5 L100.3,64.4 L102.5,64.4 L104.7,64.3 L106.9,64.2 L109.1,64 L111.3,63.8 L113.4,63.6 L115.5,63.3 L117.5,63 L119.5,62.7 L121.4,62.3 L123.3,61.9 L125.1,61.5 L126.8,61 L128.4,60.6 L130,60.1 L131.4,59.5 L132.8,59 L134.1,58.4 L135.2,57.8 L136.3,57.2 L137.3,56.6 L138.1,55.9 L138.9,55.3 L139.5,54.6 L140.1,53.9 L140.5,53.2 L140.8,52.6 L140.9,51.9 L141,51.2 L140.9,50.5 L140.8,49.8 L140.5,49.1 L140.1,48.4 L139.5,47.7 L138.9,47.1 L138.1,46.4 L137.3,45.8 L136.3,45.1 L135.2,44.5 L134.1,43.9" stroke="#9cc3d3" fill="none" stroke-width="1"/><path d="M12,122 L12.1,117.7 L12.5,113.5 L13.1,109.2 L13.9,105 L14.9,100.8 L16.2,96.7 L17.7,92.7 L19.4,88.7 L21.4,84.9 L23.5,81.1 L25.9,77.5 L28.4,73.9 L31.2,70.5 L34.1,67.3 L37.2,64.2 L40.5,61.2 L43.9,58.4 L47.5,55.8 L51.2,53.4 L55,51.2 L59,49.1 L63,47.3 L67.2,45.6 L71.4,44.2 L75.7,43 L80.1,42 L84.5,41.2 L89,40.7 L93.5,40.3 L98,40.2" stroke="#9cc3d3" fill="none" stroke-width="1"/><path d="M54.2,196 L51.1,193.9 L48.2,191.7 L45.3,189.2 L42.7,186.6 L40.1,183.8 L37.7,180.8 L35.5,177.7 L33.5,174.4 L31.6,171 L30,167.4 L28.5,163.7 L27.2,159.9 L26.1,156 L25.1,152 L24.4,147.9 L23.9,143.8 L23.6,139.6 L23.5,135.3 L23.6,131 L23.9,126.7 L24.4,122.3 L25.1,118 L26.1,113.7 L27.2,109.4 L28.5,105.1 L30,100.9 L31.6,96.7 L33.5,92.6 L35.5,88.6 L37.7,84.7 L40.1,80.9 L42.7,77.1 L45.3,73.6 L48.2,70.1 L51.1,66.8 L54.2,63.6 L57.4,60.6 L60.8,57.8 L64.2,55.2 L67.7,52.7 L71.3,50.4 L75,48.3 L78.7,46.4 L82.5,44.8 L86.3,43.3 L90.2,42 L94.1,41 L98,40.2" stroke="#9cc3d3" fill="none" stroke-width="1"/><path d="M82.6,206.6 L80.5,206.1 L78.5,205.3 L76.5,204.3 L74.6,203.1 L72.7,201.7 L70.9,200 L69.2,198.2 L67.6,196.1 L66,193.8 L64.6,191.4 L63.2,188.7 L61.9,185.8 L60.8,182.8 L59.7,179.6 L58.7,176.3 L57.9,172.8 L57.1,169.2 L56.5,165.4 L55.9,161.5 L55.5,157.5 L55.2,153.4 L55.1,149.3 L55,145 L55.1,140.7 L55.2,136.3 L55.5,131.9 L55.9,127.5 L56.5,123.1 L57.1,118.6 L57.9,114.2 L58.7,109.8 L59.7,105.4 L60.8,101 L61.9,96.8 L63.2,92.5 L64.6,88.4 L66,84.4 L67.6,80.4 L69.2,76.6 L70.9,72.9 L72.7,69.4 L74.6,65.9 L76.5,62.7 L78.5,59.6 L80.5,56.6 L82.6,53.9 L84.7,51.3 L86.9,49 L89.1,46.8 L91.3,44.8 L93.5,43.1 L95.7,41.5 L98,40.2" stroke="#9cc3d3" fill="none" stroke-width="1"/><path d="M113.4,206.6 L115.5,206.1 L117.5,205.3 L119.5,204.3 L121.4,203.1 L123.3,201.7 L125.1,200 L126.8,198.2 L128.4,196.1 L130,193.8 L131.4,191.4 L132.8,188.7 L134.1,185.8 L135.2,182.8 L136.3,179.6 L137.3,176.3 L138.1,172.8 L138.9,169.2 L139.5,165.4 L140.1,161.5 L140.5,157.5 L140.8,153.4 L140.9,149.3 L141,145 L140.9,140.7 L140.8,136.3 L140.5,131.9 L140.1,127.5 L139.5,123.1 L138.9,118.6 L138.1,114.2 L137.3,109.8 L136.3,105.4 L135.2,101 L134.1,96.8 L132.8,92.5 L131.4,88.4 L130,84.4 L128.4,80.4 L126.8,76.6 L125.1,72.9 L123.3,69.4 L121.4,65.9 L119.5,62.7 L117.5,59.6 L115.5,56.6 L113.4,53.9 L111.3,51.3 L109.1,49 L106.9,46.8 L104.7,44.8 L102.5,43.1 L100.3,41.5 L98,40.2" stroke="#9cc3d3" fill="none" stroke-width="1"/><path d="M141.8,196 L144.9,193.9 L147.8,191.7 L150.7,189.2 L153.3,186.6 L155.9,183.8 L158.3,180.8 L160.5,177.7 L162.5,174.4 L164.4,171 L166,167.4 L167.5,163.7 L168.8,159.9 L169.9,156 L170.9,152 L171.6,147.9 L172.1,143.8 L172.4,139.6 L172.5,135.3 L172.4,131 L172.1,126.7 L171.6,122.3 L170.9,118 L169.9,113.7 L168.8,109.4 L167.5,105.1 L166,100.9 L164.4,96.7 L162.5,92.6 L160.5,88.6 L158.3,84.7 L155.9,80.9 L153.3,77.1 L150.7,73.6 L147.8,70.1 L144.9,66.8 L141.8,63.6 L138.6,60.6 L135.2,57.8 L131.8,55.2 L128.3,52.7 L124.7,50.4 L121,48.3 L117.3,46.4 L113.5,44.8 L109.7,43.3 L105.8,42 L101.9,41 L98,40.2" stroke="#9cc3d3" fill="none" stroke-width="1"/><path d="M184,122 L183.9,117.7 L183.5,113.5 L182.9,109.2 L182.1,105 L181.1,100.8 L179.8,96.7 L178.3,92.7 L176.6,88.7 L174.6,84.9 L172.5,81.1 L170.1,77.5 L167.6,73.9 L164.8,70.5 L161.9,67.3 L158.8,64.2 L155.5,61.2 L152.1,58.4 L148.5,55.8 L144.8,53.4 L141,51.2 L137,49.1 L133,47.3 L128.8,45.6 L124.6,44.2 L120.3,43 L115.9,42 L111.5,41.2 L107,40.7 L102.5,40.3 L98,40.2" stroke="#9cc3d3" fill="none" stroke-width="1"/><path d="M12,122 L12.1,122.9 L12.2,123.9 L12.5,124.8 L12.8,125.7 L13.3,126.6 L13.9,127.5 L14.6,128.4 L15.3,129.3 L16.2,130.2 L17.2,131.1 L18.3,132 L19.4,132.8 L20.7,133.6 L22.1,134.5 L23.5,135.3 L25.1,136.1 L26.7,136.9 L28.4,137.6 L30.2,138.4 L32.1,139.1 L34.1,139.8 L36.1,140.5 L38.3,141.1 L40.5,141.7 L42.7,142.4 L45.1,142.9 L47.5,143.5 L49.9,144 L52.4,144.5 L55,145 L57.6,145.5 L60.3,145.9 L63,146.3 L65.8,146.6 L68.6,147 L71.4,147.3 L74.3,147.5 L77.2,147.8 L80.1,148 L83.1,148.2 L86,148.3 L89,148.4 L92,148.5 L95,148.6 L98,148.6 L101,148.6 L104,148.5 L107,148.4 L110,148.3 L112.9,148.2 L115.9,148 L118.8,147.8 L121.7,147.5 L124.6,147.3 L127.4,147 L130.2,146.6 L133,146.3 L135.7,145.9 L138.4,145.5 L141,145 L143.6,144.5 L146.1,144 L148.5,143.5 L150.9,142.9 L153.3,142.4 L155.5,141.7 L157.7,141.1 L159.9,140.5 L161.9,139.8 L163.9,139.1 L165.8,138.4 L167.6,137.6 L169.3,136.9 L170.9,136.1 L172.5,135.3 L173.9,134.5 L175.3,133.6 L176.6,132.8 L177.7,132 L178.8,131.1 L179.8,130.2 L180.7,129.3 L181.4,128.4 L182.1,127.5 L182.7,126.6 L183.2,125.7 L183.5,124.8 L183.8,123.9 L183.9,122.9 L184,122" stroke="#b5542a" fill="none" stroke-width="2.2"/><path d="M98,208 L98,207.9 L98,207.8 L98,207.5 L98,207.2 L98,206.7 L98,206.1 L98,205.4 L98,204.7 L98,203.8 L98,202.8 L98,201.7 L98,200.6 L98,199.3 L98,197.9 L98,196.5 L98,194.9 L98,193.3 L98,191.6 L98,189.8 L98,187.9 L98,185.9 L98,183.9 L98,181.7 L98,179.5 L98,177.3 L98,174.9 L98,172.5 L98,170.1 L98,167.6 L98,165 L98,162.4 L98,159.7 L98,157 L98,154.2 L98,151.4 L98,148.6 L98,145.7 L98,142.8 L98,139.9 L98,136.9 L98,134 L98,131 L98,128 L98,125 L98,122 L98,119 L98,116 L98,113 L98,110 L98,107.1 L98,104.1 L98,101.2 L98,98.3 L98,95.4 L98,92.6 L98,89.8 L98,87 L98,84.3 L98,81.6 L98,79 L98,76.4 L98,73.9 L98,71.5 L98,69.1 L98,66.7 L98,64.5 L98,62.3 L98,60.1 L98,58.1 L98,56.1 L98,54.2 L98,52.4 L98,50.7 L98,49.1 L98,47.5 L98,46.1 L98,44.7 L98,43.4 L98,42.3 L98,41.2 L98,40.2" stroke="#2e7d4f" fill="none" stroke-width="2.2"/><circle cx="36.1" cy="110.1" r="4" fill="#c2185b"/><text x="30.1" y="102.1" fill="#c2185b" text-anchor="end" font-size="10" font-weight="bold">P</text><circle cx="98" cy="40.2" r="2.5" fill="#1d2330"/><text x="98" y="34.2" fill="#1d2330" text-anchor="middle" font-size="8.5" font-weight="bold">Polo Norte</text><text x="98" y="222" fill="#1d2330" text-anchor="middle" font-size="8.5" font-weight="bold">Polo Sur</text><text x="188" y="126.9" fill="#b5542a" text-anchor="start" font-size="9" font-weight="bold">Ecuador (0°)</text><line x1="100" y1="77" x2="196" y2="26" stroke="#8a93a3" stroke-width="0.9"/><text x="198" y="24" fill="#2e7d4f" text-anchor="start" font-size="9" font-weight="bold">Meridiano de</text><text x="198" y="36" fill="#2e7d4f" text-anchor="start" font-size="9" font-weight="bold">Greenwich (0°)</text><line x1="170" y1="89" x2="200" y2="70" stroke="#8a93a3" stroke-width="0.9"/><text x="204" y="74" fill="#4a7f95" text-anchor="start" font-size="8.5">paralelos (latitud)</text><line x1="157.1" y1="184.8" x2="200" y2="206" stroke="#8a93a3" stroke-width="0.9"/><text x="204" y="210" fill="#4a7f95" text-anchor="start" font-size="8.5">meridianos (longitud)</text><text x="204" y="154" fill="#c2185b" text-anchor="start" font-size="9" font-weight="bold">P: 20° N, 50° O</text><text x="204" y="167" fill="#1d2330" text-anchor="start" font-size="8.5">20° al norte del ecuador</text><text x="204" y="179" fill="#1d2330" text-anchor="start" font-size="8.5">y 50° al oeste</text></svg></div>
+  </div>
+
+  <h3>Los Sistemas de Información Geográfica (SIG)</h3>
+  <p>Un <b>SIG</b> es un conjunto de herramientas informáticas y cartográficas que conecta <b>mapas con bases de datos</b>. Permite crear <b>consultas interactivas</b>, integrar y <b>analizar</b> información de un lugar y presentar los resultados de forma <b>dinámica</b>. Según el temario, tiene dos componentes:</p>
+  <ul>
+    <li>Una <b>base de datos</b> con las características del espacio geográfico y su información <b>georreferenciada</b> (con coordenadas).</li>
+    <li><b>Funciones o comandos</b> para consultar esa base de datos y obtener respuestas en forma de datos o de mapas digitales.</li>
+  </ul>
+  <p>Lo usas todos los días: cuando le preguntas a Google Maps cómo llegar a algún lugar, la aplicación combina el mapa con la información del tráfico y con tu ubicación, que obtiene del <b>GPS</b> (Sistema de Posicionamiento Global, una red de satélites que calcula tus coordenadas). Protección Civil, el INEGI y los gobiernos usan SIG para planear ciudades o prevenir desastres.</p>
+
+  <div class="caja examen">
+    <div class="enc">Reactivo 15 del examen</div>
+    <div class="preg">Además del título y la escala, ¿qué otros elementos siempre deben estar presentes en un mapa? &nbsp; A) Autor y simbología &nbsp; B) Relieve y autor &nbsp; C) Orientación y relieve &nbsp; D) Simbología y coordenadas</div>
+    <ol class="pasos">
+      <li><b>Los cuatro elementos fundamentales</b> son título, simbología, escala y coordenadas. Si ya están el título y la escala, faltan la <b>simbología</b> y las <b>coordenadas</b>.</li>
+      <li><b>Descarto:</b> el autor no es obligatorio, y el relieve es un tema que algunos mapas muestran y otros no (un mapa de carreteras no lo necesita).</li>
+    </ol>
+    <span class="resp">Respuesta: D) Simbología y coordenadas</span>
+  </div>
+  <div class="caja examen">
+    <div class="enc">Reactivo 16 del examen</div>
+    <div class="preg">¿Qué herramienta geográfica permite crear consultas interactivas, analizar información espacial, editar datos, mapas y presenta los resultados de forma dinámica? &nbsp; A) Carta topográfica &nbsp; B) Croquis &nbsp; C) Imagen de satélite &nbsp; D) SIG</div>
+    <ol class="pasos">
+      <li><b>Palabras clave:</b> “consultas interactivas”, “analizar”, “editar” y “de forma dinámica” describen a un programa de computadora que une mapas y datos: un <b>SIG</b>.</li>
+      <li><b>Descarto:</b> la carta topográfica y el croquis son representaciones fijas en papel; la imagen de satélite es solo una fotografía, no permite hacer consultas.</li>
+    </ol>
+    <span class="resp">Respuesta: D) SIG</span>
+  </div>
+
+  <div class="caja practica"><b class="t">Ahora tú</b>
+    <ol>
+      <li>En un mapa a escala 1 : 100 000, dos ciudades están a 7 cm. ¿Qué distancia real las separa?</li>
+      <li>¿Qué mapa tiene más detalle: uno a 1 : 20 000 o uno a 1 : 1 000 000?</li>
+      <li>¿Qué línea divide a la Tierra en hemisferio norte y sur? ¿Cuál en este y oeste?</li>
+      <li>La latitud de un punto es 50° S. ¿Está al norte o al sur del ecuador? ¿Qué tan lejos del Polo Sur?</li>
+      <li>¿Qué elemento del mapa te dice qué significa un triangulito café?</li>
+    </ol>
+    <div class="sol">
+      <p><b>1)</b> 7 × 100 000 = 700 000 cm = 7 km. <b>2)</b> El de 1 : 20 000 (escala grande). <b>3)</b> El ecuador; el meridiano de Greenwich.</p>
+      <p><b>4)</b> Al sur; a 40° del Polo Sur (que está a 90° S). <b>5)</b> La simbología.</p>
+    </div>
+  </div>
+</section>
+<section class="tema">
+  <h2>4.2 Estructura de la Tierra: placas, sismos y volcanes</h2>
+  <div class="reactivos">Reactivo 17 de la versión de práctica</div>
+
+  <p class="intro"><b>¿De qué trata esta lección?</b> México es un país que tiembla y que tiene volcanes activos como el Popocatépetl. ¿Por qué? La respuesta está debajo de nuestros pies. Aquí vas a conocer las capas de la Tierra, las placas tectónicas, cómo se producen los sismos y las erupciones, y cómo el agua y el viento van esculpiendo el relieve poco a poco.</p>
+
+  <h3>Las capas de la Tierra</h3>
+  <div class="fig"><svg width="560" height="244" viewBox="0 0 560 244" xmlns="http://www.w3.org/2000/svg" font-family="DejaVu Sans" font-size="10"><path d="M2,238 A168,168 0 0 1 338,238 Z" fill="#8d6e63" stroke="#ffffff" stroke-width="1"/><path d="M10,238 A160,160 0 0 1 330,238 Z" fill="#e57348" stroke="#ffffff" stroke-width="1"/><path d="M84,238 A86,86 0 0 1 256,238 Z" fill="#f4a236" stroke="#ffffff" stroke-width="1"/><path d="M130,238 A40,40 0 0 1 210,238 Z" fill="#ffd54f" stroke="#ffffff" stroke-width="1"/><line x1="0" y1="238" x2="340" y2="238" stroke="#5a6375" stroke-width="1"/><line x1="352" y1="27" x2="130" y2="74" stroke="#8a93a3" stroke-width="0.9"/><text x="356" y="30" fill="#1d2330" text-anchor="start" font-size="9.5" font-weight="bold">Corteza</text><text x="356" y="43" fill="#5a6375" text-anchor="start" font-size="8.5">de 5 a 70 km de grosor</text><line x1="352" y1="71" x2="100" y2="118" stroke="#8a93a3" stroke-width="0.9"/><text x="356" y="74" fill="#1d2330" text-anchor="start" font-size="9.5" font-weight="bold">Manto</text><text x="356" y="87" fill="#5a6375" text-anchor="start" font-size="8.5">roca caliente que fluye muy lento</text><line x1="352" y1="115" x2="200" y2="176" stroke="#8a93a3" stroke-width="0.9"/><text x="356" y="118" fill="#1d2330" text-anchor="start" font-size="9.5" font-weight="bold">Núcleo externo</text><text x="356" y="131" fill="#5a6375" text-anchor="start" font-size="8.5">hierro y níquel líquidos</text><line x1="352" y1="159" x2="180" y2="218" stroke="#8a93a3" stroke-width="0.9"/><text x="356" y="162" fill="#1d2330" text-anchor="start" font-size="9.5" font-weight="bold">Núcleo interno</text><text x="356" y="175" fill="#5a6375" text-anchor="start" font-size="8.5">sólido, unos 5 000 °C</text></svg></div>
+  <p>La Tierra es como un durazno: una cáscara delgada (la <b>corteza</b>), una pulpa gruesa (el <b>manto</b>) y un hueso en el centro (el <b>núcleo</b>). La corteza junto con la parte más alta del manto forman la <b>litosfera</b>, una capa rígida que está partida en pedazos: las <b>placas tectónicas</b>. Debajo está la <b>astenosfera</b>, más caliente y plástica, sobre la que las placas se deslizan.</p>
+
+  <h3>Las placas tectónicas</h3>
+  <p>Hay unas 15 placas grandes que se mueven unos pocos centímetros al año (más o menos lo que crecen tus uñas), empujadas por corrientes de material caliente del manto. En sus bordes ocurren casi todos los sismos y volcanes del planeta. Según cómo se mueven, los bordes pueden ser:</p>
+  <div class="fig"><svg width="649" height="204.6" viewBox="0 0 590 186" xmlns="http://www.w3.org/2000/svg" font-family="DejaVu Sans" font-size="10"><defs><marker id="fdpl" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#1d2330"/></marker><marker id="fipl" markerWidth="8" markerHeight="8" refX="2" refY="4" orient="auto"><path d="M8,0 L0,4 L8,8 z" fill="#1d2330"/></marker></defs><defs><marker id="fdpm" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#d7263d"/></marker><marker id="fipm" markerWidth="8" markerHeight="8" refX="2" refY="4" orient="auto"><path d="M8,0 L0,4 L8,8 z" fill="#d7263d"/></marker></defs><rect x="14" y="70" width="78" height="20" rx="2" stroke="#8d6e63" fill="#bca393" stroke-width="1"/><rect x="108" y="70" width="78" height="20" rx="2" stroke="#8d6e63" fill="#bca393" stroke-width="1"/><path d="M100,128 C96,110 104,96 100,72" stroke="#d7263d" fill="none" stroke-width="3" marker-end="url(#fdpm)"/><line x1="70" y1="58" x2="30" y2="58" stroke="#1d2330" stroke-width="1.6" marker-end="url(#fdpl)"/><line x1="130" y1="58" x2="170" y2="58" stroke="#1d2330" stroke-width="1.6" marker-end="url(#fdpl)"/><rect x="14" y="90" width="172" height="44" rx="0" stroke="none" fill="#f7d9c4" stroke-width="0"/><text x="100" y="156" fill="#1f6f8b" text-anchor="middle" font-size="10" font-weight="bold">Divergente</text><text x="100" y="169" fill="#5a6375" text-anchor="middle" font-size="8.3">se separan y sale magma</text><text x="100" y="180" fill="#5a6375" text-anchor="middle" font-size="8.3">(dorsales oceánicas)</text><rect x="214" y="90" width="186" height="44" rx="0" stroke="none" fill="#f7d9c4" stroke-width="0"/><path d="M214,72 L310,72 L364,128 L346,128 L304,92 L214,92 Z" stroke="#41545e" fill="#7d97a8" stroke-width="1"/><path d="M314,62 L342,62 L350,46 L362,46 L370,62 L400,62 L400,100 L364,96 L318,74 Z" stroke="#8d6e63" fill="#bca393" stroke-width="1"/><path d="M364,104 C360,84 358,66 356,48" stroke="#d7263d" fill="none" stroke-width="2"/><line x1="234" y1="58" x2="274" y2="58" stroke="#1d2330" stroke-width="1.6" marker-end="url(#fdpl)"/><line x1="400" y1="30" x2="380" y2="30" stroke="#1d2330" stroke-width="1.6" marker-end="url(#fdpl)"/><text x="326" y="108" fill="#c2185b" text-anchor="middle" font-size="13">★</text><text x="250" y="84" fill="#ffffff" text-anchor="middle" font-size="8" font-weight="bold">oceánica</text><text x="382" y="76" fill="#1d2330" text-anchor="middle" font-size="7.5" font-weight="bold">continental</text><text x="307" y="156" fill="#1f6f8b" text-anchor="middle" font-size="10" font-weight="bold">Convergente</text><text x="307" y="169" fill="#5a6375" text-anchor="middle" font-size="8.3">chocan: una se hunde bajo la otra</text><text x="307" y="180" fill="#5a6375" text-anchor="middle" font-size="8.3">(subducción: sismos ★ y volcanes)</text><rect x="428" y="40" width="76" height="96" rx="2" stroke="#8d6e63" fill="#bca393" stroke-width="1"/><rect x="508" y="40" width="76" height="96" rx="2" stroke="#8d6e63" fill="#cdb7a8" stroke-width="1"/><line x1="506" y1="36" x2="506" y2="140" stroke="#d7263d" stroke-width="2" stroke-dasharray="5 3"/><line x1="466" y1="120" x2="466" y2="60" stroke="#1d2330" stroke-width="1.8" marker-end="url(#fdpl)"/><line x1="546" y1="60" x2="546" y2="120" stroke="#1d2330" stroke-width="1.8" marker-end="url(#fdpl)"/><text x="506" y="156" fill="#1f6f8b" text-anchor="middle" font-size="10" font-weight="bold">Transformante</text><text x="506" y="169" fill="#5a6375" text-anchor="middle" font-size="8.3">se deslizan una junto a otra</text><text x="506" y="180" fill="#5a6375" text-anchor="middle" font-size="8.3">(falla de San Andrés)</text></svg></div>
+  <ul>
+    <li><b>Divergentes:</b> las placas se separan y sube magma que forma nuevo fondo marino (las dorsales oceánicas). El Golfo de California se fue abriendo así.</li>
+    <li><b>Convergentes:</b> las placas chocan. Si una es oceánica, se hunde bajo la otra (<b>subducción</b>) y produce sismos y volcanes: es lo que pasa en la costa del Pacífico mexicano, donde la placa de Cocos se mete bajo la Norteamericana. Si chocan dos continentales, se levantan cordilleras como el Himalaya.</li>
+    <li><b>Transformantes:</b> las placas se deslizan una junto a la otra, como la falla de San Andrés en California.</li>
+  </ul>
+  <p>México está sobre <b>cinco placas</b>: la Norteamericana, la del Pacífico, la de Cocos, la de Rivera y la del Caribe. Por eso es uno de los países con más sismos del mundo y forma parte del <b>Cinturón de Fuego del Pacífico</b>.</p>
+
+  <h3>Agentes internos: sismos y volcanes</h3>
+  <p>Los agentes <b>internos</b> (el tectonismo y el vulcanismo) <b>crean</b> nuevas formas de relieve: montañas, volcanes, fosas.</p>
+  <div class="dos">
+    <div>
+      <p><b>Los sismos</b> son la liberación repentina de la energía acumulada en las rocas. Según su origen pueden ser <b>tectónicos</b> (los más comunes y fuertes, por el movimiento de las placas), <b>volcánicos</b> o <b>artificiales</b> (explosiones, minas). El punto bajo tierra donde se rompe la roca es el <b>hipocentro</b> o foco, y el punto de la superficie justo arriba es el <b>epicentro</b>.</p>
+      <p>La <b>magnitud</b> mide la energía liberada (cada punto más es unas 32 veces más energía); la <b>intensidad</b> mide los efectos y daños en cada lugar (escala de Mercalli). En México se recuerdan los sismos del 19 de septiembre de 1985 y de 2017; hoy existe una alerta sísmica que avisa segundos antes.</p>
+    </div>
+    <div class="fig"><svg width="330" height="190" viewBox="0 0 330 190" xmlns="http://www.w3.org/2000/svg" font-family="DejaVu Sans" font-size="10"><rect x="0" y="46" width="300" height="140" rx="0" stroke="none" fill="#efe6dd" stroke-width="0"/><line x1="0" y1="46" x2="300" y2="46" stroke="#6d4c41" stroke-width="2"/><line x1="110" y1="46" x2="190" y2="186" stroke="#8d6e63" stroke-width="1.6" stroke-dasharray="6 4"/><circle cx="150" cy="116" r="14" stroke="#e2504a" fill="none" stroke-width="1.1" stroke-opacity="0.7"/><circle cx="150" cy="116" r="30" stroke="#e2504a" fill="none" stroke-width="1.1" stroke-opacity="0.7"/><circle cx="150" cy="116" r="48" stroke="#e2504a" fill="none" stroke-width="1.1" stroke-opacity="0.7"/><circle cx="150" cy="116" r="68" stroke="#e2504a" fill="none" stroke-width="1.1" stroke-opacity="0.7"/><text x="150" y="121" fill="#c2185b" text-anchor="middle" font-size="15">★</text><circle cx="150" cy="46" r="4" fill="#c2185b"/><line x1="150" y1="46" x2="150" y2="108" stroke="#c2185b" stroke-width="1" stroke-dasharray="3 3"/><text x="158" y="24" fill="#1d2330" text-anchor="start" font-size="8.5" font-weight="bold">Epicentro: punto de la superficie</text><text x="158" y="36" fill="#1d2330" text-anchor="start" font-size="8.5">justo arriba del foco</text><text x="204" y="150" fill="#1d2330" text-anchor="start" font-size="8.5" font-weight="bold">Hipocentro o foco:</text><text x="204" y="162" fill="#1d2330" text-anchor="start" font-size="8.5">donde se rompe la roca</text><text x="16" y="176" fill="#6d4c41" text-anchor="start" font-size="8.5" font-weight="bold">falla</text><text x="16" y="70" fill="#e2504a" text-anchor="start" font-size="8.5" font-weight="bold">ondas sísmicas</text></svg></div>
+  </div>
+  <div class="dos">
+    <div class="fig"><svg width="430" height="252" viewBox="0 0 430 252" xmlns="http://www.w3.org/2000/svg" font-family="DejaVu Sans" font-size="10"><rect x="0" y="200" width="430" height="50" rx="0" stroke="none" fill="#d7ccc8" stroke-width="0"/><ellipse cx="200" cy="236" rx="70" ry="12" fill="#e2504a" stroke="#a83232" stroke-width="1.4"/><polygon points="40,200 184,72 200,84 216,72 360,200" stroke="#6d4c41" fill="#a1887f" stroke-width="1.6"/><path d="M200,226 L200,86" stroke="#e2504a" fill="none" stroke-width="9"/><path d="M200,226 L200,86" stroke="#f28b50" fill="none" stroke-width="4"/><path d="M214,78 C230,100 236,120 262,136 C280,148 290,170 300,198" stroke="#f28b50" fill="none" stroke-width="6"/><circle cx="181.5" cy="47.9" r="12.2" stroke="none" fill="#9e9e9e" fill-opacity="0.55" stroke-width="0"/><circle cx="177.8" cy="49.3" r="12.2" stroke="none" fill="#9e9e9e" fill-opacity="0.55" stroke-width="0"/><circle cx="233.3" cy="20" r="15.1" stroke="none" fill="#9e9e9e" fill-opacity="0.55" stroke-width="0"/><circle cx="186.5" cy="30.5" r="11.2" stroke="none" fill="#9e9e9e" fill-opacity="0.55" stroke-width="0"/><circle cx="185.1" cy="47.8" r="10.7" stroke="none" fill="#9e9e9e" fill-opacity="0.55" stroke-width="0"/><circle cx="239.9" cy="18.8" r="15.5" stroke="none" fill="#9e9e9e" fill-opacity="0.55" stroke-width="0"/><circle cx="233" cy="44.3" r="11.5" stroke="none" fill="#9e9e9e" fill-opacity="0.55" stroke-width="0"/><circle cx="222.9" cy="22.7" r="15.8" stroke="none" fill="#9e9e9e" fill-opacity="0.55" stroke-width="0"/><circle cx="242.6" cy="48.5" r="13.8" stroke="none" fill="#9e9e9e" fill-opacity="0.55" stroke-width="0"/><circle cx="230" cy="31.8" r="10.4" stroke="none" fill="#9e9e9e" fill-opacity="0.55" stroke-width="0"/><circle cx="218.2" cy="48.4" r="16.5" stroke="none" fill="#9e9e9e" fill-opacity="0.55" stroke-width="0"/><circle cx="247.6" cy="30.1" r="11.4" stroke="none" fill="#9e9e9e" fill-opacity="0.55" stroke-width="0"/><circle cx="252.6" cy="29.1" r="16.1" stroke="none" fill="#9e9e9e" fill-opacity="0.55" stroke-width="0"/><circle cx="250.4" cy="31.7" r="12.3" stroke="none" fill="#9e9e9e" fill-opacity="0.55" stroke-width="0"/><circle cx="234.9" cy="34.8" r="10.3" stroke="none" fill="#9e9e9e" fill-opacity="0.55" stroke-width="0"/><circle cx="216.4" cy="19.5" r="9.3" stroke="none" fill="#9e9e9e" fill-opacity="0.55" stroke-width="0"/><line x1="236" y1="30" x2="300" y2="19" stroke="#5a6375" stroke-width="0.9"/><text x="302" y="22" fill="#1d2330" text-anchor="start" font-size="9" font-weight="bold">nube de ceniza y gases</text><line x1="212" y1="78" x2="300" y2="67" stroke="#5a6375" stroke-width="0.9"/><text x="302" y="70" fill="#1d2330" text-anchor="start" font-size="9" font-weight="bold">cráter</text><line x1="266" y1="140" x2="330" y2="117" stroke="#5a6375" stroke-width="0.9"/><text x="332" y="120" fill="#1d2330" text-anchor="start" font-size="9" font-weight="bold">lava</text><line x1="120" y1="140" x2="78" y2="117" stroke="#5a6375" stroke-width="0.9"/><text x="76" y="120" fill="#1d2330" text-anchor="end" font-size="9" font-weight="bold">cono</text><line x1="198" y1="168" x2="78" y2="165" stroke="#5a6375" stroke-width="0.9"/><text x="76" y="168" fill="#1d2330" text-anchor="end" font-size="9" font-weight="bold">chimenea</text><line x1="262" y1="238" x2="300" y2="243" stroke="#5a6375" stroke-width="0.9"/><text x="302" y="246" fill="#1d2330" text-anchor="start" font-size="9" font-weight="bold">cámara magmática</text></svg></div>
+    <div>
+      <p><b>Las erupciones volcánicas</b> son emisiones de magma, gases calientes, ceniza y fragmentos de roca que salen por un conducto o fisura de la corteza. El magma se acumula en la <b>cámara magmática</b>, sube por la <b>chimenea</b> y sale por el <b>cráter</b>; al salir se llama <b>lava</b>.</p>
+      <p>En México, la mayoría de los volcanes están en el <b>Eje Neovolcánico Transversal</b>, que cruza el país de Colima a Veracruz: el Pico de Orizaba (Citlaltépetl, el más alto del país), el Popocatépetl, el Iztaccíhuatl, el Nevado de Toluca, el Volcán de Colima y el Paricutín. Los volcanes también traen beneficios: suelos muy fértiles y energía geotérmica.</p>
+    </div>
+  </div>
+
+  <h3>Agentes externos: intemperismo y erosión</h3>
+  <p>Los agentes <b>externos</b> (el agua, el viento, el hielo, los cambios de temperatura y los seres vivos) <b>desgastan y modifican</b> el relieve muy lentamente, a lo largo de millones de años. Lo hacen en dos procesos:</p>
+  <ul>
+    <li><b>Intemperismo</b> (o meteorización): la roca se rompe o se descompone <b>en su lugar</b>. Puede ser <b>mecánico</b> (el agua que se congela en las grietas las agranda, los cambios de temperatura, las raíces) o <b>químico</b> (el agua disuelve la roca caliza: así se formaron las cuevas y los cenotes de Yucatán).</li>
+    <li><b>Erosión:</b> el <b>transporte</b> de esos fragmentos y su <b>depósito</b> en otro lugar.</li>
+  </ul>
+  <table class="compacta">
+    <tr><th style="width:18%">Tipo de erosión</th><th>Agente</th><th>Qué forma (ejemplos)</th></tr>
+    <tr><td><b>Fluvial</b></td><td>los ríos</td><td>valles y cañones, como el Cañón del Sumidero (Chiapas) o la Barranca del Cobre (Chihuahua)</td></tr>
+    <tr><td><b>Pluvial</b></td><td>la lluvia</td><td>surcos y cárcavas en laderas sin vegetación</td></tr>
+    <tr><td><b>Eólica</b></td><td>el viento</td><td>dunas, como las del Gran Desierto de Altar (Sonora)</td></tr>
+    <tr><td><b>Marina</b></td><td>las olas y las corrientes</td><td>acantilados, playas y arcos, como El Arco de Cabo San Lucas</td></tr>
+    <tr><td><b>Glaciar</b></td><td>el hielo de los glaciares</td><td>valles en forma de U</td></tr>
+    <tr><td><b>Antrópica</b></td><td>las actividades humanas</td><td>suelos erosionados por la tala y el sobrepastoreo</td></tr>
+  </table>
+  <div class="caja ojo"><b class="t">Error común</b> Confundir los agentes internos con la erosión. El tectonismo y el vulcanismo <b>construyen</b> relieve desde adentro; la erosión lo <b>desgasta</b> desde afuera. Por eso no existen la “erosión tectónica” ni la “erosión volcánica”.</div>
+
+  <div class="caja examen">
+    <div class="enc">Reactivo 17 del examen</div>
+    <div class="preg">Del siguiente listado, identifique los tipos de erosión que influyen en la formación y modelan el relieve en la Tierra. 1. Eólica · 2. Marina · 3. Tectónica · 4. Volcánica · 5. Fluvial. &nbsp; A) 1, 2, 5 &nbsp; B) 1, 3, 4 &nbsp; C) 2, 3, 5 &nbsp; D) 2, 4, 5</div>
+    <ol class="pasos">
+      <li><b>Reviso cada uno:</b> eólica (viento), marina (olas) y fluvial (ríos) son agentes externos que transportan material: son tipos de erosión.</li>
+      <li><b>Descarto:</b> lo tectónico y lo volcánico son agentes internos: crean relieve, no lo erosionan. Quedan 1, 2 y 5.</li>
+    </ol>
+    <span class="resp">Respuesta: A) 1, 2, 5</span>
+  </div>
+
+  <div class="caja practica"><b class="t">Ahora tú</b>
+    <ol>
+      <li>¿En qué capa de la Tierra hay hierro y níquel líquidos?</li>
+      <li>¿Qué tipo de borde de placa hay en la costa del Pacífico mexicano? ¿Qué provoca?</li>
+      <li>¿Cuál es la diferencia entre el hipocentro y el epicentro de un sismo?</li>
+      <li>¿Qué proceso formó los cenotes: intemperismo químico o erosión eólica?</li>
+      <li>¿Qué tipo de erosión formó las dunas de un desierto? ¿Y un cañón?</li>
+    </ol>
+    <div class="sol">
+      <p><b>1)</b> En el núcleo externo. <b>2)</b> Convergente (subducción de la placa de Cocos): sismos y volcanes.</p>
+      <p><b>3)</b> El hipocentro es el punto bajo tierra donde se origina; el epicentro, el punto de la superficie justo arriba.</p>
+      <p><b>4)</b> Intemperismo químico (disolución de la roca caliza). <b>5)</b> Eólica; fluvial.</p>
+    </div>
+  </div>
+</section>
+
+<section class="tema">
+  <h2>4.3 Recursos naturales</h2>
+  <div class="reactivos">Reactivo 18 de la versión de práctica</div>
+
+  <p class="intro"><b>¿De qué trata esta lección?</b> El agua que tomas, la gasolina del camión, el maíz de tus tortillas y la luz del sol que calienta tu casa vienen de la naturaleza. A todo eso se le llama <b>recursos naturales</b>. Aquí aprenderás a clasificarlos y por qué es tan importante usarlos con cuidado.</p>
+
+  <h3>¿Qué son?</h3>
+  <p>Los <b>recursos naturales</b> son todos los medios, elementos o fuerzas que proporciona la naturaleza y que satisfacen las necesidades de los seres humanos. Como son un bien valioso, pueden convertirse en una fuente de riqueza para quienes los controlan… y de desigualdad para quienes no. Según el temario, tienen dos características: son <b>escasos</b> (no están en todas partes ni en abundancia, y muchos se acabarán algún día) y <b>dependientes</b> (su duración depende del uso que les demos).</p>
+
+  <h3>Los tres tipos de recursos</h3>
+  <table class="compacta">
+    <tr><th style="width:17%">Tipo</th><th>Qué significa</th><th style="width:30%">Ejemplos</th></tr>
+    <tr><td><b>Renovables</b></td><td>Se regeneran por sí solos si se aprovechan adecuadamente. <b>No son eternos:</b> si los contaminamos o los sobreexplotamos, se agotan (la sobrepesca, la tala, un suelo agotado por el mal uso).</td><td>agua, suelo, flora (bosques) y fauna (peces, ganado)</td></tr>
+    <tr><td><b>No renovables</b></td><td>Existen en cantidades limitadas y tardaron millones de años en formarse: es casi imposible regenerarlos. Mientras más se acercan a acabarse, más caros son.</td><td>minerales, metales, petróleo, gas natural, carbón y los depósitos de agua subterránea</td></tr>
+    <tr><td><b>Inagotables</b></td><td>No se acabarán, al menos en cientos de años, por mucho que los usemos. Pueden sustituir a los no renovables.</td><td>energía solar, del viento (eólica), de las olas y las mareas, geotérmica</td></tr>
+  </table>
+  <p><b>En México:</b> el petróleo del Golfo de México (como el de la Sonda de Campeche) es un recurso no renovable; el país es el primer productor de <b>plata</b> del mundo (sobre todo en Zacatecas); y hay parques eólicos en el Istmo de Tehuantepec (Oaxaca), plantas geotérmicas como la de Cerro Prieto (Baja California) y plantas solares en Sonora.</p>
+  <div class="caja idea"><b class="t">Piénsalo así</b> Los recursos <b>renovables</b> son como el sueldo que cobras cada quincena: llega de nuevo, pero si gastas más de lo que entra, te endeudas. Los <b>no renovables</b> son como una herencia: lo que gastas ya no regresa. Y los <b>inagotables</b> son como la luz del día: llega siempre, la uses o no. El <b>desarrollo sustentable</b> consiste en satisfacer nuestras necesidades sin dejar sin recursos a las generaciones futuras.</div>
+  <div class="caja ojo"><b class="t">Error común</b> Confundir los recursos naturales con los <b>productos</b> que se fabrican con ellos. El vidrio, el plástico y el aluminio de una lata no son recursos naturales: son materiales hechos por el ser humano (a partir de arena, petróleo y bauxita).</div>
+
+  <div class="caja examen">
+    <div class="enc">Reactivo 18 del examen</div>
+    <div class="preg">Relacione el tipo de recurso con sus ejemplos. 1. Inagotables · 2. Renovables · 3. No renovables. &nbsp; a) Agua, flora y fauna · b) Minerales, metales e hidrocarburos · c) Energía solar, energía eólica y geotérmica · d) Vidrio, plástico y aluminio. &nbsp; A) 1a, 2c, 3b &nbsp; B) 1b, 2a, 3d &nbsp; C) 1b, 2c, 3d &nbsp; D) 1c, 2a, 3b</div>
+    <ol class="pasos">
+      <li><b>Inagotables:</b> las energías solar, eólica y geotérmica (<b>1c</b>). Solo la D lo tiene.</li>
+      <li><b>Compruebo:</b> renovables = agua, flora y fauna (<b>2a</b>); no renovables = minerales, metales e hidrocarburos, es decir, petróleo y gas (<b>3b</b>) ✔.</li>
+    </ol>
+    <p class="chico">La d sobra: el vidrio, el plástico y el aluminio son productos fabricados, no recursos naturales.</p>
+    <span class="resp">Respuesta: D) 1c, 2a, 3b</span>
+  </div>
+
+  <div class="caja practica"><b class="t">Ahora tú</b>
+    <ol>
+      <li>Clasifica: carbón, viento, bosque, oro, luz solar, peces.</li>
+      <li>¿Por qué un recurso renovable como el agua puede volverse escaso?</li>
+      <li>¿Qué tipo de recurso es el petróleo? ¿Por qué se dice que tardó millones de años en formarse?</li>
+      <li>¿Qué es el desarrollo sustentable?</li>
+    </ol>
+    <div class="sol">
+      <p><b>1)</b> No renovables: carbón y oro; inagotables: viento y luz solar; renovables: bosque y peces.</p>
+      <p><b>2)</b> Si se contamina o se usa más rápido de lo que se renueva (por ejemplo, al sobreexplotar los acuíferos).</p>
+      <p><b>3)</b> No renovable; se formó con restos de seres vivos enterrados durante millones de años. <b>4)</b> Satisfacer las necesidades de hoy sin comprometer las de las generaciones futuras.</p>
+    </div>
+  </div>
+</section>
+<section class="tema">
+  <h2>4.4 Deterioro ambiental: los fenómenos naturales</h2>
+  <div class="reactivos">Reactivos 19 y 23 de la versión de práctica</div>
+
+  <p class="intro"><b>¿De qué trata esta lección?</b> La lluvia, el viento y los sismos son parte de la naturaleza: casi siempre son inofensivos, pero a veces superan su límite normal y se convierten en un peligro. Aquí aprenderás a clasificar los fenómenos naturales (meteorológicos, hidrológicos y geológicos), a distinguir el peligro del riesgo y a reconocer los casos que pregunta el examen.</p>
+
+  <h3>Fenómeno natural y desastre</h3>
+  <p>Un <b>fenómeno natural</b> es cualquier proceso de cambio que ocurre en la naturaleza de manera espontánea, sin intervención humana: la lluvia, un arcoíris, las corrientes del océano, un sismo. La mayoría no causa daños. Se vuelve un <b>desastre</b> cuando supera su límite de normalidad y afecta gravemente a las personas: vidas perdidas, casas destruidas, cosechas arruinadas. Las consecuencias se agravan por acciones humanas, como construir casas en zonas de riesgo, deforestar o contaminar.</p>
+  <div class="caja formula"><b class="t">Lo que tienes que saber: peligro, vulnerabilidad y riesgo</b>
+    <p>El <b>peligro</b> es la posibilidad de que ocurra un fenómeno dañino (un huracán). La <b>vulnerabilidad</b> es qué tan expuestos y desprotegidos estamos (casas frágiles en la orilla de un río). El <b>riesgo</b> combina los dos: el mismo huracán causa un desastre mucho mayor donde la población es más vulnerable. Por eso se dice que los desastres nunca son del todo naturales.</p>
+  </div>
+
+  <h3>Los tipos de fenómenos naturales</h3>
+  <table class="compacta">
+    <tr><th style="width:18%">Tipo (temario)</th><th>Ejemplos</th></tr>
+    <tr><td><b>Meteorológicos</b> (de la atmósfera)</td><td>vientos fuertes, lluvias intensas, granizadas, nevadas, heladas, sequías, huracanes y los efectos de El Niño. En México la temporada de huracanes va de mayo-junio a noviembre; el huracán Otis (2023) arrasó Acapulco.</td></tr>
+    <tr><td><b>Hidrológicos</b> (del agua)</td><td>oleaje fuerte, inundaciones y tsunamis (olas gigantes que provoca un sismo o una erupción en el mar).</td></tr>
+    <tr><td><b>Geológicos</b> (de la Tierra sólida)</td><td>sismos, erupciones volcánicas, deslizamientos de laderas, derrumbes, avalanchas y hundimientos del terreno.</td></tr>
+  </table>
+  <p>Protección Civil (el CENAPRED) usa una clasificación más completa, la que siguen varias preguntas del examen. La llama <b>fenómenos perturbadores</b> e incluye también los provocados por el ser humano:</p>
+  <table class="compacta">
+    <tr><th style="width:24%">Fenómeno perturbador</th><th>Ejemplos</th></tr>
+    <tr><td><b>Geológico</b></td><td>sismos, <b>tsunamis</b>, erupciones volcánicas, deslizamientos de laderas, hundimientos y agrietamientos</td></tr>
+    <tr><td><b>Hidrometeorológico</b></td><td>huracanes, lluvias, inundaciones, granizo, heladas, nevadas, sequías, ondas de calor</td></tr>
+    <tr><td><b>Químico-tecnológico</b></td><td>incendios, explosiones, fugas y derrames de sustancias tóxicas o inflamables</td></tr>
+    <tr><td><b>Sanitario-ecológico</b></td><td>epidemias, plagas, contaminación, residuos biológicos y peligrosos</td></tr>
+    <tr><td><b>Socio-organizativo</b></td><td>accidentes, aglomeraciones, actos de sabotaje o terrorismo</td></tr>
+  </table>
+  <p class="chico">Ojo: el temario pone a los tsunamis entre los fenómenos hidrológicos, y Protección Civil entre los geológicos, porque los provoca un sismo o una erupción. En el reactivo 23 se usa la clasificación de Protección Civil.</p>
+
+  <h3>Un caso famoso: el nacimiento del Paricutín</h3>
+  <p>El 20 de febrero de 1943, en un terreno de cultivo de Michoacán, la tierra se abrió y empezó a salir humo, ceniza y piedras: había nacido un volcán. En pocos años el <b>Paricutín</b> creció cientos de metros y su lava sepultó los pueblos de Paricutín y <b>San Juan Parangaricutiro</b>; hoy solo sobresale entre las rocas la torre de su iglesia. Sus habitantes fundaron San Juan Nuevo. Es uno de los volcanes más jóvenes del mundo y se pudo estudiar desde su nacimiento hasta que se apagó, en 1952.</p>
+
+  <div class="caja examen">
+    <div class="enc">Reactivo 19 del examen</div>
+    <div class="preg">¿A qué tipo de fenómeno natural hace referencia el siguiente enunciado? “El Paricutín. Su nacimiento significó la destrucción de dos pueblos, que cambió la vida de los habitantes de San Juan Parangaricutiro y Angahuan, en el estado de Michoacán, el día 20 de febrero de 1943; ya que debido a su actividad dejó sepultado al pueblo de San Juan Parangaricutiro, hoy en día conocido como San Juan Nuevo.” &nbsp; A) Erupción volcánica &nbsp; B) Depresión tropical &nbsp; C) Heladas &nbsp; D) Sismicidad</div>
+    <ol class="pasos">
+      <li><b>Palabras clave:</b> el “nacimiento” del Paricutín y que su actividad “dejó sepultado” un pueblo: es un volcán cuya lava y ceniza cubrieron el lugar.</li>
+      <li><b>Descarto:</b> la depresión tropical y las heladas son fenómenos meteorológicos; la sismicidad (los temblores) acompañó al nacimiento del volcán, pero lo que sepultó al pueblo fue la erupción.</li>
+    </ol>
+    <span class="resp">Respuesta: A) Erupción volcánica</span>
+  </div>
+  <div class="caja examen">
+    <div class="enc">Reactivo 23 del examen</div>
+    <div class="preg">Del siguiente listado, identifique los fenómenos geológicos que ponen en riesgo a las personas. 1. Erupción volcánica · 2. Explosión por sustancias inflamables · 3. Desplazamiento de laderas · 4. Fuga de sustancias tóxicas · 5. Tsunamis · 6. Residuos biológicos. &nbsp; A) 1, 2, 4 &nbsp; B) 1, 3, 5 &nbsp; C) 2, 3, 6 &nbsp; D) 4, 5, 6</div>
+    <ol class="pasos">
+      <li><b>Geológicos</b> (de la Tierra sólida): la erupción volcánica, el desplazamiento de laderas y los tsunamis, que se originan por sismos o erupciones submarinas: 1, 3 y 5.</li>
+      <li><b>Descarto:</b> las explosiones y las fugas de sustancias son fenómenos <b>químico-tecnológicos</b>, y los residuos biológicos, <b>sanitario-ecológicos</b>: todos causados por el ser humano.</li>
+    </ol>
+    <span class="resp">Respuesta: B) 1, 3, 5</span>
+  </div>
+
+  <div class="caja practica"><b class="t">Ahora tú</b>
+    <ol>
+      <li>Clasifica según el temario: una granizada, un tsunami, un deslave, una sequía, un sismo.</li>
+      <li>Dos pueblos reciben el mismo huracán; uno sufre muchos más daños. ¿Qué es diferente: el peligro o la vulnerabilidad?</li>
+      <li>¿Qué tipo de fenómeno perturbador es un incendio en una fábrica de químicos?</li>
+      <li>¿En qué año nació el Paricutín y en qué estado?</li>
+    </ol>
+    <div class="sol">
+      <p><b>1)</b> Meteorológicos: granizada y sequía; hidrológico: tsunami (geológico para Protección Civil); geológicos: deslave y sismo.</p>
+      <p><b>2)</b> La vulnerabilidad (el peligro es el mismo). <b>3)</b> Químico-tecnológico. <b>4)</b> En 1943, en Michoacán.</p>
+    </div>
+  </div>
+</section>
+
+<section class="tema">
+  <h2>4.5 Desastres: las causas humanas</h2>
+  <div class="reactivos">Reactivo 20 de la versión de práctica</div>
+
+  <p class="intro"><b>¿De qué trata esta lección?</b> No todos los desastres vienen de la naturaleza: muchos los provocamos nosotros, con derrames, explosiones, incendios o contaminación. A estos se les llama desastres de origen <b>antrópico</b> (causados por el ser humano). Aquí verás qué los distingue, algunos casos de México y cómo afectan a las actividades económicas.</p>
+
+  <h3>Desastres naturales y desastres antrópicos</h3>
+  <p>Un <b>desastre natural</b> es un cambio repentino y violento del medio que causa grandes pérdidas materiales y humanas, provocado por un fenómeno natural: terremotos, tsunamis, huracanes. Sus causas no siempre se pueden predecir: sabemos que los terremotos se deben al movimiento de las placas, pero no cuándo ni dónde ocurrirá el siguiente. Además, un desastre puede desencadenar otros: un terremoto cerca de la costa puede causar un tsunami, que inunda tierras de cultivo y provoca hambre.</p>
+  <p>Un <b>desastre antrópico</b> o <b>medioambiental</b> es el que provoca la actividad humana: un elemento específico contamina, degrada o destruye una parte del ambiente. Algunos casos de México:</p>
+  <ul>
+    <li>Las explosiones de gas en San Juanico, Estado de México (1984), y en el drenaje de Guadalajara (1992).</li>
+    <li>El derrame del pozo petrolero Ixtoc I en el Golfo de México (1979), uno de los más grandes de la historia.</li>
+    <li>El derrame de 40 millones de litros de sulfato de cobre de una mina en el río Sonora (2014).</li>
+    <li>El derrame de ácido sulfúrico en el puerto de Guaymas, en el Mar de Cortés (2019), del reactivo 20.</li>
+  </ul>
+
+  <h3>¿A quién afecta? Los sectores económicos</h3>
+  <table class="compacta">
+    <tr><th style="width:18%">Sector</th><th>Actividades</th><th style="width:36%">Un desastre lo afecta cuando…</th></tr>
+    <tr><td><b>Primario</b></td><td>agricultura, ganadería, <b>pesca</b>, silvicultura y minería: obtienen recursos directamente de la naturaleza</td><td>se contaminan los suelos, el agua o el mar donde se cultiva, se cría o se pesca</td></tr>
+    <tr><td><b>Secundario</b></td><td>la industria: transforma materias primas en productos</td><td>se dañan fábricas o se interrumpe la energía</td></tr>
+    <tr><td><b>Terciario</b></td><td>comercio, transporte, turismo y servicios</td><td>se cierran playas, caminos o negocios</td></tr>
+  </table>
+  <div class="caja idea"><b class="t">Piénsalo así: sigue el rastro del contaminante</b> Pregúntate <b>dónde cayó</b> la sustancia y <b>quién vive de ese lugar</b>. Si cae en un río que riega cultivos, sufre la agricultura; si cae al mar, los peces mueren o no se pueden vender, y quien más pierde es la <b>pesca</b> (y después, el turismo).</div>
+  <p><b>La prevención:</b> la mayoría de los desastres se pueden reducir con planeación: no construir en zonas de riesgo, revisar las instalaciones industriales, tener sistemas de alerta, hacer simulacros, conocer las rutas de evacuación y tener una mochila de emergencia.</p>
+
+  <div class="caja examen">
+    <div class="enc">Reactivo 20 del examen</div>
+    <div class="preg">El derrame de ácido sulfúrico en la Terminal Marítima de Guaymas en el 2019, por parte de la minera propiedad de Grupo México, provocó daño a la fauna y la flora en el Mar de Cortés; esto afectó al sector: &nbsp; A) agrícola &nbsp; B) ganadero &nbsp; C) industrial &nbsp; D) pesquero</div>
+    <ol class="pasos">
+      <li><b>Sigo el rastro:</b> el ácido cayó al <b>mar</b> y dañó a la fauna y la flora marinas.</li>
+      <li><b>¿Quién vive del mar?</b> Los pescadores: el sector más afectado es el <b>pesquero</b>. La agricultura y la ganadería son actividades de tierra firme, y el sector industrial es el que causó el derrame, no el que lo sufrió.</li>
+    </ol>
+    <span class="resp">Respuesta: D) pesquero</span>
+  </div>
+
+  <div class="caja practica"><b class="t">Ahora tú</b>
+    <ol>
+      <li>¿Qué diferencia hay entre un desastre natural y uno antrópico? Da un ejemplo de cada uno.</li>
+      <li>Un derrame de petróleo llega a las playas de Veracruz. ¿Qué sectores se afectan?</li>
+      <li>¿A qué sector económico pertenecen la pesca y la minería? ¿Y el turismo?</li>
+      <li>Menciona tres acciones para prevenir o reducir los daños de un desastre.</li>
+    </ol>
+    <div class="sol">
+      <p><b>1)</b> El natural lo provoca un fenómeno de la naturaleza (un huracán); el antrópico, la actividad humana (una explosión de gas, un derrame).</p>
+      <p><b>2)</b> El pesquero y el turístico. <b>3)</b> Al primario; al terciario. <b>4)</b> Por ejemplo: no construir en zonas de riesgo, hacer simulacros, tener alertas, preparar una mochila de emergencia.</p>
+    </div>
+  </div>
+</section>
+<section class="tema">
+  <h2>4.6 Climas terrestres</h2>
+  <div class="reactivos">Reactivo 21 de la versión de práctica</div>
+
+  <p class="intro"><b>¿De qué trata esta lección?</b> ¿Por qué en Acapulco hace calor todo el año y en Toluca necesitas suéter, si están relativamente cerca? ¿Por qué en Sonora hay desiertos y en Tabasco selvas? Aquí vas a aprender la diferencia entre tiempo y clima, qué elementos y factores determinan el clima, y la clasificación de Köppen, que usa letras para nombrar cada tipo de clima.</p>
+
+  <h3>Tiempo y clima no son lo mismo</h3>
+  <p>El <b>tiempo atmosférico</b> es el estado de la atmósfera en un momento: “hoy está lloviendo”, “mañana hará frío”. El <b>clima</b> es el comportamiento <b>promedio</b> del tiempo en un lugar durante muchos años (al menos 30): “en Mérida hace calor y llueve en verano”. El tiempo cambia de un día a otro; el clima, no.</p>
+
+  <h3>Elementos y factores del clima</h3>
+  <div class="caja formula"><b class="t">Lo que tienes que saber</b>
+    <p>Los <b>elementos</b> son lo que se <b>mide</b>: temperatura, precipitación (lluvia, granizo, nieve), humedad, presión atmosférica y viento.</p>
+    <p>Los <b>factores</b> son lo que <b>modifica</b> a los elementos: latitud, altitud, relieve, distancia al mar, corrientes marinas y vegetación.</p>
+  </div>
+  <ul>
+    <li><b>Latitud:</b> cerca del ecuador los rayos del Sol llegan casi verticales y hace más calor; hacia los polos llegan inclinados y hace más frío.</li>
+    <li><b>Altitud:</b> mientras más alto, más frío: la temperatura baja unos 6 °C por cada 1 000 m de altura. Acapulco, al nivel del mar, tiene unos 28 °C de promedio; Toluca, a más de 2 600 m, unos 13 °C. ¡Por eso hay nieve en la cumbre del Pico de Orizaba, aunque esté en el trópico!</li>
+    <li><b>Relieve:</b> las montañas detienen las nubes. La ladera que recibe el viento húmedo del mar (barlovento) es lluviosa y la del otro lado (sotavento), seca. Por eso la costa de Veracruz es húmeda y el Altiplano, más seco.</li>
+    <li><b>Distancia al mar:</b> el mar suaviza las temperaturas; tierra adentro los cambios entre día y noche, y entre verano e invierno, son más extremos.</li>
+  </ul>
+
+  <h3>La clasificación de Köppen</h3>
+  <p>El climatólogo alemán <b>Wladimir Köppen</b> creó en 1884 una clasificación basada en que la <b>vegetación natural</b> refleja el clima. Usa la temperatura y la precipitación (promedios anuales y mensuales, y en qué época llueve) y nombra cada clima con letras. Es la más usada por ser general y sencilla; en México se usa una versión adaptada por la geógrafa Enriqueta García.</p>
+  <table class="compacta">
+    <tr><th style="width:15%">Grupo</th><th>Cómo es</th><th style="width:30%">Ejemplos</th></tr>
+    <tr><td><b>A</b> tropical</td><td>sin invierno: <b>todos los meses superan los 18 °C</b>; vegetación tropical (selvas, sabanas)</td><td>costas de México: Acapulco, Manzanillo, Mérida, Villahermosa</td></tr>
+    <tr><td><b>B</b> seco</td><td>la <b>evaporación supera a la lluvia</b>; plantas que resisten la sequía (xerófilas), casi sin árboles</td><td>Sonora, Baja California, Chihuahua, Coahuila</td></tr>
+    <tr><td><b>C</b> templado</td><td>inviernos suaves: el mes más frío está entre −3 °C y 18 °C; ni el invierno ni el verano son extremos</td><td>Ciudad de México, Guadalajara, Puebla, Toluca</td></tr>
+    <tr><td><b>D</b> frío</td><td>el mes más frío baja de −3 °C, pero el más cálido supera los 10 °C (bosques de coníferas)</td><td>Canadá, Rusia (en México no hay)</td></tr>
+    <tr><td><b>E</b> polar</td><td>sin verano: el mes más cálido no llega a 10 °C; casi sin vegetación</td><td>Antártida, Groenlandia y, en México, las cumbres de los volcanes más altos</td></tr>
+  </table>
+  <p class="chico">El texto del temario sobre el clima D se contradice (dice que la temperatura media es inferior a −3 °C y que el mes más frío ronda los 0 °C); la regla de Köppen es la de esta tabla.</p>
+  <p><b>La segunda letra</b> dice cuándo llueve. Para los climas A, C y D (en <b>minúscula</b>):</p>
+  <table class="compacta" style="width:88%;margin-left:auto;margin-right:auto">
+    <tr><th style="width:10%">Letra</th><th>Significado</th></tr>
+    <tr><td><b>f</b></td><td>lluvias <b>todo el año</b> (no hay estación seca)</td></tr>
+    <tr><td><b>m</b></td><td>monzónico: una estación seca corta, compensada por lluvias muy abundantes el resto del año</td></tr>
+    <tr><td><b>w</b></td><td>estación seca en <b>invierno</b>: las lluvias caen en <b>verano</b> (el caso de casi todo México)</td></tr>
+    <tr><td><b>s</b></td><td>estación seca en <b>verano</b>: las lluvias caen en invierno (Ensenada, Baja California)</td></tr>
+  </table>
+  <p>Para los climas B se usa una <b>mayúscula</b>: <b>S</b>, estepario o semiseco (la evaporación supera a la lluvia, pero no la dobla; hay pastizales), y <b>W</b>, desértico (la evaporación es más del doble que la lluvia). Así, <b>Aw</b> es tropical con lluvias en verano, <b>Cw</b> templado con lluvias en verano y <b>BW</b> desértico.</p>
+  <div class="caja idea"><b class="t">Truco para la w</b> Piensa en “<b>w</b>inter” (invierno en inglés): la w indica que el invierno es la estación <b>seca</b>, así que llueve en verano. En México la temporada de lluvias va más o menos de junio a octubre, por eso la mayoría de nuestros climas llevan w.</div>
+
+  <h3>Cómo identificar un clima</h3>
+  <div class="fig"><svg width="560" height="178" viewBox="0 0 560 178" xmlns="http://www.w3.org/2000/svg" font-family="DejaVu Sans" font-size="10"><text x="140" y="16" fill="#1f6f8b" text-anchor="middle" font-size="9.5" font-weight="bold">f: llueve todo el año</text><line x1="20" y1="140" x2="260" y2="140" stroke="#5a6375" stroke-width="1.2"/><line x1="20" y1="140" x2="20" y2="28" stroke="#5a6375" stroke-width="1.2"/><text x="24" y="34" fill="#5a6375" text-anchor="start" font-size="8" font-style="italic">lluvia</text><rect x="28" y="90.5" width="14" height="49.5" rx="1" stroke="none" fill="#1f6f8b" stroke-width="0"/><text x="35" y="152" fill="#5a6375" text-anchor="middle" font-size="8">E</text><rect x="47" y="97.2" width="14" height="42.8" rx="1" stroke="none" fill="#1f6f8b" stroke-width="0"/><text x="54" y="152" fill="#5a6375" text-anchor="middle" font-size="8">F</text><rect x="66" y="95" width="14" height="45" rx="1" stroke="none" fill="#1f6f8b" stroke-width="0"/><text x="73" y="152" fill="#5a6375" text-anchor="middle" font-size="8">M</text><rect x="85" y="92.8" width="14" height="47.2" rx="1" stroke="none" fill="#1f6f8b" stroke-width="0"/><text x="92" y="152" fill="#5a6375" text-anchor="middle" font-size="8">A</text><rect x="104" y="86" width="14" height="54" rx="1" stroke="none" fill="#1f6f8b" stroke-width="0"/><text x="111" y="152" fill="#5a6375" text-anchor="middle" font-size="8">M</text><rect x="123" y="77" width="14" height="63" rx="1" stroke="none" fill="#1f6f8b" stroke-width="0"/><text x="130" y="152" fill="#5a6375" text-anchor="middle" font-size="8">J</text><rect x="142" y="72.5" width="14" height="67.5" rx="1" stroke="none" fill="#1f6f8b" stroke-width="0"/><text x="149" y="152" fill="#5a6375" text-anchor="middle" font-size="8">J</text><rect x="161" y="74.8" width="14" height="65.2" rx="1" stroke="none" fill="#1f6f8b" stroke-width="0"/><text x="168" y="152" fill="#5a6375" text-anchor="middle" font-size="8">A</text><rect x="180" y="68" width="14" height="72" rx="1" stroke="none" fill="#1f6f8b" stroke-width="0"/><text x="187" y="152" fill="#5a6375" text-anchor="middle" font-size="8">S</text><rect x="199" y="72.5" width="14" height="67.5" rx="1" stroke="none" fill="#1f6f8b" stroke-width="0"/><text x="206" y="152" fill="#5a6375" text-anchor="middle" font-size="8">O</text><rect x="218" y="86" width="14" height="54" rx="1" stroke="none" fill="#1f6f8b" stroke-width="0"/><text x="225" y="152" fill="#5a6375" text-anchor="middle" font-size="8">N</text><rect x="237" y="88.2" width="14" height="51.8" rx="1" stroke="none" fill="#1f6f8b" stroke-width="0"/><text x="244" y="152" fill="#5a6375" text-anchor="middle" font-size="8">D</text><text x="410" y="16" fill="#b5542a" text-anchor="middle" font-size="9.5" font-weight="bold">w: lluvias en verano, invierno seco</text><line x1="290" y1="140" x2="530" y2="140" stroke="#5a6375" stroke-width="1.2"/><line x1="290" y1="140" x2="290" y2="28" stroke="#5a6375" stroke-width="1.2"/><text x="294" y="34" fill="#5a6375" text-anchor="start" font-size="8" font-style="italic">lluvia</text><rect x="298" y="135.5" width="14" height="4.5" rx="1" stroke="none" fill="#b5542a" stroke-width="0"/><text x="305" y="152" fill="#5a6375" text-anchor="middle" font-size="8">E</text><rect x="317" y="137.3" width="14" height="2.7" rx="1" stroke="none" fill="#b5542a" stroke-width="0"/><text x="324" y="152" fill="#5a6375" text-anchor="middle" font-size="8">F</text><rect x="336" y="138.2" width="14" height="1.8" rx="1" stroke="none" fill="#b5542a" stroke-width="0"/><text x="343" y="152" fill="#5a6375" text-anchor="middle" font-size="8">M</text><rect x="355" y="137.3" width="14" height="2.7" rx="1" stroke="none" fill="#b5542a" stroke-width="0"/><text x="362" y="152" fill="#5a6375" text-anchor="middle" font-size="8">A</text><rect x="374" y="128.8" width="14" height="11.2" rx="1" stroke="none" fill="#b5542a" stroke-width="0"/><text x="381" y="152" fill="#5a6375" text-anchor="middle" font-size="8">M</text><rect x="393" y="72.5" width="14" height="67.5" rx="1" stroke="none" fill="#b5542a" stroke-width="0"/><text x="400" y="152" fill="#5a6375" text-anchor="middle" font-size="8">J</text><rect x="412" y="45.5" width="14" height="94.5" rx="1" stroke="none" fill="#b5542a" stroke-width="0"/><text x="419" y="152" fill="#5a6375" text-anchor="middle" font-size="8">J</text><rect x="431" y="50" width="14" height="90" rx="1" stroke="none" fill="#b5542a" stroke-width="0"/><text x="438" y="152" fill="#5a6375" text-anchor="middle" font-size="8">A</text><rect x="450" y="36.5" width="14" height="103.5" rx="1" stroke="none" fill="#b5542a" stroke-width="0"/><text x="457" y="152" fill="#5a6375" text-anchor="middle" font-size="8">S</text><rect x="469" y="90.5" width="14" height="49.5" rx="1" stroke="none" fill="#b5542a" stroke-width="0"/><text x="476" y="152" fill="#5a6375" text-anchor="middle" font-size="8">O</text><rect x="488" y="131" width="14" height="9" rx="1" stroke="none" fill="#b5542a" stroke-width="0"/><text x="495" y="152" fill="#5a6375" text-anchor="middle" font-size="8">N</text><rect x="507" y="134.6" width="14" height="5.4" rx="1" stroke="none" fill="#b5542a" stroke-width="0"/><text x="514" y="152" fill="#5a6375" text-anchor="middle" font-size="8">D</text><text x="275" y="172" fill="#5a6375" text-anchor="middle" font-size="8">Ejemplos ilustrativos (no son datos de una ciudad en particular)</text></svg></div>
+  <ol class="pasos">
+    <li><b>Primera letra (temperatura y humedad):</b> ¿hace calor todo el año, sin invierno? → A. ¿Llueve muy poco y es árido? → B. ¿Es templado, con inviernos suaves? → C.</li>
+    <li><b>Segunda letra (cuándo llueve):</b> ¿llueve parejo todo el año? → f. ¿Llueve en verano y el invierno es seco? → w. ¿Llueve en invierno? → s.</li>
+  </ol>
+  <p>Un <b>climograma</b> (como los de la figura) muestra las lluvias de cada mes en barras y, a veces, la temperatura con una línea. Si las barras están parejas, es f; si se juntan a mitad del año, es w.</p>
+
+  <div class="caja examen">
+    <div class="enc">Reactivo 21 del examen</div>
+    <div class="preg">¿A qué tipo de clima hace referencia el siguiente enunciado? “En el 2019 en Manzanillo, Colima, se registraron temperaturas que alcanzaron los 29 °C en los meses de verano y una precipitación de 1 053 mm de lluvia registrados de manera anual.” &nbsp; A) Af – Tropical con lluvias todo el año &nbsp; B) Aw – Tropical con lluvias en verano &nbsp; C) Cf – Templado con lluvias todo el año &nbsp; D) Cw – Templado con lluvias en verano</div>
+    <ol class="pasos">
+      <li><b>Primera letra:</b> Manzanillo es un puerto del Pacífico, al nivel del mar y en el trópico, con mucho calor: es un clima <b>tropical (A)</b>. Los templados (C) son de lugares con inviernos frescos, como el Altiplano. Quedan A y B.</li>
+      <li><b>Segunda letra:</b> en la costa del Pacífico mexicano casi toda la lluvia cae en verano (temporada de lluvias y huracanes) y el invierno es seco: <b>w</b>. Además, 1 053 mm al año es una cantidad moderada para el trópico; un clima Af, sin estación seca, suele ser mucho más lluvioso, como el de Tabasco.</li>
+    </ol>
+    <span class="resp">Respuesta: B) Aw – Tropical con lluvias en verano</span>
+  </div>
+
+  <div class="caja practica"><b class="t">Ahora tú</b>
+    <ol>
+      <li>“Hoy amaneció nublado en Puebla.” ¿Es tiempo o clima?</li>
+      <li>¿Qué factor explica que haga frío en la cumbre de un volcán del trópico?</li>
+      <li>¿Qué significan las letras de un clima Cw? ¿Y de uno BW?</li>
+      <li>Un lugar tiene todos los meses arriba de 18 °C y llueve parejo los doce meses. ¿Qué clima es?</li>
+      <li>¿Qué clima tiene la Ciudad de México?</li>
+    </ol>
+    <div class="sol">
+      <p><b>1)</b> Tiempo (es un momento, no un promedio de años). <b>2)</b> La altitud. <b>3)</b> Cw: templado con lluvias en verano; BW: seco desértico.</p>
+      <p><b>4)</b> Af (tropical con lluvias todo el año). <b>5)</b> Templado con lluvias en verano (Cw).</p>
+    </div>
+  </div>
+</section>
+<section class="tema">
+  <h2>4.7 Geografía de la población</h2>
+  <div class="reactivos">Reactivo 22 de la versión de práctica</div>
+
+  <p class="intro"><b>¿De qué trata esta lección?</b> ¿Cuántos somos en México? ¿Dónde vivimos? ¿Cuántos hijos tienen las familias y cuántos años vivimos en promedio? La geografía de la población responde estas preguntas con números llamados <b>indicadores demográficos</b>. Aquí aprenderás los principales, cómo se calcula la densidad de población y qué mide el Índice de Desarrollo Humano.</p>
+
+  <h3>¿Cuántos somos y dónde vivimos?</h3>
+  <p>La <b>población absoluta</b> es el total de habitantes: según el Censo 2020 del INEGI, México tenía <b>126 millones</b> de habitantes. La <b>población relativa</b> o <b>densidad de población</b> es cuántos habitantes hay por kilómetro cuadrado:</p>
+  <p class="eq" style="font-size:10.5pt">densidad = habitantes ÷ superficie (km²)</p>
+  <div class="caja ejemplo"><b class="t">Ejemplo explicado: la densidad de México</b>
+    <ol class="pasos">
+      <li><b>Datos:</b> unos 126 000 000 de habitantes y una superficie de unos 1 964 000 km².</li>
+      <li><b>Divido:</b> 126 000 000 ÷ 1 964 000 ≈ <b>64 habitantes por km²</b>.</li>
+      <li><b>Pero no estamos repartidos parejo:</b> la Ciudad de México tiene más de 6 000 hab/km² y Baja California Sur, unos 11. Casi 8 de cada 10 mexicanos viven en ciudades.</li>
+    </ol>
+  </div>
+
+  <h3>Los indicadores demográficos</h3>
+  <table class="compacta">
+    <tr><th style="width:22%">Indicador</th><th>Qué mide</th></tr>
+    <tr><td><b>Natalidad</b></td><td>los nacimientos en un año, por cada 1 000 habitantes</td></tr>
+    <tr><td><b>Mortalidad</b></td><td>las defunciones en un año, por cada 1 000 habitantes</td></tr>
+    <tr><td><b>Mortalidad infantil</b></td><td>los bebés que mueren antes de cumplir un año, por cada 1 000 nacidos vivos</td></tr>
+    <tr><td><b>Fecundidad</b></td><td>el número promedio de hijos por mujer (en México eran casi 7 en 1970; hoy, menos de 2)</td></tr>
+    <tr><td><b>Esperanza de vida</b></td><td>los años que se espera que viva en promedio una persona al nacer (en México, unos 75)</td></tr>
+    <tr><td><b>Morbilidad</b></td><td>la proporción de personas que se enferman en un lugar y un tiempo determinados</td></tr>
+    <tr><td><b>Crecimiento natural</b></td><td>natalidad menos mortalidad (si se suma el saldo de la migración, se obtiene el crecimiento total)</td></tr>
+  </table>
+  <div class="dos">
+    <div>
+      <p><b>Las pirámides de población</b> muestran cuántos hombres (izquierda) y mujeres (derecha) hay de cada edad. Una pirámide de base ancha (<b>progresiva</b>) es de un país joven con muchos nacimientos; una de base angosta (<b>regresiva</b>) es de un país envejecido, como Japón. La de México era progresiva y se ha ido angostando en la base, porque cada vez nacen menos niños y vivimos más años.</p>
+    </div>
+    <div class="fig"><svg width="594" height="182.6" viewBox="0 0 540 166" xmlns="http://www.w3.org/2000/svg" font-family="DejaVu Sans" font-size="10"><rect x="20" y="118" width="69" height="11" rx="0" stroke="none" fill="#3b7dc4" stroke-width="0"/><rect x="91" y="118" width="69" height="11" rx="0" stroke="none" fill="#e8749a" stroke-width="0"/><rect x="28" y="106" width="61" height="11" rx="0" stroke="none" fill="#3b7dc4" stroke-width="0"/><rect x="91" y="106" width="61" height="11" rx="0" stroke="none" fill="#e8749a" stroke-width="0"/><rect x="36" y="94" width="53" height="11" rx="0" stroke="none" fill="#3b7dc4" stroke-width="0"/><rect x="91" y="94" width="53" height="11" rx="0" stroke="none" fill="#e8749a" stroke-width="0"/><rect x="44" y="82" width="45" height="11" rx="0" stroke="none" fill="#3b7dc4" stroke-width="0"/><rect x="91" y="82" width="45" height="11" rx="0" stroke="none" fill="#e8749a" stroke-width="0"/><rect x="52" y="70" width="37" height="11" rx="0" stroke="none" fill="#3b7dc4" stroke-width="0"/><rect x="91" y="70" width="37" height="11" rx="0" stroke="none" fill="#e8749a" stroke-width="0"/><rect x="60" y="58" width="29" height="11" rx="0" stroke="none" fill="#3b7dc4" stroke-width="0"/><rect x="91" y="58" width="29" height="11" rx="0" stroke="none" fill="#e8749a" stroke-width="0"/><rect x="68" y="46" width="21" height="11" rx="0" stroke="none" fill="#3b7dc4" stroke-width="0"/><rect x="91" y="46" width="21" height="11" rx="0" stroke="none" fill="#e8749a" stroke-width="0"/><rect x="76" y="34" width="13" height="11" rx="0" stroke="none" fill="#3b7dc4" stroke-width="0"/><rect x="91" y="34" width="13" height="11" rx="0" stroke="none" fill="#e8749a" stroke-width="0"/><rect x="82" y="22" width="7" height="11" rx="0" stroke="none" fill="#3b7dc4" stroke-width="0"/><rect x="91" y="22" width="7" height="11" rx="0" stroke="none" fill="#e8749a" stroke-width="0"/><text x="90" y="148" fill="#1f6f8b" text-anchor="middle" font-size="9.5" font-weight="bold">Progresiva (joven)</text><text x="90" y="160" fill="#5a6375" text-anchor="middle" font-size="8.3">mucha natalidad: base ancha</text><rect x="224" y="118" width="45" height="11" rx="0" stroke="none" fill="#3b7dc4" stroke-width="0"/><rect x="271" y="118" width="45" height="11" rx="0" stroke="none" fill="#e8749a" stroke-width="0"/><rect x="224" y="106" width="45" height="11" rx="0" stroke="none" fill="#3b7dc4" stroke-width="0"/><rect x="271" y="106" width="45" height="11" rx="0" stroke="none" fill="#e8749a" stroke-width="0"/><rect x="225" y="94" width="44" height="11" rx="0" stroke="none" fill="#3b7dc4" stroke-width="0"/><rect x="271" y="94" width="44" height="11" rx="0" stroke="none" fill="#e8749a" stroke-width="0"/><rect x="226" y="82" width="43" height="11" rx="0" stroke="none" fill="#3b7dc4" stroke-width="0"/><rect x="271" y="82" width="43" height="11" rx="0" stroke="none" fill="#e8749a" stroke-width="0"/><rect x="228" y="70" width="41" height="11" rx="0" stroke="none" fill="#3b7dc4" stroke-width="0"/><rect x="271" y="70" width="41" height="11" rx="0" stroke="none" fill="#e8749a" stroke-width="0"/><rect x="232" y="58" width="37" height="11" rx="0" stroke="none" fill="#3b7dc4" stroke-width="0"/><rect x="271" y="58" width="37" height="11" rx="0" stroke="none" fill="#e8749a" stroke-width="0"/><rect x="238" y="46" width="31" height="11" rx="0" stroke="none" fill="#3b7dc4" stroke-width="0"/><rect x="271" y="46" width="31" height="11" rx="0" stroke="none" fill="#e8749a" stroke-width="0"/><rect x="246" y="34" width="23" height="11" rx="0" stroke="none" fill="#3b7dc4" stroke-width="0"/><rect x="271" y="34" width="23" height="11" rx="0" stroke="none" fill="#e8749a" stroke-width="0"/><rect x="258" y="22" width="11" height="11" rx="0" stroke="none" fill="#3b7dc4" stroke-width="0"/><rect x="271" y="22" width="11" height="11" rx="0" stroke="none" fill="#e8749a" stroke-width="0"/><text x="270" y="148" fill="#1f6f8b" text-anchor="middle" font-size="9.5" font-weight="bold">Estacionaria (madura)</text><text x="270" y="160" fill="#5a6375" text-anchor="middle" font-size="8.3">natalidad y mortalidad parejas</text><rect x="420" y="118" width="29" height="11" rx="0" stroke="none" fill="#3b7dc4" stroke-width="0"/><rect x="451" y="118" width="29" height="11" rx="0" stroke="none" fill="#e8749a" stroke-width="0"/><rect x="416" y="106" width="33" height="11" rx="0" stroke="none" fill="#3b7dc4" stroke-width="0"/><rect x="451" y="106" width="33" height="11" rx="0" stroke="none" fill="#e8749a" stroke-width="0"/><rect x="412" y="94" width="37" height="11" rx="0" stroke="none" fill="#3b7dc4" stroke-width="0"/><rect x="451" y="94" width="37" height="11" rx="0" stroke="none" fill="#e8749a" stroke-width="0"/><rect x="408" y="82" width="41" height="11" rx="0" stroke="none" fill="#3b7dc4" stroke-width="0"/><rect x="451" y="82" width="41" height="11" rx="0" stroke="none" fill="#e8749a" stroke-width="0"/><rect x="406" y="70" width="43" height="11" rx="0" stroke="none" fill="#3b7dc4" stroke-width="0"/><rect x="451" y="70" width="43" height="11" rx="0" stroke="none" fill="#e8749a" stroke-width="0"/><rect x="406" y="58" width="43" height="11" rx="0" stroke="none" fill="#3b7dc4" stroke-width="0"/><rect x="451" y="58" width="43" height="11" rx="0" stroke="none" fill="#e8749a" stroke-width="0"/><rect x="410" y="46" width="39" height="11" rx="0" stroke="none" fill="#3b7dc4" stroke-width="0"/><rect x="451" y="46" width="39" height="11" rx="0" stroke="none" fill="#e8749a" stroke-width="0"/><rect x="418" y="34" width="31" height="11" rx="0" stroke="none" fill="#3b7dc4" stroke-width="0"/><rect x="451" y="34" width="31" height="11" rx="0" stroke="none" fill="#e8749a" stroke-width="0"/><rect x="430" y="22" width="19" height="11" rx="0" stroke="none" fill="#3b7dc4" stroke-width="0"/><rect x="451" y="22" width="19" height="11" rx="0" stroke="none" fill="#e8749a" stroke-width="0"/><text x="450" y="148" fill="#1f6f8b" text-anchor="middle" font-size="9.5" font-weight="bold">Regresiva (envejecida)</text><text x="450" y="160" fill="#5a6375" text-anchor="middle" font-size="8.3">poca natalidad: base angosta</text><text x="20" y="14" fill="#3b7dc4" text-anchor="start" font-size="8.5" font-weight="bold">hombres</text><text x="160" y="14" fill="#e8749a" text-anchor="end" font-size="8.5" font-weight="bold">mujeres</text><text x="530" y="14" fill="#5a6375" text-anchor="end" font-size="8.3">arriba: los más viejos · abajo: los niños</text></svg></div>
+  </div>
+
+  <h3>El Índice de Desarrollo Humano (IDH)</h3>
+  <p>El <b>IDH</b> lo calcula el Programa de las Naciones Unidas para el Desarrollo (<b>PNUD</b>), que forma parte de la ONU, para clasificar a los países según su nivel de desarrollo. Combina tres indicadores:</p>
+  <ul>
+    <li><b>Salud:</b> la esperanza de vida.</li>
+    <li><b>Educación:</b> los años de escolaridad y el acceso a la educación (antes también se usaba la tasa de alfabetización de los adultos).</li>
+    <li><b>Ingreso:</b> el ingreso por persona (per cápita), medido en dólares.</li>
+  </ul>
+  <p>Va de 0 a 1: mientras más cerca de 1, mayor desarrollo. México tiene un IDH de cerca de 0.78, que se considera <b>alto</b>.</p>
+  <p class="chico">El temario dice que el IDH se estableció en 2010; en realidad se publicó por primera vez en 1990, y en 2010 se cambió la forma de calcularlo.</p>
+
+  <div class="caja examen">
+    <div class="enc">Reactivo 22 del examen</div>
+    <div class="preg">Los indicadores demográficos hacen referencia a la evolución histórica del comportamiento de la población. De la siguiente lista de opciones, todos son indicadores demográficos, excepto: &nbsp; A) fecundidad &nbsp; B) migración &nbsp; C) morbilidad &nbsp; D) natalidad</div>
+    <ol class="pasos">
+      <li><b>La lógica de la clave:</b> la natalidad, la fecundidad y la morbilidad son <b>tasas</b> que miden hechos de la vida de la población (nacer, tener hijos, enfermarse). La <b>migración</b> es un <b>desplazamiento</b> de personas de un lugar a otro, y el temario la estudia como un tema aparte (4.8).</li>
+      <li><b>Por eso la clave marca la migración</b> como la que no es indicador demográfico.</li>
+    </ol>
+    <p class="chico"><b>Ojo, es una pregunta discutible:</b> muchos libros y el propio INEGI sí cuentan la migración entre los componentes demográficos, y la morbilidad suele considerarse un indicador de salud. Para el examen, quédate con la respuesta de la clave.</p>
+    <span class="resp">Respuesta: B) migración</span>
+  </div>
+
+  <div class="caja practica"><b class="t">Ahora tú</b>
+    <ol>
+      <li>Un municipio tiene 30 000 habitantes y 600 km². ¿Cuál es su densidad de población?</li>
+      <li>¿Qué indicador dice cuántos hijos tiene en promedio una mujer?</li>
+      <li>¿Qué tres aspectos combina el IDH?</li>
+      <li>Una pirámide de población tiene la base angosta y la parte media ancha. ¿Qué dice de ese país?</li>
+    </ol>
+    <div class="sol">
+      <p><b>1)</b> 30 000 ÷ 600 = 50 habitantes por km². <b>2)</b> La fecundidad. <b>3)</b> Salud (esperanza de vida), educación e ingreso per cápita.</p>
+      <p><b>4)</b> Que nacen pocos niños y su población está envejeciendo (pirámide regresiva).</p>
+    </div>
+  </div>
+</section>
+
+<section class="tema">
+  <h2>4.8 Migración a nivel mundial</h2>
+  <div class="reactivos">No viene en la versión de práctica, pero está en el temario</div>
+
+  <p class="intro"><b>¿De qué trata esta lección?</b> La <b>migración</b> es el desplazamiento de personas de un lugar a otro para establecerse, por un tiempo o para siempre. Seguramente conoces a alguien que lo ha hecho: México es uno de los países donde la migración es más importante. Aquí verás sus tipos, causas y consecuencias.</p>
+
+  <h3>Tipos de migración</h3>
+  <ul>
+    <li><b>Emigración</b> (salir de un lugar) e <b>inmigración</b> (llegar a un lugar). Una misma persona es emigrante para su país de origen e inmigrante para el de destino.</li>
+    <li><b>Interna</b> (dentro del país, como del campo a la ciudad) o <b>internacional</b>; <b>temporal</b> (como los jornaleros agrícolas) o <b>permanente</b>.</li>
+  </ul>
+
+  <h3>¿Por qué migra la gente?</h3>
+  <p>Las causas pueden ser <b>económicas</b> (buscar trabajo o mejores salarios, la más común), <b>sociales</b> (reunirse con la familia, estudiar), <b>políticas o de violencia</b> (persecución, guerras, inseguridad) y <b>ambientales</b> (sequías, huracanes y otros desastres).</p>
+  <p><b>México</b> es a la vez un país de <b>origen</b> (millones de mexicanos viven en Estados Unidos), de <b>tránsito</b> (por aquí pasan migrantes de Centroamérica y otros países rumbo al norte), de <b>destino</b> y de <b>retorno</b>. Los migrantes envían dinero a sus familias: las <b>remesas</b>, que suman más de 60 mil millones de dólares al año y son una de las principales entradas de dinero del país.</p>
+
+  <h3>Consecuencias y la distribución de la población</h3>
+  <ul>
+    <li><b>En el lugar de origen:</b> llegan remesas, pero se van los jóvenes; hay pueblos donde quedan sobre todo niños y adultos mayores.</li>
+    <li><b>En el lugar de destino:</b> llegan trabajadores y diversidad cultural, pero también crece la demanda de vivienda y servicios, y a veces hay discriminación.</li>
+  </ul>
+  <p>El temario relaciona la migración con la <b>dispersión de la población</b>: mucha gente vive en localidades pequeñas y apartadas, donde es muy caro llevar servicios, carreteras e internet, y esa desigualdad entre el campo y la ciudad impulsa a migrar. Hoy también crecen las orillas de las ciudades (<b>suburbanización</b>) y se forman grandes <b>ciudades-región</b>.</p>
+
+  <div class="caja practica"><b class="t">Ahora tú</b>
+    <ol>
+      <li>Una familia de Oaxaca se muda a Monterrey. ¿Es migración interna o internacional?</li>
+      <li>Para Guatemala, un guatemalteco que se va a Estados Unidos es… ¿emigrante o inmigrante?</li>
+      <li>¿Qué son las remesas?</li>
+    </ol>
+    <div class="sol">
+      <p><b>1)</b> Interna. <b>2)</b> Emigrante (para Estados Unidos será inmigrante). <b>3)</b> El dinero que los migrantes envían a sus familias.</p>
+    </div>
+  </div>
+</section>
+
+<section class="tema">
+  <h2>4.9 Geografía política: fronteras y soberanía</h2>
+  <div class="reactivos">Reactivo 24 de la versión de práctica</div>
+
+  <p class="intro"><b>¿De qué trata esta lección?</b> ¿Hasta dónde llega México? ¿Solo hasta la playa? No: el territorio de un país incluye islas, una franja de mar y el espacio aéreo. Aquí aprenderás cómo está dividido México, sus fronteras y las zonas marítimas que le pertenecen.</p>
+
+  <h3>División territorial</h3>
+  <p>El nombre oficial de nuestro país es <b>Estados Unidos Mexicanos</b>, aunque también se le llama República Mexicana o México. Es una república federal formada por <b>32 entidades federativas</b>: 31 estados y la <b>Ciudad de México</b>, que es la capital y la sede de los tres poderes de gobierno (Ejecutivo, Legislativo y Judicial).</p>
+
+  <h3>Extensión y fronteras</h3>
+  <ul>
+    <li><b>Superficie continental</b> (la parte unida al continente americano) más la <b>superficie insular</b> (las islas, como Cozumel o las Islas Marías): en total, cerca de <b>1 964 000 km²</b>. México está entre los 15 países más grandes del mundo.</li>
+    <li><b>Fronteras:</b> al norte con Estados Unidos (unos 3 150 km, buena parte marcada por el río Bravo) y al sur con Guatemala (unos 960 km) y Belice (unos 190 km).</li>
+    <li><b>Litorales:</b> más de 11 000 km de costas en el océano Pacífico, el golfo de California, el golfo de México y el mar Caribe.</li>
+  </ul>
+
+  <h3>Las zonas marítimas</h3>
+  <div class="fig"><svg width="682" height="178.2" viewBox="0 0 620 162" xmlns="http://www.w3.org/2000/svg" font-family="DejaVu Sans" font-size="10"><defs><marker id="fdzm" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#5a6375"/></marker><marker id="fizm" markerWidth="8" markerHeight="8" refX="2" refY="4" orient="auto"><path d="M8,0 L0,4 L8,8 z" fill="#5a6375"/></marker></defs><rect x="0" y="40" width="60" height="90" rx="0" stroke="none" fill="#e3f1df" stroke-width="0"/><text x="30" y="90" fill="#2e7d4f" text-anchor="middle" font-size="9" font-weight="bold">tierra</text><rect x="60" y="40" width="110" height="90" rx="0" stroke="none" fill="#7fb3d5" stroke-width="0"/><text x="115" y="80" fill="#1d2330" text-anchor="middle" font-size="9" font-weight="bold">Mar territorial</text><text x="115" y="94" fill="#1d2330" text-anchor="middle" font-size="8.5">12 mn (22.2 km)</text><rect x="170" y="40" width="120" height="90" rx="0" stroke="none" fill="#a9cce3" stroke-width="0"/><text x="230" y="80" fill="#1d2330" text-anchor="middle" font-size="9" font-weight="bold">Zona contigua</text><text x="230" y="94" fill="#1d2330" text-anchor="middle" font-size="8.5">hasta 24 mn (44.4 km)</text><rect x="290" y="40" width="270" height="90" rx="0" stroke="none" fill="#d4e6f1" stroke-width="0"/><text x="425" y="80" fill="#1d2330" text-anchor="middle" font-size="9" font-weight="bold">Zona económica exclusiva</text><text x="425" y="94" fill="#1d2330" text-anchor="middle" font-size="8.5">hasta 200 mn (370.4 km)</text><rect x="560" y="40" width="60" height="90" rx="0" stroke="none" fill="#ffffff" stroke-width="0"/><text x="590" y="90" fill="#5a6375" text-anchor="middle" font-size="8.5" font-weight="bold">alta mar</text><path d="M318,40 L326,130" stroke="#ffffff" fill="none" stroke-width="6"/><path d="M318,40 L326,130" stroke="#9cc3d3" fill="none" stroke-width="1"/><text x="425" y="108" fill="#1d2330" text-anchor="middle" font-size="8.5" font-weight="bold">(ZEE)</text><line x1="60" y1="140" x2="170" y2="140" stroke="#1f6f8b" stroke-width="1.2" marker-start="url(#fizm)" marker-end="url(#fdzm)"/><text x="115" y="156" fill="#1f6f8b" text-anchor="middle" font-size="8.5" font-weight="bold">soberanía plena</text><line x1="290" y1="140" x2="560" y2="140" stroke="#1f6f8b" stroke-width="1.2" marker-start="url(#fizm)" marker-end="url(#fdzm)"/><text x="425" y="156" fill="#1f6f8b" text-anchor="middle" font-size="8.5" font-weight="bold">derechos sobre los recursos; otros barcos pasan libres</text><text x="310" y="26" fill="#5a6375" text-anchor="middle" font-size="8.3">distancias desde la costa · mn = millas náuticas (1 mn = 1.852 km) · sin escala</text></svg></div>
+  <p>Las distancias en el mar se miden en <b>millas náuticas</b> (1 milla náutica = 1.852 km), contadas desde la línea de costa. Las establecen tratados internacionales (México tiene acuerdos con Estados Unidos, Guatemala, Belice, Honduras y Cuba) y las vigila la Secretaría de Marina.</p>
+  <table class="compacta" style="page-break-inside:avoid">
+    <tr><th style="width:24%">Zona</th><th style="width:22%">Hasta dónde llega</th><th>¿Qué derechos tiene México?</th></tr>
+    <tr><td><b>Mar territorial</b></td><td>12 millas náuticas (<b>22.2 km</b>)</td><td><b>Soberanía plena</b>, igual que en tierra firme: sobre el agua, el lecho, el subsuelo y el espacio aéreo. Aplican las mismas leyes que en el territorio continental.</td></tr>
+    <tr><td><b>Zona contigua</b></td><td>24 millas náuticas (44.4 km)</td><td>Puede vigilar y hacer cumplir sus leyes de aduanas, migración y salud.</td></tr>
+    <tr><td><b>Zona económica exclusiva (ZEE)</b></td><td>200 millas náuticas (<b>370.4 km</b>)</td><td>Derechos sobre los <b>recursos</b>: México decide quién puede pescar o extraer petróleo y minerales. Los barcos de otros países pueden <b>navegar libremente</b> e instalar cables y ductos submarinos.</td></tr>
+  </table>
+  <p class="chico">El temario dice que en la ZEE México tiene “los mismos derechos que en su mar territorial”; en rigor, ahí tiene derechos sobre los recursos, pero no la soberanía plena del mar territorial (por eso otros barcos pueden pasar).</p>
+
+  <div class="caja examen">
+    <div class="enc">Reactivo 24 del examen</div>
+    <div class="preg">¿Cómo se le conoce al área más allá del mar, que comprende una longitud desde la línea de costa de 370 km hasta mar adentro, donde los barcos mexicanos pueden circular libremente con fines de transporte o para pescar? &nbsp; A) Océano territorial &nbsp; B) Superficie insular &nbsp; C) Superficie territorial &nbsp; D) Zona económicamente exclusiva</div>
+    <ol class="pasos">
+      <li><b>El dato clave son los 370 km:</b> 200 millas náuticas × 1.852 = 370.4 km, el límite de la <b>zona económica exclusiva</b>, donde México explota la pesca y los demás recursos.</li>
+      <li><b>Descarto:</b> lo que mide 22.2 km es el mar territorial (no existe el “océano territorial”); la superficie insular son las islas, y la superficie territorial es la tierra firme más las islas.</li>
+    </ol>
+    <span class="resp">Respuesta: D) Zona económica exclusiva</span>
+  </div>
+
+  <div class="caja practica"><b class="t">Ahora tú</b>
+    <ol>
+      <li>¿Cuántas entidades federativas tiene México? ¿Cuál es la capital?</li>
+      <li>¿Hasta cuántos kilómetros llega el mar territorial? ¿Qué derechos tiene ahí México?</li>
+      <li>Un barco pesquero extranjero pesca sin permiso a 150 km de la costa de Sinaloa. ¿Está violando algún derecho de México? ¿Por qué?</li>
+      <li>¿Con qué países tiene frontera terrestre México?</li>
+    </ol>
+    <div class="sol">
+      <p><b>1)</b> 32 (31 estados y la Ciudad de México, que es la capital). <b>2)</b> 22.2 km (12 millas náuticas); soberanía plena.</p>
+      <p><b>3)</b> Sí: está dentro de la zona económica exclusiva (hasta 370.4 km), donde México decide quién aprovecha la pesca. Podría navegar, pero no pescar sin permiso. <b>4)</b> Estados Unidos, Guatemala y Belice.</p>
+    </div>
+  </div>
+</section>
+<section class="tema">
+  <h2>Resumen: lo indispensable de cada tema</h2>
+  <p class="intro">Todo el temario de Geografía en una página. Léelo antes del examen: si alguna línea no te dice nada, regresa a su lección.</p>
+  <table class="compacta" style="font-size:8.8pt">
+    <tr><th style="width:15%">Tema</th><th>Lo que tienes que saber</th></tr>
+    <tr><td>4.1 Sistema Solar</td><td>Sol + 8 planetas. Rocosos (Mercurio, Venus, Tierra, Marte): pequeños, densos, superficie sólida, sin anillos. Gaseosos (Júpiter, Saturno, Urano, Neptuno): enormes, de hidrógeno y helio, con anillos y muchas lunas. Plutón es planeta enano. Tierra: rotación (24 h, día y noche) y traslación (365 días y casi 6 h; estaciones por la inclinación del eje).</td></tr>
+    <tr><td>4.2 Espacio geográfico</td><td>Mapa: representación plana, reducida y simplificada. Elementos: título, simbología, escala y coordenadas (y orientación). Escala 1 : 50 000 → 1 cm = 500 m. Latitud: norte o sur del ecuador (0° a 90°); longitud: este u oeste de Greenwich (0° a 180°). SIG: mapas + bases de datos, consultas interactivas y análisis (Google Maps con GPS).</td></tr>
+    <tr><td>4.2 Estructura de la Tierra</td><td>Corteza, manto, núcleo externo (líquido) e interno (sólido). Placas: bordes divergentes (se separan), convergentes (chocan; subducción → sismos y volcanes) y transformantes (se deslizan). México está sobre 5 placas. Sismo: hipocentro (foco) y epicentro; magnitud (energía) e intensidad (daños). Agentes internos (tectonismo, vulcanismo) crean relieve; externos lo desgastan: intemperismo (romper en su lugar) y erosión (transportar): fluvial, pluvial, eólica, marina, glaciar.</td></tr>
+    <tr><td>4.3 Recursos naturales</td><td>Escasos y dependientes. Renovables: agua, suelo, flora y fauna (si se usan bien). No renovables: minerales, metales, petróleo, gas, carbón. Inagotables: energía solar, eólica, de las olas, geotérmica. Desarrollo sustentable.</td></tr>
+    <tr><td>4.4 Fenómenos naturales</td><td>Meteorológicos (lluvias, huracanes, heladas, sequías), hidrológicos (oleaje, inundaciones; el temario incluye los tsunamis) y geológicos (sismos, erupciones, deslizamientos). Protección Civil: geológicos (incluye tsunamis), hidrometeorológicos, químico-tecnológicos (explosiones, fugas), sanitario-ecológicos (residuos biológicos) y socio-organizativos. El riesgo combina el peligro y la vulnerabilidad. El Paricutín nació en 1943 en Michoacán.</td></tr>
+    <tr><td>4.5 Desastres</td><td>Naturales o antrópicos (causados por el ser humano: derrames, explosiones, contaminación). Sectores: primario (agricultura, ganadería, pesca, minería), secundario (industria), terciario (servicios, turismo). Un derrame en el mar afecta a la pesca.</td></tr>
+    <tr><td>4.6 Climas</td><td>Tiempo (momento) y clima (promedio de años). Elementos (temperatura, lluvia, humedad, presión, viento) y factores (latitud, altitud, relieve, distancia al mar). Köppen: A tropical (todos los meses &gt; 18 °C), B seco (S estepario, W desértico), C templado, D frío, E polar. Segunda letra: f lluvias todo el año, w lluvias en verano, s lluvias en invierno, m monzónico.</td></tr>
+    <tr><td>4.7 Población</td><td>México: 126 millones (2020), unos 64 hab/km². Natalidad, mortalidad, fecundidad, esperanza de vida, morbilidad (enfermedad). Pirámides: progresiva (joven), estacionaria, regresiva (envejecida). IDH (PNUD): salud, educación e ingreso; de 0 a 1.</td></tr>
+    <tr><td>4.8 Migración</td><td>Emigración (salir) e inmigración (llegar); interna e internacional. Causas económicas, sociales, políticas, de violencia y ambientales. México: país de origen, tránsito, destino y retorno; remesas.</td></tr>
+    <tr><td>4.9 Geografía política</td><td>Estados Unidos Mexicanos: 32 entidades (31 estados + Ciudad de México, la capital). Fronteras: EUA, Guatemala y Belice. Mar territorial: 12 millas náuticas (22.2 km), soberanía plena. Zona económica exclusiva: 200 millas náuticas (370.4 km), derechos sobre los recursos.</td></tr>
+  </table>
+</section>
+
+<section class="tema">
+  <h2>Clave de la versión de práctica (Geografía, reactivos 15 a 24)</h2>
+  <table class="clave">
+    <tr><td>15 D</td><td>16 D</td><td>17 A</td><td>18 D</td><td>19 A</td></tr>
+    <tr><td>20 D</td><td>21 B</td><td>22 B*</td><td>23 B</td><td>24 D</td></tr>
+  </table>
+  <p class="chico">* Reactivo 22: la clave marca la migración como la que no es indicador demográfico; es discutible, porque muchas fuentes la consideran un componente demográfico (ver lección 4.7).</p>
+
+  <h3>Estrategia para el día del examen</h3>
+  <ul>
+    <li><b>Un minuto por pregunta:</b> Ciencias Experimentales tiene 60 reactivos en 60 minutos. Las de Geografía suelen ser rápidas si reconoces la palabra clave del caso: no te atores.</li>
+    <li><b>En los casos, busca la palabra que decide:</b> “nacimiento”, “lava”, “sepultó” → volcán; “mar” → pesca; “lluvias en verano” → w; “370 km” → zona económica exclusiva; “consultas interactivas” → SIG.</li>
+    <li><b>En las listas</b> (“identifique los tipos de…”), revisa uno por uno y tacha los que pertenecen a otra categoría: lo tectónico no es erosión; una explosión no es un fenómeno geológico.</li>
+    <li><b>Cuidado con las parejas que se confunden:</b> tiempo / clima, elementos / factores del clima, intemperismo / erosión, hipocentro / epicentro, magnitud / intensidad, mar territorial / zona económica exclusiva, renovable / inagotable.</li>
+    <li><b>Usa lo que sabes de México:</b> muchos reactivos hablan de lugares reales. Si sabes dónde está Manzanillo o qué es el Paricutín, tienes media respuesta.</li>
+  </ul>
+
+  <h3>Bibliografía sugerida en el temario</h3>
+  <ul class="chico">
+    <li>Ayllón, T. y Lorenzo, I. (2000). <i>Geografía para bachilleres</i>. Trillas.</li>
+    <li>Jiménez, L. y Galicia, M. (2018). <i>Geografía física para bachillerato</i>. Lapislázuli.</li>
+    <li>Quiroga, L. y Acosta, G. (2009). <i>Geografía. Bachillerato</i>. ST Editorial.</li>
+    <li>Sámano, C. (2001). <i>Geografía</i>. Santillana.</li>
+    <li>CENAPRED, Centro Nacional de Prevención de Desastres (gob.mx/cenapred).</li>
+    <li>INEGI: <i>Cuéntame de México</i> (división territorial y mapas), datos de población y <i>Guía para la interpretación de cartografía topográfica</i>.</li>
+    <li>INAFED: <i>La distribución espacial de población es un reto nacional</i>.</li>
+    <li>Rubio Barroso, A. y Gutiérrez Puebla, J. <i>Los sistemas de información geográficos: origen y perspectivas</i>. Revista General de Información y Documentación, 7.</li>
+  </ul>
+</section>
+
+</body>
+</html>
