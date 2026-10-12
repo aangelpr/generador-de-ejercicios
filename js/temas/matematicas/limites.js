@@ -168,6 +168,19 @@
       'Al infinito en una racional: manda el termino de mayor grado (iguales &rarr; cociente de coeficientes).<br>' +
       'Trigonometricos clave: lim<sub>x&rarr;0</sub> (sen x)/x = 1, lim<sub>x&rarr;0</sub> (1&minus;cos x)/x = 0',
 
+    considere: {
+      polinomio: 'que el l&iacute;mite de un polinomio se obtiene sustituyendo x por el valor al que tiende.',
+      racional: 'que si el denominador no se hace cero, el l&iacute;mite se obtiene sustituyendo.',
+      factorizar: 'que si sale 0/0 se factoriza y se simplifica, y x<sup>2</sup> + bx + c = (x + p)(x + q), donde p + q = b y pq = c.',
+      diferenciaCuadrados: 'a<sup>2</sup> &minus; b<sup>2</sup> = (a + b)(a &minus; b).',
+      infinito: 'que al infinito manda el t&eacute;rmino de mayor grado: con grados iguales el l&iacute;mite es el cociente de los coeficientes principales, si el de abajo es mayor es 0 y si el de arriba es mayor no existe (tiende a &plusmn;&infin;).',
+      asintotaVertical: 'que si el denominador tiende a 0 y el numerador no, los l&iacute;mites laterales son infinitos: si el denominador no cambia de signo, como (x &minus; a)<sup>2</sup>, el l&iacute;mite es +&infin; o &minus;&infin;, y si cambia de signo no existe.',
+      conjugado: '(&radic;a &minus; b)(&radic;a + b) = a &minus; b<sup>2</sup>: multiplica arriba y abajo por el conjugado.',
+      trigonometrico: 'lim<sub>u&rarr;0</sub> (sen u)/u = 1 y lim<sub>u&rarr;0</sub> (1 &minus; cos u)/u = 0.',
+      lateral: 'que el l&iacute;mite existe s&oacute;lo si los dos l&iacute;mites laterales son iguales.',
+      continuidad: 'que f es continua en a si el l&iacute;mite por la izquierda, el l&iacute;mite por la derecha y f(a) son iguales.',
+      cubico: 'a<sup>3</sup> &minus; b<sup>3</sup> = (a &minus; b)(a<sup>2</sup> + ab + b<sup>2</sup>) y a<sup>3</sup> + b<sup>3</sup> = (a + b)(a<sup>2</sup> &minus; ab + b<sup>2</sup>).'
+    },
     generar: function (dif, r) {
       var guiaDelPaso = null;   // guia paso a paso, si este subtema la tiene
       var enun, resp, pistas, sol, a, b, val, p;

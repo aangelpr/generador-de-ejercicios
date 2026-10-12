@@ -56,6 +56,18 @@
       'Segundo teorema: &int;<sub>a</sub><sup>b</sup> f(x)dx = F(b) &minus; F(a), donde F es una antiderivada de f.<br>' +
       'Valor promedio en [a, b]: (1/(b&minus;a))&int;<sub>a</sub><sup>b</sup> f(x)dx',
 
+    considere: {
+      definida: '&int;<sub>a</sub><sup>b</sup> f(x)dx = F(b) &minus; F(a) y &int;x<sup>n</sup>dx = x<sup>n+1</sup>/(n + 1).',
+      propiedades: '&int;<sub>a</sub><sup>b</sup> f + &int;<sub>b</sub><sup>c</sup> f = &int;<sub>a</sub><sup>c</sup> f, &int;<sub>b</sub><sup>a</sup> f = &minus;&int;<sub>a</sub><sup>b</sup> f y &int; k&middot;f = k&middot;&int; f.',
+      primerTeorema: 'que si F(x) = &int;<sub>a</sub><sup>x</sup> f(t)dt, entonces F&prime;(x) = f(x).',
+      areaPoli: 'que el &aacute;rea es &int;<sub>a</sub><sup>b</sup> f(x)dx entre los cortes con el eje x (donde f(x) = 0), y &int;x<sup>n</sup>dx = x<sup>n+1</sup>/(n + 1).',
+      promedio: 'valor promedio = (1/(b &minus; a))&middot;&int;<sub>a</sub><sup>b</sup> f(x)dx.',
+      cadenaTFC: 'd/dx &int;<sub>a</sub><sup>g(x)</sup> f(t)dt = f(g(x))&middot;g&prime;(x).',
+      limiteInferior: '&int;<sub>x</sub><sup>a</sup> f(t)dt = &minus;&int;<sub>a</sub><sup>x</sup> f(t)dt y d/dx &int;<sub>a</sub><sup>x</sup> f(t)dt = f(x).',
+      raizIntegral: 'que si F(x) = &int;<sub>a</sub><sup>x</sup> f(t)dt, entonces F&prime;(x) = f(x).',
+      trigDefinida: '&int;sen(kx)dx = &minus;cos(kx)/k, &int;cos(kx)dx = sen(kx)/k y &int;<sub>a</sub><sup>b</sup> f(x)dx = F(b) &minus; F(a).',
+      areaEntreCurvas: '&Aacute;rea = &int;<sub>a</sub><sup>b</sup> (f(x) &minus; g(x))dx entre los puntos donde se cortan, con f la curva de arriba.'
+    },
     generar: function (dif, r) {
       var guiaDelPaso = null;   // guia paso a paso, si este subtema la tiene
       var enun, resp, pistas, sol, p, a, b, I, val;

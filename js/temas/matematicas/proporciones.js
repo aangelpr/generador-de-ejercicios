@@ -230,6 +230,17 @@
       'Inversa: x&middot;y = k &rArr; x<sub>1</sub>y<sub>1</sub> = x<sub>2</sub>y<sub>2</sub><br>' +
       'Variacion lineal: y = mx + b, con m = (y<sub>2</sub> &minus; y<sub>1</sub>)/(x<sub>2</sub> &minus; x<sub>1</sub>)',
 
+    considere: {
+      proporcion: 'que en a/b = c/d se cumple a&middot;d = b&middot;c.',
+      reglaDeTres: 'que en una proporci&oacute;n directa a<sub>1</sub>/b<sub>1</sub> = a<sub>2</sub>/b<sub>2</sub>.',
+      porcentaje: 'p% de N = (p/100)&middot;N, y porcentaje = (parte/total) &times; 100.',
+      inversa: 'que en una proporci&oacute;n inversa el producto se conserva: x<sub>1</sub>y<sub>1</sub> = x<sub>2</sub>y<sub>2</sub>.',
+      constante: 'y = kx, con k = y/x.',
+      escala: 'que en la escala 1 : E, 1 cm del mapa son E cm reales, y 1 m = 100 cm.',
+      lineal: 'm = (y<sub>2</sub> &minus; y<sub>1</sub>)/(x<sub>2</sub> &minus; x<sub>1</sub>) y y = mx + b.',
+      reparto: 'que cada parte vale total/(suma de las partes), y a cada quien le toca su parte por ese valor.',
+      compuesta: 'que el trabajo total (trabajadores &times; horas diarias &times; d&iacute;as) se conserva.'
+    },
     generar: function (dif, r) {
       var guiaDelPaso = null;   // guia paso a paso, si este subtema la tiene
       var a, b, c, d, enun, resp, pistas, sol;

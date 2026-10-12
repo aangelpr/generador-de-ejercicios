@@ -144,6 +144,18 @@
     formulario: 'Aritmetica: a<sub>n</sub> = a<sub>1</sub> + (n&minus;1)d &nbsp;&middot;&nbsp; S<sub>n</sub> = n(a<sub>1</sub> + a<sub>n</sub>)/2<br>' +
       'Geometrica: a<sub>n</sub> = a<sub>1</sub>r<sup>n&minus;1</sup> &nbsp;&middot;&nbsp; S<sub>n</sub> = a<sub>1</sub>(r<sup>n</sup> &minus; 1)/(r &minus; 1) &nbsp;&middot;&nbsp; S<sub>&infin;</sub> = a<sub>1</sub>/(1 &minus; r) si |r| &lt; 1',
 
+    considere: {
+      aritmetica: 'a<sub>n</sub> = a<sub>1</sub> + (n &minus; 1)d.',
+      geometrica: 'a<sub>n</sub> = a<sub>1</sub>&middot;r<sup>n&minus;1</sup>.',
+      sumaAP: 'a<sub>n</sub> = a<sub>1</sub> + (n &minus; 1)d y S<sub>n</sub> = n(a<sub>1</sub> + a<sub>n</sub>)/2.',
+      hallarD: 'a<sub>n</sub> = a<sub>1</sub> + (n &minus; 1)d.',
+      sumaGP: 'S<sub>n</sub> = a<sub>1</sub>(r<sup>n</sup> &minus; 1)/(r &minus; 1).',
+      medios: 'que con k medios hay k + 2 t&eacute;rminos, y a<sub>n</sub> = a<sub>1</sub> + (n &minus; 1)d.',
+      infinita: 'S<sub>&infin;</sub> = a<sub>1</sub>/(1 &minus; r), si |r| &lt; 1.',
+      hallarN: 'a<sub>n</sub> = a<sub>1</sub> + (n &minus; 1)d.',
+      hallarR: 'a<sub>n</sub> = a<sub>1</sub>&middot;r<sup>n&minus;1</sup>.',
+      problema: 'a<sub>n</sub> = a<sub>1</sub> + (n &minus; 1)d y S<sub>n</sub> = n(a<sub>1</sub> + a<sub>n</sub>)/2.'
+    },
     generar: function (dif, r) {
       var guiaDelPaso = null;   // guia paso a paso, si este subtema la tiene
       var enun, resp, pistas, sol, a1, d, n, q, an;

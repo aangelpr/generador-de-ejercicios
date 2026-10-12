@@ -228,6 +228,18 @@
     descripcion: 'Suma, resta, multiplicacion, division y simplificacion de fracciones.',
     formulario: 'a/b + c/d = (ad + bc)/bd &nbsp;&middot;&nbsp; (a/b)(c/d) = ac/bd &nbsp;&middot;&nbsp; (a/b) &divide; (c/d) = (a/b)(d/c) = ad/bc',
 
+    considere: {
+      sumaResta: 'a/b &plusmn; c/d = (ad &plusmn; bc)/bd, o el m&iacute;nimo com&uacute;n m&uacute;ltiplo de los denominadores.',
+      simplificar: 'que se dividen numerador y denominador entre su m&aacute;ximo com&uacute;n divisor.',
+      comparar: 'que a/b &gt; c/d si ad &gt; bc (productos cruzados, con denominadores positivos).',
+      deCantidad: 'que (a/b) de N = (a &times; N)/b.',
+      producto: '(a/b)&middot;(c/d) = ac/bd.',
+      cociente: '(a/b) &divide; (c/d) = (a/b)&middot;(d/c) = ad/bc.',
+      tres: 'a/b &plusmn; c/d = (ad &plusmn; bc)/bd, o el m&iacute;nimo com&uacute;n m&uacute;ltiplo de los tres denominadores.',
+      mixtas: 'que el n&uacute;mero mixto A b/c = (A&middot;c + b)/c, y a/b &plusmn; c/d = (ad &plusmn; bc)/bd.',
+      combinada: 'que primero va el producto, (a/b)(c/d) = ac/bd y a/b &plusmn; c/d = (ad &plusmn; bc)/bd.',
+      compleja: 'a/b &plusmn; c/d = (ad &plusmn; bc)/bd y (a/b) &divide; (c/d) = ad/bc.'
+    },
     generar: function (dif, r) {
       var guiaDelPaso = null;   // guia paso a paso, si este subtema la tiene
       var a, b, c, d, num, den, enun, pistas, sol, s;

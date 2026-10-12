@@ -926,6 +926,21 @@
       'Teorema del residuo: el residuo de dividir P(x) entre (x &minus; a) es P(a).<br>' +
       'Teorema del factor: (x &minus; a) es factor de P(x) si P(a) = 0.',
 
+    considere: {
+      suma: 'que s&oacute;lo se suman o restan los t&eacute;rminos semejantes y que &minus;(a &minus; b + c) = &minus;a + b &minus; c.',
+      grado: 'que el grado es el mayor exponente, el coeficiente principal es el del t&eacute;rmino de mayor grado y el t&eacute;rmino independiente es el que no lleva x.',
+      evaluar: 'que P(a) se obtiene sustituyendo x por a, con los negativos entre par&eacute;ntesis.',
+      factorComun: 'ab + ac + ad = a(b + c + d), donde a es el m&aacute;ximo com&uacute;n divisor de los coeficientes por la menor potencia de x.',
+      producto: 'que se multiplica cada t&eacute;rmino del primero por cada t&eacute;rmino del segundo y x<sup>m</sup>&middot;x<sup>n</sup> = x<sup>m+n</sup>.',
+      combinada: 'a(b + c) = ab + ac y &minus;(a &minus; b) = &minus;a + b; despu&eacute;s se reducen t&eacute;rminos semejantes.',
+      entreMonomio: '(a + b)/c = a/c + b/c y x<sup>m</sup>/x<sup>n</sup> = x<sup>m&minus;n</sup>.',
+      residuo: 'el teorema del residuo: el residuo de dividir P(x) entre (x &minus; a) es P(a).',
+      division: 'que dividendo = divisor &times; cociente + residuo, con el grado del residuo menor que el del divisor.',
+      sintetica: 'que para dividir entre (x &minus; a) se usa a: se baja el primer coeficiente, se multiplica por a y se suma al siguiente.',
+      agrupacion: 'ax + ay + bx + by = a(x + y) + b(x + y) = (a + b)(x + y).',
+      factorTeorema: 'el teorema del factor: (x &minus; a) es factor de P(x) si P(a) = 0.',
+      cuadradoTrinomio: '(a + b + c)<sup>2</sup> = a<sup>2</sup> + b<sup>2</sup> + c<sup>2</sup> + 2ab + 2ac + 2bc.'
+    },
     generar: function (dif, r) {
       var id;
       if (dif === 'facil') {

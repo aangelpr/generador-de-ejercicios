@@ -165,6 +165,16 @@
       '<small>Mantener una velocidad NO necesita fuerza. Cambiarla, si. ' +
       'Las cosas parecen pararse solas por el rozamiento, que es una fuerza.</small>',
 
+    considere: {
+      situacion: null,
+      enunciado: null,
+      equilibrio: 'que hay equilibrio cuando &Sigma;F = 0 (las fuerzas en sentidos contrarios se restan).',
+      tresFuerzas: 'que en reposo &Sigma;F = 0.',
+      pesoNormal: 'que en reposo &Sigma;F = 0, W = m&middot;g y g = 9.8 m/s<sup>2</sup>.',
+      rozamiento: 'que a velocidad constante &Sigma;F = 0.',
+      cuatroFuerzas: 'que a velocidad constante &Sigma;F = 0 en cada eje, W = m&middot;g y g = 9.8 m/s<sup>2</sup>.',
+      analiza: null
+    },
     generar: function (dif, r) {
       var guiaDelPaso = null;
       var enun, resp, pistas, sol;

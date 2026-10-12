@@ -155,6 +155,19 @@
       'Angulo interior de un poligono regular = (n &minus; 2)&middot;180&deg;/n<br>' +
       'Numero de diagonales = n(n &minus; 3)/2',
 
+    considere: {
+      nombre: null,
+      lados: null,
+      suma: 'S = (n &minus; 2)&middot;180&deg;.',
+      interior: 'que cada &aacute;ngulo interior de un pol&iacute;gono regular mide (n &minus; 2)&middot;180&deg;/n.',
+      diagonales: 'D = n(n &minus; 3)/2.',
+      anguloCentral: 'que el &aacute;ngulo central de un pol&iacute;gono regular mide 360&deg;/n.',
+      desdeSuma: 'S = (n &minus; 2)&middot;180&deg;.',
+      desdeInterior: 'que el &aacute;ngulo exterior = 180&deg; &minus; interior y que los exteriores suman 360&deg;.',
+      desdeDiagonales: 'D = n(n &minus; 3)/2.',
+      exterior: 'que los &aacute;ngulos exteriores de cualquier pol&iacute;gono suman 360&deg;.',
+      areaRegular: 'P = n &times; lado y A = (P &times; apotema)/2.'
+    },
     generar: function (dif, r) {
       var guiaDelPaso = null;   // guia paso a paso, si este subtema la tiene
       var enun, resp, pistas, sol, p;

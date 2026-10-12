@@ -185,6 +185,19 @@
     formulario: '(+)(+) = + &nbsp; (&minus;)(&minus;) = + &nbsp; (+)(&minus;) = &minus; &nbsp; (&minus;)(+) = &minus;<br>' +
       'Restar es sumar el opuesto: a &minus; (&minus;b) = a + b. Una potencia de base negativa es positiva si el exponente es par.',
 
+    considere: {
+      suma: 'a &minus; (&minus;b) = a + b; con signos iguales se suman y se conserva el signo, y con signos distintos se restan y queda el signo del de mayor valor absoluto.',
+      producto: '(+)(+) = +, (&minus;)(&minus;) = +, (+)(&minus;) = &minus; y (&minus;)(+) = &minus;.',
+      cociente: 'que la divisi&oacute;n sigue la misma regla: (+)&divide;(+) = +, (&minus;)&divide;(&minus;) = +, (+)&divide;(&minus;) = &minus; y (&minus;)&divide;(+) = &minus;.',
+      valorAbsoluto: '|a| = a si a &ge; 0 y |a| = &minus;a si a &lt; 0.',
+      triple: 'que un n&uacute;mero par de factores negativos da resultado positivo y uno impar da resultado negativo.',
+      mixta: 'la jerarqu&iacute;a de operaciones (primero multiplicaciones y divisiones, despu&eacute;s sumas y restas) y (+)(+) = +, (&minus;)(&minus;) = +, (+)(&minus;) = &minus; y (&minus;)(+) = &minus;.',
+      cocienteProd: '(+)(+) = +, (&minus;)(&minus;) = +, (+)(&minus;) = &minus; y (&minus;)(+) = &minus;; la divisi&oacute;n sigue la misma regla.',
+      potenciaSigno: 'que en (&minus;a)<sup>n</sup> el signo tambi&eacute;n se eleva, pero en &minus;a<sup>n</sup> el signo se queda afuera.',
+      anidado: 'que se empieza por el par&eacute;ntesis m&aacute;s interno, &minus;(a &minus; b) = &minus;a + b y (+)(+) = +, (&minus;)(&minus;) = +, (+)(&minus;) = &minus; y (&minus;)(+) = &minus;.',
+      potencias: 'que (&minus;a)<sup>n</sup> es positivo si n es par y negativo si n es impar.',
+      fraccionesSigno: '(a/b)&middot;(c/d) = ac/bd y la regla de los signos: signos iguales dan +, signos distintos dan &minus;.'
+    },
     generar: function (dif, r) {
       var guiaDelPaso = null;   // guia paso a paso, si este subtema la tiene
       var a, b, c, d, val, enun, pistas, sol;

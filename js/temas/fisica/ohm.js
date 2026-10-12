@@ -158,6 +158,17 @@
       '<small>Resistencias en <b>serie</b>: R = R<sub>1</sub> + R<sub>2</sub> (se suman, la corriente es la misma).<br>' +
       'En <b>paralelo</b>: 1/R = 1/R<sub>1</sub> + 1/R<sub>2</sub> (el total baja, el voltaje es el mismo).</small>',
 
+    considere: {
+      queDice: null,
+      despejes: null,
+      voltaje: 'V = I&middot;R.',
+      corriente: 'V = I&middot;R.',
+      resistencia: 'V = I&middot;R.',
+      potencia: 'I = V/R y P = V&middot;I.',
+      serie: 'que en serie R = R<sub>1</sub> + R<sub>2</sub>, y V = I&middot;R.',
+      paralelo: 'que en paralelo 1/R = 1/R<sub>1</sub> + 1/R<sub>2</sub>.',
+      consumo: 'E = P&middot;t, con P en kW y t en horas (1 kW = 1000 W), y costo = kWh &times; precio.'
+    },
     generar: function (dif, r) {
       var guiaDelPaso = null;
       var enun, resp, pistas, sol;

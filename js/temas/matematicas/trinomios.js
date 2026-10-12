@@ -135,6 +135,17 @@
       'Cuadrado perfecto: a&sup2; &plusmn; 2ab + b&sup2; = (a &plusmn; b)&sup2;<br>' +
       'Completar el cuadrado: x&sup2; + bx + c = (x + b/2)&sup2; + (c &minus; b&sup2;/4)',
 
+    considere: {
+      factorizar: 'x<sup>2</sup> + bx + c = (x + p)(x + q), donde p + q = b y pq = c.',
+      raices: 'x<sup>2</sup> + bx + c = (x + p)(x + q), donde p + q = b y pq = c, y que si (x + p)(x + q) = 0, entonces x = &minus;p o x = &minus;q.',
+      conCoef: 'que en ax<sup>2</sup> + bx + c se buscan dos n&uacute;meros con producto a&middot;c y suma b, y se factoriza por agrupaci&oacute;n.',
+      cuadradoPerfecto: 'a<sup>2</sup> &plusmn; 2ab + b<sup>2</sup> = (a &plusmn; b)<sup>2</sup>.',
+      identificar: 'a<sup>2</sup> &plusmn; 2ab + b<sup>2</sup> = (a &plusmn; b)<sup>2</sup>: el primero y el &uacute;ltimo t&eacute;rmino son cuadrados y el de en medio es su doble producto.',
+      dosVariables: 'x<sup>2</sup> + bxy + cy<sup>2</sup> = (x + py)(x + qy), donde p + q = b y pq = c.',
+      factorComun: 'ab + ac + ad = a(b + c + d) y x<sup>2</sup> + bx + c = (x + p)(x + q), donde p + q = b y pq = c.',
+      bicuadratico: 'el cambio u = x<sup>2</sup>, y u<sup>2</sup> + bu + c = (u + p)(u + q), donde p + q = b y pq = c.',
+      completar: 'x<sup>2</sup> + bx + c = (x + b/2)<sup>2</sup> + c &minus; (b/2)<sup>2</sup>.'
+    },
     generar: function (dif, r) {
       var guiaDelPaso = null;   // guia paso a paso, si este subtema la tiene
       var enun, resp, pistas, sol, p, q, a, b, c, pol;

@@ -22,6 +22,26 @@
     return def.id;
   };
 
+  /* La formula sugerida, como en la version de practica: una linea
+     "Considere ..." debajo del enunciado. El tema la declara por subtema en
+     def.considere = {subtema: 'formula (HTML)'}; con la clave
+     'dificultad|subtema' cambia solo en esa dificultad y '*' vale para los
+     que no tienen la suya. El valor tambien puede ser una funcion
+     (ejercicio, dificultad, r) que devuelva el texto. Los subtemas de puro
+     concepto se dejan fuera: ahi la formula seria la respuesta. */
+  function conConsidere(generar, considere) {
+    return function (dificultad, r) {
+      var ej = generar(dificultad, r);
+      if (!ej || typeof ej.enunciado !== 'string' || ej.enunciado.indexOf('class="considere"') !== -1) return ej;
+      var sub = r && r.elegido, c;
+      if (sub) c = considere[dificultad + '|' + sub] !== undefined ? considere[dificultad + '|' + sub] : considere[sub];
+      if (c === undefined) c = considere['*'];
+      if (typeof c === 'function') c = c(ej, dificultad, r);
+      if (c) ej.enunciado += '<div class="considere">Considere ' + c + '</div>';
+      return ej;
+    };
+  }
+
   EJ.tema = function (def) {
     if (!def || !def.id) throw new Error('El tema necesita un id');
     if (typeof def.generar !== 'function') throw new Error('El tema "' + def.id + '" necesita generar()');
@@ -35,7 +55,7 @@
       dificultades: def.dificultades || ['facil', 'medio', 'dificil'],
       etiquetas: def.etiquetas || [],
       formulario: def.formulario || '',   // recordatorio de formulas, opcional
-      generar: def.generar
+      generar: def.considere ? conConsidere(def.generar, def.considere) : def.generar
     };
     temas.push(t);
     porId[t.id] = t;

@@ -160,6 +160,16 @@
       'La ley solo vale dentro del <b>limite elastico</b>: pasado ese punto el resorte se deforma para siempre.<br>' +
       'El estiramiento SIEMPRE en metros.</small>',
 
+    considere: {
+      queDice: null,
+      limite: null,
+      fuerza: 'F = k&middot;x, con x en metros.',
+      constante: 'F = k&middot;x, con x en metros.',
+      estiramiento: 'F = k&middot;x.',
+      masa: 'F = k&middot;x y que la fuerza es el peso: F = m&middot;g.',
+      energia: 'E = &frac12;kx<sup>2</sup>, con x en metros.',
+      lanza: '&frac12;kx<sup>2</sup> = &frac12;mv<sup>2</sup>, con x en metros.'
+    },
     generar: function (dif, r) {
       var guiaDelPaso = null;
       var enun, resp, pistas, sol;

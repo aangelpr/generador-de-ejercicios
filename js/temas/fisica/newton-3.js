@@ -175,6 +175,15 @@
       '<small>Las dos fuerzas actuan sobre CUERPOS DISTINTOS: por eso no se cancelan.<br>' +
       'Al lanzar algo partiendo del reposo: M&middot;V = m&middot;v.</small>',
 
+    considere: {
+      identificarPar: null,
+      valor: null,
+      enunciado: null,
+      porQueNoSeCancelan: 'a = F/m, usando s&oacute;lo las fuerzas que act&uacute;an sobre la caja.',
+      caballoCarreta: null,
+      retroceso: 'M&middot;V = m&middot;v (partiendo del reposo).',
+      dosBloques: 'a = F/(m<sub>1</sub> + m<sub>2</sub>) y que la fuerza de contacto es la que acelera al segundo bloque: F<sub>c</sub> = m<sub>2</sub>&middot;a.'
+    },
     generar: function (dif, r) {
       var guiaDelPaso = null;
       var enun, resp, pistas, sol;

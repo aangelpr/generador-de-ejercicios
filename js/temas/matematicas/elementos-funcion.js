@@ -184,6 +184,19 @@
       'Parabola y = ax&sup2; + bx + c: vertice en x = &minus;b/2a; si a &gt; 0 decrece antes del vertice y crece despues.<br>' +
       'En general: f crece donde f&prime;(x) &gt; 0 y decrece donde f&prime;(x) &lt; 0.',
 
+    considere: {
+      dominioRacional: 'que el dominio excluye los valores que hacen cero al denominador.',
+      evaluar: 'que f(a) se obtiene sustituyendo x por a, con los negativos entre par&eacute;ntesis.',
+      ceros: 'que los ceros cumplen f(x) = 0, y x<sup>2</sup> + bx + c = (x + p)(x + q), donde p + q = b y pq = c.',
+      intersecciones: 'que el corte con el eje x cumple f(x) = 0 y el corte con el eje y es f(0).',
+      vertice: 'que el v&eacute;rtice de ax<sup>2</sup> + bx + c est&aacute; en x = &minus;b/(2a), y que si a &gt; 0 crece despu&eacute;s del v&eacute;rtice y si a &lt; 0 decrece.',
+      rangoCuad: 'que el v&eacute;rtice de ax<sup>2</sup> + bx + c est&aacute; en x = &minus;b/(2a) y que el valor extremo es f(&minus;b/(2a)): m&iacute;nimo si a &gt; 0 y m&aacute;ximo si a &lt; 0.',
+      dominioRaiz: 'que dentro de una ra&iacute;z cuadrada no puede haber negativos: lo de adentro debe ser &ge; 0.',
+      porTramos: 'que a cada valor de x le toca la regla cuyo intervalo lo contiene.',
+      cubica: 'que la funci&oacute;n cambia de sentido donde f&prime;(x) = 0, y (x<sup>n</sup>)&prime; = n&middot;x<sup>n&minus;1</sup>.',
+      racional: 'que se excluyen las ra&iacute;ces del denominador, y x<sup>2</sup> + bx + c = (x + p)(x + q), donde p + q = b y pq = c.',
+      crecimientoCuad: 'que f crece donde f&prime;(x) &gt; 0 y decrece donde f&prime;(x) &lt; 0, y (x<sup>n</sup>)&prime; = n&middot;x<sup>n&minus;1</sup>.'
+    },
     generar: function (dif, r) {
       var guiaDelPaso = null;   // guia paso a paso, si este subtema la tiene
       var enun, resp, pistas, sol, a, b, c, h, k;

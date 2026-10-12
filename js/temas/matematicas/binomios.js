@@ -136,6 +136,19 @@
       '(a + b)(a &minus; b) = a&sup2; &minus; b&sup2; &nbsp;&middot;&nbsp; (x + a)(x + b) = x&sup2; + (a+b)x + ab<br>' +
       '(a + b)&sup3; = a&sup3; + 3a&sup2;b + 3ab&sup2; + b&sup3;',
 
+    considere: {
+      cuadrado: '(a &plusmn; b)<sup>2</sup> = a<sup>2</sup> &plusmn; 2ab + b<sup>2</sup>.',
+      conjugados: '(a + b)(a &minus; b) = a<sup>2</sup> &minus; b<sup>2</sup>.',
+      terminoComun: '(x + a)(x + b) = x<sup>2</sup> + (a + b)x + ab.',
+      cuadradoCoef: '(a &plusmn; b)<sup>2</sup> = a<sup>2</sup> &plusmn; 2ab + b<sup>2</sup>.',
+      conjugadosCoef: '(a + b)(a &minus; b) = a<sup>2</sup> &minus; b<sup>2</sup>.',
+      factorizaDif: 'a<sup>2</sup> &minus; b<sup>2</sup> = (a + b)(a &minus; b).',
+      dosVariables: '(a &plusmn; b)<sup>2</sup> = a<sup>2</sup> &plusmn; 2ab + b<sup>2</sup>.',
+      cubo: '(a &plusmn; b)<sup>3</sup> = a<sup>3</sup> &plusmn; 3a<sup>2</sup>b + 3ab<sup>2</sup> &plusmn; b<sup>3</sup>.',
+      cuadradoGrado: '(a &plusmn; b)<sup>2</sup> = a<sup>2</sup> &plusmn; 2ab + b<sup>2</sup>.',
+      cubosFactor: 'a<sup>3</sup> &minus; b<sup>3</sup> = (a &minus; b)(a<sup>2</sup> + ab + b<sup>2</sup>) y a<sup>3</sup> + b<sup>3</sup> = (a + b)(a<sup>2</sup> &minus; ab + b<sup>2</sup>).',
+      factorizaDosVars: 'a<sup>2</sup> &minus; b<sup>2</sup> = (a + b)(a &minus; b).'
+    },
     generar: function (dif, r) {
       var guiaDelPaso = null;   // guia paso a paso, si este subtema la tiene
       var enun, resp, pistas, sol, a, b, c, res;

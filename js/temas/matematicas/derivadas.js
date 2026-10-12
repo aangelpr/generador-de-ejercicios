@@ -304,6 +304,24 @@
       'Cadena: [f(g(x))]&prime; = f&prime;(g(x))&middot;g&prime;(x)<br>' +
       '(sen x)&prime; = cos x &nbsp;&middot;&nbsp; (cos x)&prime; = &minus;sen x &nbsp;&middot;&nbsp; (e<sup>x</sup>)&prime; = e<sup>x</sup> &nbsp;&middot;&nbsp; (ln x)&prime; = 1/x',
 
+    considere: {
+      polinomio: '(x<sup>n</sup>)&prime; = n&middot;x<sup>n&minus;1</sup> y la derivada de una constante es 0.',
+      potencia: '(ax<sup>n</sup>)&prime; = a&middot;n&middot;x<sup>n&minus;1</sup>.',
+      raiz: '(x<sup>n</sup>)&prime; = n&middot;x<sup>n&minus;1</sup>, &radic;x = x<sup>1/2</sup> y 1/x<sup>n</sup> = x<sup>&minus;n</sup>.',
+      enPunto: '(x<sup>n</sup>)&prime; = n&middot;x<sup>n&minus;1</sup>: primero deriva y despu&eacute;s sustituye.',
+      producto: '(uv)&prime; = u&prime;v + uv&prime;.',
+      cociente: '(u/v)&prime; = (u&prime;v &minus; uv&prime;)/v<sup>2</sup>.',
+      cadena: '(u<sup>n</sup>)&prime; = n&middot;u<sup>n&minus;1</sup>&middot;u&prime;.',
+      basicas: '(sen u)&prime; = cos u&middot;u&prime;, (cos u)&prime; = &minus;sen u&middot;u&prime;, (e<sup>u</sup>)&prime; = e<sup>u</sup>&middot;u&prime; y (ln u)&prime; = u&prime;/u.',
+      rectaTangente: 'que la pendiente de la tangente es m = f&prime;(x<sub>0</sub>), y que la recta es y &minus; f(x<sub>0</sub>) = m(x &minus; x<sub>0</sub>).',
+      productoExp: '(uv)&prime; = u&prime;v + uv&prime; y (e<sup>kx</sup>)&prime; = k&middot;e<sup>kx</sup>.',
+      productoTrig: '(uv)&prime; = u&prime;v + uv&prime;, (sen kx)&prime; = k&middot;cos kx y (cos kx)&prime; = &minus;k&middot;sen kx.',
+      lnPoli: '(ln u)&prime; = u&prime;/u.',
+      cadenaCuad: '(u<sup>n</sup>)&prime; = n&middot;u<sup>n&minus;1</sup>&middot;u&prime;.',
+      cocienteTrig: '(u/v)&prime; = (u&prime;v &minus; uv&prime;)/v<sup>2</sup> y (sen x)&prime; = cos x.',
+      segunda: '(x<sup>n</sup>)&prime; = n&middot;x<sup>n&minus;1</sup>; f&Prime;(x) es la derivada de f&prime;(x).',
+      implicita: 'que al derivar respecto de x, (y<sup>2</sup>)&prime; = 2y&middot;y&prime;, porque y depende de x.'
+    },
     generar: function (dif, r) {
       var guiaDelPaso = null;   // guia paso a paso, si este subtema la tiene
       var enun, resp, pistas, sol, p, d, a, b, c, n, k;

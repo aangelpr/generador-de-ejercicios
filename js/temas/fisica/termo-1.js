@@ -102,6 +102,17 @@
       'Procesos especiales: isotermico (&Delta;U = 0, Q = W) &middot; adiabatico (Q = 0, &Delta;U = &minus;W) &middot; ' +
       'isocorico o a volumen constante (W = 0, &Delta;U = Q).</small>',
 
+    considere: {
+      formula: null,
+      signos: null,
+      sencillo: '&Delta;U = Q &minus; W.',
+      variacion: '&Delta;U = Q &minus; W, con Q &gt; 0 si el sistema absorbe calor y W &gt; 0 si el sistema realiza trabajo.',
+      despejarQ: '&Delta;U = Q &minus; W, con Q &gt; 0 si el sistema absorbe calor y W &gt; 0 si el sistema realiza trabajo.',
+      despejarW: '&Delta;U = Q &minus; W, con Q &gt; 0 si el sistema absorbe calor y W &gt; 0 si el sistema realiza trabajo.',
+      isotermico: '&Delta;U = Q &minus; W.',
+      adiabatico: '&Delta;U = Q &minus; W, con Q &gt; 0 si el sistema absorbe calor y W &gt; 0 si el sistema realiza trabajo.',
+      ciclo: '&Delta;U = Q &minus; W.'
+    },
     generar: function (dif, r) {
       var guiaDelPaso = null;
       var enun, resp, pistas, sol;

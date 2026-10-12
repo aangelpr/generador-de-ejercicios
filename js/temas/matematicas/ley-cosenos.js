@@ -173,6 +173,16 @@
       'cos C = (a&sup2; + b&sup2; &minus; c&sup2;) / (2ab)<br>' +
       'Se usa con: dos lados y el angulo entre ellos (LAL) o los tres lados (LLL). Si C = 90&deg; se reduce a Pitagoras.',
 
+    considere: {
+      tercerLado: 'c<sup>2</sup> = a<sup>2</sup> + b<sup>2</sup> &minus; 2ab&middot;cos C.',
+      paralelogramo: 'c<sup>2</sup> = a<sup>2</sup> + b<sup>2</sup> &minus; 2ab&middot;cos C, y que dos &aacute;ngulos consecutivos de un paralelogramo suman 180&deg;.',
+      angulo: 'cos C = (a<sup>2</sup> + b<sup>2</sup> &minus; c<sup>2</sup>)/(2ab).',
+      mayorAngulo: 'cos C = (a<sup>2</sup> + b<sup>2</sup> &minus; c<sup>2</sup>)/(2ab), y que el &aacute;ngulo mayor est&aacute; frente al lado mayor.',
+      clasifica: 'que si c es el lado mayor: con c<sup>2</sup> = a<sup>2</sup> + b<sup>2</sup> es rect&aacute;ngulo, con c<sup>2</sup> &lt; a<sup>2</sup> + b<sup>2</sup> es acut&aacute;ngulo y con c<sup>2</sup> &gt; a<sup>2</sup> + b<sup>2</sup> es obtus&aacute;ngulo.',
+      navegacion: 'c<sup>2</sup> = a<sup>2</sup> + b<sup>2</sup> &minus; 2ab&middot;cos C.',
+      completo: 'c<sup>2</sup> = a<sup>2</sup> + b<sup>2</sup> &minus; 2ab&middot;cos C, a/sen A = b/sen B = c/sen C y A + B + C = 180&deg;.',
+      heron: 'cos A = (b<sup>2</sup> + c<sup>2</sup> &minus; a<sup>2</sup>)/(2bc) y &Aacute;rea = &frac12;&middot;b&middot;c&middot;sen A.'
+    },
     generar: function (dif, r) {
       var guiaDelPaso = null;   // guia paso a paso, si este subtema la tiene
       var enun, resp, pistas, sol, a, b, c, C, A;

@@ -159,6 +159,15 @@
       'Comparando dos cuerpos: (T<sub>1</sub>/T<sub>2</sub>)&sup2; = (a<sub>1</sub>/a<sub>2</sub>)&sup3;<br>' +
       '<small>Lejos se tarda mucho mas, por dos razones: el camino es mas largo Y ademas se va mas lento.</small>',
 
+    considere: {
+      relacion: null,
+      masLejos: null,
+      periodo: 'T<sup>2</sup> = a<sup>3</sup>, con T en a&ntilde;os y a en UA.',
+      semieje: 'T<sup>2</sup> = a<sup>3</sup>, con T en a&ntilde;os y a en UA.',
+      constante: null,
+      comparar: '(T<sub>2</sub>/T<sub>1</sub>)<sup>2</sup> = (a<sub>2</sub>/a<sub>1</sub>)<sup>3</sup>.',
+      satelite: '(T<sub>2</sub>/T<sub>1</sub>)<sup>2</sup> = (a<sub>2</sub>/a<sub>1</sub>)<sup>3</sup> y 1 d&iacute;a = 24 h.'
+    },
     generar: function (dif, r) {
       var guiaDelPaso = null;
       var enun, resp, pistas, sol;

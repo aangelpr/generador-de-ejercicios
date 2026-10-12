@@ -85,6 +85,16 @@
       '<b>Las temperaturas SIEMPRE en kelvin:</b> K = &deg;C + 273.<br>' +
       'Es la ley de los recipientes rigidos: aerosoles, llantas, ollas de presion.</small>',
 
+    considere: {
+      queDice: null,
+      cual: null,
+      sencillo: 'P<sub>1</sub>/T<sub>1</sub> = P<sub>2</sub>/T<sub>2</sub>.',
+      presion: 'P<sub>1</sub>/T<sub>1</sub> = P<sub>2</sub>/T<sub>2</sub>, con las temperaturas en kelvin: K = &deg;C + 273.',
+      temperatura: 'P<sub>1</sub>/T<sub>1</sub> = P<sub>2</sub>/T<sub>2</sub>, con las temperaturas en kelvin: K = &deg;C + 273.',
+      llanta: 'P<sub>1</sub>/T<sub>1</sub> = P<sub>2</sub>/T<sub>2</sub>, con las temperaturas en kelvin: K = &deg;C + 273.',
+      aerosol: 'P<sub>1</sub>/T<sub>1</sub> = P<sub>2</sub>/T<sub>2</sub>, con las temperaturas en kelvin: K = &deg;C + 273.',
+      olla: 'P<sub>1</sub>/T<sub>1</sub> = P<sub>2</sub>/T<sub>2</sub>, con las temperaturas en kelvin: K = &deg;C + 273.'
+    },
     generar: function (dif, r) {
       var guiaDelPaso = null;
       var enun, resp, pistas, sol;

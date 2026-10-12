@@ -155,6 +155,21 @@
     formulario: 'a<sup>m</sup>&middot;a<sup>n</sup> = a<sup>m+n</sup> &nbsp; a<sup>m</sup>/a<sup>n</sup> = a<sup>m&minus;n</sup> &nbsp; (a<sup>m</sup>)<sup>n</sup> = a<sup>mn</sup><br>' +
       '(ab)<sup>n</sup> = a<sup>n</sup>b<sup>n</sup> &nbsp; a<sup>0</sup> = 1 &nbsp; a<sup>&minus;n</sup> = 1/a<sup>n</sup> &nbsp; a<sup>m/n</sup> = <sup>n</sup>&radic;<span class="rad">a<sup>m</sup></span>',
 
+    considere: {
+      producto: 'a<sup>m</sup>&middot;a<sup>n</sup> = a<sup>m+n</sup>.',
+      cociente: 'a<sup>m</sup>/a<sup>n</sup> = a<sup>m&minus;n</sup>.',
+      potencia: '(a<sup>m</sup>)<sup>n</sup> = a<sup>mn</sup>.',
+      negativo: 'a<sup>m</sup>/a<sup>n</sup> = a<sup>m&minus;n</sup> y a<sup>&minus;n</sup> = 1/a<sup>n</sup>.',
+      cero: 'a<sup>0</sup> = 1 (con a &ne; 0).',
+      coefPotencia: '(ab)<sup>n</sup> = a<sup>n</sup>b<sup>n</sup> y (a<sup>m</sup>)<sup>n</sup> = a<sup>mn</sup>.',
+      cocienteCoef: 'a<sup>m</sup>&middot;a<sup>n</sup> = a<sup>m+n</sup> y a<sup>m</sup>/a<sup>n</sup> = a<sup>m&minus;n</sup>.',
+      dosVars: '(ab)<sup>n</sup> = a<sup>n</sup>b<sup>n</sup> y (a<sup>m</sup>)<sup>n</sup> = a<sup>mn</sup>.',
+      negativoCoef: 'a<sup>m</sup>&middot;a<sup>n</sup> = a<sup>m+n</sup> y a<sup>&minus;n</sup> = 1/a<sup>n</sup>.',
+      cientifica: '(a &times; 10<sup>m</sup>)(b &times; 10<sup>n</sup>) = ab &times; 10<sup>m+n</sup>, (a &times; 10<sup>m</sup>)/(b &times; 10<sup>n</sup>) = (a/b) &times; 10<sup>m&minus;n</sup>, y que la mantisa queda entre 1 y 10.',
+      doblePotencia: '(ab)<sup>n</sup> = a<sup>n</sup>b<sup>n</sup>, (a<sup>m</sup>)<sup>n</sup> = a<sup>mn</sup> y a<sup>m</sup>/a<sup>n</sup> = a<sup>m&minus;n</sup>.',
+      raiz: 'a<sup>1/n</sup> = <sup>n</sup>&radic;a, (ab)<sup>n</sup> = a<sup>n</sup>b<sup>n</sup> y (a<sup>m</sup>)<sup>n</sup> = a<sup>mn</sup>.',
+      cocientePotencia: 'a<sup>m</sup>/a<sup>n</sup> = a<sup>m&minus;n</sup> y (a/b)<sup>n</sup> = a<sup>n</sup>/b<sup>n</sup>.'
+    },
     generar: function (dif, r) {
       var guiaDelPaso = null;   // guia paso a paso, si este subtema la tiene
       var a, b, c, d, n, m, enun, resp, pistas, sol, vars = ['x'];

@@ -155,6 +155,19 @@
       'tiempo total (si vuelve al mismo nivel) = 2 v<sub>0</sub> / g<br>' +
       '<small>En el punto mas alto la velocidad es 0. La masa nunca aparece.</small>',
 
+    considere: {
+      tiempoCaida: 'h = &frac12;gt<sup>2</sup> y g = 9.8 m/s<sup>2</sup>.',
+      velocidadCaida: 'v = &radic;(2gh) y g = 9.8 m/s<sup>2</sup>.',
+      alturaCaida: 'h = &frac12;gt<sup>2</sup> y g = 9.8 m/s<sup>2</sup>.',
+      concepto: null,
+      alturaMax: 'h<sub>m&aacute;x</sub> = v<sub>0</sub><sup>2</sup>/(2g) y g = 9.8 m/s<sup>2</sup>.',
+      tiempoSubida: 't = v<sub>0</sub>/g y g = 9.8 m/s<sup>2</sup>.',
+      tiempoTotal: 't = 2v<sub>0</sub>/g y g = 9.8 m/s<sup>2</sup>.',
+      velocidadRegreso: 'h<sub>m&aacute;x</sub> = v<sub>0</sub><sup>2</sup>/(2g), v = &radic;(2gh) y g = 9.8 m/s<sup>2</sup>.',
+      desdeAltura: 'y = y<sub>0</sub> + v<sub>0</sub>t &minus; &frac12;gt<sup>2</sup> con y = 0 en el suelo, t = (&minus;b &plusmn; &radic;(b<sup>2</sup> &minus; 4ac))/(2a) y g = 9.8 m/s<sup>2</sup>.',
+      alturaEnT: 'y = v<sub>0</sub>t &minus; &frac12;gt<sup>2</sup> y g = 9.8 m/s<sup>2</sup>.',
+      velocidadEnAltura: 'v<sup>2</sup> = v<sub>0</sub><sup>2</sup> &minus; 2gh y g = 9.8 m/s<sup>2</sup>.'
+    },
     generar: function (dif, r) {
       var guiaDelPaso = null;
       var enun, resp, pistas, sol;

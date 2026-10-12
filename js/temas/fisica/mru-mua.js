@@ -245,6 +245,18 @@
       'd = v<sub>0</sub> t + &frac12; a t&sup2;<br>' +
       'v<sub>f</sub>&sup2; = v<sub>0</sub>&sup2; + 2 a d &nbsp;<small>(la unica sin tiempo)</small>',
 
+    considere: {
+      velocidad: 'v = d/t.',
+      distancia: 'd = v&middot;t.',
+      tiempo: 'v = d/t.',
+      identificar: 'que en el MRU la posici&oacute;n aumenta lo mismo cada segundo (v constante) y en el MUA lo que avanza cambia cada segundo (a constante).',
+      aceleracion: 'a = (v<sub>f</sub> &minus; v<sub>0</sub>)/t.',
+      velocidadFinal: 'v<sub>f</sub> = v<sub>0</sub> + a&middot;t.',
+      distanciaMUA: 'd = v<sub>0</sub>t + &frac12;at<sup>2</sup>.',
+      sinTiempo: 'v<sub>f</sub><sup>2</sup> = v<sub>0</sub><sup>2</sup> + 2ad.',
+      frenado: 'v<sub>f</sub><sup>2</sup> = v<sub>0</sub><sup>2</sup> + 2ad, con v<sub>f</sub> = 0 al detenerse.',
+      alcance: 'x = x<sub>0</sub> + v&middot;t para cada uno, y que lo alcanza cuando sus posiciones son iguales.'
+    },
     generar: function (dif, r) {
       var guiaDelPaso = null;
       var enun, resp, pistas, sol;

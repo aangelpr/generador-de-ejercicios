@@ -154,6 +154,18 @@
       '<small>La fuerza se mide en newtons (N). 1 N = 1 kg&middot;m/s&sup2;.<br>' +
       'Masa y peso no son lo mismo: la masa va en kg y no cambia; el peso es una fuerza en N.</small>',
 
+    considere: {
+      fuerza: 'F = m&middot;a.',
+      aceleracion: 'F = m&middot;a.',
+      masa: 'F = m&middot;a.',
+      peso: 'W = m&middot;g y g = 9.8 m/s<sup>2</sup>.',
+      fuerzaNeta: 'F<sub>neta</sub> = F<sub>1</sub> &minus; F<sub>2</sub> (sentidos contrarios) y F = m&middot;a.',
+      desdeReposo: 'a = F/m y v<sub>f</sub> = v<sub>0</sub> + a&middot;t.',
+      comparar: 'a = F/m.',
+      frenar: 'a = (v<sub>f</sub> &minus; v<sub>0</sub>)/t y F = m&middot;a.',
+      elevador: 'N &minus; W = m&middot;a (con a positiva hacia arriba), W = m&middot;g y g = 9.8 m/s<sup>2</sup>.',
+      dosFuerzasDistancia: 'a = F/m y v<sub>f</sub><sup>2</sup> = v<sub>0</sub><sup>2</sup> + 2ad.'
+    },
     generar: function (dif, r) {
       var guiaDelPaso = null;
       var enun, resp, pistas, sol;
