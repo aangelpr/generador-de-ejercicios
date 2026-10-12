@@ -44,6 +44,16 @@
       'Media: &mu; = np &nbsp;&middot;&nbsp; Varianza: &sigma;&sup2; = np(1 &minus; p) &nbsp;&middot;&nbsp; Desviacion: &sigma; = &radic;<span class="rad">np(1&minus;p)</span><br>' +
       'Se usa cuando hay n ensayos independientes con solo dos resultados y p constante.',
 
+    considere: {
+      exacta: 'P(X = k) = C(n, k)&middot;p<sup>k</sup>(1 &minus; p)<sup>n&minus;k</sup>.',
+      identifica: null,
+      alMenosUno: 'P(X &ge; 1) = 1 &minus; P(X = 0) = 1 &minus; (1 &minus; p)<sup>n</sup>.',
+      mediaVarianza: '&mu; = np, &sigma;<sup>2</sup> = np(1 &minus; p) y &sigma; = &radic;(np(1 &minus; p)).',
+      aLoMas: 'P(X = k) = C(n, k)&middot;p<sup>k</sup>(1 &minus; p)<sup>n&minus;k</sup>, y que P(X &le; m) es la suma de P(X = k) desde k = 0 hasta m.',
+      rango: 'P(X = k) = C(n, k)&middot;p<sup>k</sup>(1 &minus; p)<sup>n&minus;k</sup>, sumando desde el menor hasta el mayor valor de k.',
+      aplicado: 'P(X = k) = C(n, k)&middot;p<sup>k</sup>(1 &minus; p)<sup>n&minus;k</sup> y P(X &gt; k) = 1 &minus; P(X &le; k).',
+      completo: 'P(X = k) = C(n, k)&middot;p<sup>k</sup>(1 &minus; p)<sup>n&minus;k</sup>, &mu; = np y &sigma; = &radic;(np(1 &minus; p)).'
+    },
     generar: function (dif, r) {
       var guiaDelPaso = null;   // guia paso a paso, si este subtema la tiene
       var enun, resp, pistas, sol, n, k, p, val;

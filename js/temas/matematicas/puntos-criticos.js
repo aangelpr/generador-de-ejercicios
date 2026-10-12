@@ -121,6 +121,17 @@
       'Criterio de la segunda derivada: f&Prime;(x) &gt; 0 &rArr; minimo; f&Prime;(x) &lt; 0 &rArr; maximo.<br>' +
       'Punto de inflexion: donde f&Prime;(x) = 0 y cambia de signo (cambia la concavidad).',
 
+    considere: {
+      cuadratica: 'que en un punto cr&iacute;tico f&prime;(x) = 0, y (x<sup>n</sup>)&prime; = n&middot;x<sup>n&minus;1</sup>.',
+      cubica: 'que en un punto cr&iacute;tico f&prime;(x) = 0, y (x<sup>n</sup>)&prime; = n&middot;x<sup>n&minus;1</sup>.',
+      clasificaCuad: 'que en el punto cr&iacute;tico f&prime;(x) = 0, y que si f&Prime;(x) &gt; 0 es m&iacute;nimo y si f&Prime;(x) &lt; 0 es m&aacute;ximo.',
+      clasificaCubica: 'que en un punto cr&iacute;tico f&prime;(x) = 0, y que si f&Prime;(x) &gt; 0 es m&iacute;nimo y si f&Prime;(x) &lt; 0 es m&aacute;ximo.',
+      inflexion: 'que el punto de inflexi&oacute;n est&aacute; donde f&Prime;(x) = 0 y cambia de signo.',
+      concavidad: 'que la curva es c&oacute;ncava hacia arriba donde f&Prime;(x) &gt; 0 y hacia abajo donde f&Prime;(x) &lt; 0.',
+      extremosIntervalo: 'que los extremos absolutos est&aacute;n en los puntos cr&iacute;ticos (f&prime;(x) = 0) o en los extremos del intervalo.',
+      analisisCompleto: 'que los puntos cr&iacute;ticos cumplen f&prime;(x) = 0, el punto de inflexi&oacute;n f&Prime;(x) = 0, y que hay m&aacute;ximo local donde f&Prime;(x) &lt; 0.',
+      optimizacion: 'que el per&iacute;metro es 2x + 2y, el &aacute;rea A = x&middot;y, y el m&aacute;ximo est&aacute; donde A&prime;(x) = 0.'
+    },
     generar: function (dif, r) {
       var guiaDelPaso = null;   // guia paso a paso, si este subtema la tiene
       var enun, resp, pistas, sol, p, d, d2, a, b, c, x0;

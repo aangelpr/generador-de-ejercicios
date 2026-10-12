@@ -82,6 +82,17 @@
       'Las unidades de presion y de volumen solo tienen que ser las mismas a los dos lados.<br>' +
       'Aqui NO hace falta pasar nada a kelvin: la temperatura ni siquiera aparece.</small>',
 
+    considere: {
+      queDice: null,
+      sentido: null,
+      mitad: 'P<sub>1</sub>V<sub>1</sub> = P<sub>2</sub>V<sub>2</sub>.',
+      volumen: 'P<sub>1</sub>V<sub>1</sub> = P<sub>2</sub>V<sub>2</sub>.',
+      presion: 'P<sub>1</sub>V<sub>1</sub> = P<sub>2</sub>V<sub>2</sub>.',
+      unidades: 'P<sub>1</sub>V<sub>1</sub> = P<sub>2</sub>V<sub>2</sub>, con las dos presiones en la misma unidad.',
+      buzo: 'P<sub>1</sub>V<sub>1</sub> = P<sub>2</sub>V<sub>2</sub>, con P = P<sub>atm</sub> + 9.8 kPa por cada metro de profundidad.',
+      jeringa: 'P<sub>1</sub>V<sub>1</sub> = P<sub>2</sub>V<sub>2</sub>.',
+      porcentaje: 'P<sub>1</sub>V<sub>1</sub> = P<sub>2</sub>V<sub>2</sub> y cambio % = (P<sub>2</sub>/P<sub>1</sub> &minus; 1) &times; 100.'
+    },
     generar: function (dif, r) {
       var guiaDelPaso = null;
       var enun, resp, pistas, sol;

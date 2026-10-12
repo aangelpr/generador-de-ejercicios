@@ -51,6 +51,21 @@
       'Buscas una parte cuya derivada tambien aparezca (salvo constantes).<br>' +
       'En definidas conviene cambiar tambien los limites: &int;<sub>a</sub><sup>b</sup> &rarr; &int;<sub>g(a)</sub><sup>g(b)</sup>',
 
+    considere: {
+      binomio: '&int;u<sup>n</sup>du = u<sup>n+1</sup>/(n + 1), con u = ax + b y du = a&middot;dx.',
+      trig: '&int;sen u du = &minus;cos u y &int;cos u du = sen u, con u = kx y du = k&middot;dx.',
+      cuadrado: '&int;u<sup>n</sup>du = u<sup>n+1</sup>/(n + 1), con u = x<sup>2</sup> + a y du = 2x&middot;dx.',
+      exponencialSimple: '&int;e<sup>u</sup>du = e<sup>u</sup>, con u = kx y du = k&middot;dx.',
+      racional: '&int;du/u = ln|u|, con u el denominador.',
+      lnSobreX: 'u = ln x, du = dx/x y &int;u<sup>n</sup>du = u<sup>n+1</sup>/(n + 1).',
+      expCuadrado: '&int;e<sup>u</sup>du = e<sup>u</sup>, con u = kx<sup>2</sup> y du = 2kx&middot;dx.',
+      senPotencia: 'u = sen x, du = cos x&middot;dx y &int;u<sup>n</sup>du = u<sup>n+1</sup>/(n + 1).',
+      tangente: 'tan x = sen x/cos x, u = cos x, du = &minus;sen x&middot;dx y &int;du/u = ln|u|.',
+      definida: '&int;u<sup>n</sup>du = u<sup>n+1</sup>/(n + 1), con u = x<sup>2</sup> + 1 y du = 2x&middot;dx; cambia tambi&eacute;n los l&iacute;mites de integraci&oacute;n.',
+      raizCubica: '&int;u<sup>1/2</sup>du = (2/3)u<sup>3/2</sup>, con u = x<sup>3</sup> + a y du = 3x<sup>2</sup>dx.',
+      expSen: '&int;e<sup>u</sup>du = e<sup>u</sup>, con u el exponente y du su derivada.',
+      logaritmica: '&int;u&prime;/u dx = ln|u|.'
+    },
     generar: function (dif, r) {
       var guiaDelPaso = null;   // guia paso a paso, si este subtema la tiene
       var enun, resp, pistas, sol, k, n, a, b, texto, mostrar;

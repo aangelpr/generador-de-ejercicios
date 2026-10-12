@@ -176,6 +176,16 @@
       'Se gana fuerza pero se pierde recorrido: el piston chico baja mucho mas de lo que sube el grande.<br>' +
       'Si el piston es circular, A = &pi;r&sup2;.</small>',
 
+    considere: {
+      queDice: null,
+      donde: null,
+      presion: 'P = F/A.',
+      prensa: 'F<sub>1</sub>/A<sub>1</sub> = F<sub>2</sub>/A<sub>2</sub>.',
+      area: 'F<sub>1</sub>/A<sub>1</sub> = F<sub>2</sub>/A<sub>2</sub>.',
+      coche: 'F<sub>1</sub>/A<sub>1</sub> = F<sub>2</sub>/A<sub>2</sub> y W = m&middot;g.',
+      radios: 'F<sub>1</sub>/A<sub>1</sub> = F<sub>2</sub>/A<sub>2</sub> y A = &pi;r<sup>2</sup>.',
+      recorrido: 'que el volumen de l&iacute;quido se conserva: A<sub>1</sub>d<sub>1</sub> = A<sub>2</sub>d<sub>2</sub>.'
+    },
     generar: function (dif, r) {
       var guiaDelPaso = null;
       var enun, resp, pistas, sol;

@@ -87,6 +87,16 @@
       '<small>Se puede uno acercar cuanto quiera (se han logrado millonesimas de kelvin), pero nunca llegar.<br>' +
       'Una temperatura en kelvin nunca es negativa.</small>',
 
+    considere: {
+      queDice: null,
+      ceroAbs: null,
+      aKelvin: 'K = &deg;C + 273.15.',
+      aCelsius: '&deg;C = K &minus; 273.15.',
+      diferencia: 'K = &deg;C + 273.15.',
+      inalcanzable: 'T<sub>n</sub> = T<sub>0</sub>&middot;r<sup>n</sup>, donde r es la fracci&oacute;n que queda en cada paso.',
+      entropiaCero: null,
+      enFormulas: null
+    },
     generar: function (dif, r) {
       var guiaDelPaso = null;
       var enun, resp, pistas, sol;

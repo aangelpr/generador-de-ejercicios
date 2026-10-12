@@ -158,6 +158,20 @@
       'log(AB) = log A + log B &nbsp;&middot;&nbsp; log(A/B) = log A &minus; log B &nbsp;&middot;&nbsp; log(A<sup>n</sup>) = n log A<br>' +
       'log<sub>b</sub>b = 1, log<sub>b</sub>1 = 0, cambio de base: log<sub>b</sub>x = ln x / ln b',
 
+    considere: {
+      evaluar: 'log<sub>b</sub>(x) = y significa que b<sup>y</sup> = x.',
+      aExponencial: 'log<sub>b</sub>(x) = y significa que b<sup>y</sup> = x.',
+      aLog: 'log<sub>b</sub>(x) = y significa que b<sup>y</sup> = x.',
+      propiedadesBasicas: 'log<sub>b</sub>(1) = 0, log<sub>b</sub>(b) = 1 y log<sub>b</sub>(b<sup>k</sup>) = k.',
+      propiedades: 'log(AB) = log A + log B, log(A/B) = log A &minus; log B y log(A<sup>n</sup>) = n&middot;log A.',
+      condensar: 'n&middot;log A = log(A<sup>n</sup>), log A + log B = log(AB) y log A &minus; log B = log(A/B).',
+      expandir: 'log(AB) = log A + log B, log(A/B) = log A &minus; log B y log(A<sup>n</sup>) = n&middot;log A.',
+      ecuacion: 'log<sub>b</sub>(x) = y significa que b<sup>y</sup> = x.',
+      exponencial: 'log(A<sup>n</sup>) = n&middot;log A: aplica logaritmo a los dos lados.',
+      cambioBase: 'log<sub>b</sub>(x) = ln x / ln b.',
+      interes: 'M = C(1 + i)<sup>t</sup> y log(A<sup>n</sup>) = n&middot;log A.',
+      pH: 'log(A &times; 10<sup>n</sup>) = log A + n.'
+    },
     generar: function (dif, r) {
       var guiaDelPaso = null;   // guia paso a paso, si este subtema la tiene
       var enun, resp, pistas, sol, b, n, x, y;

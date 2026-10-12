@@ -131,6 +131,15 @@
       'A medio con n mayor: la luz se frena y se ACERCA a la normal.<br>' +
       'A medio con n menor: se acelera y se ALEJA. Pasado el angulo critico, ya no sale: se refleja toda.</small>',
 
+    considere: {
+      queDice: null,
+      sentido: null,
+      indice: 'n<sub>1</sub>&middot;sen &theta;<sub>1</sub> = n<sub>2</sub>&middot;sen &theta;<sub>2</sub>.',
+      angulo: 'n<sub>1</sub>&middot;sen &theta;<sub>1</sub> = n<sub>2</sub>&middot;sen &theta;<sub>2</sub>.',
+      piscina: null,
+      critico: 'sen &theta;<sub>c</sub> = n<sub>2</sub>/n<sub>1</sub> (con n<sub>1</sub> &gt; n<sub>2</sub>).',
+      fibra: 'sen &theta;<sub>c</sub> = n<sub>2</sub>/n<sub>1</sub> (con n<sub>1</sub> &gt; n<sub>2</sub>).'
+    },
     generar: function (dif, r) {
       var guiaDelPaso = null;
       var enun, resp, pistas, sol;

@@ -106,6 +106,16 @@
       'En el perihelio y el afelio: r<sub>p</sub> v<sub>p</sub> = r<sub>a</sub> v<sub>a</sub><br>' +
       '<small>Solo vale en esos dos puntos, donde la velocidad es perpendicular al radio.</small>',
 
+    considere: {
+      dondeRapido: null,
+      queDice: null,
+      estaciones: null,
+      velocidades: 'r<sub>p</sub>v<sub>p</sub> = r<sub>a</sub>v<sub>a</sub>.',
+      proporcion: 'r<sub>p</sub>v<sub>p</sub> = r<sub>a</sub>v<sub>a</sub>.',
+      areaEnTiempo: 'que el &aacute;rea barrida es proporcional al tiempo: A<sub>1</sub>/t<sub>1</sub> = A<sub>2</sub>/t<sub>2</sub>.',
+      desdeAE: 'perihelio = a(1 &minus; e) y afelio = a(1 + e), y r<sub>p</sub>v<sub>p</sub> = r<sub>a</sub>v<sub>a</sub>.',
+      porQue: null
+    },
     generar: function (dif, r) {
       var guiaDelPaso = null;
       var enun, resp, pistas, sol;

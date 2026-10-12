@@ -90,6 +90,16 @@
       'espera a equilibrarse y marca esa temperatura.<br>' +
       'Se llama "cero" porque se enuncio despues de las otras tres, pero es mas basica que todas.</small>',
 
+    considere: {
+      sentido: null,
+      queEs: null,
+      termometro: null,
+      equilibrio: 'que el calor que cede el caliente lo gana el fr&iacute;o: m<sub>1</sub>(T &minus; T<sub>1</sub>) + m<sub>2</sub>(T &minus; T<sub>2</sub>) = 0.',
+      transitiva: null,
+      sensacion: null,
+      mezclaDesigual: 'que el calor que cede el caliente lo gana el fr&iacute;o: m<sub>1</sub>(T &minus; T<sub>1</sub>) + m<sub>2</sub>(T &minus; T<sub>2</sub>) = 0.',
+      escalas: 'K = &deg;C + 273.15 y &deg;F = 1.8&middot;&deg;C + 32.'
+    },
     generar: function (dif, r) {
       var guiaDelPaso = null;
       var enun, resp, pistas, sol;

@@ -86,6 +86,16 @@
       '<b>Las temperaturas SIEMPRE en kelvin:</b> K = &deg;C + 273.<br>' +
       'Con grados Celsius el resultado sale mal, y es el error mas comun del tema.</small>',
 
+    considere: {
+      queDice: null,
+      kelvin: null,
+      sencillo: 'V<sub>1</sub>/T<sub>1</sub> = V<sub>2</sub>/T<sub>2</sub>.',
+      volumen: 'V<sub>1</sub>/T<sub>1</sub> = V<sub>2</sub>/T<sub>2</sub>, con las temperaturas en kelvin: K = &deg;C + 273.',
+      temperatura: 'V<sub>1</sub>/T<sub>1</sub> = V<sub>2</sub>/T<sub>2</sub>, con las temperaturas en kelvin: K = &deg;C + 273.',
+      globo: 'V<sub>1</sub>/T<sub>1</sub> = V<sub>2</sub>/T<sub>2</sub>, con las temperaturas en kelvin: K = &deg;C + 273.',
+      ceroAbs: 'V<sub>1</sub>/T<sub>1</sub> = V<sub>2</sub>/T<sub>2</sub>.',
+      porcentaje: 'V<sub>1</sub>/T<sub>1</sub> = V<sub>2</sub>/T<sub>2</sub>, con las temperaturas en kelvin: K = &deg;C + 273, y cambio % = (V<sub>2</sub>/V<sub>1</sub> &minus; 1) &times; 100.'
+    },
     generar: function (dif, r) {
       var guiaDelPaso = null;
       var enun, resp, pistas, sol;

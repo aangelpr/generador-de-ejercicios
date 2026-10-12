@@ -161,6 +161,17 @@
       '<small>La primera ley dice cuanta energia hay; la segunda, en que sentido se mueve.<br>' +
       'Ninguna maquina termica alcanza el 100%: siempre hay que ceder calor a un foco frio.</small>',
 
+    considere: {
+      sentido: null,
+      entropia: null,
+      imposible: null,
+      rendimiento: 'e = W/Q<sub>c</sub> &times; 100%, con W = Q<sub>c</sub> &minus; Q<sub>f</sub>.',
+      calorCedido: 'e = W/Q<sub>c</sub> y Q<sub>f</sub> = Q<sub>c</sub> &minus; W.',
+      refrigerador: null,
+      carnot: 'e<sub>m&aacute;x</sub> = 1 &minus; T<sub>f</sub>/T<sub>c</sub>, con las temperaturas en kelvin.',
+      compara: 'e<sub>m&aacute;x</sub> = 1 &minus; T<sub>f</sub>/T<sub>c</sub>, con las temperaturas en kelvin.',
+      mejora: 'e<sub>m&aacute;x</sub> = 1 &minus; T<sub>f</sub>/T<sub>c</sub>, con las temperaturas en kelvin.'
+    },
     generar: function (dif, r) {
       var guiaDelPaso = null;
       var enun, resp, pistas, sol;

@@ -85,6 +85,11 @@ en el celular no se mezcla con lo de la computadora.
    funciona como en cualquier otra app, con sus sugerencias: en iOS 18, al escribir
    una cuenta con "=" (por ejemplo `28x30=`) te ofrece el resultado (`840`), si tienes
    activado *Resultados matemáticos* en Configuración → General → Teclado.
+   Las preguntas que llevan cuentas traen debajo una línea **"Considere..."** con la
+   fórmula que se usa (como en la versión de práctica del examen): c² = a² + b² en
+   Pitágoras, V = IR en la ley de Ohm, P₁V₁ = P₂V₂ en Boyle... Las de puro concepto
+   (qué ley explica algo, qué tipo de cónica es) van sin ella, porque ahí la fórmula
+   sería la respuesta.
 5. Escribe tu respuesta y presiona **Comprobar** (o Enter). Debajo de la casilla verás
    en vivo cómo se interpreta lo que escribiste: si tecleas `x^2` te lo muestra como x²,
    así confirmas que el `^` quedó donde querías.
@@ -436,6 +441,7 @@ Plantilla mínima:
     nombre: 'Nombre visible del tema',
     descripcion: 'Una línea que explica qué se practica.',
     formulario: 'Fórmulas del tema (HTML, opcional).',
+    considere: { '*': 'a + (&minus;b) = a &minus; b.' },  // fórmula bajo la pregunta (opcional)
 
     generar: function (dif, r) {         // dif: 'facil' | 'medio' | 'dificil'
       var a = r.entero(2, 9);            // r = generador aleatorio con semilla
@@ -486,6 +492,26 @@ No hay que declararlos en ningún otro lado. Reglas:
 - Un mismo `id` puede aparecer en varias dificultades (sale más difícil según el nivel).
 - El archivo `js/temas/matematicas/polinomios.js` es el modelo a copiar: cada subtema es
   una función independiente dentro de un objeto `casos`.
+
+### Fórmula sugerida ("Considere...")
+
+Con `considere` el tema declara, por subtema, la fórmula que aparece debajo de la
+pregunta, igual que en la versión de práctica. Se escribe sin la palabra "Considere",
+que se agrega sola:
+
+```js
+considere: {
+  hipotenusa: 'c<sup>2</sup> = a<sup>2</sup> + b<sup>2</sup>, donde c es la hipotenusa.',
+  distancia: 'd = &radic;((x<sub>2</sub> &minus; x<sub>1</sub>)<sup>2</sup> + (y<sub>2</sub> &minus; y<sub>1</sub>)<sup>2</sup>).',
+  nombre: null          // subtema de concepto: sin fórmula
+},
+```
+
+- La clave `'dificultad|subtema'` (por ejemplo `'dificil|suma'`) cambia la fórmula sólo
+  en esa dificultad, y `'*'` vale para los subtemas que no tienen la suya.
+- El valor también puede ser una función `(ejercicio, dificultad, r)` que devuelva el
+  texto, para cuando depende de los datos del ejercicio.
+- Sólo cambia el enunciado: la respuesta, las pistas y la solución quedan igual.
 
 ### Tipos de respuesta disponibles
 

@@ -161,6 +161,19 @@
       'c = &radic;<span class="rad">a&sup2; + b&sup2;</span> &nbsp;&middot;&nbsp; a = &radic;<span class="rad">c&sup2; &minus; b&sup2;</span><br>' +
       'Distancia entre puntos: d = &radic;<span class="rad">(x&#8322;&minus;x&#8321;)&sup2; + (y&#8322;&minus;y&#8321;)&sup2;</span>',
 
+    considere: {
+      hipotenusa: 'c<sup>2</sup> = a<sup>2</sup> + b<sup>2</sup>, donde c es la hipotenusa.',
+      cateto: 'c<sup>2</sup> = a<sup>2</sup> + b<sup>2</sup>, donde c es la hipotenusa.',
+      noEntero: 'c<sup>2</sup> = a<sup>2</sup> + b<sup>2</sup>, donde c es la hipotenusa.',
+      rectangulo: 'que la diagonal de un rect&aacute;ngulo es la hipotenusa: d<sup>2</sup> = base<sup>2</sup> + altura<sup>2</sup>.',
+      distancia: 'd = &radic;((x<sub>2</sub> &minus; x<sub>1</sub>)<sup>2</sup> + (y<sub>2</sub> &minus; y<sub>1</sub>)<sup>2</sup>).',
+      cuadradoDiagonal: 'c<sup>2</sup> = a<sup>2</sup> + b<sup>2</sup>: la diagonal es la hipotenusa de un tri&aacute;ngulo cuyos catetos son dos lados del cuadrado.',
+      escalera: 'c<sup>2</sup> = a<sup>2</sup> + b<sup>2</sup>, donde la escalera es la hipotenusa c.',
+      isosceles: 'que la altura cae en el punto medio de la base: h<sup>2</sup> = lado<sup>2</sup> &minus; (base/2)<sup>2</sup>, y A = base&middot;h/2.',
+      equilatero: 'h<sup>2</sup> = L<sup>2</sup> &minus; (L/2)<sup>2</sup> y A = L&middot;h/2.',
+      verificar: 'que un tri&aacute;ngulo es rect&aacute;ngulo si c<sup>2</sup> = a<sup>2</sup> + b<sup>2</sup>, con c el lado mayor.',
+      cubo: 'que la diagonal de una caja es d = &radic;(a<sup>2</sup> + b<sup>2</sup> + c<sup>2</sup>).'
+    },
     generar: function (dif, r) {
       var guiaDelPaso = null;   // guia paso a paso, si este subtema la tiene
       var enun, resp, pistas, sol, t, a, b, c;

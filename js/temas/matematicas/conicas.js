@@ -235,6 +235,18 @@
       'Elipse: (x&minus;h)&sup2;/a&sup2; + (y&minus;k)&sup2;/b&sup2; = 1, con c&sup2; = a&sup2; &minus; b&sup2;<br>' +
       'Hiperbola: (x&minus;h)&sup2;/a&sup2; &minus; (y&minus;k)&sup2;/b&sup2; = 1, con c&sup2; = a&sup2; + b&sup2;',
 
+    considere: {
+      identificar: null,
+      circunferencia: '(x &minus; h)<sup>2</sup> + (y &minus; k)<sup>2</sup> = r<sup>2</sup>, con centro (h, k) y radio r.',
+      circulo: '(x &minus; h)<sup>2</sup> + (y &minus; k)<sup>2</sup> = r<sup>2</sup>, con centro (h, k) y radio r.',
+      parabola: '(x &minus; h)<sup>2</sup> = 4p(y &minus; k) tiene v&eacute;rtice (h, k) y foco (h, k + p).',
+      parabolaHorizontal: '(y &minus; k)<sup>2</sup> = 4p(x &minus; h) tiene v&eacute;rtice (h, k) y foco (h + p, k), y abre a la derecha si p &gt; 0 y a la izquierda si p &lt; 0.',
+      elipse: 'x<sup>2</sup>/a<sup>2</sup> + y<sup>2</sup>/b<sup>2</sup> = 1, con a<sup>2</sup> el denominador mayor y c<sup>2</sup> = a<sup>2</sup> &minus; b<sup>2</sup>.',
+      general: 'x<sup>2</sup> + Dx = (x + D/2)<sup>2</sup> &minus; (D/2)<sup>2</sup> (completar el cuadrado), y (x &minus; h)<sup>2</sup> + (y &minus; k)<sup>2</sup> = r<sup>2</sup>, con centro (h, k) y radio r.',
+      hiperbola: 'x<sup>2</sup>/a<sup>2</sup> &minus; y<sup>2</sup>/b<sup>2</sup> = 1, con c<sup>2</sup> = a<sup>2</sup> + b<sup>2</sup>, v&eacute;rtices (&plusmn;a, 0) y as&iacute;ntotas y = &plusmn;(b/a)x.',
+      elipseTrasladada: '(x &minus; h)<sup>2</sup>/a<sup>2</sup> + (y &minus; k)<sup>2</sup>/b<sup>2</sup> = 1 tiene centro (h, k), c<sup>2</sup> = a<sup>2</sup> &minus; b<sup>2</sup> y focos (h &plusmn; c, k).',
+      construir: 'r = &radic;((x &minus; h)<sup>2</sup> + (y &minus; k)<sup>2</sup>), la distancia del centro al punto, y (x &minus; h)<sup>2</sup> + (y &minus; k)<sup>2</sup> = r<sup>2</sup>.'
+    },
     generar: function (dif, r) {
       var guiaDelPaso = null;   // guia paso a paso, si este subtema la tiene
       var enun, resp, pistas, sol, h, k, a, b, c;

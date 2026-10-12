@@ -118,6 +118,16 @@
       '<small>e = 0 es un circulo perfecto; cuanto mas cerca de 1, mas alargada la orbita.<br>' +
       '1 UA = distancia media Tierra-Sol &asymp; 150 millones de km.</small>',
 
+    considere: {
+      forma: null,
+      dondeSol: null,
+      excentricidad: null,
+      periAfelio: 'perihelio = a(1 &minus; e) y afelio = a(1 + e).',
+      semieje: 'a = (perihelio + afelio)/2.',
+      calcularE: 'e = (afelio &minus; perihelio)/(afelio + perihelio).',
+      comparar: 'afelio &minus; perihelio = 2ae.',
+      cometa: 'perihelio = a(1 &minus; e) y afelio = a(1 + e).'
+    },
     generar: function (dif, r) {
       var guiaDelPaso = null;
       var enun, resp, pistas, sol;

@@ -71,6 +71,21 @@
       'Condicional: P(A|B) = P(A &cap; B)/P(B) &nbsp;&middot;&nbsp; Independientes: P(A &cap; B) = P(A)P(B)<br>' +
       'Combinaciones: C(n, k) = n! / (k!(n &minus; k)!)',
 
+    considere: {
+      dado: 'P(A) = casos favorables / casos posibles.',
+      urna: 'P(A) = casos favorables / casos posibles.',
+      baraja: 'P(A) = casos favorables / casos posibles.',
+      union: 'P(A &cup; B) = P(A) + P(B) &minus; P(A &cap; B).',
+      conjuntos: 'que s&oacute;lo A = n(A) &minus; n(A &cap; B), s&oacute;lo B = n(B) &minus; n(A &cap; B) y ninguna = total &minus; n(A &cup; B), con n(A &cup; B) = n(A) + n(B) &minus; n(A &cap; B).',
+      complemento: 'P(no A) = 1 &minus; P(A).',
+      dosDados: 'P = casos favorables / casos posibles, con 6 &times; 6 = 36 casos posibles.',
+      conteo: 'P(n, k) = n!/(n &minus; k)! cuando importa el orden y C(n, k) = n!/(k!(n &minus; k)!) cuando no importa.',
+      condicional: 'P(A|B) = P(A &cap; B)/P(B).',
+      independencia: 'P(A &cap; B) = P(A)&middot;P(B) y P(A &cup; B) = P(A) + P(B) &minus; P(A &cap; B).',
+      combinaciones: 'C(n, k) = n!/(k!(n &minus; k)!) y P = casos favorables / casos posibles.',
+      sinReemplazo: 'P(A y B) = P(A)&middot;P(B|A): despu&eacute;s de sacar la primera cambian el total y los favorables.',
+      bayes: 'P(D) = P(A)P(D|A) + P(B)P(D|B) y P(A|D) = P(A)P(D|A)/P(D).'
+    },
     generar: function (dif, r) {
       var guiaDelPaso = null;   // guia paso a paso, si este subtema la tiene
       var enun, resp, pistas, sol, a, b, c, n, k;

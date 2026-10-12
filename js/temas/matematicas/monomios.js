@@ -132,6 +132,18 @@
       'Cociente: se dividen coeficientes y se restan exponentes.<br>' +
       'Grado de un monomio = suma de los exponentes de sus variables. Solo se suman terminos semejantes.',
 
+    considere: {
+      producto: '(ax<sup>m</sup>)(bx<sup>n</sup>) = ab&middot;x<sup>m+n</sup>, variable por variable.',
+      cociente: 'ax<sup>m</sup>/(bx<sup>n</sup>) = (a/b)&middot;x<sup>m&minus;n</sup>, variable por variable.',
+      grado: 'que el grado de un monomio es la suma de los exponentes de sus variables.',
+      valorNumerico: 'que los n&uacute;meros negativos se sustituyen entre par&eacute;ntesis y que (&minus;a)<sup>n</sup> es positivo si n es par.',
+      potencia: '(ab)<sup>n</sup> = a<sup>n</sup>b<sup>n</sup> y (x<sup>m</sup>)<sup>n</sup> = x<sup>mn</sup>.',
+      semejantes: 'que s&oacute;lo se suman los t&eacute;rminos semejantes (mismas variables con los mismos exponentes): ax<sup>m</sup> + bx<sup>m</sup> = (a + b)x<sup>m</sup>.',
+      tresVars: 'ax<sup>m</sup>/(bx<sup>n</sup>) = (a/b)&middot;x<sup>m&minus;n</sup>, variable por variable, y x<sup>0</sup> = 1.',
+      raizMonomio: '&radic;(a&middot;x<sup>2m</sup>) = &radic;a&middot;x<sup>m</sup>: ra&iacute;z del coeficiente y exponentes a la mitad.',
+      combinado: 'x<sup>m</sup>&middot;x<sup>n</sup> = x<sup>m+n</sup> y x<sup>m</sup>/x<sup>n</sup> = x<sup>m&minus;n</sup>.',
+      dobleProducto: '(ab)<sup>n</sup> = a<sup>n</sup>b<sup>n</sup>, (x<sup>m</sup>)<sup>n</sup> = x<sup>mn</sup> y x<sup>m</sup>&middot;x<sup>n</sup> = x<sup>m+n</sup>.'
+    },
     generar: function (dif, r) {
       var guiaDelPaso = null;   // guia paso a paso, si este subtema la tiene
       var enun, resp, pistas, sol, c1, c2, a1, a2, b1, b2, vars = ['x', 'y'];

@@ -133,6 +133,19 @@
       'Razon constante &rArr; a<sub>n</sub> = a<sub>1</sub>r<sup>n&minus;1</sup><br>' +
       'Segunda diferencia constante &rArr; a<sub>n</sub> es de segundo grado en n',
 
+    considere: {
+      aritmetica: 'que en una sucesi&oacute;n aritm&eacute;tica a<sub>n+1</sub> = a<sub>n</sub> + d, con d constante.',
+      geometrica: 'que en una sucesi&oacute;n geom&eacute;trica a<sub>n+1</sub> = a<sub>n</sub>&middot;r, con r = a<sub>n+1</sub>/a<sub>n</sub> constante.',
+      cuadrados: 'que si las diferencias entre t&eacute;rminos crecen de 2 en 2, a<sub>n</sub> = n<sup>2</sup> + c.',
+      faltante: 'a<sub>n</sub> = a<sub>n&minus;1</sub> + d, donde d es la diferencia entre t&eacute;rminos consecutivos.',
+      figuras: 'a<sub>n</sub> = a<sub>1</sub> + (n &minus; 1)d.',
+      generalLineal: 'a<sub>n</sub> = a<sub>1</sub> + (n &minus; 1)d.',
+      alternada: 'que el signo se alterna y los valores absolutos siguen su propia regla (por ejemplo, a<sub>n</sub> = a<sub>1</sub> + (n &minus; 1)d).',
+      recursiva: 'a<sub>n</sub> = a<sub>n&minus;1</sub> + a<sub>n&minus;2</sub>.',
+      cuadratica: 'que si la segunda diferencia es constante, a<sub>n</sub> = an<sup>2</sup> + bn + c, con 2a igual a la segunda diferencia.',
+      generalGeom: 'a<sub>n</sub> = a<sub>1</sub>&middot;r<sup>n&minus;1</sup>.',
+      mixta: null
+    },
     generar: function (dif, r) {
       var guiaDelPaso = null;   // guia paso a paso, si este subtema la tiene
       var enun, resp, pistas, sol, v = [], i;

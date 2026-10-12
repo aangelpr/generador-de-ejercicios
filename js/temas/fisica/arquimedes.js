@@ -180,6 +180,16 @@
       'Flotando: fraccion sumergida = &rho;<sub>objeto</sub> / &rho;<sub>fluido</sub><br>' +
       'Agua: 1000 kg/m&sup3; &middot; 1 m&sup3; = 1 000 000 cm&sup3; &middot; g = 9.8 m/s&sup2;</small>',
 
+    considere: {
+      queDice: null,
+      flota: null,
+      sentido: null,
+      empuje: 'E = &rho;<sub>fluido</sub>&middot;V&middot;g, con V en m<sup>3</sup> (1 m<sup>3</sup> = 1 000 000 cm<sup>3</sup>).',
+      aparente: 'P<sub>ap</sub> = P &minus; E, con P = m&middot;g, V = m/&rho;<sub>objeto</sub> y E = &rho;<sub>fluido</sub>&middot;V&middot;g.',
+      desplazado: 'V = m/&rho; y 1 m<sup>3</sup> = 1 000 000 cm<sup>3</sup>.',
+      fraccion: 'que flotando, la fracci&oacute;n sumergida = &rho;<sub>objeto</sub>/&rho;<sub>fluido</sub>.',
+      corona: 'E = peso en el aire &minus; peso sumergido, V = E/(&rho;<sub>agua</sub>&middot;g) y &rho; = m/V.'
+    },
     generar: function (dif, r) {
       var guiaDelPaso = null;
       var enun, resp, pistas, sol;

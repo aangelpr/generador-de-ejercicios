@@ -34,6 +34,18 @@
       'Para elegir u sirve la regla LIATE: Logaritmica, Inversa trigonometrica, Algebraica, Trigonometrica, Exponencial.<br>' +
       'Lo que elijas como u debe simplificarse al derivarlo.',
 
+    considere: {
+      xExp: '&int;u dv = uv &minus; &int;v du y &int;e<sup>kx</sup>dx = e<sup>kx</sup>/k.',
+      xSen: '&int;u dv = uv &minus; &int;v du y &int;sen(kx)dx = &minus;cos(kx)/k.',
+      xCos: '&int;u dv = uv &minus; &int;v du y &int;cos(kx)dx = sen(kx)/k.',
+      x2Exp: '&int;u dv = uv &minus; &int;v du (dos veces) y &int;e<sup>kx</sup>dx = e<sup>kx</sup>/k.',
+      xLn: '&int;u dv = uv &minus; &int;v du con u = ln x, y (ln x)&prime; = 1/x.',
+      lnSolo: '&int;u dv = uv &minus; &int;v du con u = ln x y dv = dx.',
+      arctan: '&int;u dv = uv &minus; &int;v du, (arctan x)&prime; = 1/(1 + x<sup>2</sup>) y &int;x/(1 + x<sup>2</sup>)dx = &frac12;ln(1 + x<sup>2</sup>).',
+      expSen: '&int;u dv = uv &minus; &int;v du: al aplicarla dos veces vuelve a aparecer la integral original.',
+      x2Trig: '&int;u dv = uv &minus; &int;v du (dos veces), &int;sen x dx = &minus;cos x y &int;cos x dx = sen x.',
+      definida: '&int;u dv = uv &minus; &int;v du y &int;<sub>a</sub><sup>b</sup> f(x)dx = F(b) &minus; F(a).'
+    },
     generar: function (dif, r) {
       var guiaDelPaso = null;   // guia paso a paso, si este subtema la tiene
       var enun, resp, pistas, sol, k, n, texto, mostrar, ayudaU;

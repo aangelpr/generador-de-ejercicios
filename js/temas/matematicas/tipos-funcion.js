@@ -228,6 +228,14 @@
       'Exponencial: a<sup>x</sup> (la variable en el exponente) &nbsp;&middot;&nbsp; Logaritmica: log(x) &nbsp;&middot;&nbsp; Trigonometrica: sen, cos, tan<br>' +
       'Inyectiva: a valores distintos de x corresponden valores distintos de y (pasa la prueba de la recta horizontal).',
 
+    considere: {
+      expresion: null,
+      tabla: 'que si las diferencias entre valores consecutivos son constantes la funci&oacute;n es lineal, y si los cocientes son constantes es exponencial.',
+      inversa: 'que para obtener la inversa se escribe y = f(x), se intercambian x y y, y se despeja y.',
+      composicion: '(f &#8728; g)(x) = f(g(x)).',
+      evaluarCompuesta: '(f &#8728; g)(x) = f(g(x)) y (g &#8728; f)(x) = g(f(x)).',
+      inyectiva: null
+    },
     generar: function (dif, r) {
       var guiaDelPaso = null;   // guia paso a paso, si este subtema la tiene
       var enun, resp, pistas, sol, a, b;

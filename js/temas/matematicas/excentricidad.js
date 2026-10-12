@@ -100,6 +100,17 @@
       'Circunferencia: e = 0 &nbsp;&middot;&nbsp; Elipse: 0 &lt; e &lt; 1 &nbsp;&middot;&nbsp; Parabola: e = 1 &nbsp;&middot;&nbsp; Hiperbola: e &gt; 1<br>' +
       'Elipse: c&sup2; = a&sup2; &minus; b&sup2; &nbsp;&middot;&nbsp; Hiperbola: c&sup2; = a&sup2; + b&sup2;',
 
+    considere: {
+      elipseAC: 'e = c/a.',
+      concepto: null,
+      clasifica: null,
+      elipseEcuacion: 'e = c/a, con c<sup>2</sup> = a<sup>2</sup> &minus; b<sup>2</sup> en la elipse.',
+      hiperbolaEcuacion: 'e = c/a, con c<sup>2</sup> = a<sup>2</sup> + b<sup>2</sup> en la hip&eacute;rbola.',
+      comparar: 'e = c/a con c<sup>2</sup> = a<sup>2</sup> &minus; b<sup>2</sup>, y que mientras m&aacute;s cerca de 0 est&aacute; e, m&aacute;s se parece a una circunferencia.',
+      despejaC: 'e = c/a y, en la elipse, b<sup>2</sup> = a<sup>2</sup> &minus; c<sup>2</sup>.',
+      despejaB: 'e = c/a y, en la hip&eacute;rbola, b<sup>2</sup> = c<sup>2</sup> &minus; a<sup>2</sup>.',
+      planeta: 'que la distancia m&aacute;xima es a + c, la m&iacute;nima es a &minus; c y e = c/a.'
+    },
     generar: function (dif, r) {
       var guiaDelPaso = null;   // guia paso a paso, si este subtema la tiene
       var enun, resp, pistas, sol, a, b, c, e;

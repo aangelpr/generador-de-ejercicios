@@ -201,6 +201,16 @@
     formulario: 'Si dos rectas son cortadas por paralelas: a/b = c/d<br>' +
       'En triangulos semejantes los lados correspondientes son proporcionales y los angulos son iguales.',
 
+    considere: {
+      paralelas: 'el teorema de Tales: los segmentos correspondientes son proporcionales, a/b = c/d.',
+      tercerSegmento: 'el teorema de Tales: AD/DB = AE/EC.',
+      semejantes: 'que la paralela forma un tri&aacute;ngulo semejante al grande: sus lados correspondientes son proporcionales.',
+      sombra: 'que a la misma hora altura/sombra es igual para los dos objetos.',
+      perimetros: 'que si la raz&oacute;n de semejanza es k, los per&iacute;metros tambi&eacute;n est&aacute;n en raz&oacute;n k.',
+      algebraico: 'que si a/b = c/d, entonces a&middot;d = b&middot;c.',
+      dosIncognitas: 'que en tri&aacute;ngulos semejantes cada lado del segundo = k &times; su lado correspondiente del primero, con k = lado conocido del segundo / su correspondiente.',
+      razonAreas: 'que si la raz&oacute;n de semejanza es k, las &aacute;reas est&aacute;n en raz&oacute;n k<sup>2</sup>.'
+    },
     generar: function (dif, r) {
       var guiaDelPaso = null;   // guia paso a paso, si este subtema la tiene
       var enun, resp, pistas, sol, a, b, c, x, k;

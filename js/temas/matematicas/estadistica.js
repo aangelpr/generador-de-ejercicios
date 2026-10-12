@@ -114,6 +114,18 @@
       'Varianza poblacional: &sigma;&sup2; = &Sigma;(x &minus; x&#772;)&sup2;/n &nbsp;&middot;&nbsp; Desviacion estandar: &sigma; = &radic;<span class="rad">&sigma;&sup2;</span><br>' +
       'Con tabla de frecuencias: x&#772; = &Sigma;xf / &Sigma;f',
 
+    considere: {
+      medidasCentrales: 'x&#772; = &Sigma;x/n; la mediana es el dato central de los datos ordenados y la moda el que m&aacute;s se repite.',
+      rangoModa: 'que rango = dato mayor &minus; dato menor y la moda es el dato que m&aacute;s se repite.',
+      dispersion: 'rango = mayor &minus; menor, &sigma;<sup>2</sup> = &Sigma;(x &minus; x&#772;)<sup>2</sup>/n y &sigma; = &radic;&sigma;<sup>2</sup>.',
+      muestral: 's<sup>2</sup> = &Sigma;(x &minus; x&#772;)<sup>2</sup>/(n &minus; 1) y s = &radic;s<sup>2</sup>.',
+      ponderada: 'promedio ponderado = &Sigma;(calificaci&oacute;n &times; peso)/&Sigma;pesos.',
+      faltante: 'x&#772; = &Sigma;x/n, as&iacute; que &Sigma;x = x&#772;&middot;n.',
+      tablaFrec: 'x&#772; = &Sigma;xf/&Sigma;f; la mediana es el dato central (acumulando frecuencias) y la moda el de mayor frecuencia.',
+      agrupados: 'marca de clase = (l&iacute;mite inferior + l&iacute;mite superior)/2 y x&#772; = &Sigma;(marca &times; f)/&Sigma;f.',
+      cuartiles: 'que Q<sub>2</sub> es la mediana de todos los datos, Q<sub>1</sub> la mediana de la mitad de abajo y Q<sub>3</sub> la de la mitad de arriba.',
+      comparacion: '&sigma; = &radic;(&Sigma;(x &minus; x&#772;)<sup>2</sup>/n), y que el grupo con menor &sigma; es el m&aacute;s homog&eacute;neo.'
+    },
     generar: function (dif, r) {
       var guiaDelPaso = null;   // guia paso a paso, si este subtema la tiene
       var enun, resp, pistas, sol, datos, i;

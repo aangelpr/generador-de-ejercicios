@@ -162,6 +162,16 @@
       '<small>La energia se mide en julios (J). 1 J = 1 kg&middot;m&sup2;/s&sup2;.<br>' +
       'Con rozamiento la mecanica no se conserva: parte se convierte en calor.</small>',
 
+    considere: {
+      cinetica: 'E<sub>c</sub> = &frac12;mv<sup>2</sup>.',
+      potencial: 'E<sub>p</sub> = mgh y g = 9.8 m/s<sup>2</sup>.',
+      queDice: null,
+      caida: 'mgh = &frac12;mv<sup>2</sup> y g = 9.8 m/s<sup>2</sup>.',
+      altura: '&frac12;mv<sup>2</sup> = mgh y g = 9.8 m/s<sup>2</sup>.',
+      pendulo: 'mgh = &frac12;mv<sup>2</sup> y g = 9.8 m/s<sup>2</sup>.',
+      puntoIntermedio: 'E<sub>c1</sub> + E<sub>p1</sub> = E<sub>c2</sub> + E<sub>p2</sub>, con E<sub>c</sub> = &frac12;mv<sup>2</sup>, E<sub>p</sub> = mgh y g = 9.8 m/s<sup>2</sup>.',
+      conRozamiento: 'calor = energ&iacute;a inicial &minus; energ&iacute;a final = mgh &minus; &frac12;mv<sup>2</sup>, y g = 9.8 m/s<sup>2</sup>.'
+    },
     generar: function (dif, r) {
       var guiaDelPaso = null;
       var enun, resp, pistas, sol;

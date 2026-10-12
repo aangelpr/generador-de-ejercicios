@@ -96,6 +96,14 @@
       'Impar: f(&minus;x) = &minus;f(x) (simetria respecto al origen). Ejemplos: x&sup3;, sen x, 1/x<br>' +
       'Si no cumple ninguna, no es par ni impar. par&middot;par = par, impar&middot;impar = par, par&middot;impar = impar.',
 
+    considere: {
+      basicas: 'que f es par si f(&minus;x) = f(x) e impar si f(&minus;x) = &minus;f(x).',
+      desdeTabla: 'que f es par si f(&minus;x) = f(x) e impar si f(&minus;x) = &minus;f(x).',
+      polinomio: 'que f es par si f(&minus;x) = f(x) e impar si f(&minus;x) = &minus;f(x).',
+      producto: 'que par&middot;par = par, impar&middot;impar = par y par&middot;impar = impar.',
+      calcularFmenosX: '(&minus;x)<sup>n</sup> = x<sup>n</sup> si n es par y (&minus;x)<sup>n</sup> = &minus;x<sup>n</sup> si n es impar.',
+      trigonometrica: 'que sen x es impar y cos x es par, y que par&middot;par = par, impar&middot;impar = par y par&middot;impar = impar.'
+    },
     generar: function (dif, r) {
       var guiaDelPaso = null;   // guia paso a paso, si este subtema la tiene
       var enun, resp, pistas, sol, idx, texto;

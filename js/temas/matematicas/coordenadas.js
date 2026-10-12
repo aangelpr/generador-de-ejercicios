@@ -183,6 +183,18 @@
       'De rectangulares a polares: r = &radic;<span class="rad">x&sup2; + y&sup2;</span>, &theta; = arctan(y/x) ajustando el cuadrante<br>' +
       'Identidades utiles: x&sup2; + y&sup2; = r&sup2;, x = r cos&theta;, y = r sen&theta;',
 
+    considere: {
+      polarARect: 'x = r&middot;cos &theta; y y = r&middot;sen &theta;.',
+      rectAPolar: 'r = &radic;(x<sup>2</sup> + y<sup>2</sup>) y tan &theta; = y/x, ajustando &theta; al cuadrante del punto.',
+      distanciaPuntoMedio: 'd = &radic;((x<sub>2</sub> &minus; x<sub>1</sub>)<sup>2</sup> + (y<sub>2</sub> &minus; y<sub>1</sub>)<sup>2</sup>) y M = ((x<sub>1</sub> + x<sub>2</sub>)/2, (y<sub>1</sub> + y<sub>2</sub>)/2).',
+      aPolar: 'r = &radic;(x<sup>2</sup> + y<sup>2</sup>) y tan &theta; = y/x, ajustando &theta; al cuadrante del punto.',
+      aRect: 'x = r&middot;cos &theta; y y = r&middot;sen &theta;.',
+      cuadrante: 'que los signos (+,+), (&minus;,+), (&minus;,&minus;) y (+,&minus;) son los cuadrantes I, II, III y IV, y tan &theta; = y/x, ajustando &theta; al cuadrante.',
+      ecuacionCirculo: 'x<sup>2</sup> + y<sup>2</sup> = r<sup>2</sup>, x = r&middot;cos &theta; y y = r&middot;sen &theta;, y (x &minus; h)<sup>2</sup> + (y &minus; k)<sup>2</sup> = r<sup>2</sup>, con centro (h, k) y radio r.',
+      ecuacionRecta: 'x = r&middot;cos &theta; y y = r&middot;sen &theta;.',
+      aPolarEc: 'd<sup>2</sup> = r<sub>1</sub><sup>2</sup> + r<sub>2</sub><sup>2</sup> &minus; 2r<sub>1</sub>r<sub>2</sub>&middot;cos(&theta;<sub>2</sub> &minus; &theta;<sub>1</sub>).',
+      aPolarEcuacion: 'x<sup>2</sup> + y<sup>2</sup> = r<sup>2</sup> y x = r&middot;cos &theta; y y = r&middot;sen &theta;.'
+    },
     generar: function (dif, r) {
       var guiaDelPaso = null;   // guia paso a paso, si este subtema la tiene
       var enun, resp, pistas, sol, x, y, rr, th;

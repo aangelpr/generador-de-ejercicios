@@ -244,6 +244,16 @@
       'Se usa cuando conoces: dos angulos y un lado (AAL/ALA), o dos lados y un angulo opuesto (LLA).<br>' +
       'Recuerda que A + B + C = 180&deg;.',
 
+    considere: {
+      ladoOpuesto: 'a/sen A = b/sen B = c/sen C.',
+      tercerAngulo: 'A + B + C = 180&deg; y a/sen A = b/sen B = c/sen C.',
+      angulo: 'a/sen A = b/sen B = c/sen C.',
+      tercerLado: 'A + B + C = 180&deg; y a/sen A = b/sen B = c/sen C.',
+      area: '&Aacute;rea = &frac12;&middot;a&middot;b&middot;sen C, donde C es el &aacute;ngulo entre a y b.',
+      resolver: 'A + B + C = 180&deg;, a/sen A = b/sen B = c/sen C y &Aacute;rea = &frac12;&middot;a&middot;b&middot;sen C.',
+      aplicacion: 'A + B + C = 180&deg;, a/sen A = b/sen B = c/sen C y, en el tri&aacute;ngulo rect&aacute;ngulo, altura = hipotenusa &times; sen &theta;.',
+      casoAmbiguo: 'a/sen A = b/sen B = c/sen C y que sen B = sen(180&deg; &minus; B).'
+    },
     generar: function (dif, r) {
       var guiaDelPaso = null;   // guia paso a paso, si este subtema la tiene
       var enun, resp, pistas, sol, A, B, C, a, b, c;
